@@ -297,19 +297,17 @@ def read_declared_claims(path):
 
     这是**权威来源** —— 断言与原文同文件，不可能漂移。
     存量作品没有这个块时回落到 enrich.json（由 claim_gate 回填并逐条重校验）。
+
+    实现复用 claim_gate.declared_claims —— 两处各写一份正则必然分叉，
+    而分叉的代价是「声明被静默忽略」（曾因剥注释顺序错误导致）。
     """
+    if gate is None:
+        return None
     try:
         html = open(path, encoding='utf-8', errors='ignore').read()
     except OSError:
         return None
-    m = re.search(r'<script[^>]*id=["\']claims["\'][^>]*>(.*?)</script>', html, re.S | re.I)
-    if not m:
-        return None
-    try:
-        data = json.loads(m.group(1).strip())
-    except json.JSONDecodeError:
-        return None
-    return data if isinstance(data, list) else None
+    return gate.declared_claims(html)
 
 
 def compute_claim_stats(manifest, gate):
@@ -333,12 +331,13 @@ def compute_claim_stats(manifest, gate):
         if n:
             covered += 1
         unverified += len(g['l1'])
-        # 断言按作品所属追踪线归集（同一作品可能命中多线，刻意允许重叠）
-        for t in (i.get('highlights') or []):
-            for name, kws in BEAT_FAMILIES.items():
-                if any(k in t for k in kws):
-                    by_beat[name] += n
-                    break
+    # 断言按作品所属追踪线归集（**声明优先**，与卷宗口径一致）
+    line_works, _ = group_by_line(items)
+    for name, hit in line_works.items():
+        for i in hit:
+            g = results.get(i['file'])
+            if g:
+                by_beat[name] += len(g['l0'])
     l1 = sum(len(g['l1']) for g in results.values())
     l2 = sum(1 for g in results.values() if g['l2_reason'])
     return {
@@ -446,6 +445,40 @@ def pick_representative(l0, work):
     return best['value'], best['label']
 
 
+def group_by_line(items):
+    """
+    把作品按追踪线归组。
+
+    **声明优先**：作品自带 `<meta name="showcase-beat">` 声明时以声明为准；
+    没有声明才回落到标签关键词匹配（存量作品）。
+
+    为什么必须声明优先：声明式优于猜。靠关键词猜会把形态标签
+    （"数据可视化""危机模拟"）混进主题线，也会让一条作品同时落进多条线。
+    之前建了声明字段却没在聚合里用 —— 等于有两个真相源，正是本项目
+    反复踩的坑（2026-10-26 端到端验证时发现）。
+    """
+    out = {name: [] for name in BEAT_FAMILIES}
+    unclassified = []
+    for i in items:
+        beat = (i.get('beat') or '').strip()
+        if beat:
+            # 声明了但不在封闭集 → 进「待归类」，不硬塞进某条线
+            if beat in out:
+                out[beat].append(i)
+            else:
+                unclassified.append(i)
+            continue
+        tags = i.get('highlights') or []
+        matched = False
+        for name, kws in BEAT_FAMILIES.items():
+            if any(any(k in t for k in kws) for t in tags):
+                out[name].append(i)
+                matched = True
+        if not matched:
+            unclassified.append(i)
+    return out, unclassified
+
+
 def compute_dossier(manifest, gate):
     """
     卷宗数据：把「追踪线」从一行计数升级为**可读的叙事 + 已验证断言**。
@@ -462,13 +495,8 @@ def compute_dossier(manifest, gate):
     results = gate.scan_works() if gate else {}
     by_file = {i['file']: i for i in items}
 
-    # 追踪线 → 作品（沿用 BEAT_FAMILIES 关键词匹配，与 stats.beats 口径一致）
-    line_works = {name: [] for name in BEAT_FAMILIES}
-    for i in items:
-        tags = i.get('highlights') or []
-        for name, kws in BEAT_FAMILIES.items():
-            if any(any(k in t for k in kws) for t in tags):
-                line_works[name].append(i)
+    # 追踪线 → 作品（**声明优先**，见 group_by_line）
+    line_works, _unclassified = group_by_line(items)
 
     dossier = []
     for name, works in line_works.items():
@@ -548,13 +576,11 @@ def compute_stats(manifest):
               'rate': round((len(items) - solo) / len(items) * 100) if items else 0,
               'edges': [{'a': a, 'b': b, 'works': n} for (a, b), n in edges.most_common(12)]}
 
-    # 追踪线：标签族跨月覆盖 + 断更。匹配不上的显式进 unclassified，
-    # 让"新主题出现"可见而不是静默漏掉。
+    # 追踪线：标签族跨月覆盖 + 断更。**声明优先**（group_by_line）。
+    # 未归类的显式进 unclassified，让"新主题出现"可见而不是静默漏掉。
+    line_works, unclassified_items = group_by_line(items)
     beats = {}
-    unclassified = collections.Counter()
-    for name, kws in BEAT_FAMILIES.items():
-        hit = [i for i in items
-               if any(any(k in t for k in kws) for t in (i.get('highlights') or []))]
+    for name, hit in line_works.items():
         if not hit:
             continue
         ds = sorted(i['date'] for i in hit)
@@ -563,16 +589,13 @@ def compute_stats(manifest):
                        'months': len({d[:7] for d in ds}),
                        'first': ds[0], 'last': ds[-1],
                        'weeks_idle': (datetime.date.today() - last).days // 7}
-    matched = set()
-    for name, kws in BEAT_FAMILIES.items():
-        for i in items:
-            for t in (i.get('highlights') or []):
-                if any(k in t for k in kws):
-                    matched.add(t)
-    for i in items:
+    unclassified = Counter()
+    for i in unclassified_items:
+        beat = (i.get('beat') or '').strip()
+        if beat:
+            unclassified[f'（声明）{beat}'] += 1
         for t in (i.get('highlights') or []):
-            if t not in matched:
-                unclassified[t] += 1
+            unclassified[t] += 1
     beat_list = sorted(beats.items(), key=lambda kv: (-kv[1]['months'], -kv[1]['works']))
 
     return {

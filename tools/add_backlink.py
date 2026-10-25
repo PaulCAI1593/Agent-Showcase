@@ -47,8 +47,23 @@ def index_rel_for(work_rel: str) -> str:
 
 
 def load_works():
-    m = json.load(open(MANIFEST, encoding='utf-8'))
-    return [i['file'] for i in m['research'] + m['creative']]
+    """
+    列出要注入返回链的作品页。
+
+    ⚠️ 必须**扫磁盘**，不能读 manifest。
+    原因：autopublish 的阶段 5.5 在阶段 6（重建 manifest）**之前**执行，
+    此刻 manifest 还是旧的 —— 新交付的作品根本不在里面，于是拿不到返回链。
+    （2026-10-26 端到端验证实测：新作品返回链缺失，校验⑨报 2 条。）
+    磁盘才是"哪些是作品"的真相源。
+    """
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import build_manifest
+        return build_manifest.scan_works()
+    except Exception:
+        # 兜底：万一 build_manifest 不可用，至少别让整个流水线挂掉
+        m = json.load(open(MANIFEST, encoding='utf-8'))
+        return [i['file'] for i in m['research'] + m['creative']]
 
 
 def main():

@@ -80,6 +80,9 @@ SOURCE_NOTE = re.compile(r'(数据来源|资料来源|来源[：:]|出处[：:]|
 # "9.75% 债到期收益率" 这类 —— 都是过度过滤。
 SYMBOL_CHARS = re.compile(r'[=<>~$*|@#\\]')
 HTML_ENTITY = re.compile(r'&(?:[a-z]{2,6}|#\d{2,5});?', re.I)
+# 模板占位符守卫。模板的 claims 块里 {{ 数值 }} 这类占位是**合法 JSON**
+# （占位在引号内），所以"只填了 quote 忘了填 value"时垃圾值能过 G1。
+TEMPLATE_PLACEHOLDER = re.compile(r'\{\{|\}\}')
 HAS_CJK = re.compile(r'[一-鿿]')
 
 # ── 数值 + 单位 ──
@@ -111,10 +114,19 @@ def normalize(s):
 
 
 def strip_code(html):
-    """剥掉 script / style / 注释 —— 里面的文本不是作品正文。"""
-    html = re.sub(r'<script.*?</script>', '', html, flags=re.S | re.I)
-    html = re.sub(r'<style.*?</style>', '', html, flags=re.S | re.I)
-    html = re.sub(r'<!--.*?-->', '', html, flags=re.S)
+    """
+    剥掉注释 / script / style —— 里面的文本不是作品正文。
+
+    ⚠️ **顺序必须是 注释 → script/style**，不能反。
+    反了会出事：HTML 注释里若出现字面量 `<script id="claims">`（模板的用法说明
+    里就写了），则 `<script.*?</script>` 会从注释里那个 `<script>` 一直吃到文件
+    底部真正的 `</script>` —— **整篇正文被当注释/script 删掉**。
+    症状极隐蔽：文件渲染完全正常，只是抽取不出任何断言。
+    （2026-10-26 端到端验证时发现：模板稿只抽出 6 个 token。）
+    """
+    html = re.sub(r'<!--.*?-->', '', html, flags=re.S)      # 先剥注释
+    html = re.sub(r'<script\b.*?</script>', '', html, flags=re.S | re.I)
+    html = re.sub(r'<style\b.*?</style>', '', html, flags=re.S | re.I)
     return html
 
 
@@ -340,6 +352,10 @@ def filter_declared(html, declared):
         quote = str(c.get('quote', '')).strip()
         if not (value and label and quote):
             continue
+        # 占位符未替换 → 拒绝（否则"只填 quote 忘填 value"会把 {{ 数值 }} 当值入库）
+        if (TEMPLATE_PLACEHOLDER.search(value) or TEMPLATE_PLACEHOLDER.search(label)
+                or TEMPLATE_PLACEHOLDER.search(quote)):
+            continue
         if not verify_quote(quote, nbody):
             continue                       # G1：引用不在原文 → 拒绝
         if is_suspect_label(label):
@@ -349,8 +365,14 @@ def filter_declared(html, declared):
 
 
 def declared_claims(html):
-    """读取作品自身声明的断言（<script id="claims">）。"""
-    m = re.search(r'<script[^>]*id=["\']claims["\'][^>]*>(.*?)</script>', html, re.S | re.I)
+    """读取作品自身声明的断言（<script id="claims">）。
+
+    ⚠️ 必须先剥注释再找 script —— 注释里若出现字面量 `<script id="claims">`，
+    直接正则匹配会命中注释里那个，捕获到垃圾内容导致 JSON 解析失败
+    （症状：声明被静默忽略，退回自动抽取）。
+    """
+    html = re.sub(r'<!--.*?-->', '', html, flags=re.S)
+    m = re.search(r'<script\b[^>]*id=["\']claims["\'][^>]*>(.*?)</script>', html, re.S | re.I)
     if not m:
         return None
     try:
@@ -541,6 +563,25 @@ def selftest():
     check('内联多数值放弃', len(extract_candidates('<p>-16% 跌 200 天 涨 30%</p>')), 0)
     check('内联值正确', extract_candidates('<p>-16% 布伦特原油两周跌幅</p>')[0]['value'], '-16%')
     check('内联标签正确', extract_candidates('<p>-16% 布伦特原油两周跌幅</p>')[0]['label'], '布伦特原油两周跌幅')
+
+    print('【剥注释顺序（隐蔽 bug 回归）】')
+    # 注释里出现字面量 <script id="claims"> 时，剥注释顺序错了会吃掉整篇正文
+    tricky = ('<!-- 用法说明：底部写 <script id="claims"> 声明断言 -->'
+              '<p>布伦特原油两周跌幅 -16%</p>'
+              '<script type="application/json" id="claims">'
+              '[{"value":"-16%","label":"布伦特原油两周跌幅","quote":"布伦特原油两周跌幅 -16%"}]'
+              '</script>')
+    check('注释含 script 字面量仍能抽到', len(extract_candidates(tricky)) >= 1, True)
+    check('注释含 script 字面量时正文未被吞', '布伦特原油' in strip_code(tricky), True)
+    dec = declared_claims(tricky)
+    check('声明块能正确解析', len(dec) if dec else 0, 1)
+
+    print('【占位符守卫】')
+    ph = ('<p>布伦特原油两周跌幅 -16%</p>'
+          '<script type="application/json" id="claims">'
+          '[{"value":"{{ 数值 }}","label":"布伦特原油两周跌幅","quote":"布伦特原油两周跌幅 -16%"}]'
+          '</script>')
+    check('未替换的占位值被拒', len(filter_declared(ph, declared_claims(ph) or [])), 0)
 
     print('【闸门端到端】')
     g = gate_work('<p>布伦特原油两周跌幅 -16%</p><p>存储芯片在 iPhone 18 Pro 物料成本 34%</p>')

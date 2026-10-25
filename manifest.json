@@ -7107,18 +7107,6 @@
     "unclassified_tags": [
       {
         "tag": "模型",
-        "works": 11
-      },
-      {
-        "tag": "数据可视化",
-        "works": 3
-      },
-      {
-        "tag": "商业模式",
-        "works": 2
-      },
-      {
-        "tag": "危机模拟",
         "works": 2
       },
       {
@@ -7126,43 +7114,31 @@
         "works": 1
       },
       {
-        "tag": "AI信贷",
+        "tag": "腾讯",
         "works": 1
       },
       {
-        "tag": "CoreWeave",
+        "tag": "全景对比仪表盘",
         "works": 1
       },
       {
-        "tag": "传染链",
+        "tag": "马斯克",
         "works": 1
       },
       {
-        "tag": "劳动力市场",
+        "tag": "特斯拉",
         "works": 1
       },
       {
-        "tag": "agentic AI",
+        "tag": "创业史",
         "works": 1
       },
       {
-        "tag": "产业链",
+        "tag": "AI编程",
         "works": 1
       },
       {
-        "tag": "博通",
-        "works": 1
-      },
-      {
-        "tag": "LLaMA",
-        "works": 1
-      },
-      {
-        "tag": "GPT",
-        "works": 1
-      },
-      {
-        "tag": "AI数据",
+        "tag": "2026",
         "works": 1
       }
     ],
@@ -7929,55 +7905,55 @@
     "by_beat": [
       {
         "name": "地缘与能源",
-        "claims": 485
-      },
-      {
-        "name": "宏观利率与股市",
-        "claims": 403
+        "claims": 270
       },
       {
         "name": "开源 vs 闭源之争",
-        "claims": 268
+        "claims": 169
       },
       {
         "name": "厂商与算力权力",
-        "claims": 221
+        "claims": 163
       },
       {
-        "name": "就业与劳动",
-        "claims": 203
+        "name": "宏观利率与股市",
+        "claims": 154
       },
       {
         "name": "Agent 与编排",
-        "claims": 190
+        "claims": 109
       },
       {
         "name": "估值与资本",
-        "claims": 133
+        "claims": 99
       },
       {
         "name": "应用落地",
-        "claims": 119
-      },
-      {
-        "name": "工具链与产业主权",
-        "claims": 113
-      },
-      {
-        "name": "成本与普惠",
-        "claims": 96
-      },
-      {
-        "name": "机器人与具身",
-        "claims": 96
+        "claims": 75
       },
       {
         "name": "安全与治理",
-        "claims": 91
+        "claims": 67
+      },
+      {
+        "name": "就业与劳动",
+        "claims": 65
       },
       {
         "name": "算力·能耗·环境",
-        "claims": 88
+        "claims": 56
+      },
+      {
+        "name": "工具链与产业主权",
+        "claims": 56
+      },
+      {
+        "name": "成本与普惠",
+        "claims": 52
+      },
+      {
+        "name": "机器人与具身",
+        "claims": 50
       }
     ]
   }
