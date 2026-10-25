@@ -212,9 +212,11 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 所以自动断言只覆盖**机械可配对**的关系（数值 + 邻近标签）。
 解释性/因果性判断留在正文由人读，不伪装成"团队历史判断"。
 
-### 新作品怎么做（派单必带）
+### 新作品怎么做（按类型分流）
 
-从模板起步：`shared/showcase/templates/work.html`
+#### 研究类 —— 走模板
+
+从 `shared/showcase/templates/work.html`（「档案卷宗」视觉）起步：
 
 1. **只用封闭语义词汇表**（不要自创 class 名）：
    `.metrics>.metric>(.metric-value/.metric-label/.metric-source)`、
@@ -226,11 +228,30 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
    `quote` 必须在本文件里**逐字存在**；3~8 条为宜；
    **解释性判断不要写成断言**
 3. **声明追踪线**：`<meta name="showcase-beat" content="封闭集内的追踪线名">`
-   封闭集见 `tools/build_manifest.py` 的 `BEAT_FAMILIES`
+   （13 条封闭集，模板注释里已内联）
 4. 交付后不需要手工改 manifest / index.html / enrich.json ——
    `autopublish` 阶段 5.5 会自动注入返回链并回填断言
 
 作品自带声明**同样要过闸门**（声明不是特权）。
+
+#### 创意类 —— 不用模板
+
+视觉 / 叙事 / 交互形式**完全自由**，不套研究类模板（那是刻意的：
+创意要每件长成自己的样子）。但两类都必须声明 claims + 追踪线 ——
+那两段不进入视觉层，只是让作品能进卷宗。
+
+硬约束见 `templates/creative-brief.md`：单文件、**零远程依赖**
+（历史事故：15 件作品因 CDN 不可达而图表渲染成空框）、
+对比度 ≥4.5:1、响应式、`prefers-reduced-motion`。
+
+### 自托管字体
+
+`assets/vendor/fonts/`：
+- `newsreader-latin-300-600.woff2`（132KB）—— 数字与拉丁文
+- `noto-serif-sc/`（30 片，844KB）—— 中文衬线，按字频切片
+
+取自 `fonts.loli.net` 镜像（**国内可达**）。生僻字回落系统字体。
+作品页离线可用，不依赖 Google Fonts。
 
 ### 命令
 
@@ -258,7 +279,9 @@ L0 已验证断言 1014 条 · 覆盖 92/104 件（88%）· 待处理 402 · 无
 - ❌ 作品放 `showcase/` 根目录或日期目录根下
 - ❌ 过程材料（md / 预览图 / `.partN.html`）与作品混放
 - ❌ 手工编辑 enrich.json 里的 claims（那是 claim_gate 的产物）
-- ❌ 给作品自创统计块 class 名（用模板的封闭词汇表）
+- ❌ 给**研究类**作品自创统计块 class 名（用模板的封闭词汇表）
+- ❌ 给**创意类**作品套研究类模板（创意走 `creative-brief.md`）
+- ❌ 引用 Google Fonts / jsDelivr 等远程资源（国内不可达 → 图表变空框）
 - ❌ 伪造 quote 凑断言数（闸门会拒，且拒的理由会记入 changelog）
 - ❌ 在提示词或文档里重复抄写截图参数 —— 以 `gen_thumb.py` 为准
 
