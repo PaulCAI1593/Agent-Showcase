@@ -1,0 +1,143 @@
+{
+ "console_errors": [],
+ "pass": true,
+ "passed": 27,
+ "total": 27,
+ "checks": [
+  {
+   "name": "口径说明改为三条",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "新增③ 180亿≠隐私和解金",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "③含隐私轨道4.59亿",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "③含171/170亿口径对照",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "对比面板A标注合计口径",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "9.42亿来源拆分",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "时间轴口径同步",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "旧两行表述已清除",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "红线②非AI监管仍在",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "金额未改动($18,000,000,000)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "滑块存在",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "滑块默认值569",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "默认总额≈249.8亿",
+   "ok": true,
+   "detail": "$24,979,100,000"
+  },
+  {
+   "name": "五刻度渲染",
+   "ok": true,
+   "detail": "5"
+  },
+  {
+   "name": "默认已亮起刻度≥4",
+   "ok": true,
+   "detail": "4"
+  },
+  {
+   "name": "拖到$5000=2195亿",
+   "ok": true,
+   "detail": "$219,500,000,000"
+  },
+  {
+   "name": "上限时5刻度全亮",
+   "ok": true,
+   "detail": "5"
+  },
+  {
+   "name": "上限百分比100",
+   "ok": true,
+   "detail": "100.0%"
+  },
+  {
+   "name": "归零",
+   "ok": true,
+   "detail": "$0"
+  },
+  {
+   "name": "归零0刻度",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "name": "chip缓动跳回569",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "时间轴7节点",
+   "ok": true,
+   "detail": "7"
+  },
+  {
+   "name": "时间轴可滑到2026.10",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "B面板激活",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "A面板互斥关闭",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "A面板可切回",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "无横向溢出",
+   "ok": true,
+   "detail": "overflow=0px"
+  }
+ ]
+}

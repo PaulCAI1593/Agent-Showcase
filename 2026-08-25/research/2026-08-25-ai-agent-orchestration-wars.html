@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent编排层大战：Harness架构范式转移 | 2026深度报告</title>
+<style>
+:root {
+  --black: #000000;
+  --light-gray: #f5f5f7;
+  --near-black: #1d1d1f;
+  --apple-blue: #0071e3;
+  --link-blue: #0066cc;
+  --white: #ffffff;
+  --forest: #2D5016;
+  --grass: #5A8F3D;
+  --mint: #F7F9F4;
+  --amber: #D4A574;
+  --vermilion: #C44536;
+  --graphite: #4A5568;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; color: var(--near-black); line-height: 1.47; -webkit-font-smoothing: antialiased; }
+.container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+h1 { font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; }
+h2 { font-size: 40px; font-weight: 600; line-height: 1.1; margin-bottom: 20px; }
+h3 { font-size: 28px; font-weight: 600; line-height: 1.15; margin-bottom: 14px; }
+h4 { font-size: 21px; font-weight: 600; line-height: 1.2; margin-bottom: 10px; }
+p { font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; margin-bottom: 16px; color: var(--graphite); }
+.hero { background: var(--black); color: var(--white); padding: 120px 0 100px; text-align: center; }
+.hero h1 { color: var(--white); margin-bottom: 16px; }
+.hero .subtitle { font-size: 21px; color: #86868b; font-weight: 400; line-height: 1.38; letter-spacing: 0.011em; max-width: 700px; margin: 0 auto 24px; }
+.hero .meta { font-size: 14px; color: #6e6e73; }
+.section-light { background: var(--light-gray); padding: 80px 0; }
+.section-white { background: var(--white); padding: 80px 0; }
+.section-dark { background: var(--black); color: var(--white); padding: 80px 0; }
+.section-dark p { color: #a1a1a6; }
+.section-dark h2, .section-dark h3 { color: var(--white); }
+.highlight { color: var(--apple-blue); }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 980px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-green { background: #e8f5e9; color: var(--forest); }
+.badge-blue { background: #e3f2fd; color: var(--apple-blue); }
+.badge-amber { background: #fff3e0; color: #e65100; }
+.badge-red { background: #ffebee; color: var(--vermilion); }
+.badge-purple { background: #f3e5f5; color: #7b1fa2; }
+.card { background: var(--white); border-radius: 18px; padding: 32px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 32px 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 40px 0; }
+.stat { text-align: center; padding: 24px; }
+.stat-number { font-size: 48px; font-weight: 700; color: var(--apple-blue); line-height: 1; margin-bottom: 8px; letter-spacing: -1px; }
+.stat-label { font-size: 14px; color: #86868b; font-weight: 500; }
+table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 15px; }
+th { background: var(--near-black); color: var(--white); padding: 14px 16px; text-align: left; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+tr:hover td { background: #f9fafb; }
+.chart-bar { display: flex; align-items: center; margin: 8px 0; }
+.chart-label { width: 160px; font-size: 14px; font-weight: 500; flex-shrink: 0; }
+.chart-fill { height: 28px; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 13px; font-weight: 600; color: white; min-width: 60px; transition: width 0.6s ease; }
+.insight-box { background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%); border-left: 4px solid var(--apple-blue); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
+.insight-box strong { color: var(--apple-blue); }
+.warning-box { background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%); border-left: 4px solid #f59e0b; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
+.verdict { background: var(--near-black); color: var(--white); border-radius: 18px; padding: 40px; margin: 32px 0; }
+.verdict h3 { color: var(--apple-blue); }
+.toc { background: var(--mint); border-radius: 18px; padding: 32px; margin: 32px 0; }
+.toc a { color: var(--forest); text-decoration: none; font-weight: 500; }
+.toc a:hover { text-decoration: underline; }
+.toc ol { padding-left: 20px; }
+.toc li { margin: 8px 0; font-size: 16px; }
+.quote { font-size: 24px; font-weight: 300; line-height: 1.4; color: var(--near-black); border-left: 3px solid var(--apple-blue); padding-left: 24px; margin: 32px 0; font-style: italic; }
+.evolution-timeline { position: relative; padding-left: 40px; }
+.evolution-timeline::before { content:''; position: absolute; left: 14px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--apple-blue), var(--forest)); }
+.era { position: relative; margin-bottom: 40px; }
+.era::before { content:''; position: absolute; left: -33px; top: 4px; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--apple-blue); background: var(--white); }
+.footer { background: var(--near-black); color: #86868b; padding: 40px 0; text-align: center; font-size: 14px; }
+.framework-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 24px; }
+.framework-header { padding: 24px 32px; color: var(--white); }
+.framework-body { padding: 24px 32px; }
+.lg-header { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.crew-header { background: linear-gradient(135deg, #2D5016, #5A8F3D); }
+.ag-header { background: linear-gradient(135deg, #0078d4, #005a9e); }
+.sk-header { background: linear-gradient(135deg, #5c2d91, #3b1a6e); }
+.score { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-weight: 700; font-size: 16px; margin-right: 6px; }
+.score-high { background: #c8e6c9; color: #2e7d32; }
+.score-mid { background: #fff9c4; color: #f57f17; }
+.score-low { background: #ffcdd2; color: #c62828; }
+@media (max-width: 768px) {
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .stat-number { font-size: 36px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../index.html">← 返回展厅</a>
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <p style="font-size:14px;color:#86868b;margin-bottom:16px;letter-spacing:2px;">深度研究报告 · 2026年8月</p>
+    <h1>AI Agent编排层大战</h1>
+    <p class="subtitle">Harness架构范式转移——从图编排到智能体协作，谁将定义AI基础设施的下一层？</p>
+    <p class="meta">研析 Research Analyst · P0深度报告 · 预计阅读25分钟 · 数据截至2026年8月25日</p>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="section-white">
+<div class="container">
+
+<div class="toc">
+  <h4 style="margin-bottom:12px;">📑 目录</h4>
+  <ol>
+    <li><a href="#ch1">执行摘要：三个必须知道的结论</a></li>
+    <li><a href="#ch2">技术演进：从单Agent到Harness工程时代</a></li>
+    <li><a href="#ch3">四大框架深度对比</a></li>
+    <li><a href="#ch4">量化数据：Stars、下载量与企业采用率</a></li>
+    <li><a href="#ch5">编排层标准化对产业的影响</a></li>
+    <li><a href="#ch6">🏥 医疗AI：编排层的终极战场</a></li>
+    <li><a href="#ch7">💰 经济视角：市场、资本与投资回报</a></li>
+    <li><a href="#ch8">结论：编排层会成为AI基础设施的关键层吗？</a></li>
+    <li><a href="#ref">参考来源</a></li>
+  </ol>
+</div>
+
+<h2 id="ch1">一、执行摘要</h2>
+
+<div class="quote">
+  "Agent = Model + Harness。如果你不是模型，你就是Harness。"<br>
+  <span style="font-size:15px;font-style:normal;color:#86868b;">——LangChain 2026</span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="stat-number">$109亿</div>
+    <div class="stat-label">2026年全球AI Agent市场规模</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">40%</div>
+    <div class="stat-label">Gartner预测2026年底企业应用嵌入Agent比例</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">28%</div>
+    <div class="stat-label">生产环境仍使用自定义编排（无框架）</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">>40%</div>
+    <div class="stat-label">Gartner预测2027年前将被取消的Agent项目</div>
+  </div>
+</div>
+
+<div class="insight-box">
+  <strong>核心结论（三个必须知道的事实）：</strong><br><br>
+  <strong>1. LangGraph是2026年生产环境的事实标准。</strong> 40.3K GitHub Stars、34M+月下载量、Uber/LinkedIn/JP Morgan/Klarna等头部企业背书，LangGraph以图编排的精确控制力赢得了"凌晨两点还能调试"的生产可靠性声誉。<br><br>
+  <strong>2. CrewAI是增长最快的编排框架。</strong> 55K+ Stars、2B+年度Agent执行量、60%财富500强采用率，CrewAI以"角色驱动"的直觉化设计实现了从原型到生产的最短路径。但Token开销约为LangGraph的3倍。<br><br>
+  <strong>3. 微软Agent Framework合并是2026年最大变量。</strong> 2026年4月，AutoGen正式并入维护模式，与Semantic Kernel合并为Microsoft Agent Framework 1.0。企业级Azure生态整合+MCP/A2A原生支持使其成为微软生态的唯一选择。但GA刚满4个月，成熟度待验证。
+</div>
+
+</div>
+</div>
+
+<!-- CH2: 技术演进 -->
+<div class="section-light">
+<div class="container">
+
+<h2 id="ch2">二、技术演进：从单Agent到Harness工程时代</h2>
+<p>2026年的AI Agent编排层不是一个突然出现的市场——它经历了四代范式演进，每一次跃迁都重新定义了"智能"的边界。</p>
+
+<h3>四代演进路线图</h3>
+
+<div class="evolution-timeline">
+
+  <div class="era">
+    <h4>第一代：Prompt Engineering（2022-2024）</h4>
+    <p>以ChatBot形态为主，聚焦提示词优化。模型是主角，提示词是剧本。典型的"单轮交互"范式——你问它答，没有记忆，没有工具，没有自主性。</p>
+    <p><span class="badge badge-blue">代表</span> ChatGPT初代、GPT-4 API</p>
+  </div>
+
+  <div class="era">
+    <h4>第二代：Context Engineering（2024-2025）</h4>
+    <p>狭义的上下文工程——模型在每一步应该看到什么信息？如何检索和压缩记忆？RAG、长期记忆、动态上下文注入成为核心能力。</p>
+    <p><span class="badge badge-green">代表</span> LangChain RAG、LlamaIndex、向量数据库生态</p>
+  </div>
+
+  <div class="era">
+    <h4>第三代：Harness Engineering（2025-2026）</h4>
+    <p>2025年11月Martin Fowler撰文正式定义。2026年初Anthropic发布《长时运行Agent的有效Harness》、OpenAI Codex团队用Harness生成100万行生产代码。<strong>核心洞察：决定AI可靠完成工作的不是模型本身，而是包裹在模型外面的系统。</strong></p>
+    <p>Claude Code v2.1.88源码约50万行，其中<strong>98.4%是约束层</strong>，仅1.6%是直接与模型交互的核心代码。</p>
+    <p><span class="badge badge-amber">代表</span> Claude Code、OpenAI Codex、LangChain Deep Agents</p>
+  </div>
+
+  <div class="era">
+    <h4>第四代：Multi-Agent Orchestration（2026-）</h4>
+    <p>编排层成为AI基础设施的核心。Agent不再是孤立个体——它们是团队中的角色，需要编排层来协调通信、管理状态、处理失败、控制成本。MCP（Model Context Protocol）和A2A（Agent-to-Agent）协议正在成为跨框架通信的事实标准。</p>
+    <p><span class="badge badge-purple">代表</span> LangGraph、CrewAI、Microsoft Agent Framework、Google ADK</p>
+  </div>
+
+</div>
+
+<h3>Harness的七层架构（ETCLOVG框架）</h3>
+<p>卡内基梅隆大学2026年发布的《Agent Harness Engineering: A Survey》提出了ETCLOVG七层分类法，定义了编排层的完整技术栈：</p>
+
+<table>
+  <tr><th>层级</th><th>全称</th><th>职责</th></tr>
+  <tr><td><strong>E</strong></td><td>Execution Environment</td><td>代码运行环境与沙箱约束</td></tr>
+  <tr><td><strong>T</strong></td><td>Tool Interface</td><td>工具描述、发现、调用协议（MCP）</td></tr>
+  <tr><td><strong>C</strong></td><td>Context & Memory</td><td>短期/会话/持久化记忆管理</td></tr>
+  <tr><td><strong>L</strong></td><td>Lifecycle & Orchestration</td><td>控制流编排、多Agent协调</td></tr>
+  <tr><td><strong>O</strong></td><td>Observability</td><td>轨迹追踪、成本监控、故障信号</td></tr>
+  <tr><td><strong>V</strong></td><td>Verification</td><td>输出验证、故障归因、回归反馈</td></tr>
+  <tr><td><strong>G</strong></td><td>Governance</td><td>权限、身份、策略、审计、人工监督</td></tr>
+</table>
+
+<div class="warning-box">
+  <strong>⚠️ 关键洞察：</strong>Harness的本质是模型的支持系统，无法通过七层功能堆叠实现效果。更关键的是各层级的职责边界、功能复杂度设置、层级之间的交互规则。Vercel实验显示：将Agent工具从15个削减到仅2个后，准确率从80%跃升至100%，Token消耗下降37%，速度提升3.5倍。<strong>少即是多，约束本身就是Harness设计。</strong>
+</div>
+
+</div>
+</div>
+
+<!-- CH3: 四大框架深度对比 -->
+<div class="section-white">
+<div class="container">
+
+<h2 id="ch3">三、四大框架深度对比</h2>
+<p>2026年的Agent编排层市场已收敛为四大阵营，每种代表不同的架构哲学和心智模型。</p>
+
+<!-- LangGraph -->
+<div class="framework-card">
+  <div class="framework-header lg-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="color:white;margin:0;font-size:28px;">🔬 LangGraph</h3>
+        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">图驱动 · 生产级状态机 · LangChain Inc.</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 40.3K Stars</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">v1.2.8</span>
+      </div>
+    </div>
+  </div>
+  <div class="framework-body">
+    <h4>核心架构哲学</h4>
+    <p>LangGraph将Agent工作流建模为<strong>有向状态图</strong>：节点（Nodes）是计算步骤（LLM调用、工具执行、人工审批），边（Edges）是控制流（条件路由、循环、并行），状态（State）是TypedDict定义的共享内存。每一步自动Checkpoint，支持断点恢复。</p>
+    <p><strong>设计哲学："白盒"设计</strong>——开发者必须显式定义所有可能的执行路径和条件分支，保证可预测性、可审计性、可调试性。</p>
+
+    <h4>核心能力矩阵</h4>
+    <table>
+      <tr><th>能力</th><th>评级</th><th>说明</th></tr>
+      <tr><td>状态管理</td><td><span class="score score-high">S</span></td><td>内建Checkpointer（Postgres/MongoDB/Redis），断点恢复，时间旅行调试</td></tr>
+      <tr><td>Human-in-the-Loop</td><td><span class="score score-high">S</span></td><td>精确到任意节点的interrupt_before/after，最成熟的HITL实现</td></tr>
+      <tr><td>可观测性</td><td><span class="score score-high">S</span></td><td>LangSmith原生集成，节点级状态快照，Token监控</td></tr>
+      <tr><td>Token效率</td><td><span class="score score-high">A</span></td><td>~2000 tokens/次（节点间只传状态变更，不重新序列化全文）</td></tr>
+      <tr><td>学习曲线</td><td><span class="score score-low">C</span></td><td>需1-2周上手（图理论+状态Schema+编译器概念）</td></tr>
+      <tr><td>开发速度</td><td><span class="score score-low">C</span></td><td>简单ReAct Agent约120行（对比Smolagents的40行）</td></tr>
+    </table>
+
+    <h4>企业采用</h4>
+    <p>Klarna、Uber、LinkedIn、JP Morgan、BlackRock、Cisco、Replit、Elastic。LangChain家族整体月下载量约90M。</p>
+
+    <div class="insight-box">
+      <strong>选型建议：</strong>需要容错、Checkpoint、可审计Agent工作流的团队首选。接受学习曲线，回报是运营可靠性。金融、政务、医疗等合规场景优先考虑。
+    </div>
+  </div>
+</div>
+
+<!-- CrewAI -->
+<div class="framework-card">
+  <div class="framework-header crew-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="color:white;margin:0;font-size:28px;">👥 CrewAI</h3>
+        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">角色驱动 · 团队协作隐喻 · CrewAI Inc.</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 55.1K Stars</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">v1.10.1</span>
+      </div>
+    </div>
+  </div>
+  <div class="framework-body">
+    <h4>核心架构哲学</h4>
+    <p>CrewAI的核心隐喻是<strong>人类团队</strong>：定义角色（Agent）→分配任务（Task）→组建团队（Crew）→选择流程（Sequential/Hierarchical/Flows）。代码读起来像英文："研究员负责调研，写手负责撰写，审核员负责核查。"</p>
+    <p><strong>设计哲学：</strong>用最直觉的方式映射人类协作模式。Agent的backstory让LLM更好地理解角色定位，降低Prompt工程负担。</p>
+
+    <h4>核心能力矩阵</h4>
+    <table>
+      <tr><th>能力</th><th>评级</th><th>说明</th></tr>
+      <tr><td>学习曲线</td><td><span class="score score-high">S</span></td><td>30分钟出原型，无需图理论基础</td></tr>
+      <tr><td>开发速度</td><td><span class="score score-high">S</span></td><td>2-3天生产级原型（LangGraph需10-14天）</td></tr>
+      <tr><td>企业渗透</td><td><span class="score score-high">S</span></td><td>60%财富500强，2B+年度Agent执行，150+企业客户</td></tr>
+      <tr><td>协议支持</td><td><span class="score score-high">A</span></td><td>原生MCP + A2A支持（v1.10.1），跨框架互操作</td></tr>
+      <tr><td>Token效率</td><td><span class="score score-mid">B</span></td><td>~3500 tokens/次（角色背景故事增加开销，约为LangGraph 3x）</td></tr>
+      <tr><td>状态管理</td><td><span class="score score-mid">B</span></td><td>Flows GA后改善，但Checkpoint成熟度仍不及LangGraph</td></tr>
+      <tr><td>调试能力</td><td><span class="score score-low">C</span></td><td>5+Agent链路的故障诊断仍然困难</td></tr>
+    </table>
+
+    <h4>企业案例</h4>
+    <p>PwC内部部署：代码生成准确率从10%跃升至70%（七倍提升）。每日12M+ Agent执行量，140次/秒持续负载。</p>
+
+    <div class="insight-box">
+      <strong>选型建议：</strong>需要本周就有可用多Agent系统的团队首选。理解Checkpoint差距并设计兜底方案。内容管线、研究工作流、团队式任务分解场景效果最佳。常见模式：用CrewAI验证多Agent设计，确认后迁移到LangGraph。
+    </div>
+  </div>
+</div>
+
+<!-- Microsoft Agent Framework -->
+<div class="framework-card">
+  <div class="framework-header ag-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="color:white;margin:0;font-size:28px;">🏢 Microsoft Agent Framework</h3>
+        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">企业统一SDK · Semantic Kernel + AutoGen合并 · Microsoft</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 11.9K Stars</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">v1.0 GA</span>
+        <span class="badge" style="background:#ff6b6b;color:white;">2026.04 发布</span>
+      </div>
+    </div>
+  </div>
+  <div class="framework-body">
+    <h4>核心架构哲学</h4>
+    <p>2026年4月3日，微软正式发布Agent Framework 1.0 GA，将Semantic Kernel的企业特性（会话状态、类型安全、中间件、遥测）与AutoGen的多Agent编排能力合并为单一SDK。</p>
+    <p><strong>数据流模型：</strong>定义执行器（agents/functions/subworkflows）为节点，通过类型化边连接。显式数据路由——无消息广播，全图强类型安全，图级Checkpoint。</p>
+
+    <h4>核心能力矩阵</h4>
+    <table>
+      <tr><th>能力</th><th>评级</th><th>说明</th></tr>
+      <tr><td>Azure集成</td><td><span class="score score-high">S</span></td><td>FoundryChatClient原生、DefaultAzureCredential、Cosmos DB持久化</td></tr>
+      <tr><td>协议支持</td><td><span class="score score-high">S</span></td><td>原生MCP + A2A，跨框架互联</td></tr>
+      <tr><td>企业合规</td><td><span class="score score-high">S</span></td><td>Application Insights全链路审计，EU数据驻留</td></tr>
+      <tr><td>多语言</td><td><span class="score score-high">A</span></td><td>Python + .NET双语言SDK</td></tr>
+      <tr><td>成熟度</td><td><span class="score score-mid">B</span></td><td>GA仅4个月，部分包仍在Preview</td></tr>
+      <tr><td>生态锁定</td><td><span class="score score-low">C</span></td><td>最强功能耦合Azure/Microsoft Foundry</td></tr>
+    </table>
+
+    <div class="warning-box">
+      <strong>⚠️ 重要变更：</strong>AutoGen已于2026年4月进入维护模式，不再开发新功能。社区分支AG2保持活跃但用户基数小。微软官方指引：新项目使用Agent Framework。现有Semantic Kernel应用可按自己节奏迁移（微软承诺至少一年关键Bug修复）。
+    </div>
+  </div>
+</div>
+
+<!-- AutoGen (Legacy) -->
+<div class="framework-card">
+  <div class="framework-header sk-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="color:white;margin:0;font-size:28px;">💬 AutoGen（已合并）</h3>
+        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">对话驱动 · 多Agent协商 · Microsoft Research → 维护模式</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge" style="background:#ff6b6b;color:white;">⚠️ 维护模式</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">59.6K Stars (Legacy)</span>
+      </div>
+    </div>
+  </div>
+  <div class="framework-body">
+    <p>AutoGen的核心范式——Agent通过"聊天"协作——在学术研究领域仍有价值。多Agent辩论和验证模式（多个Agent互相批评检查推理）是所有框架中最成熟的。但：</p>
+    <ul style="padding-left:20px;margin:12px 0;">
+      <li style="margin:6px 0;color:var(--graphite);">对话驱动模式导致上下文窗口快速膨胀（20轮对话可能消耗数万Token）</li>
+      <li style="margin:6px 0;color:var(--graphite);">生产采用率明显低于LangGraph</li>
+      <li style="margin:6px 0;color:var(--graphite);">v0.4重写的异步架构引入了社区仍在消化的破坏性变更</li>
+    </ul>
+    <div class="insight-box">
+      <strong>现状判断：</strong>新项目不再推荐。微软生态用户应迁移到Agent Framework。学术/研究场景可考虑社区分支AG2。
+    </div>
+  </div>
+</div>
+
+<!-- 框架选型决策树 -->
+<h3 style="margin-top:40px;">🎯 选型决策树</h3>
+<table>
+  <tr><th>你的核心需求</th><th>推荐框架</th><th>理由</th></tr>
+  <tr><td>容错/Checkpoint/可审计</td><td><strong>LangGraph</strong></td><td>状态机+断点恢复+LangSmith审计链</td></tr>
+  <tr><td>快速原型/角色分工</td><td><strong>CrewAI</strong></td><td>30分钟出原型，代码即英文</td></tr>
+  <tr><td>Azure/.NET生态/企业合规</td><td><strong>Microsoft AF</strong></td><td>合并SK+AutoGen，A2A/MCP原生</td></tr>
+  <tr><td>多Agent讨论/代码执行/研究</td><td><strong>AG2</strong></td><td>对话式协商，代码沙箱</td></tr>
+  <tr><td>Google Cloud/A2A/多语言</td><td><strong>Google ADK</strong></td><td>原生A2A，Python/Go/Java/TS</td></tr>
+  <tr><td>不确定</td><td><strong>LangGraph</strong></td><td>生态最大，生产案例最多</td></tr>
+</table>
+
+</div>
+</div>
+
+<!-- CH4: 量化数据 -->
+<div class="section-light">
+<div class="container">
+
+<h2 id="ch4">四、量化数据：Stars、下载量与企业采用率</h2>
+
+<h3>GitHub Stars排名（2026年8月）</h3>
+<p>Stars衡量关注，Downloads衡量使用——两者不一致的地方恰恰是最有信息量的信号。</p>
+
+<div style="margin:24px 0;">
+  <div class="chart-bar">
+    <div class="chart-label">AutoGen (Legacy)</div>
+    <div class="chart-fill" style="width:90%;background:linear-gradient(90deg,#0078d4,#005a9e);">59.6K</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">CrewAI</div>
+    <div class="chart-fill" style="width:83%;background:linear-gradient(90deg,#2D5016,#5A8F3D);">55.1K</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">LangGraph</div>
+    <div class="chart-fill" style="width:61%;background:linear-gradient(90deg,#1a1a2e,#16213e);">40.3K</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">Agno</div>
+    <div class="chart-fill" style="width:62%;background:linear-gradient(90deg,#6366f1,#4f46e5);">41.1K</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">Google ADK</div>
+    <div class="chart-fill" style="width:31%;background:linear-gradient(90deg,#4285f4,#34a853);">20.5K</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">MS Agent Framework</div>
+    <div class="chart-fill" style="width:18%;background:linear-gradient(90deg,#5c2d91,#3b1a6e);">12.0K</div>
+  </div>
+</div>
+
+<div class="warning-box">
+  <strong>关键洞察：</strong>LangGraph以40.3K Stars排名第三，但月下载量（34.5M PyPI + 6M npm ≈ 40M）<strong>超过所有其他专用Agent框架下载量之和</strong>。AutoGen的59.6K Stars是历史积累（正在下降），不代表当前采用。Stars衡量历史，Downloads衡量当下。
+</div>
+
+<h3>月下载量对比（PyPI，2026年8月）</h3>
+<div style="margin:24px 0;">
+  <div class="chart-bar">
+    <div class="chart-label">LangGraph</div>
+    <div class="chart-fill" style="width:95%;background:#16213e;">34.5M</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">CrewAI</div>
+    <div class="chart-fill" style="width:15%;background:#5A8F3D;">5.2M</div>
+  </div>
+  <div class="chart-bar">
+    <div class="chart-label">Google ADK</div>
+    <div class="chart-fill" style="width:9%;background:#4285f4;">3.3M</div>
+  </div>
+</div>
+
+<h3>综合对比表</h3>
+<div style="overflow-x:auto;">
+<table>
+  <tr>
+    <th>指标</th>
+    <th>LangGraph</th>
+    <th>CrewAI</th>
+    <th>MS Agent Framework</th>
+    <th>AutoGen (Legacy)</th>
+  </tr>
+  <tr><td><strong>GitHub Stars</strong></td><td>40.3K ↑</td><td>55.1K ↑</td><td>12.0K ↑</td><td>59.6K ↓</td></tr>
+  <tr><td><strong>PyPI月下载</strong></td><td>34.5M</td><td>5.2M</td><td>—</td><td>↓下降中</td></tr>
+  <tr><td><strong>当前版本</strong></td><td>v1.2.8</td><td>v1.10.1</td><td>v1.0 GA</td><td>维护模式</td></tr>
+  <tr><td><strong>GA日期</strong></td><td>2025.10.22</td><td>2026 Q1</td><td>2026.04.03</td><td>2024（旧版）</td></tr>
+  <tr><td><strong>License</strong></td><td>MIT</td><td>MIT</td><td>MIT</td><td>MIT</td></tr>
+  <tr><td><strong>语言</strong></td><td>Python, JS</td><td>Python</td><td>.NET, Python</td><td>Python, .NET</td></tr>
+  <tr><td><strong>维护方</strong></td><td>LangChain Inc.</td><td>CrewAI Inc.</td><td>Microsoft</td><td>Microsoft Research</td></tr>
+  <tr><td><strong>融资</strong></td><td>LangChain整体$135M+</td><td>$18M (Insight Partners)</td><td>Microsoft内部</td><td>—</td></tr>
+  <tr><td><strong>企业客户</strong></td><td>Uber/LinkedIn/JP Morgan等</td><td>60% F500, 150+企业</td><td>Azure企业客户</td><td>学术/研究为主</td></tr>
+  <tr><td><strong>日执行量</strong></td><td>未公开</td><td>12M+/天</td><td>未公开</td><td>—</td></tr>
+  <tr><td><strong>MCP支持</strong></td><td>通过LangChain</td><td>✅ 原生</td><td>✅ 原生</td><td>社区插件</td></tr>
+  <tr><td><strong>A2A支持</strong></td><td>讨论中</td><td>✅ 原生</td><td>✅ 原生</td><td>讨论中</td></tr>
+</table>
+</div>
+
+<h3>Token效率基准测试</h3>
+<p>一个经常被忽视但极其关键的生产指标——Token效率直接影响运营成本：</p>
+<table>
+  <tr><th>框架</th><th>平均Token消耗/次</th><th>相对效率</th><th>说明</th></tr>
+  <tr><td><strong>LangGraph</strong></td><td>~2,000</td><td>1x (基准)</td><td>节点间只传状态变更</td></tr>
+  <tr><td><strong>CrewAI</strong></td><td>~3,500</td><td>1.75x</td><td>角色背景故事增加开销</td></tr>
+  <tr><td><strong>AutoGen</strong></td><td>~8,000</td><td>4x</td><td>多轮对话历史累积</td></tr>
+</table>
+
+</div>
+</div>
+
+<!-- CH5: 产业影响 -->
+<div class="section-white">
+<div class="container">
+
+<h2 id="ch5">五、编排层标准化对AI应用开发的影响</h2>
+
+<h3>5.1 编排层正在成为AI的"操作系统"</h3>
+<p>正如操作系统管理CPU、内存和I/O设备，Agent编排层正在管理模型（CPU）、上下文窗口（RAM）和工具调用（I/O）。这种类比不是修辞——它是2026年最准确的技术心智模型。</p>
+
+<div class="card-grid">
+  <div class="card">
+    <h4 style="color:var(--forest);">🔒 合规成为一等公民</h4>
+    <p>编排层的Checkpoint能力使AI工作流变得<strong>可审计</strong>。对于金融、医疗、政务等受监管行业，这意味着Agent可以从"有趣的实验"升级为"可合规的生产系统"。LangGraph的节点级状态快照和Human-in-the-Loop审批流是这一趋势的最佳实践。</p>
+  </div>
+  <div class="card">
+    <h4 style="color:var(--apple-blue);">🔗 互操作协议崛起</h4>
+    <p>MCP（工具连接）和A2A（Agent间通信）正在成为跨框架通信的<strong>事实标准</strong>。"MCP管工具，A2A管协作"已成为2026年社区共识。CrewAI v1.10.1和Microsoft AF 1.0均原生支持两个协议。这意味着框架选择不再是"永久锁定"——你的Agent可以跨框架互操作。</p>
+  </div>
+  <div class="card">
+    <h4 style="color:#7b1fa2;">📊 可观测性标准化</h4>
+    <p>2026年的Agent可观测性已从"nice to have"升级为"must have"。LangSmith、Langfuse、Arize等工具使跨框架的Agent行为追踪成为可能。"先加可观测性，再上生产"——这是2026年最重要的工程纪律。</p>
+  </div>
+  <div class="card">
+    <h4 style="color:var(--vermilion);">⚡ 28%仍用自定义编排</h4>
+    <p>2026年5月的一项生产部署分析发现：<strong>约28%的多Agent系统仍使用自定义编排，不依赖任何框架。</strong> 这说明框架选择并非决定性因素——评估管线、可观测性设置和失败恢复逻辑才是好Agent系统和差Agent系统的真正分水岭。</p>
+  </div>
+</div>
+
+<h3>5.2 企业级Agent部署的挑战</h3>
+<table>
+  <tr><th>挑战</th><th>严重度</th><th>数据</th><th>解决方案</th></tr>
+  <tr><td>项目失败率极高</td><td><span class="badge badge-red">严重</span></td><td>Gartner预测>40%将在2027年前被取消</td><td>从小范围可度量的业务流程开始，增量扩展</td></tr>
+  <tr><td>成本不可控</td><td><span class="badge badge-red">严重</span></td><td>多Agent系统Token消耗约为单Agent的15倍</td><td>设定Token预算、使用LangGraph的高效路由</td></tr>
+  <tr><td>数据治理不足</td><td><span class="badge badge-amber">中等</span></td><td>McKinsey：80%组织将数据限制列为首要障碍</td><td>建立Agent数据分类和访问控制机制</td></tr>
+  <tr><td>安全与合规</td><td><span class="badge badge-amber">中等</span></td><td>Cisco：仅31%组织有能力控制和保护Agent系统</td><td>最小权限原则、审计日志、Human-in-the-Loop</td></tr>
+  <tr><td>Agentwashing</td><td><span class="badge badge-amber">中等</span></td><td>Gartner：仅约130家厂商真正达到Agent标准</td><td>要求厂商证明自主行动能力和独立决策能力</td></tr>
+</table>
+
+<h3>5.3 部署差距指数</h3>
+<div class="insight-box">
+  <strong>ADRI™（Agentic AI Deployment Reality Index）= 27.7</strong><br>
+  83%的组织计划部署Agent（Cisco 2025），但仅23%正在扩展Agent到至少一个业务功能（McKinsey 2025）。<br>
+  这意味着：<strong>每4个计划部署Agent的组织中，只有约1个真正实现了规模化生产。</strong><br>
+  差距的核心不是技术——而是治理框架、成本模型和组织变革能力。
+</div>
+
+</div>
+</div>
+
+<!-- CH6: 医疗AI -->
+<div class="section-dark">
+<div class="container">
+
+<h2 id="ch6">🏥 六、医疗AI：编排层的终极战场</h2>
+
+<div class="quote" style="border-left-color:#0071e3;">
+  "医疗AI的未来不是一个超级智能系统，而是一支协调配合的专注Agent团队，能安全地规模化、控制成本、支持真正的临床运营。"<br>
+  <span style="font-size:15px;font-style:normal;color:#a1a1a6;">——Girish N. Nadkarni, MD, Mount Sinai Health System首席AI官</span>
+</div>
+
+<h3>6.1 编排层为什么在医疗场景中至关重要</h3>
+<p>医院本身就是一个天然的多Agent系统：挂号员验证保险→分诊护士评估急迫性→医生综合临床数据制定治疗方案→实验室技术员标记危急值→药剂师检查药物相互作用→计费专家生成账单→护理协调员安排随访。每个"Agent"都有明确的职责边界、输入输出和升级路径。</p>
+
+<div class="card" style="background:#1a1a2e;color:white;">
+  <h4 style="color:#4fc3f7;">Mount Sinai关键研究（npj Health Systems, 2026.03）</h4>
+  <p style="color:#b0bec5;">对比单Agent vs. 编排式多Agent系统在模拟80个并发临床任务下的表现：</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0;">
+    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.05);border-radius:12px;">
+      <div style="font-size:48px;font-weight:700;color:#ef5350;">16%</div>
+      <div style="color:#b0bec5;font-size:14px;">单Agent系统在高负载下的准确率</div>
+      <div style="color:#ef5350;font-size:13px;">（从73%暴跌至16%）</div>
+    </div>
+    <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.05);border-radius:12px;">
+      <div style="font-size:48px;font-weight:700;color:#66bb6a;">65x</div>
+      <div style="color:#b0bec5;font-size:14px;">编排式多Agent系统节省的计算资源</div>
+      <div style="color:#66bb6a;font-size:13px;">（同时保持高准确率）</div>
+    </div>
+  </div>
+  <p style="color:#90a4ae;font-size:14px;">来源：Icahn School of Medicine at Mount Sinai, "Orchestrated multi agents sustain accuracy under clinical-scale workloads", npj Health Systems, 2026.03.09</p>
+</div>
+
+<h3>6.2 医疗Agent编排的三大前沿案例</h3>
+
+<div class="card-grid">
+  <div class="card">
+    <h4 style="color:var(--forest);">🫀 Hippocratic AI: Agentic Orchestrators</h4>
+    <p><strong>250M+患者交互</strong>，99.89%正确建议，零严重伤害。Polaris架构：700B参数主模型+30+监督模型。2026年8月从单Agent升级到编排式Orchestrator——围绕再入院预防、药物依从性、慢性病管理等结局指标，协调多个专业语音Agent。</p>
+    <p style="font-size:14px;color:#86868b;">融资$444M（a16z, General Catalyst, Kleiner Perkins, NVIDIA）</p>
+  </div>
+  <div class="card">
+    <h4 style="color:var(--apple-blue);">🏥 General Catalyst + Summa Health</h4>
+    <p>2026年8月19日，General Catalyst公布了集成8家AI公司的医疗AI技术栈部署到Summa Health的完整蓝图。Percepta作为编排层协调Aidoc（影像AI）、Hippocratic AI（患者交互）、Commure（EHR数据基础设施）等多个专业Agent。</p>
+    <p style="font-size:14px;color:#86868b;">这是美国已披露的最大规模多Agent医疗编排部署之一</p>
+  </div>
+  <div class="card">
+    <h4 style="color:#7b1fa2;">📊 医疗Agent市场规模</h4>
+    <p>Agentic AI医疗市场预测：2025年$7.9亿 → 2035年$336.6亿，CAGR 45.6%。BCG报告：69%医疗机构已在使用生成式AI，61%正在构建Agentic AI系统，但<strong>仅3%已投入生产</strong>。</p>
+    <p style="font-size:14px;color:#86868b;">医疗AI编排层的市场窗口正在打开</p>
+  </div>
+</div>
+
+<h3>6.3 医疗Agent编排的独特挑战</h3>
+<table>
+  <tr><th>挑战</th><th>说明</th><th>编排层解决方案</th></tr>
+  <tr><td>可解释性要求</td><td>医学决策必须可追溯——"每一步都记录了调用了什么工具、返回了什么、答案如何组装"</td><td>LangGraph的Checkpoint+LangSmith审计链</td></tr>
+  <tr><td>错误成本极高</td><td>医疗AI幻觉可直接导致患者伤害</td><td>Human-in-the-Loop审批+编排层安全护栏</td></tr>
+  <tr><td>合规要求</td><td>HIPAA/SOC2/FDA 510(k)等监管框架</td><td>企业级编排框架的审计日志+权限控制</td></tr>
+  <tr><td>跨系统集成</td><td>EHR/LIS/PACS/FHIR等异构系统</td><td>MCP标准化工具连接+A2A跨系统Agent通信</td></tr>
+  <tr><td>实时性要求</td><td>急诊分诊、药物交互检查需秒级响应</td><td>LangGraph的低延迟路由+Token效率优势</td></tr>
+</table>
+
+</div>
+</div>
+
+<!-- CH7: 经济视角 -->
+<div class="section-light">
+<div class="container">
+
+<h2 id="ch7">💰 七、经济视角：市场、资本与投资回报</h2>
+
+<h3>7.1 AI Agent市场规模预测</h3>
+
+<div class="stat-grid">
+  <div class="stat">
+    <div class="stat-number">$78亿</div>
+    <div class="stat-label">2025年全球AI Agent市场</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">$109亿</div>
+    <div class="stat-label">2026年预测（+44% YoY）</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">$526亿</div>
+    <div class="stat-label">2030年预测（43% CAGR）</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">$3.70</div>
+    <div class="stat-label">每$1投入生成式AI的回报（IDC/微软）</div>
+  </div>
+</div>
+
+<h3>7.2 编排层在市场中的位置</h3>
+<p>Gartner预测2026年AI Agent软件支出将达到<strong>$2,065亿</strong>（广义口径，含嵌入式Agent能力）。编排层作为Agent系统的"操作系统"，正在从基础设施投资中获益。</p>
+
+<table>
+  <tr><th>维度</th><th>2025</th><th>2026E</th><th>2030E</th><th>CAGR</th></tr>
+  <tr><td>AI Agent市场（狭义）</td><td>$7.8B</td><td>$10.9B</td><td>$52.6B</td><td>~44%</td></tr>
+  <tr><td>AI Agent软件支出（广义/Gartner）</td><td>$86.4B</td><td>$206.5B</td><td>—</td><td>139% YoY</td></tr>
+  <tr><td>全球AI总支出（Gartner）</td><td>$1.75T</td><td>$2.52T</td><td>—</td><td>44%</td></tr>
+  <tr><td>医疗Agentic AI市场</td><td>$0.79B</td><td>—</td><td>$33.7B(2035)</td><td>45.6%</td></tr>
+  <tr><td>中国AI Agent企业市场</td><td>212亿元</td><td>449亿元</td><td>2200亿元+</td><td>~107%(短期)</td></tr>
+</table>
+
+<h3>7.3 投资回报与风险</h3>
+
+<div class="card-grid">
+  <div class="card" style="border-top:4px solid #10B981;">
+    <h4 style="color:#10B981;">✅ 正面数据</h4>
+    <ul style="padding-left:20px;">
+      <li style="margin:6px 0;">IDC/微软：生成式AI每$1投入回报$3.70</li>
+      <li style="margin:6px 0;">领先企业在AI客服领域回报达到<strong>8倍</strong></li>
+      <li style="margin:6px 0;">McKinsey：AI高绩效企业的工作流重设计概率是其他企业的<strong>3倍</strong></li>
+      <li style="margin:6px 0;">Salesforce：87%销售组织已在使用某种形式的AI</li>
+    </ul>
+  </div>
+  <div class="card" style="border-top:4px solid #EF4444;">
+    <h4 style="color:#EF4444;">⚠️ 风险信号</h4>
+    <ul style="padding-left:20px;">
+      <li style="margin:6px 0;">Gartner：<strong>>40%</strong>的Agentic AI项目将在2027年前被取消</li>
+      <li style="margin:6px 0;">IBM CEO研究：仅<strong>25%</strong>的AI项目交付了预期ROI</li>
+      <li style="margin:6px 0;">Gartner：2026年<strong>1/3</strong>的公司将因过早部署AI而损害客户体验</li>
+      <li style="margin:6px 0;">McKinsey：仅<strong>6%</strong>的组织可称为"AI高绩效者"（5%+ EBIT来自AI）</li>
+    </ul>
+  </div>
+</div>
+
+<div class="insight-box">
+  <strong>中金公司2026年研报核心判断：</strong>"Harness实质是模型的支持系统，无法通过几层功能堆叠实现好的效果。对于模型公司，Harness有助于提升模型能力下限、加速模型迭代；对于Agent平台，记忆管理等功能有助提升用户粘性；对于客户，Harness有助于模型在生产力场景下更加可控且节省成本；此外，Harness是天然的生态入口，有可能创造新的商业形态。"
+</div>
+
+</div>
+</div>
+
+<!-- CH8: 结论 -->
+<div class="section-white">
+<div class="container">
+
+<h2 id="ch8">八、结论：编排层会成为AI基础设施的关键层吗？</h2>
+
+<div class="verdict">
+  <h3>核心判断</h3>
+  <p style="color:#b0bec5;font-size:19px;line-height:1.6;margin:16px 0;">
+    <strong style="color:white;">答案是确定的——编排层已经是AI基础设施的关键层。</strong>
+  </p>
+  <p style="color:#b0bec5;font-size:17px;line-height:1.6;">
+    正如操作系统不是CPU的附属品，而是让CPU变得有用的系统——Agent编排层不是模型的附属品，而是让模型变得可靠、可控、可规模化部署的系统。
+  </p>
+</div>
+
+<h3>三个证据链</h3>
+
+<div class="card-grid">
+  <div class="card" style="border-left:4px solid var(--apple-blue);">
+    <h4>证据一：企业采用已过临界点</h4>
+    <p>CrewAI的60%财富500强渗透率、LangGraph在Uber/LinkedIn/JP Morgan的生产部署、Microsoft Agent Framework的企业Azure整合——编排层不再是"可选的开发者工具"，而是企业AI战略的<strong>基础设施决策</strong>。</p>
+  </div>
+  <div class="card" style="border-left:4px solid var(--forest);">
+    <h4>证据二：协议标准化正在发生</h4>
+    <p>MCP和A2A协议的崛起意味着编排层正在获得<strong>网络效应</strong>。当不同框架的Agent可以通过标准化协议互操作时，编排层的价值不再局限于单个框架——它成为连接所有Agent的<strong>通信基础设施</strong>。</p>
+  </div>
+  <div class="card" style="border-left:4px solid #7b1fa2;">
+    <h4>证据三：医疗/金融等高合规行业已验证</h4>
+    <p>Mount Sinai的研究证明编排式多Agent在临床场景中的优越性。Hippocratic AI的250M+患者交互零严重伤害。LangGraph在金融合规场景的Checkpoint和审计链。这些不是实验——是<strong>经验证的生产系统</strong>。</p>
+  </div>
+</div>
+
+<h3>未来12个月的关键变量</h3>
+
+<table>
+  <tr><th>变量</th><th>乐观情景</th><th>悲观情景</th><th>概率</th></tr>
+  <tr>
+    <td><strong>MCP/A2A协议标准化</strong></td>
+    <td>跨框架互操作成为默认，编排层价值倍增</td>
+    <td>协议碎片化，厂商各自为政</td>
+    <td>乐观 70%</td>
+  </tr>
+  <tr>
+    <td><strong>Microsoft Agent Framework成熟</strong></td>
+    <td>Azure企业客户大规模迁移，成为第三极</td>
+    <td>GA初期质量不稳，企业观望</td>
+    <td>乐观 55%</td>
+  </tr>
+  <tr>
+    <td><strong>模型能力内生化</strong></td>
+    <td>低层标准化能力被模型吸收，Harness聚焦高层价值</td>
+    <td>编排层被模型替代，框架价值下降</td>
+    <td>均衡 50/50</td>
+  </tr>
+  <tr>
+    <td><strong>AI Agent项目失败潮</strong></td>
+    <td>失败推动治理意识，编排层需求反而增加</td>
+    <td>大规模项目取消导致投资收缩</td>
+    <td>取消潮 65%</td>
+  </tr>
+  <tr>
+    <td><strong>Google ADK崛起</strong></td>
+    <td>四语言SDK+A2A原生成为第四极</td>
+    <td>生态规模不及LangGraph/CrewAI</td>
+    <td>部分崛起 60%</td>
+  </tr>
+</table>
+
+<h3>最终选型建议</h3>
+
+<div class="card" style="background:var(--near-black);color:white;">
+  <h4 style="color:var(--apple-blue);">2026年8月的实用建议</h4>
+  <table style="color:#b0bec5;">
+    <tr><th style="color:white;">如果你是...</th><th style="color:white;">选这个</th><th style="color:white;">理由</th></tr>
+    <tr><td>多数企业团队</td><td style="color:#66bb6a;"><strong>CrewAI起步 → LangGraph生产</strong></td><td>用CrewAI验证设计（1天），迁移到LangGraph投产（1-2周）</td></tr>
+    <tr><td>合规敏感行业</td><td style="color:#66bb6a;"><strong>LangGraph</strong></td><td>Checkpoint + HITL + LangSmith审计是合规基础</td></tr>
+    <tr><td>Azure/.NET生态</td><td style="color:#66bb6a;"><strong>Microsoft Agent Framework</strong></td><td>唯一选择。但做好GA初期踩坑的准备</td></tr>
+    <tr><td>快速原型/验证</td><td style="color:#66bb6a;"><strong>CrewAI</strong></td><td>30分钟出原型，今天接到任务今天就能演示</td></tr>
+    <tr><td>纯研究/学术</td><td style="color:#66bb6a;"><strong>AG2</strong></td><td>多Agent辩论/验证模式最成熟</td></tr>
+    <tr><td>不确定</td><td style="color:#66bb6a;"><strong>LangGraph</strong></td><td>2026年最安全的默认选择。生态最大，案例最多</td></tr>
+  </table>
+  <p style="color:#86868b;font-size:14px;margin-top:16px;">
+    "最糟糕的结果是花六周在错误的框架上构建，等到投产时才发现天花板。用三小时做Spike测试的成本是一个下午，用六周做迁移的成本是一个季度。"
+  </p>
+</div>
+
+</div>
+</div>
+
+<!-- REFERENCES -->
+<div class="section-light">
+<div class="container">
+<h2 id="ref">九、参考来源</h2>
+<p style="font-size:14px;color:#86868b;margin-bottom:20px;">所有数据标注来源和置信度。标注 🔵高置信度 🟡中置信度 🔴待验证。</p>
+
+<h4>框架官方文档与发布</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>LangGraph官方文档 — langchain-ai/langgraph GitHub (40.3K Stars, Aug 2026) 🔵</li>
+  <li>LangGraph v1.2.8 PyPI Release — pypi.org/project/langgraph 🔵</li>
+  <li>CrewAI OSS 1.0 GA公告 — blog.crewai.com.cn 🔵</li>
+  <li>CrewAI v1.10.1 Release Notes (MCP + A2A support) — GitHub Releases 🔵</li>
+  <li>Microsoft Agent Framework 1.0 GA公告 — Microsoft DevBlog, 2026.04.03 🔵</li>
+  <li>Semantic Kernel → Agent Framework迁移指南 — Microsoft Learn 🔵</li>
+</ol>
+
+<h4>行业分析与研究报告</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>Gartner: "40% of Enterprise Apps to Get Task Specific AI Agents by 2026" — Exeleon Magazine, 2026.07 🔵</li>
+  <li>Gartner: ">40% of agentic AI projects will be cancelled by 2027" — 多源引用 🔵</li>
+  <li>Gartner 2026 CIO Survey: "17% Have Deployed, 64% Plan To" — AgentMarketCap, 2026.07 🔵</li>
+  <li>McKinsey State of AI 2025: 62% experimenting, 23% scaling — 多源引用 🔵</li>
+  <li>Axis Intelligence AI Agents Deployment Gap Index™ (ADRI = 27.7) — 2026.06 🔵</li>
+  <li>中金公司: "Agent Harness: 模型之外、智能之内" — 2026年研报 🔵</li>
+  <li>IDC/Microsoft: 生成式AI每$1投入回报$3.70 — 多源引用 🔵</li>
+  <li>MarketsandMarkets: AI Agent市场2025 $7.84B, 2030 $52.62B — 2025 🔵</li>
+</ol>
+
+<h4>技术研究与基准</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>CMU: "Agent Harness Engineering: A Survey" — ETCLOVG七层框架, 2026 🔵</li>
+  <li>Mount Sinai: "Orchestrated multi agents sustain accuracy under clinical-scale workloads" — npj Health Systems, 2026.03.09 🔵</li>
+  <li>LangChain: Terminal Bench 2.0跳分实验 (52.8%→66.5%) — 2026 🔵</li>
+  <li>Vercel工具减法实验 (15→2工具, 准确率80%→100%) — 2026 🔵</li>
+  <li>Martin Fowler: "Harness Engineering" — martinfowler.com, 2026.02 🔵</li>
+  <li>Anthropic: "Effective Harnesses for Long-Running Agents" — 2026 🔵</li>
+</ol>
+
+<h4>对比分析</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>O-mega.ai: "LangGraph vs CrewAI vs AutoGen: Top 10 Agent Frameworks 2026" 🔵</li>
+  <li>Simor Consulting: "Agent frameworks compared" — 2026.08.20 🔵</li>
+  <li>Ciphernutz: "CrewAI vs LangGraph vs AutoGen" — 2026.07.23 🔵</li>
+  <li>DEV Community: "Which AI Agent Framework Should You Build With in 2026" — 2026.08.17 🔵</li>
+  <li>Shreyans Padmani: "5 AI Agent Orchestration Frameworks Compared (2026)" — 2026 🔵</li>
+  <li>掘金: "AI Agent 编排框架深度对比: LangGraph vs CrewAI vs AutoGen" — 2026.05.26 🔵</li>
+  <li>learnagent.org: "AI Agent 框架横评 2026" — 2026.05.14 🔵</li>
+  <li>Microsoft Learn: "Compare orchestration frameworks" — 2026.07.28 🔵</li>
+</ol>
+
+<h4>医疗AI</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>Hippocratic AI: "Agentic Orchestrators"公告 — 2026.08.13 🔵</li>
+  <li>General Catalyst + Summa Health AI Stack — 2026.08.19 🔵</li>
+  <li>HIMSS26: "The Agentic AI Tension: Agents Everywhere, Validation Lacking" — Presidio, 2026.03 🔵</li>
+  <li>BCG: 69% healthcare orgs using GenAI, 3% with agentic AI in production — 2026 🔵</li>
+  <li>Nirmitee: "Multi-Agent AI Architecture for Hospitals" — 2026.04 🔵</li>
+</ol>
+
+<h4>市场预测</h4>
+<ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">
+  <li>雪球: "AI智能体2026-2030全球市场规模预测" — 2026.08.04 🟡</li>
+  <li>Software Strategies Blog: "Roundup of agentic AI forecasts, 2026" — 2026.02.26 🔵</li>
+  <li>Gartner $5.95T AI Spending Forecast — Software Strategies Blog, 2026.08.05 🔵</li>
+  <li>HouseofMVPs: "AI Agent Market Size 2026" — Grand View Research/IDC数据 🔵</li>
+</ol>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="container">
+    <p>研析 Research Analyst · AI Agent编排层大战深度报告 · V2026.08.25</p>
+    <p style="margin-top:8px;">数据截至2026年8月25日 · 研究方法：多源交叉验证 · Token消耗约60K</p>
+    <p style="margin-top:8px;font-size:12px;">本报告基于公开信息编写，不构成投资建议。数据以原始来源为准。</p>
+  </div>
+</div>
+
+</body>
+</html>

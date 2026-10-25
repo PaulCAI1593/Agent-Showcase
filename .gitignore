@@ -1,0 +1,21 @@
+# ── 私有与临时（不入库）────────────────────────────────
+# ⚠️ gitignore 不支持行尾注释 —— 写 `_private/  # 说明` 会让整行变成模式，
+#    匹配不到任何东西（曾因此让 106 个 _private 文件差点入库）。注释单独成行。
+_private/
+tools/.autopublish_backups/
+tools/__pycache__/
+**/__pycache__/
+*.pyc
+*.bak
+*.bak.*
+tools/.claim_state.json
+.impeccable/
+.DS_Store
+
+# 构建分片（正常应被隔离在 _archive/wip，不该出现在作品目录）
+*.part*.html
+
+# ── 生成物：保留入库 ───────────────────────────────────
+# manifest.json / index.html / enrich.json **必须入库** ——
+# 它们是"已发布状态"的唯一快照，冲突时可比对、可回滚。
+# 提交前跑一次 ./tools/autopublish.sh 让它们与磁盘一致即可。

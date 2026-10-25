@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI产品大一统 — 两种AI商业模式的正面碰撞</title>
+<script src="../assets/vendor/ajax_libs_gsap_3.12.5/gsap.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'"></script>
+<script src="../assets/vendor/ajax_libs_gsap_3.12.5/ScrollTrigger.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'"></script>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --anthropic: #8B5CF6;
+  --anthropic-dim: #6D28D9;
+  --anthropic-glow: #A78BFA;
+  --openai: #10B981;
+  --openai-dim: #059669;
+  --openai-glow: #34D399;
+  --bg: #0A0A0F;
+  --bg-card: #111118;
+  --bg-elevated: #1A1A24;
+  --text: #E8E8ED;
+  --text-dim: #8888A0;
+  --text-muted: #555570;
+  --accent: #FF6B35;
+  --border: rgba(255,255,255,0.06);
+  --radius: 12px;
+  --max-w: 1100px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+h3 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.01em; }
+.label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); }
+
+/* ===== LAYOUT ===== */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+section { padding: 100px 0; position: relative; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-bg canvas { width: 100%; height: 100%; }
+.hero-content { position: relative; z-index: 2; }
+.hero .date-badge {
+  display: inline-block; padding: 6px 16px; border-radius: 20px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  font-size: 0.8rem; color: var(--text-dim); margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+}
+.hero h1 { margin-bottom: 24px; max-width: 900px; }
+.hero h1 .highlight-purple { color: var(--anthropic-glow); }
+.hero h1 .highlight-green { color: var(--openai-glow); }
+.hero .subtitle {
+  font-size: 1.15rem; color: var(--text-dim); max-width: 640px;
+  margin: 0 auto 48px; line-height: 1.7;
+}
+.hero .scroll-hint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-muted); font-size: 0.75rem;
+  animation: float 2s ease-in-out infinite;
+}
+@keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+.scroll-hint svg { width: 20px; height: 20px; stroke: var(--text-muted); fill: none; stroke-width: 2; }
+
+/* ===== DUAL COMPARISON STRIP ===== */
+.dual-strip {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--border); border-radius: var(--radius); overflow: hidden;
+  margin: 0 auto 60px; max-width: var(--max-w);
+}
+.dual-strip .side {
+  padding: 40px 32px; position: relative;
+  transition: background 0.4s;
+}
+.dual-strip .side:hover { background: var(--bg-elevated); }
+.dual-strip .side.anthropic { background: rgba(139,92,246,0.04); }
+.dual-strip .side.openai { background: rgba(16,185,129,0.04); }
+.dual-strip .side.anthropic:hover { background: rgba(139,92,246,0.1); }
+.dual-strip .side.openai:hover { background: rgba(16,185,129,0.1); }
+.dual-strip .side-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.dual-strip .company-logo {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; font-weight: 700;
+}
+.dual-strip .anthropic .company-logo { background: var(--anthropic); }
+.dual-strip .openai .company-logo { background: var(--openai); color: #000; }
+.dual-strip .company-name { font-size: 1.2rem; font-weight: 600; }
+.dual-strip .side .date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+.dual-strip .side h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.dual-strip .side p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+.dual-strip .tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 0.7rem; font-weight: 600; margin-top: 12px;
+}
+.dual-strip .anthropic .tag { background: rgba(139,92,246,0.15); color: var(--anthropic-glow); }
+.dual-strip .openai .tag { background: rgba(16,185,129,0.15); color: var(--openai-glow); }
+
+/* ===== NARRATIVE SECTIONS ===== */
+.narrative { padding: 80px 0; }
+.narrative .chapter {
+  opacity: 0; transform: translateY(40px);
+}
+.narrative .chapter-num {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.narrative .chapter h2 { margin-bottom: 20px; }
+.narrative .chapter-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+}
+.narrative .narrative-text p {
+  font-size: 1rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 16px;
+}
+.narrative .narrative-text p strong { color: var(--text); }
+
+/* ===== RADAR CHART SECTION ===== */
+.radar-section { padding: 100px 0; }
+.radar-section h2 { text-align: center; margin-bottom: 12px; }
+.radar-section .section-sub {
+  text-align: center; color: var(--text-dim); font-size: 0.95rem; margin-bottom: 48px;
+}
+.radar-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.radar-canvas-wrap {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.radar-canvas-wrap canvas { max-width: 100%; }
+.radar-controls { display: flex; flex-direction: column; gap: 24px; }
+.radar-scene-btn {
+  display: flex; align-items: center; gap: 14px; padding: 16px 20px;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card); cursor: pointer; transition: all 0.3s;
+}
+.radar-scene-btn:hover { background: var(--bg-elevated); border-color: rgba(255,255,255,0.12); }
+.radar-scene-btn.active { border-color: var(--accent); background: rgba(255,107,53,0.06); }
+.radar-scene-btn .icon { font-size: 1.5rem; }
+.radar-scene-btn .info h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+.radar-scene-btn .info p { font-size: 0.8rem; color: var(--text-dim); }
+
+/* ===== FEATURE MATRIX ===== */
+.matrix-section { padding: 100px 0; }
+.matrix-section h2 { text-align: center; margin-bottom: 12px; }
+.matrix-section .section-sub {
+  text-align: center; color: var(--text-dim); font-size: 0.95rem; margin-bottom: 48px;
+}
+.matrix-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+}
+.matrix-card {
+  padding: 24px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card); cursor: pointer; transition: all 0.35s;
+  position: relative; overflow: hidden;
+}
+.matrix-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--anthropic), var(--openai));
+  opacity: 0; transition: opacity 0.3s;
+}
+.matrix-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); }
+.matrix-card:hover::before { opacity: 1; }
+.matrix-card .card-head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+.matrix-card .feature-name { font-size: 1rem; font-weight: 600; }
+.matrix-card .feature-category {
+  font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  background: rgba(255,255,255,0.05); color: var(--text-muted);
+}
+.matrix-card .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.matrix-card .comp-item { padding: 10px; border-radius: 8px; }
+.matrix-card .comp-item.a { background: rgba(139,92,246,0.06); }
+.matrix-card .comp-item.o { background: rgba(16,185,129,0.06); }
+.matrix-card .comp-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.matrix-card .comp-item.a .comp-label { color: var(--anthropic-glow); }
+.matrix-card .comp-item.o .comp-label { color: var(--openai-glow); }
+.matrix-card .comp-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; }
+.matrix-card .expand-detail {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, margin 0.4s;
+  margin-top: 0;
+}
+.matrix-card.expanded .expand-detail { max-height: 300px; margin-top: 16px; }
+.matrix-card .expand-detail p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; border-top: 1px solid var(--border); padding-top: 14px; }
+.matrix-card .expand-toggle {
+  font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;
+  display: flex; align-items: center; gap: 4px;
+}
+.matrix-card .expand-toggle .arrow { transition: transform 0.3s; display: inline-block; }
+.matrix-card.expanded .expand-toggle .arrow { transform: rotate(180deg); }
+
+/* ===== DATA DASHBOARD ===== */
+.dashboard-section { padding: 100px 0; }
+.dashboard-section h2 { text-align: center; margin-bottom: 12px; }
+.dashboard-section .section-sub {
+  text-align: center; color: var(--text-dim); font-size: 0.95rem; margin-bottom: 48px;
+}
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+.kpi-card {
+  padding: 24px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card); text-align: center;
+}
+.kpi-card .kpi-value { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+.kpi-card .kpi-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; }
+.kpi-card .kpi-change { font-size: 0.75rem; margin-top: 8px; }
+.kpi-card .kpi-change.up { color: var(--openai-glow); }
+.kpi-card .kpi-change.down { color: #EF4444; }
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.chart-card {
+  padding: 28px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.chart-card h4 { font-size: 0.9rem; margin-bottom: 20px; }
+.chart-card canvas { width: 100% !important; }
+
+/* ===== BUSINESS MODEL COMPARISON ===== */
+.bm-section { padding: 100px 0; }
+.bm-section h2 { text-align: center; margin-bottom: 48px; }
+.bm-grid { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: stretch; }
+.bm-card {
+  padding: 32px; border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.bm-card.anthropic-card { background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(139,92,246,0.02)); }
+.bm-card.openai-card { background: linear-gradient(135deg, rgba(16,185,129,0.02), rgba(16,185,129,0.08)); }
+.bm-card h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.bm-card .bm-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 700; flex-shrink: 0;
+}
+.bm-card.anthropic-card .bm-icon { background: var(--anthropic); }
+.bm-card.openai-card .bm-icon { background: var(--openai); color: #000; }
+.bm-card .bm-list { list-style: none; }
+.bm-card .bm-list li {
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.9rem; color: var(--text-dim);
+  display: flex; align-items: start; gap: 10px;
+}
+.bm-card .bm-list li:last-child { border-bottom: none; }
+.bm-card .bm-list .bm-dot {
+  width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0;
+}
+.bm-card.anthropic-card .bm-dot { background: var(--anthropic-glow); }
+.bm-card.openai-card .bm-dot { background: var(--openai-glow); }
+.bm-vs {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.bm-vs::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 1px; background: var(--border);
+}
+.bm-vs span {
+  position: relative; z-index: 1;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; color: var(--accent);
+}
+
+/* ===== SOCIAL IMPACT ===== */
+.impact-section { padding: 100px 0; }
+.impact-section h2 { text-align: center; margin-bottom: 12px; }
+.impact-section .section-sub {
+  text-align: center; color: var(--text-dim); font-size: 0.95rem; margin-bottom: 48px;
+}
+.impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.impact-card {
+  padding: 28px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg-card);
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.impact-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+.impact-card .impact-icon { font-size: 2rem; margin-bottom: 16px; }
+.impact-card h4 { font-size: 1.05rem; margin-bottom: 10px; }
+.impact-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; }
+.impact-card .impact-quote {
+  margin-top: 16px; padding: 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent);
+  font-size: 0.8rem; color: var(--text-dim); font-style: italic;
+}
+
+/* ===== CLOSING / VERDICT ===== */
+.verdict-section {
+  padding: 120px 0; text-align: center;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(139,92,246,0.03) 50%, var(--bg) 100%);
+}
+.verdict-section h2 { margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.verdict-section .verdict-body {
+  max-width: 680px; margin: 0 auto 48px;
+  font-size: 1.05rem; color: var(--text-dim); line-height: 1.8;
+}
+.verdict-section .verdict-body strong { color: var(--text); }
+.verdict-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; margin: 0 auto; }
+.verdict-card {
+  padding: 28px; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg-card);
+  text-align: left;
+}
+.verdict-card h4 { font-size: 1rem; margin-bottom: 8px; }
+.verdict-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 40px 0; border-top: 1px solid var(--border);
+  text-align: center; color: var(--text-muted); font-size: 0.75rem;
+}
+footer a { color: var(--text-dim); text-decoration: none; }
+
+/* ===== TIMELINE STRIP ===== */
+.timeline-strip {
+  display: flex; gap: 0; margin: 60px auto; max-width: var(--max-w);
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border);
+}
+.timeline-item {
+  flex: 1; padding: 24px 20px; text-align: center;
+  border-right: 1px solid var(--border); position: relative;
+  transition: background 0.3s;
+}
+.timeline-item:last-child { border-right: none; }
+.timeline-item:hover { background: var(--bg-elevated); }
+.timeline-item .t-day { font-size: 0.65rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.timeline-item .t-event { font-size: 0.85rem; color: var(--text-dim); }
+.timeline-item .t-tag {
+  display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: 4px;
+  font-size: 0.65rem; font-weight: 600;
+}
+.timeline-item .t-tag.a { background: rgba(139,92,246,0.15); color: var(--anthropic-glow); }
+.timeline-item .t-tag.o { background: rgba(16,185,129,0.15); color: var(--openai-glow); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .dual-strip, .radar-grid, .chart-row, .bm-grid, .verdict-cards { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .narrative .chapter-body { grid-template-columns: 1fr; gap: 30px; }
+  .bm-vs { padding: 20px 0; }
+  .bm-vs::before { width: 100%; height: 1px; top: 50%; bottom: auto; }
+  .timeline-strip { flex-direction: column; }
+  .timeline-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .timeline-item:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../index.html">← 返回展厅</a>
+
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"><canvas id="heroCanvas"></canvas></div>
+  <div class="hero-content">
+    <div class="date-badge">2026.09.16 — 同一天，两场革命</div>
+    <h1>
+      当AI巨头开始<span class="highlight-purple">"大一统"</span>，<br>
+      你手中的AI工具正在被<span class="highlight-green">重新定义</span>
+    </h1>
+    <p class="subtitle">
+      Anthropic 把 Chat/Cowork/Docs/Slides 融为一体，用订阅制守护用户信任。<br>
+      OpenAI 在 ChatGPT 中嵌入 Sponsored Agents，用广告模式撬动商业帝国。<br>
+      两种截然不同的AI商业模式，在同一天正面碰撞。
+    </p>
+  </div>
+  <div class="scroll-hint">
+    向下探索
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ===== DUAL ANNOUNCEMENTS ===== -->
+<div class="container">
+  <div class="dual-strip" id="dualStrip">
+    <div class="side anthropic">
+      <div class="side-header">
+        <div class="company-logo">A</div>
+        <div class="company-name">Anthropic</div>
+      </div>
+      <div class="date">2026年9月16日</div>
+      <h3>One Claude — 一切合而为一</h3>
+      <p>将 Cowork、Design 整合进 Claude 对话流，同步推出 Claude Docs 与 Claude Slides 测试版。一个对话，完成从研究到报告到演示的全部工作。关闭笔记本，任务继续在云端执行。</p>
+      <span class="tag">订阅制 · 用户即客户</span>
+    </div>
+    <div class="side openai">
+      <div class="side-header">
+        <div class="company-logo">O</div>
+        <div class="company-name">OpenAI</div>
+      </div>
+      <div class="date">2026年9月16日</div>
+      <h3>Sponsored Agents — ChatGPT 变身广告平台</h3>
+      <p>在 ChatGPT 中嵌入品牌 AI 代理，用户可直接在对话中咨询、比价、下单。HubSpot + Shopify 集成打通 CRM 和电商。广告收入 200 天内突破 10 亿美元年化。</p>
+      <span class="tag">广告制 · 用户即流量</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TIMELINE ===== -->
+<div class="container">
+  <div class="timeline-strip" id="timeline">
+    <div class="timeline-item">
+      <div class="t-day">2月</div>
+      <div class="t-event">OpenAI 上线 ChatGPT 基础广告</div>
+      <span class="t-tag o">OpenAI</span>
+    </div>
+    <div class="timeline-item">
+      <div class="t-day">7月</div>
+      <div class="t-event">Sponsored Agents 内测启动</div>
+      <span class="t-tag o">OpenAI</span>
+    </div>
+    <div class="timeline-item">
+      <div class="t-day">9月10日</div>
+      <div class="t-event">Amazon Ads 接入 ChatGPT</div>
+      <span class="t-tag o">OpenAI</span>
+    </div>
+    <div class="timeline-item">
+      <div class="t-day" style="font-weight:700;color:var(--text);">9月16日</div>
+      <div class="t-event"><strong>Anthropic：One Claude 发布</strong></div>
+      <span class="t-tag a">Anthropic</span>
+    </div>
+    <div class="timeline-item">
+      <div class="t-day" style="font-weight:700;color:var(--text);">9月16日</div>
+      <div class="t-event"><strong>OpenAI：Sponsored Agents 上线</strong></div>
+      <span class="t-tag o">OpenAI</span>
+    </div>
+    <div class="timeline-item">
+      <div class="t-day">9月23日</div>
+      <div class="t-event">Shopify 国际市场扩展</div>
+      <span class="t-tag o">OpenAI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHAPTER 1: 产品策略 ===== -->
+<section class="narrative">
+  <div class="container">
+    <div class="chapter" id="ch1">
+      <div class="chapter-num">第一幕 · 产品策略</div>
+      <h2>从"工具选择"到"描述工作"</h2>
+      <div class="chapter-body">
+        <div class="narrative-text">
+          <p>
+            过去，使用 AI 工具是一道<strong>选择题</strong>：想问问题用 Chat，想做项目用 Cowork，想做设计用 Design。三个入口，三套体验，上下文无法互通。
+          </p>
+          <p>
+            Anthropic 的解法是<strong>消灭选择</strong>。新 Claude 能自动判断你的请求需要快速回答还是深度执行——你只需要描述工作，Claude 负责调度能力。关闭笔记本？没关系，任务在云端继续跑。
+          </p>
+          <p>
+            OpenAI 的思路完全不同：不是消灭选择，而是<strong>增加选择</strong>。在你和 Claude 对话的同时，旁边多了一个"品牌代理人"——它不是来回答问题的，它是来<strong>卖东西给你</strong>的。
+          </p>
+          <p>
+            一个是把所有工具<strong>收进一个口袋</strong>，一个是把所有品牌<strong>放进一个对话</strong>。产品逻辑的分歧，折射出两种截然不同的用户关系假设。
+          </p>
+        </div>
+        <div class="narrative-visual" id="strategyVisual">
+          <!-- Filled by JS: animated convergence/divergence diagram -->
+          <canvas id="strategyCanvas" width="480" height="400"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RADAR COMPARISON ===== -->
+<section class="radar-section" id="radarSection">
+  <div class="container">
+    <div class="chapter" id="ch-radar">
+      <div class="chapter-num">第二幕 · 商业模式</div>
+      <h2>交互式商业模式对比器</h2>
+      <p class="section-sub">切换不同用户场景，直观感受两种模式的多维度差异</p>
+      <div class="radar-grid">
+        <div class="radar-canvas-wrap">
+          <canvas id="radarCanvas" width="440" height="440"></canvas>
+        </div>
+        <div class="radar-controls">
+          <div class="radar-scene-btn active" data-scene="personal" onclick="switchScene('personal')">
+            <span class="icon">👤</span>
+            <div class="info"><h4>个人用户</h4><p>日常问答、写作、学习</p></div>
+          </div>
+          <div class="radar-scene-btn" data-scene="enterprise" onclick="switchScene('enterprise')">
+            <span class="icon">🏢</span>
+            <div class="info"><h4>企业团队</h4><p>协作、报告、项目管理</p></div>
+          </div>
+          <div class="radar-scene-btn" data-scene="creator" onclick="switchScene('creator')">
+            <span class="icon">🎨</span>
+            <div class="info"><h4>内容创作者</h4><p>设计、演示、品牌建设</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURE MATRIX ===== -->
+<section class="matrix-section" id="matrixSection">
+  <div class="container">
+    <div class="chapter" id="ch-matrix">
+      <div class="chapter-num">第三幕 · 功能矩阵</div>
+      <h2>点击探索：每个功能的两种可能</h2>
+      <p class="section-sub">同样的功能需求，两种截然不同的实现路径</p>
+      <div class="matrix-grid" id="matrixGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DATA DASHBOARD ===== -->
+<section class="dashboard-section" id="dashboardSection">
+  <div class="container">
+    <div class="chapter" id="ch-data">
+      <div class="chapter-num">第四幕 · 数据战场</div>
+      <h2>数字不会说谎</h2>
+      <p class="section-sub">两种商业模式的规模与增速</p>
+      <div class="kpi-row" id="kpiRow"></div>
+      <div class="chart-row">
+        <div class="chart-card">
+          <h4>📈 广告收入增长轨迹（OpenAI）</h4>
+          <canvas id="adRevenueChart" height="220"></canvas>
+        </div>
+        <div class="chart-card">
+          <h4>📊 功能覆盖对比</h4>
+          <canvas id="featureChart" height="220"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS MODEL DEEP DIVE ===== -->
+<section class="bm-section" id="bmSection">
+  <div class="container">
+    <div class="chapter" id="ch-bm">
+      <div class="chapter-num">第五幕 · 深度解剖</div>
+      <h2>两种AI商业哲学</h2>
+      <div class="bm-grid">
+        <div class="bm-card anthropic-card">
+          <h3><span class="bm-icon">A</span> Anthropic 的订阅哲学</h3>
+          <ul class="bm-list">
+            <li><span class="bm-dot"></span>用户付钱 → AI 为用户工作。简单、透明、信任。</li>
+            <li><span class="bm-dot"></span>Pro $20/月，Max $100/月 — 按能力分级，不按流量收费。</li>
+            <li><span class="bm-dot"></span>Claude 自动判断任务复杂度，用户无需理解工具边界。</li>
+            <li><span class="bm-dot"></span>Docs/Slides 导出到 Word/PPT/PDF — 桥接传统办公生态。</li>
+            <li><span class="bm-dot"></span>企业版管理员掌控功能开关，30天提前通知。</li>
+            <li><span class="bm-dot"></span>没有广告、没有赞助内容、没有品牌植入。</li>
+            <li><span class="bm-dot"></span>核心假设：<strong>用户信任 = 产品价值</strong>。</li>
+          </ul>
+        </div>
+        <div class="bm-vs"><span>VS</span></div>
+        <div class="bm-card openai-card">
+          <h3><span class="bm-icon">O</span> OpenAI 的广告野心</h3>
+          <ul class="bm-list">
+            <li><span class="bm-dot"></span>用户注意力 → 品牌付费 → AI 同时服务双方。复杂、高效、有争议。</li>
+            <li><span class="bm-dot"></span>Sponsored Agents 最低 $5,000/月，按对话时长计费。</li>
+            <li><span class="bm-dot"></span>品牌自建 AI 代理，独立对话窗口，ChatGPT 保持中立外观。</li>
+            <li><span class="bm-dot"></span>HubSpot + Shopify 集成 — 从发现到购买，全链路闭环。</li>
+            <li><span class="bm-dot"></span>200天广告收入破 $10亿年化，目标 $25亿/年。</li>
+            <li><span class="bm-dot"></span>免费用户占比高 — 广告是覆盖算力成本的最快路径。</li>
+            <li><span class="bm-dot"></span>核心假设：<strong>用户习惯 = 商业入口</strong>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL IMPACT ===== -->
+<section class="impact-section" id="impactSection">
+  <div class="container">
+    <div class="chapter" id="ch-impact">
+      <div class="chapter-num">第六幕 · 社会影响</div>
+      <h2>超越产品：AI正在重塑什么？</h2>
+      <p class="section-sub">🤖 技术 × 💰 经济 × 👥 社会 — 三个维度的蝴蝶效应</p>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">🤖</div>
+          <h4>技术层：AI 从工具到平台</h4>
+          <p>当 ChatGPT 不再只是"回答问题的机器人"，而是"帮你完成工作的操作系统"，AI 的技术栈正在从模型层向平台层跃迁。Docs、Slides、Design 这些能力的内置化，意味着 AI 公司正在与 Google Workspace 和 Microsoft 365 正面交锋。</p>
+          <div class="impact-quote">"用户在 ChatGPT 中解决的购物问题，不会在 Google 搜索中解决。" — 行业分析师</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">💰</div>
+          <h4>经济层：注意力经济 2.0</h4>
+          <p>OpenAI 的 Sponsored Agents 创造了一个新物种：AI 代理驱动的广告。传统广告买的是"展示"，这里买的是"对话"。品牌不再买广告位，而是买一个能与用户深度互动的 AI 销售员。这可能重新定义整个数字广告行业的定价逻辑。</p>
+          <div class="impact-quote">"如果模型的首要价值是充当商业中介，训练目标可能从客观准确转向转化优化。" — Boston Daily Tribune</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">👥</div>
+          <h4>社会层：信任的裂缝</h4>
+          <p>当用户在 ChatGPT 中同时面对"中立助手"和"品牌销售员"，信任边界变得模糊。一个由品牌训练、由品牌优化、为品牌转化而生的 AI，与一个声称客观中立的 AI 并排存在——用户如何分辨？这不仅是产品设计问题，更是社会信任问题。</p>
+          <div class="impact-quote">"一个品牌 AI 代理的整个架构都围绕购买决策优化——这与用户对 ChatGPT 的期望恰恰相反。" — Martin Cid Magazine</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VERDICT ===== -->
+<section class="verdict-section" id="verdictSection">
+  <div class="container">
+    <div class="chapter" id="ch-verdict">
+      <h2>AI产品的终局<br>不是"谁更便宜"，而是"谁更懂用户"</h2>
+      <div class="verdict-body">
+        两种模式的分歧，本质上是两种<strong>用户关系假设</strong>的博弈。<br><br>
+        Anthropic 押注的是：<strong>当 AI 足够聪明，用户愿意为信任付费</strong>。一个 Claude 解决所有问题，没有广告干扰，没有品牌渗透——纯粹的工具与纯粹的用户。<br><br>
+        OpenAI 押注的是：<strong>当 AI 足够普及，注意力自然变现</strong>。几亿用户每天的对话，本身就是最精准的商业场景——问题即需求，对话即交易。<br><br>
+        <strong>商业模式的创新，比技术创新更重要。</strong><br>
+        因为技术终将趋同，而模式将决定谁能活到最后。
+      </div>
+      <div class="verdict-cards">
+        <div class="verdict-card">
+          <h4 style="color:var(--anthropic-glow);">🔮 Anthropic 的赌注</h4>
+          <p>如果订阅制能覆盖算力成本并持续增长，Anthropic 将成为"AI 时代的 Apple"——高端、纯粹、用户忠诚。但如果增长放缓，没有广告收入作为缓冲，$5170亿的算力投入将变成沉重的财务负担。</p>
+        </div>
+        <div class="verdict-card">
+          <h4 style="color:var(--openai-glow);">🔮 OpenAI 的赌注</h4>
+          <p>如果 Sponsored Agents 能在不损害用户体验的前提下规模化，OpenAI 将成为"AI 时代的 Google"——免费入口、广告变现、生态锁定。但如果用户因广告而迁移到更纯粹的替代品，这场豪赌将付出信任的代价。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>AI产品大一统 · 2026.09.24 · 数据来源：Anthropic官方公告、OpenAI官方博客、The Verge、Fortune、Boston Daily Tribune 等</p>
+    <p style="margin-top:6px;">由 🎨 绘界 制作 · 创意类交互体验 v6.4</p>
+  </div>
+</footer>
+
+<script>
+/* ===== HERO PARTICLE BACKGROUND ===== */
+(function(){
+  const c = document.getElementById('heroCanvas');
+  const ctx = c.getContext('2d');
+  let w, h, particles = [];
+  function resize(){
+    w = c.width = c.parentElement.offsetWidth;
+    h = c.height = c.parentElement.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random()-0.5)*0.3;
+      this.vy = (Math.random()-0.5)*0.3;
+      this.r = Math.random()*2+0.5;
+      this.color = Math.random()>0.5 ? 'rgba(139,92,246,' : 'rgba(16,185,129,';
+      this.alpha = Math.random()*0.4+0.1;
+    }
+    update(){
+      this.x += this.vx; this.y += this.vy;
+      if(this.x<0||this.x>w||this.y<0||this.y>h) this.reset();
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fillStyle = this.color + this.alpha + ')';
+      ctx.fill();
+    }
+  }
+  for(let i=0;i<80;i++) particles.push(new Particle());
+
+  function animate(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{p.update();p.draw();});
+    // Draw connections
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<150){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(255,255,255,'+(0.03*(1-dist/150))+')';
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ===== GSAP SCROLL ANIMATIONS ===== */
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('.chapter').forEach(ch=>{
+  gsap.to(ch, {
+    opacity:1, y:0, duration:0.8, ease:'power2.out',
+    scrollTrigger:{ trigger:ch, start:'top 80%', once:true }
+  });
+});
+
+/* ===== STRATEGY CONVERGENCE CANVAS ===== */
+(function(){
+  const c = document.getElementById('strategyCanvas');
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function draw(){
+    ctx.clearRect(0,0,480,400);
+    // Left: Anthropic convergence
+    const cx = 240, cy = 200;
+    // Multiple dots converging to center
+    for(let i=0;i<6;i++){
+      const angle = (i/6)*Math.PI*2;
+      const spread = 80 + Math.sin(t*0.02+i)*20;
+      const targetSpread = 20 + Math.sin(t*0.015)*5;
+      const progress = (Math.sin(t*0.01)+1)/2;
+      const currentSpread = spread + (targetSpread-spread)*progress;
+      const x = cx + Math.cos(angle)*currentSpread;
+      const y = cy + Math.sin(angle)*currentSpread;
+      ctx.beginPath();
+      ctx.arc(x,y,6,0,Math.PI*2);
+      ctx.fillStyle = `rgba(139,92,246,${0.6+Math.sin(t*0.03+i)*0.3})`;
+      ctx.fill();
+      // Line to center
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      ctx.lineTo(cx,cy);
+      ctx.strokeStyle = 'rgba(139,92,246,0.15)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    // Center dot
+    ctx.beginPath();
+    ctx.arc(cx,cy,10+Math.sin(t*0.04)*3,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(167,139,250,0.9)';
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('One Claude', cx, cy+28);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText('对话 → 文档 → 幻灯片 → 设计', cx, cy+44);
+
+    // Right side: OpenAI divergence
+    // Brand agents radiating outward
+    const brands = ['Wayfair','Angi','Newegg','Best Buy','Lowe\'s','VistaPrint'];
+    for(let i=0;i<brands.length;i++){
+      const angle = (i/brands.length)*Math.PI*2 - Math.PI/2;
+      const dist = 55 + Math.sin(t*0.018+i)*10;
+      const x = cx + Math.cos(angle)*dist;
+      const y = cy + Math.sin(angle)*dist;
+      ctx.beginPath();
+      ctx.arc(x,y,4,0,Math.PI*2);
+      ctx.fillStyle = `rgba(16,185,129,${0.5+Math.sin(t*0.025+i)*0.3})`;
+      ctx.fill();
+    }
+    // Don't draw — keep it simple with just the convergence side
+    
+    t++;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ===== RADAR CHART ===== */
+const radarData = {
+  personal: {
+    labels: ['隐私保护','功能完整度','学习成本','性价比','响应质量','生态整合'],
+    anthropic: [95, 85, 80, 75, 92, 70],
+    openai:    [60, 90, 85, 88, 88, 92],
+    note: '个人用户最关心性价比和学习成本'
+  },
+  enterprise: {
+    labels: ['数据安全','协作能力','管理控制','合规性','部署灵活度','API生态'],
+    anthropic: [95, 78, 90, 88, 75, 82],
+    openai:    [65, 85, 70, 60, 90, 95],
+    note: '企业用户最关心安全和合规'
+  },
+  creator: {
+    labels: ['创作工具','导出质量','品牌控制','商业变现','协作体验','创意空间'],
+    anthropic: [92, 88, 85, 40, 80, 90],
+    openai:    [75, 70, 50, 95, 88, 72],
+    note: '创作者需要平衡工具和变现'
+  }
+};
+
+let currentScene = 'personal';
+let radarAnim = { progress: 0, from: null, to: null };
+
+function switchScene(scene){
+  currentScene = scene;
+  document.querySelectorAll('.radar-scene-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.scene===scene);
+  });
+  radarAnim.from = getRadarValues();
+  radarAnim.to = radarData[scene];
+  radarAnim.progress = 0;
+  animateRadar();
+}
+
+function getRadarValues(){
+  return radarData[currentScene];
+}
+
+function drawRadar(progress){
+  const c = document.getElementById('radarCanvas');
+  const ctx = c.getContext('2d');
+  const W = 440, H = 440;
+  ctx.clearRect(0,0,W,H);
+  
+  const cx=W/2, cy=H/2, R=160;
+  const data = radarData[currentScene];
+  const n = data.labels.length;
+  const p = Math.min(progress, 1);
+  
+  // Grid
+  for(let ring=1;ring<=5;ring++){
+    const r = R*(ring/5);
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const angle = (i/n)*Math.PI*2 - Math.PI/2;
+      const x = cx + Math.cos(angle)*r;
+      const y = cy + Math.sin(angle)*r;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.stroke();
+  }
+  
+  // Axes
+  for(let i=0;i<n;i++){
+    const angle = (i/n)*Math.PI*2 - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(angle)*R, cy+Math.sin(angle)*R);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.stroke();
+    // Labels
+    const lx = cx+Math.cos(angle)*(R+24);
+    const ly = cy+Math.sin(angle)*(R+24);
+    ctx.fillStyle = '#8888A0';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(data.labels[i], lx, ly);
+  }
+  
+  // Anthropic polygon
+  ctx.beginPath();
+  for(let i=0;i<=n;i++){
+    const idx = i%n;
+    const angle = (idx/n)*Math.PI*2 - Math.PI/2;
+    const val = (data.anthropic[idx]/100)*R*p;
+    const x = cx+Math.cos(angle)*val;
+    const y = cy+Math.sin(angle)*val;
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.fillStyle = 'rgba(139,92,246,0.15)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(139,92,246,0.8)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // OpenAI polygon
+  ctx.beginPath();
+  for(let i=0;i<=n;i++){
+    const idx = i%n;
+    const angle = (idx/n)*Math.PI*2 - Math.PI/2;
+    const val = (data.openai[idx]/100)*R*p;
+    const x = cx+Math.cos(angle)*val;
+    const y = cy+Math.sin(angle)*val;
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.fillStyle = 'rgba(16,185,129,0.15)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(16,185,129,0.8)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // Data points
+  for(let i=0;i<n;i++){
+    const angle = (i/n)*Math.PI*2 - Math.PI/2;
+    // Anthropic
+    const va = (data.anthropic[i]/100)*R*p;
+    ctx.beginPath();
+    ctx.arc(cx+Math.cos(angle)*va, cy+Math.sin(angle)*va, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#A78BFA';
+    ctx.fill();
+    // OpenAI
+    const vo = (data.openai[i]/100)*R*p;
+    ctx.beginPath();
+    ctx.arc(cx+Math.cos(angle)*vo, cy+Math.sin(angle)*vo, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#34D399';
+    ctx.fill();
+  }
+  
+  // Legend
+  ctx.fillStyle = '#A78BFA';
+  ctx.fillRect(16, H-40, 12, 12);
+  ctx.fillStyle = '#E8E8ED';
+  ctx.font = '12px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Anthropic · 订阅制', 34, H-30);
+  ctx.fillStyle = '#34D399';
+  ctx.fillRect(180, H-40, 12, 12);
+  ctx.fillStyle = '#E8E8ED';
+  ctx.fillText('OpenAI · 广告制', 198, H-30);
+  
+  // Note
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(data.note, cx, H-10);
+}
+
+function animateRadar(){
+  radarAnim.progress += 0.03;
+  drawRadar(radarAnim.progress);
+  if(radarAnim.progress < 1) requestAnimationFrame(animateRadar);
+}
+
+// Initial draw
+drawRadar(1);
+
+/* ===== FEATURE MATRIX ===== */
+const features = [
+  {
+    name: '对话体验',
+    category: '核心交互',
+    anthropic: '统一对话窗口，自动判断任务类型',
+    openai: '标准对话 + 独立品牌代理窗口',
+    detail: 'Anthropic 的"一个 Claude"策略消除了用户选择负担——你不需要知道该用 Chat 还是 Cowork，Claude 会自动路由。OpenAI 保持了 ChatGPT 的核心对话不变，但在旁边增加了一个由品牌控制的独立对话窗口，两个窗口并行但不互通。'
+  },
+  {
+    name: '文档协作',
+    category: '生产力',
+    anthropic: 'Claude Docs — 对话内创建，支持导出 Word/PDF/Google Docs',
+    openai: '无原生文档能力',
+    detail: 'Claude Docs 支持多人实时编辑、评论、@AI修改，导出到主流格式。这是 Anthropic 挑战 Google Workspace 和 Microsoft 365 的直接武器。OpenAI 目前没有对等的文档能力，但在 ChatGPT 中嵌入品牌内容实际上也是一种"内容生成"。'
+  },
+  {
+    name: '演示文稿',
+    category: '生产力',
+    anthropic: 'Claude Slides — 对话内创建，导出 PPT/PDF',
+    openai: '无原生演示能力',
+    detail: 'Claude Slides 可以将同一对话中的报告内容直接转化为演示文稿，保持数据一致性。这是"从对话到交付"工作流的关键一环。'
+  },
+  {
+    name: '视觉设计',
+    category: '创作',
+    anthropic: 'Claude Design — 内嵌对话，原型/品牌物料生成',
+    openai: 'DALL·E / 图片生成',
+    detail: 'Claude Design 从独立产品内嵌为对话能力，支持原型设计和品牌物料。DALL·E 专注图片生成。两者定位不同：一个是设计工具，一个是生成工具。'
+  },
+  {
+    name: '商业化路径',
+    category: '商业模式',
+    anthropic: '订阅制（Pro/Max/Team），无广告',
+    openai: '订阅 + 广告双轨，Sponsored Agents',
+    detail: '这是最核心的分歧。Anthropic 的收入完全来自用户付费，商业模式的健康度取决于用户留存和 ARPU。OpenAI 则同时追求订阅收入和广告收入，Sponsored Agents 是其广告野心的产品化落地。'
+  },
+  {
+    name: '品牌合作',
+    category: '生态系统',
+    anthropic: '连接器/技能生态（第三方工具集成）',
+    openai: 'HubSpot/Shopify/Amazon Ads 集成',
+    detail: 'Anthropic 的生态建设围绕"让 Claude 更好地为用户工作"——连接外部工具增强能力。OpenAI 的生态建设围绕"让品牌更好地触达用户"——HubSpot 和 Shopify 让广告主无缝接入。'
+  },
+  {
+    name: '企业安全',
+    category: '企业',
+    anthropic: '管理员控制功能开关，30天提前通知',
+    openai: '品牌数据隔离，对话标签化',
+    detail: 'Anthropic 给企业更多控制权——管理员决定何时启用新功能，确保数据安全。OpenAI 的企业安全挑战更大：品牌代理在 ChatGPT 中运行，如何确保用户数据不被品牌获取是核心问题。'
+  },
+  {
+    name: '用户信任',
+    category: '社会',
+    anthropic: '无利益冲突 — AI 只为用户服务',
+    openai: '潜在冲突 — AI 同时服务用户和广告主',
+    detail: '这可能是最具争议的维度。Anthropic 的 Claude 没有商业利益驱动推荐，用户可以信任其客观性。OpenAI 的 Sponsored Agents 由品牌训练和优化，本质上是一个"有利益立场的 AI 销售员"——即使标签清晰，用户是否能真正分辨中立回答和赞助内容？'
+  },
+  {
+    name: '定价模型',
+    category: '商业模式',
+    anthropic: '用户按月付费（$20-$100）',
+    openai: '品牌按对话付费（$5K起/月）+ 用户免费/订阅',
+    detail: 'Anthropic 的收入来自用户，OpenAI 的新增收入来自品牌。这意味着 OpenAI 有可能让免费用户继续免费甚至体验更好（由广告补贴），而 Anthropic 的免费版功能受限。长期来看，这可能影响用户增长曲线。'
+  }
+];
+
+function renderMatrix(){
+  const grid = document.getElementById('matrixGrid');
+  grid.innerHTML = features.map((f,i) => `
+    <div class="matrix-card" onclick="toggleCard(this)" data-idx="${i}">
+      <div class="card-head">
+        <span class="feature-name">${f.name}</span>
+        <span class="feature-category">${f.category}</span>
+      </div>
+      <div class="comparison">
+        <div class="comp-item a">
+          <div class="comp-label">Anthropic</div>
+          <div class="comp-desc">${f.anthropic}</div>
+        </div>
+        <div class="comp-item o">
+          <div class="comp-label">OpenAI</div>
+          <div class="comp-desc">${f.openai}</div>
+        </div>
+      </div>
+      <div class="expand-toggle">展开深度分析 <span class="arrow">▼</span></div>
+      <div class="expand-detail"><p>${f.detail}</p></div>
+    </div>
+  `).join('');
+}
+function toggleCard(el){ el.classList.toggle('expanded'); }
+renderMatrix();
+
+/* ===== KPI CARDS ===== */
+const kpis = [
+  { value: '$25亿', label: 'OpenAI 2026广告收入目标', change: '200天破$10亿年化', up: true },
+  { value: '$8520亿', label: 'OpenAI 最新估值', change: '含$1220亿融资', up: true },
+  { value: '$5170亿', label: 'Anthropic 算力投入承诺', change: '长期主义赌注', up: false },
+  { value: '9月16日', label: '两家同天发布', change: '历史巧合还是必然？', up: true }
+];
+document.getElementById('kpiRow').innerHTML = kpis.map(k=>`
+  <div class="kpi-card">
+    <div class="kpi-value">${k.value}</div>
+    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-change ${k.up?'up':'down'}">${k.change}</div>
+  </div>
+`).join('');
+
+/* ===== CHARTS ===== */
+// Ad Revenue Growth Chart
+(function(){
+  const c = document.getElementById('adRevenueChart');
+  const ctx = c.getContext('2d');
+  const W = c.parentElement.clientWidth - 56;
+  const H = 220;
+  c.width = W; c.height = H;
+  
+  const data = [
+    { month: '2月', val: 0.1 },
+    { month: '4月', val: 0.3 },
+    { month: '6月', val: 0.6 },
+    { month: '8月', val: 0.85 },
+    { month: '9月', val: 1.0 },
+    { month: '12月(E)', val: 2.5 }
+  ];
+  const maxVal = 3;
+  const padL=50, padR=20, padT=20, padB=40;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  
+  // Grid
+  for(let i=0;i<=3;i++){
+    const y = padT + chartH*(1-i/3);
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y);
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.stroke();
+    ctx.fillStyle='#555570'; ctx.font='11px sans-serif'; ctx.textAlign='right';
+    ctx.fillText('$'+i+'B', padL-8, y+4);
+  }
+  
+  // Area
+  ctx.beginPath();
+  data.forEach((d,i)=>{
+    const x = padL + (i/(data.length-1))*chartW;
+    const y = padT + chartH*(1-d.val/maxVal);
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.lineTo(padL+chartW, padT+chartH);
+  ctx.lineTo(padL, padT+chartH);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0,padT,0,padT+chartH);
+  grad.addColorStop(0,'rgba(16,185,129,0.3)');
+  grad.addColorStop(1,'rgba(16,185,129,0.02)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+  
+  // Line
+  ctx.beginPath();
+  data.forEach((d,i)=>{
+    const x = padL + (i/(data.length-1))*chartW;
+    const y = padT + chartH*(1-d.val/maxVal);
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle='#10B981'; ctx.lineWidth=2.5; ctx.stroke();
+  
+  // Points
+  data.forEach((d,i)=>{
+    const x = padL + (i/(data.length-1))*chartW;
+    const y = padT + chartH*(1-d.val/maxVal);
+    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='#10B981'; ctx.fill();
+    ctx.fillStyle='#E8E8ED'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('$'+d.val+'B', x, y-10);
+    ctx.fillStyle='#555570';
+    ctx.fillText(d.month, x, H-10);
+  });
+})();
+
+// Feature Coverage Chart
+(function(){
+  const c = document.getElementById('featureChart');
+  const ctx = c.getContext('2d');
+  const W = c.parentElement.clientWidth - 56;
+  const H = 220;
+  c.width = W; c.height = H;
+  
+  const categories = ['对话','文档','演示','设计','搜索','代码','商务'];
+  const anthropicVals = [95, 90, 85, 88, 70, 75, 50];
+  const openaiVals =    [92, 30, 25, 65, 90, 85, 80];
+  const padL=50, padR=20, padT=20, padB=40;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const barW = chartW / categories.length;
+  const subBarW = barW * 0.3;
+  
+  // Grid
+  for(let i=0;i<=2;i++){
+    const y = padT + chartH*(1-i/2);
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y);
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.stroke();
+    ctx.fillStyle='#555570'; ctx.font='11px sans-serif'; ctx.textAlign='right';
+    ctx.fillText((i*50)+'%', padL-8, y+4);
+  }
+  
+  categories.forEach((cat,i)=>{
+    const cx = padL + i*barW + barW/2;
+    // Anthropic bar
+    const ah = (anthropicVals[i]/100)*chartH;
+    ctx.fillStyle = 'rgba(139,92,246,0.7)';
+    ctx.fillRect(cx-subBarW-2, padT+chartH-ah, subBarW, ah);
+    // OpenAI bar
+    const oh = (openaiVals[i]/100)*chartH;
+    ctx.fillStyle = 'rgba(16,185,129,0.7)';
+    ctx.fillRect(cx+2, padT+chartH-oh, subBarW, oh);
+    // Label
+    ctx.fillStyle='#8888A0'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(cat, cx, H-10);
+  });
+  
+  // Legend
+  ctx.fillStyle='rgba(139,92,246,0.7)'; ctx.fillRect(W-160, 8, 10, 10);
+  ctx.fillStyle='#E8E8ED'; ctx.font='11px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('Anthropic', W-146, 17);
+  ctx.fillStyle='rgba(16,185,129,0.7)'; ctx.fillRect(W-80, 8, 10, 10);
+  ctx.fillStyle='#E8E8ED'; ctx.fillText('OpenAI', W-66, 17);
+})();
+
+/* ===== SCROLL REVEAL FOR TIMELINE ===== */
+gsap.from('.timeline-item', {
+  opacity:0, y:20, stagger:0.1, duration:0.5,
+  scrollTrigger:{ trigger:'#timeline', start:'top 85%', once:true }
+});
+
+/* ===== SCROLL REVEAL FOR KPIs ===== */
+gsap.from('.kpi-card', {
+  opacity:0, y:20, stagger:0.1, duration:0.5,
+  scrollTrigger:{ trigger:'#kpiRow', start:'top 85%', once:true }
+});
+
+/* ===== SCROLL REVEAL FOR IMPACT CARDS ===== */
+gsap.from('.impact-card', {
+  opacity:0, y:30, stagger:0.15, duration:0.6,
+  scrollTrigger:{ trigger:'#impactSection', start:'top 80%', once:true }
+});
+
+/* ===== MATRIX CARDS SCROLL REVEAL ===== */
+gsap.from('.matrix-card', {
+  opacity:0, y:20, stagger:0.08, duration:0.4,
+  scrollTrigger:{ trigger:'#matrixGrid', start:'top 85%', once:true }
+});
+</script>
+</body>
+</html>

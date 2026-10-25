@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【作品标题】—— 【一句话副题】</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  智囊团作品模板 v1.0 · 展厅作品页契约
+  ═══════════════════════════════════════════════════════════════════
+
+  用法
+  ────
+  1. 复制本文件到 shared/showcase/YYYY-MM-DD/{research|creative}/
+     文件名：YYYY-MM-DD-<slug>.html（类型由目录表达，文件名不带类型前缀）
+  2. 替换所有 {{ }} 占位
+  3. 「返回展厅」链接由 autopublish 阶段 5.5 自动注入，**不要手写**
+  4. 交付前：impeccable 技能 audit + polish（AGENTS.md 规则14）
+
+  契约：封闭语义词汇表
+  ─────────────────────
+  作品页**只用**下面这些语义块 class，不要自创。这是刻意的 ——
+  过去 104 件作品各自手写，累计出 147 种统计块 class 名，
+  导致断言无法自动抽取。封闭后，新增作品自动继承可机器解析的结构。
+
+    .metrics > .metric        关键数据条
+        .metric-value         数值（必填，须带单位，如 "-16%"、"1,042 亿美元"）
+        .metric-label         指标名（必填，一行名词短语，不要写成句子）
+        .metric-source        出处（必填，机构/口径/日期）
+
+    .verdict                 核心判断（一句可被反驳的断言，不是总结）
+    .timeline > .timeline-item
+        .timeline-date        时间点
+        .timeline-title       事件
+        .timeline-detail      影响
+
+    .evidence > .evidence-item
+        .evidence-quote       原文逐字引用
+        .evidence-source      出处
+
+  断言声明
+  ───────
+  页面底部 <script id="claims"> 是**断言层**的权威来源。
+  每条：value / label / quote —— quote 必须是本文件里**逐字存在**的片段，
+  否则会被 claim_gate 拒绝（该条断言不进卷宗，作品照常展示）。
+
+  写法约定：
+    - quote 用「数值 + 指标名」连续片段，例："布伦特原油两周跌幅 -16%"
+    - 解释性/因果性判断**不要**写成断言（只留在正文，由人读）
+    - 一篇 3~8 条为宜；宁缺毋滥
+
+  追踪线声明
+  ─────────
+  <meta name="showcase-beat"> 声明本篇所属追踪线（封闭集，见下方注释）。
+  声明后首页按追踪线聚合，不再靠标签关键词猜。
+  未声明的作品仍会上展，只是不会进入追踪线聚类。
+-->
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="{{ 一句话摘要，60 字内 }}">
+
+<style>
+:root{
+  --black:#000000; --near-black:#1d1d1f; --light-gray:#f5f5f7;
+  --ink-2:#5f5f64;              /* 浅底次要文字，≥4.5:1 */
+  --ink-3:#6e6e73;              /* 浅底三级文字（出处），4.62:1 */
+  --ink-dark-2:#a1a1a6;         /* 深底次要文字 */
+  --ink-dark-3:#86868b;         /* 深底三级文字，5.6:1 */
+  --rule:#d2d2d7; --rule-dark:#2a2a2c;
+  --apple-blue:#0071e3; --link-blue:#0066cc;
+  --white:#ffffff; --maxw:980px; --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",
+    "Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--white); color:var(--near-black);
+  font-size:17px; line-height:1.47; letter-spacing:-0.374px; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:88px 0}
+section.alt{background:var(--light-gray)}
+section.dark{background:var(--black);color:var(--white)}
+section.dark .lede,section.dark .metric-label{color:var(--ink-dark-2)}
+section.dark .evidence-quote{color:var(--white)}
+section.dark .metric-source{color:var(--ink-dark-3)}
+section.dark .metric{border-color:var(--rule-dark)}
+section.dark .timeline-item{border-color:var(--rule-dark)}
+section.dark .timeline-detail{color:var(--ink-dark-3)}
+section.dark .evidence-item{border-color:var(--rule-dark)}
+section.dark .evidence-source{color:var(--ink-dark-3)}
+section.dark h2,section.dark h3{color:var(--white)}
+
+/* ── Hero：标题自己说话，不用 eyebrow ── */
+.hero{background:var(--black);color:var(--white);padding:112px 0 96px}
+.hero h1{font-size:56px;line-height:1.07;letter-spacing:-0.28px;font-weight:600;max-width:18ch}
+.hero .lede{margin-top:28px;font-size:21px;line-height:1.43;letter-spacing:-0.26px;
+  color:var(--ink-dark-2);max-width:52ch}
+.hero .meta{margin-top:44px;padding-top:24px;border-top:1px solid var(--rule-dark);
+  font-size:14px;line-height:1.6;color:var(--ink-dark-3);letter-spacing:-0.08px}
+.hero .meta b{color:#d2d2d7;font-weight:400}
+
+h2{font-size:40px;line-height:1.10;letter-spacing:-0.28px;font-weight:600;margin-bottom:20px;max-width:20ch}
+h3{font-size:26px;line-height:1.15;letter-spacing:-0.24px;font-weight:600;margin:0 0 14px}
+h4{font-size:19px;line-height:1.3;letter-spacing:-0.2px;font-weight:600;margin:0 0 8px}
+p{max-width:68ch}
+.lede{font-size:19px;line-height:1.5;letter-spacing:-0.24px;color:var(--ink-2);max-width:62ch}
+p+p{margin-top:16px}
+strong{font-weight:600}
+a{color:var(--link-blue);text-underline-offset:3px}
+.note{font-size:14px;line-height:1.5;color:var(--ink-2);margin-top:20px;max-width:64ch}
+
+/* ── 关键数据条 ── */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);
+  overflow:hidden;margin-top:8px}
+.metric{background:var(--white);padding:22px 20px}
+.metric-value{font-size:34px;line-height:1.1;letter-spacing:-0.02em;font-weight:600;
+  font-variant-numeric:tabular-nums;margin-bottom:8px}
+.metric-label{font-size:15px;line-height:1.4;letter-spacing:-0.2px;color:var(--ink-2);
+  font-weight:500}
+.metric-source{font-size:13px;line-height:1.45;color:var(--ink-3);margin-top:10px;
+  padding-top:10px;border-top:1px solid var(--rule)}
+
+/* ── 核心判断 ── */
+.verdict{font-size:26px;line-height:1.32;letter-spacing:-0.02em;font-weight:600;
+  max-width:30ch;margin-bottom:22px}
+.verdict-note{font-size:15px;line-height:1.55;color:var(--ink-2);max-width:64ch}
+
+/* ── 时间线 ── */
+.timeline{margin-top:8px;border-top:1px solid var(--rule)}
+.timeline-item{display:grid;grid-template-columns:110px 1fr;gap:24px;
+  padding:22px 0;border-bottom:1px solid var(--rule)}
+.timeline-date{font-size:14px;line-height:1.4;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;padding-top:3px}
+.timeline-title{font-size:17px;line-height:1.4;letter-spacing:-0.374px;font-weight:600}
+.timeline-detail{font-size:15px;line-height:1.55;color:var(--ink-2);margin-top:6px;max-width:62ch}
+
+/* ── 证据 ── */
+.evidence{margin-top:8px}
+.evidence-item{padding:20px 0;border-top:1px solid var(--rule)}
+.evidence-quote{font-size:17px;line-height:1.5;letter-spacing:-0.374px;max-width:64ch}
+.evidence-source{font-size:13px;line-height:1.5;color:var(--ink-3);margin-top:8px}
+
+footer{padding:56px 0 72px;border-top:1px solid var(--rule);background:var(--white)}
+footer .note{margin-top:0}
+
+@media (max-width:734px){
+  section{padding:60px 0}
+  .hero{padding:72px 0 60px}
+  .hero h1{font-size:34px;letter-spacing:-0.2px}
+  .hero .lede{font-size:19px}
+  h2{font-size:28px;letter-spacing:-0.2px}
+  h3{font-size:21px}
+  .verdict{font-size:21px}
+  .metric-value{font-size:28px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .timeline-date{padding-top:0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+
+<body>
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>{{ 标题：一句话说清这篇在讲什么 }}</h1>
+      <p class="lede">{{ 副题：读者读完第一段就知道该得到什么 }}</p>
+      <div class="meta">
+        <b>{{ 日期 }}</b> · <b>{{ 主责 Agent }}</b> · <b>{{ 类型：研究 / 创意 }}</b>
+        · 追踪线：<b>{{ 地缘与能源 }}</b>
+      </div>
+      </div>
+  </header>
+
+  <!-- ── 核心判断 ──────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+    <h2>{{ 结论 }}</h2>
+    <p class="verdict">{{ 一句可被反驳的断言 }}</p>
+    <p class="verdict-note">{{ 支撑这句话的关键机制。解释性内容写在这里，不要塞进断言层。 }}</p>
+    </div>
+  </section>
+
+  <!-- ── 关键数据 ──────────────────────────────────────────── -->
+  <section class="alt">
+    <div class="wrap">
+    <h2>{{ 关键数据 }}</h2>
+    <p class="lede">{{ 一句话说明这组数字为什么重要 }}</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">{{ 数值 }}</div>
+        <div class="metric-label">{{ 指标名 }}</div>
+        <div class="metric-source">{{ 出处 · 口径 · 日期 }}</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">{{ 数值 }}</div>
+        <div class="metric-label">{{ 指标名 }}</div>
+        <div class="metric-source">{{ 出处 · 口径 · 日期 }}</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">{{ 数值 }}</div>
+        <div class="metric-label">{{ 指标名 }}</div>
+        <div class="metric-source">{{ 出处 · 口径 · 日期 }}</div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ── 进程 ──────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+    <h2>{{ 进程 }}</h2>
+    <p class="lede">{{ 这条线索怎么走到今天 }}</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">{{ 日期 }}</div>
+        <div>
+          <div class="timeline-title">{{ 事件 }}</div>
+          <div class="timeline-detail">{{ 影响 }}</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">{{ 日期 }}</div>
+        <div>
+          <div class="timeline-title">{{ 事件 }}</div>
+          <div class="timeline-detail">{{ 影响 }}</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ── 证据 ──────────────────────────────────────────────── -->
+  <section class="dark">
+    <div class="wrap">
+    <h2>{{ 证据 }}</h2>
+    <p class="lede">{{ 判断所依据的原文 }}</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <div class="evidence-quote">{{ 原文逐字引用 }}</div>
+        <div class="evidence-source">{{ 出处 }}</div>
+      </div>
+      <div class="evidence-item">
+        <div class="evidence-quote">{{ 原文逐字引用 }}</div>
+        <div class="evidence-source">{{ 出处 }}</div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+    <p class="note">{{ 方法说明 / 局限 / 免责。诚实标注：哪些是已验证事实，哪些是团队判断。 }}</p>
+    </div>
+  </footer>
+
+</div>
+
+<!--
+  断言声明（权威来源）
+  ───────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  建议 3~8 条。解释性判断不要写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "{{ 数值，如 -16% }}",
+    "label": "{{ 指标名 }}",
+    "quote": "{{ 数值 }} {{ 指标名 }}"
+  }
+]
+</script>
+</body>
+</html>

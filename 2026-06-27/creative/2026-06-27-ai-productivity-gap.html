@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI"生产力鸿沟"——超级个体崛起的B面</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap');
+:root{--bg:#0a0a0f;--card:#111119;--card2:#16161f;--t1:#f0f0f5;--t2:#8888aa;--t3:#555570;--win:#00d4aa;--lose:#ff4466;--gold:#ffd700;--blue:#4488ff;--bdr:rgba(255,255,255,0.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans SC',-apple-system,sans-serif;line-height:1.6;overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none}
+
+/* PROGRESS */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--win),var(--lose));z-index:999;width:0}
+
+/* NAV */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:90;display:flex;gap:4px;padding:4px;background:rgba(10,10,15,0.85);backdrop-filter:blur(16px);border-radius:12px;border:1px solid var(--bdr)}
+.nav a{padding:6px 14px;font-size:12px;color:var(--t3);text-decoration:none;border-radius:8px;transition:all .3s;white-space:nowrap}
+.nav a:hover,.nav a.active{color:var(--t1);background:rgba(255,255,255,0.05)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:80px 24px 60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 40%,rgba(0,212,170,.06),transparent 60%),radial-gradient(ellipse 80% 50% at 80% 60%,rgba(255,68,102,.06),transparent 60%)}
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:900px}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border:1px solid var(--bdr);border-radius:100px;font-size:13px;color:var(--t2);margin-bottom:40px;letter-spacing:.5px;opacity:0;animation:fu .8s .2s forwards}
+.tag .dot{width:6px;height:6px;border-radius:50%;background:var(--lose);animation:pulse 2s infinite}
+h1{font-family:'Noto Serif SC',serif;font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:24px;opacity:0;animation:fu .8s .4s forwards}
+h1 .gr{background:linear-gradient(135deg,var(--win),var(--lose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(16px,2.5vw,22px);color:var(--t2);font-weight:300;line-height:1.8;max-width:680px;margin:0 auto 48px;opacity:0;animation:fu .8s .6s forwards}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;opacity:0;animation:fu .8s .8s forwards}
+.hs{text-align:center}
+.hs .n{font-size:42px;font-weight:900;line-height:1;margin-bottom:4px}
+.hs .n.g{color:var(--win)}.hs .n.r{color:var(--lose)}.hs .n.y{color:var(--gold)}
+.hs .l{font-size:13px;color:var(--t3);letter-spacing:.5px}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);font-size:12px;opacity:0;animation:fu .8s 1.2s forwards}
+.scroll-hint .arr{width:20px;height:20px;border-right:1.5px solid var(--t3);border-bottom:1.5px solid var(--t3);transform:rotate(45deg);animation:bk 2s infinite}
+
+/* SECTIONS */
+.sec{padding:100px 24px;max-width:1200px;margin:0 auto;position:relative}
+.sl{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.sl .bar{width:24px;height:2px;background:var(--win)}
+.st{font-family:'Noto Serif SC',serif;font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.2;margin-bottom:16px;letter-spacing:-.5px}
+.sd{font-size:17px;color:var(--t2);max-width:640px;line-height:1.8;margin-bottom:48px}
+
+/* DIVIDE */
+.toggle-bar{display:flex;justify-content:center;gap:4px;margin:0 0 32px;background:var(--card);padding:4px;border-radius:12px;border:1px solid var(--bdr);max-width:480px;margin-left:auto;margin-right:auto}
+.tb{flex:1;padding:10px 16px;border:none;border-radius:8px;background:transparent;color:var(--t2);font-size:14px;font-weight:500;cursor:pointer;transition:all .3s;font-family:inherit}
+.tb.on{background:rgba(255,255,255,.06);color:var(--t1)}
+
+.dc{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--bdr);min-height:480px;position:relative}
+.ds{padding:44px 36px;display:flex;flex-direction:column;justify-content:center;transition:all .6s cubic-bezier(.16,1,.3,1)}
+.ds:hover{background:rgba(255,255,255,.01)}
+.ds.w{background:linear-gradient(135deg,rgba(0,212,170,.03),transparent)}
+.ds.l{background:linear-gradient(135deg,transparent,rgba(255,68,102,.03))}
+.ds h3{font-size:15px;font-weight:700;letter-spacing:1px;margin-bottom:24px;text-transform:uppercase}
+.ds.w h3{color:var(--win)}.ds.l h3{color:var(--lose)}
+.dd{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.08),transparent);z-index:5;transform:translateX(-50%)}
+.dd::after{content:'VS';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px}
+.dm{margin-bottom:20px}.dm .ml{font-size:13px;color:var(--t2);margin-bottom:6px}
+.dm .mv{font-size:28px;font-weight:900;line-height:1.2}
+.ds.w .mv{color:var(--win)}.ds.l .mv{color:var(--lose)}
+.dm .mb{height:4px;border-radius:2px;margin-top:8px;background:rgba(255,255,255,.04);overflow:hidden}
+.dm .mf{height:100%;border-radius:2px;transition:width 1.5s cubic-bezier(.16,1,.3,1);width:0}
+.ds.w .mf{background:var(--win)}.ds.l .mf{background:var(--lose)}
+
+/* TIMELINE */
+.tl{position:relative;padding:40px 0}
+.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--bdr),var(--bdr),transparent);transform:translateX(-50%)}
+.ti{display:flex;align-items:flex-start;margin-bottom:48px;position:relative;opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.ti.vis{opacity:1;transform:translateY(0)}
+.ti:nth-child(odd){flex-direction:row;padding-right:calc(50% + 40px);text-align:right}
+.ti:nth-child(even){flex-direction:row-reverse;padding-left:calc(50% + 40px);text-align:left}
+.td{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;border:2px solid var(--lose);background:var(--bg);z-index:2;transition:all .3s}
+.ti:hover .td{background:var(--lose);box-shadow:0 0 12px rgba(255,68,102,.4)}
+.tyr{font-size:13px;font-weight:700;color:var(--lose);margin-bottom:8px;letter-spacing:1px}
+.ttt{font-size:18px;font-weight:700;margin-bottom:8px}
+.ttx{font-size:14px;color:var(--t2);line-height:1.7}
+
+/* OCCUPATION */
+.og{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:32px}
+.oc{background:var(--card);border-radius:12px;padding:28px 24px;border:1px solid var(--bdr);transition:all .4s cubic-bezier(.16,1,.3,1);cursor:pointer;position:relative;overflow:hidden}
+.oc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;background:var(--lose);opacity:0;transition:opacity .3s}
+.oc:hover{border-color:rgba(255,68,102,.2);transform:translateY(-2px);background:var(--card2)}
+.oc:hover::before{opacity:1}
+.oci{font-size:28px;margin-bottom:16px}
+.ocn{font-size:16px;font-weight:700;margin-bottom:6px}
+.ocr{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:100px;margin-bottom:12px}
+.ocr.cr{background:rgba(255,68,102,.12);color:var(--lose)}
+.ocr.hi{background:rgba(255,170,68,.12);color:#ffaa44}
+.ocr.md{background:rgba(255,215,0,.12);color:var(--gold)}
+.ocr.lo{background:rgba(0,212,170,.12);color:var(--win)}
+.ocx{font-size:13px;color:var(--t2);line-height:1.7}
+.ocnum{position:absolute;top:16px;right:20px;font-size:48px;font-weight:900;opacity:.04;line-height:1}
+
+/* DASHBOARD */
+.dash{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0}
+.dc2{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden}
+.dc2.w2{grid-column:span 2}
+.dc2.f3{grid-column:span 3}
+.dc2 .cl{font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.dc2 .cn{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:4px}
+.dc2 .cs{font-size:13px;color:var(--t2)}
+.mc{margin-top:16px;height:60px;display:flex;align-items:flex-end;gap:3px}
+.mcb{flex:1;border-radius:3px 3px 0 0;transition:height 1s cubic-bezier(.16,1,.3,1);min-height:4px}
+
+/* GAP METER */
+.gm{margin:40px 0}
+.gr2{display:grid;grid-template-columns:160px 1fr 160px;align-items:center;gap:24px;margin-bottom:28px;padding:16px 0;border-bottom:1px solid var(--bdr)}
+.gr2:last-child{border-bottom:none}
+.gr2 .gl{font-size:14px;font-weight:500;color:var(--t2)}
+.gr2 .gl.lt{text-align:right}
+.gr2 .gbc{position:relative;height:28px;background:rgba(255,255,255,.02);border-radius:8px;overflow:hidden}
+.gr2 .gbl{position:absolute;right:50%;top:0;height:100%;background:var(--win);border-radius:8px 0 0 8px;opacity:.7;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.gr2 .gbr{position:absolute;left:50%;top:0;height:100%;background:var(--lose);border-radius:0 8px 8px 0;opacity:.7;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.gmc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:100%;background:rgba(255,255,255,.1);z-index:2}
+.gr2 .gn{font-size:20px;font-weight:900}
+.gr2 .gn.g{color:var(--win)}.gr2 .gn.r{color:var(--lose)}
+
+/* CLOSING */
+.closing{text-align:center;padding:120px 24px;max-width:800px;margin:0 auto}
+.cq{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.5;margin-bottom:32px}
+.cq .hl{color:var(--lose);text-decoration:underline;text-decoration-color:rgba(255,68,102,.3);text-underline-offset:8px}
+.cm{font-size:14px;color:var(--t3);line-height:2}
+.ct{display:flex;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap}
+.ctg{padding:5px 14px;border-radius:100px;border:1px solid var(--bdr);font-size:12px;color:var(--t3)}
+
+.footer{text-align:center;padding:48px 24px;border-top:1px solid var(--bdr);font-size:12px;color:var(--t3)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bk{0%,20%,50%,80%,100%{transform:rotate(45deg) translateY(0)}40%{transform:rotate(45deg) translateY(6px)}60%{transform:rotate(45deg) translateY(3px)}}
+
+@media(max-width:768px){
+  .dc{grid-template-columns:1fr;min-height:auto}
+  .dd{display:none}
+  .dash{grid-template-columns:1fr}
+  .dc2.w2,.dc2.f3{grid-column:span 1}
+  .gr2{grid-template-columns:1fr;gap:8px;text-align:center!important}
+  .gr2 .gl{text-align:center!important}
+  .tl::before{left:24px}
+  .ti:nth-child(odd),.ti:nth-child(even){padding-left:56px;padding-right:0;text-align:left;flex-direction:row}
+  .td{left:24px}
+  .hero-stats{gap:24px}
+  .hs .n{font-size:32px}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../../index.html">← 返回展厅</a>
+
+
+<div id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a href="#hero" class="active">开篇</a>
+  <a href="#ch1">鸿沟全景</a>
+  <a href="#ch2">演变史</a>
+  <a href="#ch3">高危职业</a>
+  <a href="#ch4">数据仪表盘</a>
+  <a href="#ch5">效率鸿沟</a>
+  <a href="#ch6">终章</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tag"><span class="dot"></span>深度交互 · 2026年6月27日</div>
+    <h1><span class="gr">生产力鸿沟</span><br>谁被甩在了身后？</h1>
+    <p class="hero-sub">AI正在同时做两件事：让少数人变成"超级个体"，让多数人变成"可替代零件"。<br>这是超级个体崛起的B面——一道正在撕裂社会的鸿沟。</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="n g" data-c="47">0</div><div class="l">% 的工作任务可被AI自动化</div></div>
+      <div class="hs"><div class="n r" data-c="3.7">0</div><div class="l">亿岗位面临重塑（WEF 2026）</div></div>
+      <div class="hs"><div class="n y" data-c="10">0</div><div class="l">倍：超级个体 vs 传统员工效率</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>向下探索</span><div class="arr"></div></div>
+</section>
+
+<!-- CH1: DIVIDE -->
+<section class="sec rv" id="ch1">
+  <div class="sl"><span class="bar"></span>CHAPTER 01 · 鸿沟全景</div>
+  <h2 class="st">冰火两重天</h2>
+  <p class="sd">同一个AI工具，有人用它一人撑起一家公司，有人因此失去工作。这不是技术问题，是分配问题。</p>
+  <div class="toggle-bar" id="tbar">
+    <button class="tb on" data-v="all">全景对比</button>
+    <button class="tb" data-v="win">超级个体 ⬆</button>
+    <button class="tb" data-v="lose">被甩身后 ⬇</button>
+  </div>
+  <div class="dc" id="dc">
+    <div class="ds w" id="sw">
+      <h3>⬆ 超级个体</h3>
+      <div class="dm"><div class="ml">平均生产力提升</div><div class="mv">+340%</div><div class="mb"><div class="mf" data-w="85"></div></div></div>
+      <div class="dm"><div class="ml">AI工具使用率</div><div class="mv">92%</div><div class="mb"><div class="mf" data-w="92"></div></div></div>
+      <div class="dm"><div class="ml">一人公司年营收中位数</div><div class="mv">$180K</div><div class="mb"><div class="mf" data-w="68"></div></div></div>
+      <div class="dm"><div class="ml">日均使用AI Agent数</div><div class="mv">6.2个</div><div class="mb"><div class="mf" data-w="62"></div></div></div>
+      <div class="dm"><div class="ml">核心技能：AI编排力</div><div class="mv">★★★★★</div><div class="mb"><div class="mf" data-w="95"></div></div></div>
+    </div>
+    <div class="dd"></div>
+    <div class="ds l" id="sl">
+      <h3>⬇ 被甩身后</h3>
+      <div class="dm"><div class="ml">岗位替代风险</div><div class="mv">+68%</div><div class="mb"><div class="mf" data-w="68"></div></div></div>
+      <div class="dm"><div class="ml">AI工具使用率</div><div class="mv">18%</div><div class="mb"><div class="mf" data-w="18"></div></div></div>
+      <div class="dm"><div class="ml">再就业成功率</div><div class="mv">23%</div><div class="mb"><div class="mf" data-w="23"></div></div></div>
+      <div class="dm"><div class="ml">技能转型周期</div><div class="mv">14个月</div><div class="mb"><div class="mf" data-w="56"></div></div></div>
+      <div class="dm"><div class="ml">数字素养不足比例</div><div class="mv">61%</div><div class="mb"><div class="mf" data-w="61"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CH2: TIMELINE -->
+<section class="sec" id="ch2">
+  <div class="sl"><span class="bar" style="background:var(--lose)"></span>CHAPTER 02 · 鸿沟演变</div>
+  <h2 class="st rv">从赋能到撕裂</h2>
+  <p class="sd rv">鸿沟不是一夜之间形成的。回顾过去五年，AI对劳动力市场的冲击呈指数级加速。</p>
+  <div class="tl" id="tl">
+    <div class="ti"><div class="td"></div><div><div class="tyr">2022 · 萌芽</div><div class="ttt">ChatGPT问世，效率差异初现</div><div class="ttx">最早掌握Prompt技巧的程序员和文案工作者获得2-3倍效率优势。"会用AI"和"不会用AI"的差距悄然萌芽。</div></div></div>
+    <div class="ti"><div class="td"></div><div><div class="tyr">2023 · 扩散</div><div class="ttt">Copilot浪潮，白领首当其冲</div><div class="ttx">GitHub Copilot用户超百万。麦肯锡首次预测30%工作时间可被AI自动化。翻译、初级编程、内容创作率先受冲击。</div></div></div>
+    <div class="ti"><div class="td"></div><div><div class="tyr">2024 · 分化</div><div class="ttt">"一人公司"爆发 vs AI失业潮</div><div class="ttx">YC创始人用AI Agent完成全栈开发。一人公司估值破亿。与此同时，美国已有4000人因AI客服失业，制造业减少710万岗位。</div></div></div>
+    <div class="ti"><div class="td"></div><div><div class="tyr">2025 · 加速</div><div class="ttt">多Agent协作，超级个体成型</div><div class="ttx">AI Agent长周期任务成功率突破80%。1人+AI月产出=传统10人团队。高盛预警2026年AI裁员潮，Jeff Hinton拉响"失业潮"警报。</div></div></div>
+    <div class="ti"><div class="td"></div><div><div class="tyr">2026 · 裂变</div><div class="ttt">K型分化成为新常态</div><div class="ttx">WEF预测3.7亿岗位重塑。毕马威首席经济学家称"经济增长与就业已脱钩"。企业用更少工人做更多事。OPC一人制公司正式写入商法。</div></div></div>
+  </div>
+</section>
+
+<!-- CH3: OCCUPATIONS -->
+<section class="sec rv" id="ch3">
+  <div class="sl"><span class="bar" style="background:var(--lose)"></span>CHAPTER 03 · 谁在被甩身后</div>
+  <h2 class="st">高危职业图谱</h2>
+  <p class="sd">AI替代不是均匀的。某些职业正站在悬崖边上，而另一些人浑然不知。</p>
+  <div class="og">
+    <div class="oc"><div class="ocnum">01</div><div class="oci">📊</div><div class="ocn">数据录入员</div><div class="ocr cr">极高风险</div><div class="ocx">自动化率89%。语音识别+OCR已全面替代。BBC统计打字员面临彻底淘汰。</div></div>
+    <div class="oc"><div class="ocnum">02</div><div class="oci">📞</div><div class="ocn">客服代表</div><div class="ocr cr">极高风险</div><div class="ocx">美国已有4000人因AI客服失业。GPT-5级别对话已能处理85%常见问题。</div></div>
+    <div class="oc"><div class="ocnum">03</div><div class="oci">💰</div><div class="ocn">会计/文员</div><div class="ocr cr">极高风险</div><div class="ocx">麦肯锡预测替代风险超80%。后台岗位首当其冲，基础核算已完全自动化。</div></div>
+    <div class="oc"><div class="ocnum">04</div><div class="oci">✍️</div><div class="ocn">初级文案/翻译</div><div class="ocr hi">高风险</div><div class="ocx">大模型翻译质量接近人类译者。标准文案生成效率提升10倍+，初级岗位需求骤降。</div></div>
+    <div class="oc"><div class="ocnum">05</div><div class="oci">🚚</div><div class="ocn">货运司机</div><div class="ocr hi">高风险</div><div class="ocx">自动驾驶L4商用加速。物流行业司机缺口将从"招不到"变为"不需要"。</div></div>
+    <div class="oc"><div class="ocnum">06</div><div class="oci">🏭</div><div class="ocn">制造业工人</div><div class="ocr hi">高风险</div><div class="ocx">WEF预测十年减少710万岗位，占行业30%。具身智能+工业机器人加速替代。</div></div>
+    <div class="oc"><div class="ocnum">07</div><div class="oci">⚖️</div><div class="ocn">初级律师/法务</div><div class="ocr md">中高风险</div><div class="ocx">合同审查、法律检索、案例分析已被AI Agent接管。初级法务岗位需求下降40%。</div></div>
+    <div class="oc"><div class="ocnum">08</div><div class="oci">🎨</div><div class="ocn">基础设计师</div><div class="ocr md">中高风险</div><div class="ocx">AI图像生成+排版工具让"模板型设计"近乎零成本。初级UI/平面设计师面临转型压力。</div></div>
+    <div class="oc"><div class="ocnum">09</div><div class="oci">🏥</div><div class="ocn">放射科医师助手</div><div class="ocr md">中高风险</div><div class="ocx">AI影像识别准确率已超人类。辅助诊断岗位将大幅缩减，但最终诊断仍需人类。</div></div>
+    <div class="oc"><div class="ocnum">10</div><div class="oci">🏗️</div><div class="ocn">建筑工人</div><div class="ocr lo">相对安全</div><div class="ocx">体力劳动+非标准化场景使AI替代困难。但辅助性工作（测量、质检）正被侵蚀。</div></div>
+    <div class="oc"><div class="ocnum">11</div><div class="oci">🧑‍🍳</div><div class="ocn">厨师/护理</div><div class="ocr lo">相对安全</div><div class="ocx">需要精细操作+情感交互。机器人炒菜和护理机器人仍处早期，短期内无法替代。</div></div>
+    <div class="oc"><div class="ocnum">12</div><div class="oci">🧠</div><div class="ocn">AI编排师/训练师</div><div class="ocr lo">安全+增长</div><div class="ocx">全新职业。负责设计AI工作流、训练模型、管理Agent团队。需求增长300%+。</div></div>
+  </div>
+</section>
+
+<!-- CH4: DASHBOARD -->
+<section class="sec rv" id="ch4">
+  <div class="sl"><span class="bar" style="background:var(--gold)"></span>CHAPTER 04 · 数据仪表盘</div>
+  <h2 class="st">鸿沟的数字面孔</h2>
+  <p class="sd">数字不会说谎。以下数据来自WEF、麦肯锡、高盛、毕马威等权威机构2025-2026年报告。</p>
+  <div class="dash">
+    <div class="dc2">
+      <div class="cl">AI渗透率</div>
+      <div class="cn" style="color:var(--win)">43%</div>
+      <div class="cs">工作任务已可被AI自动化（Anthropic经济指数）</div>
+      <div class="mc" id="mc1"></div>
+    </div>
+    <div class="dc2">
+      <div class="cl">受影响岗位</div>
+      <div class="cn" style="color:var(--lose)">3.7亿</div>
+      <div class="cs">全球将被重塑的岗位数量（WEF 2026）</div>
+      <div class="mc" id="mc2"></div>
+    </div>
+    <div class="dc2">
+      <div class="cl">效率倍率</div>
+      <div class="cn" style="color:var(--gold)">10x</div>
+      <div class="cs">超级个体 vs 传统员工产出比</div>
+      <div class="mc" id="mc3"></div>
+    </div>
+    <div class="dc2 w2">
+      <div class="cl">收入分化趋势 · 2022-2026</div>
+      <div class="cn" style="color:var(--lose)">K型分化加速</div>
+      <div class="cs">AI采纳者的收入增速是未采纳者的4.2倍</div>
+      <div class="mc" id="mc4"></div>
+    </div>
+    <div class="dc2">
+      <div class="cl">转型困境</div>
+      <div class="cn" style="color:var(--lose)">77%</div>
+      <div class="cs">被替代工人无法在12个月内成功转型</div>
+    </div>
+  </div>
+</section>
+
+<!-- CH5: GAP METER -->
+<section class="sec rv" id="ch5">
+  <div class="sl"><span class="bar" style="background:var(--blue)"></span>CHAPTER 05 · 效率鸿沟</div>
+  <h2 class="st">鸿沟有多大？</h2>
+  <p class="sd">在每一个维度上，AI超级个体与被甩身后者之间的差距都在持续扩大。</p>
+  <div class="gm" id="gm">
+    <div class="gr2"><div class="gl lt">超级个体</div><div class="gbc"><div class="gbl" data-w="85"></div><div class="gmc"></div><div class="gbr" data-w="30"></div></div><div class="gl">被甩身后</div></div>
+    <div class="gr2"><div class="gl lt"><span class="gn g">$180K/年</span></div><div class="gbc"><div class="gbl" data-w="72"></div><div class="gmc"></div><div class="gbr" data-w="28"></div></div><div class="gl"><span class="gn r">$32K/年</span></div></div>
+    <div class="gr2"><div class="gl lt"><span class="gn g">92%</span> AI使用率</div><div class="gbc"><div class="gbl" data-w="92"></div><div class="gmc"></div><div class="gbr" data-w="18"></div></div><div class="gl"><span class="gn r">18%</span> AI使用率</div></div>
+    <div class="gr2"><div class="gl lt"><span class="gn g">6.2个</span> Agent/天</div><div class="gbc"><div class="gbl" data-w="62"></div><div class="gmc"></div><div class="gbr" data-w="8"></div></div><div class="gl"><span class="gn r">0.8个</span> Agent/天</div></div>
+    <div class="gr2"><div class="gl lt"><span class="gn g">+340%</span> 效率提升</div><div class="gbc"><div class="gbl" data-w="85"></div><div class="gmc"></div><div class="gbr" data-w="12"></div></div><div class="gl"><span class="gn r">+15%</span> 效率提升</div></div>
+    <div class="gr2"><div class="gl lt"><span class="gn g">2.1个月</span> 技能转型</div><div class="gbc"><div class="gbl" data-w="21"></div><div class="gmc"></div><div class="gbr" data-w="70"></div></div><div class="gl"><span class="gn r">14个月</span> 技能转型</div></div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing rv" id="ch6">
+  <div class="sl" style="justify-content:center"><span class="bar" style="background:var(--lose)"></span>CHAPTER 06 · 终章</div>
+  <div class="cq">鸿沟不会自己消失。<br>它只会因为我们的<span class="hl">漠视</span>而越来越深。</div>
+  <p class="cm">AI生产力鸿沟的本质，不是技术的错。<br>是我们在拥抱效率的同时，忘了问一句：<br><strong style="color:var(--t1)">"谁在为这场革命买单？"</strong></p>
+  <div class="cm" style="margin-top:32px;font-size:13px">
+    <div>数据来源：WEF《未来就业报告2026》· McKinsey《AI与劳动力》· Goldman Sachs AI裁员预警</div>
+    <div>Anthropic经济指数 · KPMG首席经济学家Diane Swonk · Jeffrey Hinton 2025年警告</div>
+    <div>BBC劳动力统计 · 中国就业市场K型分化报告（2026-05）</div>
+  </div>
+  <div class="ct">
+    <span class="ctg">#AI生产力鸿沟</span>
+    <span class="ctg">#超级个体B面</span>
+    <span class="ctg">#谁被甩在身后</span>
+    <span class="ctg">#K型分化</span>
+    <span class="ctg">#2026劳动力</span>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>AI"生产力鸿沟"——超级个体崛起的B面：谁被甩在了身后？</div>
+  <div style="margin-top:8px">智囊团 · 绘界 · 2026-06-27</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress').style.width=(window.scrollY/h*100)+'%';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:0.15});
+document.querySelectorAll('.rv,.ti').forEach(el=>obs.observe(el));
+
+// Counter animation
+function animateCount(el,target,dur=1500){
+  const start=performance.now();
+  const isFloat=String(target).includes('.');
+  function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    const v=ease*target;
+    el.textContent=isFloat?v.toFixed(1):Math.round(v);
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const cobs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!e.target.dataset.done){
+      e.target.dataset.done='1';
+      animateCount(e.target,parseFloat(e.target.dataset.c));
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-c]').forEach(el=>cobs.observe(el));
+
+// Bar fills
+const bows=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.mf,.gbl,.gbr').forEach(b=>{
+        b.style.width=b.dataset.w+'%';
+      });
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.dc,.gm').forEach(el=>bows.observe(el));
+
+// Mini charts
+function fillMini(id,data,color){
+  const c=document.getElementById(id);if(!c)return;
+  data.forEach((v,i)=>{
+    const b=document.createElement('div');
+    b.className='mcb';b.style.background=color;b.style.height='0';
+    c.appendChild(b);
+    setTimeout(()=>b.style.height=v+'%',100+i*60);
+  });
+}
+fillMini('mc1',[20,28,35,38,42,43,47],'var(--win)');
+fillMini('mc2',[15,25,38,52,68,80,100],'var(--lose)');
+fillMini('mc3',[10,18,30,48,72,90,100],'var(--gold)');
+
+const mc4=document.getElementById('mc4');
+if(mc4){
+  // K-shape data: top line goes up, bottom goes down
+  const top=[40,45,55,68,82,95,100];
+  const bot=[40,38,35,30,25,20,18];
+  const maxLen=top.length;
+  for(let i=0;i<maxLen;i++){
+    const wrap=document.createElement('div');
+    wrap.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;height:60px;justify-content:space-between';
+    const tBar=document.createElement('div');
+    tBar.style.cssText='width:60%;background:var(--win);border-radius:3px;transition:height 1s cubic-bezier(.16,1,.3,1);height:0;min-height:2px';
+    tBar.dataset.h=top[i]*0.5;
+    const bBar=document.createElement('div');
+    bBar.style.cssText='width:60%;background:var(--lose);border-radius:3px;transition:height 1s cubic-bezier(.16,1,.3,1);height:0;min-height:2px';
+    bBar.dataset.h=bot[i]*0.5;
+    wrap.appendChild(tBar);
+    wrap.appendChild(bBar);
+    mc4.appendChild(wrap);
+    setTimeout(()=>{tBar.style.height=top[i]*0.5+'px';bBar.style.height=bot[i]*0.5+'px'},200+i*100);
+  }
+}
+
+// Toggle divide
+document.querySelectorAll('.tb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const v=btn.dataset.v;
+    const dc=document.getElementById('dc');
+    if(v==='all'){dc.style.gridTemplateColumns='1fr 1fr';document.getElementById('sw').style.display='';document.getElementById('sl').style.display='';document.querySelector('.dd').style.display=''}
+    else if(v==='win'){dc.style.gridTemplateColumns='1fr';document.getElementById('sw').style.display='';document.getElementById('sl').style.display='none';document.querySelector('.dd').style.display='none'}
+    else{dc.style.gridTemplateColumns='1fr';document.getElementById('sw').style.display='none';document.getElementById('sl').style.display='';document.querySelector('.dd').style.display='none'}
+  });
+});
+
+// Active nav
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)cur=s.id});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
+});
+
+// Gap meter animation
+const gobs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.gbl,.gbr').forEach(b=>{b.style.width=b.dataset.w+'%'});
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.gm').forEach(el=>gobs.observe(el));
+</script>
+</body>
+</html>

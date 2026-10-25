@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSeek定价屠夫：AI大模型如何杀入1元时代</title>
+<style>
+  :root {
+    --black: #000000;
+    --light-gray: #f5f5f7;
+    --near-black: #1d1d1f;
+    --apple-blue: #0071e3;
+    --link-blue: #0066cc;
+    --white: #ffffff;
+    --accent-green: #34c759;
+    --accent-red: #ff3b30;
+    --accent-orange: #ff9500;
+    --accent-purple: #af52de;
+    --gray-1: #86868b;
+    --gray-2: #6e6e73;
+    --gray-3: #424245;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--near-black);
+    background: var(--white);
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === Hero Section === */
+  .hero {
+    background: var(--black);
+    color: var(--white);
+    padding: 120px 0 100px;
+    text-align: center;
+  }
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .hero-label {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.07;
+    letter-spacing: -0.028em;
+    margin-bottom: 24px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, #ff9500, #ff3b30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--gray-1);
+    line-height: 1.38;
+    max-width: 680px;
+    margin: 0 auto 40px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    text-align: center;
+  }
+  .hero-meta-item .number {
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--accent-orange);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .hero-meta-item .label {
+    font-size: 13px;
+    color: var(--gray-1);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+
+  /* === Section Base === */
+  .section {
+    padding: 100px 24px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .section-dark {
+    background: var(--light-gray);
+    max-width: 100%;
+    padding: 100px 24px;
+  }
+  .section-dark .section-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .section-black {
+    background: var(--black);
+    color: var(--white);
+    max-width: 100%;
+    padding: 100px 24px;
+  }
+  .section-black .section-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .section h3 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    margin: 48px 0 16px;
+  }
+  .section p, .section li {
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    color: var(--gray-2);
+    margin-bottom: 16px;
+  }
+  .section-black p, .section-black li {
+    color: #a1a1a6;
+  }
+  .section-black h2, .section-black h3 {
+    color: var(--white);
+  }
+  .section ul {
+    padding-left: 20px;
+  }
+  .section li {
+    margin-bottom: 8px;
+  }
+  strong { color: var(--near-black); font-weight: 600; }
+  .section-black strong { color: var(--white); }
+
+  /* === Stat Cards === */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+  }
+  .stat-card .stat-number {
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .stat-card .stat-label {
+    font-size: 13px;
+    color: var(--gray-1);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .stat-card .stat-note {
+    font-size: 13px;
+    color: var(--gray-2);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  /* === Pricing Table === */
+  .pricing-table-wrap {
+    margin: 40px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.pricing {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    min-width: 700px;
+  }
+  table.pricing thead th {
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-1);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--light-gray);
+  }
+  table.pricing tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+  }
+  table.pricing tbody tr:last-child td {
+    border-bottom: none;
+  }
+  table.pricing .model-name {
+    font-weight: 600;
+    color: var(--near-black);
+  }
+  table.pricing .price-cheap {
+    color: var(--accent-green);
+    font-weight: 600;
+  }
+  table.pricing .price-mid {
+    color: var(--accent-orange);
+    font-weight: 600;
+  }
+  table.pricing .price-expensive {
+    color: var(--accent-red);
+    font-weight: 600;
+  }
+  table.pricing .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge-cheapest {
+    background: rgba(52, 199, 89, 0.12);
+    color: var(--accent-green);
+  }
+  .badge-flagship {
+    background: rgba(175, 82, 222, 0.12);
+    color: var(--accent-purple);
+  }
+  .badge-open {
+    background: rgba(0, 113, 227, 0.12);
+    color: var(--apple-blue);
+  }
+
+  /* === Bar Chart (CSS) === */
+  .bar-chart {
+    margin: 32px 0;
+  }
+  .bar-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  .bar-label {
+    width: 180px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--near-black);
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    background: #e8e8ed;
+    border-radius: 8px;
+    height: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    min-width: 60px;
+    transition: width 1s ease;
+  }
+  .bar-fill.deepseek { background: linear-gradient(90deg, #34c759, #30d158); }
+  .bar-fill.gemini { background: linear-gradient(90deg, #4285f4, #5e97f5); }
+  .bar-fill.openai { background: linear-gradient(90deg, #1d1d1f, #424245); }
+  .bar-fill.claude { background: linear-gradient(90deg, #af52de, #c77dff); }
+  .bar-fill.xai { background: linear-gradient(90deg, #ff9500, #ffb340); }
+
+  /* === Quote / Callout === */
+  .callout {
+    background: var(--light-gray);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 32px 0;
+    position: relative;
+  }
+  .callout::before {
+    content: '"';
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--apple-blue);
+    opacity: 0.3;
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    line-height: 1;
+  }
+  .callout p {
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.53;
+    color: var(--near-black);
+    padding-left: 24px;
+  }
+  .callout .callout-source {
+    font-size: 14px;
+    font-style: normal;
+    color: var(--gray-1);
+    margin-top: 12px;
+    padding-left: 24px;
+  }
+  .callout-dark {
+    background: var(--gray-3);
+  }
+  .callout-dark p {
+    color: var(--white);
+  }
+  .callout-dark .callout-source {
+    color: #a1a1a6;
+  }
+
+  /* === Timeline === */
+  .timeline {
+    margin: 40px 0;
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e8e8ed;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--apple-blue);
+    border: 3px solid var(--white);
+  }
+  .timeline-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--near-black);
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-size: 15px;
+    color: var(--gray-2);
+    line-height: 1.4;
+  }
+
+  /* === Comparison Grid === */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .compare-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #e8e8ed;
+  }
+  .compare-card h4 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--near-black);
+  }
+  .compare-card .compare-price {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .compare-card .compare-detail {
+    font-size: 14px;
+    color: var(--gray-2);
+    line-height: 1.5;
+  }
+
+  /* === Key Insight Box === */
+  .insight-box {
+    background: linear-gradient(135deg, #1d1d1f, #2d2d30);
+    border-radius: 20px;
+    padding: 48px 40px;
+    margin: 40px 0;
+    color: var(--white);
+  }
+  .insight-box .insight-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  .insight-box h4 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .insight-box p {
+    font-size: 17px;
+    color: #a1a1a6;
+    line-height: 1.47;
+  }
+
+  /* === Footer === */
+  .footer {
+    background: var(--light-gray);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .footer p {
+    font-size: 13px;
+    color: var(--gray-1);
+    line-height: 1.6;
+  }
+
+  /* === Annotation Tags === */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+  .tag-econ { background: rgba(255, 149, 0, 0.12); color: var(--accent-orange); }
+  .tag-tech { background: rgba(0, 113, 227, 0.12); color: var(--apple-blue); }
+  .tag-geo { background: rgba(175, 82, 222, 0.12); color: var(--accent-purple); }
+  .tag-industry { background: rgba(52, 199, 89, 0.12); color: var(--accent-green); }
+
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .hero-sub { font-size: 17px; }
+    .hero-meta { gap: 24px; }
+    .hero-meta-item .number { font-size: 32px; }
+    .section h2 { font-size: 28px; }
+    .section h3 { font-size: 22px; }
+    .stat-card .stat-number { font-size: 36px; }
+    .bar-label { width: 100px; font-size: 12px; }
+    .insight-box { padding: 32px 24px; }
+    .callout p { font-size: 17px; }
+  }
+
+  /* === Print === */
+  @media print {
+    .hero { padding: 60px 0; }
+    .section, .section-dark, .section-black { padding: 40px 0; }
+    .bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../index.html">← 返回展厅</a>
+
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">深度研究报告 · 2026年9月</div>
+    <h1>DeepSeek定价屠夫<br><span>AI大模型杀入1元时代</span></h1>
+    <p class="hero-sub">从价格屠夫到涨价先锋——当最便宜的模型开始涨价，意味着什么？一场持续两年的Token价格战，正在迎来终局。</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="number">178×</span>
+        <span class="label">最贵与最便宜模型的价差</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="number">140万亿</span>
+        <span class="label">中国日均Token调用量</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="number">139M</span>
+        <span class="label">DeepSeek月活用户</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="number">350%</span>
+        <span class="label">V4-Pro峰值涨价幅度</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== EXECUTIVE SUMMARY ==================== -->
+<section class="section">
+  <div class="section-label">执行摘要</div>
+  <h2>价格屠夫为何开始涨价？</h2>
+  <p>DeepSeek——这个以"不可思议的低价"震惊全球AI行业的中国公司，正在经历其定价策略的180度转向。2026年8月13日，DeepSeek正式宣布启用峰谷分时定价，旗舰模型V4-Pro高峰时段输出价格较现价暴涨<strong>350%</strong>，缓存命中输入价格涨幅更达<strong>1,100%</strong>。三个月前，它才刚刚宣布"永久降价75%"。</p>
+  <p>这不仅仅是一家公司的价格调整。2026年以来，智谱AI年内三次涨价、月之暗面K3输出价格飙升3.5倍、阿里云/百度智能云/腾讯云集体上调AI算力价格——整个行业正在从<strong>"价格战"全面转向"价值战"</strong>。</p>
+
+  <div class="tag-row" style="margin: 24px 0;">
+    <span class="tag tag-econ">💰 经济</span>
+    <span class="tag tag-tech">🤖 技术</span>
+    <span class="tag tag-geo">🌍 地缘</span>
+    <span class="tag tag-industry">🏭 产业</span>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-icon">💡</div>
+    <h4>核心结论</h4>
+    <p>AI大模型确实进入了"1元时代"——但这是一个<strong>过渡性的窗口期</strong>，而非稳态。DeepSeek V4-Flash输出定价¥2/百万Token（约$0.28），比GPT-5.6 Sol便宜107倍，比Claude Opus 5便宜89倍。但这个价格不可持续：算力成本刚性上涨、Token调用量指数级增长、投资人的盈利预期，都在倒逼价格回归。"1元时代"是AI普及的催化剂，但它正在关闭。</p>
+  </div>
+</section>
+
+<!-- ==================== SECTION 1: PRICING COMPARISON ==================== -->
+<section class="section-dark">
+  <div class="section-inner">
+    <div class="section-label">第一部分 · 💰 定价对比</div>
+    <h2>一张表看懂2026年AI大模型API定价</h2>
+    <p>2026年8月数据显示，输出价格最贵模型（Claude Opus 5，$25/百万Token）与最便宜模型（DeepSeek V4-Flash，$0.28/百万Token）之间的差距达到<strong>约89倍</strong>。如果算上缓存命中价格，极端差距更是达到<strong>数万倍</strong>。</p>
+
+    <div class="pricing-table-wrap">
+      <table class="pricing">
+        <thead>
+          <tr>
+            <th>模型</th>
+            <th>提供商</th>
+            <th>输入/1M Token</th>
+            <th>输出/1M Token</th>
+            <th>上下文窗口</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="model-name">DeepSeek V4-Flash <span class="badge badge-cheapest">最低价</span> <span class="badge badge-open">开源</span></td>
+            <td>DeepSeek</td>
+            <td class="price-cheap">$0.14</td>
+            <td class="price-cheap">$0.28</td>
+            <td>1M</td>
+            <td>缓存命中仅$0.0028/1M；284B参数(13B激活)</td>
+          </tr>
+          <tr>
+            <td class="model-name">DeepSeek V4-Pro <span class="badge badge-open">开源</span></td>
+            <td>DeepSeek</td>
+            <td class="price-cheap">$0.435</td>
+            <td class="price-cheap">$0.87</td>
+            <td>1M</td>
+            <td>1.6T参数(49B激活)；缓存命中$0.003625/1M</td>
+          </tr>
+          <tr>
+            <td class="model-name">Mistral Large 3</td>
+            <td>Mistral</td>
+            <td class="price-mid">$0.50</td>
+            <td class="price-mid">$1.50</td>
+            <td>128K</td>
+            <td>欧洲开源代表</td>
+          </tr>
+          <tr>
+            <td class="model-name">GPT-5.6 Luna</td>
+            <td>OpenAI</td>
+            <td class="price-mid">$1.00</td>
+            <td class="price-mid">$6.00</td>
+            <td>105万</td>
+            <td>轻量款；较GPT-5.4输入降价60%</td>
+          </tr>
+          <tr>
+            <td class="model-name">Grok 4.3</td>
+            <td>xAI</td>
+            <td class="price-mid">$1.25</td>
+            <td class="price-mid">$2.50</td>
+            <td>—</td>
+            <td>200K以上上下文翻倍</td>
+          </tr>
+          <tr>
+            <td class="model-name">Gemini 3.1 Pro</td>
+            <td>Google</td>
+            <td class="price-mid">$2.00</td>
+            <td class="price-mid">$12.00</td>
+            <td>2M</td>
+            <td>最长上下文窗口</td>
+          </tr>
+          <tr>
+            <td class="model-name">GPT-5.6 Terra</td>
+            <td>OpenAI</td>
+            <td class="price-mid">$2.50</td>
+            <td class="price-mid">$15.00</td>
+            <td>105万</td>
+            <td>均衡款</td>
+          </tr>
+          <tr>
+            <td class="model-name">Claude Sonnet 5</td>
+            <td>Anthropic</td>
+            <td class="price-mid">$2.00</td>
+            <td class="price-expensive">$10.00</td>
+            <td>200K</td>
+            <td>Agent场景首选</td>
+          </tr>
+          <tr>
+            <td class="model-name">GPT-5.6 Sol <span class="badge badge-flagship">旗舰</span></td>
+            <td>OpenAI</td>
+            <td class="price-expensive">$5.00</td>
+            <td class="price-expensive">$30.00</td>
+            <td>105万</td>
+            <td>最强旗舰；输出价格较GPT-5.5翻倍</td>
+          </tr>
+          <tr>
+            <td class="model-name">Claude Opus 5 <span class="badge badge-flagship">旗舰</span></td>
+            <td>Anthropic</td>
+            <td class="price-expensive">$5.00</td>
+            <td class="price-expensive">$25.00</td>
+            <td>200K</td>
+            <td>当前最贵模型之一</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size: 14px; color: var(--gray-1); margin-top: 8px;">数据来源：各厂商官方定价页面，截至2026年8月。价格均为cache miss基础价格，单位为美元/百万Token。峰谷定价时段另有差异。</p>
+
+    <h3>输出价格直观对比</h3>
+    <p>以输出价格（$/百万Token）为尺度，DeepSeek V4-Flash仅为GPT-5.6 Sol的<strong>1/107</strong>：</p>
+
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label">DeepSeek V4-Flash</div>
+        <div class="bar-track"><div class="bar-fill deepseek" style="width: 2.8%;">$0.28</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">DeepSeek V4-Pro</div>
+        <div class="bar-track"><div class="bar-fill deepseek" style="width: 4.4%;">$0.87</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Grok 4.3</div>
+        <div class="bar-track"><div class="bar-fill xai" style="width: 12.5%;">$2.50</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Claude Sonnet 5</div>
+        <div class="bar-track"><div class="bar-fill claude" style="width: 40%;">$10</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Gemini 3.1 Pro</div>
+        <div class="bar-track"><div class="bar-fill gemini" style="width: 48%;">$12</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">GPT-5.6 Terra</div>
+        <div class="bar-track"><div class="bar-fill openai" style="width: 60%;">$15</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">Claude Opus 5</div>
+        <div class="bar-track"><div class="bar-fill claude" style="width: 83%;">$25</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">GPT-5.6 Sol</div>
+        <div class="bar-track"><div class="bar-fill openai" style="width: 100%;">$30</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2: COST STRUCTURE ==================== -->
+<section class="section">
+  <div class="section-label">第二部分 · 🤖 技术解码</div>
+  <h2>DeepSeek凭什么这么便宜？</h2>
+  <p>DeepSeek的定价并非简单的"亏本甩卖"，而是建立在三大技术支柱之上的成本优势。</p>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h4>🧩 MoE稀疏架构</h4>
+      <div class="compare-price" style="color: var(--accent-green);">37B / 1.6T</div>
+      <div class="compare-detail">DeepSeek V4-Pro拥有<strong>1.6万亿</strong>总参数，但每个token仅激活<strong>49B</strong>参数。MoE架构将输入路由至少量"专家"子网络，实现了大模型容量与小模型推理成本的兼得。V3训练成本仅<strong>$557万</strong>，是GPT-4（估计$1亿）的1/18。</div>
+    </div>
+    <div class="compare-card">
+      <h4>🗜️ 量化与压缩</h4>
+      <div class="compare-price" style="color: var(--apple-blue);">FP4 QAT</div>
+      <div class="compare-detail">V4采用<strong>FP4量化感知训练</strong>（Quantization-Aware Training），在训练阶段就将专家权重压缩至4-bit，而非事后量化。结合KV Cache压缩与推测解码优化，单次推理的显存占用和计算量远低于同参数规模的稠密模型。</div>
+    </div>
+    <div class="compare-card">
+      <h4>🏗️ 基础设施成本差</h4>
+      <div class="compare-price" style="color: var(--accent-orange);">~70%</div>
+      <div class="compare-detail">中国在服务器托管、电力、人力成本方面具有结构性优势。DeepSeek V4部分使用<strong>华为昇腾芯片</strong>训练，绕开了美国GPU出口管制的限制。结合中国更低的IDC成本，整体推理成本比美国同行低<strong>60-70%</strong>。</div>
+    </div>
+  </div>
+
+  <h3>成本优势的技术链条</h3>
+  <p>DeepSeek的技术降本并非单点突破，而是贯穿模型全生命周期的系统性工程：</p>
+  <ul>
+    <li><strong>训练阶段</strong>：GRPO（群组相对策略优化）替代昂贵的"教师模型"，通过自我博弈和内部推演学习，省去强化学习阶段的标注成本</li>
+    <li><strong>推理阶段</strong>：MoE稀疏激活 + FP4量化 + 推测解码，单token推理成本约为同性能稠密模型的1/5至1/10</li>
+    <li><strong>缓存优化</strong>：上下文缓存命中率高时，输入成本可降至原价的1/50（V4-Flash缓存命中仅$0.0028/1M，为标准价的2%）</li>
+    <li><strong>开源分发</strong>：开源模型允许用户自行部署，DeepSeek无需承担全部推理成本，同时通过API为不自建的用户提供服务</li>
+  </ul>
+
+  <div class="callout">
+    <p>DeepSeek的训练效率提升是真实的，并且迫使美国实验室更加认真地审视自己的基础设施成本。价格差异不代表质量低下——它反映的是不同的成本结构和竞争定位。</p>
+    <div class="callout-source">— MindStudio AI 研究分析，2026年</div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 3: PRICING WAR TIMELINE ==================== -->
+<section class="section-dark">
+  <div class="section-inner">
+    <div class="section-label">第三部分 · 📅 时间线</div>
+    <h2>价格战两年全记录</h2>
+    <p>从2024年5月字节打响第一枪，到2026年8月DeepSeek宣布涨价，一场史诗级的Token价格战走完了它的完整弧线。</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2024年5月</div>
+        <div class="timeline-title">字节跳动打响价格战第一枪</div>
+        <div class="timeline-desc">豆包Pro定价0.0008元/千Token，较行业均价低99.3%。随后阿里云降价97%、百度免费、腾讯降价87.5%——"百模大战"正式演变为价格战。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025年1月</div>
+        <div class="timeline-title">DeepSeek V3震撼全球</div>
+        <div class="timeline-desc">以不到GPT-4训练成本1/18的价格推出V3，输入2元/百万Token、输出8元/百万Token，直接打穿行业地板。OpenAI CEO Sam Altman称其"令人印象深刻"。22天内DAU突破2,200万。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025年下半年</div>
+        <div class="timeline-title">中小厂商悄然收缩</div>
+        <div class="timeline-desc">部分中小厂商开始缩减免费额度。"高投入、低回报"困境显现，单纯靠资本输血难以为继。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年2月</div>
+        <div class="timeline-title">智谱AI率先涨价83%</div>
+        <div class="timeline-desc">GLM Coding Plan整体涨幅30%+，取消首购优惠。行业风向首次转变。但涨价后调用量不降反升400%。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年4-5月</div>
+        <div class="timeline-title">DeepSeek V4系列发布</div>
+        <div class="timeline-desc">V4-Flash与V4-Pro上线，限时2.5折。5月宣布永久降价75%。基准测试中V4-Pro在LiveCodeBench上以93.5%超越Claude Opus 4.6的88.8%，而价格仅为后者的1/7。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年6月</div>
+        <div class="timeline-title">DeepSeek峰谷定价预告</div>
+        <div class="timeline-desc">宣布V4正式版上线后将引入峰谷定价机制，工作日高峰时段API价格翻倍。高盛研报指出"中国AI价格战接近尾声"。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年7月</div>
+        <div class="timeline-title">Kimi暂停新用户订阅</div>
+        <div class="timeline-desc">月之暗面K3发布后用户请求量远超预期，暂停C端新用户订阅，优先保障存量用户。Kimi K3输出价格飙升至100元/百万Token，较上代涨超3.5倍。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年8月</div>
+        <div class="timeline-title">DeepSeek正式涨价 & 行业集体跟进</div>
+        <div class="timeline-desc">8月13日宣布峰谷分时定价生效（8月17日起）。V4-Pro高峰输出价格暴涨350%。阿里云、百度智能云、腾讯云同步上调AI算力产品价格5%-34%。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 4: MARKET & USERS ==================== -->
+<section class="section">
+  <div class="section-label">第四部分 · 📊 市场与用户</div>
+  <h2>DeepSeek的市场版图</h2>
+  <p>凭借极致性价比，DeepSeek在短短两年内从无名小卒成长为全球AI第三极。以下数据描绘了它的市场扩张速度。</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--accent-green);">139M</span>
+      <span class="stat-label">月活用户（2026年4月）</span>
+      <span class="stat-note">从零到1.39亿，仅用15个月</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--apple-blue);">89%</span>
+      <span class="stat-label">中国市场份额</span>
+      <span class="stat-note">微软估算，中国市占率遥遥领先</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--accent-orange);">3.5亿</span>
+      <span class="stat-label">月均网站访问量</span>
+      <span class="stat-note">2026年3月，SimilarWeb数据</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--accent-purple);">$590亿</span>
+      <span class="stat-label">估值（2026年6月）</span>
+      <span class="stat-note">融资74亿美元，中国AI最高</span>
+    </div>
+  </div>
+
+  <h3>用户分布：全球化但中国主导</h3>
+  <p>DeepSeek的流量高度集中在中国及新兴市场，美国占比仅5.68%：</p>
+
+  <div class="pricing-table-wrap">
+    <table class="pricing">
+      <thead>
+        <tr>
+          <th>国家/地区</th>
+          <th>桌面端流量占比</th>
+          <th>下载占比</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="model-name">🇨🇳 中国</td>
+          <td>44.17%</td>
+          <td>34%</td>
+          <td>本土大本营，市场占有率89%</td>
+        </tr>
+        <tr>
+          <td class="model-name">🇷🇺 俄罗斯</td>
+          <td>10.35%</td>
+          <td>7%</td>
+          <td>市场份额43%</td>
+        </tr>
+        <tr>
+          <td class="model-name">🇮🇳 印度</td>
+          <td>—</td>
+          <td>8%</td>
+          <td>全球第二大下载来源</td>
+        </tr>
+        <tr>
+          <td class="model-name">🇺🇸 美国</td>
+          <td>5.68%</td>
+          <td>6%</td>
+          <td>受政策和竞争限制，占比偏低</td>
+        </tr>
+        <tr>
+          <td class="model-name">🇧🇷 巴西</td>
+          <td>3.19%</td>
+          <td>4%</td>
+          <td>新兴市场增长最快</td>
+        </tr>
+        <tr>
+          <td class="model-name">🌍 非洲</td>
+          <td>—</td>
+          <td>—</td>
+          <td>使用量是其他地区的2-4倍</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>开发者采用：企业级渗透</h3>
+  <ul>
+    <li>超过<strong>1,000家企业</strong>使用DeepSeek，包括Fortune 500公司</li>
+    <li><strong>42%</strong>的AI初创企业已采用DeepSeek</li>
+    <li><strong>58%</strong>的2025年新创AI公司在基础设施中集成DeepSeek</li>
+    <li>在GitHub上，中国自研开源模型下载占比达<strong>41%</strong>，首次超过美国</li>
+    <li>全球AI模型API聚合平台OpenRouter排名<strong>第一</strong></li>
+  </ul>
+</section>
+
+<!-- ==================== SECTION 5: TOKEN ECONOMY ==================== -->
+<section class="section-black">
+  <div class="section-inner">
+    <div class="section-label">第五部分 · 🌍 Token经济</div>
+    <h2>140万亿Token背后的新经济形态</h2>
+    <p>2026年3月，国家数据局局长刘烈宏在中国发展高层论坛上披露了一组震撼数据：中国日均Token调用量突破<strong>140万亿</strong>，较2024年初的1,000亿增长超<strong>1,000倍</strong>。</p>
+
+    <div class="stat-row">
+      <div class="stat-card" style="background: #2d2d30;">
+        <span class="stat-number" style="color: var(--accent-green);">1,000亿</span>
+        <span class="stat-label" style="color: #86868b;">2024年初·日均Token</span>
+      </div>
+      <div class="stat-card" style="background: #2d2d30;">
+        <span class="stat-number" style="color: var(--accent-orange);">100万亿</span>
+        <span class="stat-label" style="color: #86868b;">2025年底·日均Token</span>
+      </div>
+      <div class="stat-card" style="background: #2d2d30;">
+        <span class="stat-number" style="color: var(--accent-red);">140万亿</span>
+        <span class="stat-label" style="color: #86868b;">2026年3月·日均Token</span>
+      </div>
+    </div>
+
+    <p>"Token（词元）不仅是智能时代的价值锚点，更是连接技术供给与商业需求的结算单位。"刘烈宏的这番话，标志着Token经济从技术概念上升为国家战略叙事。</p>
+
+    <p>英伟达CEO黄仁勋在2026年GTC大会上进一步提出<strong>"Token经济学"</strong>概念："Token是新的基础货币，未来的数据中心不再是存放文件的仓库，而是生产Token的AI工厂。"他甚至预测，未来工程师的年薪中将包含一笔与现金同等重要的Token预算。</p>
+
+    <h3 style="color: var(--white);">Token通胀的三大推手</h3>
+    <ul>
+      <li><strong>Agent化浪潮</strong>：AI智能体从单次对话演变为多轮"感知-决策-执行"闭环，单任务Token消耗量是传统对话的<strong>上百倍</strong></li>
+      <li><strong>多模态爆发</strong>：视频生成、数字人、实时通话等应用全民普及，进一步加剧Token需求</li>
+      <li><strong>企业级渗透</strong>：从试错型用户到刚性生产需求，Token消耗从"玩票"走向"刚性"</li>
+    </ul>
+
+    <div class="callout callout-dark">
+      <p>智能体时代的经济价值可以归结为一个简洁的公式：智能上界 × Token消耗规模。智能上界决定了定价权，Token消耗规模决定了价值体量。</p>
+      <div class="callout-source">— 智谱AI CEO 张鹏</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 6: BUSINESS MODEL ==================== -->
+<section class="section">
+  <div class="section-label">第六部分 · 🏭 商业模式演进</div>
+  <h2>从"按Token收费"到"按效果收费"</h2>
+  <p>大模型行业正在经历商业模式的根本性重构。旧的按Token收费模式逐渐被更精细化的定价体系取代。</p>
+
+  <h3>五类商业模式并存</h3>
+  <div class="pricing-table-wrap">
+    <table class="pricing">
+      <thead>
+        <tr>
+          <th>商业模式</th>
+          <th>典型代表</th>
+          <th>收入占比</th>
+          <th>趋势</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="model-name">API按Token收费</td>
+          <td>DeepSeek、OpenAI、智谱</td>
+          <td>当前主力</td>
+          <td>⬆️ 向峰谷/分区定价演进</td>
+        </tr>
+        <tr>
+          <td class="model-name">订阅制（C端）</td>
+          <td>ChatGPT Plus/Pro、豆包</td>
+          <td>OpenAI约55-60%</td>
+          <td>⬆️ 字节68-500元/月试水</td>
+        </tr>
+        <tr>
+          <td class="model-name">企业定制/MaaS</td>
+          <td>Azure AI、阿里云百炼</td>
+          <td>增长最快</td>
+          <td>⬆️ 按效果付费(RaaS)兴起</td>
+        </tr>
+        <tr>
+          <td class="model-name">广告+AI</td>
+          <td>Perplexity、百度AI营销</td>
+          <td>新兴</td>
+          <td>⬆️ 百度AI营销增长301%</td>
+        </tr>
+        <tr>
+          <td class="model-name">开源引流</td>
+          <td>DeepSeek、Meta Llama</td>
+          <td>间接变现</td>
+          <td>⬆️ 开源下载占比超41%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>"按效果付费"正在破冰</h3>
+  <p>IDC报告显示，到2028年，传统的按席位收费模式将被淘汰。70%的软件供应商将不得不重构商业模式，转向按业务结果、交易量或自动化成果计费。中国66%的企业倾向基于业务成果计费购买AI能力，远超全球均值。</p>
+  <p>然而，规模化落地仍面临挑战：效果归因难、量化标准不统一是最核心障碍。"一事一议"的现状短期内难以改变。</p>
+
+  <div class="callout">
+    <p>大模型的应用，很可能会在2026年进入按效果付费模式快速增长的一个阶段。我们已与部分客户在一些场景里做试点尝试。</p>
+    <div class="callout-source">— 众数信科联合创始人 汪中</div>
+  </div>
+
+  <h3>开源模型的商业化路径</h3>
+  <p>DeepSeek的开源策略创造了独特的商业飞轮：</p>
+  <ul>
+    <li><strong>API服务</strong>：为不愿自建的用户提供即时可用的云端推理</li>
+    <li><strong>企业版授权</strong>：定制化部署、SLA保障、安全合规</li>
+    <li><strong>云平台合作</strong>：通过AWS Bedrock、Azure AI Foundry等平台分发</li>
+    <li><strong>开源生态壁垒</strong>：开发者社区形成的网络效应，比任何定价都更具粘性</li>
+    <li><strong>资本杠杆</strong>：开源带来的用户规模支撑估值——从$100亿到$590亿仅用两个月</li>
+  </ul>
+</section>
+
+<!-- ==================== SECTION 7: INDUSTRY IMPACT ==================== -->
+<section class="section-dark">
+  <div class="section-inner">
+    <div class="section-label">第七部分 · 🔮 行业影响</div>
+    <h2>价格战终结，价值战开始</h2>
+
+    <div class="compare-grid">
+      <div class="compare-card" style="border-left: 4px solid var(--accent-green);">
+        <h4>✅ 积极影响</h4>
+        <div class="compare-detail">
+          <ul style="padding-left: 16px;">
+            <li><strong>AI普及加速</strong>：极低成本让中小企业和个人开发者首次能负担得起前沿AI能力</li>
+            <li><strong>创新民主化</strong>：开源+低价消除了"AI只是大公司游戏"的门槛</li>
+            <li><strong>应用场景爆发</strong>：从客服到代码生成，Token成本不再是场景落地的瓶颈</li>
+            <li><strong>全球竞争格局重塑</strong>：中国模型在性价比维度建立了压倒性优势</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-card" style="border-left: 4px solid var(--accent-red);">
+        <h4>⚠️ 风险与挑战</h4>
+        <div class="compare-detail">
+          <ul style="padding-left: 16px;">
+            <li><strong>可持续性存疑</strong>：智谱2025年营收7.24亿、研发支出31.8亿，每赚1元亏6.5元</li>
+            <li><strong>算力供需失衡</strong>：AI算力需求增长417%、供给增速仅128%，缺口持续扩大</li>
+            <li><strong>GPU成本飙升</strong>：NVIDIA B300服务器从400万涨至700万/台，涨幅超70%</li>
+            <li><strong>"免费午餐"终结</strong>：开发者和企业需要重新评估AI使用预算</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>K型分化：行业定价纪律重建</h3>
+    <p>2026年大模型定价呈现明显的<strong>K型分化</strong>格局：</p>
+    <ul>
+      <li><strong>降价派（下沉）</strong>：DeepSeek V4-Flash、Mistral、开源社区——继续以极低价格推动AI普惠</li>
+      <li><strong>涨价派（上行）</strong>：智谱GLM-5.1、Kimi K3、Claude——通过差异化能力和企业级服务提升定价</li>
+    </ul>
+    <p>值得注意的是，GLM-5.1在Coding场景的缓存命中价格已接近Claude Sonnet——<strong>这是国产大模型首次在核心场景实现与海外头部厂商的价格对齐</strong>。</p>
+
+    <div class="insight-box">
+      <div class="insight-icon">📊</div>
+      <h4>摩根士丹利的判断</h4>
+      <p>DeepSeek的涨价被解读为"行业定价纪律改善的积极信号"——大模型厂商终于开始正视可持续经营问题，不能永远靠烧钱换量。当模型能力足够强，价格就不再是唯一的决策因子。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 8: GEOPOLITICAL ==================== -->
+<section class="section">
+  <div class="section-label">第八部分 · 🌍 地缘视角</div>
+  <h2>中美AI定价的结构性分野</h2>
+  <p>DeepSeek的定价策略不仅是商业行为，更是地缘科技竞争的缩影。</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--apple-blue);">34×</span>
+      <span class="stat-label">V4-Pro比GPT-5.5便宜的倍数</span>
+      <span class="stat-note">输出价格：$0.87 vs $30</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--accent-green);">41%</span>
+      <span class="stat-label">中国开源模型下载全球占比</span>
+      <span class="stat-note">首次超过美国（Hugging Face）</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" style="color: var(--accent-purple);">36%</span>
+      <span class="stat-label">中国全球Token调用占比</span>
+      <span class="stat-note">单周超美国，OpenRouter数据</span>
+    </div>
+  </div>
+
+  <h3>地缘因素如何影响定价？</h3>
+  <ul>
+    <li><strong>成本结构差异</strong>：中国在服务器、电力、人力成本方面具有结构性优势，使同等质量的AI推理成本比美国低60-70%</li>
+    <li><strong>芯片自主化</strong>：DeepSeek V4部分使用华为昇腾芯片训练，在技术层面验证了"去NVIDIA化"的可行性</li>
+    <li><strong>出口管制影响</strong>：美国GPU出口限制反而倒逼中国AI公司在效率优化上走得更远——MoE、FP4量化等技术突破部分源于此</li>
+    <li><strong>市场策略差异</strong>：OpenAI等公司背负VC高估值回报压力，需要维持高价保证毛利；DeepSeek背靠幻方量化，初期没有盈利压力</li>
+    <li><strong>新兴市场争夺</strong>：DeepSeek在非洲使用量是其他地区的2-4倍，在俄罗斯、巴西、印度等市场快速渗透——低价策略是地缘科技影响力的重要工具</li>
+  </ul>
+
+  <div class="callout">
+    <p>DeepSeek的惊人推理成本优势源于技术才华与战略选择的结合。通过为效率设计模型（MoE、蒸馏、量化、缓存）并利用开源分发的经济学，DeepSeek能够以传统价格的极小部分提供GPT-4级别的能力。</p>
+    <div class="callout-source">— IntuitionLabs AI 研究报告</div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 9: CONCLUSION ==================== -->
+<section class="section-black">
+  <div class="section-inner">
+    <div class="section-label">第九部分 · 🎯 结论</div>
+    <h2>AI大模型是否已进入"1元时代"？</h2>
+
+    <h3 style="color: var(--white);">答案：是的，但窗口正在关闭</h3>
+    <p>从数据来看，AI大模型确实进入了"1元时代"：</p>
+    <ul>
+      <li>DeepSeek V4-Flash输出定价¥2/百万Token（约$0.28），约为人民币"1元"量级</li>
+      <li>过去一年，企业级Token调用成本同比暴跌67%；以输出100万Token计，从3月的69元跌至2元，降幅达97%</li>
+      <li>2024至2026年，LLM API价格全面下降约80%</li>
+    </ul>
+
+    <h3 style="color: var(--white);">但"1元"不是常态，而是过渡</h3>
+    <p>以下信号表明，"1元时代"正在结束：</p>
+    <ul>
+      <li>DeepSeek宣布"大幅涨价"，V4-Pro高峰时段输出价格从$0.87暴涨至$3.96</li>
+      <li>算力成本刚性上涨：GPU租赁半年涨40%、服务器涨70%、HBM供给紧张</li>
+      <li>行业从"烧钱换量"转向"价值定价"：智谱涨价83%后调用量仍增400%</li>
+      <li>投资人要求看到商业化路径：DeepSeek完成74亿美元融资，估值$590亿，需要证明可持续</li>
+    </ul>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #1a2e1a, #2d4a2d);">
+      <div class="insight-icon">🔮</div>
+      <h4>终极判断</h4>
+      <p style="color: #b8d4b8;">AI大模型的"1元时代"是一个<strong>历史性的窗口期</strong>——它像互联网早期的免费模式一样，极大地加速了技术普及和用户教育。但和所有补贴驱动的增长一样，它终将让位于可持续的商业模型。<br><br>未来的定价格局将是<strong>分层的</strong>：基础模型接近"1元"甚至更低（开源+本地部署）；前沿能力模型回归合理利润（$5-30/百万Token）；按效果付费的增值服务成为利润中心。<br><br>对行业而言，"1元时代"的最大遗产不是低价本身，而是它<strong>倒逼出的技术效率革命</strong>——MoE架构、量化推理、开源生态——这些创新将永久性地降低AI推理的边际成本，即使价格回升，也回不到2024年的水平了。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== METHODOLOGY ==================== -->
+<section class="section">
+  <div class="section-label">附录 · 研究方法</div>
+  <h2>数据来源与可信度</h2>
+
+  <div class="pricing-table-wrap">
+    <table class="pricing">
+      <thead>
+        <tr>
+          <th>数据类型</th>
+          <th>来源</th>
+          <th>可信度</th>
+          <th>时效</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="model-name">API定价数据</td>
+          <td>各厂商官方定价页面</td>
+          <td style="color: var(--accent-green); font-weight: 600;">A（一手）</td>
+          <td>2026年8月</td>
+        </tr>
+        <tr>
+          <td class="model-name">市场份额/用户数据</td>
+          <td>Microsoft估算、SimilarWeb、Backlinko、DemandSage</td>
+          <td style="color: var(--accent-orange); font-weight: 600;">B-C（二手）</td>
+          <td>2026年3-8月</td>
+        </tr>
+        <tr>
+          <td class="model-name">Token调用量</td>
+          <td>国家数据局、中国信通院、OpenRouter</td>
+          <td style="color: var(--accent-green); font-weight: 600;">A（权威）</td>
+          <td>2026年3月</td>
+        </tr>
+        <tr>
+          <td class="model-name">行业分析</td>
+          <td>高盛、摩根士丹利、IDC、国联民生证券</td>
+          <td style="color: var(--accent-green); font-weight: 600;">A（权威）</td>
+          <td>2026年Q1-Q3</td>
+        </tr>
+        <tr>
+          <td class="model-name">融资/估值</td>
+          <td>Reuters、The Information、Wall Street Journal</td>
+          <td style="color: var(--accent-green); font-weight: 600;">A（一手）</td>
+          <td>2026年4-8月</td>
+        </tr>
+        <tr>
+          <td class="model-name">技术架构数据</td>
+          <td>DeepSeek V3/V4技术报告（arXiv）</td>
+          <td style="color: var(--accent-green); font-weight: 600;">A（一手）</td>
+          <td>2024-2026年</td>
+        </tr>
+        <tr>
+          <td class="model-name">商业模式分析</td>
+          <td>钛媒体、证券日报、浙大管理学院</td>
+          <td style="color: var(--accent-orange); font-weight: 600;">B-C（分析）</td>
+          <td>2026年Q1-Q3</td>
+        </tr>
+        <tr>
+          <td class="model-name">基准测试</td>
+          <td>DeepSeek官方 + 独立评测（FUNDA、Lightning AI）</td>
+          <td style="color: var(--accent-orange); font-weight: 600;">B（待独立验证）</td>
+          <td>2026年4-8月</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size: 14px; color: var(--gray-1); margin-top: 24px;">
+    <strong>免责声明</strong>：本报告基于公开信息整理分析，不构成投资建议。AI行业定价变化迅速，数据截至2026年9月5日，实际价格请以各厂商官方页面为准。部分市场份额数据来自第三方估算，可能存在偏差。
+  </p>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <p>
+    研析 · Research Analyst &nbsp;|&nbsp; 2026年9月5日 &nbsp;|&nbsp; P0任务 #270<br>
+    数据截至2026年9月 &nbsp;·&nbsp; 研究Token消耗约80K &nbsp;·&nbsp; 预计阅读时间15分钟<br>
+    <span style="color: #af52de;">💰经济</span> &nbsp;
+    <span style="color: #0071e3;">🤖技术</span> &nbsp;
+    <span style="color: #ff9500;">🌍地缘</span> &nbsp;
+    <span style="color: #34c759;">🏭产业</span>
+  </p>
+</footer>
+
+</body>
+</html>

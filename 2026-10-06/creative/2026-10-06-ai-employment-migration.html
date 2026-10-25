@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 就业大迁移 · 当机器学会思考，人类往哪里走？</title>
+<meta name="description" content="2026 AI就业替代交互图谱 — 从程序员到律师，从会计师到设计师，一场正在发生的白领大迁移">
+<style>
+/* ============ RESET & TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#120800;
+  --ink-2:#1f0e02;
+  --ink-3:#2b1405;
+  --cream:#fff4e8;
+  --cream-2:#ffd9b3;
+  --cream-3:#ffb877;
+  --ember:#ff6b00;
+  --ember-2:#ff8f1f;
+  --amber:#ffb020;
+  --flare:#ff3d00;
+  --hope:#ffaa2b;
+  --steel:#6b7a8d;
+  --ok:#3ddc84;
+  --line:rgba(255,140,40,.18);
+  --line-2:rgba(255,140,40,.32);
+  --shadow:0 20px 60px -18px rgba(255,90,0,.35);
+  --shadow-sm:0 8px 28px -12px rgba(255,90,0,.28);
+  --r:18px;
+  --r-lg:26px;
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,.85,.25,1);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",
+    -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--ink);
+  color:var(--cream);
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--ember);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:0;background:none;cursor:pointer;color:inherit}
+
+/* ============ SCROLL PROGRESS ============ */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:999;
+  background:linear-gradient(90deg,var(--flare),var(--ember),var(--amber),var(--hope));
+  box-shadow:0 0 18px rgba(255,120,0,.75);
+  transition:width .12s linear;
+}
+
+/* ============ NAV ============ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  background:rgba(18,8,0,0);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+  border-bottom:1px solid transparent;
+  transition:background .45s var(--ease),backdrop-filter .45s var(--ease),border-color .45s var(--ease),padding .45s var(--ease);
+}
+#nav.solid{
+  background:rgba(18,8,0,.82);
+  backdrop-filter:blur(22px) saturate(150%);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);
+  border-bottom-color:var(--line);
+  padding:10px 28px;
+}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.5px;font-size:15px;white-space:nowrap}
+.brand .dot{
+  width:26px;height:26px;border-radius:9px;flex:none;
+  background:conic-gradient(from 210deg,var(--flare),var(--ember),var(--amber),var(--flare));
+  box-shadow:0 0 18px rgba(255,120,0,.6);
+  animation:spinDot 9s linear infinite;
+}
+@keyframes spinDot{to{transform:rotate(360deg)}}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{
+  font-size:12.5px;padding:7px 13px;border-radius:999px;
+  color:var(--cream-2);opacity:.82;
+  border:1px solid transparent;
+  transition:all .3s var(--ease);white-space:nowrap;
+}
+.nav-links a:hover,.nav-links a.active{
+  opacity:1;color:#fff;background:rgba(255,120,0,.14);border-color:var(--line-2);
+}
+.nav-cta{
+  font-size:12.5px;font-weight:600;padding:9px 17px;border-radius:999px;
+  background:linear-gradient(135deg,var(--flare),var(--ember-2));
+  color:#fff;box-shadow:0 8px 24px -8px rgba(255,90,0,.7);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 32px -8px rgba(255,90,0,.85)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ============ LAYOUT ============ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{position:relative}
+.sec-pad{padding:110px 0}
+@media(max-width:700px){.sec-pad{padding:72px 0}}
+
+.sec-head{max-width:820px;margin-bottom:52px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:11.5px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;
+  color:var(--ember-2);
+  padding:7px 15px;border-radius:999px;
+  border:1px solid var(--line-2);
+  background:rgba(255,110,0,.08);
+  margin-bottom:20px;
+}
+.eyebrow .pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--flare);
+  box-shadow:0 0 0 0 rgba(255,61,0,.7);animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(255,61,0,.65)}
+  70%{box-shadow:0 0 0 11px rgba(255,61,0,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,61,0,0)}
+}
+h2.sec-title{
+  font-size:clamp(28px,4.6vw,50px);
+  font-weight:700;line-height:1.16;letter-spacing:-1.4px;
+  margin-bottom:18px;
+}
+h2.sec-title .grad{
+  background:linear-gradient(100deg,var(--flare),var(--ember-2) 42%,var(--amber) 78%,var(--hope));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:220% 100%;animation:gradShift 8s ease infinite;
+}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.sec-sub{font-size:clamp(15px,1.9vw,18.5px);color:var(--cream-2);opacity:.85;max-width:720px}
+
+/* ============ REVEAL ============ */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+.rv-d4{transition-delay:.32s}.rv-d5{transition-delay:.40s}.rv-d6{transition-delay:.48s}
+
+/* ============ HERO ============ */
+#hero{
+  min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;
+  padding:120px 0 70px;
+}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-glow{
+  position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:1;
+}
+.hero-glow.a{width:620px;height:620px;top:-190px;right:-130px;background:radial-gradient(circle,rgba(255,100,0,.34),transparent 68%);animation:float1 15s ease-in-out infinite}
+.hero-glow.b{width:520px;height:520px;bottom:-170px;left:-130px;background:radial-gradient(circle,rgba(255,170,40,.24),transparent 68%);animation:float2 19s ease-in-out infinite}
+.hero-glow.c{width:380px;height:380px;top:42%;left:52%;background:radial-gradient(circle,rgba(255,60,0,.16),transparent 70%);animation:float1 23s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-46px,44px) scale(1.12)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(52px,-42px) scale(1.08)}}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.42;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 78% 62% at 50% 42%,#000 18%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 78% 62% at 50% 42%,#000 18%,transparent 78%);
+}
+.hero-inner{position:relative;z-index:3;max-width:940px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:12px;font-weight:600;letter-spacing:1.6px;
+  padding:8px 16px;border-radius:999px;margin-bottom:26px;
+  background:rgba(255,110,0,.1);border:1px solid var(--line-2);color:var(--cream-2);
+}
+.hero-tag b{color:var(--amber);font-weight:700}
+.hero-tag .sep{width:4px;height:4px;border-radius:50%;background:var(--ember)}
+h1.hero-title{
+  font-size:clamp(38px,8.2vw,96px);
+  font-weight:800;line-height:1.03;letter-spacing:-3.4px;
+  margin-bottom:26px;
+}
+h1.hero-title .line{display:block;overflow:hidden}
+h1.hero-title .line span{display:block;transform:translateY(110%);opacity:0;
+  animation:riseIn 1.05s var(--ease) forwards}
+h1.hero-title .line:nth-child(1) span{animation-delay:.15s}
+h1.hero-title .line:nth-child(2) span{animation-delay:.32s}
+h1.hero-title .line:nth-child(3) span{animation-delay:.49s}
+@keyframes riseIn{to{transform:none;opacity:1}}
+.hero-title .grad{
+  background:linear-gradient(100deg,#fff 4%,var(--ember-2) 34%,var(--amber) 62%,var(--hope) 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:260% 100%;animation:gradShift 7s ease infinite;
+}
+.hero-title .out{
+  color:transparent;-webkit-text-stroke:1.6px rgba(255,170,80,.62);
+}
+.hero-lead{
+  font-size:clamp(16px,2.25vw,21px);color:var(--cream-2);
+  max-width:660px;margin-bottom:34px;line-height:1.72;
+}
+.hero-lead b{color:#fff;font-weight:700;background:linear-gradient(transparent 62%,rgba(255,110,0,.42) 0);padding:0 2px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 28px;border-radius:999px;font-size:15px;font-weight:700;
+  transition:transform .32s var(--ease),box-shadow .32s var(--ease),background .32s var(--ease);
+  letter-spacing:.2px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--flare),var(--ember-2) 55%,var(--amber));
+  color:#fff;box-shadow:0 16px 40px -14px rgba(255,90,0,.78);
+}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 52px -14px rgba(255,90,0,.92)}
+.btn-ghost{
+  border:1.5px solid var(--line-2);color:var(--cream-2);background:rgba(255,120,0,.05);
+}
+.btn-ghost:hover{background:rgba(255,120,0,.14);color:#fff;transform:translateY(-3px)}
+.btn .arr{transition:transform .32s var(--ease)}
+.btn:hover .arr{transform:translateX(5px)}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:900px;
+}
+@media(max-width:780px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.hstat{
+  padding:18px 18px 16px;border-radius:16px;
+  background:linear-gradient(158deg,rgba(255,130,30,.115),rgba(255,90,0,.035));
+  border:1px solid var(--line);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  transition:transform .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease);
+  position:relative;overflow:hidden;
+}
+.hstat::after{
+  content:"";position:absolute;top:0;left:-70%;width:52%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,190,110,.16),transparent);
+  transform:skewX(-18deg);
+}
+.hstat:hover{transform:translateY(-5px);border-color:var(--line-2);background:linear-gradient(158deg,rgba(255,130,30,.18),rgba(255,90,0,.06))}
+.hstat:hover::after{animation:sheen .85s var(--ease)}
+@keyframes sheen{to{left:125%}}
+.hstat .num{
+  font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-1.6px;line-height:1.1;
+  background:linear-gradient(120deg,#fff,var(--ember-2) 60%,var(--amber));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hstat .num .suf{font-size:.48em;font-weight:700;letter-spacing:0;margin-left:1px}
+.hstat .lab{font-size:12.5px;color:var(--cream-2);opacity:.86;margin-top:5px;line-height:1.45}
+.hstat .src{font-size:9.5px;letter-spacing:.4px;color:var(--cream-3);opacity:.5;margin-top:7px;text-transform:uppercase}
+
+.scroll-hint{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:10.5px;letter-spacing:3px;color:var(--cream-3);opacity:.62;
+  animation:bob 2.4s ease-in-out infinite;
+}
+.scroll-hint .mouse{
+  width:22px;height:36px;border-radius:12px;border:1.5px solid rgba(255,170,90,.5);
+  display:flex;justify-content:center;padding-top:6px;
+}
+.scroll-hint .mouse i{width:3px;height:7px;border-radius:2px;background:var(--ember);animation:wheel 1.7s ease-in-out infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(11px)}100%{opacity:0}}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+@media(max-width:700px){.scroll-hint{display:none}}
+
+/* ============ TICKER ============ */
+.ticker{
+  position:relative;overflow:hidden;padding:15px 0;
+  background:linear-gradient(90deg,rgba(255,61,0,.11),rgba(255,110,0,.05),rgba(255,170,40,.11));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.ticker-track{display:flex;gap:0;width:max-content;animation:tick 46s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:13px;padding:0 26px;white-space:nowrap;
+  font-size:13.5px;font-weight:600;color:var(--cream-2);letter-spacing:.3px;
+}
+.ticker-item .v{color:var(--amber);font-weight:800;font-size:15px;letter-spacing:-.4px}
+.ticker-item .m{width:5px;height:5px;border-radius:50%;background:var(--flare);flex:none}
+
+/* ============ STORY CHAPTERS ============ */
+.chapter{
+  position:relative;
+}
+.chapter-bg{
+  position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+}
+.chapter-bg .halo{
+  position:absolute;width:640px;height:640px;border-radius:50%;filter:blur(110px);opacity:.5;
+}
+.chapter-bg .halo.h1{top:-180px;left:-180px;background:radial-gradient(circle,rgba(255,90,0,.2),transparent 70%)}
+.chapter-bg .halo.h2{bottom:-200px;right:-160px;background:radial-gradient(circle,rgba(255,170,40,.16),transparent 70%)}
+.chapter .wrap{position:relative;z-index:2}
+
+.chapter-mark{
+  display:flex;align-items:center;gap:16px;margin-bottom:22px;
+}
+.chapter-num{
+  font-size:clamp(46px,7vw,86px);font-weight:800;line-height:1;letter-spacing:-4px;
+  color:transparent;-webkit-text-stroke:1.4px rgba(255,140,50,.4);
+}
+.chapter-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent);max-width:180px}
+.chapter-label{font-size:11.5px;letter-spacing:3px;font-weight:700;color:var(--ember-2);text-transform:uppercase}
+
+/* layer badges */
+.layer-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.layer-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;padding:9px 15px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,120,0,.06);color:var(--cream-2);
+  transition:all .35s var(--ease);
+}
+.layer-chip:hover{background:rgba(255,120,0,.14);border-color:var(--line-2);transform:translateY(-2px)}
+.layer-chip .ic{font-size:14px}
+
+/* ============ METRIC CARDS ============ */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:18px}
+.metric{
+  padding:26px 24px 22px;border-radius:var(--r);
+  background:linear-gradient(158deg,rgba(255,130,30,.09),rgba(255,90,0,.022));
+  border:1px solid var(--line);
+  position:relative;overflow:hidden;
+  transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease);
+}
+.metric::before{
+  content:"";position:absolute;top:-40%;right:-32%;width:190px;height:190px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,130,30,.17),transparent 70%);
+  transition:transform .6s var(--ease);
+}
+.metric:hover{transform:translateY(-7px);border-color:var(--line-2);box-shadow:var(--shadow)}
+.metric:hover::before{transform:scale(1.32) translate(-10px,10px)}
+.metric .ic{
+  font-size:25px;width:50px;height:50px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  background:linear-gradient(140deg,rgba(255,110,0,.24),rgba(255,170,40,.1));
+  border:1px solid var(--line-2);
+}
+.metric .big{
+  font-size:clamp(32px,4.4vw,44px);font-weight:800;letter-spacing:-1.9px;line-height:1.08;
+  background:linear-gradient(115deg,#fff,var(--ember-2) 55%,var(--amber));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.metric .big .suf{font-size:.44em;letter-spacing:0;margin-left:2px;font-weight:700}
+.metric .t{font-size:15.5px;font-weight:700;color:#fff;margin:9px 0 7px;letter-spacing:-.2px}
+.metric .d{font-size:13px;color:var(--cream-2);opacity:.8;line-height:1.66}
+.metric .tag{
+  display:inline-block;margin-top:13px;font-size:10.5px;letter-spacing:1.1px;font-weight:700;
+  padding:4px 10px;border-radius:999px;text-transform:uppercase;
+  background:rgba(255,110,0,.13);color:var(--amber);border:1px solid var(--line);
+}
+.metric.alert{border-color:rgba(255,61,0,.32)}
+.metric.alert .big{background:linear-gradient(115deg,#fff,var(--flare) 60%,var(--ember-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ============ BAR CHART (task coverage) ============ */
+.chart-card{
+  border-radius:var(--r-lg);padding:32px 30px 26px;
+  background:linear-gradient(165deg,rgba(255,130,30,.085),rgba(255,90,0,.02));
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+  position:relative;overflow:hidden;
+}
+.chart-card .glowline{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--amber),transparent);
+}
+.chart-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:26px}
+.chart-title{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.chart-note{font-size:11.5px;color:var(--cream-3);opacity:.72;letter-spacing:.4px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--cream-2);opacity:.86}
+.legend-item .sw{width:13px;height:13px;border-radius:4px;flex:none}
+.legend-item .sw.hi{background:linear-gradient(90deg,var(--flare),var(--ember-2))}
+.legend-item .sw.mid{background:linear-gradient(90deg,var(--ember-2),var(--amber))}
+.legend-item .sw.new{background:linear-gradient(90deg,var(--ok),#8ce6b0)}
+
+.bars{display:flex;flex-direction:column;gap:13px}
+.bar-row{display:grid;grid-template-columns:132px 1fr 62px;gap:14px;align-items:center}
+@media(max-width:640px){.bar-row{grid-template-columns:96px 1fr 52px;gap:9px}}
+.bar-name{font-size:13px;color:var(--cream-2);font-weight:600;text-align:right;letter-spacing:-.1px}
+.bar-track{
+  height:26px;border-radius:8px;background:rgba(255,150,60,.08);overflow:hidden;position:relative;
+  border:1px solid rgba(255,140,40,.1);
+}
+.bar-fill{
+  height:100%;width:0;border-radius:8px;position:relative;
+  transition:width 1.35s var(--ease);
+  display:flex;align-items:center;
+}
+.bar-fill.hi{background:linear-gradient(90deg,var(--flare),var(--ember-2))}
+.bar-fill.mid{background:linear-gradient(90deg,var(--ember-2),var(--amber))}
+.bar-fill.low{background:linear-gradient(90deg,var(--ok),#7fe0a8)}
+.bar-fill::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transform:translateX(-100%);
+}
+.chart-card.in .bar-fill::after{animation:barSheen 1.9s var(--ease) .5s}
+@keyframes barSheen{to{transform:translateX(200%)}}
+.bar-val{font-size:14px;font-weight:800;color:var(--amber);letter-spacing:-.5px;text-align:right}
+.chart-foot{
+  margin-top:22px;padding-top:17px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--cream-3);opacity:.66;line-height:1.72;
+}
+.chart-foot b{color:var(--amber);opacity:1}
+
+/* ============ OCCUPATION ATLAS (高潮) ============ */
+#atlas{
+  background:
+    radial-gradient(ellipse 90% 62% at 50% 0%,rgba(255,80,0,.14),transparent 62%),
+    linear-gradient(180deg,var(--ink),#180a01 42%,var(--ink));
+}
+.atlas-toolbar{
+  display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:26px;
+  padding:13px 15px;border-radius:16px;
+  background:rgba(255,120,0,.055);border:1px solid var(--line);
+}
+.toolbar-label{font-size:11px;letter-spacing:1.9px;font-weight:700;color:var(--cream-3);opacity:.72;margin-right:4px;text-transform:uppercase}
+.filt{
+  padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--line);color:var(--cream-2);background:rgba(255,110,0,.05);
+  transition:all .3s var(--ease);
+}
+.filt:hover{border-color:var(--line-2);color:#fff;transform:translateY(-1px)}
+.filt.active{
+  background:linear-gradient(135deg,var(--flare),var(--ember-2));color:#fff;border-color:transparent;
+  box-shadow:0 8px 22px -8px rgba(255,90,0,.72);
+}
+.atlas-search{
+  margin-left:auto;display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);min-width:190px;
+}
+.atlas-search input{
+  background:none;border:0;outline:0;color:var(--cream);font-size:13px;width:100%;font-family:inherit;
+}
+.atlas-search input::placeholder{color:var(--cream-3);opacity:.55}
+@media(max-width:640px){.atlas-search{margin-left:0;width:100%}}
+
+.atlas-layout{display:grid;grid-template-columns:1fr 396px;gap:22px;align-items:start}
+@media(max-width:980px){.atlas-layout{grid-template-columns:1fr}}
+.atlas-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:13px;
+}
+.occ-card{
+  padding:17px 16px 15px;border-radius:16px;cursor:pointer;text-align:left;
+  background:linear-gradient(158deg,rgba(255,130,30,.08),rgba(255,90,0,.018));
+  border:1px solid var(--line);
+  transition:transform .38s var(--ease),border-color .38s var(--ease),box-shadow .38s var(--ease),background .38s var(--ease);
+  position:relative;overflow:hidden;
+}
+.occ-card::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--flare),var(--amber));
+  transform:scaleX(0);transform-origin:left;transition:transform .42s var(--ease);
+}
+.occ-card:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:var(--shadow-sm)}
+.occ-card:hover::after,.occ-card.active::after{transform:scaleX(1)}
+.occ-card.active{
+  border-color:rgba(255,150,50,.62);
+  background:linear-gradient(158deg,rgba(255,130,30,.2),rgba(255,90,0,.06));
+  box-shadow:0 16px 40px -18px rgba(255,110,0,.6);
+  transform:translateY(-3px);
+}
+.occ-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:11px}
+.occ-emoji{font-size:23px;line-height:1;filter:drop-shadow(0 3px 9px rgba(255,110,0,.4))}
+.risk-dot{
+  width:9px;height:9px;border-radius:50%;flex:none;margin-top:6px;
+  box-shadow:0 0 9px currentColor;
+}
+.risk-dot.crit{background:#ff3d00;color:#ff3d00;animation:blink 1.6s ease-in-out infinite}
+.risk-dot.high{background:#ff7a1a;color:#ff7a1a}
+.risk-dot.mid{background:#ffb020;color:#ffb020}
+.risk-dot.low{background:#3ddc84;color:#3ddc84}
+.risk-dot.new{background:#39c6ff;color:#39c6ff}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.32}}
+.occ-name{font-size:14.5px;font-weight:700;color:#fff;letter-spacing:-.3px;line-height:1.34;margin-bottom:3px}
+.occ-sector{font-size:10.5px;letter-spacing:.9px;color:var(--cream-3);opacity:.68;text-transform:uppercase;font-weight:600}
+.occ-mini{margin-top:12px}
+.occ-mini-track{height:5px;border-radius:3px;background:rgba(255,150,60,.13);overflow:hidden}
+.occ-mini-fill{height:100%;border-radius:3px;transition:width 1.1s var(--ease);width:0}
+.occ-mini-fill.hi{background:linear-gradient(90deg,var(--flare),var(--ember-2))}
+.occ-mini-fill.mid{background:linear-gradient(90deg,var(--ember-2),var(--amber))}
+.occ-mini-fill.low{background:linear-gradient(90deg,var(--ok),#7fe0a8)}
+.occ-mini-fill.new{background:linear-gradient(90deg,#39c6ff,#7fd4ff)}
+.occ-mini-row{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.occ-mini-lab{font-size:10px;color:var(--cream-3);opacity:.72;letter-spacing:.6px}
+.occ-mini-val{font-size:13px;font-weight:800;color:var(--amber);letter-spacing:-.4px}
+.occ-newtag{
+  position:absolute;top:11px;right:11px;font-size:8.8px;font-weight:800;letter-spacing:1px;
+  padding:3px 7px;border-radius:6px;background:rgba(57,198,255,.17);color:#7fd4ff;
+  border:1px solid rgba(57,198,255,.34);
+}
+.occ-card.isnew .occ-name{color:#bfeaff}
+
+/* detail panel */
+.atlas-panel{
+  position:sticky;top:88px;
+  border-radius:var(--r-lg);overflow:hidden;
+  background:linear-gradient(168deg,rgba(255,130,30,.13),rgba(255,90,0,.03) 55%,rgba(255,60,0,.07));
+  border:1px solid var(--line-2);
+  box-shadow:var(--shadow);
+  min-height:520px;display:flex;flex-direction:column;
+}
+@media(max-width:980px){.atlas-panel{position:relative;top:0}}
+.panel-hero{
+  padding:22px 24px 18px;position:relative;overflow:hidden;
+  background:linear-gradient(140deg,rgba(255,90,0,.2),rgba(255,160,40,.05));
+  border-bottom:1px solid var(--line);
+}
+.panel-hero .ring-bg{
+  position:absolute;right:-46px;top:-52px;width:190px;height:190px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,140,40,.24),transparent 68%);
+}
+.panel-head{display:flex;align-items:flex-start;gap:14px;position:relative;z-index:2}
+.panel-emoji{
+  font-size:36px;line-height:1;flex:none;
+  filter:drop-shadow(0 5px 15px rgba(255,110,0,.45));
+}
+.panel-name{font-size:23px;font-weight:800;color:#fff;letter-spacing:-.8px;line-height:1.2}
+.panel-sector{font-size:11px;letter-spacing:1.5px;color:var(--amber);font-weight:700;margin-top:3px;text-transform:uppercase}
+.panel-risk{
+  display:inline-flex;align-items:center;gap:6px;margin-top:9px;
+  font-size:11px;font-weight:700;padding:4px 11px;border-radius:999px;letter-spacing:.6px;
+}
+.panel-body{padding:20px 24px 24px;flex:1;overflow-y:auto;max-height:min(62vh,560px)}
+.panel-body::-webkit-scrollbar{width:5px}
+.panel-body::-webkit-scrollbar-thumb{background:rgba(255,140,40,.34);border-radius:3px}
+.panel-sec{margin-bottom:19px}
+.panel-sec:last-child{margin-bottom:4px}
+.panel-sec-t{
+  font-size:10.5px;letter-spacing:2.1px;font-weight:800;color:var(--ember-2);
+  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:9px;
+}
+.panel-sec-t::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+
+/* donut */
+.donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.donut{position:relative;width:142px;height:142px;flex:none}
+.donut svg{transform:rotate(-90deg);width:100%;height:100%}
+.donut circle{fill:none;stroke-linecap:round}
+.donut .bg{stroke:rgba(255,150,60,.12);stroke-width:11}
+.donut .fg{stroke-width:11;transition:stroke-dashoffset 1.15s var(--ease)}
+.donut .center{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.donut .center .v{
+  font-size:33px;font-weight:800;letter-spacing:-1.6px;line-height:1;
+  background:linear-gradient(120deg,#fff,var(--ember-2),var(--amber));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.donut .center .v .s{font-size:.46em;font-weight:700;letter-spacing:0}
+.donut .center .l{font-size:9.5px;letter-spacing:1.5px;color:var(--cream-3);opacity:.75;margin-top:4px;font-weight:700}
+.donut-stats{flex:1;min-width:130px;display:flex;flex-direction:column;gap:10px}
+.dstat{
+  padding:10px 13px;border-radius:12px;
+  background:rgba(255,140,40,.07);border:1px solid var(--line);
+}
+.dstat .k{font-size:9.8px;letter-spacing:1.3px;color:var(--cream-3);opacity:.72;font-weight:700;text-transform:uppercase}
+.dstat .v{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.7px;line-height:1.24;margin-top:1px}
+.dstat .v small{font-size:11px;font-weight:600;opacity:.72;letter-spacing:0}
+
+/* skills */
+.skill-list{display:flex;flex-direction:column;gap:9px}
+.skill-item{
+  display:flex;align-items:center;gap:11px;
+}
+.skill-item .nm{font-size:12px;color:var(--cream-2);width:96px;flex:none;font-weight:600}
+.skill-item .tr{flex:1;height:7px;border-radius:4px;background:rgba(255,150,60,.11);overflow:hidden}
+.skill-item .fl{height:100%;border-radius:4px;width:0;transition:width 1s var(--ease)}
+.skill-item .pc{font-size:11.5px;font-weight:700;color:var(--amber);width:38px;text-align:right}
+
+/* path steps */
+.path-list{display:flex;flex-direction:column;gap:0;position:relative;padding-left:2px}
+.path-step{
+  display:flex;gap:13px;position:relative;padding-bottom:15px;
+}
+.path-step:last-child{padding-bottom:0}
+.path-step .rail{
+  position:absolute;left:9px;top:24px;bottom:2px;width:2px;
+  background:linear-gradient(180deg,var(--ember-2),rgba(255,140,40,.13));
+}
+.path-step:last-child .rail{display:none}
+.path-step .knob{
+  width:20px;height:20px;border-radius:50%;flex:none;position:relative;z-index:2;
+  background:linear-gradient(140deg,var(--flare),var(--amber));
+  display:flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:800;color:#fff;
+  box-shadow:0 0 0 3px rgba(255,110,0,.16);
+}
+.path-step .txt .h{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.path-step .txt .p{font-size:11.6px;color:var(--cream-2);opacity:.78;line-height:1.62;margin-top:2px}
+
+.panel-quote{
+  padding:14px 16px;border-radius:14px;margin-top:4px;
+  background:linear-gradient(135deg,rgba(255,110,0,.13),rgba(255,170,40,.05));
+  border-left:3px solid var(--ember-2);
+  font-size:12.4px;line-height:1.74;color:var(--cream-2);font-style:italic;
+}
+.panel-quote b{color:var(--amber);font-style:normal;font-weight:700}
+.panel-foot{
+  padding:13px 24px;border-top:1px solid var(--line);
+  font-size:10.4px;color:var(--cream-3);opacity:.6;line-height:1.66;
+  background:rgba(255,90,0,.035);
+}
+
+/* ============ AB COMPARE ============ */
+.ab-shell{
+  border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid var(--line-2);
+  background:linear-gradient(168deg,rgba(255,130,30,.08),rgba(255,90,0,.018));
+  box-shadow:var(--shadow);
+}
+.ab-head{
+  padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(120deg,rgba(255,90,0,.1),transparent);
+}
+.ab-head .t{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.ab-head .s{font-size:11.5px;color:var(--cream-3);opacity:.76;margin-top:2px}
+.ab-switch{display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(255,110,0,.08);border:1px solid var(--line)}
+.ab-btn{
+  padding:9px 19px;border-radius:999px;font-size:12.8px;font-weight:700;
+  color:var(--cream-2);transition:all .34s var(--ease);letter-spacing:.2px;white-space:nowrap;
+}
+.ab-btn:hover{color:#fff;background:rgba(255,120,0,.14)}
+.ab-btn.active{color:#fff}
+.ab-btn.a.active{background:linear-gradient(135deg,var(--flare),var(--ember-2));box-shadow:0 8px 22px -8px rgba(255,70,0,.72)}
+.ab-btn.b.active{background:linear-gradient(135deg,#1f9d55,var(--ok));box-shadow:0 8px 22px -8px rgba(61,220,132,.6)}
+
+.ab-body{padding:26px 24px 28px}
+.ab-cards{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+@media(max-width:760px){.ab-cards{grid-template-columns:1fr}}
+.ab-card{
+  padding:23px 21px 20px;border-radius:19px;position:relative;overflow:hidden;
+  border:1px solid var(--line);
+  transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease),opacity .45s var(--ease);
+  cursor:pointer;
+}
+.ab-card.a{background:linear-gradient(158deg,rgba(255,61,0,.15),rgba(255,90,0,.03))}
+.ab-card.b{background:linear-gradient(158deg,rgba(61,220,132,.13),rgba(20,120,70,.03))}
+.ab-card:hover{transform:translateY(-5px)}
+.ab-card.a:hover,.ab-card.a.sel{border-color:rgba(255,90,0,.55);box-shadow:0 18px 44px -20px rgba(255,70,0,.62)}
+.ab-card.b:hover,.ab-card.b.sel{border-color:rgba(61,220,132,.5);box-shadow:0 18px 44px -20px rgba(61,220,132,.5)}
+.ab-card.dim{opacity:.42;filter:saturate(.42)}
+.ab-card .badge{
+  display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:1.6px;
+  padding:5px 11px;border-radius:999px;margin-bottom:13px;text-transform:uppercase;
+}
+.ab-card.a .badge{background:rgba(255,61,0,.2);color:#ff9c7a;border:1px solid rgba(255,90,0,.34)}
+.ab-card.b .badge{background:rgba(61,220,132,.16);color:#7fe0a8;border:1px solid rgba(61,220,132,.32)}
+.ab-card h4{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.6px;margin-bottom:7px}
+.ab-card .lead{font-size:12.8px;line-height:1.68;color:var(--cream-2);opacity:.84;margin-bottom:16px}
+.ab-rows{display:flex;flex-direction:column;gap:9px;margin-bottom:15px}
+.ab-row{display:flex;align-items:center;gap:11px}
+.ab-row .k{font-size:11px;color:var(--cream-3);width:66px;flex:none;letter-spacing:.5px;font-weight:600}
+.ab-row .tr{flex:1;height:7px;border-radius:4px;background:rgba(255,150,60,.1);overflow:hidden}
+.ab-row .fl{height:100%;border-radius:4px;width:0;transition:width 1.05s var(--ease)}
+.ab-card.a .ab-row .fl{background:linear-gradient(90deg,var(--flare),var(--ember-2))}
+.ab-card.b .ab-row .fl{background:linear-gradient(90deg,#1f9d55,var(--ok))}
+.ab-row .v{font-size:11.5px;font-weight:800;width:44px;text-align:right}
+.ab-card.a .ab-row .v{color:#ff9c7a}
+.ab-card.b .ab-row .v{color:#7fe0a8}
+.ab-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ab-tag{
+  font-size:10.4px;font-weight:600;padding:4.5px 10px;border-radius:999px;
+  background:rgba(255,140,40,.1);border:1px solid var(--line);color:var(--cream-2);
+}
+.ab-card.b .ab-tag{background:rgba(61,220,132,.1);border-color:rgba(61,220,132,.22);color:#a9ecc6}
+.ab-insight{
+  margin-top:20px;padding:18px 20px;border-radius:17px;
+  background:linear-gradient(120deg,rgba(255,120,20,.14),rgba(255,180,60,.05));
+  border:1px solid var(--line-2);
+  font-size:13.4px;line-height:1.78;color:var(--cream-2);
+}
+.ab-insight .hd{
+  display:flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:2.2px;font-weight:800;
+  color:var(--amber);text-transform:uppercase;margin-bottom:8px;
+}
+.ab-insight b{color:#fff;font-weight:700;background:linear-gradient(transparent 60%,rgba(255,110,0,.36) 0);padding:0 2px}
+
+/* ============ WEF / BIG CHART ============ */
+.split-2{display:grid;grid-template-columns:1.06fr .94fr;gap:22px;align-items:stretch}
+@media(max-width:900px){.split-2{grid-template-columns:1fr}}
+.wev-bar{
+  display:flex;align-items:center;gap:15px;margin-bottom:17px;
+  padding:17px 19px;border-radius:16px;
+  background:rgba(255,130,30,.07);border:1px solid var(--line);
+  transition:transform .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease);
+}
+.wev-bar:hover{transform:translateX(6px);border-color:var(--line-2);background:rgba(255,130,30,.12)}
+.wev-ic{
+  width:46px;height:46px;border-radius:13px;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:21px;
+  border:1px solid var(--line-2);
+}
+.wev-ic.loss{background:linear-gradient(140deg,rgba(255,61,0,.26),rgba(255,90,0,.08))}
+.wev-ic.gain{background:linear-gradient(140deg,rgba(61,220,132,.24),rgba(20,140,80,.07))}
+.wev-ic.net{background:linear-gradient(140deg,rgba(255,170,40,.28),rgba(255,110,0,.09))}
+.wev-mid{flex:1;min-width:0}
+.wev-mid .h{font-size:14.5px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.wev-mid .s{font-size:11.4px;color:var(--cream-2);opacity:.74;margin-top:1px}
+.wev-num{
+  font-size:clamp(22px,3vw,29px);font-weight:800;letter-spacing:-1.3px;line-height:1;flex:none;text-align:right;
+}
+.wev-num.loss{background:linear-gradient(120deg,#fff,var(--flare),var(--ember-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wev-num.gain{background:linear-gradient(120deg,#fff,var(--ok),#8ce6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wev-num.net{background:linear-gradient(120deg,#fff,var(--amber),var(--hope));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wev-num .u{display:block;font-size:10px;letter-spacing:1.4px;font-weight:700;color:var(--cream-3);opacity:.66;margin-top:3px;-webkit-text-fill-color:var(--cream-3)}
+
+/* income / premium line chart */
+.mini-chart{position:relative;height:212px;margin:6px 0 4px}
+.mini-chart svg{width:100%;height:100%;overflow:visible}
+.mini-chart .axl{font-size:9.4px;fill:rgba(255,180,110,.6);letter-spacing:.6px;font-weight:600}
+.mini-chart .gl{stroke:rgba(255,140,40,.12);stroke-width:1}
+.mini-chart .val-lab{font-size:10.4px;font-weight:800;letter-spacing:-.2px}
+
+/* ============ SIX ABILITIES RADAR ============ */
+.abil-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:14px}
+.abil{
+  padding:21px 19px 18px;border-radius:17px;
+  background:linear-gradient(158deg,rgba(61,220,132,.085),rgba(30,140,80,.022));
+  border:1px solid rgba(61,220,132,.2);
+  transition:transform .42s var(--ease),box-shadow .42s var(--ease),border-color .42s var(--ease);
+  position:relative;overflow:hidden;
+}
+.abil::before{
+  content:"";position:absolute;top:-32%;right:-28%;width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(61,220,132,.16),transparent 70%);
+}
+.abil:hover{transform:translateY(-6px);border-color:rgba(61,220,132,.46);box-shadow:0 18px 44px -22px rgba(61,220,132,.52)}
+.abil .n{
+  font-size:10px;font-weight:800;letter-spacing:2.2px;color:var(--ok);opacity:.76;margin-bottom:9px;
+  display:flex;align-items:center;gap:8px;
+}
+.abil .n .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(61,220,132,.4),transparent)}
+.abil h4{font-size:17.5px;font-weight:800;color:#eafff3;letter-spacing:-.4px;margin-bottom:7px}
+.abil p{font-size:12.4px;color:#b6e8cb;opacity:.84;line-height:1.7}
+.abil .ex{
+  margin-top:11px;font-size:10.6px;color:#7fe0a8;opacity:.85;
+  padding:7px 11px;border-radius:10px;background:rgba(61,220,132,.09);
+  border:1px dashed rgba(61,220,132,.24);letter-spacing:.3px;
+}
+
+/* ============ NEW JOBS ============ */
+.newjobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px}
+.newjob{
+  padding:22px 20px 19px;border-radius:18px;
+  background:linear-gradient(158deg,rgba(57,198,255,.09),rgba(30,110,180,.02));
+  border:1px solid rgba(57,198,255,.22);
+  transition:transform .42s var(--ease),border-color .42s var(--ease),box-shadow .42s var(--ease);
+  position:relative;overflow:hidden;
+}
+.newjob:hover{transform:translateY(-5px);border-color:rgba(57,198,255,.46);box-shadow:0 18px 42px -22px rgba(57,198,255,.46)}
+.newjob .grow{
+  position:absolute;top:0;left:0;height:2px;width:100%;
+  background:linear-gradient(90deg,#39c6ff,var(--amber),var(--ok));
+  transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease);
+}
+.newjob:hover .grow{transform:scaleX(1)}
+.newjob .ic{font-size:24px;margin-bottom:11px;display:block}
+.newjob h4{font-size:16px;font-weight:700;color:#dff4ff;letter-spacing:-.3px;margin-bottom:6px}
+.newjob .g{
+  display:inline-block;font-size:11px;font-weight:800;letter-spacing:.7px;
+  padding:3.5px 10px;border-radius:999px;margin-bottom:10px;
+  background:rgba(61,220,132,.14);color:#7fe0a8;border:1px solid rgba(61,220,132,.28);
+}
+.newjob p{font-size:12.3px;color:#a9d4ea;opacity:.86;line-height:1.68}
+.newjob .meta{margin-top:12px;display:flex;gap:14px;flex-wrap:wrap}
+.newjob .meta div{font-size:10.4px;color:#7fd4ff;opacity:.8;letter-spacing:.5px}
+.newjob .meta div b{display:block;font-size:15.5px;color:#fff;letter-spacing:-.5px;opacity:1;font-weight:800}
+
+/* ============ TIMELINE / GENERATION ============ */
+.gen-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.gen-tab{
+  padding:10px 19px;border-radius:999px;font-size:13px;font-weight:700;
+  border:1px solid var(--line);background:rgba(255,110,0,.05);color:var(--cream-2);
+  transition:all .32s var(--ease);
+}
+.gen-tab:hover{color:#fff;border-color:var(--line-2);transform:translateY(-1px)}
+.gen-tab.active{
+  background:linear-gradient(135deg,var(--flare),var(--amber));color:#fff;border-color:transparent;
+  box-shadow:0 10px 26px -10px rgba(255,100,0,.72);
+}
+.gen-panel{display:none;animation:fadeUp .5s var(--ease)}
+.gen-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:none}}
+.gen-card{
+  padding:27px 26px 23px;border-radius:20px;
+  background:linear-gradient(158deg,rgba(255,130,30,.1),rgba(255,90,0,.022));
+  border:1px solid var(--line-2);
+}
+.gen-card .hd{display:flex;align-items:center;gap:15px;margin-bottom:18px;flex-wrap:wrap}
+.gen-card .hd .av{
+  width:58px;height:58px;border-radius:18px;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:27px;
+  background:linear-gradient(140deg,rgba(255,110,0,.28),rgba(255,170,40,.1));
+  border:1px solid var(--line-2);
+}
+.gen-card .hd h3{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.gen-card .hd .sub{font-size:12px;color:var(--amber);letter-spacing:1.3px;font-weight:600;margin-top:2px}
+.gen-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:17px}
+.gen-stat{
+  padding:13px 14px;border-radius:13px;background:rgba(255,140,40,.07);border:1px solid var(--line);
+}
+.gen-stat .v{font-size:23px;font-weight:800;letter-spacing:-1.1px;
+  background:linear-gradient(120deg,#fff,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gen-stat .k{font-size:10.4px;color:var(--cream-3);opacity:.74;margin-top:2px;letter-spacing:.7px;font-weight:600}
+.gen-body{font-size:13.2px;color:var(--cream-2);opacity:.87;line-height:1.82}
+.gen-body b{color:#fff;font-weight:700}
+.gen-quote{
+  margin-top:15px;padding:13px 16px;border-radius:13px;
+  background:rgba(255,110,0,.1);border-left:3px solid var(--amber);
+  font-size:12.2px;color:var(--cream-2);line-height:1.72;font-style:italic;
+}
+.gen-quote b{color:var(--amber);font-style:normal}
+
+/* ============ CALLOUT / ANXIETY SECTION ============ */
+.anxiety{
+  position:relative;overflow:hidden;
+  border-radius:var(--r-lg);
+  background:
+    radial-gradient(ellipse 82% 100% at 12% 0%,rgba(255,61,0,.19),transparent 62%),
+    linear-gradient(152deg,rgba(255,90,0,.1),rgba(255,170,40,.02));
+  border:1px solid rgba(255,90,0,.28);
+  padding:40px 38px 36px;
+}
+@media(max-width:700px){.anxiety{padding:28px 22px 24px}}
+.anxiety .bignum{
+  font-size:clamp(74px,17vw,190px);font-weight:800;line-height:.92;letter-spacing:-8px;
+  background:linear-gradient(112deg,#fff 4%,var(--ember-2) 34%,var(--amber) 68%,var(--hope));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% 100%;animation:gradShift 8.4s ease infinite;
+  position:relative;z-index:2;
+}
+.anxiety .bignum .s{font-size:.36em;letter-spacing:-2px;font-weight:700}
+.anxiety .bt{
+  font-size:clamp(21px,3.1vw,31px);font-weight:700;color:#fff;letter-spacing:-.8px;
+  margin:13px 0 12px;position:relative;z-index:2;
+}
+.anxiety .bd{
+  font-size:clamp(14px,1.85vw,17px);color:var(--cream-2);opacity:.88;max-width:760px;line-height:1.82;
+  position:relative;z-index:2;
+}
+.anxiety .bd b{color:var(--amber);font-weight:700}
+.anxiety .ring{
+  position:absolute;border-radius:50%;border:1px dashed rgba(255,150,60,.2);
+  pointer-events:none;
+}
+.anxiety .ring.r1{width:430px;height:430px;top:-140px;right:-100px;animation:spinSlow 44s linear infinite}
+.anxiety .ring.r2{width:300px;height:300px;top:-72px;right:-36px;animation:spinSlow 30s linear infinite reverse}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.anxiety .split-num{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:27px;position:relative;z-index:2;
+}
+@media(max-width:620px){.anxiety .split-num{grid-template-columns:1fr}}
+.anx-half{
+  padding:19px 20px 16px;border-radius:17px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+}
+.anx-half .v{font-size:clamp(27px,4.1vw,37px);font-weight:800;letter-spacing:-1.7px;line-height:1.1}
+.anx-half .v.red{background:linear-gradient(120deg,#fff,var(--flare),var(--ember-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.anx-half .v.green{background:linear-gradient(120deg,#fff,var(--ok),#8ce6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.anx-half .k{font-size:12.4px;color:var(--cream-2);opacity:.82;margin-top:5px;font-weight:600}
+.anx-half .s{font-size:10px;letter-spacing:1.3px;color:var(--cream-3);opacity:.6;margin-top:6px;text-transform:uppercase;font-weight:700}
+
+/* ============ FINALE ============ */
+#finale{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 96% 78% at 50% 108%,rgba(255,140,30,.24),transparent 62%),
+    linear-gradient(180deg,var(--ink),#200d01);
+  text-align:center;
+}
+#finaleCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.72}
+#finale .wrap{position:relative;z-index:3}
+.fin-title{
+  font-size:clamp(30px,6.4vw,66px);font-weight:800;line-height:1.13;letter-spacing:-2.5px;
+  margin-bottom:19px;
+}
+.fin-title .grad{
+  background:linear-gradient(100deg,#fff 6%,var(--ember-2) 32%,var(--amber) 60%,var(--ok) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:230% 100%;animation:gradShift 9s ease infinite;
+}
+.fin-sub{
+  font-size:clamp(15px,2.15vw,19.5px);color:var(--cream-2);opacity:.88;
+  max-width:730px;margin:0 auto 38px;line-height:1.82;
+}
+.fin-sub b{color:var(--amber);font-weight:700}
+.fin-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(218px,1fr));gap:15px;margin-bottom:42px;text-align:left}
+.fin-step{
+  padding:24px 21px 20px;border-radius:19px;
+  background:linear-gradient(158deg,rgba(255,130,30,.1),rgba(255,90,0,.024));
+  border:1px solid var(--line);
+  transition:transform .42s var(--ease),border-color .42s var(--ease),box-shadow .42s var(--ease);
+  position:relative;overflow:hidden;
+}
+.fin-step:hover{transform:translateY(-6px);border-color:var(--line-2);box-shadow:var(--shadow)}
+.fin-step .no{
+  font-size:38px;font-weight:800;letter-spacing:-2.4px;line-height:1;
+  color:transparent;-webkit-text-stroke:1.2px rgba(255,150,50,.5);
+  margin-bottom:11px;
+}
+.fin-step h4{font-size:16.5px;font-weight:700;color:#fff;letter-spacing:-.35px;margin-bottom:7px}
+.fin-step p{font-size:12.4px;color:var(--cream-2);opacity:.82;line-height:1.72}
+.fin-step .bar{
+  position:absolute;top:0;left:0;height:2.5px;width:100%;
+  background:linear-gradient(90deg,var(--flare),var(--amber),var(--ok));
+  transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease);
+}
+.fin-step:hover .bar{transform:scaleX(1)}
+
+.fin-quote{
+  max-width:840px;margin:0 auto 34px;padding:27px 31px;
+  border-radius:21px;position:relative;
+  background:linear-gradient(135deg,rgba(255,110,0,.16),rgba(255,180,60,.05));
+  border:1px solid var(--line-2);
+}
+.fin-quote .q{
+  font-size:clamp(17px,2.5vw,24px);font-weight:700;color:#fff;letter-spacing:-.4px;line-height:1.62;
+}
+.fin-quote .a{font-size:12.4px;color:var(--amber);margin-top:12px;letter-spacing:1.6px;font-weight:600}
+
+.fin-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+
+.fin-meta{
+  display:flex;gap:26px;justify-content:center;flex-wrap:wrap;
+  padding-top:27px;border-top:1px solid var(--line);
+  font-size:11px;letter-spacing:1.5px;color:var(--cream-3);opacity:.6;text-transform:uppercase;font-weight:600;
+}
+
+/* ============ FOOTER ============ */
+footer{
+  padding:36px 0 44px;border-top:1px solid var(--line);
+  background:linear-gradient(180deg,transparent,rgba(255,90,0,.045));
+}
+.foot-in{
+  max-width:var(--maxw);margin:0 auto;padding:0 28px;
+  display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:flex-start;
+}
+.foot-brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:15px}
+.foot-brand .dot{
+  width:28px;height:28px;border-radius:10px;flex:none;
+  background:conic-gradient(from 200deg,var(--flare),var(--ember),var(--amber),var(--flare));
+}
+.foot-note{font-size:11.6px;color:var(--cream-3);opacity:.66;line-height:1.86;max-width:600px;margin-top:9px}
+.foot-note b{color:var(--amber);opacity:1;font-weight:700}
+.foot-src{font-size:11.4px;color:var(--cream-3);opacity:.72;line-height:1.94;max-width:430px}
+.foot-src .t{
+  font-size:10.2px;letter-spacing:2.2px;font-weight:800;color:var(--ember-2);
+  text-transform:uppercase;margin-bottom:8px;opacity:1;
+}
+.foot-src li{list-style:none;padding-left:14px;position:relative}
+.foot-src li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--ember-2);opacity:.7}
+
+/* ============ MISC ============ */
+.divider-ember{
+  height:1px;max-width:var(--maxw);margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--line-2) 22%,rgba(255,170,60,.42) 50%,var(--line-2) 78%,transparent);
+}
+.kicker-line{
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+  font-size:11px;letter-spacing:2.6px;font-weight:700;color:var(--ember-2);text-transform:uppercase;
+}
+.kicker-line .ln{width:34px;height:1.5px;background:linear-gradient(90deg,var(--flare),transparent);border-radius:2px}
+
+.pill-note{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.6px;font-weight:600;color:var(--cream-2);
+  padding:8px 15px;border-radius:999px;
+  background:rgba(255,120,0,.07);border:1px solid var(--line);
+}
+.pill-note .ic{font-size:13px}
+
+.empty-note{
+  padding:44px 20px;text-align:center;border-radius:18px;
+  border:1px dashed var(--line-2);background:rgba(255,120,0,.04);
+  color:var(--cream-3);font-size:13.5px;
+}
+.empty-note .ic{font-size:32px;display:block;margin-bottom:11px}
+
+/* toast */
+#toast{
+  position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+  padding:13px 22px;border-radius:999px;font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,rgba(255,90,0,.95),rgba(255,160,40,.95));
+  color:#fff;box-shadow:0 16px 40px -12px rgba(255,90,0,.7);
+  opacity:0;pointer-events:none;transition:all .42s var(--ease);z-index:1000;
+  max-width:calc(100vw - 40px);text-align:center;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  h1.hero-title .line span{transform:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../index.html">← 返回展厅</a>
+
+
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="brand"><span class="dot"></span>AI 就业大迁移</div>
+  <div class="nav-links">
+    <a href="#signal" data-sec="signal">⚡ 冲击信号</a>
+    <a href="#atlas" data-sec="atlas">🗺️ 替代图谱</a>
+    <a href="#compare" data-sec="compare">⚖️ 两条路径</a>
+    <a href="#macro" data-sec="macro">📊 宏观图景</a>
+    <a href="#human" data-sec="human">🧬 人类护城河</a>
+    <a href="#future" data-sec="future">🚀 新职业</a>
+    <a href="#finale" data-sec="finale">🌅 终章</a>
+  </div>
+  <a class="nav-cta" href="#atlas">探索你的职业 →</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow a"></div>
+  <div class="hero-glow b"></div>
+  <div class="hero-glow c"></div>
+  <div class="hero-grid"></div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-tag">
+      <span>2026 · AI 就业大迁移</span><span class="sep"></span>
+      <span>数据截至 <b>2026 年 9 月</b></span><span class="sep"></span>
+      <span>🤖 技术 👥 社会 💰 经济 🏭 产业</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line"><span>当 AI 学会了</span></span>
+      <span class="line"><span class="grad">白领的思考</span></span>
+      <span class="line"><span class="out">人类往哪里走？</span></span>
+    </h1>
+
+    <p class="hero-lead">
+      程序员、律师、会计师、分析师、编辑、客服——
+      一场 <b>AI 就业大迁移</b>正在无声发生。
+      它不是一夜之间的失业潮，而是对<b>每一个「可标准化任务」</b>的精准拆解与重组。
+      这份交互体验，用 2026 年最新数据，带你看清替代的真实边界，以及人类转型的方向。
+    </p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#atlas">🗺️ 进入交互式替代图谱 <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#signal">先看冲击信号 <span class="arr">↓</span></a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat rv rv-d1">
+        <div class="num"><span class="cnt" data-to="26.6" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="lab">线上招聘岗位落入「高 AI 暴露 · 低互补」替代压力区</div>
+        <div class="src">上科大 CEISD · 7.43亿条招聘数据</div>
+      </div>
+      <div class="hstat rv rv-d2">
+        <div class="num"><span class="cnt" data-to="9200" data-dec="0">0</span><span class="suf">万</span></div>
+        <div class="lab">2030 年前全球将被替代的传统岗位数量</div>
+        <div class="src">世界经济论坛 WEF</div>
+      </div>
+      <div class="hstat rv rv-d3">
+        <div class="num"><span class="cnt" data-to="1.7" data-dec="1">0</span><span class="suf">亿</span></div>
+        <div class="lab">同一时期 AI 将新创造的岗位数量（净增 7800 万）</div>
+        <div class="src">世界经济论坛 WEF</div>
+      </div>
+      <div class="hstat rv rv-d4">
+        <div class="num"><span class="cnt" data-to="34.2" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="lab">掌握 AI 协同能力者的平均薪资溢价</div>
+        <div class="src">中国劳保院 · 2026 Q2 报告</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="mouse"><i></i></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ============ CH 01 · SIGNAL ============ -->
+<section id="signal" class="sec-pad chapter">
+  <div class="chapter-bg"><div class="halo h1"></div><div class="halo h2"></div></div>
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">01</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 01 · 冲击信号</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow"><span class="pulse"></span>技术能力层 · AI 已经能做什么</div>
+        <h2 class="sec-title">焦虑不是空穴来风，<br>它有<span class="grad">非常具体的数字</span></h2>
+        <p class="sec-sub">
+          2026 年，AI 对就业的冲击不再是预测，而是正在发生的现实。但真实图景比标题党复杂得多——
+          <b style="color:var(--amber)">AI 挑战的不是「职业」，而是「任务」</b>。
+        </p>
+        <div class="layer-strip">
+          <span class="layer-chip"><span class="ic">🤖</span>技术能力层</span>
+          <span class="layer-chip"><span class="ic">💰</span>经济影响层</span>
+          <span class="layer-chip"><span class="ic">👥</span>社会结构层</span>
+          <span class="layer-chip"><span class="ic">🏭</span>产业迁移层</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric alert rv rv-d1">
+        <div class="ic">📉</div>
+        <div class="big"><span class="cnt" data-to="74.5" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="t">程序员任务可被 AI 覆盖</div>
+        <div class="d">Anthropic 基于真实使用数据的研究显示，计算机程序员日常工作中已有 74.5% 的任务可被 AI 覆盖，位居所有职业之首。</div>
+        <span class="tag">技术能力层</span>
+      </div>
+
+      <div class="metric alert rv rv-d2">
+        <div class="ic">⚖️</div>
+        <div class="big"><span class="cnt" data-to="92" data-dec="0">0</span><span class="suf">%</span></div>
+        <div class="t">法律文书助理替代率</div>
+        <div class="d">高盛数据显示，法律文书助理以 92% 的替代率高居榜首。合同审阅、文书起草、案例检索——输入明确、输出标准的工作首当其冲。</div>
+        <span class="tag">经济影响层</span>
+      </div>
+
+      <div class="metric alert rv rv-d3">
+        <div class="ic">🏦</div>
+        <div class="big"><span class="cnt" data-to="51.3" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="t">金融业 AI 自动化替代率</div>
+        <div class="d">中国劳动和社会保障科学研究院 2026 Q2 报告：金融业替代率最高，达 51.3%，主要集中在基础审核与客服岗。</div>
+        <span class="tag">产业迁移层</span>
+      </div>
+
+      <div class="metric rv rv-d4">
+        <div class="ic">🎓</div>
+        <div class="big"><span class="cnt" data-to="67.8" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="t">岗位明确要求 AI 能力</div>
+        <div class="d">产品经理、市场营销、数据分析等核心白领岗位中，要求具备 AI 大模型工具使用经验的招聘职位占比已达 67.8%，同比激增 28 个百分点。</div>
+        <span class="tag">经济影响层</span>
+      </div>
+
+      <div class="metric rv rv-d5">
+        <div class="ic">🧑‍💼</div>
+        <div class="big"><span class="cnt" data-to="18.6" data-dec="1">0</span><span class="suf">%</span></div>
+        <div class="t">岗位由「任务重组」而生</div>
+        <div class="d">市场上约 2100 万个岗位由任务重组形成，占全部招聘岗位的 18.6%。AI 并未催生全新职业，就业增量来自「复合型闭环岗位」。</div>
+        <span class="tag">社会结构层</span>
+      </div>
+
+      <div class="metric alert rv rv-d6">
+        <div class="ic">👶</div>
+        <div class="big"><span class="cnt" data-to="20" data-dec="0">0</span><span class="suf">%</span></div>
+        <div class="t">初级软件工程师就业率下滑</div>
+        <div class="d">美国 25 岁以下初级软件工程师就业率下滑近 20%，22–27 岁年轻大学毕业生在高 AI 暴露行业的失业率已高于 2019 年水平。入门级岗位承受最大压力。</div>
+        <span class="tag">社会结构层</span>
+      </div>
+    </div>
+
+    <div style="height:26px"></div>
+
+    <!-- Task coverage chart -->
+    <div class="chart-card rv" id="coverageChart">
+      <div class="glowline"></div>
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">职业「任务可被 AI 覆盖」比例排行</div>
+          <div class="chart-note">数据来源：Anthropic 真实使用研究 · 高盛 · 上科大 CEISD · 中国劳保院 2026</div>
+        </div>
+        <div class="pill-note"><span class="ic">💡</span>数值越高 = 该职业中越多的任务可被 AI 接手</div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="sw hi"></span>高暴露（≥80%）</div>
+        <div class="legend-item"><span class="sw mid"></span>中高暴露（60–79%）</div>
+        <div class="legend-item"><span class="sw new"></span>新兴岗位（增长中）</div>
+      </div>
+
+      <div class="bars" id="coverageBars"></div>
+
+      <div class="chart-foot">
+        <b>关键洞察：</b>被替代的共同点是「输入明确 · 输出标准 · 不需要面对面沟通」。
+        而资深 Java 工程师的架构设计、故障处置等高价值工作无法被机器替代，资深技术岗薪资仍在稳步上涨。
+        —— <b>AI 替代的是任务，不是你；但如果你只会干 AI 能干的事，被替代的就是你。</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-ember"></div>
+
+<!-- ============ CH 02 · ANXIETY (社会情感) ============ -->
+<section class="sec-pad" id="anxiety" style="padding-top:70px">
+  <div class="wrap">
+    <div class="anxiety rv">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="kicker-line"><span class="ln"></span>社会情感层 · 为什么焦虑如此真实</div>
+      <div class="bignum"><span class="cnt" data-to="42.5" data-dec="1">0</span><span class="suf">%</span></div>
+      <div class="bt">基础文职岗位 AI 自动化替代率，已突破临界点</div>
+      <p class="bd">
+        截至 2026 年 6 月，基础行政文员、初级数据录入员、标准化客服等岗位的 AI 自动化替代率已达
+        <b>42.5%</b>，较 2025 年底上升近 10 个百分点。更值得注意的是结构性分化——
+        收缩效应最集中的，正是<b>月薪 5000–8000 元、有 1–3 年工作经验的入门中端劳动者</b>。
+        入门级岗位每季度骤降 80%，年轻人赖以入行的基础技能正在快速贬值。
+      </p>
+
+      <div class="split-num">
+        <div class="anx-half">
+          <div class="v red">2.1<span style="font-size:.52em">倍</span></div>
+          <div class="k">会用 AI 的人获得首轮面试邀约的概率</div>
+          <div class="s">中国劳保院 · 2026 Q2</div>
+        </div>
+        <div class="anx-half">
+          <div class="v green">+56<span style="font-size:.52em">%</span></div>
+          <div class="k">拥有 AI 技能从业者的平均工资溢价（另一口径）</div>
+          <div class="s">猎聘 · AI 时代技能趋势报告</div>
+        </div>
+      </div>
+
+      <p class="bd" style="margin-top:20px;font-size:14px;opacity:.8">
+        焦虑的另一面是：<b>「会用 AI 的人正在淘汰不会用 AI 的人。」</b>
+        这种技能溢价在未来 3–5 年内还将持续扩大。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH 03 · ATLAS (高潮) ============ -->
+<section id="atlas" class="sec-pad chapter">
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">02</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 02 · 交互式就业替代图谱</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow"><span class="pulse"></span>探索式交互 · 高潮</div>
+        <h2 class="sec-title">点击任意职业，<br>看清它的<span class="grad">替代率与转型路径</span></h2>
+        <p class="sec-sub">
+          这张图谱收录了 <b style="color:var(--amber)">14 个典型职业</b>——从最容易被替代的基础白领，到相对安全的人类岗位，再到正在爆发的 AI 新职业。
+          点击卡片，右侧会展开该职业的替代率环形图、技能要求、以及可操作的转型路径。
+        </p>
+      </div>
+    </div>
+
+    <div class="atlas-toolbar rv rv-d1">
+      <span class="toolbar-label">筛选</span>
+      <button class="filt active" data-filter="all">全部</button>
+      <button class="filt" data-filter="crit">🔴 高危（≥80%）</button>
+      <button class="filt" data-filter="high">🟠 中高危（60–79%）</button>
+      <button class="filt" data-filter="low">🟢 相对安全（&lt;40%）</button>
+      <button class="filt" data-filter="new">🔵 AI 新职业</button>
+      <button class="filt" data-filter="tech">💻 科技</button>
+      <button class="filt" data-filter="finance">💰 金融</button>
+      <button class="filt" data-filter="legal">⚖️ 法律</button>
+      <button class="filt" data-filter="creative">🎨 创意</button>
+      <button class="filt" data-filter="service">🎧 服务</button>
+      <div class="atlas-search">
+        <span style="opacity:.6;font-size:13px">🔍</span>
+        <input type="text" id="occSearch" placeholder="搜索职业 / 行业 / 技能…" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="atlas-layout">
+      <div class="atlas-grid" id="atlasGrid"></div>
+
+      <div class="atlas-panel" id="atlasPanel">
+        <div class="panel-hero">
+          <div class="ring-bg"></div>
+          <div class="panel-head" id="panelHead"></div>
+        </div>
+        <div class="panel-body" id="panelBody"></div>
+        <div class="panel-foot" id="panelFoot"></div>
+      </div>
+    </div>
+
+    <div class="pill-note rv" style="margin-top:22px">
+      <span class="ic">🧭</span>
+      替代率数据综合自：上科大 CEISD《AI 时代的中国劳动力市场》· Anthropic 真实使用研究 · 高盛 ·
+      中国劳动和社会保障科学研究院 2026 Q2 报告 · FAIR Framework（291 岗位分析）
+    </div>
+  </div>
+</section>
+
+<div class="divider-ember"></div>
+
+<!-- ============ CH 04 · COMPARE ============ -->
+<section id="compare" class="sec-pad chapter">
+  <div class="chapter-bg"><div class="halo h1"></div></div>
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">03</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 03 · 两条转型路径</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow"><span class="pulse"></span>对比式交互 · AI 替代 vs 人类增强</div>
+        <h2 class="sec-title">同一个岗位，<br>可以走向<span class="grad">两个完全不同的结局</span></h2>
+        <p class="sec-sub">
+          「职业消失论」并不成立——AI 仅替代标准化任务，而非消灭整个职业。
+          真正的分水岭在于：你是选择被 AI 替代，还是选择用 AI 增强自己。
+          点击上方按钮切换视角，或点击卡片查看该路径的详细画像。
+        </p>
+      </div>
+    </div>
+
+    <div class="ab-shell rv rv-d1">
+      <div class="ab-head">
+        <div>
+          <div class="t">⚖️ A / B 路径对比</div>
+          <div class="s">同一职业，两种未来 · 点击切换视角，对比替代与增强的差异</div>
+        </div>
+        <div class="ab-switch">
+          <button class="ab-btn a active" data-ab="a">🤖 路径 A · 被 AI 替代</button>
+          <button class="ab-btn b" data-ab="b">🧭 路径 B · 用 AI 增强</button>
+          <button class="ab-btn" data-ab="both" style="background:rgba(255,140,40,.14);border:1px solid var(--line-2)">⚖️ 并列对比</button>
+        </div>
+      </div>
+      <div class="ab-body">
+        <div class="ab-cards">
+          <!-- Path A -->
+          <div class="ab-card a sel" data-side="a">
+            <div class="badge">🤖 路径 A · 被 AI 替代</div>
+            <h4>停留在「标准化执行者」</h4>
+            <p class="lead">只做输入明确、输出标准、可被流程化的工作。当 AI 以 1/10 成本、5–10 倍速度完成同样任务时，竞争力归零。</p>
+            <div class="ab-rows">
+              <div class="ab-row"><span class="k">任务可被 AI 覆盖</span><div class="tr"><div class="fl" data-w="88"></div></div><span class="v">88%</span></div>
+              <div class="ab-row"><span class="k">需求增速</span><div class="tr"><div class="fl" data-w="22"></div></div><span class="v">-42%</span></div>
+              <div class="ab-row"><span class="k">薪资趋势</span><div class="tr"><div class="fl" data-w="18"></div></div><span class="v">-15%</span></div>
+              <div class="ab-row"><span class="k">职业安全感</span><div class="tr"><div class="fl" data-w="14"></div></div><span class="v">低</span></div>
+            </div>
+            <div class="ab-tags">
+              <span class="ab-tag">数据录入</span><span class="ab-tag">发票审核</span>
+              <span class="ab-tag">模板化文案</span><span class="ab-tag">基础报表</span>
+              <span class="ab-tag">标准化客服话术</span><span class="ab-tag">固定流程执行</span>
+            </div>
+          </div>
+
+          <!-- Path B -->
+          <div class="ab-card b" data-side="b">
+            <div class="badge">🧭 路径 B · 用 AI 增强</div>
+            <h4>进化为「复合型闭环人才」</h4>
+            <p class="lead">用 AI 处理标准化部分，自己专注需求理解、判断决策、责任承担与跨角色协调——成为能独立完成完整工作闭环的人。</p>
+            <div class="ab-rows">
+              <div class="ab-row"><span class="k">任务可被 AI 覆盖</span><div class="tr"><div class="fl" data-w="31"></div></div><span class="v">31%</span></div>
+              <div class="ab-row"><span class="k">需求增速</span><div class="tr"><div class="fl" data-w="86"></div></div><span class="v">+789%</span></div>
+              <div class="ab-row"><span class="k">薪资趋势</span><div class="tr"><div class="fl" data-w="92"></div></div><span class="v">+56%</span></div>
+              <div class="ab-row"><span class="k">职业安全感</span><div class="tr"><div class="fl" data-w="88"></div></div><span class="v">高</span></div>
+            </div>
+            <div class="ab-tags">
+              <span class="ab-tag">AI 工作流设计</span><span class="ab-tag">智能体编排</span>
+              <span class="ab-tag">数据决策</span><span class="ab-tag">跨角色协调</span>
+              <span class="ab-tag">责任承担</span><span class="ab-tag">人机协同</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ab-insight" id="abInsight">
+          <div class="hd">💡 路径洞察</div>
+          <div id="abInsightText">
+            <b>路径 A 的本质问题</b>：不是「你不够努力」，而是你的工作内容本身进入了 AI 的高效区。
+            2026 年上半年，数据录入和标注岗招聘量同比暴跌 <b>68%</b>，基础电销团队被裁超 <b>90%</b>，
+            银行柜员规模较 2025 年下降 <b>32%</b>。这些岗位的共同点是：工作内容高度标准化、输入输出可量化、评价标准明确。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-ember"></div>
+
+<!-- ============ CH 05 · MACRO ============ -->
+<section id="macro" class="sec-pad chapter">
+  <div class="chapter-bg"><div class="halo h2"></div></div>
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">04</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 04 · 宏观图景</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow"><span class="pulse"></span>数据式交互 · 全景扫描</div>
+        <h2 class="sec-title">把时间轴拉长，<br>这是一场<span class="grad">净增 7800 万岗位</span>的迁移</h2>
+        <p class="sec-sub">
+          美国银行 2026 年 8 月对 206 个行业逐一拆解后发现：<b style="color:var(--amber)">AI 暴露程度与就业增长之间几乎不存在统计相关性</b>。
+          总量层面并未崩塌，但内部正在剧烈分化。
+        </p>
+      </div>
+    </div>
+
+    <div class="split-2">
+      <div class="chart-card rv" id="wefCard">
+        <div class="glowline"></div>
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">2030 全球就业结构预测</div>
+            <div class="chart-note">数据来源：世界经济论坛《未来就业报告》</div>
+          </div>
+          <div class="pill-note"><span class="ic">📈</span>净增 7800 万岗位</div>
+        </div>
+
+        <div class="wev-bar rv rv-d1">
+          <div class="wev-ic loss">🔻</div>
+          <div class="wev-mid">
+            <div class="h">传统岗位消失</div>
+            <div class="s">AI 与自动化将替代的存量岗位</div>
+          </div>
+          <div class="wev-num loss"><span class="cnt" data-to="9200" data-dec="0">0</span> 万<span class="u">JOBS LOST</span></div>
+        </div>
+
+        <div class="wev-bar rv rv-d2">
+          <div class="wev-ic gain">🔺</div>
+          <div class="wev-mid">
+            <div class="h">AI 新创造岗位</div>
+            <div class="s">AI 驱动的新兴职业与衍生需求</div>
+          </div>
+          <div class="wev-num gain"><span class="cnt" data-to="1.7" data-dec="1">0</span> 亿<span class="u">JOBS CREATED</span></div>
+        </div>
+
+        <div class="wev-bar rv rv-d3">
+          <div class="wev-ic net">⚖️</div>
+          <div class="wev-mid">
+            <div class="h">全球就业净变化</div>
+            <div class="s">创造减去替代后的净增量</div>
+          </div>
+          <div class="wev-num net">+<span class="cnt" data-to="7800" data-dec="0">0</span> 万<span class="u">NET GROWTH</span></div>
+        </div>
+
+        <div class="chart-foot">
+          <b>但请注意：</b>净增长掩盖了剧烈的结构性错配。
+          美国 22–27 岁年轻大学毕业生在高 AI 暴露行业的失业率已高于 2019 年水平，
+          而 AI 数据中心建设浪潮却在建筑和制造业合计新增约 <b>12.7 万个</b>就业岗位。
+          问题不是「没有新工作」，而是<b>新工作需要的技能，和旧工作培养的技能不匹配</b>。
+        </div>
+      </div>
+
+      <div class="chart-card rv rv-d1" id="premiumCard">
+        <div class="glowline"></div>
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">AI 技能溢价与岗位需求变化</div>
+            <div class="chart-note">2025 Q4 → 2026 Q3 · 同比变化</div>
+          </div>
+        </div>
+
+        <div class="mini-chart" id="premiumChart"></div>
+
+        <div class="chart-foot" style="margin-top:8px">
+          <b>读图提示：</b>左侧是被快速替代的存量岗位（招聘量同比下滑），
+          右侧是爆发式增长的 AI 相关新岗位。2026 年 1–7 月，新经济行业新发 AI 岗位量同比增长 <b>789.47%</b>，平均月薪达 <b>63160 元</b>。
+        </div>
+      </div>
+    </div>
+
+    <div style="height:22px"></div>
+
+    <!-- Industry displacement -->
+    <div class="chart-card rv" id="industryChart">
+      <div class="glowline"></div>
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">分行业 AI 替代率（中国 · 2026）</div>
+          <div class="chart-note">数据来源：中国劳动和社会保障科学研究院 · 2026 年第二季度报告（覆盖 2.4 万家企业、5600 万条职位信息）</div>
+        </div>
+        <div class="pill-note"><span class="ic">🏭</span>产业迁移层</div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><span class="sw hi"></span>高替代（≥45%）</div>
+        <div class="legend-item"><span class="sw mid"></span>中替代（30–44%）</div>
+        <div class="legend-item"><span class="sw new"></span>低替代（&lt;30%）</div>
+      </div>
+      <div class="bars" id="industryBars"></div>
+      <div class="chart-foot">
+        <b>规律非常清晰：</b>AI 不挑行业，只挑任务——<b>越标准化，越危险</b>。
+        制造、医疗、线下照护、设备运维等强现场赛道需求保持稳定，约 <b>30%</b> 的职业在主流 AI 训练数据中「近乎隐形」，构成天然的就业缓冲带。
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-ember"></div>
+
+<!-- ============ CH 06 · HUMAN MOAT ============ -->
+<section id="human" class="sec-pad chapter" style="background:linear-gradient(180deg,transparent,rgba(30,120,70,.05),transparent)">
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">05</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 05 · 人类护城河</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow" style="color:var(--ok);border-color:rgba(61,220,132,.3);background:rgba(61,220,132,.07)">
+          <span class="pulse" style="background:var(--ok)"></span>社会结构层 · 什么工作 AI 难以替代
+        </div>
+        <h2 class="sec-title">六大能力，<br>构成人类的<span class="grad" style="background-image:linear-gradient(100deg,#fff,#3ddc84 55%,#8ce6b0);-webkit-background-clip:text;background-clip:text">终极护城河</span></h2>
+        <p class="sec-sub">
+          上科大报告提炼出六大 AI 难以替代的核心能力。
+          企业认为未来 3–5 年最不易被 AI 替代的五大岗位依次是：<b style="color:var(--ok)">销售、管理、技术、研发、生产现场操作</b>。
+        </p>
+      </div>
+    </div>
+
+    <div class="abil-grid">
+      <div class="abil rv rv-d1">
+        <div class="n">01<span class="ln"></span></div>
+        <h4>情境判断</h4>
+        <p>在信息不完整、规则不明确的真实场景中，做出合理推断与决策。AI 擅长已知规则下的优化，难以应对「规则本身在变」的现场。</p>
+        <div class="ex">例：医生在床边根据患者微表情调整沟通策略</div>
+      </div>
+      <div class="abil rv rv-d2">
+        <div class="n">02<span class="ln"></span></div>
+        <h4>责任承担</h4>
+        <p>为决策后果承担法律责任与职业声誉。AI 可以生成方案，但无法「负责」——这决定了关键决策必须由人签字。</p>
+        <div class="ex">例：手术主刀医师、上市公司签字会计师</div>
+      </div>
+      <div class="abil rv rv-d3">
+        <div class="n">03<span class="ln"></span></div>
+        <h4>跨角色协调</h4>
+        <p>在利益诉求不同的多方之间建立共识、推动协作。这是「复合型闭环岗位」最核心的能力，也是就业增量的主要来源。</p>
+        <div class="ex">例：产品经理协调研发、设计、市场、运营</div>
+      </div>
+      <div class="abil rv rv-d4">
+        <div class="n">04<span class="ln"></span></div>
+        <h4>伦理权衡</h4>
+        <p>在没有标准答案的价值冲突中做出取舍。AI 可以陈述选项，但「应该选哪个」涉及价值判断与道德责任。</p>
+        <div class="ex">例：自动驾驶的伦理决策设计、医疗资源分配</div>
+      </div>
+      <div class="abil rv rv-d5">
+        <div class="n">05<span class="ln"></span></div>
+        <h4>现场适应</h4>
+        <p>在物理世界的非结构化环境中灵活应对突发状况。约 30% 的职业在主流 AI 训练数据中「近乎隐形」，正是这一类。</p>
+        <div class="ex">例：设备运维、急救护理、建筑现场施工</div>
+      </div>
+      <div class="abil rv rv-d6">
+        <div class="n">06<span class="ln"></span></div>
+        <h4>证据链表达</h4>
+        <p>构建可被追溯、可被质证、可被信任的论证体系。这是法律、审计、科研等专业服务的根基，也是 AI 幻觉最难攻克的堡垒。</p>
+        <div class="ex">例：法庭辩护、审计底稿、学术同行评审</div>
+      </div>
+    </div>
+
+    <div style="height:26px"></div>
+
+    <div class="chart-card rv">
+      <div class="glowline"></div>
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">「位移风险」 vs 「消除风险」：18 个百分点的差距</div>
+          <div class="chart-note">FAIR Framework · 291 个岗位 · 26 个行业分析</div>
+        </div>
+        <div class="pill-note"><span class="ic">🎯</span>最重要的一个概念</div>
+      </div>
+      <div class="anxiety" style="padding:28px 28px 24px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="split-num">
+          <div class="anx-half" style="background:rgba(255,61,0,.08);border-color:rgba(255,90,0,.28)">
+            <div class="v red"><span class="cnt" data-to="61.4" data-dec="1">0</span>%</div>
+            <div class="k">平均「位移风险」分</div>
+            <div class="s">DISPLACEMENT · 竞争压力</div>
+          </div>
+          <div class="anx-half" style="background:rgba(61,220,132,.08);border-color:rgba(61,220,132,.26)">
+            <div class="v green"><span class="cnt" data-to="43.6" data-dec="1">0</span>%</div>
+            <div class="k">平均「消除风险」分</div>
+            <div class="s">REPLACEMENT · 完全替代</div>
+          </div>
+        </div>
+        <p class="bd" style="margin-top:18px;font-size:14.4px">
+          <b>位移风险</b>衡量的是：如果你不使用 AI 工具，你的工作会变得多难做。
+          <b>消除风险</b>衡量的是：你的岗位会被完全消灭的可能性。
+          这 <b>18 个百分点的差距</b>揭示了一个关键事实——
+          <b>大多数岗位不会消失，但会剧烈改变；不适应的人会被会用 AI 的人淘汰。</b>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-ember"></div>
+
+<!-- ============ CH 07 · NEW JOBS ============ -->
+<section id="future" class="sec-pad chapter">
+  <div class="chapter-bg"><div class="halo h1"></div><div class="halo h2"></div></div>
+  <div class="wrap">
+    <div class="rv">
+      <div class="chapter-mark">
+        <div class="chapter-num">06</div>
+        <div class="chapter-rule"></div>
+        <div class="chapter-label">Chapter 06 · 新职业爆发</div>
+      </div>
+      <div class="sec-head">
+        <div class="eyebrow" style="color:#7fd4ff;border-color:rgba(57,198,255,.3);background:rgba(57,198,255,.07)">
+          <span class="pulse" style="background:#39c6ff"></span>产业迁移层 · 正在诞生的新饭碗
+        </div>
+        <h2 class="sec-title">被拆除的岗位旁边，<br>正在长出<span class="grad" style="background-image:linear-gradient(100deg,#fff,#39c6ff 50%,#7fd4ff);-webkit-background-clip:text;background-clip:text">一整片新职业森林</span></h2>
+        <p class="sec-sub">
+          这些岗位在 2024 年几乎不存在。过去 5 年人社部发布的 <b style="color:#7fd4ff">110 个新职业</b>中，超 20 个与人工智能紧密相关。
+          2026 年 7 月，人社部又公示了 <b style="color:#7fd4ff">12 个拟新增国家职业</b>。
+        </p>
+      </div>
+    </div>
+
+    <div class="newjobs">
+      <div class="newjob rv rv-d1"><div class="grow"></div>
+        <span class="ic">🤖</span>
+        <h4>具身智能机器人应用技术员</h4>
+        <span class="g">人社部拟新增 · 2026.7</span>
+        <p>负责实体机器人在工业、服务场景中的部署、调试、运维与协同作业，是「AI + 物理世界」的关键桥梁岗位。</p>
+        <div class="meta"><div>增长态势<b>爆发期</b></div><div>门槛<b>中高</b></div></div>
+      </div>
+
+      <div class="newjob rv rv-d2"><div class="grow"></div>
+        <span class="ic">🌐</span>
+        <h4>数字孪生工程技术人员</h4>
+        <span class="g">人社部拟新增 · 2026.7</span>
+        <p>构建物理世界的数字镜像，用于仿真、预测与优化。覆盖制造、城市、能源等重资产行业。</p>
+        <div class="meta"><div>增长态势<b>+高</b></div><div>门槛<b>高</b></div></div>
+      </div>
+
+      <div class="newjob rv rv-d3"><div class="grow"></div>
+        <span class="ic">⚡</span>
+        <h4>FDE / 现场部署工程师</h4>
+        <span class="g">岗位量 +1522.73%</span>
+        <p>把 AI 能力落到具体业务现场，负责模型部署、效果调优与业务闭环。2026 年 1–7 月岗位量同比增长超 15 倍。</p>
+        <div class="meta"><div>增速<b>1522%</b></div><div>门槛<b>中高</b></div></div>
+      </div>
+
+      <div class="newjob rv rv-d4"><div class="grow"></div>
+        <span class="ic">🧠</span>
+        <h4>AI 产品经理</h4>
+        <span class="g">岗位量 +120.54%</span>
+        <p>定义 AI 产品的能力边界、交互范式与商业化路径。核心要求从「功能设计」转向「智能体编排与人机协同设计」。</p>
+        <div class="meta"><div>增速<b>+120%</b></div><div>门槛<b>高</b></div></div>
+      </div>
+
+      <div class="newjob rv rv-d5"><div class="grow"></div>
+        <span class="ic">🏷️</span>
+        <h4>数据标注 / AI 训练师</h4>
+        <span class="g">岗位量 +30.3%</span>
+        <p>为模型提供高质量训练数据与反馈信号。门槛相对友好，成为低门槛灵活就业的新路径之一。</p>
+        <div class="meta"><div>增速<b>+30%</b></div><div>门槛<b>低</b></div></div>
+      </div>
+
+      <div class="newjob rv rv-d6"><div class="grow"></div>
+        <span class="ic">📡</span>
+        <h4>运动数据分析师</h4>
+        <span class="g">人社部拟新增 · 2026.7</span>
+        <p>体育科技交叉岗位，用数据驱动训练方案、赛事分析与运动表现优化，是「垂直行业 + AI」的典型样本。</p>
+        <div class="meta"><div>增长态势<b>新兴</b></div><div>门槛<b>中</b></div></div>
+      </div>
+    </div>
+
+    <div style="height:26px"></div>
+
+    <!-- Generation impact -->
+    <div class="chart-card rv">
+      <div class="glowline"></div>
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">不同世代的 AI 冲击画像</div>
+          <div class="chart-note">点击切换 · 查看各世代的具体处境与应对策略</div>
+        </div>
+      </div>
+
+      <div class="gen-tabs">
+        <button class="gen-tab active" data-gen="z">🎓 Z 世代 · 入门级</button>
+        <button class="gen-tab" data-gen="millennial">💼 千禧一代 · 中坚层</button>
+        <button class="gen-tab" data-gen="genx">🏛️ X 世代 · 管理层</button>
+        <button class="gen-tab" data-gen="boomer">👷 婴儿潮 · 转型期</button>
+      </div>
+
+      <div class="gen-panel active" data-panel="z">
+        <div class="gen-card">
+          <div class="hd">
+            <div class="av">🎓</div>
+            <div><h3>Z 世代 · 入门级白领</h3><div class="sub">受冲击最直接 · 但也最有机会重塑规则</div></div>
+          </div>
+          <div class="gen-stats">
+            <div class="gen-stat"><div class="v">-20%</div><div class="k">初级软件工程师就业率</div></div>
+            <div class="gen-stat"><div class="v">-80%</div><div class="k">入门级岗位季度降幅</div></div>
+            <div class="gen-stat"><div class="v">+47.3%</div><div class="k">新发校招 AI 岗位同比</div></div>
+            <div class="gen-stat"><div class="v">2.1×</div><div class="k">会用 AI 者的面试邀约</div></div>
+          </div>
+          <div class="gen-body">
+            美国 22–27 岁年轻大学毕业生在高 AI 暴露行业的失业率已高于 2019 年水平，25 岁以下初级软件工程师就业率下滑近 <b>20%</b>。
+            年轻人赖以入行的基础技能正在快速贬值——但与此同时，<b>新发校招 AI 岗位量同比增长 47.3%</b>，AI 产品经理职位数同比增长 <b>87.7%</b>。
+          </div>
+          <div class="gen-quote">
+            <b>给 Z 世代的建议：</b>别再把「学会某个工具」当成目标。工具的半衰期只有几个月，
+            但「快速学会新工具 + 用它完成完整工作闭环」的能力是长期资产。
+            从第一份工作开始，就把自己当成「AI 协同工作者」而非「工具使用者」。
+          </div>
+        </div>
+      </div>
+
+      <div class="gen-panel" data-panel="millennial">
+        <div class="gen-card">
+          <div class="hd">
+            <div class="av">💼</div>
+            <div><h3>千禧一代 · 职场中坚</h3><div class="sub">替代压力与转型红利并存的关键窗口</div></div>
+          </div>
+          <div class="gen-stats">
+            <div class="gen-stat"><div class="v">67.8%</div><div class="k">岗位要求 AI 协同能力</div></div>
+            <div class="gen-stat"><div class="v">+34.2%</div><div class="k">AI 技能薪资溢价</div></div>
+            <div class="gen-stat"><div class="v">26.6%</div><div class="k">岗位落入替代压力区</div></div>
+            <div class="gen-stat"><div class="v">+789%</div><div class="k">AI 岗位量同比增速</div></div>
+          </div>
+          <div class="gen-body">
+            这是最焦虑也最有机会的一代。他们有 5–15 年工作经验，正处于<b>「执行者 → 决策者」</b>的爬坡期，
+            而 AI 恰好接管了执行层的大部分标准化工作。收缩效应最集中的正是<b>月薪 5000–8000 元、1–3 年经验的入门中端劳动者</b>——
+            但同期，掌握 AI 协同能力者的平均起薪高出 <b>34.2%</b>。
+          </div>
+          <div class="gen-quote">
+            <b>给千禧一代的建议：</b>你的核心资产不是「会做 Excel」，而是「懂业务」。
+            把业务判断力 + AI 工具 = 复合型闭环能力，这是就业增量的主战场。
+            未来 3–5 年技能溢价窗口仍在扩大，行动越早红利越大。
+          </div>
+        </div>
+      </div>
+
+      <div class="gen-panel" data-panel="genx">
+        <div class="gen-card">
+          <div class="hd">
+            <div class="av">🏛️</div>
+            <div><h3>X 世代 · 管理与专业层</h3><div class="sub">责任承担者 · 管理幅度被重新定义</div></div>
+          </div>
+          <div class="gen-stats">
+            <div class="gen-stat"><div class="v">6 大</div><div class="k">AI 难以替代的核心能力</div></div>
+            <div class="gen-stat"><div class="v">5.1%</div><div class="k">高替代风险岗位占比</div></div>
+            <div class="gen-stat"><div class="v">60.4%</div><div class="k">存在非技术性障碍</div></div>
+            <div class="gen-stat"><div class="v">+56%</div><div class="k">AI 技能从业者薪资溢价</div></div>
+          </div>
+          <div class="gen-body">
+            管理层与资深专业人士的核心价值在于<b>责任承担、跨角色协调与情境判断</b>——这正是上科大报告提炼的六大 AI 难替代能力中的前三位。
+            SHRM 2026 年研究显示，<b>60.4%</b> 的就业存在至少一项非技术性障碍（客户偏好、监管要求、责任归属等），
+            客户偏好是最常见的障碍——这恰恰是资深从业者的护城河。
+          </div>
+          <div class="gen-quote">
+            <b>给 X 世代的建议：</b>你不需要成为最会写 Prompt 的人，但必须成为最懂「哪些决策该交给 AI、哪些必须自己扛」的人。
+            管理幅度正在从「管人」扩展到「管人 + 管智能体」，这是新的领导力范式。
+          </div>
+        </div>
+      </div>
+
+      <div class="gen-panel" data-panel="boomer">
+        <div class="gen-card">
+          <div class="hd">
+            <div class="av">👷</div>
+            <div><h3>婴儿潮世代 · 转型期劳动者</h3><div class="sub">反直觉的结论 · 灵活就业新路径</div></div>
+          </div>
+          <div class="gen-stats">
+            <div class="gen-stat"><div class="v">~1000 元</div><div class="k">AI 数据采集岗月均收入</div></div>
+            <div class="gen-stat"><div class="v">30%</div><div class="k">职业在训练数据中「隐形」</div></div>
+            <div class="gen-stat"><div class="v">低门槛</div><div class="k">灵活就业新路径</div></div>
+            <div class="gen-stat"><div class="v">7×24</div><div class="k">AI 客服可替代的服务时长</div></div>
+          </div>
+          <div class="gen-body">
+            一个反直觉的现象：<b>中老年低技能劳动力反而获得了低门槛灵活就业的新路径</b>。
+            山东泰安 59 岁居民通过 AI 数据采集岗，月均可收入 1000 元左右，岗位操作简单、时间自由，
+            精准适配无法外出务工的闲置劳动力。与此同时，约 <b>30%</b> 的职业在主流 AI 训练数据中「近乎隐形」——
+            制造、医疗、线下照护、设备运维等强现场赛道需求保持稳定。
+          </div>
+          <div class="gen-quote">
+            <b>给转型期劳动者的建议：</b>「现场性」是你最被低估的资产。
+            AI 训练数据中 30% 的隐形职业，就是你的就业缓冲带。
+            把多年积累的现场经验 + 基础数字工具 = 「人无我有」的组合拳。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section id="finale" class="sec-pad">
+  <canvas id="finaleCanvas"></canvas>
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow" style="margin:0 auto 22px"><span class="pulse"></span>终章 · 转型不是选择，而是必然</div>
+      <h2 class="fin-title">
+        AI 不是人类的终结者，<br>
+        而是<span class="grad">职业进化的催化剂</span>
+      </h2>
+      <p class="fin-sub">
+        「职业消失论」并不成立——<b>AI 仅替代标准化任务，而非消灭整个职业。</b>
+        市场约 2100 万个岗位由任务重组而生，占全部招聘岗位的 18.6%。
+        就业增量全部来自<b>「复合型闭环岗位」</b>：可独立完成需求、执行、校验、汇报完整工作闭环的求职者。
+        关键从来不是「会不会被 AI 取代」，而是<b>你愿不愿意成为那个闭环的一部分</b>。
+      </p>
+    </div>
+
+    <div class="fin-steps">
+      <div class="fin-step rv rv-d1"><div class="bar"></div>
+        <div class="no">01</div>
+        <h4>重新定义你的「任务清单」</h4>
+        <p>别问「我的职业会不会消失」，问「我的工作中，哪些任务是标准化的」。把它们列出来，然后交给 AI。</p>
+      </div>
+      <div class="fin-step rv rv-d2"><div class="bar"></div>
+        <div class="no">02</div>
+        <h4>掌握「AI 协同力」而非单一工具</h4>
+        <p>工具的半衰期只有几个月，但「快速学会新工具 + 用它完成完整闭环」的能力是长期资产。67.8% 的岗位已经明确要求。</p>
+      </div>
+      <div class="fin-step rv rv-d3"><div class="bar"></div>
+        <div class="no">03</div>
+        <h4>投资六大人类核心能力</h4>
+        <p>情境判断、责任承担、跨角色协调、伦理权衡、现场适应、证据链表达——这是 AI 短期内无法攻破的堡垒。</p>
+      </div>
+      <div class="fin-step rv rv-d4"><div class="bar"></div>
+        <div class="no">04</div>
+        <h4>建立「终身学习」的操作系统</h4>
+        <p>不是一次性转型，而是持续迭代。每年问自己一次：我的技能组合，在 AI 的高效区里还剩多少？</p>
+      </div>
+    </div>
+
+    <div class="fin-quote rv">
+      <div class="q">「AI 替代的是任务，不是你。<br>但如果你只会干 AI 能干的事——那被替代的，就是你。」</div>
+      <div class="a">—— 2026，AI 就业大迁移</div>
+    </div>
+
+    <div class="fin-cta rv">
+      <a class="btn btn-primary" href="#atlas">🗺️ 回到交互式替代图谱 <span class="arr">↑</span></a>
+      <a class="btn btn-ghost" href="#human">🧬 查看人类护城河 <span class="arr">↑</span></a>
+    </div>
+
+    <div class="fin-meta rv">
+      <span>🤖 技术能力层</span>
+      <span>👥 社会结构层</span>
+      <span>💰 经济影响层</span>
+      <span>🏭 产业迁移层</span>
+      <span>数据截至 2026 年 9 月</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div style="flex:1;min-width:270px">
+      <div class="foot-brand"><span class="dot"></span>AI 就业大迁移 · 交互式数据叙事</div>
+      <div class="foot-note">
+        本页面为 <b>创意类交互体验</b>（v6.4 标准）—「讲故事的交互体验」。
+        叙事层次覆盖 <b>技术能力 → 经济影响 → 社会结构 → 产业迁移</b> 四个维度，
+        包含探索式（交互图谱）、对比式（A/B 路径）、数据式（动态图表）三种交互深度。
+        所有数据均来自公开研究报告，页面本身不含任何外部依赖，可离线打开。
+      </div>
+      <div class="foot-note" style="margin-top:11px;opacity:.55">
+        生成日期：2026-10-06 · 视觉设计：绘界（creative-designer）·
+        风格：渐变橙色调 · 温暖感与紧迫感并存
+      </div>
+    </div>
+    <div class="foot-src">
+      <div class="t">数据来源</div>
+      <ul>
+        <li>上海科技大学 CEISD《AI 时代的中国劳动力市场：从职业消失论到任务重组论》（7.43 亿条招聘数据）</li>
+        <li>中国劳动和社会保障科学研究院《2026 年第二季度人工智能就业市场影响报告》</li>
+        <li>世界经济论坛 WEF《未来就业报告》</li>
+        <li>Anthropic 关于 AI 劳动力影响的真实使用研究</li>
+        <li>高盛（Goldman Sachs）AI 就业影响研究</li>
+        <li>SHRM《Automation, AI, and Job Displacement Risk in U.S. Employment (2026)》</li>
+        <li>FAIR Framework（291 个岗位 · 26 个行业分析）</li>
+        <li>猎聘《AI 时代技能趋势报告》· 美国银行 2026 年 8 月行业研究</li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ UTIL ============ */
+const $ = (s,c)=> (c||document).querySelector(s);
+const $$ = (s,c)=> Array.from((c||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function toast(msg){
+  const t=$('#toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* ============ SCROLL PROGRESS + NAV ============ */
+const progressEl=$('#progress');
+const navEl=$('#nav');
+let navLinks=[];
+function onScroll(){
+  const st=window.pageYOffset||document.documentElement.scrollTop;
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  if(progressEl) progressEl.style.width=(h>0?(st/h)*100:0)+'%';
+  if(navEl) navEl.classList.toggle('solid', st>60);
+
+  // active nav
+  let cur='';
+  navLinks.forEach(a=>{
+    const sec=document.getElementById(a.getAttribute('data-sec'));
+    if(!sec) return;
+    const r=sec.getBoundingClientRect();
+    if(r.top<=window.innerHeight*0.36 && r.bottom>window.innerHeight*0.32) cur=a.getAttribute('data-sec');
+  });
+  navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('data-sec')===cur));
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll);
+
+/* ============ REVEAL ON SCROLL ============ */
+function initReveal(){
+  const els=$$('.rv');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    els.forEach(e=>e.classList.add('in'));
+    return;
+  }
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(e=>io.observe(e));
+}
+
+/* ============ COUNTERS ============ */
+function animateCount(el){
+  const to=parseFloat(el.getAttribute('data-to'));
+  const dec=parseInt(el.getAttribute('data-dec')||'0',10);
+  if(isNaN(to)){return;}
+  if(reduceMotion){ el.textContent=fmt(to,dec); return; }
+  const dur=1500;
+  const t0=performance.now();
+  function step(now){
+    const p=clamp((now-t0)/dur,0,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=fmt(to*e,dec);
+    if(p<1) requestAnimationFrame(step);
+    else el.textContent=fmt(to,dec);
+  }
+  requestAnimationFrame(step);
+}
+function fmt(v,dec){
+  if(dec>0) return v.toFixed(dec);
+  return Math.round(v).toLocaleString('en-US');
+}
+function initCounters(){
+  const els=$$('.cnt');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(animateCount); return;
+  }
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        animateCount(en.target);
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.4});
+  els.forEach(e=>io.observe(e));
+}
+
+/* ============ BAR FILL ANIMATION ============ */
+function initBarFills(){
+  const cards=$$('.chart-card');
+  function fill(card){
+    $$('.bar-fill[data-w]',card).forEach(f=>{
+      const w=parseFloat(f.getAttribute('data-w'));
+      requestAnimationFrame(()=>{ f.style.width=clamp(w,0,100)+'%'; });
+    });
+    $$('.occ-mini-fill[data-w]',card).forEach(f=>{
+      const w=parseFloat(f.getAttribute('data-w'));
+      requestAnimationFrame(()=>{ f.style.width=clamp(w,0,100)+'%'; });
+    });
+  }
+  if(!('IntersectionObserver' in window)){
+    cards.forEach(fill); return;
+  }
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        fill(en.target);
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.16});
+  cards.forEach(c=>io.observe(c));
+}
+
+/* ============ TICKER ============ */
+const tickerData=[
+  {v:'26.6%',t:'线上招聘岗位落入高 AI 暴露替代压力区'},
+  {v:'74.5%',t:'程序员任务可被 AI 覆盖'},
+  {v:'92%',t:'法律文书助理替代率'},
+  {v:'87%',t:'初级程序员替代率'},
+  {v:'85%',t:'基础市场分析师 / 基础财务岗替代率'},
+  {v:'81%',t:'新闻资讯编辑替代率'},
+  {v:'70.1%',t:'客户服务代表任务覆盖率'},
+  {v:'98%',t:'数据录入员 FAIR 消除风险分'},
+  {v:'34.2%',t:'AI 协同能力薪资溢价'},
+  {v:'2.1×',t:'会用 AI 者的首轮面试邀约概率'},
+  {v:'+789%',t:'2026 年 AI 岗位量同比增长'},
+  {v:'63160 元',t:'AI 岗位平均月薪'},
+  {v:'2100 万',t:'由任务重组形成的岗位数量'},
+  {v:'1.7 亿',t:'2030 年 AI 将创造的新岗位'},
+  {v:'+7800 万',t:'全球就业净增长'},
+  {v:'5.1%',t:'高替代风险岗位占比（约 790 万个）'},
+  {v:'30%',t:'职业在 AI 训练数据中近乎隐形'}
+];
+(function buildTicker(){
+  const track=$('#tickerTrack'); if(!track) return;
+  const mk=()=>tickerData.map(d=>
+    `<span class="ticker-item"><span class="m"></span><span class="v">${d.v}</span><span>${d.t}</span></span>`
+  ).join('');
+  track.innerHTML=mk()+mk();
+})();
+
+/* ============ COVERAGE BARS ============ */
+const coverageData=[
+  {n:'法律文书助理',v:92,cls:'hi'},
+  {n:'数据录入员',v:98,cls:'hi'},
+  {n:'电话销售 / 电销',v:90,cls:'hi'},
+  {n:'初级程序员',v:87,cls:'hi'},
+  {n:'基础财务 / 会计',v:85,cls:'hi'},
+  {n:'基础市场分析师',v:85,cls:'hi'},
+  {n:'新闻资讯编辑',v:81,cls:'hi'},
+  {n:'计算机程序员',v:74.5,cls:'mid'},
+  {n:'客户服务代表',v:70.1,cls:'mid'},
+  {n:'医疗记录专员',v:66.7,cls:'mid'},
+  {n:'基础行政文员',v:42.5,cls:'mid'},
+  {n:'AI 产品经理',v:28,cls:'low'},
+  {n:'资深架构师 / 故障处置',v:22,cls:'low'},
+  {n:'心理咨询 / 照护',v:15,cls:'low'}
+];
+(function buildCoverage(){
+  const box=$('#coverageBars'); if(!box) return;
+  box.innerHTML=coverageData.map(d=>`
+    <div class="bar-row">
+      <div class="bar-name">${d.n}</div>
+      <div class="bar-track"><div class="bar-fill ${d.cls}" data-w="${d.v}"></div></div>
+      <div class="bar-val">${d.v}%</div>
+    </div>`).join('');
+})();
+
+/* ============ INDUSTRY BARS ============ */
+const industryData=[
+  {n:'金融业',v:51.3,cls:'hi'},
+  {n:'基础行政文职',v:42.5,cls:'hi'},
+  {n:'传统制造业 · 管理类基础岗',v:38.7,cls:'mid'},
+  {n:'教育培训 · 基础答疑',v:35.2,cls:'mid'},
+  {n:'数据录入 / 标注',v:99,cls:'hi'},
+  {n:'呼叫中心客服',v:78,cls:'hi'},
+  {n:'基础财务核算',v:85,cls:'hi'},
+  {n:'银行柜员',v:32,cls:'mid'},
+  {n:'电商 / 保险电销',v:90,cls:'hi'},
+  {n:'焊接 / 喷涂 / 装配',v:80,cls:'hi'},
+  {n:'制造 · 质量检测',v:72,cls:'mid'},
+  {n:'线下照护 / 医疗现场',v:18,cls:'low'},
+  {n:'设备运维 / 现场施工',v:21,cls:'low'}
+];
+(function buildIndustry(){
+  const box=$('#industryBars'); if(!box) return;
+  box.innerHTML=industryData.map(d=>`
+    <div class="bar-row">
+      <div class="bar-name">${d.n}</div>
+      <div class="bar-track"><div class="bar-fill ${d.cls}" data-w="${d.v}"></div></div>
+      <div class="bar-val">${d.v}%</div>
+    </div>`).join('');
+})();
+
+/* ============ MINI CHART (premium / decline) ============ */
+(function buildMiniChart(){
+  const box=$('#premiumChart'); if(!box) return;
+  const W=560,H=212,padL=44,padR=16,padT=16,padB=44;
+  const items=[
+    {n:'数据录入/标注',v:-68,cls:'loss'},
+    {n:'呼叫中心客服',v:-78,cls:'loss'},
+    {n:'基础电销团队',v:-90,cls:'loss'},
+    {n:'初级程序员',v:-32,cls:'loss'},
+    {n:'基础会计',v:-47,cls:'loss'},
+    {n:'AI 数据中心',v:120,cls:'gain'},
+    {n:'AI 岗位总量',v:100,cls:'gain'},
+    {n:'FDE 部署工程师',v:100,cls:'gain'}
+  ];
+  // Use log-ish scaling for display: map -90..+100 to y range
+  const maxAbs=100;
+  const innerW=W-padL-padR, innerH=H-padT-padB;
+  const zeroY=padT+innerH*0.62;
+  const scaleY=v=>{
+    if(v>=0) return zeroY-(v/maxAbs)*(zeroY-padT);
+    return zeroY+(Math.abs(v)/maxAbs)*(padT+innerH-zeroY);
+  };
+  const bw=innerW/items.length*0.62;
+  const gap=innerW/items.length;
+
+  let svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="AI岗位需求变化柱状图">`;
+  // grid
+  [-50,0,50,100].forEach(g=>{
+    const y=scaleY(g);
+    svg+=`<line class="gl" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/>`;
+    svg+=`<text class="axl" x="${padL-8}" y="${y+3}" text-anchor="end">${g>0?'+':''}${g}%</text>`;
+  });
+  // zero line stronger
+  svg+=`<line x1="${padL}" y1="${zeroY}" x2="${W-padR}" y2="${zeroY}" stroke="rgba(255,170,80,.42)" stroke-width="1.4"/>`;
+
+  items.forEach((it,i)=>{
+    const x=padL+gap*i+(gap-bw)/2;
+    const y=scaleY(it.v);
+    const h=Math.abs(y-zeroY);
+    const yTop=Math.min(y,zeroY);
+    const grad=it.cls==='loss'?'gradLoss':'gradGain';
+    const label=it.v>0?`+${it.v}%`:`${it.v}%`;
+    // shortened label
+    const short=it.n.length>6?it.n.slice(0,6):it.n;
+    svg+=`<rect class="mini-bar" data-i="${i}" x="${x}" y="${yTop}" width="${bw}" height="${h}" rx="4" fill="url(#${grad})" opacity="0.92" style="transform-origin:${x+bw/2}px ${zeroY}px;transform:scaleY(0);transition:transform .95s cubic-bezier(.22,.85,.25,1) ${i*0.075}s"/>`;
+    const labY=it.v>=0?yTop-6:yTop+h+13;
+    svg+=`<text class="val-lab" x="${x+bw/2}" y="${labY}" text-anchor="middle" fill="${it.cls==='loss'?'#ff9c7a':'#7fe0a8'}">${label}</text>`;
+    svg+=`<text class="axl" x="${x+bw/2}" y="${H-20}" text-anchor="middle">${short}</text>`;
+  });
+
+  svg+=`<defs>
+    <linearGradient id="gradLoss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff3d00"/><stop offset="100%" stop-color="#ff8f1f"/>
+    </linearGradient>
+    <linearGradient id="gradGain" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#1f9d55"/><stop offset="100%" stop-color="#3ddc84"/>
+    </linearGradient>
+  </defs>`;
+  svg+=`</svg>`;
+  box.innerHTML=svg;
+
+  // animate on reveal
+  const card=$('#premiumCard');
+  const play=()=>{ $$('.mini-bar',box).forEach(b=>{ b.style.transform='scaleY(1)'; }); };
+  if(reduceMotion || !('IntersectionObserver' in window)){ play(); return; }
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ play(); io.disconnect(); } });
+  },{threshold:0.25});
+  io.observe(card||box);
+})();
+
+/* ============ OCCUPATION ATLAS ============ */
+const occupations=[
+  {
+    id:'legal-assistant', name:'法律文书助理', emoji:'⚖️', sector:'法律服务',
+    cats:['legal'], risk:'crit', replacement:92, exposure:96, demand:-61, salary:-12,
+    summary:'合同审阅、文书起草、案例检索等标准化法律工作首当其冲。高盛数据显示其替代率高达 92%，位居所有职业之首。',
+    skills:[{n:'法律检索',v:92},{n:'文书起草',v:90},{n:'条款比对',v:88},{n:'法庭辩护',v:18},{n:'客户谈判',v:12},{n:'伦理判断',v:9}],
+    path:[
+      {h:'掌握法律科技工具',p:'从「写文书」转向「审 AI 生成的文书」，学习 Contract Review AI、法律检索大模型的使用与校验。'},
+      {h:'深耕证据链表达',p:'法庭辩护、诉讼策略、复杂案件论证——这是 AI 幻觉最难攻克的堡垒，也是六大人类核心能力之一。'},
+      {h:'转向客户关系与谈判',p:'当事人沟通、情绪安抚、利益博弈是 AI 无法替代的高价值环节，向「法律顾问 + 谈判专家」进化。'}
+    ],
+    quote:'<b>关键提醒：</b>初级律师助理正在被 AI 大规模替代，但资深诉讼律师的时薪仍在上涨。分水岭在于「能不能为结果负责」。',
+    source:'数据来源：高盛 AI 就业影响研究 · 上科大 CEISD 报告'
+  },
+  {
+    id:'data-entry', name:'数据录入员', emoji:'🔢', sector:'基础文职',
+    cats:['service'], risk:'crit', replacement:98, exposure:97, demand:-68, salary:-22,
+    summary:'OCR + RPA 组合拳下，24 小时无休、准确率超 99%、成本仅人工 1/10。2026 年上半年招聘量同比暴跌 68%，替代率约 99%。',
+    skills:[{n:'数据录入',v:99},{n:'表格整理',v:96},{n:'格式校对',v:94},{n:'流程优化',v:24},{n:'数据分析',v:15},{n:'业务理解',v:8}],
+    path:[
+      {h:'升级为数据标注 / AI 训练师',p:'从「录入数据」转向「为 AI 提供高质量训练信号」，岗位量同比增长 30.3%，门槛相对友好。'},
+      {h:'学习数据分析基础',p:'掌握 Python / SQL / BI 工具，从「搬运数据」转向「解读数据、支撑决策」。'},
+      {h:'转向流程优化专家',p:'理解业务流程本身，成为「人机协同流程设计师」——这是 2100 万任务重组岗位的核心能力。'}
+    ],
+    quote:'<b>残酷的现实：</b>北京一家互联网公司 2026 年 2 月上线 AI 系统后，直接撤销 200 人数据部门，只留 1 人复核。',
+    source:'数据来源：FAIR Framework · 智联招聘 · 中国劳保院 2026 Q2'
+  },
+  {
+    id:'bank-teller', name:'银行柜员', emoji:'🏦', sector:'金融服务',
+    cats:['finance'], risk:'crit', replacement:94, exposure:90, demand:-40, salary:-9,
+    summary:'智能柜台已覆盖 95% 以上的非现金业务，银行柜员岗招聘量连续 5 年下滑超 40%，2026 年规模较 2025 年再降 32%。',
+    skills:[{n:'业务办理',v:95},{n:'凭证审核',v:92},{n:'客户咨询',v:70},{n:'理财顾问',v:34},{n:'风险判断',v:22},{n:'客户关系',v:16}],
+    path:[
+      {h:'转向财富管理顾问',p:'从「办理业务」转向「理解客户财务目标、配置资产」——高净值客户关系是 AI 无法替代的。'},
+      {h:'学习风控与合规',p:'金融机构对「签字负责」的合规人才需求稳定，转向风控建模、反欺诈分析方向。'},
+      {h:'拥抱智能柜员协同',p:'成为「智能网点运营师」，负责人机协同流程优化与复杂业务处理。'}
+    ],
+    quote:'<b>趋势信号：</b>AI 替代的是「标准化业务办理」，但银行网点正在从「交易场所」转型为「咨询与信任场所」。',
+    source:'数据来源：中国劳保院 2026 Q2 报告 · 行业公开数据'
+  },
+  {
+    id:'junior-dev', name:'初级程序员', emoji:'💻', sector:'科技',
+    cats:['tech'], risk:'crit', replacement:87, exposure:74.5, demand:-32, salary:-6,
+    summary:'AI 写代码速度是人的 5–10 倍，bug 率更低，可自动生成 80% 以上基础代码。25 岁以下初级软件工程师就业率下滑近 20%。',
+    skills:[{n:'CRUD 开发',v:94},{n:'单元测试',v:90},{n:'页面实现',v:88},{n:'架构设计',v:26},{n:'故障处置',v:19},{n:'系统思维',v:14}],
+    path:[
+      {h:'从「写代码」转向「设计系统」',p:'AI 能写函数，但难以定义「系统应该长什么样」。投资架构设计、系统思维、领域建模能力。'},
+      {h:'掌握 AI 工具链编排',p:'GitHub Copilot、Cursor、Agent 框架——成为「用 AI 编程的人」而非「和 AI 竞争的人」。AI 应用开发需求增长 60% 以上。'},
+      {h:'深入垂直业务领域',p:'Java 工程师的架构设计、故障处置等高价值工作无法被机器替代，资深技术岗薪资仍在稳步上涨。'}
+    ],
+    quote:'<b>一个反差数据：</b>传统软件开发需求整体下降约 25%，但 AI 应用开发需求却增长 60% 以上。初级缩招，但 AI 方向在扩招。',
+    source:'数据来源：Anthropic 研究 · 美国劳工统计局 · 行业公开数据'
+  },
+  {
+    id:'accountant', name:'基础财务 / 会计', emoji:'🧾', sector:'财务',
+    cats:['finance'], risk:'crit', replacement:85, exposure:82, demand:-47, salary:-11,
+    summary:'凭证录入、发票审核、纳税申报——一套智能财税系统就能全流程自动完成。2026 年一季度国内基础会计岗位需求同比降 47%。',
+    skills:[{n:'凭证录入',v:96},{n:'发票审核',v:93},{n:'报税申报',v:90},{n:'成本分析',v:48},{n:'财务战略',v:22},{n:'审计判断',v:17}],
+    path:[
+      {h:'从「记账」转向「分析」',p:'基础核算已被自动化，但财务分析、预算管理、经营决策支持仍然需要人的判断力。'},
+      {h:'向管理会计 / 财务 BP 进化',p:'成为业务部门的「财务合伙人」，用数据支撑业务决策——这是复合型闭环岗位的典型样本。'},
+      {h:'学习智能财务系统设计',p:'从「用系统」转向「设计系统」，成为企业财务数字化的架构者而非操作者。'}
+    ],
+    quote:'<b>结构变化：</b>很多企业财务部门已从「多人记账」变成「一人管 AI + 复核」。代账公司基础人员需求缩减超 60%。',
+    source:'数据来源：中国劳保院 2026 Q2 · 智联招聘 · 行业公开数据'
+  },
+  {
+    id:'customer-service', name:'标准化客服', emoji:'🎧', sector:'客户服务',
+    cats:['service'], risk:'crit', replacement:90, exposure:70.1, demand:-60, salary:-14,
+    summary:'AI 客服可处理 85% 以上常见咨询，7×24 小时在线、响应毫秒级。全国呼叫中心从业人数从 380 万降至 92 万，AI 替代率 78%。',
+    skills:[{n:'话术应答',v:94},{n:'工单处理',v:91},{n:'流程查询',v:89},{n:'情绪安抚',v:31},{n:'投诉升级处理',v:24},{n:'服务设计',v:16}],
+    path:[
+      {h:'转向复杂投诉与情感支持',p:'AI 能回答标准问题，但处理愤怒客户、安抚情绪、化解冲突仍需人。向「高级客户体验专家」进化。'},
+      {h:'学习客户成功管理（CSM）',p:'从「被动应答」转向「主动经营客户生命周期价值」，这是 SaaS 时代的核心岗位。'},
+      {h:'成为 AI 客服训练师',p:'负责意图识别标注、话术优化、人机协同分流策略设计——这是任务重组的典型岗位。'}
+    ],
+    quote:'<b>规模冲击：</b>国内头部保险、电商公司已裁掉 90% 以上的基础电销团队。但客户体验设计、客户成功岗位在逆势增长。',
+    source:'数据来源：Anthropic 研究 · FAIR Framework · 行业公开数据'
+  },
+  {
+    id:'market-analyst', name:'基础市场分析师', emoji:'📊', sector:'市场营销',
+    cats:['creative'], risk:'crit', replacement:85, exposure:78, demand:-40, salary:-8,
+    summary:'数据整理、竞品扫描、报表生成等标准化分析工作正被 AI 快速接管。但战略判断与创新洞察仍是人类领地。',
+    skills:[{n:'数据整理',v:92},{n:'竞品扫描',v:87},{n:'报表生成',v:90},{n:'趋势判断',v:42},{n:'战略建议',v:26},{n:'创新洞察',v:19}],
+    path:[
+      {h:'从「做分析」转向「下判断」',p:'AI 能生成 100 页报告，但「这意味着什么、我们该做什么」需要人的商业判断力。'},
+      {h:'掌握 AI 分析工具链',p:'用大模型做市场研究、用户洞察、数据可视化，把自己变成「1 人分析团队」。'},
+      {h:'深耕行业 Know-how',p:'跨角色协调 + 行业深度理解 = 复合型闭环岗位，这是就业增量的主战场。'}
+    ],
+    quote:'<b>核心洞察：</b>AI 替代的是「信息搬运」，但「在不确定性中做出正确决策」仍然是人类的核心价值。',
+    source:'数据来源：高盛研究 · 上科大 CEISD 报告'
+  },
+  {
+    id:'news-editor', name:'新闻资讯编辑', emoji:'📰', sector:'传媒',
+    cats:['creative'], risk:'high', replacement:81, exposure:72, demand:-28, salary:-10,
+    summary:'通稿、简单新闻、电商详情页、批量图文——AI 几秒就能生成。计算机图形艺术家岗降 33%，撰稿人岗降 28%。',
+    skills:[{n:'通稿写作',v:89},{n:'资讯编译',v:84},{n:'排版校对',v:91},{n:'深度调查',v:27},{n:'观点表达',v:22},{n:'叙事能力',v:18}],
+    path:[
+      {h:'从「量产内容」转向「稀缺内容」',p:'AI 能批量生产，但有独特视角、深度调查、人格魅力的内容创作者反而更稀缺。'},
+      {h:'掌握 AI 内容工作流',p:'用 AI 做选题研究、初稿生成、多平台适配，把自己变成「内容工作室」。'},
+      {h:'建立个人品牌与信任',p:'不是不需要内容，是不需要「批量复制」的内容。有人格、有立场、有信任的创作者是 AI 无法替代的。'}
+    ],
+    quote:'<b>残酷现实：</b>某内容工厂基础编辑、文案岗位需求明显下降。但独立深度报道、专业垂类内容的需求在上升。',
+    source:'数据来源：行业公开数据 · 智联招聘'
+  },
+  {
+    id:'telemarketer', name:'电话销售', emoji:'📞', sector:'销售',
+    cats:['service'], risk:'crit', replacement:96, exposure:88, demand:-90, salary:-18,
+    summary:'基础电销团队被裁超 90%。AI 外呼系统可 7×24 小时工作、毫秒级响应、成本仅人工的零头。',
+    skills:[{n:'话术外呼',v:96},{n:'名单筛选',v:91},{n:'信息记录',v:93},{n:'需求挖掘',v:38},{n:'关系建立',v:19},{n:'复杂谈判',v:11}],
+    path:[
+      {h:'转向大客户销售（ToB）',p:'复杂 B2B 销售涉及多方利益、长周期决策、信任建立——这是 AI 短期内无法替代的。'},
+      {h:'从「打电话」转向「经营关系」',p:'销售的本质是信任。转向客户成功、渠道经营、生态合作方向。'},
+      {h:'成为 AI 销售工具操盘手',p:'负责外呼系统策略设计、话术优化、人机分流——从「被替代者」变成「替代方案设计者」。'}
+    ],
+    quote:'<b>数据冲击：</b>国内头部保险、电商公司裁掉 90% 以上的基础电销团队。这是所有职业中替代速度最快的之一。',
+    source:'数据来源：FAIR Framework（消除风险分 96%）· 行业公开数据'
+  },
+  {
+    id:'medical-records', name:'医疗记录专员', emoji:'🏥', sector:'医疗',
+    cats:['service'], risk:'high', replacement:66.7, exposure:64, demand:-25, salary:-6,
+    summary:'病历整理、编码录入、报告生成等标准化医疗文书工作正被 AI 快速接管，但临床判断与医患关系不可替代。',
+    skills:[{n:'病历整理',v:84},{n:'编码录入',v:87},{n:'报告生成',v:81},{n:'临床判断',v:24},{n:'医患沟通',v:15},{n:'伦理权衡',v:11}],
+    path:[
+      {h:'转向医疗数据分析',p:'掌握医疗信息系统、临床数据治理，成为「医学 + 数据」的复合型人才。'},
+      {h:'深耕临床支持岗位',p:'床旁照护、康复指导、患者教育等强现场、强情感联结的岗位需求稳定。'},
+      {h:'学习医疗 AI 工具',p:'成为医院 AI 落地的「翻译官」——既懂临床流程，又懂 AI 能力边界。'}
+    ],
+    quote:'<b>护城河提示：</b>约 30% 的职业在主流 AI 训练数据中「近乎隐形」，医疗现场照护正是其中之一。',
+    source:'数据来源：Anthropic 研究 · 行业公开数据'
+  },
+  {
+    id:'architect', name:'资深架构师 / 故障处置', emoji:'🏗️', sector:'科技',
+    cats:['tech'], risk:'low', replacement:22, exposure:26, demand:18, salary:12,
+    summary:'架构设计、故障处置、系统权衡等高价值工作无法被机器替代。传统开发需求下降，但资深技术岗薪资稳步上涨。',
+    skills:[{n:'系统架构',v:18},{n:'故障处置',v:14},{n:'技术权衡',v:16},{n:'团队领导',v:12},{n:'业务抽象',v:21},{n:'AI 编排',v:34}],
+    path:[
+      {h:'学会「指挥」AI 编程团队',p:'从「自己写」转向「设计 + 编排 + 审核」，管理多个 AI Agent 协同完成复杂工程。'},
+      {h:'深化系统思维与领域建模',p:'这是 AI 最难模仿的能力——理解业务、抽象问题、做出取舍。'},
+      {h:'成为技术决策的「签字人」',p:'AI 可以生成方案，但「应该选哪个」涉及责任承担——这正是六大人类核心能力之一。'}
+    ],
+    quote:'<b>明确的信号：</b>资深技术岗薪资仍在稳步上涨。AI 替代的是「执行」，但「决策 + 责任」的价值在上升。',
+    source:'数据来源：上科大 CEISD 报告 · 行业公开数据'
+  },
+  {
+    id:'counselor', name:'心理咨询 / 照护', emoji:'🤝', sector:'社会服务',
+    cats:['service'], risk:'low', replacement:15, exposure:18, demand:12, salary:8,
+    summary:'深度情感联结、信任建立、现场适应——这些是 AI 训练数据中最稀缺的维度。线下照护、康复指导需求持续稳定。',
+    skills:[{n:'情绪识别',v:22},{n:'信任建立',v:14},{n:'现场适应',v:16},{n:'伦理判断',v:19},{n:'关系深度',v:11},{n:'危机干预',v:17}],
+    path:[
+      {h:'拥抱「AI 辅助」而非恐惧',p:'用 AI 做初步筛查、记录整理、资源匹配，把时间留给高价值的深度沟通。'},
+      {h:'深耕专业认证与口碑',p:'在信任敏感度最高的行业，个人品牌与专业资质是护城河。'},
+      {h:'拓展「人机协同」服务模式',p:'设计「AI 初筛 + 人工深度干预」的服务流程，成为新服务模式的定义者。'}
+    ],
+    quote:'<b>反直觉结论：</b>中老年低技能劳动力反而获得了低门槛灵活就业的新路径——山东泰安 59 岁居民通过 AI 数据采集岗月均可收入 1000 元。',
+    source:'数据来源：FAIR Framework · 上科大 CEISD 报告'
+  },
+  {
+    id:'ai-pm', name:'AI 产品经理', emoji:'🧠', sector:'AI 产品',
+    cats:['tech','new'], risk:'new', replacement:0, exposure:0, demand:120, salary:62,
+    summary:'定义 AI 产品的能力边界、交互范式与商业化路径。2026 年职位数同比增长 120.54%，是「复合型闭环岗位」的典型代表。',
+    skills:[{n:'需求洞察',v:32},{n:'智能体编排',v:28},{n:'数据决策',v:35},{n:'跨角色协调',v:24},{n:'商业化设计',v:29},{n:'AI 能力边界判断',v:31}],
+    path:[
+      {h:'建立「业务 + AI」双重理解',p:'核心竞争力不是「会用大模型」，而是「知道 AI 在这个业务里能做什么、不能做什么」。'},
+      {h:'掌握智能体（Agent）设计范式',p:'从「功能设计」转向「工作流设计 + 人机协同设计」，这是 2026 年产品能力的分水岭。'},
+      {h:'培养闭环交付能力',p:'可独立完成需求、执行、校验、汇报完整闭环的求职者，是就业增量的最大受益者。'}
+    ],
+    quote:'<b>增长数据：</b>2026 年 1–7 月新经济行业新发 AI 岗位量同比增长 789.47%，平均月薪达 63160 元。这些岗位在 2024 年几乎不存在。',
+    source:'数据来源：公开招聘平台数据 · 猎聘《AI 时代技能趋势报告》'
+  },
+  {
+    id:'ai-engineer', name:'现场部署工程师 FDE', emoji:'⚡', sector:'AI 工程落地',
+    cats:['tech','new'], risk:'new', replacement:0, exposure:0, demand:100, salary:58,
+    summary:'把 AI 能力落到具体业务现场，负责模型部署、效果调优与业务闭环。2026 年 1–7 月岗位量同比增长 1522.73%。',
+    skills:[{n:'工程落地',v:26},{n:'业务理解',v:31},{n:'现场调试',v:22},{n:'效果评估',v:29},{n:'跨角色协调',v:27},{n:'责任承担',v:24}],
+    path:[
+      {h:'成为「AI + 行业」的翻译官',p:'核心价值在于把模型能力翻译成业务价值——这需要同时理解技术边界和业务现场。'},
+      {h:'深耕一个垂直行业',p:'制造、医疗、金融……选一个行业建立深度 Know-how，成为不可替代的「行业 AI 专家」。'},
+      {h:'培养闭环交付能力',p:'FDE 岗位的核心要求：能独立完成从需求到上线的完整闭环。这正是 2100 万任务重组岗位的画像。'}
+    ],
+    quote:'<b>爆发式增长：</b>FDE / 现场部署工程师岗位量同比增长 1522.73%，是 2026 年增速最快的 AI 职业之一。',
+    source:'数据来源：公开招聘平台数据 · 2026 年 1–7 月统计'
+  }
+];
+
+let activeFilter='all';
+let activeOccId='junior-dev';
+let searchQuery='';
+
+function riskClass(r){
+  return r==='crit'?'hi':r==='high'?'mid':r==='low'?'low':'new';
+}
+function riskLabel(r){
+  return r==='crit'?'🔴 极高危':r==='high'?'🟠 中高危':r==='low'?'🟢 相对安全':'🔵 AI 新职业';
+}
+function riskColor(r){
+  return r==='crit'?'rgba(255,61,0,.16)':r==='high'?'rgba(255,122,26,.16)':r==='low'?'rgba(61,220,132,.15)':'rgba(57,198,255,.15)';
+}
+function riskTextColor(r){
+  return r==='crit'?'#ff9c7a':r==='high'?'#ffc27a':r==='low'?'#7fe0a8':'#7fd4ff';
+}
+
+function filteredOccs(){
+  return occupations.filter(o=>{
+    // filter
+    if(activeFilter!=='all'){
+      if(activeFilter==='tech'||activeFilter==='finance'||activeFilter==='legal'||activeFilter==='creative'||activeFilter==='service'){
+        if(!(o.cats||[]).includes(activeFilter)) return false;
+      } else if(activeFilter==='new'){
+        if(o.risk!=='new') return false;
+      } else if(activeFilter==='crit'){
+        if(o.risk!=='crit') return false;
+      } else if(activeFilter==='high'){
+        if(o.risk!=='high') return false;
+      } else if(activeFilter==='low'){
+        if(o.risk!=='low') return false;
+      }
+    }
+    // search
+    if(searchQuery){
+      const q=searchQuery.toLowerCase();
+      const hay=(o.name+' '+o.sector+' '+o.summary+' '+(o.cats||[]).join(' ')+' '+o.skills.map(s=>s.n).join(' ')).toLowerCase();
+      if(hay.indexOf(q)===-1) return false;
+    }
+    return true;
+  });
+}
+
+function renderAtlas(){
+  const grid=$('#atlasGrid'); if(!grid) return;
+  const list=filteredOccs();
+
+  if(!list.length){
+    grid.innerHTML=`<div class="empty-note" style="grid-column:1/-1">
+      <span class="ic">🔍</span>
+      没有找到匹配的职业。<br>试试其他关键词，或点击「全部」重置筛选。
+    </div>`;
+    return;
+  }
+
+  // ensure active is in list
+  if(!list.find(o=>o.id===activeOccId)) activeOccId=list[0].id;
+
+  grid.innerHTML=list.map(o=>{
+    const cls=riskClass(o.risk);
+    const isNew=o.risk==='new';
+    const mainVal=isNew?o.demand:o.replacement;
+    const mainLab=isNew?'需求增长':'替代率';
+    return `
+    <button class="occ-card${o.id===activeOccId?' active':''}${isNew?' isnew':''}" data-id="${o.id}" type="button">
+      ${isNew?'<span class="occ-newtag">NEW</span>':''}
+      <div class="top">
+        <span class="occ-emoji">${o.emoji}</span>
+        <span class="risk-dot ${o.risk==='new'?'new':o.risk}"></span>
+      </div>
+      <div class="occ-name">${o.name}</div>
+      <div class="occ-sector">${o.sector}</div>
+      <div class="occ-mini">
+        <div class="occ-mini-track"><div class="occ-mini-fill ${cls}" data-w="${mainVal}"></div></div>
+        <div class="occ-mini-row">
+          <span class="occ-mini-lab">${mainLab}</span>
+          <span class="occ-mini-val">${isNew?'+':''}${mainVal}%</span>
+        </div>
+      </div>
+    </button>`;
+  }).join('');
+
+  // animate mini fills
+  requestAnimationFrame(()=>{
+    $$('.occ-mini-fill',grid).forEach(f=>{
+      const w=parseFloat(f.getAttribute('data-w'));
+      f.style.width=clamp(w,0,100)+'%';
+    });
+  });
+
+  // click handlers
+  $$('.occ-card',grid).forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      activeOccId=btn.getAttribute('data-id');
+      $$('.occ-card',grid).forEach(b=>b.classList.toggle('active', b===btn));
+      renderPanel();
+      // on mobile, scroll panel into view
+      if(window.innerWidth<980){
+        const p=$('#atlasPanel');
+        if(p) p.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+}
+
+function renderPanel(){
+  const head=$('#panelHead'), body=$('#panelBody'), foot=$('#panelFoot');
+  if(!head||!body||!foot) return;
+  const o=occupations.find(x=>x.id===activeOccId);
+  if(!o){ body.innerHTML='<div class="empty-note">请选择一个职业</div>'; return; }
+
+  const isNew=o.risk==='new';
+  const ringColor=isNew?'#39c6ff':o.risk==='crit'?'#ff3d00':o.risk==='high'?'#ff8f1f':'#3ddc84';
+  const ringGrad=isNew?'url(#ringNew)':o.risk==='crit'?'url(#ringCrit)':o.risk==='high'?'url(#ringHigh)':'url(#ringLow)';
+
+  // donut
+  const R=54, C=2*Math.PI*R;
+  const donutVal=isNew?o.demand:o.replacement;
+  const offset=C*(1-clamp(donutVal,0,100)/100);
+
+  head.innerHTML=`
+    <div class="panel-emoji">${o.emoji}</div>
+    <div style="flex:1;min-width:0">
+      <div class="panel-name">${o.name}</div>
+      <div class="panel-sector">${o.sector} · ${riskLabel(o.risk)}</div>
+      <div class="panel-risk" style="background:${riskColor(o.risk)};color:${riskTextColor(o.risk)};border:1px solid ${riskTextColor(o.risk)}33">
+        ${isNew?'🚀':'⚡'} ${isNew?'AI 新职业 · 爆发式增长':'高暴露职业'}
+      </div>
+    </div>`;
+
+  body.innerHTML=`
+    <div class="panel-sec">
+      <div class="panel-sec-t">📊 核心指标</div>
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg viewBox="0 0 142 142">
+            <defs>
+              <linearGradient id="ringCrit" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff3d00"/><stop offset="100%" stop-color="#ff8f1f"/>
+              </linearGradient>
+              <linearGradient id="ringHigh" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff8f1f"/><stop offset="100%" stop-color="#ffb020"/>
+              </linearGradient>
+              <linearGradient id="ringLow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1f9d55"/><stop offset="100%" stop-color="#3ddc84"/>
+              </linearGradient>
+              <linearGradient id="ringNew" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#39c6ff"/><stop offset="100%" stop-color="#7fd4ff"/>
+              </linearGradient>
+            </defs>
+            <circle class="bg" cx="71" cy="71" r="${R}"/>
+            <circle class="fg" id="donutFg" cx="71" cy="71" r="${R}" stroke="${ringGrad}"
+              stroke-dasharray="${C}" stroke-dashoffset="${C}"/>
+          </svg>
+          <div class="center">
+            <div class="v"><span class="cnt-quick">${isNew?'+':''}${donutVal}</span><span class="s">%</span></div>
+            <div class="l">${isNew?'需求增长':'替代率'}</div>
+          </div>
+        </div>
+        <div class="donut-stats">
+          <div class="dstat">
+            <div class="k">${isNew?'岗位增速':'AI 任务暴露度'}</div>
+            <div class="v">${isNew?'+'+o.demand+'%':o.exposure+'%'}</div>
+          </div>
+          <div class="dstat">
+            <div class="k">招聘需求变化</div>
+            <div class="v" style="color:${o.demand>=0?'#7fe0a8':'#ff9c7a'}">${o.demand>=0?'+':''}${o.demand}%</div>
+          </div>
+          <div class="dstat">
+            <div class="k">薪资趋势</div>
+            <div class="v" style="color:${o.salary>=0?'#7fe0a8':'#ff9c7a'}">${o.salary>=0?'+':''}${o.salary}%<small> 同比</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-sec">
+      <div class="panel-sec-t">📝 现状解读</div>
+      <p style="font-size:12.6px;color:var(--cream-2);opacity:.86;line-height:1.78">${o.summary}</p>
+    </div>
+
+    <div class="panel-sec">
+      <div class="panel-sec-t">🎯 技能要求分布</div>
+      <div class="skill-list">
+        ${o.skills.map(s=>`
+          <div class="skill-item">
+            <span class="nm">${s.n}</span>
+            <div class="tr"><div class="fl" data-w="${s.v}" style="background:${s.v>=75?'linear-gradient(90deg,#ff3d00,#ff8f1f)':s.v>=40?'linear-gradient(90deg,#ff8f1f,#ffb020)':'linear-gradient(90deg,#1f9d55,#3ddc84)'}"></div></div>
+            <span class="pc">${s.v}%</span>
+          </div>`).join('')}
+      </div>
+      <p style="font-size:10.4px;color:var(--cream-3);opacity:.62;margin-top:9px;line-height:1.6">
+        红色 = 该技能被 AI 替代的程度高 ｜ 绿色 = 该技能仍然依赖人类
+      </p>
+    </div>
+
+    <div class="panel-sec">
+      <div class="panel-sec-t">${isNew?'🚀 成为它':'🧭 转型路径'}</div>
+      <div class="path-list">
+        ${o.path.map((p,i)=>`
+          <div class="path-step">
+            <div class="rail"></div>
+            <div class="knob">${i+1}</div>
+            <div class="txt"><div class="h">${p.h}</div><div class="p">${p.p}</div></div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel-quote">${o.quote}</div>
+  `;
+
+  foot.textContent=o.source;
+
+  // animate donut + skill bars
+  requestAnimationFrame(()=>{
+    const fg=$('#donutFg');
+    if(fg) fg.style.strokeDashoffset=offset;
+    $$('.skill-item .fl',body).forEach((f,i)=>{
+      const w=parseFloat(f.getAttribute('data-w'));
+      setTimeout(()=>{ f.style.width=clamp(w,0,100)+'%'; }, 90+i*55);
+    });
+  });
+}
+
+// filters
+$$('.filt').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.filt').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.getAttribute('data-filter');
+    renderAtlas();
+    renderPanel();
+  });
+});
+
+// search
+const searchInput=$('#occSearch');
+if(searchInput){
+  let deb=null;
+  searchInput.addEventListener('input',()=>{
+    clearTimeout(deb);
+    deb=setTimeout(()=>{
+      searchQuery=searchInput.value.trim();
+      renderAtlas();
+      renderPanel();
+    },170);
+  });
+}
+
+/* ============ A/B COMPARE ============ */
+const abInsightMap={
+  a:`<b>路径 A 的本质问题</b>：不是「你不够努力」，而是你的工作内容本身进入了 AI 的高效区。
+     2026 年上半年，数据录入和标注岗招聘量同比暴跌 <b>68%</b>，基础电销团队被裁超 <b>90%</b>，
+     银行柜员规模较 2025 年下降 <b>32%</b>。这些岗位的共同点是：工作内容高度标准化、输入输出可量化、评价标准明确。
+     <br><br>AI 客服能处理 <b>85% 以上</b>常见咨询，7×24 小时在线、毫秒级响应，成本只有人工的十分之一。
+     北京一家互联网公司 2026 年 2 月上线 AI 系统后，直接撤销 200 人数据部门，只留 1 人复核。`,
+
+  b:`<b>路径 B 的核心逻辑</b>：用 AI 处理标准化部分，自己专注需求理解、判断决策、责任承担与跨角色协调。
+     2026 年 1–7 月，新经济行业新发 AI 岗位量同比增长 <b>789.47%</b>，平均月薪达 <b>63160 元</b>。
+     掌握 AI 协同能力者的平均起薪高出 <b>34.2%</b>，获得首轮面试邀约的概率是 <b>2.1 倍</b>。
+     <br><br>市场约 <b>2100 万个</b>岗位由任务重组形成，占全部招聘岗位的 <b>18.6%</b>。
+     就业增量全部来自「复合型闭环岗位」——可独立完成需求、执行、校验、汇报完整工作闭环的求职者。`,
+
+  both:`<b>两条路径的本质区别</b>在于：你把 AI 当成「竞争对手」还是「杠杆」。
+        位移风险平均分 <b>61.4%</b>，但消除风险平均分只有 <b>43.6%</b>——<b>18 个百分点的差距</b>说明：
+        大多数岗位不会消失，但会剧烈改变；不适应的人会被会用 AI 的人淘汰。
+        <br><br>「职业消失论」并不成立——AI 仅替代标准化任务，而非消灭整个职业。
+        Java 工程师的架构设计、故障处置等高价值工作无法被机器替代，资深技术岗薪资仍在稳步上涨。
+        <b>AI 替代的是任务，不是你；但如果你只会干 AI 能干的事，被替代的就是你。</b>`
+};
+
+$$('.ab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const side=btn.getAttribute('data-ab');
+    $$('.ab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cardA=$('.ab-card.a');
+    const cardB=$('.ab-card.b');
+    const ins=$('#abInsightText');
+
+    if(side==='a'){
+      cardA&&cardA.classList.remove('dim'); cardB&&cardB.classList.add('dim');
+      cardA&&cardA.classList.add('sel'); cardB&&cardB.classList.remove('sel');
+    } else if(side==='b'){
+      cardB&&cardB.classList.remove('dim'); cardA&&cardA.classList.add('dim');
+      cardB&&cardB.classList.add('sel'); cardA&&cardA.classList.remove('sel');
+    } else {
+      cardA&&cardA.classList.remove('dim'); cardB&&cardB.classList.remove('dim');
+      cardA&&cardA.classList.add('sel'); cardB&&cardB.classList.add('sel');
+    }
+    if(ins) ins.innerHTML=abInsightMap[side]||abInsightMap.both;
+
+    // re-animate bars
+    $$('.ab-row .fl').forEach(f=>{
+      const w=f.getAttribute('data-w');
+      f.style.width='0%';
+      requestAnimationFrame(()=>{ f.style.width=w+'%'; });
+    });
+  });
+});
+
+// click AB cards
+$$('.ab-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const side=card.getAttribute('data-side');
+    const btn=$(`.ab-btn[data-ab="${side}"]`);
+    if(btn) btn.click();
+  });
+});
+
+// animate AB bars when visible
+(function initABBars(){
+  const shell=$('.ab-shell'); if(!shell) return;
+  const play=()=>{
+    $$('.ab-row .fl',shell).forEach((f,i)=>{
+      const w=f.getAttribute('data-w');
+      setTimeout(()=>{ f.style.width=w+'%'; }, 120+i*80);
+    });
+  };
+  if(reduceMotion || !('IntersectionObserver' in window)){ play(); return; }
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ play(); io.disconnect(); } });
+  },{threshold:0.18});
+  io.observe(shell);
+})();
+
+/* ============ GENERATION TABS ============ */
+$$('.gen-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const key=tab.getAttribute('data-gen');
+    $$('.gen-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    $$('.gen-panel').forEach(p=>{
+      p.classList.toggle('active', p.getAttribute('data-panel')===key);
+    });
+  });
+});
+
+/* ============ HERO CANVAS (particles) ============ */
+(function heroCanvas(){
+  const cv=$('#heroCanvas'); if(!cv||reduceMotion) return;
+  const ctx=cv.getContext('2d'); if(!ctx) return;
+  let W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2);
+  let parts=[];
+  let raf=null, mouse={x:-9999,y:-9999};
+
+  function resize(){
+    const r=cv.parentElement.getBoundingClientRect();
+    W=r.width; H=r.height;
+    cv.width=W*dpr; cv.height=H*dpr;
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    init();
+  }
+  function init(){
+    const count=Math.round(clamp(W*H/15000, 42, 130));
+    parts=[];
+    for(let i=0;i<count;i++){
+      parts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.9+0.5,
+        vx:(Math.random()-0.5)*0.34,
+        vy:(Math.random()-0.5)*0.34-0.06,
+        a:Math.random()*0.5+0.14,
+        hue:Math.random()<0.22?42:24+Math.random()*16
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // links
+    for(let i=0;i<parts.length;i++){
+      const p=parts[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<-20)p.x=W+20; if(p.x>W+20)p.x=-20;
+      if(p.y<-20)p.y=H+20; if(p.y>H+20)p.y=-20;
+
+      // mouse repel
+      const dx=p.x-mouse.x, dy=p.y-mouse.y;
+      const d2=dx*dx+dy*dy;
+      if(d2<14000 && d2>0.1){
+        const d=Math.sqrt(d2);
+        const f=(120-d)/120*0.75;
+        p.x+=(dx/d)*f; p.y+=(dy/d)*f;
+      }
+
+      for(let j=i+1;j<parts.length;j++){
+        const q=parts[j];
+        const ddx=p.x-q.x, ddy=p.y-q.y;
+        const dist2=ddx*ddx+ddy*ddy;
+        if(dist2<16000){
+          const dist=Math.sqrt(dist2);
+          const alpha=(1-dist/126)*0.19;
+          if(alpha>0.004){
+            ctx.strokeStyle='rgba(255,'+Math.round(110+q.hue)+',40,'+alpha.toFixed(3)+')';
+            ctx.lineWidth=0.62;
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+          }
+        }
+      }
+      // dot
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='hsla('+p.hue+',100%,64%,'+p.a+')';
+      ctx.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  const hero=$('#hero');
+  if(hero){
+    hero.addEventListener('mousemove',e=>{
+      const r=cv.getBoundingClientRect();
+      mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top;
+    });
+    hero.addEventListener('mouseleave',()=>{ mouse.x=-9999; mouse.y=-9999; });
+  }
+  let rz=null;
+  window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(resize,180); });
+  resize();
+  draw();
+
+  // pause when offscreen
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){ if(!raf) raf=requestAnimationFrame(draw); }
+        else { if(raf){ cancelAnimationFrame(raf); raf=null; } }
+      });
+    },{threshold:0});
+    io.observe(cv);
+  }
+})();
+
+/* ============ FINALE CANVAS (rising particles) ============ */
+(function finaleCanvas(){
+  const cv=$('#finaleCanvas'); if(!cv||reduceMotion) return;
+  const ctx=cv.getContext('2d'); if(!ctx) return;
+  let W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2);
+  let parts=[]; let raf=null; let visible=true;
+
+  function resize(){
+    const r=cv.parentElement.getBoundingClientRect();
+    W=r.width; H=r.height;
+    cv.width=W*dpr; cv.height=H*dpr;
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const count=Math.round(clamp(W*H/17000, 34, 96));
+    parts=[];
+    for(let i=0;i<count;i++){
+      parts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*2.1+0.5,
+        vy:-(Math.random()*0.5+0.14),
+        vx:(Math.random()-0.5)*0.3,
+        a:Math.random()*0.44+0.1,
+        tw:Math.random()*Math.PI*2,
+        ts:Math.random()*0.026+0.008
+      });
+    }
+  }
+  function draw(){
+    if(!visible){ raf=null; return; }
+    ctx.clearRect(0,0,W,H);
+    parts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.tw+=p.ts;
+      if(p.y<-24){ p.y=H+20; p.x=Math.random()*W; }
+      if(p.x<-24)p.x=W+20; if(p.x>W+24)p.x=-20;
+      const twinkle=0.62+Math.sin(p.tw)*0.38;
+      const alpha=p.a*twinkle;
+      // glow
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*7);
+      g.addColorStop(0,'rgba(255,'+Math.round(150+p.r*18)+',60,'+(alpha*0.5).toFixed(3)+')');
+      g.addColorStop(1,'rgba(255,120,20,0)');
+      ctx.fillStyle=g;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*7,0,Math.PI*2); ctx.fill();
+      // core
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,'+Math.round(180+p.r*14)+',110,'+alpha.toFixed(3)+')';
+      ctx.fill();
+    });
+    raf=requestAnimationFrame(draw);
+  }
+  let rz=null;
+  window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(resize,180); });
+  resize(); draw();
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        visible=e.isIntersecting;
+        if(visible && !raf) raf=requestAnimationFrame(draw);
+      });
+    },{threshold:0});
+    io.observe(cv);
+  }
+})();
+
+/* ============ NAV SMOOTH + active ============ */
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[href^="#"]');
+  if(!a) return;
+  const id=a.getAttribute('href');
+  if(!id||id==='#') return;
+  const el=document.querySelector(id);
+  if(!el) return;
+  e.preventDefault();
+  const top=el.getBoundingClientRect().top+window.pageYOffset-66;
+  window.scrollTo({top:top,behavior:reduceMotion?'auto':'smooth'});
+});
+
+/* ============ INIT ============ */
+function init(){
+  navLinks=$$('.nav-links a');
+  onScroll();
+  initReveal();
+  initCounters();
+  initBarFills();
+  renderAtlas();
+  renderPanel();
+  // trigger hero counters immediately (they're above the fold)
+  setTimeout(()=>{
+    $$('#hero .cnt').forEach(animateCount);
+    $$('#hero .rv').forEach(e=>e.classList.add('in'));
+  },220);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>

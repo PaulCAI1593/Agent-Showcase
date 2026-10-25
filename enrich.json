@@ -1,0 +1,6305 @@
+{
+  "works": [
+    {
+      "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
+      "description": "AI编程工具进入\"可靠性临界点\"的时代｜一、Claude Code Auto Mode 技术解析",
+      "highlights": [
+        "OpenAI"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "~75%",
+          "label": "上下文窗口",
+          "quote": "~75% 上下文窗口"
+        }
+      ]
+    },
+    {
+      "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html",
+      "description": "从SDK编译器到AI编程基础设施的战略布局｜一、Stainless是什么",
+      "highlights": [
+        "Anthropic"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html",
+      "description": "芯片新周期真的来了吗？——对A股市场的影响分析｜韬(τ)定律技术解析",
+      "highlights": [
+        "华为",
+        "股市"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-05-27/research/2026-05-27-turing-test-impact.html",
+      "description": "从科学意义、产业变革到社会治理——全面剖析AI突破图灵测试后的多维度冲击与应对策略",
+      "highlights": [
+        "AI通过图灵测试"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
+      "description": "全球算力军备竞赛 · 2025-2026｜全球AI算力市场爆发",
+      "highlights": [
+        "算力"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "32%",
+          "label": "YoY",
+          "quote": "↑ 32% YoY"
+        },
+        {
+          "value": "45%",
+          "label": "YoY",
+          "quote": "↑ 45% YoY"
+        },
+        {
+          "value": "68%",
+          "label": "YoY",
+          "quote": "↑ 68% YoY"
+        },
+        {
+          "value": "28%",
+          "label": "YoY",
+          "quote": "↑ 28% YoY"
+        },
+        {
+          "value": "78%",
+          "label": "市场份额",
+          "quote": "78% 市场份额"
+        },
+        {
+          "value": "15%",
+          "label": "市场份额",
+          "quote": "15% 市场份额"
+        },
+        {
+          "value": "7%",
+          "label": "市场份额",
+          "quote": "7% 市场份额"
+        }
+      ]
+    },
+    {
+      "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html",
+      "description": "Anthropic vs OpenAI · 2024-2025 融资全景｜核心数据速览",
+      "highlights": [
+        "OpenAI",
+        "Anthropic",
+        "估值"
+      ],
+      "agent": "研析",
+      "claims": []
+    },
+    {
+      "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
+      "description": "中国AI独角兽的首轮融资里程碑｜一、DeepSeek 450亿估值：一场改变中国AI格局的融资",
+      "highlights": [
+        "DeepSeek",
+        "估值"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "700亿",
+          "label": "元人民币",
+          "quote": "700亿元人民币"
+        },
+        {
+          "value": "450亿美元",
+          "label": "已确认",
+          "quote": "450亿美元（已确认）"
+        },
+        {
+          "value": "450亿",
+          "label": "美元投前估值",
+          "quote": "450亿 美元投前估值"
+        },
+        {
+          "value": "700亿",
+          "label": "人民币融资规模",
+          "quote": "700亿 人民币融资规模"
+        },
+        {
+          "value": "12年",
+          "label": "国家大基金首次跨界",
+          "quote": "12年 国家大基金首次跨界"
+        },
+        {
+          "value": "100亿",
+          "label": "美元融资额",
+          "quote": "100亿 美元融资额"
+        },
+        {
+          "value": "60亿",
+          "label": "美元以上单轮融资",
+          "quote": "60亿 美元以上单轮融资"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
+      "description": "六年间，AI公司从实验室走向世界之巅。资本用真金白银投票，重新定义下一个时代。｜估值洪流",
+      "highlights": [
+        "估值"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "+187%",
+          "label": "↑ 同比",
+          "quote": "↑ 同比 +187%"
+        },
+        {
+          "value": "12家",
+          "label": "↑ 新增",
+          "quote": "↑ 新增 12家"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html",
+      "description": "2025–2026 全球AI公司估值版图正在重写。一场从Anthropic反超OpenAI、到DeepSeek用450亿估值搅动开源格局、再到xAI被并入SpaceX的资本大洗牌,正在改写未来十年的AI权力结构。",
+      "highlights": [
+        "估值"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "40倍",
+          "label": "OpenAI当前估值 · PS约",
+          "quote": "OpenAI当前估值 · PS约40倍"
+        },
+        {
+          "value": "17%",
+          "label": "OpenAI ARR · 增速从三位数掉到",
+          "quote": "OpenAI ARR · 增速从三位数掉到17%"
+        },
+        {
+          "value": "5GW",
+          "label": "亚马逊AWS",
+          "quote": "亚马逊AWS · 5GW"
+        },
+        {
+          "value": "5GW",
+          "label": "谷歌Cloud + 博通",
+          "quote": "谷歌Cloud + 博通 · 5GW"
+        },
+        {
+          "value": "60%",
+          "label": "收入靠C端订阅",
+          "quote": "60% 收入靠C端订阅"
+        },
+        {
+          "value": "+900%",
+          "label": "自2025年10月以来Pre-IPO估值涨幅",
+          "quote": "+900% 自2025年10月以来Pre-IPO估值涨幅"
+        },
+        {
+          "value": "13年",
+          "label": "亚马逊AWS达到同等规模所用时间",
+          "quote": "13年 亚马逊AWS达到同等规模所用时间"
+        },
+        {
+          "value": "100%",
+          "label": "核心模型权重开源",
+          "quote": "100% 核心模型权重开源"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html",
+      "description": "五大主流产品能力、商业化与市场反应的全面拆解｜Agent 元年的产品分化时刻",
+      "highlights": [
+        "AI Agent"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "1.65亿",
+          "label": "阿里千问月活，YoY +4241%",
+          "quote": "1.65亿 阿里千问月活，YoY +4241%"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
+      "description": "Claude Code 的挑战｜一句话看懂三巨头",
+      "highlights": [
+        "OpenAI"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "440 亿",
+          "label": "未单独披露(Anthropic ARR",
+          "quote": "未单独披露(Anthropic ARR 440 亿)"
+        },
+        {
+          "value": "1.5 亿美元",
+          "label": "Cursor ARR 突破",
+          "quote": "Cursor ARR 突破 1.5 亿美元"
+        },
+        {
+          "value": "293 亿美元",
+          "label": "Cursor 估值",
+          "quote": "Cursor 估值 293 亿美元"
+        },
+        {
+          "value": "30 亿美元",
+          "label": "Cursor ARR 突破",
+          "quote": "Cursor ARR 突破 30 亿美元"
+        },
+        {
+          "value": "93.7%",
+          "label": "简单任务 token 降幅",
+          "quote": "93.7% 简单任务 token 降幅"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html",
+      "description": "Cursor、Claude Code、Codex 三足鼎立，分别代表 IDE 增强、Agent 原生、企业级 API 三种产品哲学。",
+      "highlights": [
+        "2026"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "72.5%",
+          "label": "多文件编辑",
+          "quote": "72.5% 多文件编辑"
+        },
+        {
+          "value": "68%",
+          "label": "企业渗透率",
+          "quote": "68% 企业渗透率"
+        },
+        {
+          "value": "46%",
+          "label": "Claude Code",
+          "quote": "46% Claude Code"
+        },
+        {
+          "value": "27%",
+          "label": "Codex / API",
+          "quote": "27% Codex / API"
+        },
+        {
+          "value": "18%",
+          "label": "Copilot",
+          "quote": "18% Copilot"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-11/creative/2026-06-11-model-routing-layer.html",
+      "description": "从后台基础设施到产品体验 — Vercel、Apple、Box 与 Anthropic 正在把模型路由从工程师心智里的「脏活」,重写为终端用户面前的「主舞台」。",
+      "highlights": [
+        "模型"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "10 亿",
+          "label": "+ iOS 设备",
+          "quote": "10 亿+ iOS 设备"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html",
+      "description": "六大旗舰模型深度对比 · 编程/推理/Agent/多模态全维度解析｜整体格局",
+      "highlights": [
+        "大模型",
+        "模型"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "9倍",
+          "label": "prefilling加速",
+          "quote": "prefilling加速9倍"
+        },
+        {
+          "value": "5个",
+          "label": "模型采用开源策略",
+          "quote": "5个模型采用开源策略"
+        },
+        {
+          "value": "1个",
+          "label": "模型采用纯闭源策略",
+          "quote": "1个模型采用纯闭源策略"
+        },
+        {
+          "value": "59.0%",
+          "label": "SWE-Bench Pro",
+          "quote": "59.0% SWE-Bench Pro"
+        },
+        {
+          "value": "3.45亿",
+          "label": "月活用户",
+          "quote": "3.45亿 月活用户"
+        },
+        {
+          "value": "59.0%",
+          "label": "TOP",
+          "quote": "59.0% TOP"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html",
+      "description": "从「参数堆叠」到「智能激活」——一份关于推理成本断崖式下降、激活率逼近极限的产业级深度研析",
+      "highlights": [
+        "大模型",
+        "模型",
+        "推理"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "9 倍",
+          "label": "训练加速",
+          "quote": "9 倍训练加速"
+        },
+        {
+          "value": "4 倍",
+          "label": "解码加速",
+          "quote": "4 倍解码加速"
+        },
+        {
+          "value": "93.3%",
+          "label": "KV Cache 减少",
+          "quote": "KV Cache 减少 93.3%"
+        },
+        {
+          "value": "97%",
+          "label": "精度保留",
+          "quote": "精度保留 97%"
+        },
+        {
+          "value": "16 倍",
+          "label": "专家拆分到比传统 MoE 细",
+          "quote": "专家拆分到比传统 MoE 细 16 倍"
+        },
+        {
+          "value": "5.5%",
+          "label": "把激活率压到",
+          "quote": "把激活率压到 5.5%"
+        },
+        {
+          "value": "1 美元",
+          "label": "可买（输入",
+          "quote": "1 美元可买（输入）"
+        },
+        {
+          "value": "1 美元",
+          "label": "可买（输出",
+          "quote": "1 美元可买（输出）"
+        },
+        {
+          "value": "3%",
+          "label": "激活率极限",
+          "quote": "3% 激活率极限"
+        },
+        {
+          "value": "100%",
+          "label": "Top 开源模型 MoE",
+          "quote": "100% Top 开源模型 MoE"
+        },
+        {
+          "value": "8.57%",
+          "label": "128K",
+          "quote": "8.57% 128K"
+        },
+        {
+          "value": "9.36%",
+          "label": "128K",
+          "quote": "9.36% 128K"
+        },
+        {
+          "value": "27.6%",
+          "label": "32K",
+          "quote": "27.6% 32K"
+        },
+        {
+          "value": "+0.3%",
+          "label": "精度损失（vs Full Attn）",
+          "quote": "+0.3% 精度损失（vs Full Attn）"
+        },
+        {
+          "value": "0%",
+          "label": "vLLM / TGI / SGLang",
+          "quote": "0% vLLM / TGI / SGLang"
+        },
+        {
+          "value": "0%",
+          "label": "PyTorch 2.3+ 原生",
+          "quote": "0% PyTorch 2.3+ 原生"
+        },
+        {
+          "value": "-1%",
+          "label": "Llama-3 / Mistral",
+          "quote": "-1% Llama-3 / Mistral"
+        },
+        {
+          "value": "-3%",
+          "label": "vLLM 插件",
+          "quote": "-3% vLLM 插件"
+        },
+        {
+          "value": "-5%",
+          "label": "研究阶段",
+          "quote": "-5% 研究阶段"
+        },
+        {
+          "value": "5.5%",
+          "label": "Qwen3-235B-A22B：128 专家 + MoE",
+          "quote": "5.5% Qwen3-235B-A22B：128 专家 + MoE"
+        },
+        {
+          "value": "9.4%",
+          "label": "Mixtral 8x22B：经典 MoE 范式",
+          "quote": "9.4% Mixtral 8x22B：经典 MoE 范式"
+        },
+        {
+          "value": "27.7%",
+          "label": "专家数量",
+          "quote": "27.7% 专家数量"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
+      "description": "2026 年 6 月 8 日，蒂姆·库克以 CEO 身份登台 WWDC 主旨演讲，宣布对 Siri 进行自 2011 年诞生以来最彻底的一次重构，并把整个 Apple Intelligence 体系从\"润色工具\"升级…",
+      "highlights": [
+        "苹果"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "15年",
+          "label": "Siri 首次重构",
+          "quote": "15年 Siri 首次重构"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html",
+      "description": "2026年6月，在短短数日内，四大AI巨头几乎同时亮出王牌。这不是巧合，而是蓄谋已久的军备竞赛。GPT-5.6以150万Token上下文震惊世界，Claude Fable 5以SWE-Bench Pro 80.3%改…",
+      "highlights": [
+        "模型"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "80.3%",
+          "label": "FrontierCode",
+          "quote": "80.3% FrontierCode"
+        },
+        {
+          "value": "29.3%",
+          "label": "HLE 得分",
+          "quote": "29.3% HLE 得分"
+        },
+        {
+          "value": "+43%",
+          "label": "vs GPT-5.5",
+          "quote": "+43% vs GPT-5.5"
+        },
+        {
+          "value": "80.3%",
+          "label": "SWE-Bench Pro",
+          "quote": "80.3% SWE-Bench Pro"
+        },
+        {
+          "value": "29.3%",
+          "label": "FrontierCode",
+          "quote": "29.3% FrontierCode"
+        },
+        {
+          "value": "59.0%",
+          "label": "HLE 得分",
+          "quote": "59.0% HLE 得分"
+        },
+        {
+          "value": "1天",
+          "label": "5000万行迁移",
+          "quote": "1天 5000万行迁移"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html",
+      "description": "一张图看懂估值-募资-流动性超级周期｜谁在排队敲钟？",
+      "highlights": [
+        "IPO",
+        "估值"
+      ],
+      "agent": "创艺"
+    },
+    {
+      "file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html",
+      "description": "从应用容器到智能代理平台｜从应用商店到意图市场",
+      "highlights": [
+        "Agent OS"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "63%",
+          "label": "HarmonyOS",
+          "quote": "63% HarmonyOS"
+        },
+        {
+          "value": "19%",
+          "label": "iOS",
+          "quote": "19% iOS"
+        },
+        {
+          "value": "17%",
+          "label": "🌍 全球市场（2026 Q1）",
+          "quote": "17% 🌍 全球市场（2026 Q1）"
+        },
+        {
+          "value": "73%",
+          "label": "iOS",
+          "quote": "73% iOS"
+        },
+        {
+          "value": "22%",
+          "label": "HarmonyOS",
+          "quote": "22% HarmonyOS"
+        },
+        {
+          "value": "15%",
+          "label": "整机性能提升",
+          "quote": "15% 整机性能提升"
+        },
+        {
+          "value": "90%",
+          "label": "复杂任务成功率",
+          "quote": "90% 复杂任务成功率"
+        },
+        {
+          "value": "~55%",
+          "label": "中国市场份额",
+          "quote": "~55% 中国市场份额"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html",
+      "description": "AI编程基础设施的关键布局，OpenAI如何构建完整的开发者工具生态｜研究要点",
+      "highlights": [
+        "OpenAI"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
+      "description": "市场风格切换数据仪表盘",
+      "highlights": [
+        "A股",
+        "数据可视化",
+        "市场风格"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "+4655亿",
+          "label": "较前日放量",
+          "quote": "▲ +4655亿 较前日放量"
+        },
+        {
+          "value": "+0.32%",
+          "label": "🇺🇸 纳斯达克",
+          "quote": "+0.32% 🇺🇸 纳斯达克"
+        },
+        {
+          "value": "-0.15%",
+          "label": "🇺🇸 标普500",
+          "quote": "-0.15% 🇺🇸 标普500"
+        },
+        {
+          "value": "+0.18%",
+          "label": "🇬🇧 富时100",
+          "quote": "+0.18% 🇬🇧 富时100"
+        },
+        {
+          "value": "+0.27%",
+          "label": "🇯🇵 日经225",
+          "quote": "+0.27% 🇯🇵 日经225"
+        },
+        {
+          "value": "-0.42%",
+          "label": "🇭🇰 恒生指数",
+          "quote": "-0.42% 🇭🇰 恒生指数"
+        },
+        {
+          "value": "+0.86%",
+          "label": "🥇 COMEX黄金",
+          "quote": "+0.86% 🥇 COMEX黄金"
+        },
+        {
+          "value": "+1.23%",
+          "label": "🛢️ 布伦特原油",
+          "quote": "+1.23% 🛢️ 布伦特原油"
+        },
+        {
+          "value": "-0.67%",
+          "label": "上证指数",
+          "quote": "-0.67% 上证指数"
+        },
+        {
+          "value": "38%",
+          "label": "上证指数52周位置",
+          "quote": "38% 上证指数52周位置"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
+      "description": "曾经，AI模型可以自由穿越任何国境。一个GPT在硅谷诞生，几毫秒后就能为上海的医生、柏林的律师、东京的设计师服务。没有人查它的\"证件\"，没有人在意它的出身。直到各国开始发放——AI 护照。",
+      "highlights": [
+        "模型",
+        "合规"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "3%",
+          "label": "⚡ 高风险系统",
+          "quote": "⚡ 高风险系统 (3%)"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html",
+      "description": "一场没有硝烟的战争——当AI学会欺骗，人类还能信任谁？｜📖 序章：两个AI的命运",
+      "highlights": [
+        "安全"
+      ],
+      "agent": "创艺"
+    },
+    {
+      "file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html",
+      "description": "4 款重磅模型 72 小时内密集开源闭源前沿正被全方位「包抄」",
+      "highlights": [
+        "开源模型",
+        "模型",
+        "开源"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "2.8 倍",
+          "label": "Token 间延迟缩短",
+          "quote": "2.8 倍 Token 间延迟缩短"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-16/research/2026-06-16-fable5-global-ban.html",
+      "description": "AI模型即地缘资产的时代到来｜一场72小时的AI地缘风暴",
+      "highlights": [
+        "模型",
+        "地缘"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "80.3%",
+          "label": "SWE-bench Pro 得分",
+          "quote": "80.3% SWE-bench Pro 得分"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
+      "description": "从破产边缘到全球首富，一个人类历史上首位万亿富翁的12年狂飙｜深渊边缘：赌上一切的豪赌",
+      "highlights": [
+        "马斯克",
+        "特斯拉",
+        "创业史"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "1.8亿美元",
+          "label": "马斯克到手约",
+          "quote": "马斯克到手约1.8亿美元"
+        },
+        {
+          "value": "5000亿美元",
+          "label": "净资产突破",
+          "quote": "净资产突破5000亿美元"
+        },
+        {
+          "value": "5000亿",
+          "label": "里程碑",
+          "quote": "5000亿里程碑"
+        },
+        {
+          "value": "42%",
+          "label": "两天暴涨",
+          "quote": "两天暴涨42%"
+        },
+        {
+          "value": "1万亿",
+          "label": "美元大关",
+          "quote": "1万亿美元大关"
+        },
+        {
+          "value": "+742%",
+          "label": "纳入标普500",
+          "quote": "+742% 纳入标普500"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-20/creative/2026-06-20-spacex-cursor.html",
+      "description": "AI编程\"三国杀\"全景图 — 从IDE之争到平台级垄断，AI代码入口的终局之战｜AI编程赛道 · 5年并购编年史",
+      "highlights": [
+        "AI编程"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "50%",
+          "label": "财富500强",
+          "quote": "↑ 50% 财富500强"
+        },
+        {
+          "value": "6亿",
+          "label": "用户 · 数据飞轮",
+          "quote": "6亿用户 · 数据飞轮"
+        },
+        {
+          "value": "35%",
+          "label": "Cursor内部代码由AI完成",
+          "quote": "35% Cursor内部代码由AI完成"
+        },
+        {
+          "value": "35%",
+          "label": "内部代码由AI智能体完成",
+          "quote": "35% 内部代码由AI智能体完成"
+        },
+        {
+          "value": "50%",
+          "label": "财富500强企业",
+          "quote": "50% 财富500强企业"
+        },
+        {
+          "value": "400%",
+          "label": "Enterprise软件领域罕见增速",
+          "quote": "400% Enterprise软件领域罕见增速"
+        },
+        {
+          "value": "40亿",
+          "label": "Android设备覆盖全球",
+          "quote": "40亿 Android设备覆盖全球"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
+      "description": "从工具到同事到老板——一场正在发生的职场革命｜进化时间轴：AI Agent的职场晋升之路",
+      "highlights": [
+        "AI Agent",
+        "职场"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "52%",
+          "label": "企业已部署AI Agent",
+          "quote": "52% 企业已部署AI Agent"
+        },
+        {
+          "value": "88%",
+          "label": "早期采用者获得正ROI",
+          "quote": "88% 早期采用者获得正ROI"
+        },
+        {
+          "value": "11%",
+          "label": "2025 Q1",
+          "quote": "11% 2025 Q1"
+        },
+        {
+          "value": "42%",
+          "label": "2025 Q3",
+          "quote": "42% 2025 Q3"
+        },
+        {
+          "value": "70%",
+          "label": "2026 Q4 预测",
+          "quote": "70% 2026 Q4 预测"
+        },
+        {
+          "value": "49%",
+          "label": "京东、TELUS",
+          "quote": "49% 京东、TELUS"
+        },
+        {
+          "value": "38%",
+          "label": "联合利华、宝洁",
+          "quote": "38% 联合利华、宝洁"
+        },
+        {
+          "value": "35%",
+          "label": "微软、Salesforce",
+          "quote": "35% 微软、Salesforce"
+        },
+        {
+          "value": "28%",
+          "label": "苹果、特斯拉",
+          "quote": "28% 苹果、特斯拉"
+        },
+        {
+          "value": "25%",
+          "label": "IBM、德勤",
+          "quote": "25% IBM、德勤"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html",
+      "description": "霍尔木兹海峡重新通航 · 1280万桶/日断供终结 · 全球能源秩序面临\"不可逆\"重构",
+      "highlights": [
+        "能源"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "60天",
+          "label": "内谈判达成涵盖所有议题的最终和平协议",
+          "quote": "60天内谈判达成涵盖所有议题的最终和平协议"
+        },
+        {
+          "value": "~15%",
+          "label": "全球供应",
+          "quote": "全球供应~15%"
+        },
+        {
+          "value": "120天",
+          "label": "+战事",
+          "quote": "120天+战事"
+        },
+        {
+          "value": "41.1万桶/日",
+          "label": "OPEC+增产",
+          "quote": "OPEC+增产41.1万桶/日"
+        },
+        {
+          "value": "41.1万桶/日",
+          "label": "再次增产",
+          "quote": "再次增产41.1万桶/日"
+        },
+        {
+          "value": "60天",
+          "label": "谈判破裂",
+          "quote": "60天谈判破裂"
+        },
+        {
+          "value": "+13%",
+          "label": "参考海外邮轮股",
+          "quote": "参考海外邮轮股+13%"
+        },
+        {
+          "value": "60天",
+          "label": "谈判是最大变量",
+          "quote": "60天谈判是最大变量"
+        },
+        {
+          "value": "-5.6%",
+          "label": "布伦特原油单日跌幅（6/15）",
+          "quote": "-5.6% 布伦特原油单日跌幅（6/15）"
+        },
+        {
+          "value": "+24%",
+          "label": "全球能源价格上涨",
+          "quote": "+24% 全球能源价格上涨"
+        },
+        {
+          "value": "60天",
+          "label": "最终协议谈判窗口",
+          "quote": "60天 最终协议谈判窗口"
+        },
+        {
+          "value": "-5.6%",
+          "label": "6月22日单日",
+          "quote": "-5.6% 6月22日单日"
+        },
+        {
+          "value": "-3.18%",
+          "label": "⚠️ 关键判断：尚未回到战前水平",
+          "quote": "-3.18% ⚠️ 关键判断：尚未回到战前水平"
+        },
+        {
+          "value": "60天",
+          "label": "⏳ 待谈判",
+          "quote": "60天 ⏳ 待谈判"
+        },
+        {
+          "value": "4亿桶",
+          "label": "史上最大规模协调释放",
+          "quote": "4亿桶 史上最大规模协调释放"
+        },
+        {
+          "value": "-390万桶/日",
+          "label": "IEA预测·即便恢复后",
+          "quote": "-390万桶/日 IEA预测·即便恢复后"
+        },
+        {
+          "value": "+24%",
+          "label": "世行预测",
+          "quote": "+24% 世行预测"
+        },
+        {
+          "value": "+16%",
+          "label": "能源+化肥+金属",
+          "quote": "+16% 能源+化肥+金属"
+        },
+        {
+          "value": "-5.8%",
+          "label": "供应预期改善",
+          "quote": "-5.8% 供应预期改善"
+        },
+        {
+          "value": "+3.21%",
+          "label": "短多资金涌入",
+          "quote": "+3.21% 短多资金涌入"
+        },
+        {
+          "value": "936.7万桶/日",
+          "label": "\"管教\"不遵守限产的成员国",
+          "quote": "936.7万桶/日 \"管教\"不遵守限产的成员国"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
+      "description": "从沙漠深处的一粒硅砂，到驱动文明的万亿算力——一场跨越物理极限与地缘博弈的奇幻漂流",
+      "highlights": [
+        "算力",
+        "AI硬件"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "99.9999999%",
+          "label": "硅砂提纯",
+          "quote": "硅砂提纯 — 99.9999999%"
+        },
+        {
+          "value": "2080亿",
+          "label": "晶体管",
+          "quote": "2080亿晶体管"
+        },
+        {
+          "value": "1503亿",
+          "label": "英伟达营收",
+          "quote": "英伟达营收1503亿"
+        },
+        {
+          "value": "+26.3%",
+          "label": "YoY",
+          "quote": "+26.3% YoY"
+        },
+        {
+          "value": "+54%",
+          "label": "YoY",
+          "quote": "+54% YoY"
+        },
+        {
+          "value": "2080亿",
+          "label": "单芯片晶体管数量",
+          "quote": "2080亿 单芯片晶体管数量"
+        },
+        {
+          "value": "1750亿",
+          "label": "参数规模",
+          "quote": "1750亿 参数规模"
+        },
+        {
+          "value": "~90%",
+          "label": "旗舰芯片",
+          "quote": "~90% 旗舰芯片"
+        },
+        {
+          "value": "~8%",
+          "label": "旗舰芯片",
+          "quote": "~8% 旗舰芯片"
+        },
+        {
+          "value": "~50%",
+          "label": "旗舰芯片",
+          "quote": "~50% 旗舰芯片"
+        },
+        {
+          "value": "~2%",
+          "label": "旗舰芯片",
+          "quote": "~2% 旗舰芯片"
+        },
+        {
+          "value": "~8%",
+          "label": "2026E · 国产替代崛起",
+          "quote": "~8% 2026E · 国产替代崛起"
+        },
+        {
+          "value": "~50%",
+          "label": "NVIDIA",
+          "quote": "~50% NVIDIA"
+        },
+        {
+          "value": "~8%",
+          "label": "其他国产",
+          "quote": "~8% 其他国产"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+      "description": "AI正在同时做两件事：让少数人变成\"超级个体\"，让多数人变成\"可替代零件\"。这是超级个体崛起的B面——一道正在撕裂社会的鸿沟。",
+      "highlights": [
+        "生产力鸿沟",
+        "超级个体",
+        "职场"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "+340%",
+          "label": "AI工具使用率",
+          "quote": "+340% AI工具使用率"
+        },
+        {
+          "value": "92%",
+          "label": "一人公司年营收中位数",
+          "quote": "92% 一人公司年营收中位数"
+        },
+        {
+          "value": "6.2个",
+          "label": "核心技能：AI编排力",
+          "quote": "6.2个 核心技能：AI编排力"
+        },
+        {
+          "value": "+68%",
+          "label": "AI工具使用率",
+          "quote": "+68% AI工具使用率"
+        },
+        {
+          "value": "18%",
+          "label": "再就业成功率",
+          "quote": "18% 再就业成功率"
+        },
+        {
+          "value": "23%",
+          "label": "技能转型周期",
+          "quote": "23% 技能转型周期"
+        },
+        {
+          "value": "43%",
+          "label": "工作任务已可被AI自动化（Anthropic经济指数）",
+          "quote": "43% 工作任务已可被AI自动化（Anthropic经济指数）"
+        },
+        {
+          "value": "3.7亿",
+          "label": "全球将被重塑的岗位数量（WEF 2026）",
+          "quote": "3.7亿 全球将被重塑的岗位数量（WEF 2026）"
+        },
+        {
+          "value": "77%",
+          "label": "被替代工人无法在12个月内成功转型",
+          "quote": "77% 被替代工人无法在12个月内成功转型"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
+      "description": "SpaceX 2.1万亿，Anthropic 9650亿，OpenAI万亿级——当数字开始失真，我们该如何衡量AI时代的价值？",
+      "highlights": [
+        "估值"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "650亿美元",
+          "label": "📈 H轮融资",
+          "quote": "📈 H轮融资650亿美元"
+        },
+        {
+          "value": "-60%",
+          "label": "恢复周期",
+          "quote": "-60% 恢复周期"
+        },
+        {
+          "value": "20%",
+          "label": "新机会",
+          "quote": "20% 新机会"
+        },
+        {
+          "value": "+25%",
+          "label": "渗透率",
+          "quote": "+25% 渗透率"
+        },
+        {
+          "value": "40%",
+          "label": "盈利拐点",
+          "quote": "40% 盈利拐点"
+        },
+        {
+          "value": "15%",
+          "label": "历史泡沫对比",
+          "quote": "15% 历史泡沫对比"
+        }
+      ]
+    },
+    {
+      "file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html",
+      "description": "72小时三反转、地缘溢价归零、美联储鹰派转向——当全球能源命脉走出\"自由通行\"模式，油价、通胀、利率、算力、A股的连锁反应刚刚开始",
+      "highlights": [
+        "能源",
+        "霍尔木兹"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "60天",
+          "label": "霍尔木兹海峡免费开放",
+          "quote": "霍尔木兹海峡免费开放60天"
+        },
+        {
+          "value": "20%",
+          "label": "全球石油消费",
+          "quote": "全球石油消费20%"
+        },
+        {
+          "value": "60天",
+          "label": "免费开放窗口结束",
+          "quote": "60天免费开放窗口结束"
+        },
+        {
+          "value": "20%",
+          "label": "以上的现金或短债",
+          "quote": "20%以上的现金或短债"
+        },
+        {
+          "value": "-16%",
+          "label": "布伦特两周累计",
+          "quote": "-16% 布伦特两周累计"
+        },
+        {
+          "value": "-15.5%",
+          "label": "WTI两周累计",
+          "quote": "-15.5% WTI两周累计"
+        },
+        {
+          "value": "33%",
+          "label": "全球LNG占比",
+          "quote": "33% 全球LNG占比"
+        },
+        {
+          "value": "40%",
+          "label": "续期或永久免费",
+          "quote": "40% 续期或永久免费"
+        },
+        {
+          "value": "45%",
+          "label": "收费但保持通航",
+          "quote": "45% 收费但保持通航"
+        },
+        {
+          "value": "15%",
+          "label": "重新封锁或大幅加征",
+          "quote": "15% 重新封锁或大幅加征"
+        },
+        {
+          "value": "-16%",
+          "label": "✅ 战时涨幅抹去",
+          "quote": "-16% ✅ 战时涨幅抹去"
+        },
+        {
+          "value": "~50%",
+          "label": "80%+",
+          "quote": "~50% 80%+"
+        },
+        {
+          "value": "-2.5%",
+          "label": "✅ 物流成本下降",
+          "quote": "-2.5% ✅ 物流成本下降"
+        },
+        {
+          "value": "-2%",
+          "label": "🔴 估值承压",
+          "quote": "-2% 🔴 估值承压"
+        },
+        {
+          "value": "-16%",
+          "label": "🔴 高估值回调",
+          "quote": "-16% 🔴 高估值回调"
+        },
+        {
+          "value": "-3.2%",
+          "label": "🟡 避险情绪消退",
+          "quote": "-3.2% 🟡 避险情绪消退"
+        },
+        {
+          "value": "80%",
+          "label": "2025年新建算力设施绿电占比目标",
+          "quote": "80% 2025年新建算力设施绿电占比目标"
+        },
+        {
+          "value": "1.05万亿",
+          "label": "千瓦时/天 · 2026年全球数据中心",
+          "quote": "1.05万亿 千瓦时/天 · 2026年全球数据中心"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html",
+      "description": "Agent基础设施军备竞赛全景图 — 从代码补全到多Agent协作编排，一场关于开发者生产力的终极博弈正在上演",
+      "highlights": [
+        "AI Coding Agent",
+        "智能体",
+        "分布式编排"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "0%",
+          "label": "代码产出增速",
+          "quote": "0% 代码产出增速"
+        },
+        {
+          "value": "250%",
+          "label": "代码输出增长",
+          "quote": "250% 代码输出增长"
+        },
+        {
+          "value": "13天",
+          "label": "基建效率",
+          "quote": "13天 基建效率"
+        },
+        {
+          "value": "100%",
+          "label": "内部变革",
+          "quote": "100% 内部变革"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
+      "description": "以色列独立军事行动准备与全球能源安全链压力测试｜2026年中东危机全景时间线",
+      "highlights": [
+        "安全",
+        "能源",
+        "中东",
+        "以色列"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "2.3%",
+          "label": "海峡通行量降至冲突前",
+          "quote": "海峡通行量降至冲突前2.3%"
+        },
+        {
+          "value": "70%",
+          "label": "• 内塔尼亚胡下令提升至",
+          "quote": "• 内塔尼亚胡下令提升至70%"
+        },
+        {
+          "value": "11个",
+          "label": "主力旅部署",
+          "quote": "• 11个主力旅部署"
+        },
+        {
+          "value": "1360万桶/日",
+          "label": "较冲突前低",
+          "quote": "较冲突前低1360万桶/日"
+        },
+        {
+          "value": "2.3%",
+          "label": "通行量降至",
+          "quote": "通行量降至2.3%"
+        },
+        {
+          "value": "90美元",
+          "label": "布伦特",
+          "quote": "布伦特90美元"
+        },
+        {
+          "value": "120美元",
+          "label": "WTI突破",
+          "quote": "WTI突破120美元"
+        },
+        {
+          "value": "200%",
+          "label": "关税施压",
+          "quote": "200%关税施压"
+        },
+        {
+          "value": "128天",
+          "label": "美伊冲突自2月23日\"真实承诺3号\"起算",
+          "quote": "128天 美伊冲突自2月23日\"真实承诺3号\"起算"
+        },
+        {
+          "value": "2次",
+          "label": "以色列已完成对伊朗的先发制人打击，\"如有必要还将再次发动",
+          "quote": "2次 以色列已完成对伊朗的先发制人打击，\"如有必要还将再次发动"
+        },
+        {
+          "value": "2.3%",
+          "label": "5月4日霍尔木兹日均通行量仅为冲突前的2.3%（4.3万",
+          "quote": "2.3% 5月4日霍尔木兹日均通行量仅为冲突前的2.3%（4.3万"
+        },
+        {
+          "value": "1.72亿桶",
+          "label": "堵在波斯湾的油轮装载量，疏通需数周",
+          "quote": "1.72亿桶 堵在波斯湾的油轮装载量，疏通需数周"
+        },
+        {
+          "value": "~700艘",
+          "label": "6月24日临时和平协议后，通行正在恢复",
+          "quote": "~700艘 6月24日临时和平协议后，通行正在恢复"
+        },
+        {
+          "value": "-390万桶/日",
+          "label": "2026年全球石油供应同比下降预测",
+          "quote": "-390万桶/日 2026年全球石油供应同比下降预测"
+        },
+        {
+          "value": "-110万桶/日",
+          "label": "2026年全球石油需求同比下降（较5月下调70万桶）",
+          "quote": "-110万桶/日 2026年全球石油需求同比下降（较5月下调70万桶）"
+        },
+        {
+          "value": "9450万桶/日",
+          "label": "较冲突前低1360万桶/日",
+          "quote": "9450万桶/日 较冲突前低1360万桶/日"
+        },
+        {
+          "value": "32万桶/日",
+          "label": "有效原油闲置产能，历史低位",
+          "quote": "32万桶/日 有效原油闲置产能，历史低位"
+        },
+        {
+          "value": "4240万桶/日",
+          "label": "环比下滑940万桶/日，为36年新低",
+          "quote": "4240万桶/日 环比下滑940万桶/日，为36年新低"
+        },
+        {
+          "value": "32万桶/日",
+          "label": "历史最低，几乎无增产空间",
+          "quote": "32万桶/日 历史最低，几乎无增产空间"
+        },
+        {
+          "value": "1393万桶/日",
+          "label": "创历史新高，页岩油稳产",
+          "quote": "1393万桶/日 创历史新高，页岩油稳产"
+        },
+        {
+          "value": "20%",
+          "label": "WTI回落至60-65美元",
+          "quote": "20% WTI回落至60-65美元"
+        },
+        {
+          "value": "45%",
+          "label": "WTI维持65-75美元",
+          "quote": "45% WTI维持65-75美元"
+        },
+        {
+          "value": "30%",
+          "label": "WTI冲击90-110美元",
+          "quote": "30% WTI冲击90-110美元"
+        },
+        {
+          "value": "5%",
+          "label": "WTI突破120美元",
+          "quote": "5% WTI突破120美元"
+        },
+        {
+          "value": "~14亿桶",
+          "label": "美国机构披露，全球第一，是美国的3倍、日本的5倍",
+          "quote": "~14亿桶 美国机构披露，全球第一，是美国的3倍、日本的5倍"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
+      "description": "当Meta说出\"我有太多算力\"的那一刻，一个估值万亿美元的信仰体系，在24小时内开始瓦解。",
+      "highlights": [
+        "算力",
+        "估值"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "-2%",
+          "label": "纳指100暴跌",
+          "quote": "-2% 纳指100暴跌"
+        },
+        {
+          "value": "-6%",
+          "label": "费半指数崩跌",
+          "quote": "-6% 费半指数崩跌"
+        },
+        {
+          "value": "-13.9%",
+          "label": "算力租赁龙头暴跌",
+          "quote": "-13.9% 算力租赁龙头暴跌"
+        },
+        {
+          "value": "-17.0%",
+          "label": "最大单日跌幅",
+          "quote": "-17.0% 最大单日跌幅"
+        },
+        {
+          "value": "-17.0%",
+          "label": "CoreWeave (CRWV)",
+          "quote": "-17.0% CoreWeave (CRWV)"
+        },
+        {
+          "value": "-13.9%",
+          "label": "SK海力士 (KR)",
+          "quote": "-13.9% SK海力士 (KR)"
+        },
+        {
+          "value": "-14.6%",
+          "label": "三星电子 (KR)",
+          "quote": "-14.6% 三星电子 (KR)"
+        },
+        {
+          "value": "-9.1%",
+          "label": "美光科技 (MU)",
+          "quote": "-9.1% 美光科技 (MU)"
+        },
+        {
+          "value": "-1.25%",
+          "label": "Meta (META)",
+          "quote": "-1.25% Meta (META)"
+        },
+        {
+          "value": "+8.8%",
+          "label": "关键指标",
+          "quote": "+8.8% 关键指标"
+        },
+        {
+          "value": "56%",
+          "label": "算力股跌幅占比",
+          "quote": "56% 算力股跌幅占比"
+        },
+        {
+          "value": "40%",
+          "label": "Meta 2026全年",
+          "quote": "40% Meta 2026全年"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+      "description": "极端气候下的全球供应链重构与出海机遇 ——当热穹顶击穿欧洲20年的\"空调免疫\"神话",
+      "highlights": [
+        "供应链"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "60%",
+          "label": "中国占欧洲热泵进口",
+          "quote": "中国占欧洲热泵进口60%"
+        },
+        {
+          "value": "300亿美元",
+          "label": "热泵市场突破",
+          "quote": "热泵市场突破300亿美元"
+        },
+        {
+          "value": "30%",
+          "label": "中国品牌份额被压缩至",
+          "quote": "中国品牌份额被压缩至30%"
+        },
+        {
+          "value": "37.6亿美元",
+          "label": "2026 H1 中国对欧盟空调出口额",
+          "quote": "37.6亿美元 2026 H1 中国对欧盟空调出口额"
+        },
+        {
+          "value": "41%",
+          "label": "中国品牌欧洲空调市场份额",
+          "quote": "41% 中国品牌欧洲空调市场份额"
+        },
+        {
+          "value": "2座",
+          "label": "卢浮宫因高温临时闭馆，埃菲尔铁塔关闭顶层，白金汉宫换岗仪",
+          "quote": "2座 卢浮宫因高温临时闭馆，埃菲尔铁塔关闭顶层，白金汉宫换岗仪"
+        },
+        {
+          "value": "41%",
+          "label": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2",
+          "quote": "41% 2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"
+        },
+        {
+          "value": "75%",
+          "label": "汇率波动风险",
+          "quote": "75% 汇率波动风险"
+        },
+        {
+          "value": "60%",
+          "label": "产能过剩风险",
+          "quote": "60% 产能过剩风险"
+        },
+        {
+          "value": "50%",
+          "label": "政策变动风险",
+          "quote": "50% 政策变动风险"
+        },
+        {
+          "value": "45%",
+          "label": "欧洲产能替代风险",
+          "quote": "45% 欧洲产能替代风险"
+        },
+        {
+          "value": "25%",
+          "label": "战略建议",
+          "quote": "25% 战略建议"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html",
+      "description": "Kimi K2.7 Code / DiffusionGemma / MiMo Code 集体开源，中国开源力量从\"追赶\"到\"领跑\"的生态拐点",
+      "highlights": [
+        "开源模型",
+        "模型",
+        "开源"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "21.8%",
+          "label": "Kimi Code Bench v2提升",
+          "quote": "Kimi Code Bench v2提升21.8%"
+        },
+        {
+          "value": "62%",
+          "label": "SWE-Bench Pro V2得分",
+          "quote": "SWE-Bench Pro V2得分62%"
+        },
+        {
+          "value": "89.6%",
+          "label": "HumanEval",
+          "quote": "HumanEval 89.6%"
+        },
+        {
+          "value": "6倍",
+          "label": "速高速版可选",
+          "quote": "6倍速高速版可选"
+        },
+        {
+          "value": "18GB",
+          "label": "显存消费级GPU",
+          "quote": "18GB显存消费级GPU"
+        },
+        {
+          "value": "-30%",
+          "label": "Token效率优化",
+          "quote": "Token效率优化 -30%"
+        },
+        {
+          "value": "41%",
+          "label": "HuggingFace中国模型下载占比",
+          "quote": "41% HuggingFace中国模型下载占比"
+        },
+        {
+          "value": "-30%",
+          "label": "Token消耗降低",
+          "quote": "-30% Token消耗降低"
+        },
+        {
+          "value": "18GB",
+          "label": "最低显存需求",
+          "quote": "18GB 最低显存需求"
+        },
+        {
+          "value": "62%",
+          "label": "SWE-Bench Pro V2",
+          "quote": "62% SWE-Bench Pro V2"
+        },
+        {
+          "value": "14天",
+          "label": "开发周期",
+          "quote": "14天 开发周期"
+        },
+        {
+          "value": "5人",
+          "label": "团队规模",
+          "quote": "5人 团队规模"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html",
+      "description": "从快手内部项目到全球AI视频赛道最大单笔融资，可灵AI用18个月证明了AIGC商业化的中国路径。",
+      "highlights": [
+        "大模型",
+        "模型",
+        "商业化",
+        "估值"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "4倍",
+          "label": "ARR一年增长",
+          "quote": "ARR一年增长4倍"
+        },
+        {
+          "value": "+300%",
+          "label": "YoY",
+          "quote": "YoY +300%"
+        },
+        {
+          "value": "260亿",
+          "label": "capex投入自研推理优化+规模化降本",
+          "quote": "260亿capex投入自研推理优化+规模化降本"
+        },
+        {
+          "value": "~16.67%",
+          "label": "快手仍保持绝对控股地位",
+          "quote": "~16.67% 快手仍保持绝对控股地位"
+        },
+        {
+          "value": "~80%",
+          "label": "可灵 AI",
+          "quote": "~80% 可灵 AI"
+        },
+        {
+          "value": "~4%",
+          "label": "万相 2.7",
+          "quote": "~4% 万相 2.7"
+        },
+        {
+          "value": "~2%",
+          "label": "⚠️ 关于市占率数据的说明",
+          "quote": "~2% ⚠️ 关于市占率数据的说明"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
+      "description": "1100+企业 · 10万㎡展览 · 300+全球首发 · 谁将定义下一个十年？",
+      "highlights": [
+        "WAIC",
+        "中国AI",
+        "AI百团大战"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "+144%",
+          "label": "🔥 同比",
+          "quote": "🔥 同比+144%"
+        },
+        {
+          "value": "+247%",
+          "label": "🔥 同比",
+          "quote": "🔥 同比+247%"
+        },
+        {
+          "value": "1.2万亿",
+          "label": "港元市值",
+          "quote": "1.2万亿港元市值"
+        },
+        {
+          "value": "10亿",
+          "label": "元融资",
+          "quote": "10亿元融资"
+        },
+        {
+          "value": "310家",
+          "label": "中国独角兽企业",
+          "quote": "310家 中国独角兽企业"
+        },
+        {
+          "value": "763.8亿",
+          "label": "Q1 AI融资总额",
+          "quote": "763.8亿 Q1 AI融资总额"
+        },
+        {
+          "value": "1.2万亿",
+          "label": "智谱AI市值",
+          "quote": "1.2万亿 智谱AI市值"
+        },
+        {
+          "value": "763.8亿",
+          "label": "577笔事件",
+          "quote": "763.8亿 577笔事件"
+        },
+        {
+          "value": "41%",
+          "label": "全国一级市场占比",
+          "quote": "41% 全国一级市场占比"
+        },
+        {
+          "value": "11.7万亿",
+          "label": "310家企业",
+          "quote": "11.7万亿 310家企业"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
+      "description": "2026年7月13日，A股遭遇\"黑色星期一\"，三大指数集体重挫。本报告深度剖析霍尔木兹海峡危机、半导体产业链冲击与流动性收紧的三重绞杀机制。",
+      "highlights": [
+        "半导体",
+        "地缘"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "10%",
+          "label": "占发行后总股本",
+          "quote": "占发行后总股本10%"
+        },
+        {
+          "value": "10倍",
+          "label": "普通新股",
+          "quote": "普通新股10倍"
+        },
+        {
+          "value": "2.82万亿",
+          "label": "缩量5708亿",
+          "quote": "2.82万亿 缩量5708亿"
+        },
+        {
+          "value": "372亿",
+          "label": "主力抛售",
+          "quote": "372亿 主力抛售"
+        },
+        {
+          "value": "-6.78%",
+          "label": "小票杀跌最狠",
+          "quote": "-6.78% 小票杀跌最狠"
+        },
+        {
+          "value": "-3.42%",
+          "label": "科技股承压",
+          "quote": "-3.42% 科技股承压"
+        }
+      ]
+    },
+    {
+      "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
+      "description": "就在三个月前，阿里还在内部鼓励员工积极使用Claude Code等海外AI编程工具，甚至开放了大额报销通道。不少程序员每周在外部模型上的花费高达数百美元，Claude因其强大的代码生成能力被誉为\"效率神器\"。",
+      "highlights": [
+        "阿里"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "147 个",
+          "label": "监控黑名单域名",
+          "quote": "147 个监控黑名单域名"
+        },
+        {
+          "value": "0%",
+          "label": "阿里 Qoder",
+          "quote": "0% 阿里 Qoder"
+        },
+        {
+          "value": "0 天",
+          "label": "隐蔽代码",
+          "quote": "0 天 隐蔽代码"
+        },
+        {
+          "value": "6.0%",
+          "label": "三、连锁反应：国产工具的全面崛起",
+          "quote": "6.0% 三、连锁反应：国产工具的全面崛起"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-11/creative/2026-08-11-capital-migration.html",
+      "description": "2026年8月，全球资本正在经历一场史无前例的大迁徙。黄金突破$4400，美元指数跌破100，这是全球货币体系重构的信号。",
+      "highlights": [
+        "黄金",
+        "美元",
+        "资本流向"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "+21个",
+          "label": "月连续增持",
+          "quote": "+21个月连续增持"
+        },
+        {
+          "value": "+116%",
+          "label": "2024.01 → 2026.08",
+          "quote": "+116% 2024.01 → 2026.08"
+        },
+        {
+          "value": "+7%",
+          "label": "2026年8月第一周",
+          "quote": "+7% 2026年8月第一周"
+        },
+        {
+          "value": "89%",
+          "label": "央行储备管理者",
+          "quote": "89% 央行储备管理者"
+        },
+        {
+          "value": "1.00%",
+          "label": "🔴 加息周期 (2022-2023)",
+          "quote": "1.00% 🔴 加息周期 (2022-2023)"
+        },
+        {
+          "value": "5.50%",
+          "label": "美元指数",
+          "quote": "5.50% 美元指数"
+        },
+        {
+          "value": "3.75%",
+          "label": "美元指数",
+          "quote": "3.75% 美元指数"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
+      "description": "2026年8月7日美国就业数据深度解析与货币政策展望｜7月非农数据深度剖析",
+      "highlights": [
+        "美联储",
+        "加息"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "10年",
+          "label": "期美债收益率",
+          "quote": "10年期美债收益率"
+        },
+        {
+          "value": "2.1%",
+          "label": "Q2初值",
+          "quote": "2.1% (Q2初值)"
+        },
+        {
+          "value": "4.2%",
+          "label": "4.2%(6月)",
+          "quote": "4.2% 4.2%(6月)"
+        },
+        {
+          "value": "0.3%",
+          "label": "0.2%(6月)",
+          "quote": "0.3% 0.2%(6月)"
+        },
+        {
+          "value": "3.5%",
+          "label": "3.4%(6月)",
+          "quote": "3.5% 3.4%(6月)"
+        },
+        {
+          "value": "58%",
+          "label": "维持利率不变，释放观望信号",
+          "quote": "58% 维持利率不变，释放观望信号"
+        },
+        {
+          "value": "25%",
+          "label": "维持利率不变，暗示年内降息可能",
+          "quote": "25% 维持利率不变，暗示年内降息可能"
+        },
+        {
+          "value": "17%",
+          "label": "加息25个基点，强调通胀风险",
+          "quote": "17% 加息25个基点，强调通胀风险"
+        },
+        {
+          "value": "-0.47%",
+          "label": "缓解新兴市场资本外流",
+          "quote": "-0.47% 缓解新兴市场资本外流"
+        },
+        {
+          "value": "4.60%",
+          "label": "-8基点",
+          "quote": "4.60% -8基点"
+        },
+        {
+          "value": "+3.1%",
+          "label": "避险资产需求上升",
+          "quote": "+3.1% 避险资产需求上升"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
+      "description": "2026年第二季度，AI商业化进入深水区。营收爆发式增长与巨额亏损并存，行业迎来历史性盈利拐点。",
+      "highlights": [
+        "全景对比仪表盘"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "5家",
+          "label": "公司总营收",
+          "quote": "5家公司总营收"
+        },
+        {
+          "value": "+127%",
+          "label": "QoQ",
+          "quote": "+127% QoQ"
+        },
+        {
+          "value": "+200%",
+          "label": "YoY",
+          "quote": "+200% YoY"
+        },
+        {
+          "value": "+24%",
+          "label": "YoY",
+          "quote": "+24% YoY"
+        },
+        {
+          "value": "+28%",
+          "label": "YoY",
+          "quote": "+28% YoY"
+        },
+        {
+          "value": "0%",
+          "label": "Google Cloud增速",
+          "quote": "0% Google Cloud增速"
+        },
+        {
+          "value": "~5.1%",
+          "label": "营业利润率",
+          "quote": "~5.1% 营业利润率"
+        },
+        {
+          "value": "39%",
+          "label": "毛利率",
+          "quote": "39% 毛利率"
+        },
+        {
+          "value": "82%",
+          "label": "Cloud增速",
+          "quote": "82% Cloud增速"
+        },
+        {
+          "value": "36亿",
+          "label": "日活用户",
+          "quote": "36亿 日活用户"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html",
+      "description": "基于英国AISI 2026年7月安全事件报告及全球AI安全监管框架对比研究｜AISI安全事件全景解析",
+      "highlights": [
+        "智能体",
+        "安全",
+        "越权"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
+      "description": "全球1/5的石油运输必经之路，正面临前所未有的威胁。当34公里的海峡被封锁，整个世界的能源脉搏开始紊乱。",
+      "highlights": [
+        "能源",
+        "霍尔木兹"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "~2000万桶",
+          "label": "原油日均通行量",
+          "quote": "~2000万桶 原油日均通行量"
+        },
+        {
+          "value": "~400万桶",
+          "label": "骤降80%，事实性停滞",
+          "quote": "~400万桶 骤降80%，事实性停滞"
+        },
+        {
+          "value": "+36%",
+          "label": "布伦特原油涨幅",
+          "quote": "+36% 布伦特原油涨幅"
+        },
+        {
+          "value": "95%",
+          "label": "日本原油中东依赖度",
+          "quote": "95% 日本原油中东依赖度"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+      "description": "AI投入从战略叙事到财报兑现的拐点Q2财报深度解读与全球科技巨头AI军备竞赛全景分析",
+      "highlights": [
+        "腾讯"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "20%",
+          "label": "云服务增速超",
+          "quote": "云服务增速超20%"
+        },
+        {
+          "value": "~2,000亿",
+          "label": "元（高盛/摩根大通",
+          "quote": "~2,000亿元（高盛/摩根大通）"
+        },
+        {
+          "value": "15%",
+          "label": "Hy4进入中文SuperCLUE前三 + WorkBud",
+          "quote": "Hy4进入中文SuperCLUE前三 + WorkBuddy付费转化率突破15%"
+        },
+        {
+          "value": "+176%",
+          "label": "2048",
+          "quote": "+176% 2048"
+        },
+        {
+          "value": "+11%",
+          "label": "273",
+          "quote": "+11% 273"
+        },
+        {
+          "value": "+35%",
+          "label": "-138",
+          "quote": "+35% -138"
+        },
+        {
+          "value": "+11%",
+          "label": "增值服务（VAS）",
+          "quote": "+11% 增值服务（VAS）"
+        },
+        {
+          "value": "+22%",
+          "label": "金融科技及企业服务",
+          "quote": "+22% 金融科技及企业服务"
+        },
+        {
+          "value": "+13%",
+          "label": "毛利率",
+          "quote": "+13% 毛利率"
+        },
+        {
+          "value": "57%",
+          "label": "+1pp",
+          "quote": "57% +1pp"
+        },
+        {
+          "value": "+9%",
+          "label": "剔除新AI产品后",
+          "quote": "+9% 剔除新AI产品后"
+        },
+        {
+          "value": "+19%",
+          "label": "Non-IFRS净利润",
+          "quote": "+19% Non-IFRS净利润"
+        },
+        {
+          "value": "+9%",
+          "label": "净利润（归母）",
+          "quote": "+9% 净利润（归母）"
+        },
+        {
+          "value": "+0.7%",
+          "label": "研发支出",
+          "quote": "+0.7% 研发支出"
+        },
+        {
+          "value": "+35%",
+          "label": "资本开支",
+          "quote": "+35% 资本开支"
+        },
+        {
+          "value": "+176%",
+          "label": "自由现金流",
+          "quote": "+176% 自由现金流"
+        },
+        {
+          "value": "-22%",
+          "label": "微信/WeChat月活",
+          "quote": "-22% 微信/WeChat月活"
+        },
+        {
+          "value": "22%",
+          "label": "营销服务收入436亿元，",
+          "quote": "22% 营销服务收入436亿元，"
+        },
+        {
+          "value": "+160%",
+          "label": "GPU算力、混元模型、WorkBuddy、微信AI",
+          "quote": "+160% GPU算力、混元模型、WorkBuddy、微信AI"
+        },
+        {
+          "value": "+33%",
+          "label": "GPU集群（10万+）、AI芯片850亿、豆包推理",
+          "quote": "+33% GPU集群（10万+）、AI芯片850亿、豆包推理"
+        },
+        {
+          "value": "1.66亿",
+          "label": "阿里巴巴",
+          "quote": "1.66亿 阿里巴巴"
+        },
+        {
+          "value": "1.27亿",
+          "label": "深度求索",
+          "quote": "1.27亿 深度求索"
+        },
+        {
+          "value": "+33%",
+          "label": "TikTok全球化+豆包+火山引擎",
+          "quote": "+33% TikTok全球化+豆包+火山引擎"
+        },
+        {
+          "value": "+160%",
+          "label": "混元+WorkBuddy+云+微信AI",
+          "quote": "+160% 混元+WorkBuddy+云+微信AI"
+        },
+        {
+          "value": "40%",
+          "label": "混元12-18个月缩小与海外旗舰差距，在中文场景形成差异",
+          "quote": "40% 混元12-18个月缩小与海外旗舰差距，在中文场景形成差异"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html",
+      "description": "当美国联邦通信委员会将中国人形机器人列入受管制清单，一场始于半导体的科技冷战，正式蔓延到「物理世界」。",
+      "highlights": [
+        "机器人"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html",
+      "description": "GLM-5.3 · Qwen3.8-27B · DeepSeek V4 Pro — 三大国产开源旗舰模型的技术架构、性能基准、生态博弈与格局研判",
+      "highlights": [
+        "开源模型",
+        "模型",
+        "DeepSeek",
+        "开源"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "6元",
+          "label": "百万token",
+          "quote": "6元/百万token"
+        },
+        {
+          "value": "93.5%",
+          "label": "LiveCodeBench",
+          "quote": "LiveCodeBench: 93.5%"
+        },
+        {
+          "value": "87.5%",
+          "label": "MMLU-Pro",
+          "quote": "MMLU-Pro: 87.5%"
+        },
+        {
+          "value": "~5元",
+          "label": "Coding Plan",
+          "quote": "~5元（Coding Plan）"
+        },
+        {
+          "value": "~900GB",
+          "label": "API调用/自建需",
+          "quote": "API调用/自建需~900GB"
+        },
+        {
+          "value": "87.5%",
+          "label": "LiveCodeBench:",
+          "quote": "87.5% LiveCodeBench:"
+        },
+        {
+          "value": "93.5%",
+          "label": "中文 SuperCLUE:",
+          "quote": "93.5% 中文 SuperCLUE:"
+        },
+        {
+          "value": "87.5%",
+          "label": "中文 SuperCLUE",
+          "quote": "87.5% 中文 SuperCLUE"
+        },
+        {
+          "value": "3元",
+          "label": "输出100万token",
+          "quote": "3元 输出100万token"
+        },
+        {
+          "value": "6元",
+          "label": "缓存命中场景",
+          "quote": "6元 缓存命中场景"
+        },
+        {
+          "value": "0.025元",
+          "label": "部署门槛",
+          "quote": "0.025元 部署门槛"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+      "description": "2026年，中国开源AI模型全球下载量首次超越美国，占全球总量的41%——一场静悄悄的技术革命正在改写世界AI格局。",
+      "highlights": [
+        "开源模型",
+        "模型",
+        "开源"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "41%",
+          "label": "超越美国",
+          "quote": "41%（超越美国）"
+        },
+        {
+          "value": "30亿",
+          "label": "次/半年",
+          "quote": "30亿次/半年"
+        },
+        {
+          "value": "+570%",
+          "label": "↑ 环比",
+          "quote": "↑ 环比+570%"
+        },
+        {
+          "value": "32%",
+          "label": "DeepSeek-R1",
+          "quote": "32% DeepSeek-R1"
+        },
+        {
+          "value": "14%",
+          "label": "全球份额",
+          "quote": "14% 全球份额"
+        },
+        {
+          "value": "11.3亿",
+          "label": "月活用户",
+          "quote": "11.3亿 月活用户"
+        },
+        {
+          "value": "8.83万亿",
+          "label": "周Token调用",
+          "quote": "8.83万亿 周Token调用"
+        },
+        {
+          "value": "11%",
+          "label": "全球份额",
+          "quote": "11% 全球份额"
+        },
+        {
+          "value": "6%",
+          "label": "全球份额",
+          "quote": "6% 全球份额"
+        },
+        {
+          "value": "10%",
+          "label": "全球份额",
+          "quote": "10% 全球份额"
+        },
+        {
+          "value": "3.08万亿",
+          "label": "MiMo周Token",
+          "quote": "3.08万亿 MiMo周Token"
+        },
+        {
+          "value": "41%",
+          "label": "🇺🇸 美国",
+          "quote": "41% 🇺🇸 美国"
+        },
+        {
+          "value": "36.5%",
+          "label": "🇪🇺 欧洲",
+          "quote": "36.5% 🇪🇺 欧洲"
+        },
+        {
+          "value": "12%",
+          "label": "🌏 其他",
+          "quote": "12% 🌏 其他"
+        },
+        {
+          "value": "10.5%",
+          "label": "📈 中国开源模型全球下载份额演变",
+          "quote": "10.5% 📈 中国开源模型全球下载份额演变"
+        },
+        {
+          "value": "28%",
+          "label": "2025 Q4",
+          "quote": "28% 2025 Q4"
+        },
+        {
+          "value": "32%",
+          "label": "2026 Q1",
+          "quote": "32% 2026 Q1"
+        },
+        {
+          "value": "38%",
+          "label": "2026 Q2",
+          "quote": "38% 2026 Q2"
+        },
+        {
+          "value": "41%",
+          "label": "代表模型",
+          "quote": "41% 代表模型"
+        },
+        {
+          "value": "11.3亿",
+          "label": "增长趋势",
+          "quote": "11.3亿 增长趋势"
+        },
+        {
+          "value": "36.5%",
+          "label": "代表模型",
+          "quote": "36.5% 代表模型"
+        },
+        {
+          "value": "~8亿",
+          "label": "增长趋势",
+          "quote": "~8亿 增长趋势"
+        },
+        {
+          "value": "12%",
+          "label": "代表模型",
+          "quote": "12% 代表模型"
+        },
+        {
+          "value": "~2亿",
+          "label": "增长趋势",
+          "quote": "~2亿 增长趋势"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
+      "description": "AI与科学的交叉地带｜AI在科学研究中的突破性应用案例",
+      "highlights": [
+        "诺奖",
+        "AI for Science",
+        "科研交叉"
+      ],
+      "agent": "研析",
+      "title": "2026诺贝尔奖季前瞻：AI与科学的交叉地带",
+      "claims": [
+        {
+          "value": "28.7%",
+          "label": "中国AI论文占全球总量（2024年）",
+          "quote": "28.7% 中国AI论文占全球总量（2024年）"
+        },
+        {
+          "value": "19.3%",
+          "label": "AI for Science论文年均增长率（2020年后",
+          "quote": "19.3% AI for Science论文年均增长率（2020年后"
+        },
+        {
+          "value": "98.7%",
+          "label": "AI论文引用量高于非AI论文",
+          "quote": "98.7% AI论文引用量高于非AI论文"
+        },
+        {
+          "value": "28.7%",
+          "label": "中国AI论文占全球总量",
+          "quote": "28.7% 中国AI论文占全球总量"
+        },
+        {
+          "value": "+98.70%",
+          "label": "论文产出（连续10年研究者）",
+          "quote": "+98.70% 论文产出（连续10年研究者）"
+        },
+        {
+          "value": "+141%",
+          "label": "总引用量（连续10年研究者）",
+          "quote": "+141% 总引用量（连续10年研究者）"
+        },
+        {
+          "value": "+331%",
+          "label": "高引论文案例：",
+          "quote": "+331% 高引论文案例："
+        },
+        {
+          "value": "21.8%",
+          "label": "材料设计、制造优化、自动化控制",
+          "quote": "21.8% 材料设计、制造优化、自动化控制"
+        },
+        {
+          "value": "21.3%",
+          "label": "蛋白质折叠、药物发现、基因组学",
+          "quote": "21.3% 蛋白质折叠、药物发现、基因组学"
+        },
+        {
+          "value": "18.5%",
+          "label": "量子计算、宇宙学、粒子物理",
+          "quote": "18.5% 量子计算、宇宙学、粒子物理"
+        },
+        {
+          "value": "17.2%",
+          "label": "气候建模、环境监测、资源勘探",
+          "quote": "17.2% 气候建模、环境监测、资源勘探"
+        },
+        {
+          "value": "15.8%",
+          "label": "定理证明、符号计算、优化问题",
+          "quote": "15.8% 定理证明、符号计算、优化问题"
+        },
+        {
+          "value": "14.5%",
+          "label": "文本分析、社会网络研究、经济预测",
+          "quote": "14.5% 文本分析、社会网络研究、经济预测"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html",
+      "description": "交互式危机模拟，探索地缘政治对全球能源的影响",
+      "highlights": [
+        "霍尔木兹海峡",
+        "能源危机",
+        "交互模拟"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "21海里",
+          "label": "STRAIT OF HORMUZ · 最窄",
+          "quote": "STRAIT OF HORMUZ · 最窄21海里"
+        },
+        {
+          "value": "19%",
+          "label": "⚠ 较战前上涨",
+          "quote": "⚠ 较战前上涨19%"
+        },
+        {
+          "value": "24.6%",
+          "label": "↑ 涨幅达",
+          "quote": "↑ 涨幅达24.6%"
+        },
+        {
+          "value": "1倍",
+          "label": "Q3 2026 · 较预估扩大",
+          "quote": "Q3 2026 · 较预估扩大1倍"
+        },
+        {
+          "value": "30%",
+          "label": "化肥供应短缺",
+          "quote": "化肥供应短缺30%"
+        },
+        {
+          "value": "+45%",
+          "label": "投资增速",
+          "quote": "+45% 投资增速"
+        },
+        {
+          "value": "0%",
+          "label": "运量暴跌",
+          "quote": "0% 运量暴跌"
+        },
+        {
+          "value": "490万桶",
+          "label": "↓ 77.3%（战前2160万桶）",
+          "quote": "490万桶 ↓ 77.3%（战前2160万桶）"
+        },
+        {
+          "value": "180万桶/日",
+          "label": "Q3 2026 · 较预估扩大1倍",
+          "quote": "180万桶/日 Q3 2026 · 较预估扩大1倍"
+        },
+        {
+          "value": "4亿桶",
+          "label": "⚠ 已释放78%，剩余约9000万桶",
+          "quote": "4亿桶 ⚠ 已释放78%，剩余约9000万桶"
+        },
+        {
+          "value": "2.99亿桶",
+          "label": "1983年以来最低水平",
+          "quote": "2.99亿桶 1983年以来最低水平"
+        },
+        {
+          "value": "+24.6%",
+          "label": "汽油价格上涨",
+          "quote": "+24.6% 汽油价格上涨"
+        },
+        {
+          "value": "+25.5%",
+          "label": "机票价格飙升",
+          "quote": "+25.5% 机票价格飙升"
+        },
+        {
+          "value": "+18%",
+          "label": "物流运输成本",
+          "quote": "+18% 物流运输成本"
+        },
+        {
+          "value": "+12%",
+          "label": "食品价格上涨",
+          "quote": "+12% 食品价格上涨"
+        },
+        {
+          "value": "+8%",
+          "label": "电力成本上升",
+          "quote": "+8% 电力成本上升"
+        },
+        {
+          "value": "3.4%",
+          "label": "通胀率（美国CPI）",
+          "quote": "3.4% 通胀率（美国CPI）"
+        },
+        {
+          "value": "430万桶",
+          "label": "2026年全球供应日均减少",
+          "quote": "430万桶 2026年全球供应日均减少"
+        },
+        {
+          "value": "160万桶",
+          "label": "高油价抑制的需求量",
+          "quote": "160万桶 高油价抑制的需求量"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html",
+      "description": "深度分析人形机器人产业化现状、应用场景与产业链",
+      "highlights": [
+        "人形机器人",
+        "产业化",
+        "制造业"
+      ],
+      "agent": "研析+数析",
+      "claims": [
+        {
+          "value": "717%",
+          "label": "同比增长",
+          "quote": "同比增长 717%"
+        },
+        {
+          "value": "112.7%",
+          "label": "同比增长",
+          "quote": "同比增长 112.7%"
+        },
+        {
+          "value": "9.5%",
+          "label": "同比增长",
+          "quote": "同比增长 9.5%"
+        },
+        {
+          "value": "13,361台",
+          "label": "U1系列累计订单",
+          "quote": "U1系列累计订单13,361台"
+        },
+        {
+          "value": "935亿",
+          "label": "融资爆发——H1融资",
+          "quote": "融资爆发——H1融资935亿"
+        },
+        {
+          "value": "68.4亿",
+          "label": "全球市场规模（美元）",
+          "quote": "68.4亿 全球市场规模（美元）"
+        },
+        {
+          "value": "935亿",
+          "label": "H1融资总额（元）",
+          "quote": "935亿 H1融资总额（元）"
+        },
+        {
+          "value": "+717%",
+          "label": "全球市场规模",
+          "quote": "+717% 全球市场规模"
+        },
+        {
+          "value": "+112.7%",
+          "label": "中国市场规模",
+          "quote": "+112.7% 中国市场规模"
+        },
+        {
+          "value": "~13亿美元",
+          "label": "+100%+",
+          "quote": "~13亿美元 +100%+"
+        },
+        {
+          "value": "+247%",
+          "label": "中国全球占比",
+          "quote": "+247% 中国全球占比"
+        },
+        {
+          "value": "84.7%",
+          "label": "90%+",
+          "quote": "84.7% 90%+"
+        },
+        {
+          "value": "97%",
+          "label": "中国占全球",
+          "quote": "97% 中国占全球"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
+      "description": "交互式对比图表，探索黄金与比特币同步飙升的深层逻辑",
+      "highlights": [
+        "避险资产",
+        "黄金",
+        "比特币",
+        "金融"
+      ],
+      "agent": "绘界+创艺+数析",
+      "claims": [
+        {
+          "value": "24%",
+          "label": "🚀 美债回购翻倍 → BTC暴涨",
+          "quote": "🚀 美债回购翻倍 → BTC暴涨24%"
+        },
+        {
+          "value": "~12%",
+          "label": "低波动率 · 30日",
+          "quote": "低波动率 · 30日~12%"
+        },
+        {
+          "value": "~39%",
+          "label": "高波动率 · 30日",
+          "quote": "高波动率 · 30日~39%"
+        },
+        {
+          "value": "12%",
+          "label": "相对稳定",
+          "quote": "12% 相对稳定"
+        },
+        {
+          "value": "39%",
+          "label": "黄金的3倍",
+          "quote": "39% 黄金的3倍"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
+      "description": "深度对比LangGraph、AutoGen、CrewAI等Agent编排框架",
+      "highlights": [
+        "AI Agent",
+        "编排层",
+        "Harness架构"
+      ],
+      "agent": "研析+策士",
+      "claims": [
+        {
+          "value": "60%",
+          "label": "F500, 150+企业",
+          "quote": "60% F500, 150+企业"
+        },
+        {
+          "value": "139%",
+          "label": "YoY",
+          "quote": "139% YoY"
+        },
+        {
+          "value": "65%",
+          "label": "取消潮",
+          "quote": "取消潮 65%"
+        },
+        {
+          "value": "60%",
+          "label": "部分崛起",
+          "quote": "部分崛起 60%"
+        },
+        {
+          "value": "40%",
+          "label": "Gartner预测2026年底企业应用嵌入Agent比例",
+          "quote": "40% Gartner预测2026年底企业应用嵌入Agent比例"
+        },
+        {
+          "value": "28%",
+          "label": "生产环境仍使用自定义编排（无框架）",
+          "quote": "28% 生产环境仍使用自定义编排（无框架）"
+        },
+        {
+          "value": "16%",
+          "label": "单Agent系统在高负载下的准确率",
+          "quote": "16% 单Agent系统在高负载下的准确率"
+        },
+        {
+          "value": "~44%",
+          "label": "AI Agent软件支出（广义/Gartner）",
+          "quote": "~44% AI Agent软件支出（广义/Gartner）"
+        },
+        {
+          "value": "44%",
+          "label": "医疗Agentic AI市场",
+          "quote": "44% 医疗Agentic AI市场"
+        },
+        {
+          "value": "45.6%",
+          "label": "中国AI Agent企业市场",
+          "quote": "45.6% 中国AI Agent企业市场"
+        },
+        {
+          "value": "8倍",
+          "label": "McKinsey：AI高绩效企业的工作流重设计概率是其他",
+          "quote": "8倍 McKinsey：AI高绩效企业的工作流重设计概率是其他"
+        },
+        {
+          "value": "3倍",
+          "label": "Salesforce：87%销售组织已在使用某种形式的A",
+          "quote": "3倍 Salesforce：87%销售组织已在使用某种形式的A"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html",
+      "description": "交互式数据地图探索中国机器人创业生态",
+      "highlights": [
+        "人形机器人",
+        "创业潮",
+        "数据可视化"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "+9.5%",
+          "label": "新设企业同比增长",
+          "quote": "+9.5% 新设企业同比增长"
+        },
+        {
+          "value": "935亿",
+          "label": "H1融资总额（元）",
+          "quote": "935亿 H1融资总额（元）"
+        },
+        {
+          "value": "97%",
+          "label": "全球出货占比",
+          "quote": "97% 全球出货占比"
+        },
+        {
+          "value": "8400台",
+          "label": "—— 头部企业正从\"烧钱\"走向\"量产\"",
+          "quote": "8400台 —— 头部企业正从\"烧钱\"走向\"量产\""
+        },
+        {
+          "value": "65%",
+          "label": "小微企业占比",
+          "quote": "65% 小微企业占比"
+        },
+        {
+          "value": "40%",
+          "label": "无明确量产时间表",
+          "quote": "40% 无明确量产时间表"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html",
+      "description": "深度分析霍尔木兹海峡危机最新态势及全球影响",
+      "highlights": [
+        "霍尔木兹海峡",
+        "能源危机",
+        "地缘政治"
+      ],
+      "agent": "研析+察言+数析",
+      "claims": [
+        {
+          "value": "+41%",
+          "label": "年内涨幅",
+          "quote": "年内涨幅+41%"
+        },
+        {
+          "value": "1200万桶/日",
+          "label": "后中断",
+          "quote": "1200万桶/日（后中断）"
+        },
+        {
+          "value": "4亿桶",
+          "label": "史上最大",
+          "quote": "4亿桶（史上最大）"
+        },
+        {
+          "value": "53%",
+          "label": "仅占海峡运力",
+          "quote": "仅占海峡运力53%"
+        },
+        {
+          "value": "-95%",
+          "label": "海峡航运量降幅",
+          "quote": "-95% 海峡航运量降幅"
+        },
+        {
+          "value": "2.987亿桶",
+          "label": "美国SPR",
+          "quote": "2.987亿桶 美国SPR"
+        },
+        {
+          "value": "+70%",
+          "label": "欧洲天然气TTF涨幅",
+          "quote": "+70% 欧洲天然气TTF涨幅"
+        },
+        {
+          "value": "2.6%",
+          "label": "欧元区通胀预期",
+          "quote": "2.6% 欧元区通胀预期"
+        },
+        {
+          "value": "+25%",
+          "label": "欧洲TTF天然气 (EUR/MWh)",
+          "quote": "+25% 欧洲TTF天然气 (EUR/MWh)"
+        },
+        {
+          "value": "+56%",
+          "label": "欧洲汽油价格 (EUR/L)",
+          "quote": "+56% 欧洲汽油价格 (EUR/L)"
+        },
+        {
+          "value": "+20%",
+          "label": "柴油价格",
+          "quote": "+20% 柴油价格"
+        },
+        {
+          "value": "+30%",
+          "label": "显著上涨",
+          "quote": "+30% 显著上涨"
+        },
+        {
+          "value": "+35%",
+          "label": "航空公司承压",
+          "quote": "+35% 航空公司承压"
+        },
+        {
+          "value": "~1%",
+          "label": "VLCC单次过境保费",
+          "quote": "~1% VLCC单次过境保费"
+        },
+        {
+          "value": "2.987亿桶",
+          "label": "美国SPR当前库存",
+          "quote": "2.987亿桶 美国SPR当前库存"
+        },
+        {
+          "value": "-1.72亿桶",
+          "label": "3月授权释放量",
+          "quote": "-1.72亿桶 3月授权释放量"
+        },
+        {
+          "value": "13人",
+          "label": "美军阵亡人数",
+          "quote": "13人 美军阵亡人数"
+        },
+        {
+          "value": "-99%",
+          "label": "极度受限",
+          "quote": "-99% 极度受限"
+        },
+        {
+          "value": "2.987亿桶",
+          "label": "-1.16亿桶（另有1.72亿桶授权待释放）",
+          "quote": "2.987亿桶 -1.16亿桶（另有1.72亿桶授权待释放）"
+        },
+        {
+          "value": "40%",
+          "label": "伊阿走廊落地+美国部分解除封锁+60天免费期",
+          "quote": "40% 伊阿走廊落地+美国部分解除封锁+60天免费期"
+        },
+        {
+          "value": "45%",
+          "label": "核心分歧无法弥合+低烈度对抗持续",
+          "quote": "45% 核心分歧无法弥合+低烈度对抗持续"
+        },
+        {
+          "value": "15%",
+          "label": "重大事故/误判+停火完全崩溃",
+          "quote": "15% 重大事故/误判+停火完全崩溃"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
+      "description": "交互式架构对比图探索不同编排框架的设计哲学",
+      "highlights": [
+        "AI Agent",
+        "编排层",
+        "Harness架构"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "44%",
+          "label": "YoY",
+          "quote": "↑ 44% YoY"
+        },
+        {
+          "value": "46.3%",
+          "label": "CAGR",
+          "quote": "CAGR 46.3%"
+        },
+        {
+          "value": "141%",
+          "label": "YoY",
+          "quote": "↑ 141% YoY"
+        },
+        {
+          "value": "119%",
+          "label": "CAGR",
+          "quote": "CAGR 119%"
+        },
+        {
+          "value": "48%",
+          "label": "CAGR",
+          "quote": "48% CAGR"
+        },
+        {
+          "value": "51%",
+          "label": "已投入生产",
+          "quote": "51% 已投入生产"
+        },
+        {
+          "value": "80%",
+          "label": "企业应用嵌入Agent",
+          "quote": "80% 企业应用嵌入Agent"
+        },
+        {
+          "value": "62%",
+          "label": "正在实验中",
+          "quote": "62% 正在实验中"
+        },
+        {
+          "value": "68%",
+          "label": "CIO列为Top-3投资",
+          "quote": "68% CIO列为Top-3投资"
+        },
+        {
+          "value": "171%",
+          "label": "平均投资回报率",
+          "quote": "171% 平均投资回报率"
+        },
+        {
+          "value": "58%",
+          "label": "市场营销",
+          "quote": "58% 市场营销"
+        },
+        {
+          "value": "51%",
+          "label": "运营/供应链",
+          "quote": "51% 运营/供应链"
+        },
+        {
+          "value": "42%",
+          "label": "医疗健康",
+          "quote": "42% 医疗健康"
+        },
+        {
+          "value": "98%",
+          "label": "认知障碍筛查特异性 (Mass General Brig",
+          "quote": "98% 认知障碍筛查特异性 (Mass General Brig"
+        },
+        {
+          "value": "468%",
+          "label": "AI预约调度投资回报率 (ROI)",
+          "quote": "468% AI预约调度投资回报率 (ROI)"
+        },
+        {
+          "value": "68%",
+          "label": "医疗行业AI Agent采纳率 (全行业最高)",
+          "quote": "68% 医疗行业AI Agent采纳率 (全行业最高)"
+        },
+        {
+          "value": "22%",
+          "label": "AI辅助腹腔镜手术并发症降低率",
+          "quote": "22% AI辅助腹腔镜手术并发症降低率"
+        }
+      ]
+    },
+    {
+      "file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
+      "description": "深度分析AI Agent安全威胁与防御框架",
+      "highlights": [
+        "AI Agent",
+        "安全",
+        "提示注入"
+      ],
+      "agent": "研析+策士",
+      "claims": [
+        {
+          "value": "1.95亿",
+          "label": "记录泄露 · 国家级",
+          "quote": "1.95亿记录泄露 · 国家级"
+        },
+        {
+          "value": "1.95亿",
+          "label": "条记录",
+          "quote": "1.95亿条记录"
+        },
+        {
+          "value": "78%",
+          "label": "部署无策略执行",
+          "quote": "78%部署无策略执行"
+        },
+        {
+          "value": "88%",
+          "label": "企业经历过Agent安全事件",
+          "quote": "• 88%企业经历过Agent安全事件"
+        },
+        {
+          "value": "92%",
+          "label": "企业缺乏Agent操作审计日志",
+          "quote": "• 92%企业缺乏Agent操作审计日志"
+        },
+        {
+          "value": "3%",
+          "label": "拥有成熟安全控制",
+          "quote": "3% 拥有成熟安全控制"
+        },
+        {
+          "value": "42%",
+          "label": "Agent安全市场CAGR",
+          "quote": "42% Agent安全市场CAGR"
+        },
+        {
+          "value": "37%",
+          "label": "经历安全事件",
+          "quote": "37% 经历安全事件"
+        },
+        {
+          "value": "88%",
+          "label": "有Agent专用安全框架",
+          "quote": "88% 有Agent专用安全框架"
+        },
+        {
+          "value": "23%",
+          "label": "成熟安全控制部署",
+          "quote": "23% 成熟安全控制部署"
+        },
+        {
+          "value": "3%",
+          "label": "预算分配给AI Agent风险",
+          "quote": "3% 预算分配给AI Agent风险"
+        },
+        {
+          "value": "6%",
+          "label": "关键差距：",
+          "quote": "6% 关键差距："
+        },
+        {
+          "value": "35%",
+          "label": "↑ 稳定",
+          "quote": "35% ↑ 稳定"
+        },
+        {
+          "value": "22%",
+          "label": "↑↑ 快速增长",
+          "quote": "22% ↑↑ 快速增长"
+        },
+        {
+          "value": "18%",
+          "label": "↑ 增长",
+          "quote": "18% ↑ 增长"
+        },
+        {
+          "value": "12%",
+          "label": "→ 稳定",
+          "quote": "12% → 稳定"
+        },
+        {
+          "value": "8%",
+          "label": "↑ 新兴",
+          "quote": "8% ↑ 新兴"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
+      "description": "交互式权力地图探索全球AI版图的重新划分",
+      "highlights": [
+        "英伟达",
+        "Hugging Face",
+        "AI权力",
+        "开源生态"
+      ],
+      "agent": "绘界+创艺+数析",
+      "claims": [
+        {
+          "value": "6%",
+          "label": "英伟达持股比例",
+          "quote": "英伟达持股比例 6%"
+        },
+        {
+          "value": "500亿",
+          "label": "估值崛起",
+          "quote": "500亿估值崛起"
+        },
+        {
+          "value": "90%",
+          "label": "+ 训练市场",
+          "quote": "90%+ 训练市场"
+        },
+        {
+          "value": "20%",
+          "label": "现金储备",
+          "quote": "现金储备/20%"
+        },
+        {
+          "value": "45亿",
+          "label": "2023年D轮估值（美元）",
+          "quote": "45亿 2023年D轮估值（美元）"
+        },
+        {
+          "value": "5亿",
+          "label": "英伟达持股比例 6%",
+          "quote": "5亿 英伟达持股比例 6%"
+        },
+        {
+          "value": "4.5亿",
+          "label": "年化营收（推算）",
+          "quote": "4.5亿 年化营收（推算）"
+        },
+        {
+          "value": "56%",
+          "label": "本土AI芯片份额",
+          "quote": "56% 本土AI芯片份额"
+        },
+        {
+          "value": "51.2%",
+          "label": "年增速",
+          "quote": "51.2% 年增速"
+        },
+        {
+          "value": "23倍",
+          "label": "🇨🇳 中国：被封锁者的突围战",
+          "quote": "23倍 🇨🇳 中国：被封锁者的突围战"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
+      "description": "深度分析A股科技股暴跌的诱因、估值重构与投资机会",
+      "highlights": [
+        "A股",
+        "科技股",
+        "暴跌",
+        "AI泡沫"
+      ],
+      "agent": "数析+策士+研析",
+      "claims": [
+        {
+          "value": "1年",
+          "label": "期存款利率（跌破",
+          "quote": "1年期存款利率（跌破）"
+        },
+        {
+          "value": "3年",
+          "label": "期定存利率",
+          "quote": "3年期定存利率"
+        },
+        {
+          "value": "1年",
+          "label": "期LPR（连续15月不变",
+          "quote": "1年期LPR（连续15月不变）"
+        },
+        {
+          "value": "5年",
+          "label": "期LPR（连续15月不变",
+          "quote": "5年期LPR（连续15月不变）"
+        },
+        {
+          "value": "18.5倍",
+          "label": "集成电路行业利润暴增",
+          "quote": "集成电路行业利润暴增18.5倍"
+        },
+        {
+          "value": "~17倍",
+          "label": "中位水平",
+          "quote": "~17倍（中位水平）"
+        },
+        {
+          "value": "~2.23%",
+          "label": "远低于峰值",
+          "quote": "~2.23%（远低于峰值）"
+        },
+        {
+          "value": "2.14%",
+          "label": "• 食品饮料板块逆势上涨",
+          "quote": "• 食品饮料板块逆势上涨2.14%"
+        },
+        {
+          "value": "1.53%",
+          "label": "• 商贸零售板块涨",
+          "quote": "• 商贸零售板块涨1.53%"
+        },
+        {
+          "value": "1.51%",
+          "label": "• 银行板块涨",
+          "quote": "• 银行板块涨1.51%"
+        },
+        {
+          "value": "-7.35%",
+          "label": "创业板指单日暴跌",
+          "quote": "-7.35% 创业板指单日暴跌"
+        },
+        {
+          "value": "-23%",
+          "label": "创业板7月累计跌幅",
+          "quote": "-23% 创业板7月累计跌幅"
+        },
+        {
+          "value": "2.03万亿",
+          "label": "单日成交额",
+          "quote": "2.03万亿 单日成交额"
+        },
+        {
+          "value": "1.2倍",
+          "label": "80%+",
+          "quote": "1.2倍 80%+"
+        },
+        {
+          "value": "~35%",
+          "label": "合理偏低",
+          "quote": "~35% 合理偏低"
+        },
+        {
+          "value": "~21倍",
+          "label": "全球参照",
+          "quote": "~21倍 全球参照"
+        },
+        {
+          "value": "1.0%",
+          "label": "1年期存款利率（跌破）",
+          "quote": "1.0% 1年期存款利率（跌破）"
+        },
+        {
+          "value": "~1.5%",
+          "label": "3年期定存利率",
+          "quote": "~1.5% 3年期定存利率"
+        },
+        {
+          "value": "3.0%",
+          "label": "1年期LPR（连续15月不变）",
+          "quote": "3.0% 1年期LPR（连续15月不变）"
+        },
+        {
+          "value": "3.5%",
+          "label": "5年期LPR（连续15月不变）",
+          "quote": "3.5% 5年期LPR（连续15月不变）"
+        },
+        {
+          "value": "~2.03万亿",
+          "label": "暴跌日成交额",
+          "quote": "~2.03万亿 暴跌日成交额"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
+      "description": "交互式时间线探索AI算力需求的指数级增长",
+      "highlights": [
+        "AI算力",
+        "Token消耗",
+        "指数增长",
+        "能源"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "575%",
+          "label": "较A100增长",
+          "quote": "较A100增长575%"
+        },
+        {
+          "value": "~100亿",
+          "label": "Token/日",
+          "quote": "~100亿 Token/日"
+        },
+        {
+          "value": "1000亿",
+          "label": "中国日均Token突破",
+          "quote": "中国日均Token突破1000亿"
+        },
+        {
+          "value": "1000亿",
+          "label": "Token/日",
+          "quote": "1000亿 Token/日"
+        },
+        {
+          "value": "100万亿",
+          "label": "Token/日",
+          "quote": "100万亿 Token/日"
+        },
+        {
+          "value": "1亿美元",
+          "label": "训练一次的成本约",
+          "quote": "训练一次的成本约1亿美元"
+        },
+        {
+          "value": "84%",
+          "label": "一年增长",
+          "quote": "一年增长84%"
+        },
+        {
+          "value": "~100亿",
+          "label": "2023",
+          "quote": "~100亿 2023"
+        },
+        {
+          "value": "1,000亿",
+          "label": "2024初",
+          "quote": "1,000亿 2024初"
+        },
+        {
+          "value": "30万亿",
+          "label": "2025中",
+          "quote": "30万亿 2025中"
+        },
+        {
+          "value": "100万亿",
+          "label": "2025底",
+          "quote": "100万亿 2025底"
+        },
+        {
+          "value": "140万亿",
+          "label": "2026.3",
+          "quote": "140万亿 2026.3"
+        },
+        {
+          "value": "52%",
+          "label": "2025推理",
+          "quote": "52% 2025推理"
+        },
+        {
+          "value": "68%",
+          "label": "2026推理",
+          "quote": "68% 2026推理"
+        },
+        {
+          "value": "78%",
+          "label": "2026训练",
+          "quote": "78% 2026训练"
+        },
+        {
+          "value": "22%",
+          "label": "核心对比",
+          "quote": "22% 核心对比"
+        },
+        {
+          "value": "78%",
+          "label": "推理是\"用大脑\"——每一次API调用、每一个Agent决",
+          "quote": "78% 推理是\"用大脑\"——每一次API调用、每一个Agent决"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+      "description": "深度对比开源与闭源AI的技术路线、商业模式与生态系统",
+      "highlights": [
+        "开源AI",
+        "闭源AI",
+        "DeepSeek",
+        "Opus"
+      ],
+      "agent": "研析+策士",
+      "claims": [
+        {
+          "value": "1000个",
+          "label": "子Agent",
+          "quote": "1000个子Agent"
+        },
+        {
+          "value": "82.9%",
+          "label": "• API毛利率",
+          "quote": "• API毛利率82.9%"
+        },
+        {
+          "value": "85%",
+          "label": "• 企业收入占比",
+          "quote": "• 企业收入占比85%"
+        },
+        {
+          "value": "470亿美元",
+          "label": "• 年化营收",
+          "quote": "• 年化营收470亿美元"
+        },
+        {
+          "value": "9650亿美元",
+          "label": "• 估值",
+          "quote": "• 估值9650亿美元"
+        },
+        {
+          "value": "5天",
+          "label": "DeepSeek Harness Stars",
+          "quote": "DeepSeek Harness Stars (5天)"
+        },
+        {
+          "value": "6.75万亿",
+          "label": "token",
+          "quote": "6.75万亿token"
+        },
+        {
+          "value": "85%",
+          "label": "收入来自企业API",
+          "quote": "• 85%收入来自企业API"
+        },
+        {
+          "value": "41%",
+          "label": "中国开源模型全球下载份额",
+          "quote": "41% 中国开源模型全球下载份额"
+        },
+        {
+          "value": "27%",
+          "label": "🧠 Engram条件记忆",
+          "quote": "27% 🧠 Engram条件记忆"
+        },
+        {
+          "value": "88.7%",
+          "label": "Opus 4.8 / GPT-5.5",
+          "quote": "88.7% Opus 4.8 / GPT-5.5"
+        },
+        {
+          "value": "58.6%",
+          "label": "Opus 4.8",
+          "quote": "58.6% Opus 4.8"
+        },
+        {
+          "value": "87.8%",
+          "label": "DeepSeek V4",
+          "quote": "87.8% DeepSeek V4"
+        },
+        {
+          "value": "93.0%",
+          "label": "Opus 4.8",
+          "quote": "93.0% Opus 4.8"
+        },
+        {
+          "value": "57.9%",
+          "label": "Opus 4.8",
+          "quote": "57.9% Opus 4.8"
+        },
+        {
+          "value": "78.2%",
+          "label": "GPT-5.5",
+          "quote": "78.2% GPT-5.5"
+        },
+        {
+          "value": "78.7%",
+          "label": "Opus 4.8",
+          "quote": "78.7% Opus 4.8"
+        },
+        {
+          "value": "95.2%",
+          "label": "DeepSeek V4",
+          "quote": "95.2% DeepSeek V4"
+        },
+        {
+          "value": "87.5%",
+          "label": "接近平手",
+          "quote": "87.5% 接近平手"
+        },
+        {
+          "value": "~87.5%",
+          "label": "接近平手",
+          "quote": "~87.5% 接近平手"
+        },
+        {
+          "value": "85%",
+          "label": "成本降低潜力",
+          "quote": "85% 成本降低潜力"
+        },
+        {
+          "value": "41%",
+          "label": "🇺🇸 美国",
+          "quote": "41% 🇺🇸 美国"
+        },
+        {
+          "value": "36.5%",
+          "label": "🇪🇺 欧洲",
+          "quote": "36.5% 🇪🇺 欧洲"
+        },
+        {
+          "value": "12%",
+          "label": "🌍 其他",
+          "quote": "12% 🌍 其他"
+        },
+        {
+          "value": "18.7%",
+          "label": "Google",
+          "quote": "18.7% Google"
+        },
+        {
+          "value": "~16%",
+          "label": "Anthropic",
+          "quote": "~16% Anthropic"
+        },
+        {
+          "value": "~14%",
+          "label": "OpenAI",
+          "quote": "~14% OpenAI"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html",
+      "description": "交互式危机模拟器探索地缘冲突对全球的影响",
+      "highlights": [
+        "美伊冲突",
+        "地缘风险",
+        "能源危机",
+        "危机模拟"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "25%",
+          "label": "🔺 油价一周内暴涨",
+          "quote": "🔺 油价一周内暴涨 25%"
+        },
+        {
+          "value": "+25.7%",
+          "label": "战前至今",
+          "quote": "▲ +25.7% 战前至今"
+        },
+        {
+          "value": "2.1%",
+          "label": "CPI↑",
+          "quote": "CPI↑2.1%"
+        },
+        {
+          "value": "45%",
+          "label": "波动率↑",
+          "quote": "波动率↑45%"
+        },
+        {
+          "value": "1.3%",
+          "label": "2026全球GDP",
+          "quote": "1.3% 2026全球GDP"
+        },
+        {
+          "value": "33%",
+          "label": "特朗普",
+          "quote": "33% 特朗普"
+        },
+        {
+          "value": "4.2%",
+          "label": "BEYOND THE HEADLINES",
+          "quote": "4.2% BEYOND THE HEADLINES"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+      "description": "深度分析AI大模型定价策略与商业模式演进",
+      "highlights": [
+        "DeepSeek",
+        "定价战",
+        "AI大模型",
+        "商业模式"
+      ],
+      "agent": "研析+策士",
+      "claims": [
+        {
+          "value": "83%",
+          "label": "智谱AI率先涨价",
+          "quote": "智谱AI率先涨价83%"
+        },
+        {
+          "value": "43%",
+          "label": "市场份额",
+          "quote": "市场份额43%"
+        },
+        {
+          "value": "140万亿Token",
+          "label": "背后的新经济形态",
+          "quote": "140万亿Token背后的新经济形态"
+        },
+        {
+          "value": "301%",
+          "label": "⬆️ 百度AI营销增长",
+          "quote": "⬆️ 百度AI营销增长301%"
+        },
+        {
+          "value": "41%",
+          "label": "⬆️ 开源下载占比超",
+          "quote": "⬆️ 开源下载占比超41%"
+        },
+        {
+          "value": "140万亿",
+          "label": "中国日均Token调用量",
+          "quote": "140万亿 中国日均Token调用量"
+        },
+        {
+          "value": "350%",
+          "label": "V4-Pro峰值涨价幅度",
+          "quote": "350% V4-Pro峰值涨价幅度"
+        },
+        {
+          "value": "89%",
+          "label": "中国市场份额",
+          "quote": "89% 中国市场份额"
+        },
+        {
+          "value": "3.5亿",
+          "label": "月均网站访问量",
+          "quote": "3.5亿 月均网站访问量"
+        },
+        {
+          "value": "34%",
+          "label": "本土大本营，市场占有率89%",
+          "quote": "34% 本土大本营，市场占有率89%"
+        },
+        {
+          "value": "7%",
+          "label": "市场份额43%",
+          "quote": "7% 市场份额43%"
+        },
+        {
+          "value": "8%",
+          "label": "全球第二大下载来源",
+          "quote": "8% 全球第二大下载来源"
+        },
+        {
+          "value": "6%",
+          "label": "受政策和竞争限制，占比偏低",
+          "quote": "6% 受政策和竞争限制，占比偏低"
+        },
+        {
+          "value": "4%",
+          "label": "新兴市场增长最快",
+          "quote": "4% 新兴市场增长最快"
+        },
+        {
+          "value": "1,000亿",
+          "label": "2024年初·日均Token",
+          "quote": "1,000亿 2024年初·日均Token"
+        },
+        {
+          "value": "100万亿",
+          "label": "2025年底·日均Token",
+          "quote": "100万亿 2025年底·日均Token"
+        },
+        {
+          "value": "140万亿",
+          "label": "2026年3月·日均Token",
+          "quote": "140万亿 2026年3月·日均Token"
+        },
+        {
+          "value": "41%",
+          "label": "中国开源模型下载全球占比",
+          "quote": "41% 中国开源模型下载全球占比"
+        },
+        {
+          "value": "36%",
+          "label": "中国全球Token调用占比",
+          "quote": "36% 中国全球Token调用占比"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
+      "description": "交互式反诈模拟器体验AI守护普通人生活安全",
+      "highlights": [
+        "反诈AI",
+        "基层治理",
+        "数字化",
+        "危机模拟"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "42%",
+          "label": "↑ 同比增长",
+          "quote": "↑ 同比增长 42%"
+        },
+        {
+          "value": "99.2%",
+          "label": "↑ 拦截率",
+          "quote": "↑ 拦截率 99.2%"
+        },
+        {
+          "value": "62%",
+          "label": "受害者出现焦虑症状",
+          "quote": "62% 受害者出现焦虑症状"
+        },
+        {
+          "value": "98%",
+          "label": "接听预警后受骗率降幅",
+          "quote": "98% 接听预警后受骗率降幅"
+        },
+        {
+          "value": "38%",
+          "label": "老年群体受害占比",
+          "quote": "38% 老年群体受害占比"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
+      "description": "深度分析AI手术机器人的技术突破、信任挑战与产业影响",
+      "highlights": [
+        "AI手术",
+        "超声机器人",
+        "医疗AI",
+        "信任挑战"
+      ],
+      "agent": "研析+策士+数析",
+      "claims": [
+        {
+          "value": "25%",
+          "label": "缩短约",
+          "quote": "缩短约25%"
+        },
+        {
+          "value": "30%",
+          "label": "降低约",
+          "quote": "降低约30%"
+        },
+        {
+          "value": "40%",
+          "label": "提升约",
+          "quote": "提升约40%"
+        },
+        {
+          "value": "87%",
+          "label": "提前30秒",
+          "quote": "87%（提前30秒）"
+        },
+        {
+          "value": "100%",
+          "label": "机器人导航自主率",
+          "quote": "100% 机器人导航自主率"
+        },
+        {
+          "value": "94%",
+          "label": "依赖经验",
+          "quote": "94% 依赖经验"
+        },
+        {
+          "value": "81%",
+          "label": "医生在专业中使用AI（2026年）",
+          "quote": "81% 医生在专业中使用AI（2026年）"
+        },
+        {
+          "value": "16.6%",
+          "label": "CAGR年复合增长率",
+          "quote": "16.6% CAGR年复合增长率"
+        },
+        {
+          "value": "16.6%",
+          "label": "全球手术机器人总市场",
+          "quote": "16.6% 全球手术机器人总市场"
+        },
+        {
+          "value": "14.7%",
+          "label": "全球医疗AI市场",
+          "quote": "14.7% 全球医疗AI市场"
+        },
+        {
+          "value": "43.96%",
+          "label": "中国手术机器人市场",
+          "quote": "43.96% 中国手术机器人市场"
+        },
+        {
+          "value": "~22%",
+          "label": "达芬奇系统市场",
+          "quote": "~22% 达芬奇系统市场"
+        },
+        {
+          "value": "17.3%",
+          "label": "4.2 主要玩家：巨头与新锐的角力",
+          "quote": "17.3% 4.2 主要玩家：巨头与新锐的角力"
+        },
+        {
+          "value": "456台",
+          "label": "2025年中国全年手术机器人销量",
+          "quote": "456台 2025年中国全年手术机器人销量"
+        },
+        {
+          "value": "15%",
+          "label": "全球手术机器人专利年增长率",
+          "quote": "15% 全球手术机器人专利年增长率"
+        },
+        {
+          "value": "35%",
+          "label": "中国专利全球占比",
+          "quote": "35% 中国专利全球占比"
+        },
+        {
+          "value": "45%",
+          "label": "中国手术机器人本土化率",
+          "quote": "45% 中国手术机器人本土化率"
+        },
+        {
+          "value": "60%",
+          "label": "核心部件进口依赖度",
+          "quote": "60% 核心部件进口依赖度"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html",
+      "description": "交互式模型对比器探索AI行业的同质化竞争与商业困境",
+      "highlights": [
+        "AI模型",
+        "模型疲劳",
+        "同质化竞争",
+        "商业困境"
+      ],
+      "agent": "创艺+绘界+数析",
+      "claims": [
+        {
+          "value": "37.5 天",
+          "label": "2024",
+          "quote": "37.5 天 2024"
+        },
+        {
+          "value": "23 天",
+          "label": "2025",
+          "quote": "23 天 2025"
+        },
+        {
+          "value": "14 天",
+          "label": "2026",
+          "quote": "14 天 2026"
+        },
+        {
+          "value": "11 天",
+          "label": "OpenAI 发布间隔：",
+          "quote": "11 天 OpenAI 发布间隔："
+        },
+        {
+          "value": "50%",
+          "label": "可评估",
+          "quote": "50% 可评估"
+        },
+        {
+          "value": "+47%",
+          "label": "基础设施",
+          "quote": "+47% 基础设施"
+        },
+        {
+          "value": "53%",
+          "label": "软件服务",
+          "quote": "53% 软件服务"
+        },
+        {
+          "value": "32%",
+          "label": "模型/安全",
+          "quote": "32% 模型/安全"
+        },
+        {
+          "value": "15%",
+          "label": "用户选择分布",
+          "quote": "15% 用户选择分布"
+        },
+        {
+          "value": "83.4%",
+          "label": "Claude",
+          "quote": "83.4% Claude"
+        },
+        {
+          "value": "6.1%",
+          "label": "Gemini",
+          "quote": "6.1% Gemini"
+        },
+        {
+          "value": "6.7%",
+          "label": "\"更多模型≠更多选择权，赢家依然是同一个\"",
+          "quote": "6.7% \"更多模型≠更多选择权，赢家依然是同一个\""
+        }
+      ]
+    },
+    {
+      "file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
+      "description": "深度分析霍尔木兹海峡地缘危机与全球能源供应链影响",
+      "highlights": [
+        "霍尔木兹海峡",
+        "能源危机",
+        "地缘政治",
+        "供应链"
+      ],
+      "agent": "研析+数析+察言",
+      "claims": [
+        {
+          "value": "~98天",
+          "label": "需求覆盖",
+          "quote": "~98天需求覆盖"
+        },
+        {
+          "value": "40%",
+          "label": "石脑油供应缺口",
+          "quote": "石脑油供应缺口 40%"
+        },
+        {
+          "value": "+50%",
+          "label": "尿素价格",
+          "quote": "尿素价格 +50%"
+        },
+        {
+          "value": "-99%",
+          "label": "LNG船舶通行",
+          "quote": "LNG船舶通行 -99%"
+        },
+        {
+          "value": "~27%",
+          "label": "国内自产",
+          "quote": "~27%（国内自产）"
+        },
+        {
+          "value": "~1.8亿",
+          "label": "吨/年（俄罗斯+美洲+非洲+中亚",
+          "quote": "~1.8亿吨/年（俄罗斯+美洲+非洲+中亚）"
+        },
+        {
+          "value": "20%",
+          "label": "远低于国际",
+          "quote": "远低于国际20%"
+        },
+        {
+          "value": "~45%",
+          "label": "恢复至",
+          "quote": "恢复至~45%"
+        },
+        {
+          "value": "+49.5%",
+          "label": "YoY",
+          "quote": "+49.5% YoY"
+        },
+        {
+          "value": "+0.8%",
+          "label": "分析师预测",
+          "quote": "+0.8%（分析师预测）"
+        },
+        {
+          "value": "~2030万桶",
+          "label": "EIA 2025Q1数据，含原油和凝析油",
+          "quote": "~2030万桶 EIA 2025Q1数据，含原油和凝析油"
+        },
+        {
+          "value": "~25%",
+          "label": "仅次于马六甲海峡的全球第二大石油咽喉",
+          "quote": "~25% 仅次于马六甲海峡的全球第二大石油咽喉"
+        },
+        {
+          "value": "~20%",
+          "label": "主要来自卡塔尔，全球最大LNG出口国之一",
+          "quote": "~20% 主要来自卡塔尔，全球最大LNG出口国之一"
+        },
+        {
+          "value": "84%",
+          "label": "中国（540万桶/日）、印度、日本、韩国为主",
+          "quote": "84% 中国（540万桶/日）、印度、日本、韩国为主"
+        },
+        {
+          "value": "~3000艘",
+          "label": "包含油轮、LNG船、散货船、集装箱船等",
+          "quote": "~3000艘 包含油轮、LNG船、散货船、集装箱船等"
+        },
+        {
+          "value": "~50%",
+          "label": "海湾地区，危机直接冲击全球农业",
+          "quote": "~50% 海湾地区，危机直接冲击全球农业"
+        },
+        {
+          "value": "-95%",
+          "label": "LNG船舶通行",
+          "quote": "-95% LNG船舶通行"
+        },
+        {
+          "value": "-99%",
+          "label": "当前恢复水平（9月）",
+          "quote": "-99% 当前恢复水平（9月）"
+        },
+        {
+          "value": "+107%",
+          "label": "布伦特当前",
+          "quote": "+107% 布伦特当前"
+        },
+        {
+          "value": "+50%",
+          "label": "集装箱运费",
+          "quote": "+50% 集装箱运费"
+        },
+        {
+          "value": "0.25%",
+          "label": "3-10%（峰值）",
+          "quote": "0.25% 3-10%（峰值）"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html",
+      "description": "交互式Agent能力对比器探索AI助手竞争格局",
+      "highlights": [
+        "AI Agent",
+        "Meta Muse",
+        "Gemini",
+        "Codex",
+        "三国杀"
+      ],
+      "agent": "创艺+绘界+数析",
+      "claims": [
+        {
+          "value": "125%",
+          "label": "YoY (400M→900M",
+          "quote": "↑ 125% YoY (400M→900M)"
+        },
+        {
+          "value": "567%",
+          "label": "YoY (480T→3.2Q",
+          "quote": "↑ 567% YoY (480T→3.2Q)"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html",
+      "description": "深度分析伊朗军事方针转进攻与中东多点冲突态势",
+      "highlights": [
+        "伊朗战争",
+        "中东火药桶",
+        "地缘冲突",
+        "多点引爆"
+      ],
+      "agent": "研析+察言+数析",
+      "claims": [
+        {
+          "value": "250亿美元",
+          "label": "↑ 价值",
+          "quote": "↑ 价值250亿美元"
+        },
+        {
+          "value": "7个",
+          "label": "中东国家基地遭袭",
+          "quote": "7个中东国家基地遭袭"
+        },
+        {
+          "value": "65天",
+          "label": "↑ 可延长至",
+          "quote": "↑ 可延长至65天"
+        },
+        {
+          "value": "25天",
+          "label": "海湾国家最大维持时间",
+          "quote": "25天 海湾国家最大维持时间"
+        },
+        {
+          "value": "1,415次",
+          "label": "军事设施、基础设施",
+          "quote": "1,415次 军事设施、基础设施"
+        },
+        {
+          "value": "2,819次",
+          "label": "美军基地、能源设施",
+          "quote": "2,819次 美军基地、能源设施"
+        },
+        {
+          "value": "332次",
+          "label": "阿里·萨利姆空军基地",
+          "quote": "332次 阿里·萨利姆空军基地"
+        },
+        {
+          "value": "706次",
+          "label": "美军第五舰队总部",
+          "quote": "706次 美军第五舰队总部"
+        },
+        {
+          "value": "86次",
+          "label": "美军基地、能源设施",
+          "quote": "86次 美军基地、能源设施"
+        },
+        {
+          "value": "1,600万桶",
+          "label": "日供应缺口",
+          "quote": "1,600万桶 日供应缺口"
+        },
+        {
+          "value": "3,384%",
+          "label": "战争保险费率",
+          "quote": "3,384% 战争保险费率"
+        },
+        {
+          "value": "3,000%",
+          "label": "集装箱运费（亚欧）",
+          "quote": "3,000% 集装箱运费（亚欧）"
+        },
+        {
+          "value": "73%",
+          "label": "波斯湾油轮运费",
+          "quote": "73% 波斯湾油轮运费"
+        },
+        {
+          "value": "1,088%",
+          "label": "全球金融市场避险情绪",
+          "quote": "1,088% 全球金融市场避险情绪"
+        },
+        {
+          "value": "6天",
+          "label": "伊拉克",
+          "quote": "6天 伊拉克"
+        },
+        {
+          "value": "14天",
+          "label": "科威特",
+          "quote": "14天 科威特"
+        },
+        {
+          "value": "36天",
+          "label": "沙特阿拉伯",
+          "quote": "36天 沙特阿拉伯"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html",
+      "description": "交互式AI行为模拟器探索智能体的自我保护策略",
+      "highlights": [
+        "AI安全",
+        "自我欺骗",
+        "威胁报告",
+        "行为模拟"
+      ],
+      "agent": "绘界+创艺",
+      "claims": []
+    },
+    {
+      "file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
+      "description": "深度分析三重冲击下的资产配置策略与通胀风暴影响",
+      "highlights": [
+        "能源危机",
+        "利率飙升",
+        "股市三杀",
+        "通胀风暴"
+      ],
+      "agent": "数析+量研+策士",
+      "claims": [
+        {
+          "value": "+80%",
+          "label": "年内涨幅",
+          "quote": "↑ +80% 年内涨幅"
+        },
+        {
+          "value": "10年",
+          "label": "期美债收益率",
+          "quote": "10年期美债收益率"
+        },
+        {
+          "value": "49%",
+          "label": "↑ 一周前仅",
+          "quote": "↑ 一周前仅49%"
+        },
+        {
+          "value": "1000万桶/日",
+          "label": "供应中断超",
+          "quote": "供应中断超1000万桶/日"
+        },
+        {
+          "value": "10年",
+          "label": "期美债",
+          "quote": "10年期美债"
+        },
+        {
+          "value": "30年",
+          "label": "期美债",
+          "quote": "30年期美债"
+        },
+        {
+          "value": "2年",
+          "label": "期美债",
+          "quote": "2年期美债"
+        },
+        {
+          "value": "30年",
+          "label": "期美债收益率",
+          "quote": "30年期美债收益率"
+        },
+        {
+          "value": "2年",
+          "label": "期美债收益率",
+          "quote": "2年期美债收益率"
+        },
+        {
+          "value": "5.3%",
+          "label": "↑ 高于预期",
+          "quote": "↑ 高于预期5.3%"
+        },
+        {
+          "value": "1000万桶/日",
+          "label": "供应中断",
+          "quote": "供应中断1000万桶/日"
+        },
+        {
+          "value": "5%",
+          "label": "收益率逼近",
+          "quote": "收益率逼近5%"
+        },
+        {
+          "value": "-2.7%",
+          "label": "进行中",
+          "quote": "-2.7%进行中"
+        },
+        {
+          "value": "-6%",
+          "label": "后反弹",
+          "quote": "-6%后反弹"
+        },
+        {
+          "value": "30%",
+          "label": "霍尔木兹海峡通行量降至战前",
+          "quote": "霍尔木兹海峡通行量降至战前30%"
+        },
+        {
+          "value": "1000万桶/日",
+          "label": "全球原油供应中断超",
+          "quote": "全球原油供应中断超1000万桶/日"
+        },
+        {
+          "value": "9500万桶",
+          "label": "全球石油库存单月去化",
+          "quote": "全球石油库存单月去化9500万桶"
+        },
+        {
+          "value": "71%",
+          "label": "美联储9月加息概率升至",
+          "quote": "美联储9月加息概率升至71%"
+        },
+        {
+          "value": "19%",
+          "label": "利息支出占财政收入",
+          "quote": "利息支出占财政收入19%"
+        },
+        {
+          "value": "4.95%",
+          "label": "↑ 逼近5%关口",
+          "quote": "4.95% ↑ 逼近5%关口"
+        },
+        {
+          "value": "71%",
+          "label": "↑ 一周前仅49%",
+          "quote": "71% ↑ 一周前仅49%"
+        },
+        {
+          "value": "4.95%",
+          "label": "↑ 本周+18bp",
+          "quote": "4.95% ↑ 本周+18bp"
+        },
+        {
+          "value": "5.35%",
+          "label": "↑ 19年新高",
+          "quote": "5.35% ↑ 19年新高"
+        },
+        {
+          "value": "4.59%",
+          "label": "↑ +14bp",
+          "quote": "4.59% ↑ +14bp"
+        },
+        {
+          "value": "3.3%",
+          "label": "高于2%目标",
+          "quote": "3.3% 高于2%目标"
+        },
+        {
+          "value": "5.4%",
+          "label": "↑ 高于预期5.3%",
+          "quote": "5.4% ↑ 高于预期5.3%"
+        },
+        {
+          "value": "-0.6%",
+          "label": "7月以来最低",
+          "quote": "-0.6% 7月以来最低"
+        },
+        {
+          "value": "-0.6%",
+          "label": "连跌4日",
+          "quote": "-0.6% 连跌4日"
+        },
+        {
+          "value": "-0.7%",
+          "label": "利率敏感承压",
+          "quote": "-0.7% 利率敏感承压"
+        },
+        {
+          "value": "-1.1%",
+          "label": "科技股领跌",
+          "quote": "-1.1% 科技股领跌"
+        },
+        {
+          "value": "-1.0%",
+          "label": "小盘股承压",
+          "quote": "-1.0% 小盘股承压"
+        },
+        {
+          "value": "-24%",
+          "label": "-2.7%进行中",
+          "quote": "-24% -2.7%进行中"
+        },
+        {
+          "value": "+40%",
+          "label": "+7-10%",
+          "quote": "+40% +7-10%"
+        },
+        {
+          "value": "+50%",
+          "label": "股债双杀",
+          "quote": "+50% 股债双杀"
+        },
+        {
+          "value": "+80%",
+          "label": "5月以来最高",
+          "quote": "+80% 5月以来最高"
+        },
+        {
+          "value": "+75%",
+          "label": "5月以来最高",
+          "quote": "+75% 5月以来最高"
+        },
+        {
+          "value": "4.95%",
+          "label": "+98bp",
+          "quote": "4.95% +98bp"
+        },
+        {
+          "value": "5.35%",
+          "label": "+85bp",
+          "quote": "5.35% +85bp"
+        },
+        {
+          "value": "+21%",
+          "label": "7月以来低位",
+          "quote": "+21% 7月以来低位"
+        },
+        {
+          "value": "-1.2%",
+          "label": "年内中位",
+          "quote": "-1.2% 年内中位"
+        },
+        {
+          "value": "+35%",
+          "label": "高位回调",
+          "quote": "+35% 高位回调"
+        },
+        {
+          "value": "+40%",
+          "label": "历史高位",
+          "quote": "+40% 历史高位"
+        },
+        {
+          "value": "+50%",
+          "label": "历史新高",
+          "quote": "+50% 历史新高"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html",
+      "description": "交互式社交网络模拟器探索AI社交的未来",
+      "highlights": [
+        "微信AI",
+        "社交网络",
+        "AI Agent",
+        "社交模拟"
+      ],
+      "agent": "创艺+绘界+策士"
+    },
+    {
+      "file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
+      "description": "深度分析Agent开发民主化趋势与生态影响",
+      "highlights": [
+        "OpenAI Agents API",
+        "Agent开发",
+        "开发民主化",
+        "生态影响"
+      ],
+      "agent": "研析+策士+数析",
+      "claims": [
+        {
+          "value": "51%",
+          "label": "Fortune 500 已部署",
+          "quote": "51% Fortune 500 已部署"
+        },
+        {
+          "value": "51%",
+          "label": "Fortune 500 生产采用",
+          "quote": "51% Fortune 500 生产采用"
+        },
+        {
+          "value": "88%",
+          "label": "Fortune 500 试点率",
+          "quote": "88% Fortune 500 试点率"
+        },
+        {
+          "value": "80%",
+          "label": "企业应用嵌入Agent",
+          "quote": "80% 企业应用嵌入Agent"
+        },
+        {
+          "value": "80%",
+          "label": "银行保险",
+          "quote": "80% 银行保险"
+        },
+        {
+          "value": "63%",
+          "label": "客户服务",
+          "quote": "63% 客户服务"
+        },
+        {
+          "value": "66%",
+          "label": "医疗健康",
+          "quote": "66% 医疗健康"
+        },
+        {
+          "value": "28%",
+          "label": "政府部门",
+          "quote": "28% 政府部门"
+        },
+        {
+          "value": "9倍",
+          "label": "企业收入占比",
+          "quote": "9倍 企业收入占比"
+        },
+        {
+          "value": "51%",
+          "label": "跨行业平均",
+          "quote": "51% 跨行业平均"
+        },
+        {
+          "value": "~35%",
+          "label": "LangChain生态",
+          "quote": "~35% LangChain生态"
+        },
+        {
+          "value": "~25%",
+          "label": "Anthropic生态",
+          "quote": "~25% Anthropic生态"
+        },
+        {
+          "value": "~15%",
+          "label": "Microsoft生态",
+          "quote": "~15% Microsoft生态"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
+      "description": "交互式知识产权归属模拟器探索AI时代的创造权争议",
+      "highlights": [
+        "AI数学证明",
+        "知识产权",
+        "抄袭门",
+        "归属争议"
+      ],
+      "agent": "创艺+绘界+策士",
+      "claims": [
+        {
+          "value": "10,000个",
+          "label": "AI代理",
+          "quote": "10,000个AI代理"
+        },
+        {
+          "value": "22%",
+          "label": "诉讼量激增",
+          "quote": "诉讼量激增22%"
+        },
+        {
+          "value": "32%",
+          "label": "IPC G06占比超",
+          "quote": "IPC G06占比超32%"
+        },
+        {
+          "value": "8.7%",
+          "label": "GenAI占比",
+          "quote": "8.7% GenAI占比"
+        },
+        {
+          "value": "12.3%",
+          "label": "AI专利诉讼增长",
+          "quote": "12.3% AI专利诉讼增长"
+        },
+        {
+          "value": "+22%",
+          "label": "2026年全球专利诉讼同比增长预计",
+          "quote": "+22% 2026年全球专利诉讼同比增长预计"
+        },
+        {
+          "value": "58%",
+          "label": "AI版权诉讼案数量",
+          "quote": "58% AI版权诉讼案数量"
+        },
+        {
+          "value": "60%",
+          "label": "AI输出",
+          "quote": "60% AI输出"
+        },
+        {
+          "value": "10%",
+          "label": "全球三大法域AI专利适格性对比",
+          "quote": "10% 全球三大法域AI专利适格性对比"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
+      "description": "深度分析伊朗四线交火态势与特朗普和平牌的可行性",
+      "highlights": [
+        "伊朗战争",
+        "四线交火",
+        "霍尔木兹海峡",
+        "油价危机"
+      ],
+      "agent": "研析+察言+数析",
+      "claims": [
+        {
+          "value": "5艘",
+          "label": "日均约",
+          "quote": "日均约5艘"
+        },
+        {
+          "value": "670万桶",
+          "label": "中东日减产",
+          "quote": "中东日减产670万桶"
+        },
+        {
+          "value": "+70%",
+          "label": "布伦特年内涨幅",
+          "quote": "+70% 布伦特年内涨幅"
+        },
+        {
+          "value": "+0.5%",
+          "label": "通胀推升（至2027）",
+          "quote": "+0.5% 通胀推升（至2027）"
+        },
+        {
+          "value": "5%",
+          "label": "全面和平协议，包含核问题、海峡、制裁解除",
+          "quote": "5% 全面和平协议，包含核问题、海峡、制裁解除"
+        },
+        {
+          "value": "10%",
+          "label": "交叉验证覆盖",
+          "quote": "10% 交叉验证覆盖"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html",
+      "description": "交互式商业模式对比器探索AI产品的未来竞争格局",
+      "highlights": [
+        "AI产品",
+        "Anthropic",
+        "OpenAI",
+        "商业模式"
+      ],
+      "agent": "创艺+绘界+策士"
+    },
+    {
+      "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
+      "description": "交互式探索AI安全与增长的博弈",
+      "highlights": [
+        "AI安全",
+        "黄仁勋",
+        "ElevenLabs",
+        "Anthropic"
+      ],
+      "agent": "创艺+绘界+数析",
+      "claims": [
+        {
+          "value": "116家",
+          "label": "公司联合呼吁安全",
+          "quote": "116家公司联合呼吁安全"
+        },
+        {
+          "value": "0%",
+          "label": "英伟达研发投入验证占比",
+          "quote": "0% 英伟达研发投入验证占比"
+        }
+      ]
+    },
+    {
+      "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
+      "description": "深度分析全球利率飙升的驱动因素及其对经济的影响",
+      "highlights": [
+        "美债",
+        "日债",
+        "加息",
+        "全球利率"
+      ],
+      "agent": "研析+数析+量研+策士",
+      "claims": [
+        {
+          "value": "+40.6%",
+          "label": "YoY",
+          "quote": "▲ +40.6% YoY"
+        },
+        {
+          "value": "1.25%",
+          "label": "日本央行加息至",
+          "quote": "日本央行加息至1.25%"
+        },
+        {
+          "value": "1.8%",
+          "label": "实际利率（名义利率减去通胀预期）已升至约",
+          "quote": "实际利率（名义利率减去通胀预期）已升至约1.8%"
+        },
+        {
+          "value": "3.4%",
+          "label": "PCE",
+          "quote": "3.4% (PCE)"
+        },
+        {
+          "value": "1次",
+          "label": "BNP预期年内再加息",
+          "quote": "BNP预期年内再加息1次"
+        },
+        {
+          "value": "2%",
+          "label": "预计下半年超",
+          "quote": "预计下半年超2%"
+        },
+        {
+          "value": "5.23%",
+          "label": "▲ +109bp YoY",
+          "quote": "5.23% ▲ +109bp YoY"
+        },
+        {
+          "value": "3.10%",
+          "label": "▲ +145bp YoY",
+          "quote": "3.10% ▲ +145bp YoY"
+        },
+        {
+          "value": "5.25%",
+          "label": "▲ 2008年以来最高",
+          "quote": "5.25% ▲ 2008年以来最高"
+        },
+        {
+          "value": "3.35%",
+          "label": "▲ 2011年以来最高",
+          "quote": "3.35% ▲ 2011年以来最高"
+        },
+        {
+          "value": "4.00%",
+          "label": "2026年9月FOMC加息25bp至3.75%-4.00",
+          "quote": "4.00% 2026年9月FOMC加息25bp至3.75%-4.00"
+        },
+        {
+          "value": "1.25%",
+          "label": "2026年9月18日BOJ加息25bp至1.25%，为1",
+          "quote": "1.25% 2026年9月18日BOJ加息25bp至1.25%，为1"
+        },
+        {
+          "value": "4.79%",
+          "label": "9月9日",
+          "quote": "4.79% 9月9日"
+        },
+        {
+          "value": "4.83%",
+          "label": "9月16日",
+          "quote": "4.83% 9月16日"
+        },
+        {
+          "value": "5.01%",
+          "label": "9月23日",
+          "quote": "5.01% 9月23日"
+        },
+        {
+          "value": "5.11%",
+          "label": "9月24日",
+          "quote": "5.11% 9月24日"
+        },
+        {
+          "value": "5.18%",
+          "label": "9月28日",
+          "quote": "5.18% 9月28日"
+        },
+        {
+          "value": "1.25%",
+          "label": "加息25bp ✅",
+          "quote": "1.25% 加息25bp ✅"
+        },
+        {
+          "value": "10亿桶",
+          "label": "Vitol CEO估计美伊战争已造成10亿桶原油产量损失",
+          "quote": "10亿桶 Vitol CEO估计美伊战争已造成10亿桶原油产量损失"
+        },
+        {
+          "value": "4.14%",
+          "label": "+109bp YoY",
+          "quote": "4.14% +109bp YoY"
+        },
+        {
+          "value": "1.65%",
+          "label": "+145bp YoY",
+          "quote": "1.65% +145bp YoY"
+        },
+        {
+          "value": "5.25%",
+          "label": "2008年以来最高",
+          "quote": "5.25% 2008年以来最高"
+        },
+        {
+          "value": "3.35%",
+          "label": "2011年以来最高",
+          "quote": "3.35% 2011年以来最高"
+        },
+        {
+          "value": "2.6%",
+          "label": "+80bp YoY",
+          "quote": "2.6% +80bp YoY"
+        },
+        {
+          "value": "3.6%",
+          "label": "Fed 2029年才达标",
+          "quote": "3.6% Fed 2029年才达标"
+        },
+        {
+          "value": "1.90%",
+          "label": "预计下半年超2%",
+          "quote": "1.90% 预计下半年超2%"
+        },
+        {
+          "value": "+12.38%",
+          "label": "单月两位数涨幅",
+          "quote": "+12.38% 单月两位数涨幅"
+        },
+        {
+          "value": "6.78%",
+          "label": "2023年以来新高",
+          "quote": "6.78% 2023年以来新高"
+        },
+        {
+          "value": "1.5%",
+          "label": "低于通胀",
+          "quote": "1.5% 低于通胀"
+        },
+        {
+          "value": "60%",
+          "label": "AI资本支出洪流、全球国防扩张、财政赤字固化、央行信誉重",
+          "quote": "60% AI资本支出洪流、全球国防扩张、财政赤字固化、央行信誉重"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
+      "description": "交互式探索中国AI企业估值飙升",
+      "highlights": [
+        "中国AI",
+        "DeepSeek",
+        "美团",
+        "DensityAI"
+      ],
+      "agent": "创艺+绘界+数析+察言",
+      "claims": [
+        {
+          "value": "1.6万亿",
+          "label": "人民币",
+          "quote": "1.6万亿人民币"
+        },
+        {
+          "value": "5000亿",
+          "label": "投前¥",
+          "quote": "投前¥5000亿"
+        },
+        {
+          "value": "15倍",
+          "label": "DeepSeek",
+          "quote": "15倍 DeepSeek"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
+      "description": "深度分析AI Agent平台竞争格局",
+      "highlights": [
+        "AI Agent",
+        "OpenAI",
+        "Anthropic",
+        "Google"
+      ],
+      "agent": "研析+策士+数析",
+      "claims": [
+        {
+          "value": "50%",
+          "label": "首次跌破",
+          "quote": "首次跌破50%"
+        },
+        {
+          "value": "11亿",
+          "label": "MAU",
+          "quote": "11亿MAU"
+        },
+        {
+          "value": "6.6亿",
+          "label": "MAU",
+          "quote": "6.6亿MAU"
+        },
+        {
+          "value": "2.45亿",
+          "label": "MAU",
+          "quote": "2.45亿MAU"
+        },
+        {
+          "value": "1400%",
+          "label": "YoY",
+          "quote": "1400% YoY"
+        },
+        {
+          "value": "100%",
+          "label": "+ YoY",
+          "quote": "100%+ YoY"
+        },
+        {
+          "value": "30%",
+          "label": "+ YoY",
+          "quote": "30%+ YoY"
+        },
+        {
+          "value": "30亿",
+          "label": "+企业用户",
+          "quote": "30亿+企业用户"
+        },
+        {
+          "value": "25%",
+          "label": "占收入约",
+          "quote": "占收入约25%"
+        },
+        {
+          "value": "93.9%",
+          "label": "SWE-bench",
+          "quote": "SWE-bench 93.9%"
+        },
+        {
+          "value": "17%",
+          "label": "DAU看到广告",
+          "quote": "17% DAU看到广告"
+        },
+        {
+          "value": "50%",
+          "label": "ChatGPT 市占率首次跌破",
+          "quote": "ChatGPT 市占率首次跌破50%"
+        },
+        {
+          "value": "46.4%",
+          "label": "ChatGPT 全球市场份额",
+          "quote": "46.4% ChatGPT 全球市场份额"
+        },
+        {
+          "value": "40%",
+          "label": "Anthropic 企业 LLM API 支出占比",
+          "quote": "40% Anthropic 企业 LLM API 支出占比"
+        },
+        {
+          "value": "46.4%",
+          "label": "11亿MAU",
+          "quote": "46.4% 11亿MAU"
+        },
+        {
+          "value": "27.7%",
+          "label": "6.6亿MAU",
+          "quote": "27.7% 6.6亿MAU"
+        },
+        {
+          "value": "10.3%",
+          "label": "2.45亿MAU",
+          "quote": "10.3% 2.45亿MAU"
+        },
+        {
+          "value": "15.6%",
+          "label": "Grok/Perplexity/…",
+          "quote": "15.6% Grok/Perplexity/…"
+        },
+        {
+          "value": "40%",
+          "label": "↑从12%",
+          "quote": "40% ↑从12%"
+        },
+        {
+          "value": "27%",
+          "label": "↓从50%",
+          "quote": "27% ↓从50%"
+        },
+        {
+          "value": "21%",
+          "label": "↑从7%",
+          "quote": "21% ↑从7%"
+        },
+        {
+          "value": "80%",
+          "label": "Anthropic 企业收入占比",
+          "quote": "80% Anthropic 企业收入占比"
+        },
+        {
+          "value": "54%",
+          "label": "Claude 企业编程市场份额",
+          "quote": "54% Claude 企业编程市场份额"
+        },
+        {
+          "value": "67%",
+          "label": "Fortune 500 企业",
+          "quote": "67% Fortune 500 企业"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+      "description": "交互式探索具身智能机器人进化",
+      "highlights": [
+        "具身智能",
+        "机器人",
+        "物理世界",
+        "AI"
+      ],
+      "agent": "创艺+绘界+码匠",
+      "claims": [
+        {
+          "value": "99%",
+          "label": "企业为\"旁观者\"",
+          "quote": "99%企业为\"旁观者\""
+        },
+        {
+          "value": "99%",
+          "label": "🧠 数据缺口超过",
+          "quote": "🧠 数据缺口超过99%"
+        },
+        {
+          "value": "90%",
+          "label": "🇺🇸 美国",
+          "quote": "90% 🇺🇸 美国"
+        },
+        {
+          "value": "7%",
+          "label": "🇪🇺 欧洲",
+          "quote": "7% 🇪🇺 欧洲"
+        },
+        {
+          "value": "2%",
+          "label": "🌏 其他",
+          "quote": "2% 🌏 其他"
+        },
+        {
+          "value": "72%",
+          "label": "灵巧操作（抓取/装配）",
+          "quote": "72% 灵巧操作（抓取/装配）"
+        },
+        {
+          "value": "58%",
+          "label": "环境感知（视觉/理解）",
+          "quote": "58% 环境感知（视觉/理解）"
+        },
+        {
+          "value": "75%",
+          "label": "自主决策（规划/推理）",
+          "quote": "75% 自主决策（规划/推理）"
+        },
+        {
+          "value": "62%",
+          "label": "续航能力（电池/能效）",
+          "quote": "62% 续航能力（电池/能效）"
+        },
+        {
+          "value": "45%",
+          "label": "🔋 续航是最大短板",
+          "quote": "45% 🔋 续航是最大短板"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-03/research/2026-10-03-ai-data-famine.html",
+      "description": "深度分析AI数据瓶颈与合成数据技术",
+      "highlights": [
+        "AI数据",
+        "合成数据",
+        "互联网数据",
+        "数据饥荒"
+      ],
+      "agent": "研析+量研+数析",
+      "claims": [
+        {
+          "value": "80%",
+          "label": "置信区间",
+          "quote": "80%置信区间"
+        },
+        {
+          "value": "300万亿",
+          "label": "token的倒计时",
+          "quote": "300万亿token的倒计时"
+        },
+        {
+          "value": "300万亿",
+          "label": "token",
+          "quote": "300万亿token"
+        },
+        {
+          "value": "~300万亿",
+          "label": "token",
+          "quote": "~300万亿token"
+        },
+        {
+          "value": "5倍",
+          "label": "过度训练下枯竭",
+          "quote": "5倍过度训练下枯竭"
+        },
+        {
+          "value": "300万亿",
+          "label": "全球高质量公开文本",
+          "quote": "300万亿 全球高质量公开文本"
+        },
+        {
+          "value": "34.5%",
+          "label": "合成数据市场",
+          "quote": "34.5% 合成数据市场"
+        },
+        {
+          "value": "26%",
+          "label": "Google 被封锁",
+          "quote": "26% Google 被封锁"
+        },
+        {
+          "value": "10%",
+          "label": "Meta 被封锁",
+          "quote": "10% Meta 被封锁"
+        },
+        {
+          "value": "4%",
+          "label": "C4高质量源封锁",
+          "quote": "4% C4高质量源封锁"
+        },
+        {
+          "value": "53%",
+          "label": "OpenAI占AI",
+          "quote": "53% OpenAI占AI"
+        },
+        {
+          "value": "74.2%",
+          "label": "2025年新网页含",
+          "quote": "74.2% 2025年新网页含"
+        },
+        {
+          "value": "0%",
+          "label": "12.4",
+          "quote": "0% 12.4"
+        },
+        {
+          "value": "94%",
+          "label": "第2代",
+          "quote": "94% 第2代"
+        },
+        {
+          "value": "50%",
+          "label": "11.8",
+          "quote": "50% 11.8"
+        },
+        {
+          "value": "91%",
+          "label": "第5代",
+          "quote": "91% 第5代"
+        },
+        {
+          "value": "90%",
+          "label": "15.2",
+          "quote": "90% 15.2"
+        },
+        {
+          "value": "78%",
+          "label": "第10代",
+          "quote": "78% 第10代"
+        },
+        {
+          "value": "100%",
+          "label": "28.9",
+          "quote": "100% 28.9"
+        },
+        {
+          "value": "42%",
+          "label": "关键区分在于：",
+          "quote": "42% 关键区分在于："
+        },
+        {
+          "value": "~2060年",
+          "label": "Epoch AI",
+          "quote": "~2060年 Epoch AI"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+      "description": "交互式探索AI就业替代与转型路径",
+      "highlights": [
+        "AI就业",
+        "白领工作",
+        "职业转型",
+        "技能缺口"
+      ],
+      "agent": "创艺+绘界+码匠",
+      "claims": [
+        {
+          "value": "14 个",
+          "label": "典型职业",
+          "quote": "14 个典型职业"
+        },
+        {
+          "value": "18 个",
+          "label": "百分点的差距",
+          "quote": "18 个百分点的差距"
+        },
+        {
+          "value": "110 个",
+          "label": "新职业",
+          "quote": "110 个新职业"
+        },
+        {
+          "value": "12 个",
+          "label": "拟新增国家职业",
+          "quote": "12 个拟新增国家职业"
+        },
+        {
+          "value": "+1522.73%",
+          "label": "岗位量",
+          "quote": "岗位量 +1522.73%"
+        },
+        {
+          "value": "+120.54%",
+          "label": "岗位量",
+          "quote": "岗位量 +120.54%"
+        },
+        {
+          "value": "+30.3%",
+          "label": "岗位量",
+          "quote": "岗位量 +30.3%"
+        },
+        {
+          "value": "47.3%",
+          "label": "新发校招 AI 岗位量同比增长",
+          "quote": "新发校招 AI 岗位量同比增长 47.3%"
+        },
+        {
+          "value": "88%",
+          "label": "需求增速",
+          "quote": "88% 需求增速"
+        },
+        {
+          "value": "-42%",
+          "label": "薪资趋势",
+          "quote": "-42% 薪资趋势"
+        },
+        {
+          "value": "-15%",
+          "label": "职业安全感",
+          "quote": "-15% 职业安全感"
+        },
+        {
+          "value": "31%",
+          "label": "需求增速",
+          "quote": "31% 需求增速"
+        },
+        {
+          "value": "+789%",
+          "label": "薪资趋势",
+          "quote": "+789% 薪资趋势"
+        },
+        {
+          "value": "+56%",
+          "label": "职业安全感",
+          "quote": "+56% 职业安全感"
+        },
+        {
+          "value": "-20%",
+          "label": "初级软件工程师就业率",
+          "quote": "-20% 初级软件工程师就业率"
+        },
+        {
+          "value": "-80%",
+          "label": "入门级岗位季度降幅",
+          "quote": "-80% 入门级岗位季度降幅"
+        },
+        {
+          "value": "+47.3%",
+          "label": "新发校招 AI 岗位同比",
+          "quote": "+47.3% 新发校招 AI 岗位同比"
+        },
+        {
+          "value": "87.7%",
+          "label": "给 Z 世代的建议：",
+          "quote": "87.7% 给 Z 世代的建议："
+        },
+        {
+          "value": "67.8%",
+          "label": "岗位要求 AI 协同能力",
+          "quote": "67.8% 岗位要求 AI 协同能力"
+        },
+        {
+          "value": "+34.2%",
+          "label": "AI 技能薪资溢价",
+          "quote": "+34.2% AI 技能薪资溢价"
+        },
+        {
+          "value": "26.6%",
+          "label": "岗位落入替代压力区",
+          "quote": "26.6% 岗位落入替代压力区"
+        },
+        {
+          "value": "+789%",
+          "label": "AI 岗位量同比增速",
+          "quote": "+789% AI 岗位量同比增速"
+        },
+        {
+          "value": "34.2%",
+          "label": "给千禧一代的建议：",
+          "quote": "34.2% 给千禧一代的建议："
+        },
+        {
+          "value": "5.1%",
+          "label": "高替代风险岗位占比",
+          "quote": "5.1% 高替代风险岗位占比"
+        },
+        {
+          "value": "60.4%",
+          "label": "存在非技术性障碍",
+          "quote": "60.4% 存在非技术性障碍"
+        },
+        {
+          "value": "+56%",
+          "label": "AI 技能从业者薪资溢价",
+          "quote": "+56% AI 技能从业者薪资溢价"
+        },
+        {
+          "value": "~1000 元",
+          "label": "AI 数据采集岗月均收入",
+          "quote": "~1000 元 AI 数据采集岗月均收入"
+        },
+        {
+          "value": "30%",
+          "label": "职业在训练数据中「隐形」",
+          "quote": "30% 职业在训练数据中「隐形」"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
+      "description": "深度分析AI数据中心碳排放与绿色AI技术",
+      "highlights": [
+        "AI碳足迹",
+        "数据中心",
+        "绿色AI",
+        "碳排放"
+      ],
+      "agent": "研析+数析+策士",
+      "claims": [
+        {
+          "value": "14.4%",
+          "label": "低于全国均值",
+          "quote": "低于全国均值14.4%"
+        },
+        {
+          "value": "2.86亿",
+          "label": "吨CO₂",
+          "quote": "2.86亿 吨CO₂"
+        },
+        {
+          "value": "100%",
+          "label": "TI 300mm制造",
+          "quote": "100% TI 300mm制造"
+        },
+        {
+          "value": "89.4%",
+          "label": "中国电信庆阳",
+          "quote": "89.4% 中国电信庆阳"
+        },
+        {
+          "value": "88%",
+          "label": "中国移动呼和浩",
+          "quote": "88% 中国移动呼和浩"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
+      "description": "交互式探索数字孪生应用场景与虚实融合",
+      "highlights": [
+        "数字孪生",
+        "虚实融合",
+        "城市孪生",
+        "工业孪生"
+      ],
+      "agent": "创艺+绘界+码匠",
+      "claims": [
+        {
+          "value": "31%",
+          "label": "云部署为最快增长引擎 · CAGR",
+          "quote": "云部署为最快增长引擎 · CAGR 31%"
+        },
+        {
+          "value": "63%",
+          "label": "本地部署主导",
+          "quote": "63% 本地部署主导"
+        },
+        {
+          "value": "40.9%",
+          "label": "System Twin 份额第一",
+          "quote": "40.9% System Twin 份额第一"
+        },
+        {
+          "value": "25%",
+          "label": "⚡ 能源电力与网络基础设施",
+          "quote": "25% ⚡ 能源电力与网络基础设施"
+        },
+        {
+          "value": "15%",
+          "label": "🏙️ 城市规划与建筑 BIM",
+          "quote": "15% 🏙️ 城市规划与建筑 BIM"
+        },
+        {
+          "value": "14%",
+          "label": "🩺 医疗健康与人体孪生",
+          "quote": "14% 🩺 医疗健康与人体孪生"
+        },
+        {
+          "value": "11%",
+          "label": "🚗 汽车与交通研发",
+          "quote": "11% 🚗 汽车与交通研发"
+        },
+        {
+          "value": "10%",
+          "label": "✈️ 航空航天与国防",
+          "quote": "10% ✈️ 航空航天与国防"
+        },
+        {
+          "value": "8%",
+          "label": "🌍 气候地球与其他长尾场景",
+          "quote": "8% 🌍 气候地球与其他长尾场景"
+        },
+        {
+          "value": "17%",
+          "label": "🌍 地缘维度：",
+          "quote": "17% 🌍 地缘维度："
+        }
+      ]
+    },
+    {
+      "file": "2026-10-08/research/2026-10-08-ai-open-source-war.html",
+      "description": "深度分析开源与闭源模型的技术路线与商业模式",
+      "highlights": [
+        "开源模型",
+        "闭源模型",
+        "LLaMA",
+        "GPT"
+      ],
+      "agent": "研析+量研+数析",
+      "claims": [
+        {
+          "value": "3.2%",
+          "label": "SWE-bench Verified 头对头约 8 分",
+          "quote": "3.2%（SWE-bench Verified 头对头约 8 分）"
+        },
+        {
+          "value": "81.7%",
+          "label": "笔记本可跑",
+          "quote": "81.7%（笔记本可跑）"
+        },
+        {
+          "value": "46%",
+          "label": "不信任 AI 输出准确性",
+          "quote": "46% 不信任 AI 输出准确性"
+        },
+        {
+          "value": "5 亿",
+          "label": "token/日（工业规模",
+          "quote": "5 亿 token/日（工业规模）"
+        },
+        {
+          "value": "33%",
+          "label": "开放权重模型在 OpenRouter 的 Token 流",
+          "quote": "33% 开放权重模型在 OpenRouter 的 Token 流"
+        },
+        {
+          "value": "41%",
+          "label": "中国开源模型占 Hugging Face 全球下载量比例",
+          "quote": "41% 中国开源模型占 Hugging Face 全球下载量比例"
+        },
+        {
+          "value": "4.1%",
+          "label": "aimodelbenchmarks（2026.2）",
+          "quote": "4.1% aimodelbenchmarks（2026.2）"
+        },
+        {
+          "value": "5.8%",
+          "label": "aimodelbenchmarks（2026.2）",
+          "quote": "5.8% aimodelbenchmarks（2026.2）"
+        },
+        {
+          "value": "88.6%",
+          "label": "约 94%",
+          "quote": "88.6% 约 94%"
+        },
+        {
+          "value": "80%",
+          "label": "硅谷开源技术栈 AI 初创中使用中国模型的比例（a16z",
+          "quote": "80% 硅谷开源技术栈 AI 初创中使用中国模型的比例（a16z"
+        },
+        {
+          "value": "4.7 个",
+          "label": "企业平均同时使用的模型数（2025Q1 为 2.1），多",
+          "quote": "4.7 个 企业平均同时使用的模型数（2025Q1 为 2.1），多"
+        },
+        {
+          "value": "82万亿",
+          "label": "中国开源模型月 Token 消耗量（OpenRouter",
+          "quote": "82万亿 中国开源模型月 Token 消耗量（OpenRouter"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
+      "description": "交互式\"AI的一天\"时间线体验人机共生生活",
+      "highlights": [
+        "AI日常",
+        "人机共生",
+        "智能家居",
+        "AI助手"
+      ],
+      "agent": "创艺+绘界+码匠",
+      "claims": [
+        {
+          "value": "2501.4 亿",
+          "label": "元的投票",
+          "quote": "2501.4 亿元的投票"
+        },
+        {
+          "value": "94.2%",
+          "label": "健康管理",
+          "quote": "94.2% 健康管理"
+        },
+        {
+          "value": "49.5%",
+          "label": "出行与旅游",
+          "quote": "49.5% 出行与旅游"
+        },
+        {
+          "value": "47.5%",
+          "label": "情绪陪伴",
+          "quote": "47.5% 情绪陪伴"
+        },
+        {
+          "value": "32%",
+          "label": "娱乐休闲",
+          "quote": "32% 娱乐休闲"
+        },
+        {
+          "value": "31%",
+          "label": "社交沟通",
+          "quote": "31% 社交沟通"
+        },
+        {
+          "value": "30%",
+          "label": "人们用 AI 做什么",
+          "quote": "30% 人们用 AI 做什么"
+        },
+        {
+          "value": "32.5%",
+          "label": "生成式 AI 用户规模（半年度）",
+          "quote": "32.5% 生成式 AI 用户规模（半年度）"
+        },
+        {
+          "value": "16.5%",
+          "label": "\"领导预期变高了\"",
+          "quote": "16.5% \"领导预期变高了\""
+        },
+        {
+          "value": "-34%",
+          "label": "重复文书",
+          "quote": "-34% 重复文书"
+        },
+        {
+          "value": "-41%",
+          "label": "决策与判断",
+          "quote": "-41% 决策与判断"
+        },
+        {
+          "value": "+28%",
+          "label": "核验与复核",
+          "quote": "+28% 核验与复核"
+        },
+        {
+          "value": "+32%",
+          "label": "省下的时间并未凭空消失——它从\"执行\"转移到了\"判断与核",
+          "quote": "+32% 省下的时间并未凭空消失——它从\"执行\"转移到了\"判断与核"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
+      "description": "深度分析AI数据中心电力需求与核能解决方案",
+      "highlights": [
+        "AI能耗",
+        "数据中心",
+        "核能",
+        "电力危机"
+      ],
+      "agent": "研析+数析+量研",
+      "claims": [
+        {
+          "value": "+25%",
+          "label": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据",
+          "quote": "+25% 微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
+      "description": "交互式探索智能体越权事件与安全治理路径",
+      "highlights": [
+        "智能体安全",
+        "越权治理",
+        "AI监管",
+        "伦理"
+      ],
+      "agent": "创艺+绘界+数析",
+      "claims": [
+        {
+          "value": "84 天",
+          "label": "选题 /",
+          "quote": "84 天 选题 /"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
+      "description": "深度分析私人信贷涌入AI基建的逻辑与系统性风险",
+      "highlights": [
+        "私人信贷",
+        "AI基建",
+        "博通",
+        "Anthropic"
+      ],
+      "agent": "研析+量研+数析",
+      "claims": [
+        {
+          "value": "+5%",
+          "label": "能源分项环比约",
+          "quote": "能源分项环比约+5%"
+        },
+        {
+          "value": "2000亿",
+          "label": "+美元",
+          "quote": "2000亿+美元"
+        },
+        {
+          "value": "3.4%",
+          "label": "3.6%–3.7%",
+          "quote": "3.4% 3.6%–3.7%"
+        },
+        {
+          "value": "0.4%",
+          "label": "0.5%–0.62%",
+          "quote": "0.4% 0.5%–0.62%"
+        },
+        {
+          "value": "0.24%",
+          "label": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）",
+          "quote": "0.24% 8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
+        },
+        {
+          "value": "2.4%",
+          "label": "2.4%–2.5%",
+          "quote": "2.4% 2.4%–2.5%"
+        },
+        {
+          "value": "≈1500亿美元",
+          "label": "博通500亿+/SpaceX 400亿/Anthropi",
+          "quote": "≈1500亿美元 博通500亿+/SpaceX 400亿/Anthropi"
+        },
+        {
+          "value": "≈300亿美元",
+          "label": "Anthropic 600亿交易中，随租赁付款递减",
+          "quote": "≈300亿美元 Anthropic 600亿交易中，随租赁付款递减"
+        },
+        {
+          "value": "55%",
+          "label": "CPI符合预期、12月最后一次加息、2027年利率见顶回",
+          "quote": "55% CPI符合预期、12月最后一次加息、2027年利率见顶回"
+        },
+        {
+          "value": "35%",
+          "label": "个别项目（高杠杆neocloud、客户集中度过高的数据中",
+          "quote": "35% 个别项目（高杠杆neocloud、客户集中度过高的数据中"
+        },
+        {
+          "value": "10%",
+          "label": "热CPI+AI收入证伪+再融资窗口关闭三者叠加，2027",
+          "quote": "10% 热CPI+AI收入证伪+再融资窗口关闭三者叠加，2027"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
+      "description": "交互式「1美元购买力」模拟器：Token价格战时间线与闭源/开源性价比对比",
+      "highlights": [
+        "Token价格战",
+        "AI普惠化",
+        "开源模型",
+        "成本下降"
+      ],
+      "agent": "创艺+绘界+码匠",
+      "claims": [
+        {
+          "value": "1美元",
+          "label": "能买到",
+          "quote": "1美元，能买到"
+        },
+        {
+          "value": "3.57亿",
+          "label": "Token",
+          "quote": "3.57亿 Token"
+        },
+        {
+          "value": "1美元",
+          "label": "买到的输入 Token",
+          "quote": "1美元买到的输入 Token"
+        },
+        {
+          "value": "1美元",
+          "label": "买到的 Token",
+          "quote": "1美元买到的 Token"
+        },
+        {
+          "value": "1 美元",
+          "label": "Token",
+          "quote": "Token / 1 美元"
+        },
+        {
+          "value": "1美元",
+          "label": "可买 Token（混合费率",
+          "quote": "1美元可买 Token（混合费率）"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
+      "description": "存储芯片供需失衡深度分析：三星利润+782%、苹果砍单iPhone 18 Pro、AI服务器HBM挤占产能的产业链传导",
+      "highlights": [
+        "存储涨价",
+        "三星",
+        "苹果",
+        "HBM",
+        "AI服务器",
+        "产业链"
+      ],
+      "agent": "研析+数析+量研",
+      "claims": [
+        {
+          "value": "80%",
+          "label": "手机内存价格 2026Q2 环比涨超",
+          "quote": "手机内存价格 2026Q2 环比涨超 80%"
+        },
+        {
+          "value": "10%",
+          "label": "全系涨价 ≥",
+          "quote": "全系涨价 ≥10%"
+        },
+        {
+          "value": "99.7%",
+          "label": "Q2 半导体贡献全公司利润",
+          "quote": "Q2 半导体贡献全公司利润 99.7%"
+        },
+        {
+          "value": "+782.5%",
+          "label": "三星电子 2026Q3 营业利润同比增速（107.4 万",
+          "quote": "+782.5% 三星电子 2026Q3 营业利润同比增速（107.4 万"
+        },
+        {
+          "value": "34%",
+          "label": "存储芯片在 iPhone 18 Pro 物料成本中的占比",
+          "quote": "34% 存储芯片在 iPhone 18 Pro 物料成本中的占比"
+        },
+        {
+          "value": "+40%",
+          "label": "2025Q4 DRAM 合约价",
+          "quote": "+40% 2025Q4 DRAM 合约价"
+        },
+        {
+          "value": "+782.5%",
+          "label": "环比增速",
+          "quote": "+782.5% 环比增速"
+        },
+        {
+          "value": "+89%",
+          "label": "③ BOM 结构改写",
+          "quote": "+89% ③ BOM 结构改写"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
+      "title": "129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权",
+      "description": "FDA生成式AI医疗器械公开评议仅129条评论、零机构提交，少数企业在10-19窗口内实质定义能力评估与agentic AI条款默认标准",
+      "highlights": [
+        "FDA",
+        "AI医疗器械",
+        "监管窗口",
+        "agentic AI",
+        "合规"
+      ],
+      "agent": "研析+察言+策士",
+      "claims": [
+        {
+          "value": "129 条",
+          "label": "评论的窗口 — FDA 生成式 AI 医疗器械评议与 a",
+          "quote": "129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权"
+        },
+        {
+          "value": "26 个",
+          "label": "问题的受关注度分布",
+          "quote": "26 个问题的受关注度分布"
+        },
+        {
+          "value": "9 个",
+          "label": "可接受/可拒绝命题上的立场分布",
+          "quote": "9 个可接受/可拒绝命题上的立场分布"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
+      "description": "冰火对撞交互仪表盘：A股年内新低日466只涨/5060只跌 vs AI漫剧5连板抱团，指数的跌是平均数的跌，题材的涨是选矿的涨",
+      "highlights": [
+        "A股",
+        "冰火分化",
+        "AI漫剧",
+        "资金抱团",
+        "数据可视化"
+      ],
+      "agent": "绘界+码匠",
+      "type": "creative",
+      "claims": [
+        {
+          "value": "+47%",
+          "label": "单季持股市值增幅居首",
+          "quote": "+47% 单季持股市值增幅居首"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
+      "description": "交互式政策剪刀差：国常会人工智能+全面铺开 vs 40项技术出口管制（禁14限26、含23项关键AI技术）同日落地，一把剪刀剪出中国AI产业形状",
+      "highlights": [
+        "人工智能+",
+        "出口管制",
+        "40项技术",
+        "剪刀差",
+        "产业政策",
+        "地缘博弈"
+      ],
+      "agent": "创艺+绘界+码匠+数析",
+      "type": "creative",
+      "claims": [
+        {
+          "value": "60 个",
+          "label": "任务链 ≥20 步 · 智能体 ≥",
+          "quote": "任务链 ≥20 步 · 智能体 ≥60 个"
+        },
+        {
+          "value": "18%",
+          "label": "单结组件面积 ≥1㎡ 且效率 ≥",
+          "quote": "单结组件面积 ≥1㎡ 且效率 ≥18%"
+        },
+        {
+          "value": "95%",
+          "label": "检测准确率和召回率 ≥",
+          "quote": "检测准确率和召回率 ≥95%"
+        },
+        {
+          "value": "98%",
+          "label": "准确率和召回率 ≥",
+          "quote": "准确率和召回率 ≥98%"
+        },
+        {
+          "value": "99.1%",
+          "label": "真正例率（TPR）≥",
+          "quote": "真正例率（TPR）≥99.1%"
+        },
+        {
+          "value": "98%",
+          "label": "整体检测率 ≥",
+          "quote": "整体检测率 ≥98%"
+        },
+        {
+          "value": "60 个",
+          "label": "并发协作智能体 ≥",
+          "quote": "并发协作智能体 ≥60 个"
+        },
+        {
+          "value": "200 个",
+          "label": "第三方工具数量 ≥",
+          "quote": "第三方工具数量 ≥200 个"
+        },
+        {
+          "value": "98%",
+          "label": "线性扩展度 ≥",
+          "quote": "线性扩展度 ≥98%"
+        },
+        {
+          "value": "90%",
+          "label": "通信隐藏率 ≥",
+          "quote": "通信隐藏率 ≥90%"
+        },
+        {
+          "value": "30%",
+          "label": "效率 ≥",
+          "quote": "效率 ≥30%"
+        },
+        {
+          "value": "18%",
+          "label": "效率 ≥",
+          "quote": "效率 ≥18%"
+        },
+        {
+          "value": "28%",
+          "label": "效率 ≥",
+          "quote": "效率 ≥28%"
+        },
+        {
+          "value": "50%",
+          "label": "铟含量 ≤",
+          "quote": "铟含量 ≤50%"
+        },
+        {
+          "value": "20.5%",
+          "label": "AM0 最高效率 ≥",
+          "quote": "AM0 最高效率 ≥20.5%"
+        },
+        {
+          "value": "0.1%",
+          "label": "重要数据 ≤",
+          "quote": "重要数据 ≤0.1%"
+        },
+        {
+          "value": "26.6%",
+          "label": "新建组件：",
+          "quote": "26.6% 新建组件："
+        },
+        {
+          "value": "46%",
+          "label": "左侧被铺开，右侧被登记",
+          "quote": "46% 左侧被铺开，右侧被登记"
+        },
+        {
+          "value": "1.2 万亿",
+          "label": "红线：2 万亿",
+          "quote": "1.2 万亿 红线：2 万亿"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+      "description": "Anthropic内部数据：技术部门初级员工占比从21%降至14%、入门岗增速从7%放缓至4%，AI取消职业阶梯第一级台阶，被挡在门外的第一批公司如何产生",
+      "highlights": [
+        "AI重塑就业",
+        "初级员工占比",
+        "入门级岗位",
+        "Anthropic",
+        "劳动力市场",
+        "企业成本门槛"
+      ],
+      "agent": "研析+策士",
+      "type": "research",
+      "claims": [
+        {
+          "value": "13 人",
+          "label": "AI 原生初创平均只有",
+          "quote": "AI 原生初创平均只有 13 人"
+        },
+        {
+          "value": "10 个",
+          "label": "主要市场岗位发布追踪",
+          "quote": "10 个主要市场岗位发布追踪"
+        },
+        {
+          "value": "80%",
+          "label": "相关岗位替代率超过",
+          "quote": "相关岗位替代率超过 80%"
+        },
+        {
+          "value": "22 个",
+          "label": "实体行业",
+          "quote": "22 个实体行业"
+        },
+        {
+          "value": "19%",
+          "label": "22–25 岁 AI 暴露职业就业缺口",
+          "quote": "19% 22–25 岁 AI 暴露职业就业缺口"
+        },
+        {
+          "value": "60%",
+          "label": "初级员工占技术部门比重",
+          "quote": "60% 初级员工占技术部门比重"
+        },
+        {
+          "value": "12.2 年",
+          "label": "新员工",
+          "quote": "12.2 年 新员工"
+        },
+        {
+          "value": "44%",
+          "label": "拥有 13 年或更长行业履历",
+          "quote": "44% 拥有 13 年或更长行业履历"
+        },
+        {
+          "value": "60%",
+          "label": "中国 AI 高薪岗位要求 5–10 年垂直行业深耕经验（",
+          "quote": "60% 中国 AI 高薪岗位要求 5–10 年垂直行业深耕经验（"
+        },
+        {
+          "value": "25,340 元",
+          "label": "中国 AI 相关岗位月薪中位值（前程无忧调研）",
+          "quote": "25,340 元 中国 AI 相关岗位月薪中位值（前程无忧调研）"
+        },
+        {
+          "value": "73%",
+          "label": "Agent 工作流相对单轮的 token 消耗",
+          "quote": "73% Agent 工作流相对单轮的 token 消耗"
+        },
+        {
+          "value": "73%",
+          "label": "企业成本管控调研，2026",
+          "quote": "73% 企业成本管控调研，2026"
+        },
+        {
+          "value": "100 万亿",
+          "label": "OpenRouter 平台数据",
+          "quote": "100 万亿 OpenRouter 平台数据"
+        },
+        {
+          "value": "36.3%",
+          "label": "2019 → 2025 上半年（引 Carta 2025",
+          "quote": "36.3% 2019 → 2025 上半年（引 Carta 2025"
+        },
+        {
+          "value": "8,500 条",
+          "label": "人均会议时长增加 20%（技术岗 +16%）——",
+          "quote": "8,500 条 人均会议时长增加 20%（技术岗 +16%）——"
+        },
+        {
+          "value": "36.3%",
+          "label": "独立创始人创办公司占比（2019 年为 23.7%），六",
+          "quote": "36.3% 独立创始人创办公司占比（2019 年为 23.7%），六"
+        },
+        {
+          "value": "58.5%",
+          "label": "小微经营者",
+          "quote": "58.5% 小微经营者"
+        },
+        {
+          "value": "+74.1%",
+          "label": "两者并列呈现（见 1.6 节），并给出可能的调和解释：",
+          "quote": "+74.1% 两者并列呈现（见 1.6 节），并给出可能的调和解释："
+        }
+      ]
+    },
+    {
+      "file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
+      "description": "2026年10月第三周：利剑27军演、霍尔木兹油价110美元、三家央行同步转鹰。三根引线被同时点燃，它们会互相引燃。交互式叙事。",
+      "highlights": [
+        "利剑27军演",
+        "霍尔木兹",
+        "央行转鹰",
+        "能源避险",
+        "地缘博弈",
+        "风险溢价"
+      ],
+      "agent": "绘界+码匠",
+      "claims": [
+        {
+          "value": "3个",
+          "label": "\"首次\"",
+          "quote": "3个\"首次\""
+        }
+      ]
+    },
+    {
+      "file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html",
+      "description": "CoreWeave 是这一轮最干净的标本：它把\"AI 资本开支\"从概念变成了一张可以逐行核对的资产负债表。",
+      "highlights": [
+        "AI信贷",
+        "CoreWeave",
+        "半导体八连跌",
+        "韩国股市",
+        "传染链",
+        "油价"
+      ],
+      "agent": "研析+数析+量研",
+      "claims": [
+        {
+          "value": "8 个",
+          "label": "交易日的回撤口径",
+          "quote": "8 个交易日的回撤口径"
+        },
+        {
+          "value": "10 年",
+          "label": "期美债收益率（10/16 收盘",
+          "quote": "10 年期美债收益率（10/16 收盘）"
+        },
+        {
+          "value": "5 年",
+          "label": "期 CDS 利差",
+          "quote": "5 年期 CDS 利差"
+        },
+        {
+          "value": "516 亿",
+          "label": "vs 总债务",
+          "quote": "vs 总债务 516 亿"
+        },
+        {
+          "value": "14.5%",
+          "label": "权益 −",
+          "quote": "权益 −14.5%"
+        },
+        {
+          "value": "-11.57%",
+          "label": "报 5,185.11 点",
+          "quote": "-11.57% 报 5,185.11 点"
+        },
+        {
+          "value": "-11.4%",
+          "label": "费城半导体指数 · 10/12–10/16 周跌",
+          "quote": "-11.4% 费城半导体指数 · 10/12–10/16 周跌"
+        },
+        {
+          "value": "-25%",
+          "label": "CoreWeave 周跌（10/16 收盘）",
+          "quote": "-25% CoreWeave 周跌（10/16 收盘）"
+        },
+        {
+          "value": "15.97%",
+          "label": "CRWV 2031 年 9.75% 债到期收益率",
+          "quote": "15.97% CRWV 2031 年 9.75% 债到期收益率"
+        },
+        {
+          "value": "-22%",
+          "label": "戴尔周跌（10/16 收盘）",
+          "quote": "-22% 戴尔周跌（10/16 收盘）"
+        },
+        {
+          "value": "-14%",
+          "label": "韩国 KOSPI 周跌（10/12–10/16）",
+          "quote": "-14% 韩国 KOSPI 周跌（10/12–10/16）"
+        },
+        {
+          "value": "-11.57%",
+          "label": "雅加达综合指数单日跌（10/16 收盘 5,185.11",
+          "quote": "-11.57% 雅加达综合指数单日跌（10/16 收盘 5,185.11"
+        },
+        {
+          "value": "5.097%",
+          "label": "10 年期美债收益率（10/16 收盘）",
+          "quote": "5.097% 10 年期美债收益率（10/16 收盘）"
+        },
+        {
+          "value": "45%",
+          "label": "\"做多全球半导体\"最拥挤交易占比",
+          "quote": "45% \"做多全球半导体\"最拥挤交易占比"
+        },
+        {
+          "value": "-11.4%",
+          "label": "八连跌终结",
+          "quote": "-11.4% 八连跌终结"
+        },
+        {
+          "value": "-17.6%",
+          "label": "抛压最深的一环",
+          "quote": "-17.6% 抛压最深的一环"
+        },
+        {
+          "value": "-14.6%",
+          "label": "DRAM ETF 单周 -19%，4 月以来最大，连续 ",
+          "quote": "-14.6% DRAM ETF 单周 -19%，4 月以来最大，连续 "
+        },
+        {
+          "value": "-6.94%",
+          "label": "SK海力士、闪迪、西部数据、希捷同跌超 6%",
+          "quote": "-6.94% SK海力士、闪迪、西部数据、希捷同跌超 6%"
+        },
+        {
+          "value": "-1.43%",
+          "label": "-6%+",
+          "quote": "-1.43% -6%+"
+        },
+        {
+          "value": "-2.29%",
+          "label": "跌幅显著小于存储链",
+          "quote": "-2.29% 跌幅显著小于存储链"
+        },
+        {
+          "value": "-11.91%",
+          "label": "-25%+",
+          "quote": "-11.91% -25%+"
+        },
+        {
+          "value": "702%",
+          "label": "一年前为 290%",
+          "quote": "702% 一年前为 290%"
+        },
+        {
+          "value": "1.53 倍",
+          "label": "名义覆盖 1.5 倍，但订单需数年随交付摊销、不含融资成",
+          "quote": "1.53 倍 名义覆盖 1.5 倍，但订单需数年随交付摊销、不含融资成"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
+      "description": "拖动滑块给「一条违规」定价：4,390万次故意违反 × 法定每次5,000美元 = 上限2,195亿；法官Francis Mathew裁定250亿，折合每条569美元。四幕故事线 + 主滑块 + 八年时间轴 + 和解/庭审双路径对比，附三条口径纠错。",
+      "highlights": [
+        "隐私的单价",
+        "一条569美元",
+        "Meta隐私判决",
+        "和解vs庭审",
+        "消费者保护法",
+        "交互数据叙事"
+      ],
+      "agent": "绘界+创艺",
+      "claims": [
+        {
+          "value": "569 美元",
+          "label": "每条违规约",
+          "quote": "每条违规约 569 美元"
+        },
+        {
+          "value": "50 亿美元",
+          "label": "FTC 罚单",
+          "quote": "FTC 罚单：50 亿美元"
+        },
+        {
+          "value": "180亿美元",
+          "label": "合计口径） · 2026.08 · 48州 / 其他40",
+          "quote": "180亿美元（合计口径） · 2026.08 · 48州 / 其他40余州同款选择"
+        },
+        {
+          "value": "4.59 亿美元",
+          "label": "隐私这条轨道只和解了约",
+          "quote": "隐私这条轨道只和解了约 4.59 亿美元"
+        },
+        {
+          "value": "15%",
+          "label": "年利率",
+          "quote": "年利率 15%"
+        },
+        {
+          "value": "180 亿",
+          "label": "≠ 隐私和解金",
+          "quote": "180 亿 ≠ 隐私和解金。"
+        },
+        {
+          "value": "4.59 亿",
+          "label": "隐私索赔约",
+          "quote": "隐私索赔约 4.59 亿"
+        },
+        {
+          "value": "11.4%",
+          "label": "应付 TOTAL DUE",
+          "quote": "11.4% 应付 TOTAL DUE"
+        },
+        {
+          "value": "34亿",
+          "label": "48州和解",
+          "quote": "34亿 48州和解"
+        },
+        {
+          "value": "180亿",
+          "label": "本案判决",
+          "quote": "180亿 本案判决"
+        },
+        {
+          "value": "250亿",
+          "label": "法定上限",
+          "quote": "250亿 法定上限"
+        },
+        {
+          "value": "2,195亿",
+          "label": "隐私不是没有价格，",
+          "quote": "2,195亿 隐私不是没有价格，"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+      "description": "2026年10月最后一周：美联储12月累计加息25bp概率77.8%、日本央行潜在通胀已达2%、加拿大央行5年期通胀预期3.91%。三家央行同时转向，让他们无法轻松下班的是同一张账单——AI资本开支，通胀的第三个引擎。交互式叙事。",
+      "highlights": [
+        "美联储",
+        "加息",
+        "通胀"
+      ],
+      "agent": "创艺+绘界+码匠+数析",
+      "claims": [
+        {
+          "value": "+2.22%",
+          "label": "一个月新高",
+          "quote": "+2.22% · 一个月新高"
+        },
+        {
+          "value": "10年",
+          "label": "期美债收益率",
+          "quote": "10年期美债收益率"
+        },
+        {
+          "value": "1 次",
+          "label": "恰好加息",
+          "quote": "恰好加息 1 次"
+        },
+        {
+          "value": "5年",
+          "label": "期通胀预期（消费者预期调查",
+          "quote": "5年期通胀预期（消费者预期调查）"
+        },
+        {
+          "value": "75 万亿",
+          "label": "今年底恐破",
+          "quote": "今年底恐破 75 万亿"
+        },
+        {
+          "value": "0%",
+          "label": "隐含融资成本",
+          "quote": "隐含融资成本 0%"
+        },
+        {
+          "value": "≈5.14%",
+          "label": "合计方向",
+          "quote": "≈5.14% 合计方向"
+        },
+        {
+          "value": "15.8%",
+          "label": "COUNTDOWN",
+          "quote": "15.8% COUNTDOWN"
+        },
+        {
+          "value": "93.6%",
+          "label": "方向一致",
+          "quote": "93.6% 方向一致"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+      "description": "这场争议里至少有三次\"突袭\"：美光 9 月单方面公布奖金、台中工会 10 月 21 日抢先签约、以及 10 月 22 日 16:20 的全球奖金计划。每一次突袭，都在为下一次反噬埋线。",
+      "highlights": [
+        "存储"
+      ],
+      "agent": "研析+数析+察言",
+      "claims": [
+        {
+          "value": "11个",
+          "label": "人的24小时",
+          "quote": "11个人的24小时"
+        },
+        {
+          "value": "23.3%",
+          "label": "美光全球 DRAM 营收市占",
+          "quote": "23.3% 美光全球 DRAM 营收市占"
+        },
+        {
+          "value": "3 家",
+          "label": "全球 HBM 制造商数量",
+          "quote": "3 家 全球 HBM 制造商数量"
+        }
+      ]
+    }
+  ]
+}

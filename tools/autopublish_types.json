@@ -1,0 +1,8 @@
+{
+  "_comment": "作品类型人工登记表（key=文件名去扩展名，跨目录稳定）。任何类型判定修正必须同步本表；优先级高于目录结构与启发式。",
+  "types": {
+    "2026-10-20-a-share-ice-and-fire": "creative",
+    "2026-10-20-policy-scissors-ai-plus-vs-export-control": "creative",
+    "2026-10-20-ai-rewired-first-workers": "research"
+  }
+}

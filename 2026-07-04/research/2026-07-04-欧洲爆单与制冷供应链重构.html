@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国制冷家电"欧洲爆单"——极端气候下的全球供应链重构与出海机遇 | 研析深度报告</title>
+<style>
+:root {
+  --black: #000000;
+  --near-black: #1d1d1f;
+  --light-gray: #f5f5f7;
+  --white: #ffffff;
+  --forest: #2D5016;
+  --grass: #5A8F3D;
+  --amber: #D4A574;
+  --cinnabar: #C44536;
+  --graphite: #4A5568;
+  --mint: #F7F9F4;
+  --apple-blue: #0071e3;
+  --link-blue: #0066cc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  color: var(--near-black);
+  background: var(--white);
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 120px 40px 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 120%, rgba(45,80,22,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.08);
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+}
+
+.hero h1 {
+  font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.028em;
+  max-width: 900px;
+  margin: 0 auto 24px;
+}
+
+.hero-subtitle {
+  font-size: 19px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.72);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.42;
+  letter-spacing: -0.015em;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ===== NAVIGATION ===== */
+.nav-bar {
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  gap: 32px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.nav-inner a {
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.nav-inner a:hover { color: var(--white); }
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-dark {
+  background: var(--black);
+  color: var(--white);
+  padding: 100px 40px;
+}
+
+.section-light {
+  background: var(--light-gray);
+  padding: 100px 40px;
+}
+
+.section-white {
+  background: var(--white);
+  padding: 100px 40px;
+}
+
+.section-mint {
+  background: var(--mint);
+  padding: 100px 40px;
+}
+
+.section-header {
+  max-width: 980px;
+  margin: 0 auto 64px;
+}
+
+.section-number {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(32px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 17px;
+  line-height: 1.47;
+  color: var(--graphite);
+  max-width: 680px;
+}
+
+.section-dark .section-desc { color: rgba(255,255,255,0.6); }
+
+/* ===== HERO STAT ===== */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  max-width: 980px;
+  margin: 60px auto 0;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,0.03);
+  padding: 36px 28px;
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.hero-stat-value.accent { color: var(--cinnabar); }
+.hero-stat-value.green { color: var(--grass); }
+.hero-stat-value.amber { color: var(--amber); }
+
+.hero-stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* ===== DATA CARDS ===== */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.data-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.data-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
+.data-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.data-card-icon.forest { background: rgba(45,80,22,0.08); }
+.data-card-icon.cinnabar { background: rgba(196,69,54,0.08); }
+.data-card-icon.amber-bg { background: rgba(212,165,116,0.08); }
+.data-card-icon.blue { background: rgba(0,113,227,0.08); }
+
+.data-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--near-black);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.data-card .metric {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--near-black);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.data-card .metric.green { color: var(--grass); }
+.data-card .metric.red { color: var(--cinnabar); }
+.data-card .metric.amber { color: var(--amber); }
+
+.data-card p {
+  font-size: 14px;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
+/* ===== BRAND TABLE ===== */
+.brand-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 980px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+.brand-table thead th {
+  background: var(--near-black);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.brand-table thead th:first-child { border-radius: 12px 0 0 0; }
+.brand-table thead th:last-child { border-radius: 0 12px 0 0; }
+
+.brand-table tbody td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+}
+
+.brand-table tbody tr:last-child td { border-bottom: none; }
+
+.brand-table tbody tr:hover { background: var(--mint); }
+
+.brand-name {
+  font-weight: 600;
+  color: var(--near-black);
+}
+
+.brand-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+.brand-tag.hot { background: rgba(196,69,54,0.1); color: var(--cinnabar); }
+.brand-tag.steady { background: rgba(45,80,22,0.1); color: var(--forest); }
+.brand-tag.new { background: rgba(0,113,227,0.1); color: var(--apple-blue); }
+
+.highlight-num {
+  font-weight: 700;
+  color: var(--cinnabar);
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--cinnabar), var(--forest), var(--apple-blue));
+  border-radius: 1px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 36px;
+  padding-left: 24px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--cinnabar);
+}
+
+.timeline-item.hot::before { border-color: var(--cinnabar); }
+.timeline-item.moderate::before { border-color: var(--amber); }
+.timeline-item.stable::before { border-color: var(--forest); }
+
+.timeline-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--graphite);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.timeline-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--near-black);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.timeline-desc {
+  font-size: 14px;
+  color: var(--graphite);
+  line-height: 1.5;
+}
+
+/* ===== CALLOUT BOX ===== */
+.callout {
+  border-radius: 16px;
+  padding: 28px 28px 28px 28px;
+  max-width: 980px;
+  margin: 32px auto;
+  position: relative;
+}
+
+.callout.insight {
+  background: var(--mint);
+  border-left: 4px solid var(--forest);
+}
+
+.callout.risk {
+  background: #FFF5F5;
+  border-left: 4px solid var(--cinnabar);
+}
+
+.callout.opportunity {
+  background: #FFFBEB;
+  border-left: 4px solid var(--amber);
+}
+
+.callout-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.callout.insight .callout-label { color: var(--forest); }
+.callout.risk .callout-label { color: var(--cinnabar); }
+.callout.opportunity .callout-label { color: var(--amber); }
+
+.callout h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--near-black);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.callout p {
+  font-size: 14px;
+  color: var(--graphite);
+  line-height: 1.6;
+}
+
+/* ===== BODY TEXT ===== */
+.body-section {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.body-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--near-black);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  margin-top: 48px;
+}
+
+.body-section h2:first-child { margin-top: 0; }
+
+.body-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--near-black);
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+  margin-top: 36px;
+}
+
+.body-section p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--graphite);
+  margin-bottom: 18px;
+}
+
+.body-section p strong {
+  color: var(--near-black);
+  font-weight: 600;
+}
+
+.body-section ul {
+  padding-left: 20px;
+  margin-bottom: 18px;
+}
+
+.body-section li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--graphite);
+  margin-bottom: 8px;
+}
+
+.body-section li strong { color: var(--near-black); }
+
+/* ===== MATRIX TABLE ===== */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+.matrix-table th {
+  background: var(--light-gray);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+.matrix-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.matrix-table tr:hover { background: var(--mint); }
+
+.risk-high { color: var(--cinnabar); font-weight: 600; }
+.risk-mid { color: var(--amber); font-weight: 600; }
+.risk-low { color: var(--grass); font-weight: 600; }
+
+/* ===== BIG QUOTE ===== */
+.big-quote {
+  max-width: 800px;
+  margin: 48px auto;
+  text-align: center;
+  padding: 0 40px;
+}
+
+.big-quote blockquote {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  color: var(--near-black);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  font-style: normal;
+  position: relative;
+}
+
+.big-quote blockquote::before {
+  content: '"';
+  display: block;
+  font-size: 60px;
+  color: var(--grass);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.big-quote cite {
+  display: block;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--graphite);
+  font-style: normal;
+}
+
+/* ===== SUPPLY CHAIN DIAGRAM ===== */
+.chain-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  max-width: 980px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.chain-node {
+  background: var(--white);
+  border: 2px solid var(--forest);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.chain-node .node-icon { font-size: 28px; margin-bottom: 8px; }
+.chain-node .node-title { font-size: 13px; font-weight: 700; color: var(--near-black); margin-bottom: 4px; }
+.chain-node .node-detail { font-size: 11px; color: var(--graphite); line-height: 1.3; }
+
+.chain-arrow {
+  font-size: 20px;
+  color: var(--forest);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* ===== RISK BARS ===== */
+.risk-bar-container {
+  max-width: 980px;
+  margin: 32px auto;
+}
+
+.risk-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.risk-bar-label {
+  min-width: 160px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--near-black);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.risk-bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--light-gray);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  transition: width 1s ease-out;
+}
+
+.risk-bar-fill.high { background: linear-gradient(90deg, #C44536, #E05A4B); }
+.risk-bar-fill.medium { background: linear-gradient(90deg, #D4A574, #E8C49A); }
+.risk-bar-fill.low { background: linear-gradient(90deg, #5A8F3D, #7AB648); }
+
+/* ===== FOOTER ===== */
+.report-footer {
+  background: var(--black);
+  color: rgba(255,255,255,0.4);
+  padding: 60px 40px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.report-footer .disclaimer {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.6;
+}
+
+.report-footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+/* ===== TWO COL ===== */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 80px 24px 60px; }
+  .section-dark, .section-light, .section-white, .section-mint { padding: 60px 24px; }
+  .container { padding: 0 24px; }
+  .brand-table { font-size: 12px; }
+  .brand-table thead th, .brand-table tbody td { padding: 10px 8px; }
+}
+
+/* ===== FLOATING INSIGHT ===== */
+.float-insight {
+  background: var(--light-gray);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.float-insight .fi-num {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--forest);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.float-insight .fi-label {
+  font-size: 13px;
+  color: var(--graphite);
+  margin-top: 6px;
+}
+
+/* ===== ANCHOR LINKS ===== */
+a.anchor {
+  scroll-margin-top: 60px;
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .nav-bar { display: none; }
+  .hero { padding: 60px 20px 40px; }
+  .section-dark, .section-light, .section-white, .section-mint { padding: 40px 20px; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../../index.html">← 返回展厅</a>
+
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-badge">🔍 研析深度报告 · Vol.128</div>
+  <h1>中国制冷家电<br>"欧洲爆单"</h1>
+  <p class="hero-subtitle">
+    极端气候下的全球供应链重构与出海机遇<br>
+    ——当热穹顶击穿欧洲20年的"空调免疫"神话
+  </p>
+  <div class="hero-meta">
+    <span>📅 2026年7月4日</span>
+    <span>✍️ 研析 · Research Analyst</span>
+    <span>📊 领域：环境 · 跨行业 · 经济</span>
+    <span>⏱️ 截止 07-05 02:00</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-value accent">37.6亿美元</div>
+      <div class="hero-stat-label">2026 H1 中国对欧盟空调出口额<br>同比增长 43.2%，创历史新高</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value accent">2,025例</div>
+      <div class="hero-stat-label">法国 6月热浪超额死亡数<br>6月18日—28日</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value green">41%</div>
+      <div class="hero-stat-label">中国品牌欧洲空调市场份额<br>首次成为第一大供应来源</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value amber">680万台</div>
+      <div class="hero-stat-label">欧洲空调年供需缺口<br>需求 &gt;1000万，产能仅320万</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NAV ===== -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#exec">核心发现</a>
+    <a href="#heat">热浪冲击</a>
+    <a href="#demand">爆单全景</a>
+    <a href="#brands">品牌战报</a>
+    <a href="#barriers">欧洲困境</a>
+    <a href="#innovation">产品创新</a>
+    <a href="#supply">供应链重构</a>
+    <a href="#heatpump">热泵新赛道</a>
+    <a href="#policy">政策法规</a>
+    <a href="#invest">投资分析</a>
+    <a href="#outlook">展望风险</a>
+  </div>
+</nav>
+
+<!-- ===== 01: EXECUTIVE SUMMARY ===== -->
+<section class="section-white" id="exec">
+  <div class="section-header">
+    <div class="section-number">Executive Summary</div>
+    <div class="section-title">一份令人震撼的<br>出海成绩单</div>
+    <p class="section-desc">
+      2026年6月，一场史无前例的"热穹顶"击穿了欧洲社会运行的基本秩序——卢浮宫关闭、核电站减产、100公里内空调全部售罄。而6800公里之外，中国制冷家电工厂正24小时满负荷运转。
+    </p>
+  </div>
+
+  <div class="body-section">
+    <h2>核心发现</h2>
+    <p>
+      <strong>发现一：欧洲空调渗透率正从20%向80%跃迁</strong>。极端高温天气已不再是偶发事件，而成为结构性常态。欧洲家庭长期依赖"自然通风"的时代正在终结。分析师预判未来5年欧洲空调渗透率将从20%跃升至80%以上，对应新增需求超2亿台，市场规模超万亿。
+    </p>
+    <p>
+      <strong>发现二：中国品牌首次成为欧洲第一大空调供应来源</strong>。2026年上半年中国对欧盟空调出口额达37.6亿美元（+43.2%），中国品牌在欧洲份额从2023年的27%升至41%。美的PortaSplit、海尔智家、海信等品牌凭借"免安装"创新产品，精准击穿了欧洲建筑法规壁垒。
+    </p>
+    <p>
+      <strong>发现三：供应链正从"出口导向"向"本地化"快速重构</strong>。中欧班列实现10余天到货，热泵出口订单排至9—10月，欧洲客户接受5%—15%溢价。中国家电出海正从OEM代工转向自主品牌+本地服务的新范式。
+    </p>
+    <p>
+      <strong>发现四：可逆式热泵成为万亿级新赛道</strong>。2026年1—4月中国对欧热泵出口同比+60%以上，供暖+制冷+热水三合一的可逆式热泵，叠加欧盟碳中和政策和补贴，正在替代传统空调成为家庭标配。
+    </p>
+  </div>
+
+  <div class="callout insight" style="margin-top:48px;">
+    <div class="callout-label">🎯 核心判断</div>
+    <h3>这不是一次"天气红利"，而是一场结构性产业变革</h3>
+    <p>
+      欧洲制冷家电市场的爆发，根源在于三重结构性力量的共振：<strong>气候变化不可逆</strong>（极端高温事件频率10年增长3倍）、<strong>政策法规推动</strong>（EU绿色协议+F-Gas法规倒逼替代）、<strong>产品创新破局</strong>（中国品牌精准解决了"欧洲安装难"的百年难题）。这三重力量叠加，将驱动一个万亿级市场的长期增长。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 02: HEAT WAVE IMPACT ===== -->
+<section class="section-dark" id="heat">
+  <div class="section-header">
+    <div class="section-number">Chapter 01</div>
+    <div class="section-title">热穹顶下的欧洲：<br>一场文明级冲击</div>
+    <p class="section-desc">
+      2026年6月，"热穹顶"现象使欧洲气温飙升至40°C以上，多国刷新有气象记录以来的历史极值。这不是一场普通的热浪——它动摇了欧洲社会的基本运行逻辑。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="timeline">
+      <div class="timeline-item hot">
+        <div class="timeline-date">2026年5月下旬</div>
+        <div class="timeline-title">热浪初现端倪</div>
+        <div class="timeline-desc">欧洲南部开始出现异常高温，西班牙多地气温突破40°C，5月已记录101例高温相关死亡。</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">2026年6月17日</div>
+        <div class="timeline-title">热穹顶正式形成</div>
+        <div class="timeline-desc">高压系统锁定西欧，"热穹顶"效应使热空气无法散逸。西班牙北部传统凉爽的圣塞巴斯蒂安气温飙至40°C，远超历史同期。</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">2026年6月22日</div>
+        <div class="timeline-title">法国全国告急</div>
+        <div class="timeline-desc">法国459项高温纪录被打破，其中102项为当地有气象记录以来的历史最高。波尔多41.9°C，创106年最高纪录。卢浮宫、埃菲尔铁塔提前关闭。</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">2026年6月23—25日</div>
+        <div class="timeline-title">法国史上"最热三天"</div>
+        <div class="timeline-desc">法国自1947年以来最热的三天。仅6月25日一天，全国打破188项高温纪录。49个行政区发布红色高温警报。巴黎气温达38.4°C，逼近6月历史极值。</div>
+      </div>
+      <div class="timeline-item hot">
+        <div class="timeline-date">2026年6月27日</div>
+        <div class="timeline-title">热浪东移，欧洲全境沦陷</div>
+        <div class="timeline-desc">热浪扩展至中欧、北欧。捷克、瑞士、丹麦纷纷刷新气温历史纪录。英国白金汉宫换岗仪式因高温取消。</div>
+      </div>
+      <div class="timeline-item moderate">
+        <div class="timeline-date">2026年7月1—3日</div>
+        <div class="timeline-title">死亡数据浮出水面</div>
+        <div class="timeline-desc">西班牙6月高温超额死亡1,029例，创2015年以来当月新高。法国6月18—28日热浪期间至少2,025例超额死亡。实际数据仍在攀升。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEAT IMPACT CARDS -->
+<section class="section-light">
+  <div class="section-header">
+    <div class="section-number">Chapter 01 · 续</div>
+    <div class="section-title">热浪的系统性冲击</div>
+    <p class="section-desc">
+      当气温突破40°C，冲击远不止"不舒服"——它同时瘫痪电力、交通、文化遗产、公共卫生四大系统。
+    </p>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-card">
+      <div class="data-card-icon cinnabar">🏥</div>
+      <h3>公共卫生危机</h3>
+      <div class="metric red">3,054+</div>
+      <p>法国+西班牙6月高温超额死亡合计超3,054例，多为老人和户外工作者。欧洲70%以上住宅无空调，室内温度可达35°C以上。</p>
+    </div>
+    <div class="data-card">
+      <div class="data-card-icon forest">⚡</div>
+      <h3>电力系统承压</h3>
+      <div class="metric amber">-7%</div>
+      <p>法国核电站冷却水供应受阻，发电量减少约7%。多地遭遇断电，空调用电负荷创历史峰值。</p>
+    </div>
+    <div class="data-card">
+      <div class="data-card-icon amber-bg">🏛️</div>
+      <h3>文化遗产关闭</h3>
+      <div class="metric">2座</div>
+      <p>卢浮宫因高温临时闭馆，埃菲尔铁塔关闭顶层，白金汉宫换岗仪式取消。历史建筑木结构在持续高温下存在火灾隐患。</p>
+    </div>
+    <div class="data-card">
+      <div class="data-card-icon blue">🛒</div>
+      <h3>制冷设备抢购潮</h3>
+      <div class="metric red">售罄</div>
+      <p>德国100公里范围内移动空调几乎全部售罄。高端型号价格从900欧元炒至2,679欧元。法国家电卖场空调货架被"清空"。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03: DEMAND EXPLOSION ===== -->
+<section class="section-white" id="demand">
+  <div class="section-header">
+    <div class="section-number">Chapter 02</div>
+    <div class="section-title">爆单全景：<br>数据里的历史性拐点</div>
+    <p class="section-desc">
+      欧洲正在经历一场"从不需要空调"到"没有空调无法生存"的认知革命。中国制冷家电产业正站在这个历史性拐点的最前沿。
+    </p>
+  </div>
+
+  <div class="body-section">
+    <h2>出口数据全景</h2>
+    <p>
+      据海关数据，<strong>2026年上半年中国对欧盟空调出口额达37.6亿美元，同比增长43.2%，创历史新高</strong>。这一数据不仅刷新了中国空调出口欧洲的历史纪录，更意味着中国空调在欧洲市场的地位发生了根本性转变。
+    </p>
+    <p>
+      细分来看，增长更为惊人：2026年前5个月，中国向<strong>法国、荷兰、比利时</strong>三个西欧国家的空调出口额同比均实现<strong>翻倍增长</strong>，向西班牙、德国等中南欧国家的出口额亦实现<strong>两位数以上大幅增长</strong>。增速最快的法国市场，海信空调销售额同比增幅超100%。
+    </p>
+  </div>
+
+  <div class="container" style="margin-top:40px;">
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="data-card-icon forest">📈</div>
+        <h3>欧盟空调出口额</h3>
+        <div class="metric green">37.6亿$</div>
+        <p>2026 H1 中国对欧盟空调出口额，同比+43.2%，创历史新高</p>
+      </div>
+      <div class="data-card">
+        <div class="data-card-icon forest">🌍</div>
+        <h3>中国品牌市场份额</h3>
+        <div class="metric green">41%</div>
+        <p>2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2023年仅27%</p>
+      </div>
+      <div class="data-card">
+        <div class="data-card-icon cinnabar">📦</div>
+        <h3>2024年中国空调出口</h3>
+        <div class="metric amber">9,326万台</div>
+        <p>同比+40.4%，首超9000万台关口，产能利用率达74.4%创十年新高</p>
+      </div>
+      <div class="data-card">
+        <div class="data-card-icon amber-bg">🔥</div>
+        <h3>热泵出口增速</h3>
+        <div class="metric red">+60%+</div>
+        <p>2026年1—4月中国对欧热泵出口同比增速，订单排至9—10月</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-quote" style="margin-top:64px;">
+    <blockquote>
+      中国品牌在欧洲空调市场份额已从2023年27%升至2025冷年41%，首次成为欧洲第一大空调供应来源。欧洲本土空调产能仅320万台，而市场年需求量超过1000万台，供需缺口高达680万台。
+    </blockquote>
+    <cite>——奥维云网数据，2026年7月</cite>
+  </div>
+
+  <div class="callout opportunity" style="margin-top:40px;">
+    <div class="callout-label">💡 结构性机会</div>
+    <h3>供需缺口680万台，短期内无法填平</h3>
+    <p>
+      欧洲本土空调产能仅约320万台/年，而年需求量已突破1000万台。680万台的供需缺口必须依赖进口填补。中国作为全球空调产能占比超70%的制造大国，是唯一能够承接这一需求的来源。更重要的是，<strong>欧洲产能在短期内几乎不可能大幅扩张</strong>——制造压缩机和换热器需要3—5年建厂周期，且面临碳排放、能源成本高等现实约束。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 04: BRAND BATTLEFIELD ===== -->
+<section class="section-light" id="brands">
+  <div class="section-header">
+    <div class="section-number">Chapter 03</div>
+    <div class="section-title">六大品牌战报：<br>谁在吃下欧洲市场？</div>
+    <p class="section-desc">
+      在这场"制冷出海"大战中，中国家电巨头们各显神通。美的以爆款产品"PortaSplit"独领风骚，海尔以东欧为根据地稳步推进，海信以法国为突破口急速扩张。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="body-section">
+      <h2>品牌竞争格局总览</h2>
+    </div>
+
+    <table class="brand-table" style="margin-top:24px;">
+      <thead>
+        <tr>
+          <th style="width:15%">品牌</th>
+          <th style="width:25%">欧洲核心数据</th>
+          <th style="width:25%">核心打法</th>
+          <th style="width:20%">产品亮点</th>
+          <th style="width:15%">渠道覆盖</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="brand-name">美的集团</span><span class="brand-tag hot">最火</span></td>
+          <td>PortaSplit 2026年出货<strong class="highlight-num">&gt;20万套</strong>，上市以来每年翻倍增长，部分渠道已售罄</td>
+          <td>产品创新：免安装分体式设计，精准解决欧洲建筑法规限制；双管变频达到A+++能效标准</td>
+          <td>《时代周刊》2025最佳发明；用户称"一生中最棒的投资"；200小时电费&lt;30欧元</td>
+          <td>德国、法国、西班牙主流零售+电商，通过中欧班列紧急补货</td>
+        </tr>
+        <tr>
+          <td><span class="brand-name">海尔智家</span><span class="brand-tag steady">最稳</span></td>
+          <td>2026年欧洲空调整体销量<strong class="highlight-num">同比+30%</strong>；西欧市占率9%（第二）；东欧市占率34%（第一）</td>
+          <td>自主创牌+东欧深耕；俄罗斯市场连续两年第一；全球分体式空调零售量第一（欧睿国际认证）</td>
+          <td>健康环保技术；高效直流变频空调获欧盟EUROVENT认证</td>
+          <td>东欧（俄罗斯、波兰等）为根据地，西欧加速渗透</td>
+        </tr>
+        <tr>
+          <td><span class="brand-name">海信家电</span><span class="brand-tag hot">增速最快</span></td>
+          <td>西欧前6月销售额<strong class="highlight-num">同比+20%+</strong>；法国同比<strong class="highlight-num">+100%</strong>；意大利6月+30%</td>
+          <td>本土化研发：易安装、易拆洗分体式空调，适配欧洲各类住宅场景；移动空调"一机难求"</td>
+          <td>精准适配欧洲建筑保护政策；严苛品质认证体系</td>
+          <td>法国（增速最快）、意大利、西班牙，移动空调脱销</td>
+        </tr>
+        <tr>
+          <td><span class="brand-name">格力电器</span><span class="brand-tag new">发力中</span></td>
+          <td>2024年分体式空调零售量全球第一（欧睿认证）；意大利TOSOT品牌推广中</td>
+          <td>"零电费空调"在MCE2026引爆关注；绿电直驱技术差异化</td>
+          <td>零碳革命概念产品；变频+光伏融合技术</td>
+          <td>以意大利为突破口，海外营收占比16%，正加速追赶</td>
+        </tr>
+        <tr>
+          <td><span class="brand-name">TCL</span></td>
+          <td>港股表现活跃，家电板块联动上涨</td>
+          <td>性价比路线，中端市场主攻</td>
+          <td>智能联网功能，IoT生态整合</td>
+          <td>中东欧+南欧为主</td>
+        </tr>
+        <tr>
+          <td><span class="brand-name">奥克斯/志高</span></td>
+          <td>OEM订单爆满，产能超负荷</td>
+          <td>代工为主，自有品牌在布局中</td>
+          <td>性价比为核心竞争力</td>
+          <td>依托大型零售商和电商平台</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container" style="margin-top:48px;">
+    <div class="body-section">
+      <h3>美的PortaSplit：欧洲"爆款"的诞生逻辑</h3>
+      <p>
+        美的PortaSplit便携式分体空调是本轮欧洲爆单中最具代表性的产品。它精准击中了欧洲市场的<strong>结构性痛点</strong>——安装难。欧洲大量老旧住宅和历史保护建筑禁止外墙钻孔，租房用户安装空调需征得房东同意，传统分体空调还需持证专业人员施工，单安装费可达1,500—3,000欧元。
+      </p>
+      <p>
+        PortaSplit的设计彻底绕过了这些障碍：<strong>免工具安装</strong>——室外机通过窗户支架固定，用户可自行完成组装拆卸，无需破坏建筑结构；<strong>出厂预装冷媒</strong>——无需专业师傅；<strong>窗框卡扣套件</strong>——适配欧洲各类窗户，拆卸后不留痕迹；<strong>A+++能效</strong>——在高额电价下也能控制使用成本。
+      </p>
+    </div>
+
+    <div class="callout insight">
+      <div class="callout-label">💡 关键洞察</div>
+      <h3>"产品创新"比"价格优势"更重要</h3>
+      <p>
+        欧洲空调市场的核心瓶颈从来不是"价格太贵"，而是<strong>"安装太难"</strong>。传统分体空调在欧洲的安装成本高达设备本身价格的2—3倍，且审批流程动辄数月。中国品牌的核心竞争力不是"便宜"，而是通过产品创新解决了欧洲特有的安装难题——这是本土品牌和日韩品牌都未曾做到的事。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05: EUROPEAN BARRIERS ===== -->
+<section class="section-dark" id="barriers">
+  <div class="section-header">
+    <div class="section-number">Chapter 04</div>
+    <div class="section-title">欧洲为什么不装空调？<br>三重结构性壁垒</div>
+    <p class="section-desc">
+      欧洲空调普及率长期仅约20%，远低于美国的90%。这并非因为欧洲人"不需要"空调——而是因为法规、建筑、经济三重壁垒将空调挡在了门外。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="data-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <div class="data-card-icon cinnabar🏛️</div>
+        <h3 style="color:var(--white);">第一重：建筑法规壁垒</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          巴黎70%建筑为百年石质老房，外立面属文物景观，严禁打孔、悬挂外机。违规罚款高达<strong style="color:var(--cinnabar);">30万欧元</strong>（约234万人民币）。公寓装机必须召开业主大会投票，一户反对直接驳回，审批流程动辄数月。
+        </p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <div class="data-card-icon amber-bg">💰</div>
+        <h3 style="color:var(--white);">第二重：经济成本壁垒</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          持证工人安装费高达<strong style="color:var(--amber);">1,500—3,000欧元</strong>（约1.2—2.4万人民币），旺季排队等待长达2个月。老房子没有预留管线，石质墙体打孔施工难度极大，总安装成本可达设备价格的2—3倍。
+        </p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <div class="data-card-icon forest">⚖️</div>
+        <h3 style="color:var(--white);">第三重：政策与文化壁垒</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          法国2007年颁布法令：26°C以下不许开空调，企业和个人均需遵守。欧洲长期存在"不开空调是美德"的环保文化。EU碳中和目标下，部分国家对空调用电征收高额碳税。
+        </p>
+      </div>
+    </div>
+
+    <div class="big-quote" style="margin-top:64px;">
+      <blockquote>
+        在巴黎历史街区，违规安装最高罚款30万欧元。公寓装机必须召开业主大会投票，一户反对就会直接驳回。等手续办完，盛夏已经过去了。
+      </blockquote>
+      <cite>——2026年6月 新浪财经</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06: PRODUCT INNOVATION ===== -->
+<section class="section-white" id="innovation">
+  <div class="section-header">
+    <div class="section-number">Chapter 05</div>
+    <div class="section-title">产品创新：<br>如何用一个产品击穿百年法规</div>
+    <p class="section-desc">
+      中国品牌找到了"欧洲空调悖论"的最优解：不是改变法规，而是改变产品形态。
+    </p>
+  </div>
+
+  <div class="body-section">
+    <h2>免安装设计：绕开而非对抗</h2>
+    <p>
+      欧洲空调安装的核心障碍在于<strong>"需要改动建筑结构"</strong>。传统分体空调需要在外墙打孔、安装外机，这触发了文物保护、业主同意、持证安装等一系列连锁障碍。美的PortaSplit的设计思路是：<strong>不改动任何建筑结构</strong>。
+    </p>
+    <ul>
+      <li><strong>室外机通过窗户支架固定</strong>——利用现有窗户空间，无需打孔</li>
+      <li><strong>出厂预装冷媒</strong>——无需专业持证技师上门加氟</li>
+      <li><strong>窗框卡扣套件</strong>——适配欧洲各类窗户规格，十几分钟完成安装</li>
+      <li><strong>分体可移动设计</strong>——拆卸后不留任何痕迹，租房和历史建筑可放心使用</li>
+      <li><strong>双管变频架构</strong>——制冷效率远超普通移动空调，达到A+++节能标准</li>
+      <li><strong>噪音35分贝</strong>——恰好满足德国限噪35分贝的法规要求</li>
+    </ul>
+
+    <h3>为什么"免安装"是真正的颠覆</h3>
+    <p>
+      传统移动空调（单体机）虽然免安装，但制冷效率低、噪音大、占空间，在欧洲口碑较差。分体式空调制冷效果好，但安装成本高、审批复杂。<strong>PortaSplit本质上是"可移动的分体空调"</strong>——兼具分体机的制冷性能和移动机的安装便捷性，填补了一个全新的品类空白。
+    </p>
+    <p>
+      海信的创新思路类似：推出<strong>易安装、易拆洗的分体式空调</strong>，降低对专业安装人员的依赖。海尔则通过<strong>高效直流变频</strong>技术，在能效上做到极致，降低欧洲用户的高额电价顾虑。
+    </p>
+  </div>
+
+  <div class="callout insight" style="margin-top:40px;">
+    <div class="callout-label">🔍 产品设计哲学</div>
+    <h3>"不改变用户，改变产品"</h3>
+    <p>
+      中国品牌在欧洲空调市场的成功，本质上是一次<strong>"产品本土化"</strong>的范式升级。不是把"中国产品"卖到欧洲，而是针对欧洲的<strong>建筑法规、能源价格、安装习惯、审美偏好</strong>重新设计产品。这比单纯的"价格优势"更有竞争力，也更难被替代。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 07: SUPPLY CHAIN RESTRUCTURING ===== -->
+<section class="section-mint" id="supply">
+  <div class="section-header">
+    <div class="section-number">Chapter 06</div>
+    <div class="section-title">供应链重构：<br>从"中国制造"到"全球交付"</div>
+    <p class="section-desc">
+      欧洲爆单不仅考验着中国家电企业的产能，更倒逼着供应链从"出口导向"向"全球本地化"快速演进。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="body-section">
+      <h2>中国空调产能：全球不可替代</h2>
+      <p>
+        中国是全球绝对的空调制造中心。<strong>2024年中国转子压缩机产量预计达2.96亿台</strong>，GMCC美芝（美的旗下）、凌达（格力旗下）、海立三大厂商占据78.2%的全球市场份额。其中美芝单厂产量突破1.1亿台，全球份额44.8%。
+      </p>
+      <p>
+        2024年中国家用空调总产量19,508万台（+19.5%），出口9,326万台（+40.4%），产能利用率74.4%创十年新高。<strong>全球70%以上的空调产能集中在中国</strong>，欧洲年产能仅320万台，短期内无法替代。
+      </p>
+    </div>
+
+    <!-- SUPPLY CHAIN DIAGRAM -->
+    <div class="chain-diagram" style="margin-top:48px;">
+      <div class="chain-node">
+        <div class="node-icon">🏭</div>
+        <div class="node-title">广东/安徽<br>压缩机基地</div>
+        <div class="node-detail">美芝·凌达·海立<br>年产能 2.96亿台</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <div class="node-icon">🔧</div>
+        <div class="node-title">整机制造<br>珠三角+长三角</div>
+        <div class="node-detail">美的·格力·海尔·海信<br>年产能 1.9亿台+</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <div class="node-icon">🚂</div>
+        <div class="node-title">中欧班列<br>10余天到货</div>
+        <div class="node-detail">广东石龙→科沃尔西诺<br>海运30天→铁路12天</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <div class="node-icon">🏪</div>
+        <div class="node-title">欧洲本地<br>渠道终端</div>
+        <div class="node-detail">本地分公司清关<br>零售+电商配送</div>
+      </div>
+    </div>
+
+    <div class="body-section" style="margin-top:48px;">
+      <h3>物流效率：从"月"到"周"的飞跃</h3>
+      <p>
+        美的空调欧洲大区总监熊学勤透露，面对紧急订单需求，美的已<strong>协调工厂加班加点赶制生产，通过中欧班列快速发运</strong>，部分产品已抵达目的港，本地分公司正加速清关。中欧班列将家电产品出口欧洲的时间从原来以"月"为单位提升到以"周"为单位，这是一个根本性的效率突破。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08: HEAT PUMP ===== -->
+<section class="section-dark" id="heatpump">
+  <div class="section-header">
+    <div class="section-number">Chapter 07</div>
+    <div class="section-title">可逆式热泵：<br>万亿级新赛道全面爆发</div>
+    <p class="section-desc">
+      在欧洲制冷设备市场，除了传统空调之外，一个更大的品类正在崛起——可逆式热泵。它将供暖、制冷、热水三合一，叠加欧盟碳中和政策和丰厚补贴，正在成为欧洲家庭的"终极选择"。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="data-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--white);">对欧热泵出口</h3>
+        <div class="metric green">+60%+</div>
+        <p style="color:rgba(255,255,255,0.5);">2026年1—4月同比增速，双功能机型占比65%</p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--white);">欧洲热泵市场规模</h3>
+        <div class="metric amber">150亿$+</div>
+        <p style="color:rgba(255,255,255,0.5);">2026年预计超150亿美元，欧盟拨款46亿欧元补贴</p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--white);">能效优势</h3>
+        <div class="metric green">+30~50%</div>
+        <p style="color:rgba(255,255,255,0.5);">比普通空调高30%—50%，供暖+制冷+热水三合一</p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--white);">订单排期</h3>
+        <div class="metric red">9—10月</div>
+        <p style="color:rgba(255,255,255,0.5);">订单排至9—10月，欧洲客户接受5%—15%溢价</p>
+      </div>
+    </div>
+
+    <div class="body-section" style="margin-top:48px;">
+      <p style="color:rgba(255,255,255,0.7);">
+        可逆式热泵的"三合一"属性使其在极端气候下优势尤为突出：冬季供暖（替代天然气壁挂炉）、夏季制冷（替代空调）、全年热水（替代电热水器）。叠加比普通空调高30%—50%的能效，以及欧盟提供的高额补贴（部分国家补贴设备价格的30%—50%），可逆式热泵正在成为欧洲家庭应对极端气候的"最优解"。
+      </p>
+      <p style="color:rgba(255,255,255,0.7);">
+        南欧（西班牙、意大利、希腊）70%—80%的订单已要求具备制冷功能，西欧加速替代传统锅炉，北欧（瑞典、挪威）也开始配置制冷模块。中国作为欧洲第一热泵进口来源国（占比60%），正迎来历史性的出口增长黄金期。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09: POLICY & REGULATION ===== -->
+<section class="section-white" id="policy">
+  <div class="section-header">
+    <div class="section-number">Chapter 08</div>
+    <div class="section-title">政策与法规：<br>碳中和驱动的制冷革命</div>
+    <p class="section-desc">
+      欧盟正在通过一系列政策法规，系统性地推动制冷设备从"高GWP含氟"向"低GWP/自然工质"全面转型。这既是约束，更是机会。
+    </p>
+  </div>
+
+  <div class="body-section">
+    <h2>关键法规时间轴</h2>
+    <div class="matrix-table" style="display:block; overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:14px; margin:24px 0;">
+        <thead>
+          <tr>
+            <th style="background:var(--near-black);color:white;padding:14px 16px;text-align:left;font-size:12px;font-weight:600;letter-spacing:0.04em;">时间</th>
+            <th style="background:var(--near-black);color:white;padding:14px 16px;text-align:left;font-size:12px;font-weight:600;">法规/政策</th>
+            <th style="background:var(--near-black);color:white;padding:14px 16px;text-align:left;font-size:12px;font-weight:600;">核心内容</th>
+            <th style="background:var(--near-black);color:white;padding:14px 16px;text-align:left;font-size:12px;font-weight:600;">对空调行业影响</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">2025年1月起</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><strong>F-Gas法规新规生效</strong></td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">固定式独立制冷设备禁用GWP≥150的含氟气体；R32（GWP=771）面临淘汰</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><span class="risk-high">高冲击</span> — 强制转向R290（丙烷）等低GWP制冷剂</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">2025年起</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><strong>F-Gas配额制</strong></td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">企业获取HFC配额为2011—2013年基线的60%，每吨CO₂当量收取3欧元</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><span class="risk-mid">中等</span> — 传统制冷剂成本上升，推高整机价格</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">2035年起</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><strong>分体空调/热泵禁用HFCs</strong></td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">分体式空调和热泵全面禁止使用含氟气体</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><span class="risk-high">高冲击</span> — 必须全面切换至R290等自然工质</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">2050年</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><strong>HFC全面淘汰</strong></td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">欧盟境内HFC类化合物实现"零投放"</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><span class="risk-high">终极目标</span> — 自然工质全面替代</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">2026年起</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><strong>建筑能效指令(EPBD)修订</strong></td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);">新建建筑必须安装热泵或可再生能源系统；既有建筑逐步要求能效升级</td>
+            <td style="padding:14px 16px;border-bottom:1px solid rgba(0,0,0,0.04);"><span class="risk-low">利好</span> — 直接拉动热泵和高效制冷设备需求</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout opportunity" style="margin-top:32px;">
+    <div class="callout-label">📦 制冷剂革命 = 中国机遇</div>
+    <h3>R290替代浪潮中，中国厂商已领先一步</h3>
+    <p>
+      R290（丙烷）制冷剂的GWP值仅0.02，是R32（GWP=771）的近万分之一。中国压缩机厂商（美芝、凌达、海立）在R290压缩机的研发和量产上已走在全球前列，产品已通过CCC、TUV、UL等国际认证。欧盟F-Gas法规的推进，实际上<strong>强化了中国制冷设备在欧洲市场的技术竞争优势</strong>——因为率先完成R290切换的厂商将获得"入场券"。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 10: INVESTMENT ANALYSIS ===== -->
+<section class="section-light" id="invest">
+  <div class="section-header">
+    <div class="section-number">Chapter 09</div>
+    <div class="section-title">投资分析：<br>热浪中的资本市场</div>
+    <p class="section-desc">
+      欧洲热浪已在资本市场引发连锁反应。家电板块普遍上涨，花旗指出"欧洲冷气机渗透正迎上升周期"。但投资者需要区分"短期催化"和"长期逻辑"。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="body-section">
+      <h2>市场反应</h2>
+      <p>
+        <strong>港股家电板块</strong>在2026年6月底集体拉升：美的集团涨超5%，海尔智家、海信家电涨超1%—2%。<strong>A股家电ETF华夏（515640）</strong>6月29日上涨1.38%，成分股中长虹美菱领涨10.02%。花旗银行研报明确指出：欧洲冷气机渗透正迎上升周期，建议重点关注中国白电出海标的。
+      </p>
+
+      <h3>受益标的全景</h3>
+    </div>
+
+    <table class="brand-table" style="margin-top:24px;">
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>受益逻辑</th>
+          <th>欧洲业务敞口</th>
+          <th>风险提示</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>美的集团</strong>（000333 / 00300.HK）</td>
+          <td>PortaSplit爆款；ToB出货超20万套；《时代周刊》认可</td>
+          <td>海外营收占比~40%，欧洲为主要增长极</td>
+          <td>产能扩张节奏；汇率波动；欧盟贸易政策</td>
+        </tr>
+        <tr>
+          <td><strong>海尔智家</strong>（600690 / 06690.HK）</td>
+          <td>东欧34%份额第一；西欧9%份额第二；自主创牌模式强</td>
+          <td>欧洲营收占比~25%，东欧为核心</td>
+          <td>自主品牌投入大；东欧地缘风险</td>
+        </tr>
+        <tr>
+          <td><strong>海信家电</strong>（000921 / 00921.HK）</td>
+          <td>法国增速超100%；移动空调"一机难求"；本土化研发强</td>
+          <td>西欧增速最快，法国和意大利为核心市场</td>
+          <td>移动空调品类天花板；季节性波动大</td>
+        </tr>
+        <tr>
+          <td><strong>格力电器</strong>（000651.SZ）</td>
+          <td>全球分体式空调零售量第一；海外营收占比仅16%，空间大</td>
+          <td>以意大利为突破点，正加速追赶</td>
+          <td>海外渠道建设滞后；品牌认知度待提升</td>
+        </tr>
+        <tr>
+          <td><strong>长虹美菱</strong>（000521.SZ）</td>
+          <td>制冷设备出口受益标的；冰箱+空调双线出海</td>
+          <td>欧洲出口直接受益</td>
+          <td>估值偏高；业务体量相对较小</td>
+        </tr>
+        <tr>
+          <td><strong>热泵产业链</strong></td>
+          <td>对欧出口+60%；可逆式热泵万亿级市场；政策+补贴双驱动</td>
+          <td>中国占欧洲热泵进口60%</td>
+          <td>补贴政策变动；汇率风险</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout risk" style="margin-top:48px;">
+      <div class="callout-label">⚠️ 投资风险提示</div>
+      <h3>短期催化 vs 长期逻辑需区分</h3>
+      <p>
+        <strong>短期催化</strong>（事件驱动）：极端热浪→空调抢购→出口数据超预期→股价拉升。这种催化具有<strong>一次性特征</strong>，热浪消退后需求可能回落。<br><br>
+        <strong>长期逻辑</strong>（结构驱动）：欧洲空调渗透率从20%→80%的结构性跃迁，叠加F-Gas法规推动产品更新换代，这是<strong>持续3—5年的长期趋势</strong>。<br><br>
+        投资者应关注企业的<strong>品牌建设、本地化能力、R290产品储备</strong>等长期竞争力。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11: OUTLOOK & RISKS ===== -->
+<section class="section-dark" id="outlook">
+  <div class="section-header">
+    <div class="section-number">Chapter 10</div>
+    <div class="section-title">展望与风险：<br>万亿市场的暗礁</div>
+    <p class="section-desc">
+      欧洲制冷市场的爆发是确定性趋势，但前路并非坦途。关税壁垒、贸易摩擦、产能过剩等风险需高度关注。
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="data-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--grass);">乐观情景 📈</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          欧洲空调渗透率5年升至60%+<br>
+          年均需求新增2,000万台<br>
+          中国品牌份额稳定45%—50%<br>
+          热泵市场突破300亿美元
+        </p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--amber);">中性情景 📊</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          欧洲空调渗透率5年升至40%<br>
+          年均需求新增1,200万台<br>
+          中国品牌份额维持40%—45%<br>
+          贸易摩擦但可控
+        </p>
+      </div>
+      <div class="data-card" style="background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.08);">
+        <h3 style="color:var(--cinnabar);">悲观情景 📉</h3>
+        <p style="color:rgba(255,255,255,0.6);">
+          欧盟加征关税/设置壁垒<br>
+          中国品牌份额被压缩至30%<br>
+          欧洲本土产能加速建设<br>
+          产能过剩引发价格战
+        </p>
+      </div>
+    </div>
+
+    <div class="body-section" style="margin-top:48px;">
+      <h3 style="color:var(--white);">五大核心风险</h3>
+    </div>
+
+    <div class="risk-bar-container" style="margin-top:24px;">
+      <div class="risk-bar-item">
+        <div class="risk-bar-label" style="color:var(--white);">贸易壁垒风险</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill high" style="width:75%;">75%</div>
+        </div>
+      </div>
+      <div class="risk-bar-item">
+        <div class="risk-bar-label" style="color:var(--white);">汇率波动风险</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill medium" style="width:60%;">60%</div>
+        </div>
+      </div>
+      <div class="risk-bar-item">
+        <div class="risk-bar-label" style="color:var(--white);">产能过剩风险</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill medium" style="width:50%;">50%</div>
+        </div>
+      </div>
+      <div class="risk-bar-item">
+        <div class="risk-bar-label" style="color:var(--white);">政策变动风险</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill medium" style="width:45%;">45%</div>
+        </div>
+      </div>
+      <div class="risk-bar-item">
+        <div class="risk-bar-label" style="color:var(--white);">欧洲产能替代风险</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill low" style="width:25%;">25%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-section" style="margin-top:48px;">
+      <h3 style="color:var(--white);">战略建议</h3>
+      <p style="color:rgba(255,255,255,0.7);">
+        <strong style="color:var(--amber);">短期（1—2年）：</strong>利用热浪窗口期加速品牌建设和渠道铺设，优先布局免安装产品和热泵品类。警惕季节性需求回落。
+      </p>
+      <p style="color:rgba(255,255,255,0.7);">
+        <strong style="color:var(--amber);">中期（3—5年）：</strong>推进欧洲本地化产能建设（组装工厂、仓储物流、售后服务），加大R290产品储备，提前适应F-Gas法规。
+      </p>
+      <p style="color:rgba(255,255,255,0.7);">
+        <strong style="color:var(--amber);">长期（5—10年）：</strong>从"出口商"向"欧洲本地化企业"转型，构建品牌+渠道+服务+本地研发的完整体系。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="section-white">
+  <div class="container">
+    <div class="big-quote">
+      <blockquote>
+        从680万台的供需缺口，到41%的市场份额，再到20%向80%的渗透率跃迁——中国制冷家电正站在一个历史性的十字路口。欧洲的热浪终将消退，但气候变化驱动的结构性需求不会消失。
+      </blockquote>
+      <cite>—— 研析 · Research Analyst，2026年7月4日</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="report-footer">
+  <div class="disclaimer">
+    <strong>免责声明：</strong>本报告基于公开信息和数据分析撰写，仅供内部参考，不构成投资建议。报告中的数据来源于海关总署、奥维云网、央视新闻、各公司公告、券商研报等公开渠道。数据截止日期为2026年7月4日。市场存在风险，投资需谨慎。
+  </div>
+  <p>
+    <strong>研析</strong> · Research Analyst<br>
+    研析深度报告 Vol.128 · 2026年7月4日<br>
+    精心研究，数据说话 · 先查再答，证据驱动
+  </p>
+  <p style="margin-top:24px;">
+    来源：海关总署 · 奥维云网 · 央视新闻 · 财联社 · 九派财经 · 欧睿国际 · 花旗银行 · 中国银河证券 · 各公司公告
+  </p>
+</footer>
+
+</body>
+</html>

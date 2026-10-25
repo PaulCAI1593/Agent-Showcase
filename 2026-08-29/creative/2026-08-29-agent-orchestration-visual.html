@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent编排层大战：Harness架构范式转移</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg-deep:#0a0a0f;--bg-dark:#0d1117;--bg-card:#161b22;--bg-card-hover:#1c2333;
+  --blue:#0ea5e9;--blue-glow:#0ea5e966;--green:#10b981;--green-glow:#10b98166;
+  --purple:#a78bfa;--orange:#f59e0b;--red:#ef4444;--pink:#ec4899;
+  --text:#e6edf3;--text-dim:#8b949e;--text-muted:#484f58;
+  --font-sans:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue','PingFang SC','Noto Sans CJK SC',sans-serif;
+  --font-mono:'SF Mono','Fira Code','Cascadia Code',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg-deep);color:var(--text);font-family:var(--font-sans);overflow-x:hidden;line-height:1.6}
+::selection{background:var(--blue);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-deep)}
+::-webkit-scrollbar-thumb{background:var(--text-muted);border-radius:3px}
+
+/* ═══ HERO SECTION ═══ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,#0ea5e912,transparent),radial-gradient(ellipse 60% 40% at 80% 50%,#10b98108,transparent);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:
+  linear-gradient(var(--text-muted)1px,transparent 1px),linear-gradient(90deg,var(--text-muted)1px,transparent 1px);
+  background-size:80px 80px;opacity:.04;pointer-events:none}
+.hero-particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0}
+@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border:1px solid var(--blue)33;border-radius:999px;font-size:.75rem;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(10px);background:var(--blue)08}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:700;text-align:center;line-height:1.08;letter-spacing:-.03em;margin-bottom:1.5rem;max-width:900px}
+.hero h1 .gradient-text{background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2vw,1.35rem);color:var(--text-dim);text-align:center;max-width:680px;line-height:1.7;margin-bottom:3rem}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:2.2rem;font-weight:700;font-family:var(--font-mono);background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stat .label{font-size:.8rem;color:var(--text-dim);margin-top:.25rem;letter-spacing:.05em}
+.scroll-hint{position:absolute;bottom:2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-muted);font-size:.75rem;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.scroll-hint svg{width:20px;height:20px;stroke:var(--text-muted)}
+
+/* ═══ SECTION COMMONS ═══ */
+.section{padding:6rem 2rem;max-width:1200px;margin:0 auto}
+.section-full{padding:6rem 2rem;width:100%}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-tag{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:.75rem;font-weight:600}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:1rem}
+.section-desc{font-size:1.1rem;color:var(--text-dim);max-width:600px;margin:0 auto;line-height:1.7}
+
+/* ═══ EVOLUTION TIMELINE ═══ */
+.timeline{position:relative;padding:2rem 0}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--blue),var(--green),transparent);transform:translateX(-50%)}
+.timeline-item{display:flex;align-items:center;margin-bottom:4rem;position:relative;opacity:0;transform:translateY(40px)}
+.timeline-item.visible{opacity:1;transform:translateY(0);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.timeline-item:nth-child(odd){flex-direction:row-reverse}
+.timeline-content{width:42%;padding:2rem;background:var(--bg-card);border-radius:12px;border:1px solid #ffffff0a;position:relative;transition:all .3s}
+.timeline-content:hover{border-color:var(--blue)33;box-shadow:0 0 40px var(--blue-glow)}
+.timeline-dot{position:absolute;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;border:3px solid var(--blue);background:var(--bg-deep);z-index:2}
+.timeline-year{font-size:1.5rem;font-weight:700;color:var(--blue);font-family:var(--font-mono);margin-bottom:.5rem}
+.timeline-content h3{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
+.timeline-content p{font-size:.9rem;color:var(--text-dim);line-height:1.6}
+.timeline-content .tech-tag{display:inline-block;padding:.2rem .6rem;border-radius:4px;font-size:.7rem;font-family:var(--font-mono);margin:.2rem;background:var(--blue)15;color:var(--blue);border:1px solid var(--blue)22}
+
+/* ═══ FRAMEWORK CARDS ═══ */
+.frameworks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+.fw-card{background:var(--bg-card);border-radius:16px;padding:2rem;border:1px solid #ffffff0a;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.fw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fw-color,var(--blue)),transparent);opacity:0;transition:opacity .3s}
+.fw-card:hover::before{opacity:1}
+.fw-card:hover{transform:translateY(-4px);border-color:var(--fw-color,var(--blue))33;box-shadow:0 8px 40px #00000066}
+.fw-card.active{border-color:var(--fw-color,var(--blue))66;box-shadow:0 0 30px var(--fw-glow,var(--blue-glow))}
+.fw-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem;background:var(--fw-color,var(--blue))15}
+.fw-card h3{font-size:1.3rem;font-weight:600;margin-bottom:.25rem}
+.fw-card .fw-maker{font-size:.8rem;color:var(--text-dim);margin-bottom:1rem}
+.fw-card .fw-arch{font-size:.8rem;color:var(--fw-color,var(--blue));font-family:var(--font-mono);padding:.25rem .6rem;background:var(--fw-color,var(--blue))10;border-radius:4px;display:inline-block;margin-bottom:1rem}
+.fw-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.fw-metric{text-align:center;padding:.5rem;background:#ffffff05;border-radius:8px}
+.fw-metric .val{font-size:1.1rem;font-weight:700;font-family:var(--font-mono);color:var(--fw-color,var(--blue))}
+.fw-metric .lbl{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em}
+
+/* ═══ DETAIL PANEL ═══ */
+.detail-panel{margin-top:3rem;background:var(--bg-card);border-radius:16px;padding:2.5rem;border:1px solid #ffffff0a;display:none;animation:slideIn .4s ease}
+.detail-panel.show{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.detail-header{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #ffffff0a}
+.detail-header h2{font-size:1.5rem;font-weight:700}
+.detail-header .status-badge{padding:.3rem .8rem;border-radius:999px;font-size:.7rem;font-weight:600}
+.status-active{background:var(--green)20;color:var(--green);border:1px solid var(--green)33}
+.status-maintenance{background:var(--orange)20;color:var(--orange);border:1px solid var(--orange)33}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.detail-item h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.5rem}
+.detail-item p{font-size:.95rem;line-height:1.6}
+
+/* ═══ BAR CHART ═══ */
+.chart-container{background:var(--bg-card);border-radius:16px;padding:2rem;border:1px solid #ffffff0a;margin-top:2rem}
+.chart-title{font-size:1rem;font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.chart-title .icon{color:var(--blue)}
+.bar-chart{display:flex;flex-direction:column;gap:1rem}
+.bar-row{display:flex;align-items:center;gap:1rem}
+.bar-label{width:120px;font-size:.85rem;font-weight:500;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:32px;background:#ffffff08;border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 12px;font-size:.75rem;font-weight:600;font-family:var(--font-mono);color:#fff;transition:width 1.5s cubic-bezier(.16,1,.3,1);width:0}
+.bar-value{width:80px;font-size:.85rem;font-family:var(--font-mono);color:var(--text-dim);flex-shrink:0}
+
+/* ═══ COMPARISON TABLE ═══ */
+.compare-table-wrap{overflow-x:auto;margin-top:2rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.compare-table th{text-align:left;padding:1rem .75rem;border-bottom:2px solid var(--blue)33;color:var(--blue);font-weight:600;white-space:nowrap;position:sticky;top:0;background:var(--bg-deep)}
+.compare-table td{padding:.75rem;border-bottom:1px solid #ffffff08;vertical-align:top}
+.compare-table tr:hover td{background:#ffffff04}
+.compare-table .cell-yes{color:var(--green)}
+.compare-table .cell-no{color:var(--text-muted)}
+.compare-table .cell-warn{color:var(--orange)}
+.score-bar{display:inline-block;height:6px;border-radius:3px;margin-left:.5rem;vertical-align:middle}
+
+/* ═══ PARADIGM SECTION ═══ */
+.paradigm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-top:2rem}
+.paradigm-card{background:var(--bg-card);border-radius:16px;padding:2.5rem;border:1px solid #ffffff0a;position:relative;overflow:hidden;transition:all .4s}
+.paradigm-card:hover{border-color:var(--blue)33;transform:translateY(-2px)}
+.paradigm-card .era-badge{position:absolute;top:1.5rem;right:1.5rem;font-size:.65rem;padding:.3rem .6rem;border-radius:4px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em}
+.paradigm-card h3{font-size:1.3rem;font-weight:700;margin-bottom:.75rem}
+.paradigm-card .desc{font-size:.9rem;color:var(--text-dim);line-height:1.7;margin-bottom:1.5rem}
+.paradigm-card .features{list-style:none}
+.paradigm-card .features li{padding:.4rem 0;font-size:.85rem;color:var(--text-dim);display:flex;align-items:flex-start;gap:.5rem}
+.paradigm-card .features li::before{content:'→';color:var(--blue);flex-shrink:0}
+
+/* ═══ MARKET DATA ═══ */
+.market-hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:3rem}
+.market-card{background:var(--bg-card);border-radius:16px;padding:2rem;border:1px solid #ffffff0a;text-align:center;transition:all .3s}
+.market-card:hover{border-color:var(--blue)33;transform:translateY(-2px)}
+.market-card .big-num{font-size:2.5rem;font-weight:700;font-family:var(--font-mono);margin-bottom:.25rem}
+.market-card .label{font-size:.8rem;color:var(--text-dim);margin-bottom:.5rem}
+.market-card .growth{font-size:.75rem;padding:.2rem .6rem;border-radius:999px;display:inline-block}
+
+/* ═══ HEALTHCARE SECTION ═══ */
+.health-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+.health-card{background:var(--bg-card);border-radius:16px;padding:2rem;border:1px solid #ffffff0a;transition:all .3s}
+.health-card:hover{border-color:var(--green)33;transform:translateY(-2px)}
+.health-card .icon-big{font-size:2rem;margin-bottom:1rem}
+.health-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+.health-card p{font-size:.85rem;color:var(--text-dim);line-height:1.6}
+.health-card .stat-highlight{margin-top:1rem;padding:.75rem 1rem;background:var(--green)08;border-radius:8px;border-left:3px solid var(--green)}
+.health-card .stat-highlight .num{font-size:1.3rem;font-weight:700;font-family:var(--font-mono);color:var(--green)}
+
+/* ═══ INTERACTIVE EXPLORER ═══ */
+.explorer{background:var(--bg-card);border-radius:16px;padding:2.5rem;border:1px solid #ffffff0a;margin-top:2rem}
+.explorer-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;border-bottom:1px solid #ffffff0a;padding-bottom:1rem}
+.explorer-tab{padding:.5rem 1rem;border-radius:8px;font-size:.8rem;cursor:pointer;border:1px solid transparent;color:var(--text-dim);transition:all .2s;background:transparent;font-family:var(--font-sans)}
+.explorer-tab:hover{color:var(--text);background:#ffffff08}
+.explorer-tab.active{color:var(--blue);background:var(--blue)12;border-color:var(--blue)33}
+.explorer-content{min-height:300px}
+.explorer-view{display:none;animation:fadeIn .3s ease}
+.explorer-view.active{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.arch-node{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:8px;font-size:.8rem;font-family:var(--font-mono);border:1px solid #ffffff15;background:var(--bg-deep);margin:.25rem;transition:all .2s;cursor:pointer}
+.arch-node:hover{border-color:var(--blue)44;background:var(--blue)08}
+.arch-node.highlight{border-color:var(--blue);background:var(--blue)12;color:var(--blue)}
+
+/* ═══ QUOTE ═══ */
+.quote-section{padding:6rem 2rem;text-align:center;position:relative}
+.quote-section::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,var(--blue)05,transparent);pointer-events:none}
+.quote-text{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:600;max-width:800px;margin:0 auto 1.5rem;line-height:1.4;letter-spacing:-.01em}
+.quote-attr{font-size:.9rem;color:var(--text-dim)}
+
+/* ═══ CONCLUSION ═══ */
+.conclusion{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative}
+.conclusion::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 80%,var(--blue)08,transparent);pointer-events:none}
+.conclusion h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:700;max-width:800px;margin-bottom:1.5rem;line-height:1.15}
+.conclusion p{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.7;margin-bottom:3rem}
+.conclusion .cta-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.cta-btn{padding:.75rem 2rem;border-radius:999px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+.cta-primary{background:var(--blue);color:#fff}
+.cta-primary:hover{background:#0c8cd4;box-shadow:0 0 30px var(--blue-glow)}
+.cta-secondary{background:transparent;color:var(--blue);border:1px solid var(--blue)44}
+.cta-secondary:hover{background:var(--blue)10}
+
+/* ═══ FOOTER ═══ */
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid #ffffff0a;color:var(--text-muted);font-size:.8rem}
+.footer a{color:var(--blue);text-decoration:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  .timeline::before{left:20px}
+  .timeline-item,.timeline-item:nth-child(odd){flex-direction:column;align-items:flex-start;padding-left:50px}
+  .timeline-content{width:100%}
+  .timeline-dot{left:20px}
+  .hero-stats{gap:1.5rem}
+  .frameworks-grid{grid-template-columns:1fr}
+  .paradigm-grid{grid-template-columns:1fr}
+  .health-grid{grid-template-columns:1fr}
+}
+
+/* ═══ ANIMATIONS ═══ */
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* ═══ AB TOGGLE ═══ */
+.ab-toggle{display:flex;background:var(--bg-card);border-radius:12px;padding:4px;margin-bottom:2rem;width:fit-content;border:1px solid #ffffff0a}
+.ab-option{padding:.6rem 1.5rem;border-radius:8px;font-size:.85rem;cursor:pointer;transition:all .2s;color:var(--text-dim)}
+.ab-option.active{background:var(--blue);color:#fff;font-weight:600}
+.ab-panel{display:none;animation:fadeIn .3s}
+.ab-panel.active{display:block}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;color:#fff;text-decoration:none;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.82;transition:opacity .2s,transform .2s}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}</style>
+<a id="showcase-backlink" href="../index.html">← 返回展厅</a>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-badge"><span class="dot"></span>2026 · 编排层全景洞察</div>
+  <h1>AI Agent<br><span class="gradient-text">编排层大战</span></h1>
+  <p class="hero-sub">当AI Agent从单打独斗走向团队协作，编排层成为决定系统可靠性与智能上限的关键战场。从LangGraph到AutoGen，从CrewAI到Semantic Kernel——一场关于架构范式的深层变革正在发生。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num" data-count="10.9">0</div><div class="label">十亿美元市场规模</div></div>
+    <div class="hero-stat"><div class="num" data-count="60.4">0</div><div class="label">K · 最高GitHub Stars</div></div>
+    <div class="hero-stat"><div class="num" data-count="51">0</div><div class="label">% · 企业已投入生产</div></div>
+    <div class="hero-stat"><div class="num" data-count="171">0</div><div class="label">% · 平均投资回报率</div></div>
+  </div>
+  <div class="scroll-hint">
+    <span>向下探索</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ACT 1: EVOLUTION TIMELINE -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="section" id="evolution">
+  <div class="section-header reveal">
+    <div class="section-tag">Act I · 演化之路</div>
+    <h2 class="section-title">从工作流到Harness<br>编排层的四次范式转移</h2>
+    <p class="section-desc">每一次范式转移都让Agent更接近真正的自主智能——也更接近生产级可靠性。</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2022-2023</div>
+        <h3>🔌 工作流时代</h3>
+        <p>显式状态机。开发者手动定义每一步路由逻辑，LLM被严格绑定在预定义的流程图中。可控但脆弱——每一个边缘情况都需要人工预判。</p>
+        <div style="margin-top:.75rem">
+          <span class="tech-tag">LangChain</span>
+          <span class="tech-tag">LCEL</span>
+          <span class="tech-tag">Chain</span>
+        </div>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2023-2024</div>
+        <h3>🤝 多Agent协作</h3>
+        <p>动态委派。Supervisor Agent将任务分配给专业化Worker Agent，每个Agent拥有独立的推理循环。灵活性大幅提升，但协调复杂度呈指数增长。</p>
+        <div style="margin-top:.75rem">
+          <span class="tech-tag">AutoGen</span>
+          <span class="tech-tag">CrewAI</span>
+          <span class="tech-tag">GroupChat</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="border-color:var(--green)"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2025-2026</div>
+        <h3>🧠 Harness架构</h3>
+        <p>"如果你不是模型，那你就是Harness。" 编排层从辅助角色升级为核心基础设施——控制工具执行、内存管理、安全验证、人工审批、预算执行、治理控制。</p>
+        <div style="margin-top:.75rem">
+          <span class="tech-tag">LangGraph v1.x</span>
+          <span class="tech-tag">Claude Code</span>
+          <span class="tech-tag">MCP</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="border-color:var(--purple)"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2026+</div>
+        <h3>🌌 元Harness与自进化</h3>
+        <p>Agent开始自己生成和优化自己的Harness。Meta-learning驱动的自适应编排，根据任务复杂度动态调整架构策略。这是通向AGI级可靠性的最后一公里。</p>
+        <div style="margin-top:.75rem">
+          <span class="tech-tag">Hermes Agent</span>
+          <span class="tech-tag">Self-Evolving</span>
+          <span class="tech-tag">Meta-Harness</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="border-color:var(--orange)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- QUOTE BREAK -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="quote-section">
+  <div class="reveal">
+    <p class="quote-text">"模型是CPU，上下文窗口是RAM，<br>Agent Harness是操作系统。<br>只选模型就像买一台没有操作系统的电脑。"</p>
+    <p class="quote-attr">—— Philipp Schmid · 2026年1月</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ACT 2: FRAMEWORK WARS -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="section" id="frameworks">
+  <div class="section-header reveal">
+    <div class="section-tag">Act II · 框架之战</div>
+    <h2 class="section-title">四大编排框架<br>设计哲学的正面交锋</h2>
+    <p class="section-desc">每个框架都代表了一种对"Agent应该如何协作"的不同回答。点击探索它们的核心设计。</p>
+  </div>
+
+  <div class="frameworks-grid">
+    <div class="fw-card reveal" data-fw="langgraph" style="--fw-color:#0ea5e9;--fw-glow:#0ea5e966" onclick="showDetail('langgraph')">
+      <div class="fw-icon">🔷</div>
+      <h3>LangGraph</h3>
+      <div class="fw-maker">LangChain Inc.</div>
+      <div class="fw-arch">状态图 · 有向图</div>
+      <div class="fw-metrics">
+        <div class="fw-metric"><div class="val">39.5K</div><div class="lbl">GitHub Stars</div></div>
+        <div class="fw-metric"><div class="val">34.5M</div><div class="lbl">月下载量</div></div>
+        <div class="fw-metric"><div class="val">v1.2.x</div><div class="lbl">稳定版本</div></div>
+        <div class="fw-metric"><div class="val">MIT</div><div class="lbl">开源协议</div></div>
+      </div>
+    </div>
+
+    <div class="fw-card reveal reveal-delay-1" data-fw="crewai" style="--fw-color:#f59e0b;--fw-glow:#f59e0b66" onclick="showDetail('crewai')">
+      <div class="fw-icon">👥</div>
+      <h3>CrewAI</h3>
+      <div class="fw-maker">CrewAI Inc.</div>
+      <div class="fw-arch">角色 · 任务 · 团队</div>
+      <div class="fw-metrics">
+        <div class="fw-metric"><div class="val">56.9K</div><div class="lbl">GitHub Stars</div></div>
+        <div class="fw-metric"><div class="val">5.2M</div><div class="lbl">月下载量</div></div>
+        <div class="fw-metric"><div class="val">v1.15.x</div><div class="lbl">稳定版本</div></div>
+        <div class="fw-metric"><div class="val">MIT</div><div class="lbl">开源协议</div></div>
+      </div>
+    </div>
+
+    <div class="fw-card reveal reveal-delay-2" data-fw="autogen" style="--fw-color:#a78bfa;--fw-glow:#a78bfa66" onclick="showDetail('autogen')">
+      <div class="fw-icon">💬</div>
+      <h3>AutoGen</h3>
+      <div class="fw-maker">Microsoft (维护模式)</div>
+      <div class="fw-arch">对话 · 群聊 · 代码执行</div>
+      <div class="fw-metrics">
+        <div class="fw-metric"><div class="val">60.4K</div><div class="lbl">GitHub Stars</div></div>
+        <div class="fw-metric"><div class="val">1.2M</div><div class="lbl">月下载量</div></div>
+        <div class="fw-metric"><div class="val">0.7.x</div><div class="lbl">稳定版本</div></div>
+        <div class="fw-metric"><div class="val">CC-BY</div><div class="lbl">开源协议</div></div>
+      </div>
+    </div>
+
+    <div class="fw-card reveal reveal-delay-3" data-fw="semantic" style="--fw-color:#10b981;--fw-glow:#10b98166" onclick="showDetail('semantic')">
+      <div class="fw-icon">🏢</div>
+      <h3>Semantic Kernel</h3>
+      <div class="fw-maker">Microsoft (维护模式)</div>
+      <div class="fw-arch">插件 · 企业级 · 多语言</div>
+      <div class="fw-metrics">
+        <div class="fw-metric"><div class="val">28.4K</div><div class="lbl">GitHub Stars</div></div>
+        <div class="fw-metric"><div class="val">900K</div><div class="lbl">月下载量</div></div>
+        <div class="fw-metric"><div class="val">—</div><div class="lbl">合并至MAF</div></div>
+        <div class="fw-metric"><div class="val">MIT</div><div class="lbl">开源协议</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div class="detail-panel" id="detailPanel">
+    <div id="detailContent"></div>
+  </div>
+
+  <!-- GitHub Stars Bar Chart -->
+  <div class="chart-container reveal" style="margin-top:3rem">
+    <div class="chart-title"><span class="icon">📊</span> GitHub Stars · 2026年8月实时数据</div>
+    <div class="bar-chart" id="starsChart">
+      <div class="bar-row">
+        <div class="bar-label">AutoGen</div>
+        <div class="bar-track"><div class="bar-fill" data-width="100" style="background:linear-gradient(90deg,#a78bfa,#7c3aed)">60.4K</div></div>
+        <div class="bar-value" style="color:var(--purple)">60,400</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">CrewAI</div>
+        <div class="bar-track"><div class="bar-fill" data-width="94" style="background:linear-gradient(90deg,#f59e0b,#d97706)">56.9K</div></div>
+        <div class="bar-value" style="color:var(--orange)">56,900</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">LlamaIndex</div>
+        <div class="bar-track"><div class="bar-fill" data-width="85" style="background:linear-gradient(90deg,#ec4899,#be185d)">51.6K</div></div>
+        <div class="bar-value" style="color:var(--pink)">51,600</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">LangGraph</div>
+        <div class="bar-track"><div class="bar-fill" data-width="65" style="background:linear-gradient(90deg,#0ea5e9,#0284c7)">39.5K</div></div>
+        <div class="bar-value" style="color:var(--blue)">39,500</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">smolagents</div>
+        <div class="bar-track"><div class="bar-fill" data-width="48" style="background:linear-gradient(90deg,#06b6d4,#0891b2)">28.8K</div></div>
+        <div class="bar-value" style="color:#06b6d4">28,800</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">OpenAI SDK</div>
+        <div class="bar-track"><div class="bar-fill" data-width="47" style="background:linear-gradient(90deg,#22c55e,#16a34a)">28.6K</div></div>
+        <div class="bar-value" style="color:var(--green)">28,600</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Semantic Kernel</div>
+        <div class="bar-track"><div class="bar-fill" data-width="47" style="background:linear-gradient(90deg,#10b981,#059669)">28.4K</div></div>
+        <div class="bar-value" style="color:var(--green)">28,400</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Mastra</div>
+        <div class="bar-track"><div class="bar-fill" data-width="45" style="background:linear-gradient(90deg,#8b5cf6,#7c3aed)">27.1K</div></div>
+        <div class="bar-value" style="color:#8b5cf6">27,100</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Google ADK</div>
+        <div class="bar-track"><div class="bar-fill" data-width="35" style="background:linear-gradient(90deg,#f97316,#ea580c)">21.1K</div></div>
+        <div class="bar-value" style="color:#f97316">21,100</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Pydantic AI</div>
+        <div class="bar-track"><div class="bar-fill" data-width="32" style="background:linear-gradient(90deg,#64748b,#475569)">19.2K</div></div>
+        <div class="bar-value" style="color:#94a3b8">19,200</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Downloads Chart -->
+  <div class="chart-container reveal" style="margin-top:2rem">
+    <div class="chart-title"><span class="icon">📦</span> 月PyPI下载量 · Stars是关注度，下载量才是真实使用</div>
+    <div class="bar-chart" id="downloadsChart">
+      <div class="bar-row">
+        <div class="bar-label">LangGraph</div>
+        <div class="bar-track"><div class="bar-fill" data-width="100" style="background:linear-gradient(90deg,#0ea5e9,#0284c7)">34.5M</div></div>
+        <div class="bar-value" style="color:var(--blue)">34.5M/月</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">CrewAI</div>
+        <div class="bar-track"><div class="bar-fill" data-width="15" style="background:linear-gradient(90deg,#f59e0b,#d97706)">5.2M</div></div>
+        <div class="bar-value" style="color:var(--orange)">5.2M/月</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">AutoGen</div>
+        <div class="bar-track"><div class="bar-fill" data-width="3.5" style="background:linear-gradient(90deg,#a78bfa,#7c3aed)">1.2M</div></div>
+        <div class="bar-value" style="color:var(--purple)">1.2M/月</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Semantic Kernel</div>
+        <div class="bar-track"><div class="bar-fill" data-width="2.6" style="background:linear-gradient(90deg,#10b981,#059669)">0.9M</div></div>
+        <div class="bar-value" style="color:var(--green)">0.9M/月</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-top:1rem;font-style:italic">💡 LangGraph的月下载量是CrewAI的7倍，但CrewAI的Stars接近LangGraph的2倍——关注度≠生产力。CrewAI是学习入口，LangGraph是生产标配。</p>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="compare-table-wrap reveal" style="margin-top:2rem">
+    <div class="chart-title" style="margin-bottom:1rem"><span class="icon">⚡</span> 全维度能力对比</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th style="color:var(--blue)">LangGraph</th>
+          <th style="color:var(--orange)">CrewAI</th>
+          <th style="color:var(--purple)">AutoGen</th>
+          <th style="color:var(--green)">Semantic Kernel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>架构范式</td><td>状态图 (有向图)</td><td>角色+任务 (团队)</td><td>对话+群聊</td><td>插件系统</td></tr>
+        <tr><td>学习曲线</td><td class="cell-warn">较陡</td><td class="cell-yes">简单</td><td>中等</td><td class="cell-warn">较陡</td></tr>
+        <tr><td>状态管理</td><td class="cell-yes">高级 (检查点)</td><td>基础</td><td>中等</td><td class="cell-yes">高级 (企业级)</td></tr>
+        <tr><td>生产就绪</td><td class="cell-yes">✅ 完全就绪</td><td class="cell-warn">部分就绪</td><td class="cell-warn">维护模式</td><td class="cell-warn">维护模式</td></tr>
+        <tr><td>Human-in-the-Loop</td><td class="cell-yes">✅ 原生支持</td><td class="cell-yes">✅ 插件支持</td><td>手动集成</td><td class="cell-yes">✅ 原生支持</td></tr>
+        <tr><td>调试体验</td><td class="cell-yes">优秀 (LangSmith)</td><td class="cell-no">较差</td><td>良好</td><td class="cell-yes">优秀 (Azure Monitor)</td></tr>
+        <tr><td>多Agent支持</td><td class="cell-yes">✅ 原生子图</td><td class="cell-yes">✅ 原生团队</td><td class="cell-yes">✅ 群聊</td><td>有限</td></tr>
+        <tr><td>RAG集成</td><td class="cell-yes">优秀</td><td>良好</td><td>中等</td><td>良好</td></tr>
+        <tr><td>流式输出</td><td class="cell-yes">✅ 原生</td><td class="cell-warn">部分</td><td class="cell-warn">部分</td><td class="cell-yes">✅</td></tr>
+        <tr><td>生产用户</td><td>Klarna, Uber, LinkedIn, GitLab</td><td>Fortune 500 · 60%+</td><td>Azure生态</td><td>企业.NET/Java</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ACT 3: PARADIGM DEEP DIVE -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="section" id="paradigm">
+  <div class="section-header reveal">
+    <div class="section-tag">Act Ⅲ · 架构深潜</div>
+    <h2 class="section-title">Harness架构的六大核心模块</h2>
+    <p class="section-desc">一个生产级Agent Harness不是单一组件，而是一个精心设计的多层系统——每一层都在回答不同的可靠性问题。</p>
+  </div>
+
+  <div class="paradigm-grid">
+    <div class="paradigm-card reveal">
+      <div class="era-badge" style="background:var(--blue)15;color:var(--blue)">核心引擎</div>
+      <h3>🔄 编排循环</h3>
+      <p class="desc">从概率预测到确定性执行。RALPH（Read-Act Loop with Persistent Handling）—— Think → Act → Observe的闭环。每次Action后强制Observe，确保Agent不偏离原始目标。</p>
+      <ul class="features">
+        <li>打破LLM的"概率漂移"魔咒</li>
+        <li>逻辑锚点确保长程任务一致性</li>
+        <li>支持检查点恢复和重放调试</li>
+      </ul>
+    </div>
+
+    <div class="paradigm-card reveal reveal-delay-1">
+      <div class="era-badge" style="background:var(--green)15;color:var(--green)">感知层</div>
+      <h3>🧩 工具与行动</h3>
+      <p class="desc">Agent与外部世界交互的标准化网关。MCP协议定义能力边界——Agent永远不能无限制访问关键系统资源，每个Action必须通过Harness定义的工具通道。</p>
+      <ul class="features">
+        <li>MCP (Model Context Protocol) 标准化</li>
+        <li>能力封装 + 权限隔离</li>
+        <li>限制暴露工具数量防止认知过载</li>
+      </ul>
+    </div>
+
+    <div class="paradigm-card reveal reveal-delay-2">
+      <div class="era-badge" style="background:var(--purple)15;color:var(--purple)">安全层</div>
+      <h3>🛡️ 权限与安全</h3>
+      <p class="desc">模型提议，Harness执行。即使模型被Prompt Injection操纵请求危险操作，Harness仍作为守门人拦截。读取/草稿/外部写入三级权限模型。</p>
+      <ul class="features">
+        <li>Draft-Commit模式：草拟→审批→提交</li>
+        <li>基于风险阈值的动态审批</li>
+        <li>沙箱隔离 + 快照回滚</li>
+      </ul>
+    </div>
+
+    <div class="paradigm-card reveal reveal-delay-3">
+      <div class="era-badge" style="background:var(--orange)15;color:var(--orange)">协调层</div>
+      <h3>👥 子Agent编排</h3>
+      <p class="desc">从孤胆英雄到专业团队。当任务难度超过阈值，Harness化身项目经理——分解任务，派发给多个专业化Sub-Agent，每个Agent拥有独立上下文窗口。</p>
+      <ul class="features">
+        <li>Shepherd模式：牧羊人+羊群架构</li>
+        <li>并行执行 + 依赖管理</li>
+        <li>上下文隔离防止信息腐烂</li>
+      </ul>
+    </div>
+
+    <div class="paradigm-card reveal reveal-delay-4">
+      <div class="era-badge" style="background:var(--pink)15;color:var(--pink)">记忆层</div>
+      <h3>🧠 上下文工程</h3>
+      <p class="desc">上下文不是倾倒场，而是精密工程。四层架构：策略层(稳定指令)→技能层(可复用能力)→会话层(用户信息)→动态层(工具检索)。</p>
+      <ul class="features">
+        <li>信号噪声比(SNR)优化</li>
+        <li>防止"Lost in the Middle"现象</li>
+        <li>JSON进度文件 + Git历史持久化</li>
+      </ul>
+    </div>
+
+    <div class="paradigm-card reveal reveal-delay-4">
+      <div class="era-badge" style="background:var(--red)15;color:var(--red)">验证层</div>
+      <h3>✅ 验证与修复</h3>
+      <p class="desc">Generator-Critic模式。一个Agent生成，另一个评估。加上最大迭代限制防止无限循环。验证层是Harness对抗"AI幻觉"的最后一道防线。</p>
+      <ul class="features">
+        <li>生成者-批评者循环迭代</li>
+        <li>确定性检查 (Linter/类型)</li>
+        <li>推断式检查 (另一AI验证)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- QUOTE BREAK 2 -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="quote-section">
+  <div class="reveal">
+    <p class="quote-text">"Agent = Model + Harness<br>模型是战略家，Harness是操作系统。<br>同样的模型能力，不同的Harness设计，<br>性能和Token成本天差地别。"</p>
+    <p class="quote-attr">—— 腾讯高级执行官 唐道生 · 2026</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ACT 4: MARKET & ECONOMIC -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="section" id="market">
+  <div class="section-header reveal">
+    <div class="section-tag">Act IV · 经济全景</div>
+    <h2 class="section-title">💰 从实验到基础设施<br>Agentic AI的万亿赛道</h2>
+    <p class="section-desc">2026年是编排层从"可选"变为"必需"的分水岭——不部署Harness的企业将被甩在身后。</p>
+  </div>
+
+  <div class="market-hero">
+    <div class="market-card reveal">
+      <div class="big-num" style="color:var(--blue)">$10.9B</div>
+      <div class="label">2026年全球市场规模</div>
+      <div class="growth" style="background:var(--green)15;color:var(--green)">↑ 44% YoY</div>
+    </div>
+    <div class="market-card reveal reveal-delay-1">
+      <div class="big-num" style="color:var(--green)">$52.6B</div>
+      <div class="label">2030年预测规模</div>
+      <div class="growth" style="background:var(--blue)15;color:var(--blue)">CAGR 46.3%</div>
+    </div>
+    <div class="market-card reveal reveal-delay-2">
+      <div class="big-num" style="color:var(--orange)">$201.9B</div>
+      <div class="label">2026年Agentic支出</div>
+      <div class="growth" style="background:var(--orange)15;color:var(--orange)">↑ 141% YoY</div>
+    </div>
+    <div class="market-card reveal reveal-delay-3">
+      <div class="big-num" style="color:var(--purple)">$752.7B</div>
+      <div class="label">2029年预测支出</div>
+      <div class="growth" style="background:var(--purple)15;color:var(--purple)">CAGR 119%</div>
+    </div>
+  </div>
+
+  <!-- Interactive A/B Toggle -->
+  <div class="reveal" style="margin-top:3rem">
+    <div class="ab-toggle">
+      <div class="ab-option active" onclick="switchAB('adoption')">🏢 企业采纳</div>
+      <div class="ab-option" onclick="switchAB('industry')">🏭 行业分布</div>
+      <div class="ab-option" onclick="switchAB('risk')">⚠️ 风险洞察</div>
+    </div>
+
+    <div class="ab-panel active" id="ab-adoption">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem">
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--green)">51%</div><div class="label">已投入生产</div></div>
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--blue)">80%</div><div class="label">企业应用嵌入Agent</div></div>
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--orange)">62%</div><div class="label">正在实验中</div></div>
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--purple)">68%</div><div class="label">CIO列为Top-3投资</div></div>
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--pink)">171%</div><div class="label">平均投资回报率</div></div>
+        <div class="market-card"><div class="big-num" style="font-size:2rem;color:var(--green)">5.1月</div><div class="label">中位回报周期</div></div>
+      </div>
+    </div>
+
+    <div class="ab-panel" id="ab-industry">
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">IT监控/自动化</div>
+          <div class="bar-track"><div class="bar-fill" data-width="65" style="background:linear-gradient(90deg,var(--blue),#0284c7)">65%+</div></div>
+          <div class="bar-value" style="color:var(--blue)">65%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">客服</div>
+          <div class="bar-track"><div class="bar-fill" data-width="58" style="background:linear-gradient(90deg,var(--green),#059669)">58%</div></div>
+          <div class="bar-value" style="color:var(--green)">58%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">市场营销</div>
+          <div class="bar-track"><div class="bar-fill" data-width="51" style="background:linear-gradient(90deg,var(--orange),#d97706)">51%</div></div>
+          <div class="bar-value" style="color:var(--orange)">51%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">运营/供应链</div>
+          <div class="bar-track"><div class="bar-fill" data-width="49" style="background:linear-gradient(90deg,var(--purple),#7c3aed)">49%</div></div>
+          <div class="bar-value" style="color:var(--purple)">49%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">金融</div>
+          <div class="bar-track"><div class="bar-fill" data-width="42" style="background:linear-gradient(90deg,var(--pink),#be185d)">42%</div></div>
+          <div class="bar-value" style="color:var(--pink)">42%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">医疗健康</div>
+          <div class="bar-track"><div class="bar-fill" data-width="48" style="background:linear-gradient(90deg,#06b6d4,#0891b2)">48% CAGR</div></div>
+          <div class="bar-value" style="color:#06b6d4">48.4%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ab-panel" id="ab-risk">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem">
+        <div style="background:var(--bg-card);border-radius:12px;padding:1.5rem;border-left:3px solid var(--red)">
+          <h4 style="color:var(--red);margin-bottom:.5rem">🚨 40%项目将被取消</h4>
+          <p style="font-size:.85rem;color:var(--text-dim);line-height:1.6">Gartner预测到2027年底，超过40%的Agentic AI项目将因成本失控、价值不清、治理薄弱而被取消。</p>
+        </div>
+        <div style="background:var(--bg-card);border-radius:12px;padding:1.5rem;border-left:3px solid var(--orange)">
+          <h4 style="color:var(--orange);margin-bottom:.5rem">💸 $2.5T部署 vs $2.8B安全</h4>
+          <p style="font-size:.85rem;color:var(--text-dim);line-height:1.6">全球AI支出$2.53万亿，但安全防护仅$28亿。Agent可自主行动——被攻破的Agent比聊天机器人危险得多。</p>
+        </div>
+        <div style="background:var(--bg-card);border-radius:12px;padding:1.5rem;border-left:3px solid var(--purple)">
+          <h4 style="color:var(--purple);margin-bottom:.5rem">🔐 仅21%有成熟治理</h4>
+          <p style="font-size:.85rem;color:var(--text-dim);line-height:1.6">Deloitte报告仅21%企业拥有成熟的AI治理模型——79%的治理缺口是持续采纳的最大威胁。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ACT 5: HEALTHCARE DEEP DIVE -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="section" id="healthcare">
+  <div class="section-header reveal">
+    <div class="section-tag">Act V · 医疗前沿</div>
+    <h2 class="section-title">🏥 Agent编排在医疗领域<br>从辅助工具到临床基础设施</h2>
+    <p class="section-desc">医疗行业以48.4%的CAGR领跑AI Agent采纳——当生命攸关时，Harness的可靠性不再是可选项。</p>
+  </div>
+
+  <div class="health-grid">
+    <div class="health-card reveal">
+      <div class="icon-big">🔬</div>
+      <h3>多Agent临床协作</h3>
+      <p>诊断推理Agent + 药物交互Agent + 患者监护Agent协同工作——每个Agent拥有独立的推理循环和工具集，由Meta-Agent协调。</p>
+      <div class="stat-highlight">
+        <div class="num">98%</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">认知障碍筛查特异性 (Mass General Brigham)</div>
+      </div>
+    </div>
+
+    <div class="health-card reveal reveal-delay-1">
+      <div class="icon-big">💊</div>
+      <h3>AI驱动药物发现</h3>
+      <p>AI Native发现平台驱动2026年超60%进入I期临床试验的新药。多Agent系统协调文献搜索、基因组学和临床试验数据库。</p>
+      <div class="stat-highlight">
+        <div class="num">$200-500M</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">每款AI发现药物的成本节省</div>
+      </div>
+    </div>
+
+    <div class="health-card reveal reveal-delay-2">
+      <div class="icon-big">📋</div>
+      <h3>行政自动化</h3>
+      <p>预授权审批、编码计费、预约调度——AI Agent将行政工作量削减55%。从15-16天的申诉流程缩短到1-2天。</p>
+      <div class="stat-highlight">
+        <div class="num">468%</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">AI预约调度投资回报率 (ROI)</div>
+      </div>
+    </div>
+
+    <div class="health-card reveal reveal-delay-3">
+      <div class="icon-big">📡</div>
+      <h3>远程监护与预警</h3>
+      <p>通过可穿戴设备数据 + EHR整合 + AI语音Agent，实现7×24小时主动监护。AI影像和监护方案预计每年预防250万诊断错误。</p>
+      <div class="stat-highlight">
+        <div class="num">68%</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">医疗行业AI Agent采纳率 (全行业最高)</div>
+      </div>
+    </div>
+
+    <div class="health-card reveal reveal-delay-4">
+      <div class="icon-big">🏥</div>
+      <h3>手术辅助与精准医疗</h3>
+      <p>实时手术AI叠加关键解剖结构、基因组数据分析个性化治疗路径。Da Vinci系统展示AI辅助手术降低并发症并缩短恢复时间。</p>
+      <div class="stat-highlight">
+        <div class="num">22%</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">AI辅助腹腔镜手术并发症降低率</div>
+      </div>
+    </div>
+
+    <div class="health-card reveal reveal-delay-4">
+      <div class="icon-big">💰</div>
+      <h3>经济效益</h3>
+      <p>AI在医疗领域每投入$1可获得$3.20回报。美国医疗行业到2026年AI可带来$150-360B年度节省。</p>
+      <div class="stat-highlight">
+        <div class="num">$150-360B</div>
+        <div style="font-size:.8rem;color:var(--text-dim)">美国医疗AI年度潜在节省</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Healthcare Multi-Agent Architecture -->
+  <div class="chart-container reveal" style="margin-top:2rem">
+    <div class="chart-title"><span class="icon">🏗️</span> 医疗多Agent编排架构 · 交互式探索</div>
+    <div id="healthcareArch" style="padding:1rem 0">
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <div class="arch-node highlight" style="font-size:1rem;padding:.8rem 1.5rem;border-color:var(--green)">
+          🧠 Meta-Agent (协调器)
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">🔍 诊断推理Agent</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">💊 药物交互Agent</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">📡 监护预警Agent</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">📋 文档自动化Agent</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">🔬 药物发现Agent</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">📊 EHR系统</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">🧬 基因组数据库</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">🏥 临床试验库</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">⌚ 可穿戴设备</div>
+        <div class="arch-node" onclick="this.classList.toggle('highlight')">📋 医保API</div>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);text-align:center;margin-top:1.5rem">👆 点击节点查看/隐藏交互状态</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONCLUSION -->
+<section class="conclusion" id="conclusion">
+  <div class="reveal">
+    <div class="section-tag" style="margin-bottom:1.5rem">结语</div>
+    <h2>编排层不仅是技术选择<br>更是AI系统<span style="background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent">可靠性</span>的基石</h2>
+    <p>当模型能力趋于同质化，Harness成为决定AI系统能否从Demo走向Production的关键变量。模型在变，Harness在定义未来。</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:700px;margin:0 auto 3rem;text-align:left">
+      <div style="padding:1rem;background:var(--bg-card);border-radius:8px;border:1px solid #ffffff0a">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">🔷</div>
+        <div style="font-size:.85rem;color:var(--text-dim)"><strong style="color:var(--blue)">复杂工作流</strong><br>选择 LangGraph</div>
+      </div>
+      <div style="padding:1rem;background:var(--bg-card);border-radius:8px;border:1px solid #ffffff0a">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">👥</div>
+        <div style="font-size:.85rem;color:var(--text-dim)"><strong style="color:var(--orange)">快速原型</strong><br>选择 CrewAI</div>
+      </div>
+      <div style="padding:1rem;background:var(--bg-card);border-radius:8px;border:1px solid #ffffff0a">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">🏢</div>
+        <div style="font-size:.85rem;color:var(--text-dim)"><strong style="color:var(--green)">企业生态</strong><br>选择 MAF / SK</div>
+      </div>
+      <div style="padding:1rem;background:var(--bg-card);border-radius:8px;border:1px solid #ffffff0a">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">⚡</div>
+        <div style="font-size:.85rem;color:var(--text-dim)"><strong style="color:var(--purple)">极简主义</strong><br>选择 OpenAI SDK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p style="margin-bottom:.5rem">AI Agent编排层大战 · Harness架构范式转移 · 2026</p>
+  <p>数据来源：Gartner, McKinsey, Anthropic, LangChain, Mordor Intelligence, Frost and Sullivan, Deloitte · 绘界出品</p>
+  <p style="margin-top:.5rem">数据截止 2026年8月 · 所有框架Stars数据来自GitHub API实时拉取</p>
+</footer>
+
+<script>
+// PARTICLES
+(function(){
+  var c=document.getElementById('particles');
+  var colors=['#0ea5e9','#10b981','#a78bfa','#f59e0b'];
+  for(var i=0;i<40;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    var s=Math.random()*3+1;
+    p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;background:'+colors[i%4]+';animation-duration:'+(Math.random()*15+10)+'s;animation-delay:'+(Math.random()*10)+'s';
+    c.appendChild(p);
+  }
+})();
+
+// INTERSECTION OBSERVER
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.bar-fill').forEach(function(bar){
+        var w=bar.getAttribute('data-width');
+        if(w) setTimeout(function(){bar.style.width=w+'%';},100);
+      });
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal,.timeline-item').forEach(function(el){obs.observe(el);});
+
+// HERO COUNTER
+function animateCounters(){
+  document.querySelectorAll('.hero-stat .num').forEach(function(el){
+    var target=parseFloat(el.getAttribute('data-count'));
+    var duration=2000;
+    var start=performance.now();
+    var isFloat=target%1!==0;
+    function update(now){
+      var p=Math.min((now-start)/duration,1);
+      var ease=1-Math.pow(1-p,3);
+      var val=target*ease;
+      el.textContent=isFloat?val.toFixed(1):Math.round(val);
+      if(p<1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+var heroObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){animateCounters();heroObs.disconnect();}
+  });
+},{threshold:0.3});
+var heroStats=document.querySelector('.hero-stats');
+if(heroStats) heroObs.observe(heroStats);
+
+// FRAMEWORK DETAIL
+var fwData={
+  langgraph:{name:'LangGraph',color:'#0ea5e9',status:'active',statusText:'活跃开发',
+    desc:'LangChain的底层编排库，将Agent建模为有向图。节点是处理步骤，边是条件转换。内置检查点系统支持持久执行。',
+    features:[
+      {label:'架构范式',value:'有向状态图 (Directed Graph)'},
+      {label:'核心优势',value:'完全控制、高级状态管理、确定性执行'},
+      {label:'生产用户',value:'Klarna, Uber, LinkedIn, GitLab, J.P. Morgan'},
+      {label:'调试工具',value:'LangSmith — 零延迟异步追踪'},
+      {label:'持久化',value:'SQLite/Postgres/MongoDB检查点'},
+      {label:'定价',value:'核心库免费(MIT)，LangSmith $39/seat/月'}
+    ]},
+  crewai:{name:'CrewAI',color:'#f59e0b',status:'active',statusText:'活跃开发',
+    desc:'以"角色+任务+团队"范式构建多Agent系统。最接近"Agent框架即低代码平台"的设计。',
+    features:[
+      {label:'架构范式',value:'角色驱动的团队协作 (Crews + Flows)'},
+      {label:'核心优势',value:'最低学习门槛、直觉式设计、最快原型'},
+      {label:'生产数据',value:'27M+历史下载、2B+次Agent执行'},
+      {label:'企业采用',value:'Fortune 500中近60%采用'},
+      {label:'生态',value:'MCP + A2A协议原生支持'},
+      {label:'局限',value:'调试困难、状态管理基础、复杂流程受限'}
+    ]},
+  autogen:{name:'AutoGen',color:'#a78bfa',status:'maintenance',statusText:'维护模式',
+    desc:'多Agent对话范式的先驱。2026年4月与Semantic Kernel合并为Microsoft Agent Framework 1.0。',
+    features:[
+      {label:'架构范式',value:'结构化对话 + 群聊'},
+      {label:'核心优势',value:'对话式Agent辩论、代码执行沙箱'},
+      {label:'当前状态',value:'维护模式 — 仅修Bug，新功能在MAF'},
+      {label:'替代方案',value:'AG2 (社区分支) / MAF 1.0'},
+      {label:'生态',value:'AutoGen Studio无代码界面'},
+      {label:'建议',value:'新项目不推荐原版AutoGen'}
+    ]},
+  semantic:{name:'Semantic Kernel',color:'#10b981',status:'maintenance',statusText:'维护模式',
+    desc:'微软的企业级Agent框架，以插件系统为核心。2026年4月与AutoGen合并为MAF。',
+    features:[
+      {label:'架构范式',value:'插件系统 + 企业管道'},
+      {label:'核心优势',value:'类型安全、遥测、Azure深度集成'},
+      {label:'当前状态',value:'维护模式 — 合并至MAF'},
+      {label:'协议支持',value:'MCP + A2A + AG-UI'},
+      {label:'适用场景',value:'Azure重度用户、.NET/Java企业应用'},
+      {label:'建议',value:'已在此生态内则直接用MAF'}
+    ]}
+};
+
+function showDetail(fw){
+  var d=fwData[fw];
+  if(!d)return;
+  var panel=document.getElementById('detailPanel');
+  var content=document.getElementById('detailContent');
+  document.querySelectorAll('.fw-card').forEach(function(c){c.classList.remove('active');});
+  var card=document.querySelector('[data-fw="'+fw+'"]');
+  if(card) card.classList.add('active');
+  var statusClass=d.status==='active'?'status-active':'status-maintenance';
+  var featuresHtml=d.features.map(function(f){
+    return '<div class="detail-item"><h4>'+f.label+'</h4><p>'+f.value+'</p></div>';
+  }).join('');
+  content.innerHTML='<div class="detail-header"><h2 style="color:'+d.color+'">'+d.name+'</h2><span class="status-badge '+statusClass+'">'+d.statusText+'</span></div><p style="color:var(--text-dim);line-height:1.7;margin-bottom:2rem;font-size:.95rem">'+d.desc+'</p><div class="detail-grid">'+featuresHtml+'</div>';
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// AB TOGGLE
+function switchAB(id){
+  document.querySelectorAll('.ab-option').forEach(function(o){o.classList.remove('active');});
+  document.querySelectorAll('.ab-panel').forEach(function(p){p.classList.remove('active');});
+  event.target.classList.add('active');
+  var panel=document.getElementById('ab-'+id);
+  if(panel){
+    panel.classList.add('active');
+    panel.querySelectorAll('.bar-fill').forEach(function(bar){
+      bar.style.width='0%';
+      var w=bar.getAttribute('data-width');
+      if(w) setTimeout(function(){bar.style.width=w+'%';},100);
+    });
+  }
+}
+
+// PARALLAX
+var ticking=false;
+window.addEventListener('scroll',function(){
+  if(!ticking){
+    requestAnimationFrame(function(){
+      var scrollY=window.scrollY;
+      var hero=document.querySelector('.hero-grid');
+      if(hero) hero.style.transform='translateY('+scrollY*0.15+'px)';
+      ticking=false;
+    });
+    ticking=true;
+  }
+});
+</script>
+</body>
+</html>
