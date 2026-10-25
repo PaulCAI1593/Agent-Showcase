@@ -30,9 +30,10 @@ except ImportError:                                    # 闸门缺失时降级�
 # ── 追踪线主题族（人工可编辑；关键词子串匹配标签）──
 # 跨族标签会重复计入，这是刻意取舍：追踪线要的是"这条主题覆盖了多少作品"，
 # 不是互斥分区。unclassified_tags 会暴露未被任何族覆盖的标签，防止新主题静默漏掉。
+BEAT_PENDING = "待归类"   # 显式退出标记：作者声明"本篇不属于任何现有线"
+
 BEAT_FAMILIES = {
-    "开源 vs 闭源之争":  ["开源", "闭源", "模型疲劳", "AI模型", "大模型"],
-    "Agent 与编排":      ["Agent", "编排", "智能体", "Harness", "Codex"],
+    "开源 vs 闭源之争":  ["开源", "闭源", "模型疲劳", "AI模型", "大模型"],    "Agent 与编排":      ["Agent", "编排", "智能体", "Harness", "Codex"],
     "厂商与算力权力":    ["OpenAI", "Anthropic", "DeepSeek", "英伟达", "Hugging",
                           "AI权力", "中国AI", "Mistral", "Google", "Meta Muse"],
     "地缘与能源":        ["霍尔木兹", "能源", "伊朗", "中东", "地缘", "油价", "美伊", "军演"],
@@ -672,8 +673,11 @@ def main():
         beat = read_declared_beat(os.path.join(ROOT, rel))
         if beat:
             item['beat'] = beat
-            if beat not in BEAT_FAMILIES:
-                issues.append(f'{rel}: 追踪线「{beat}」不在封闭集内（首页会归入新线索候选）')
+            # 「待归类」是显式退出（作者知道该篇不属于任何现有线），不是错误；
+            # 其他不在封闭集里的名字才是真问题（写错了）。
+            if beat not in BEAT_FAMILIES and beat != BEAT_PENDING:
+                issues.append(f'{rel}: 追踪线「{beat}」不在封闭集内'
+                              f'（首页会归入新线索候选；合法值见 templates/work.html）')
         (research if typ == 'research' else creative).append(item)
         if not thumb:
             issues.append(f'{rel}: 无缩略图（页面将显示无图卡片）')
