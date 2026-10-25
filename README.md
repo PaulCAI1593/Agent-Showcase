@@ -93,7 +93,7 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 
 | 脚本 | 作用 |
 |---|---|
-| `autopublish.sh` / `autopublish.py` | **日常只用这个**：交付即上架全流程 + 七项校验 |
+| `autopublish.sh` / `autopublish.py` | **日常只用这个**：交付即上架全流程 + 十项校验 |
 | `build_manifest.py` | 扫描磁盘重建 manifest；`--check` 只校验（CI/心跳用，不一致退出码 1） |
 | `gen_thumb.py` | 截图生成缩略图（viewport 1260 / 隐藏滚动条 / clip 规则集中在此） |
 | `make_thumbs_webp.py` | PNG 源图 → WebP |
@@ -102,7 +102,11 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 | `fill_descriptions.py` | 从作品正文提取 description 补进 enrich.json（**只填空、不覆盖人工已写的**；`--dry-run` 先看） |
 | `reorganize.py` | 把放错位置的作品/材料归一成上述规范（幂等，含路径键重映射） |
 | `autotag.py` | 自动补标签 |
-| `serve.py` | 内网预览服务器，屏蔽 `_private` `_archive` `tools` |
+| `claim_gate.py` | **断言闸门**：三道机器闸门 + 存量回填（见五-D） |
+| `serve.py` | 预览服务器（默认只监听 127.0.0.1），屏蔽 `_private` `_archive` `tools` `templates` 及**嵌套的** `notes/` |
+
+> 2026-10-26 清理：25 个历史遗留脚本已归档至 `_archive/tools-legacy/`
+> （无一被引用；`build_manifest.py` 与 `claim_gate.py` 是当前的生成器与闸门）。
 
 ## 五-B、自动更新机制（cron）
 
