@@ -103,7 +103,7 @@ a{color:inherit;text-decoration:none}
 .cover-lines span{padding:0 13px;border-left:1px solid var(--border);transition:color .2s}
 .cover-lines span:hover{color:var(--t1)}
 .cover-lines span:first-child{padding-left:0;border-left:0}
-.cover-scroll{display:flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.05em;
+.cover-scroll{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:12.5px;letter-spacing:.05em;
   color:var(--t3);font-family:var(--serif);white-space:nowrap}
 .cover-scroll svg{width:15px;height:15px;animation:bob 2.4s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(-2px);opacity:.7}50%{transform:translateY(3px);opacity:1}}
@@ -370,11 +370,11 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 
     <div class="cover-foot">
       <div class="cover-lines" id="cover-lines"></div>
-      <div class="cover-scroll">
+      <a class="cover-scroll" href="#cab">
         进入档案柜
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
              stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-      </div>
+      </a>
     </div>
   </div>
 </header>
