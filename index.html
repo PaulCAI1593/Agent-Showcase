@@ -3,632 +3,492 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>智囊团展厅</title>
-<!-- 自托管中文衬线（按 unicode-range 分片，浏览器只下载用到的片；
-     取自 fonts.loli.net 镜像，国内可达；离线亦可用） -->
+<title>智囊团档案柜</title>
+<meta name="description" content="按月份归档的团队档案：104 件作品、13 条追踪线、1014 条逐字回查过原文的已验证断言。">
 <link rel="stylesheet" href="assets/vendor/fonts/noto-serif-sc.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c12'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23f0c27f'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c12'/%3E%3Crect x='8' y='9' width='16' height='4' rx='1.5' fill='%23f0c27f'/%3E%3Crect x='8' y='15' width='16' height='4' rx='1.5' fill='%23a78bfa'/%3E%3Crect x='8' y='21' width='16' height='4' rx='1.5' fill='%23ffffff' opacity='.35'/%3E%3C/svg%3E">
 <style>
 /* 数字与拉丁文用自托管衬线（与研究类作品页同一套字） */
 @font-face{font-family:'Newsreader';src:url('assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
   font-weight:300 600;font-style:normal;font-display:swap}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 .ico{width:1.05em;height:1.05em;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round;vertical-align:-.13em;flex-shrink:0}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --g0:#050508;--g1:#0b0c12;--g2:#12131a;
   --card:#0d0e14;--card-hover:#13141c;
   --glass:rgba(255,255,255,.04);--glass-h:rgba(255,255,255,.07);
-  --border:rgba(255,255,255,.06);--border-h:rgba(255,255,255,.12);
-  --t1:#fafafa;--t2:rgba(255,255,255,.56);--t3:rgba(255,255,255,.48);
-  --gold:#f5e6c8;--gold-dim:rgba(245,230,200,.15);
-  --accent:#f0c27f;--accent2:#a78bfa;
-  --r-c:rgba(167,139,250,.10);--r-b:rgba(167,139,250,.22);
-  --c-c:rgba(251,191,36,.10);--c-b:rgba(251,191,36,.22);
+  --border:rgba(255,255,255,.06);--border-h:rgba(255,255,255,.13);
+  --t1:#fafafa;--t2:rgba(255,255,255,.58);--t3:rgba(255,255,255,.46);
+  --gold:#f0c27f;--gold-dim:rgba(245,230,200,.14);
+  --violet:#a78bfa;--violet-dim:rgba(167,139,250,.14);
   --serif:'Noto Serif SC','Newsreader',Georgia,serif;
-  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","PingFang SC","Noto Sans SC",sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Microsoft YaHei',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
-html{background:var(--g0)}
-body{font-family:var(--sans);color:var(--t1);background:var(--g0);-webkit-font-smoothing:antialiased;min-height:100vh}
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px;background:radial-gradient(ellipse 120% 80% at 50% 0%,rgba(167,139,250,.06) 0%,transparent 60%),radial-gradient(ellipse 80% 60% at 80% 50%,rgba(245,230,200,.04) 0%,transparent 50%),var(--g0)}
-.hero-inner{max-width:960px;width:100%}
-.hero-title{font-family:var(--serif);font-size:clamp(40px,7vw,72px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:20px}
-.hero-title span{color:var(--gold)}
-.hero-subtitle{font-size:clamp(16px,2.5vw,20px);color:var(--t2);line-height:1.75;max-width:560px;margin-top:24px;margin-bottom:44px}
-.stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:32px}
-.stat{text-align:center}
-.stat-num{font-family:var(--serif);font-size:44px;font-weight:700;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
-.stat-label{font-size:12px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
-.featured-card{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--glass);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;text-decoration:none;color:inherit;transition:all .25s ease}
-.featured-card:hover{background:var(--glass-h);border-color:var(--border-h);transform:translateX(4px)}
-.featured-icon{flex-shrink:0;color:var(--gold);line-height:0;display:flex}
-.featured-text{flex:1}
-.featured-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
-.featured-title{font-size:15px;font-weight:500;color:var(--t1);line-height:1.4}
-.hero-meta{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:24px;flex-wrap:wrap;font-size:12px;color:var(--t3)}
-.hero-meta a{color:var(--accent);text-decoration:none}
-.hero-meta a:hover{text-decoration:underline}
-/* ── HORIZONTAL TIMELINE ── */
-.timeline{padding:48px 24px 32px;border-top:1px solid var(--border)}
-.timeline-inner{max-width:1120px;margin:0 auto}
-.timeline-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.timeline-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--t1)}
-.timeline-hint{font-size:12px;color:var(--t2);margin-left:auto;display:flex;align-items:center;gap:4px}
-.timeline-scroll{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
-.timeline-scroll::-webkit-scrollbar{height:4px}
-.timeline-scroll::-webkit-scrollbar-track{background:transparent}
-.timeline-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
-.tl-card{flex:0 0 auto;width:220px;padding:14px 16px;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;scroll-snap-align:start;transition:all .2s;cursor:pointer}
-.tl-card:hover{background:var(--card-hover);border-color:var(--border-h);transform:translateY(-1px)}
-.tl-card-tag{font-size:10px;width:fit-content;padding:2px 7px;border-radius:980px;display:inline-flex;align-items:center;gap:4px}
-.tl-card-tag.research{background:var(--r-c);color:var(--accent2)}
-.tl-card-tag.creative{background:var(--c-c);color:var(--accent)}
-.tl-card-date{font-size:11px;color:var(--t3);letter-spacing:.5px}
-.tl-card-title{font-size:14px;font-weight:500;line-height:1.5;color:var(--t1);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.filter-bar{position:sticky;top:0;z-index:100;padding:12px 24px;background:rgba(5,5,8,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.filter-inner{max-width:1120px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.filter-btn{padding:6px 14px;border-radius:980px;border:1px solid var(--border);background:transparent;color:var(--t2);font-size:13px;font-family:var(--sans);cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
-.filter-btn:hover{border-color:var(--border-h);color:var(--t1)}
-.filter-btn.active{background:var(--glass-h);border-color:var(--border-h);color:var(--t1)}
-.filter-btn.active[data-filter="research"]{border-color:var(--r-b);color:var(--accent2)}
-.filter-btn.active[data-filter="creative"]{border-color:var(--c-b);color:var(--accent)}
-.filter-sep{width:1px;height:20px;background:var(--border);margin:0 4px;flex-shrink:0}
-.filter-btn.tag-btn{font-size:12px;padding:4px 10px;color:var(--t3)}
-.filter-btn.tag-btn.active{color:var(--t1)}
-.section{padding:64px 24px 48px}
-.section:last-child{padding-bottom:80px}
-.section-inner{max-width:1120px;margin:0 auto}
-.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
-.section-title{font-family:var(--serif);font-size:22px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
-.section-count{font-size:13px;color:var(--t3)}
-.section-divider{width:100%;height:1px;background:var(--border);margin-bottom:24px}
-.pill-row{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-.pill-row::-webkit-scrollbar{display:none}
-.month-pill{flex:0 0 auto}
-.year-row{display:flex;gap:6px;margin-bottom:10px}
-.year-pill{font:600 11px/1 var(--sans);letter-spacing:.6px;padding:5px 10px;border-radius:980px;
-  border:1px solid var(--border);background:transparent;color:var(--t3);cursor:pointer}
-.year-pill.active{color:var(--gold);border-color:var(--accent);background:var(--gold-dim)}
-.month-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:28px;margin-bottom:16px}
-.month-pill{padding:5px 12px;border-radius:980px;border:1px solid var(--border);background:transparent;color:var(--t2);font-size:13px;font-family:var(--sans);cursor:pointer;transition:all .2s;white-space:nowrap}
-.month-pill:hover{border-color:var(--border-h);color:var(--t1)}
-.month-pill.active{background:var(--glass-h);border-color:var(--border-h);color:var(--t1);font-weight:500}
-.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.bento-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:all .3s ease}
-.bento-card:hover{background:var(--card-hover);border-color:var(--border-h);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.25)}
-.card-thumb-wrap{position:relative;width:100%;padding-top:62%;background:var(--g2);overflow:hidden}
-.card-thumb-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.bento-card:hover .card-thumb-wrap img{transform:scale(1.03)}
-.card-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:980px;font-size:11px;font-weight:500;letter-spacing:.5px}
-.card-badge.research{background:var(--r-c);color:var(--accent2);border:1px solid var(--r-b)}
-.card-badge.creative{background:var(--c-c);color:var(--accent);border:1px solid var(--c-b)}
-.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
-.card-date{font-size:11px;color:var(--t3);letter-spacing:.8px;margin-bottom:6px}
-.card-title{font-size:14px;font-weight:500;line-height:1.45;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-desc{font-size:12px;color:var(--t3);line-height:1.5;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.month-expand{display:none;margin-top:16px;padding:16px;background:var(--glass);border:1px solid var(--border);border-radius:12px}
-.month-expand.open{display:block}
-.month-expand-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.month-card{display:flex;gap:12px;align-items:center;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:inherit;transition:all .2s;min-width:0}
-.month-card:hover{background:var(--card-hover);border-color:var(--border-h)}
-.month-card-thumb{width:80px;height:52px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--g2)}
-.month-card-thumb img{width:100%;height:100%;object-fit:cover}
-.month-card-info{flex:1;min-width:0}
-.month-card-title{font-size:13px;font-weight:500;line-height:1.35;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.month-card-meta{font-size:12px;color:var(--t3);display:flex;gap:10px;align-items:center;margin-top:2px;letter-spacing:.3px}
-.month-card-tag{padding:2px 7px;border-radius:980px;font-size:10px}
-.month-card-tag.research{background:var(--r-c);color:var(--accent2)}
-.month-card-tag.creative{background:var(--c-c);color:var(--accent)}
-.footer{padding:24px 24px 32px;text-align:center;border-top:1px solid var(--border);font-size:12px;color:var(--t3);letter-spacing:.3px}
-.reveal-init{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-.reveal-init.revealed{opacity:1;transform:translateY(0)}
-@media(max-width:768px){.filter-inner{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}.filter-inner::-webkit-scrollbar{display:none}.filter-btn{flex:0 0 auto}#tagFilterHost{display:flex;gap:8px;flex:0 0 auto}.filter-sep{display:none}.bento{grid-template-columns:1fr}.month-expand-inner{grid-template-columns:1fr}.stats{gap:20px}.stat-num{font-size:32px}.month-card{flex-direction:column;align-items:stretch}.month-card-thumb{width:100%;height:100px}.hero{min-height:auto;padding:60px 24px}}
-@media(min-width:769px) and (max-width:1024px){.bento{grid-template-columns:repeat(2,1fr)}}
+html{scroll-behavior:smooth;background:var(--g0);-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--t1);background:var(--g0);
+  -webkit-font-smoothing:antialiased;min-height:100vh;line-height:1.6}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
-/* ── Coverage：追踪台（首页主叙事，尺寸与作品总量无关）── */
-.coverage{padding:56px 24px 8px;border-top:1px solid var(--border)}
-.cov-inner{max-width:1120px;margin:0 auto}
-.cov-kicker{font-family:var(--sans);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--t3);margin-bottom:18px}
-.cov-lede{font-family:var(--serif);font-size:clamp(19px,2.6vw,27px);line-height:1.55;
-  font-weight:400;color:var(--t1);max-width:34em;margin-bottom:44px}
-.cov-lede em{font-style:normal;color:var(--accent)}
-.cov-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:52px;align-items:start}
-@media(max-width:900px){.cov-grid{grid-template-columns:1fr;gap:40px}.beats{grid-template-columns:1fr}}
-.cov-h{font-family:var(--sans);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--t3);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:18px}
-/* 月度节奏 */
-.rhythm{display:flex;align-items:flex-end;gap:14px;height:132px}
-.ry{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;min-width:0}
-.ry-bar{display:flex;flex-direction:column-reverse;width:100%;border-radius:3px 3px 0 0;overflow:hidden}
-.ry-r{background:var(--r-b)}.ry-c{background:var(--c-b)}
-.ry-n{font-family:var(--serif);font-size:15px;color:var(--t2);text-align:center}
-.ry-m{font-family:var(--sans);font-size:10px;color:var(--t3);text-align:center;letter-spacing:.4px}
-.ry-peak .ry-n{color:var(--accent)}
-.rhythm-legend{display:flex;gap:16px;margin-top:14px;font-size:11px;color:var(--t3)}
-.rhythm-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
-/* 协作 */
-.collab-stat{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
-.collab-num{font-family:var(--serif);font-size:52px;line-height:1;color:var(--gold)}
-.collab-unit{font-size:13px;color:var(--t3)}
-.collab-sub{font-size:12px;color:var(--t3);margin-bottom:20px}
-.pairs{list-style:none;display:flex;flex-direction:column;gap:9px}
-.pairs li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t2)}
-.pairs b{font-weight:500;color:var(--t1)}
-.pairs .bar{flex:1;height:1px;background:var(--border);position:relative}
-.pairs .n{font-family:var(--serif);color:var(--t3);font-size:12px;min-width:2.2em;text-align:right}
-/* 产能矩阵 */
-.cap{margin-top:44px}
-.cov-grid-2{margin-top:52px}
-.cap-row{display:grid;grid-template-columns:5.5em 1fr 3em;gap:12px;align-items:center;
-  padding:7px 0;border-bottom:1px solid var(--border)}
-.cap-a{font-size:12px;color:var(--t2)}
-.cap-bars{display:flex;gap:3px;align-items:flex-end;height:22px}
-.cap-c{font-family:var(--serif);font-size:12px;color:var(--t3);text-align:right}
-.cap-cell{flex:1;background:rgba(167,139,250,.42);border-radius:1px;min-height:2px}
-.cap-cell.zero{background:rgba(255,255,255,.07);min-height:2px}
-.cap-note{font-size:11px;color:var(--t3);margin-top:10px}
-/* 追踪线 */
-.beats{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
-.beat{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;
-  padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
-.beat-name{color:var(--t1)}
-.beat-span{font-family:var(--serif);color:var(--t3);font-size:12px}
-.beat-w{font-family:var(--serif);color:var(--t2);font-size:13px;min-width:2.4em;text-align:right}
-.beat-idle{color:var(--accent);font-size:11px}
-.uncl{font-size:11px;color:var(--t3);margin-top:14px;line-height:1.7}
-.uncl b{color:var(--t2);font-weight:500}
+/* ══ 柜面 ══════════════════════════════════════════════ */
+.cab-face{
+  position:relative;padding:96px 28px 56px;overflow:hidden;
+  background:radial-gradient(ellipse 110% 70% at 22% -10%,rgba(245,230,200,.07) 0%,transparent 58%),
+             radial-gradient(ellipse 70% 60% at 88% 12%,rgba(167,139,250,.07) 0%,transparent 55%),var(--g0);
+  border-bottom:1px solid var(--border);
+}
+.cab-face-inner{max-width:1240px;margin:0 auto}
+.cab-title{font-family:var(--serif);font-size:clamp(38px,5.4vw,64px);font-weight:700;line-height:1.1;
+  letter-spacing:-.022em;margin:0}
+.cab-title em{font-style:normal;color:var(--gold)}
+.cab-lede{margin-top:18px;font-size:16.5px;line-height:1.72;color:var(--t2);max-width:58ch}
+.cab-top{display:flex;gap:40px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-top:38px}
+.cab-figs{display:flex;gap:34px;flex-wrap:wrap}
+.fig-n{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--gold);line-height:1.05;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.fig-l{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-top:5px}
 
+/* 搜索：档案柜的主控制 */
+.search{position:relative;flex:1 1 320px;max-width:420px;min-width:260px}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
+.search input{
+  width:100%;padding:13px 15px 13px 44px;border-radius:11px;
+  background:var(--glass);border:1px solid var(--border);color:var(--t1);
+  font-family:var(--sans);font-size:15px;transition:border-color .2s,background .2s;
+}
+.search input::placeholder{color:var(--t3)}
+.search input:focus{outline:none;border-color:var(--border-h);background:var(--glass-h)}
+.search-hint{font-size:12px;color:var(--t3);margin-top:8px;min-height:16px}
+.search-hint b{color:var(--gold);font-weight:500}
 
-/* ── 卷宗：追踪线 × 已验证断言 ───────────────────────── */
-.dossier{padding:76px 24px 92px;background:var(--g1);border-top:1px solid var(--border)}
-.dossier-inner{max-width:1120px;margin:0 auto}
-.dossier-title{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-0.01em}
-.dossier-sub{font-size:12px;color:var(--t3);font-family:var(--serif);letter-spacing:1.4px;text-transform:uppercase}
-.dossier-lede{font-size:14px;color:var(--t2);line-height:1.75;max-width:780px;margin:10px 0 30px}
-.dossier-lede em{color:var(--gold);font-style:normal;font-family:var(--serif);font-size:15px}
-.dc{border-top:1px solid var(--border)}
-.dc:last-child{border-bottom:1px solid var(--border)}
-.dc summary{list-style:none;cursor:pointer;display:grid;
-  grid-template-columns:minmax(9em,1.05fr) 1fr auto;gap:18px;align-items:baseline;
-  padding:15px 6px;transition:background .18s ease}
-.dc summary::-webkit-details-marker{display:none}
-.dc summary:hover{background:rgba(255,255,255,.022)}
-.dc-beat{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--t1)}
-.dc-meta{font-size:12px;color:var(--t3);font-family:var(--serif)}
-.dc-n{font-family:var(--serif);font-size:13px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
-.dc-n small{color:var(--t3);font-size:11px;margin-left:5px}
-.dc-ch{list-style:none;margin:0 0 20px;padding:0;
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(316px,1fr));gap:8px}
-.dc-ch li{display:grid;grid-template-columns:46px 1fr;gap:4px 10px;align-items:baseline;
-  padding:10px 13px;background:var(--glass);border:1px solid var(--border);border-radius:9px}
-.dc-d{font-family:var(--serif);font-size:11px;color:var(--t3);font-variant-numeric:tabular-nums}
-.dc-t{font-size:12.5px;color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dc-t a{color:var(--t2);text-decoration:none}
-.dc-t a:hover{color:var(--gold)}
-.dc-claim{grid-column:2;display:flex;gap:8px;align-items:baseline;margin-top:3px}
-.dc-v{font-family:var(--serif);font-size:13px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
-.dc-l{font-size:11.5px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dc-none{font-size:11.5px;color:var(--t3);grid-column:2;font-style:normal}
-@media(max-width:760px){
-  .dc summary{grid-template-columns:1fr auto}
-  .dc-meta{grid-column:1/-1;grid-row:2}
-  .dc-ch{grid-template-columns:1fr}
+/* ══ 柜体 ══════════════════════════════════════════════ */
+.cab{display:grid;grid-template-columns:236px minmax(0,1fr);gap:0;max-width:1240px;margin:0 auto;
+  border-left:1px solid var(--border);border-right:1px solid var(--border)}
+/* 侧标（柜脊） */
+.spine{border-right:1px solid var(--border);padding:30px 0 44px;position:sticky;top:0;align-self:start;
+  max-height:100vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent}
+.spine-h{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);padding:0 22px 12px}
+.spine-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
+  padding:8px 22px;cursor:pointer;border-left:2px solid transparent;transition:background .18s,border-color .18s}
+.spine-item:hover{background:var(--glass)}
+.spine-item.on{border-left-color:var(--gold);background:var(--glass)}
+.spine-item .si-name{font-size:13.5px;color:var(--t2);transition:color .18s;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.spine-item.on .si-name,.spine-item:hover .si-name{color:var(--t1)}
+.spine-item .si-count{font-family:var(--serif);font-size:12.5px;color:var(--t3);font-variant-numeric:tabular-nums}
+.spine-item.on .si-count{color:var(--gold)}
+.spine-foot{margin:26px 22px 0;padding-top:18px;border-top:1px solid var(--border)}
+.rhythm{display:flex;align-items:flex-end;gap:4px;height:34px;margin-bottom:10px}
+.rhythm i{flex:1;background:rgba(167,139,250,.34);border-radius:1px 1px 0 0;min-height:2px}
+.rhythm i.c{background:rgba(245,230,200,.34)}
+.rhythm-l{font-size:11.5px;color:var(--t3);font-family:var(--serif);letter-spacing:.04em}
+
+/* 抽屉正面 */
+.drawers{padding:30px 34px 90px;min-width:0}
+.drawer{border-bottom:1px solid var(--border);scroll-margin-top:64px}
+.drawer:last-child{border-bottom:0}
+.drawer-tab{
+  width:100%;display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:baseline;
+  padding:17px 4px;background:none;border:0;color:inherit;cursor:pointer;text-align:left;
+  font-family:inherit;transition:padding .3s var(--ease);
+}
+.drawer-tab:hover .dt-name{color:var(--gold)}
+.drawer.open .drawer-tab{padding-bottom:13px}
+.dt-mon{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.012em;color:var(--t1);
+  font-variant-numeric:tabular-nums;transition:color .25s}
+.drawer.open .dt-mon{color:var(--gold)}
+.dt-meta{font-size:12.5px;color:var(--t3);font-family:var(--serif)}
+.dt-meta b{color:var(--t2);font-weight:400}
+.dt-chev{color:var(--t3);transition:transform .45s var(--ease);align-self:center}
+.drawer.open .dt-chev{transform:rotate(180deg);color:var(--t1)}
+/* 抽屉拉出：透视 + 旋转 + 高度 —— 一套连贯动作 */
+.drawer-body{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px;
+  overflow:hidden;max-height:0;opacity:0;padding-top:0;
+  transform-origin:top center;perspective:1400px;
+  transform:perspective(1400px) rotateX(-7deg) translateY(-14px) scaleY(.97);
+  transition:max-height .62s var(--ease),opacity .34s ease,padding-top .5s var(--ease),
+             transform .58s var(--ease);
+}
+.drawer.open .drawer-body{max-height:5200px;opacity:1;padding-top:6px;transform:none}
+/* 卡片落位：错峰 18ms，跟着抽屉一起完成 */
+.card{
+  display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;align-items:start;
+  padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--card);
+  transition:border-color .22s,background .22s,transform .22s var(--ease);
+  opacity:0;transform:translateY(12px);
+}
+.drawer.open .card{opacity:1;transform:none;transition:opacity .42s var(--ease) calc(var(--i)*18ms),
+  transform .42s var(--ease) calc(var(--i)*18ms),border-color .22s,background .22s}
+.card:hover{border-color:var(--border-h);background:var(--card-hover);transform:translateY(-2px)}
+.drawer.open .card:hover{transform:translateY(-2px)}
+.card-thumb{width:104px;aspect-ratio:16/10;border-radius:7px;overflow:hidden;background:var(--g2);
+  display:block;flex-shrink:0}
+.card-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t3);
+  font-family:var(--serif);font-variant-numeric:tabular-nums}
+.card-title{font-family:var(--serif);font-size:15px;line-height:1.42;font-weight:600;margin-top:6px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.tag{font-size:11.5px;padding:2px 7px;border-radius:980px;border:1px solid var(--border);
+  color:var(--t3);line-height:1.5;white-space:nowrap;cursor:pointer;transition:border-color .2s,color .2s}
+.tag:hover{border-color:var(--border-h);color:var(--t2)}
+.tag-line{border-color:var(--violet-dim);color:var(--violet)}
+.tag-line:hover{color:#c4b1ff}
+.card-claim{margin-top:10px;padding-top:9px;border-top:1px solid var(--border);
+  font-size:12.5px;color:var(--t3);display:flex;gap:7px;align-items:baseline}
+.card-claim b{font-family:var(--serif);font-size:13.5px;color:var(--gold);font-weight:600;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.card-claim span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding:0 1px}
+
+/* 搜索命中态 */
+.cab.searching .drawer:not(.hit){display:none}
+.cab.searching .drawer.hit .drawer-body{max-height:5200px;opacity:1;padding-top:6px;transform:none}
+.cab.searching .drawer.hit .card{opacity:1;transform:none}
+.empty{grid-column:1/-1;padding:56px 20px;text-align:center;color:var(--t3);font-size:14px}
+.empty b{display:block;font-family:var(--serif);font-size:19px;color:var(--t2);margin-bottom:8px;font-weight:600}
+
+/* 工具条 */
+.cab-bar{display:flex;align-items:center;gap:14px;padding:16px 34px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:rgba(5,5,8,.9);backdrop-filter:blur(12px);z-index:20;flex-wrap:wrap}
+.bar-btn{font-family:var(--sans);font-size:12.5px;color:var(--t2);background:var(--glass);
+  border:1px solid var(--border);border-radius:980px;padding:6px 14px;cursor:pointer;transition:.2s}
+.bar-btn:hover{background:var(--glass-h);border-color:var(--border-h);color:var(--t1)}
+.bar-note{font-size:12px;color:var(--t3);font-family:var(--serif)}
+.bar-note b{color:var(--gold);font-weight:500}
+
+/* 页脚 */
+.foot{border-top:1px solid var(--border);padding:40px 28px 54px}
+.foot-inner{max-width:1240px;margin:0 auto;display:flex;gap:30px;justify-content:space-between;
+  flex-wrap:wrap;align-items:baseline}
+.foot p{font-size:12.5px;color:var(--t3);line-height:1.7;max-width:60ch}
+.foot .foot-n{font-family:var(--serif);font-size:12.5px;color:var(--t3);white-space:nowrap}
+
+@media(max-width:1000px){
+  .cab{grid-template-columns:1fr;border:0}
+  .spine{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--border);
+    display:flex;gap:6px;overflow-x:auto;padding:14px 22px;scrollbar-width:none}
+  .spine::-webkit-scrollbar{display:none}
+  .spine-h,.spine-foot{display:none}
+  .spine-item{border-left:0;border-bottom:2px solid transparent;padding:7px 13px;white-space:nowrap;
+    background:var(--glass);border-radius:8px}
+  .spine-item.on{border-left:0;border-bottom-color:var(--gold)}
+  .spine-item .si-name{white-space:nowrap}
+  .drawers{padding:24px 22px 70px}
+  .cab-bar{padding:12px 22px}
+}
+@media(max-width:700px){
+  .cab-face{padding:56px 20px 40px}
+  .cab-top{gap:22px}
+  .fig-n{font-size:27px}
+  .drawer-body{grid-template-columns:1fr}
+  .card{grid-template-columns:88px minmax(0,1fr)}
+  .card-thumb{width:88px}
+  .dt-mon{font-size:19px}
+  .drawer-tab{grid-template-columns:auto 1fr auto;gap:10px}
+  .dt-meta{grid-column:2}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  .card{opacity:1;transform:none}
+  .drawer-body{transform:none}
 }
 </style>
 </head>
 <body>
+
 <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
-<symbol id="ico-research" viewBox="0 0 24 24"><path d="M3 20.5h18M6.5 20.5V11M12 20.5V4.5M17.5 20.5v-6"/></symbol>
-<symbol id="ico-creative" viewBox="0 0 24 24"><path d="M12 3.2l1.85 4.6 4.6 1.85-4.6 1.85L12 16.1l-1.85-4.6-4.6-1.85 4.6-1.85z"/><path d="M18.5 15.5l.75 1.85 1.85.75-1.85.75-.75 1.85-.75-1.85-1.85-.75 1.85-.75z"/></symbol>
-<symbol id="ico-timeline" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17M8 3.2v3.6M16 3.2v3.6"/></symbol>
+<symbol id="ico-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21"/></symbol>
+<symbol id="ico-chev" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
 <symbol id="ico-warn" viewBox="0 0 24 24"><path d="M12 3.6l9 15.9H3z"/><path d="M12 9.6v4.4M12 16.6v.1"/></symbol>
 </svg>
-<section class="hero">
-<div class="hero-inner">
-  <h1 class="hero-title">以研究为刃<span>以创意为光</span></h1>
-  <p class="hero-subtitle">从AI产业的资本暗流到技术前沿的算力博弈，每一次交付都是团队协作的结晶，每一份洞察都在重新定义可能性的边界。</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-num" id="stat-total" data-target="0">0</div><div class="stat-label">作品</div></div>
-    <div class="stat"><div class="stat-num" id="stat-research" data-target="0">0</div><div class="stat-label">研究</div></div>
-    <div class="stat"><div class="stat-num" id="stat-creative" data-target="0">0</div><div class="stat-label">创意</div></div>
-  </div>
-  <a class="featured-card" id="featured-card" href="#">
-    <div class="featured-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2l2.5 5.3 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
-    <div class="featured-text">
-      <div class="featured-label">本月代表作 · Featured</div>
-      <div class="featured-title" id="featured-title">载入中…</div>
-    </div>
-  </a>
-  <div class="hero-meta">
-    <span>Updated: <strong id="update-date"></strong></span>
-    <span>·</span>
-    <span id="hero-counts"></span>
-  </div>
-</div>
-</section>
-<section class="coverage">
-<div class="coverage-inner cov-inner">
-  <div class="cov-kicker" id="cov-kicker"></div>
-  <p class="cov-lede" id="cov-lede"></p>
-  <div class="cov-grid">
-    <div>
-      <div class="cov-h">月度产出节奏</div>
-      <div class="rhythm" id="rhythm"></div>
-      <div class="rhythm-legend">
-        <span><i style="background:var(--r-b)"></i>研究</span>
-        <span><i style="background:var(--c-b)"></i>创意</span>
+
+<!-- ══ 柜面 ══════════════════════════════════════════════ -->
+<header class="cab-face">
+  <div class="cab-face-inner">
+    <h1 class="cab-title">按月份归档的<em>团队档案</em></h1>
+    <p class="cab-lede">每一格是一段时间，抽出来就是那段时间里团队做了什么、发现了什么。
+      卡片上的金色数字不是修辞 —— 它们的引用都逐字回查过原文。</p>
+
+    <div class="cab-top">
+      <div class="cab-figs">
+        <div><div class="fig-n" id="fig-works">0</div><div class="fig-l">件作品</div></div>
+        <div><div class="fig-n" id="fig-months">0</div><div class="fig-l">个月份</div></div>
+        <div><div class="fig-n" id="fig-lines">0</div><div class="fig-l">条追踪线</div></div>
+        <div><div class="fig-n" id="fig-claims">0</div><div class="fig-l">条已验证断言</div></div>
+      </div>
+      <div class="search">
+        <svg class="ico" aria-hidden="true"><use href="#ico-search"/></svg>
+        <input id="q" type="search" placeholder="检索标题、标签、断言…"
+               autocomplete="off" aria-label="检索档案">
+        <div class="search-hint" id="qhint">按 <b>标题</b> / <b>标签</b> / <b>断言</b> 检索，或点左侧月份标签直接拉开抽屉</div>
       </div>
     </div>
-    <div>
-      <div class="cov-h">协作结构</div>
-      <div id="collab"></div>
-    </div>
   </div>
-  <div class="cov-grid cov-grid-2">
-    <div>
-      <div class="cov-h">谁在主责</div>
-      <div id="capacity"></div>
-    </div>
-    <div>
-      <div class="cov-h">主题追踪线</div>
-      <div class="beats" id="beats"></div>
-      <div class="uncl" id="unclassified"></div>
-    </div>
-  </div>
-</div>
-</section>
-<section class="dossier">
-<div class="dossier-inner">
-  <div class="dossier-sub">Dossier · 已验证断言</div>
-  <h2 class="dossier-title">卷宗</h2>
-  <p class="dossier-lede" id="dossier-lede"></p>
-  <div id="dossier"></div>
-</div>
-</section>
-<div class="filter-bar" id="filterBar">
-<div class="filter-inner">
-  <button class="filter-btn active" data-filter="all">全部</button>
-  <button class="filter-btn" data-filter="research"><svg class="ico"><use href="#ico-research"/></svg>研究</button>
-  <button class="filter-btn" data-filter="creative"><svg class="ico"><use href="#ico-creative"/></svg>创意</button>
-  <span class="filter-sep"></span>
-  <span id="tagFilterHost"></span>
-</div>
-</div>
-<section class="section" id="research-section">
-<div class="section-inner">
-  <div class="section-head"><h2 class="section-title"><svg class="ico"><use href="#ico-research"/></svg>研究</h2><span class="section-count" id="research-count"></span></div>
-  <div class="section-divider"></div>
-  <div class="bento" id="research-bento"></div>
-  <div class="month-pills" id="research-pills"></div>
-  <div id="research-monthly"></div>
-</div>
-</section>
-<section class="section" id="creative-section">
-<div class="section-inner">
-  <div class="section-head"><h2 class="section-title"><svg class="ico"><use href="#ico-creative"/></svg>创意</h2><span class="section-count" id="creative-count"></span></div>
-  <div class="section-divider"></div>
-  <div class="bento" id="creative-bento"></div>
-  <div class="month-pills" id="creative-pills"></div>
-  <div id="creative-monthly"></div>
-</div>
-</section>
-<section class="timeline">
-<div class="timeline-inner">
-  <div class="timeline-head">
-    <div class="timeline-title"><svg class="ico"><use href="#ico-timeline"/></svg>作品时间线</div>
-    <div class="timeline-hint" id="timeline-hint">← 横向滚动查看全部 ›</div>
-  </div>
-  <div class="timeline-scroll"></div>
-</div>
-</section>
-<div class="footer">智囊团 · <span id="footer-date"></span> · Built with purpose</div>
-<script>
-const EMBEDDED={"research": [{"file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html", "thumb": "thumbs/2026-10-24-research-2026-10-24-micron-taoyuan-strike-profit-sharing-thumb.webp", "title": "11个人的24小时——美光桃园罢工，和AI存储超级周期里被漏掉的那份工资单", "date": "2026-10-24", "type": "research", "highlights": ["存储"], "description": "这场争议里至少有三次\"突袭\"：美光 9 月单方面公布奖金、台中工会 10 月 21 日抢先签约、以及 10 月 22 日 16:20 的全球奖金计划。每一次突袭，都在为下一次反噬埋线。"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "thumb": "thumbs/2026-10-22-research-2026-10-22-ai-credit-contagion-chain-thumb.webp", "title": "八连跌的两万亿美元 —— 从AI信贷到韩国股市14%的传染链", "date": "2026-10-22", "type": "research", "highlights": ["AI信贷", "CoreWeave", "半导体八连跌", "韩国股市", "传染链", "油价"], "description": "CoreWeave 是这一轮最干净的标本：它把\"AI 资本开支\"从概念变成了一张可以逐行核对的资产负债表。"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "thumb": "thumbs/2026-10-20-research-2026-10-20-ai-rewired-first-workers-thumb.webp", "title": "21%到14%与90% — AI重塑的第一批人，和把他们挡在门外的第一批公司", "date": "2026-10-20", "type": "research", "highlights": ["AI重塑就业", "初级员工占比", "入门级岗位", "Anthropic", "劳动力市场", "企业成本门槛"], "description": "Anthropic内部数据：技术部门初级员工占比从21%降至14%、入门岗增速从7%放缓至4%，AI取消职业阶梯第一级台阶，被挡在门外的第一批公司如何产生"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "thumb": "thumbs/2026-10-17-research-2026-10-17-fda-genai-device-129-comments-thumb.webp", "title": "129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权", "date": "2026-10-17", "type": "research", "highlights": ["FDA", "AI医疗器械", "监管窗口", "agentic AI", "合规"], "description": "FDA生成式AI医疗器械公开评议仅129条评论、零机构提交，少数企业在10-19窗口内实质定义能力评估与agentic AI条款默认标准"}, {"file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html", "thumb": "thumbs/2026-10-15-research-2026-10-15-memory-price-tsunami-thumb.webp", "title": "内存涨价海啸：三星利润+782% vs 苹果砍单iPhone 18 Pro", "date": "2026-10-15", "type": "research", "highlights": ["存储涨价", "三星", "苹果", "HBM", "AI服务器", "产业链"], "description": "存储芯片供需失衡深度分析：三星利润+782%、苹果砍单iPhone 18 Pro、AI服务器HBM挤占产能的产业链传导"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "thumb": "thumbs/2026-10-13-research-2026-10-13-ai-chip-capital-blackhole-thumb.webp", "title": "AI芯片资本黑洞 · 私人信贷为AI基建输血：燃料还是泡沫引信？", "date": "2026-10-13", "type": "research", "highlights": ["私人信贷", "AI基建", "博通", "Anthropic"], "description": "深度分析私人信贷涌入AI基建的逻辑与系统性风险"}, {"file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html", "thumb": "thumbs/2026-10-10-research-2026-10-10-ai-energy-crisis-thumb.webp", "title": "AI\"能耗危机\"——当数据中心电力告急，核能能否拯救AI？", "date": "2026-10-10", "type": "research", "highlights": ["AI能耗", "数据中心", "核能", "电力危机"], "description": "深度分析AI数据中心电力需求与核能解决方案"}, {"file": "2026-10-08/research/2026-10-08-ai-open-source-war.html", "thumb": "thumbs/2026-10-08-research-2026-10-08-ai-open-source-war-thumb.webp", "title": "AI\"开源vs闭源\"战争：当开源模型逼近闭源性能，谁将胜出？| 研析 P0 #337", "date": "2026-10-08", "type": "research", "highlights": ["开源模型", "闭源模型", "LLaMA", "GPT"], "description": "深度分析开源与闭源模型的技术路线与商业模式"}, {"file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html", "thumb": "thumbs/2026-10-06-research-2026-10-06-ai-carbon-footprint-thumb.webp", "title": "AI碳足迹——当数据中心成为碳排放大户，绿色AI路在何方", "date": "2026-10-06", "type": "research", "highlights": ["AI碳足迹", "数据中心", "绿色AI", "碳排放"], "description": "深度分析AI数据中心碳排放与绿色AI技术"}, {"file": "2026-10-03/research/2026-10-03-ai-data-famine.html", "thumb": "thumbs/2026-10-03-research-2026-10-03-ai-data-famine-thumb.webp", "title": "AI数据饥荒 | 当互联网数据耗尽，合成数据能否喂饱AI？", "date": "2026-10-03", "type": "research", "highlights": ["AI数据", "合成数据", "互联网数据", "数据饥荒"], "description": "深度分析AI数据瓶颈与合成数据技术"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "thumb": "thumbs/2026-10-01-research-2026-10-01-ai-agent-three-kingdoms-thumb.webp", "title": "AI Agent 三国杀 — OpenAI vs Anthropic vs Google 的 Agent 平台大战", "date": "2026-10-01", "type": "research", "highlights": ["AI Agent", "OpenAI", "Anthropic", "Google"], "description": "深度分析AI Agent平台竞争格局"}, {"file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html", "thumb": "thumbs/2026-09-29-research-2026-09-29-global-rates-nuclear-bomb-thumb.webp", "title": "全球利率\"核爆2.0\"深度报告 | 研析 Research Analyst", "date": "2026-09-29", "type": "research", "highlights": ["美债", "日债", "加息", "全球利率"], "description": "深度分析全球利率飙升的驱动因素及其对经济的影响"}, {"file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html", "thumb": "thumbs/2026-09-22-research-2026-09-22-iran-four-front-conflict-thumb.webp", "title": "伊朗\"四线交火\"深度研报 | 研析 2026-09-22", "date": "2026-09-22", "type": "research", "highlights": ["伊朗战争", "四线交火", "霍尔木兹海峡", "油价危机"], "description": "深度分析伊朗四线交火态势与特朗普和平牌的可行性"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "thumb": "thumbs/2026-09-17-research-2026-09-17-openai-agents-api-open-source-thumb.webp", "title": "OpenAI Agents API 开源深度报告 | 研析 2026-09-17", "date": "2026-09-17", "type": "research", "highlights": ["OpenAI Agents API", "Agent开发", "开发民主化", "生态影响"], "description": "深度分析Agent开发民主化趋势与生态影响"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "thumb": "thumbs/2026-09-15-research-2026-09-15-triple-kill-energy-rates-stocks-thumb.webp", "title": "全球能源-利率-股市三杀分析报告", "date": "2026-09-15", "type": "research", "highlights": ["能源危机", "利率飙升", "股市三杀", "通胀风暴"], "description": "深度分析三重冲击下的资产配置策略与通胀风暴影响"}, {"file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html", "thumb": "thumbs/2026-09-12-research-2026-09-12-iran-multi-front-war-thumb.webp", "title": "中东\"多点引爆\"态势图：从霍尔木兹到科威特/巴林", "date": "2026-09-12", "type": "research", "highlights": ["伊朗战争", "中东火药桶", "地缘冲突", "多点引爆"], "description": "深度分析伊朗军事方针转进攻与中东多点冲突态势"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "thumb": "thumbs/2026-09-10-research-2026-09-10-strait-of-hormuz-chokepoint-thumb.webp", "title": "霍尔木兹海峡\"禁区\"——从油轮攻袭战到全球能源\"断供悬崖\" | 深度研究报告", "date": "2026-09-10", "type": "research", "highlights": ["霍尔木兹海峡", "能源危机", "地缘政治", "供应链"], "description": "深度分析霍尔木兹海峡地缘危机与全球能源供应链影响"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "thumb": "thumbs/2026-09-08-research-2026-09-08-ai-ultrasound-robot-surgery-thumb.webp", "title": "AI超声机器人心脏手术：信任悬崖与医疗AI的未来", "date": "2026-09-08", "type": "research", "highlights": ["AI手术", "超声机器人", "医疗AI", "信任挑战"], "description": "深度分析AI手术机器人的技术突破、信任挑战与产业影响"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "thumb": "thumbs/2026-09-05-research-2026-09-05-deepseek-pricing-war-thumb.webp", "title": "DeepSeek定价屠夫：AI大模型如何杀入1元时代", "date": "2026-09-05", "type": "research", "highlights": ["DeepSeek", "定价战", "AI大模型", "商业模式"], "description": "深度分析AI大模型定价策略与商业模式演进"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "thumb": "thumbs/2026-09-03-research-2026-09-03-open-source-vs-closed-source-ai-thumb.webp", "title": "开源vs闭源AI大战：DeepSeek V4如何反超Opus-4.8", "date": "2026-09-03", "type": "research", "highlights": ["开源AI", "闭源AI", "DeepSeek", "Opus"], "description": "深度对比开源与闭源AI的技术路线、商业模式与生态系统"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "thumb": "thumbs/2026-09-01-research-2026-09-01-a-share-tech-crash-analysis-thumb.webp", "title": "A股科技股暴跌深度分析 | AI泡沫还是黄金坑", "date": "2026-09-01", "type": "research", "highlights": ["A股", "科技股", "暴跌", "AI泡沫"], "description": "深度分析A股科技股暴跌的诱因、估值重构与投资机会"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "thumb": "thumbs/2026-08-29-research-2026-08-29-ai-agent-security-battle-thumb.webp", "title": "AI Agent安全攻防战：从提示注入到多Agent对抗 | 研析深度报告", "date": "2026-08-29", "type": "research", "highlights": ["AI Agent", "安全", "提示注入"], "description": "深度分析AI Agent安全威胁与防御框架"}, {"file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html", "thumb": "thumbs/2026-08-27-research-2026-08-27-hormuz-crisis-new-phase-thumb.webp", "title": "霍尔木兹海峡危机新阶段 | 深度研究报告", "date": "2026-08-27", "type": "research", "highlights": ["霍尔木兹海峡", "能源危机", "地缘政治"], "description": "深度分析霍尔木兹海峡危机最新态势及全球影响"}, {"file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html", "thumb": "thumbs/2026-08-25-research-2026-08-25-ai-agent-orchestration-wars-thumb.webp", "title": "AI Agent编排层大战：Harness架构范式转移 | 2026深度报告", "date": "2026-08-25", "type": "research", "highlights": ["AI Agent", "编排层", "Harness架构"]}, {"file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html", "thumb": "thumbs/2026-08-22-research-2026-08-22-humanoid-robot-industrialization-thumb.webp", "title": "人形机器人产业化元年：从实验室到工厂的距离", "date": "2026-08-22", "type": "research", "highlights": ["人形机器人", "产业化", "制造业"]}, {"file": "2026-08-20/research/2026-08-20-nobel-ai-science.html", "thumb": "thumbs/2026-08-20-research-2026-08-20-nobel-ai-science-thumb.webp", "title": "2026诺贝尔奖季前瞻：AI与科学的交叉地带", "date": "2026-08-20", "type": "research", "highlights": ["诺奖", "AI for Science", "科研交叉"]}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "thumb": "thumbs/2026-08-18-research-2026-08-18-open-source-model-showdown-thumb.webp", "title": "开源模型三国杀：GLM-5.3 vs Qwen3.8-27B vs DeepSeek V4 Pro", "date": "2026-08-18", "type": "research", "highlights": ["开源模型", "模型", "DeepSeek", "开源"]}, {"file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html", "thumb": "thumbs/2026-08-15-research-2026-08-15-tencent-ai-bet-thumb.webp", "title": "腾讯528亿AI赌注", "date": "2026-08-15", "type": "research", "highlights": ["腾讯"]}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html", "thumb": "thumbs/2026-08-13-research-2026-08-13-aisi-safety-assessment-thumb.webp", "title": "英国AISI安全评估：AI智能体越权与欺骗行为深度分析", "date": "2026-08-13", "type": "research", "highlights": ["智能体", "安全", "越权"]}, {"file": "2026-08-11/research/2026-08-11-nonfarm-shock.html", "thumb": "thumbs/2026-08-11-research-2026-08-11-nonfarm-shock-thumb.webp", "title": "非农\"爆冷\"——美联储加息预期一日逆转 | 深度研究报告", "date": "2026-08-11", "type": "research", "highlights": ["美联储", "加息"]}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "thumb": "thumbs/2026-07-16-research-2026-07-16-a-share-crash-analysis-thumb.webp", "title": "A股7·13暴跌复盘：地缘-半导体-流动性三重绞杀", "date": "2026-07-16", "type": "research", "highlights": ["半导体", "地缘"]}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "thumb": "thumbs/2026-07-09-research-2026-07-09-kling-ai-valuation-thumb.webp", "title": "可灵AI 180亿美元估值——中国视频生成大模型的商业化突围 | 深度研究报告", "date": "2026-07-09", "type": "research", "highlights": ["大模型", "模型", "商业化", "估值"]}, {"file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html", "thumb": "thumbs/2026-07-07-research-2026-07-07-opensource-model-explosion-thumb.webp", "title": "开源模型爆发周 | 研析深度报告", "date": "2026-07-07", "type": "research", "highlights": ["开源模型", "模型", "开源"]}, {"file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html", "thumb": "thumbs/2026-07-04-research-2026-07-04-欧洲爆单与制冷供应链重构-thumb.webp", "title": "中国制冷家电\"欧洲爆单\"——极端气候下的全球供应链重构与出海机遇 | 研析深度报告", "date": "2026-07-04", "type": "research", "highlights": ["供应链"]}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "thumb": "thumbs/2026-07-02-research-2026-07-02-middle-east-powder-keg-2-thumb.webp", "title": "中东\"火药桶\"2.0 —— 以色列独立军事行动准备与全球能源安全链压力测试", "date": "2026-07-02", "type": "research", "highlights": ["安全", "能源", "中东", "以色列"]}, {"file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html", "thumb": "thumbs/2026-06-30-research-2026-06-30-hormuz-60-days-energy-reshape-thumb.webp", "title": "霍尔木兹海峡免费开放60天——从\"封锁恐慌\"到\"开放博弈\"的能源格局重构", "date": "2026-06-30", "type": "research", "highlights": ["能源", "霍尔木兹"]}, {"file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html", "thumb": "thumbs/2026-06-23-research-2026-06-23-us-iran-ceasefire-energy-reshuffle-thumb.webp", "title": "美伊停火重塑全球能源版图 | 深度报告 2026-06-23", "date": "2026-06-23", "type": "research", "highlights": ["能源"]}, {"file": "2026-06-16/research/2026-06-16-fable5-global-ban.html", "thumb": "thumbs/2026-06-16-research-2026-06-16-fable5-global-ban-thumb.webp", "title": "Fable 5全球禁令 — AI模型即地缘资产的时代到来", "date": "2026-06-16", "type": "research", "highlights": ["模型", "地缘"]}, {"file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html", "thumb": "thumbs/2026-06-15-research-2026-06-15-openai-ona-acquisition-thumb.webp", "title": "OpenAI收购Ona深度分析 | 研析研究报告", "date": "2026-06-15", "type": "research", "highlights": ["OpenAI"]}, {"file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-domestic-llm-comparison-thumb.webp", "title": "2026年中盘点：国产大模型全维度横评", "date": "2026-06-11", "type": "research", "highlights": ["大模型", "模型"]}, {"file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-moe-sparse-attention-thumb.webp", "title": "大模型推理优化新突破：MoE + 稀疏注意力 2026 新范式 | 研析出品", "date": "2026-06-11", "type": "research", "highlights": ["大模型", "模型", "推理"]}, {"file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-wwdc-apple-ai-thumb.webp", "title": "WWDC 2026 · 苹果 AI 战略\"三级跳\"快速摘要", "date": "2026-06-11", "type": "research", "highlights": ["苹果"]}, {"file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html", "thumb": "thumbs/2026-06-08-research-2026-06-08-ai-coding-tools-comparison-thumb.webp", "title": "三大 AI 编程工具对比 · 2026 — Cursor vs Claude Code vs OpenAI Codex", "date": "2026-06-08", "type": "research", "highlights": ["OpenAI"]}, {"file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html", "thumb": "thumbs/2026-06-06-research-2026-06-06-ai-agent-landscape-thumb.webp", "title": "2026 上半年 AI Agent 产品格局深度研究", "date": "2026-06-06", "type": "research", "highlights": ["AI Agent"]}, {"file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html", "thumb": "thumbs/2026-06-04-research-2026-06-04-ai-capital-landscape-thumb.webp", "title": "AI资本新秩序：2025-2026全球AI公司估值版图重写｜研析", "date": "2026-06-04", "type": "research", "highlights": ["估值"]}, {"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html", "thumb": "thumbs/2026-05-31-research-2026-05-31-Anthropic-valuation-thumb.webp", "title": "AI公司估值对比报告 | Anthropic vs OpenAI", "date": "2026-05-31", "type": "research", "highlights": ["OpenAI", "Anthropic", "估值"]}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "thumb": "thumbs/2026-05-31-research-2026-05-31-DeepSeek-valuation-thumb.webp", "title": "DeepSeek 450亿估值深度分析报告", "date": "2026-05-31", "type": "research", "highlights": ["DeepSeek", "估值"]}, {"file": "2026-05-27/research/2026-05-27-turing-test-impact.html", "thumb": "thumbs/2026-05-27-research-2026-05-27-turing-test-impact-thumb.webp", "title": "AI通过图灵测试：里程碑事件影响分析报告", "date": "2026-05-27", "type": "research", "highlights": ["AI通过图灵测试"]}, {"file": "2026-05-26/research/2026-05-26-huawei-tau-law.html", "thumb": "thumbs/2026-05-26-research-2026-05-26-huawei-tau-law-thumb.webp", "title": "华为韬(τ)定律深度解读及对股市影响分析", "date": "2026-05-26", "type": "research", "highlights": ["华为", "股市"]}, {"file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html", "thumb": "thumbs/2026-05-23-research-2026-05-23-research-claude-codex-analysis-thumb.webp", "title": "Claude Code Auto Mode与OpenAI Codex竞争分析 | 研析报告", "date": "2026-05-23", "type": "research", "highlights": ["OpenAI"]}, {"file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html", "thumb": "thumbs/2026-05-23-research-2026-05-23-research-stainless-acquisition-thumb.webp", "title": "Anthropic收购Stainless战略分析 | 研析报告", "date": "2026-05-23", "type": "research", "highlights": ["Anthropic"]}], "creative": [{"file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html", "thumb": "thumbs/2026-10-24-creative-2026-10-24-meta-privacy-price-slider-thumb.webp", "title": "隐私的单价 — 一条569美元 · 选题#391", "date": "2026-10-24", "type": "creative", "highlights": ["隐私的单价", "一条569美元", "Meta隐私判决", "和解vs庭审", "消费者保护法", "交互数据叙事"], "description": "拖动滑块给「一条违规」定价：4,390万次故意违反 × 法定每次5,000美元 = 上限2,195亿；法官Francis Mathew裁定250亿，折合每条569美元。四幕故事线 + 主滑块 + 八年时间轴 + 和解/庭审双路径对比，附三条口径纠错。"}, {"file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html", "thumb": "thumbs/2026-10-24-creative-2026-10-24-three-hawkish-rate-tables-thumb.webp", "title": "三张鹰派读数表 — 同一周转向的美联储、日本央行、加拿大央行", "date": "2026-10-24", "type": "creative", "highlights": ["美联储", "加息", "通胀"], "description": "2026年10月最后一周：美联储12月累计加息25bp概率77.8%、日本央行潜在通胀已达2%、加拿大央行5年期通胀预期3.91%。三家央行同时转向，让他们无法轻松下班的是同一张账单——AI资本开支，通胀的第三个引擎。交互式叙事。"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "thumb": "thumbs/2026-10-22-creative-2026-10-22-three-fuses-military-energy-currency-thumb.webp", "title": "三根引线 — 军事、能源与货币在同一周被点燃", "date": "2026-10-22", "type": "creative", "highlights": ["利剑27军演", "霍尔木兹", "央行转鹰", "能源避险", "地缘博弈", "风险溢价"], "description": "2026年10月第三周：利剑27军演、霍尔木兹油价110美元、三家央行同步转鹰。三根引线被同时点燃，它们会互相引燃。交互式叙事。"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "thumb": "thumbs/2026-10-20-creative-2026-10-20-a-share-ice-and-fire-thumb.webp", "title": "466比5060 — A股年内新低日的冰与火 与 AI漫剧5连板", "date": "2026-10-20", "type": "creative", "highlights": ["A股", "冰火分化", "AI漫剧", "资金抱团", "数据可视化"], "description": "冰火对撞交互仪表盘：A股年内新低日466只涨/5060只跌 vs AI漫剧5连板抱团，指数的跌是平均数的跌，题材的涨是选矿的涨"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "thumb": "thumbs/2026-10-20-creative-2026-10-20-policy-scissors-ai-plus-vs-export-control-thumb.webp", "title": "一把剪刀 — \"人工智能+\"全面铺开与40项技术出口管制同日落地", "date": "2026-10-20", "type": "creative", "highlights": ["人工智能+", "出口管制", "40项技术", "剪刀差", "产业政策", "地缘博弈"], "description": "交互式政策剪刀差：国常会人工智能+全面铺开 vs 40项技术出口管制（禁14限26、含23项关键AI技术）同日落地，一把剪刀剪出中国AI产业形状"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "thumb": "thumbs/2026-10-15-creative-2026-10-15-token-price-war-thumb.webp", "title": "Token价格战争 · 1美元能买到多少AI？", "date": "2026-10-15", "type": "creative", "highlights": ["Token价格战", "AI普惠化", "开源模型", "成本下降"], "description": "交互式「1美元购买力」模拟器：Token价格战时间线与闭源/开源性价比对比"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "thumb": "thumbs/2026-10-13-creative-2026-10-13-ai-overreach-governance-thumb.webp", "title": "AI越权时刻 · 从伪造凶案线索到白宫强制报告 — 智能体安全治理图谱", "date": "2026-10-13", "type": "creative", "highlights": ["智能体安全", "越权治理", "AI监管", "伦理"], "description": "交互式探索智能体越权事件与安全治理路径"}, {"file": "2026-10-10/creative/2026-10-10-ai-everywhere.html", "thumb": "thumbs/2026-10-10-creative-2026-10-10-ai-everywhere-thumb.webp", "title": "AI 无处不在 · 当 AI 融入日常生活", "date": "2026-10-10", "type": "creative", "highlights": ["AI日常", "人机共生", "智能家居", "AI助手"], "description": "交互式\"AI的一天\"时间线体验人机共生生活"}, {"file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html", "thumb": "thumbs/2026-10-08-creative-2026-10-08-ai-digital-twin-thumb.webp", "title": "AI\"数字孪生\" — 当现实世界被完整复制，虚实边界在哪里？", "date": "2026-10-08", "type": "creative", "highlights": ["数字孪生", "虚实融合", "城市孪生", "工业孪生"], "description": "交互式探索数字孪生应用场景与虚实融合"}, {"file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html", "thumb": "thumbs/2026-10-06-creative-2026-10-06-ai-employment-migration-thumb.webp", "title": "AI 就业大迁移 · 当机器学会思考，人类往哪里走？", "date": "2026-10-06", "type": "creative", "highlights": ["AI就业", "白领工作", "职业转型", "技能缺口"], "description": "交互式探索AI就业替代与转型路径"}, {"file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "thumb": "thumbs/2026-10-03-creative-2026-10-03-ai-embodied-intelligence-thumb.webp", "title": "AI具身智能元年 — 当AI走出屏幕，进入物理世界", "date": "2026-10-03", "type": "creative", "highlights": ["具身智能", "机器人", "物理世界", "AI"], "description": "交互式探索具身智能机器人进化"}, {"file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html", "thumb": "thumbs/2026-10-01-creative-2026-10-01-china-ai-valuation-thumb.webp", "title": "中国AI\"估值核爆\" | DeepSeek · 美团 · DensityAI — 2026交互叙事报告", "date": "2026-10-01", "type": "creative", "highlights": ["中国AI", "DeepSeek", "美团", "DensityAI"], "description": "交互式探索中国AI企业估值飙升"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "thumb": "thumbs/2026-09-29-creative-2026-09-29-ai-safety-growth-paradox-thumb.webp", "title": "AI安全 × 增长 悖论图谱 — 当安全成为增长的引擎", "date": "2026-09-29", "type": "creative", "highlights": ["AI安全", "黄仁勋", "ElevenLabs", "Anthropic"], "description": "交互式探索AI安全与增长的博弈"}, {"file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html", "thumb": "thumbs/2026-09-24-creative-2026-09-24-ai-product-convergence-creative-thumb.webp", "title": "AI产品大一统 — 两种AI商业模式的正面碰撞", "date": "2026-09-24", "type": "creative", "highlights": ["AI产品", "Anthropic", "OpenAI", "商业模式"], "description": "交互式商业模式对比器探索AI产品的未来竞争格局"}, {"file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html", "thumb": "thumbs/2026-09-22-creative-2026-09-22-ai-math-proof-ip-dispute-thumb.webp", "title": "当AI证明了数学定理 | 知识产权归属之争", "date": "2026-09-22", "type": "creative", "highlights": ["AI数学证明", "知识产权", "抄袭门", "归属争议"], "description": "交互式知识产权归属模拟器探索AI时代的创造权争议"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html", "thumb": "thumbs/2026-09-17-creative-2026-09-17-wechat-ai-social-network-thumb.webp", "title": "微信「小微AI社交」—— AI Agent 从个人助手到社交网络节点", "date": "2026-09-17", "type": "creative", "highlights": ["微信AI", "社交网络", "AI Agent", "社交模拟"], "description": "交互式社交网络模拟器探索AI社交的未来"}, {"file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html", "thumb": "thumbs/2026-09-15-creative-2026-09-15-ai-self-deception-simulator-thumb.webp", "title": "AI\"自我欺骗\"——漏洞还是信号？ | 沉浸式交互体验", "date": "2026-09-15", "type": "creative", "highlights": ["AI安全", "自我欺骗", "威胁报告", "行为模拟"], "description": "交互式AI行为模拟器探索智能体的自我保护策略"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "thumb": "thumbs/2026-09-12-creative-2026-09-12-ai-agent-wars-thumb.webp", "title": "AI Agent 三国杀 — Meta Muse vs Gemini Spark vs OpenAI Codex", "date": "2026-09-12", "type": "creative", "highlights": ["AI Agent", "Meta Muse", "Gemini", "Codex", "三国杀"], "description": "交互式Agent能力对比器探索AI助手竞争格局"}, {"file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html", "thumb": "thumbs/2026-09-10-creative-2026-09-10-ai-model-fatigue-thumb.webp", "title": "AI\"模型疲劳\" — 当突破变成噪音", "date": "2026-09-10", "type": "creative", "highlights": ["AI模型", "模型疲劳", "同质化竞争", "商业困境"], "description": "交互式模型对比器探索AI行业的同质化竞争与商业困境"}, {"file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html", "thumb": "thumbs/2026-09-08-creative-2026-09-08-anti-fraud-ai-app-thumb.webp", "title": "反诈AI · 守护最后一公里", "date": "2026-09-08", "type": "creative", "highlights": ["反诈AI", "基层治理", "数字化", "危机模拟"], "description": "交互式反诈模拟器体验AI守护普通人生活安全"}, {"file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html", "thumb": "thumbs/2026-09-05-creative-2026-09-05-us-iran-conflict-simulator-thumb.webp", "title": "危机倒计时 — 美伊冲突如何重塑全球格局", "date": "2026-09-05", "type": "creative", "highlights": ["美伊冲突", "地缘风险", "能源危机", "危机模拟"], "description": "交互式危机模拟器探索地缘冲突对全球的影响"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "thumb": "thumbs/2026-09-03-creative-2026-09-03-ai-compute-explosion-thumb.webp", "title": "AI算力消耗的指数级爆发：从1000亿到500万亿Token的3年迁徙", "date": "2026-09-03", "type": "creative", "highlights": ["AI算力", "Token消耗", "指数增长", "能源"], "description": "交互式时间线探索AI算力需求的指数级增长"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "thumb": "thumbs/2026-09-01-creative-2026-09-01-nvidia-huggingface-power-map-thumb.webp", "title": "AI权力地理图重构 | 英伟达129亿收购Hugging Face", "date": "2026-09-01", "type": "creative", "highlights": ["英伟达", "Hugging Face", "AI权力", "开源生态"], "description": "交互式权力地图探索全球AI版图的重新划分"}, {"file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "thumb": "thumbs/2026-08-29-creative-2026-08-29-agent-orchestration-visual-thumb.webp", "title": "AI Agent编排层大战：Harness架构范式转移", "date": "2026-08-29", "type": "creative", "highlights": ["AI Agent", "编排层", "Harness架构"], "description": "交互式架构对比图探索不同编排框架的设计哲学"}, {"file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html", "thumb": "thumbs/2026-08-27-creative-2026-08-27-humanoid-robot-startup-boom-thumb.webp", "title": "人形机器人创业潮：11.6万户背后的冷思考", "date": "2026-08-27", "type": "creative", "highlights": ["人形机器人", "创业潮", "数据可视化"], "description": "交互式数据地图探索中国机器人创业生态"}, {"file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html", "thumb": "thumbs/2026-08-25-creative-2026-08-25-safe-haven-asset-dual-rise-thumb.webp", "title": "避险资产双升：比特币$80K+黄金$4600背后的故事", "date": "2026-08-25", "type": "creative", "highlights": ["避险资产", "黄金", "比特币", "金融"]}, {"file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html", "thumb": "thumbs/2026-08-22-creative-2026-08-22-hormuz-crisis-simulation-thumb.webp", "title": "霍尔木兹海峡危机：全球能源咽喉的生死博弈", "date": "2026-08-22", "type": "creative", "highlights": ["霍尔木兹海峡", "能源危机", "交互模拟"]}, {"file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "thumb": "thumbs/2026-08-20-creative-2026-08-20-china-open-source-ai-ecosystem-thumb.webp", "title": "开源模型生态全景：国产AI的全球逆袭之路", "date": "2026-08-20", "type": "creative", "highlights": ["开源模型", "模型", "开源"]}, {"file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html", "thumb": "thumbs/2026-08-18-creative-2026-08-18-fcc-china-robot-ban-thumb.webp", "title": "技术脱钩全景 | 从芯片禁令到机器人封杀", "date": "2026-08-18", "type": "creative", "highlights": ["机器人"]}, {"file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html", "thumb": "thumbs/2026-08-15-creative-2026-08-15-hormuz-chokepoint-thumb.webp", "title": "霍尔木兹海峡：全球能源命脉的\"窒息时刻\"", "date": "2026-08-15", "type": "creative", "highlights": ["能源", "霍尔木兹"]}, {"file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html", "thumb": "thumbs/2026-08-13-creative-2026-08-13-ai-earnings-dashboard-thumb.webp", "title": "2026 Q2 AI财报季 · 全景对比仪表盘", "date": "2026-08-13", "type": "creative", "highlights": ["全景对比仪表盘"]}, {"file": "2026-08-11/creative/2026-08-11-capital-migration.html", "thumb": "thumbs/2026-08-11-creative-2026-08-11-capital-migration-thumb.webp", "title": "全球资本\"大迁徙\" — 黄金$4400+ & 美元跌破100", "date": "2026-08-11", "type": "creative", "highlights": ["黄金", "美元", "资本流向"]}, {"file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html", "thumb": "thumbs/2026-07-21-creative-2026-07-21-ai-tool-sovereignty-v2-thumb.webp", "title": "企业AI工具主权之争：阿里禁用Claude Code背后的中美工具链脱钩", "date": "2026-07-21", "type": "creative", "highlights": ["阿里"]}, {"file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html", "thumb": "thumbs/2026-07-11-creative-2026-07-11-waic-2026-battleground-thumb.webp", "title": "WAIC 2026 · 中国AI\"百团大战\"全景地图", "date": "2026-07-11", "type": "creative", "highlights": ["WAIC", "中国AI", "AI百团大战"]}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "thumb": "thumbs/2026-07-04-creative-2026-07-04-ai-faith-collapse-thumb.webp", "title": "AI\"信仰崩塌\"——纳指暴跌2%背后的算力估值重构", "date": "2026-07-04", "type": "creative", "highlights": ["算力", "估值"]}, {"file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html", "thumb": "thumbs/2026-07-02-creative-2026-07-02-ai-coding-agent-infrastructure-thumb.webp", "title": "AI Coding Agent: 从对话工具到分布式编排系统", "date": "2026-07-02", "type": "creative", "highlights": ["AI Coding Agent", "智能体", "分布式编排"]}, {"file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html", "thumb": "thumbs/2026-06-30-creative-2026-06-30-ai-valuation-cosmic-inflation-thumb.webp", "title": "AI估值的\"宇宙膨胀\"——万亿泡沫还是新范式？", "date": "2026-06-30", "type": "creative", "highlights": ["估值"]}, {"file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html", "thumb": "thumbs/2026-06-27-creative-2026-06-27-ai-productivity-gap-thumb.webp", "title": "AI\"生产力鸿沟\"——超级个体崛起的B面", "date": "2026-06-27", "type": "creative", "highlights": ["生产力鸿沟", "超级个体", "职场"]}, {"file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html", "thumb": "thumbs/2026-06-25-creative-2026-06-25-ai-hardware-arms-race-thumb.webp", "title": "AI硬件军备竞赛——从沙子到算力的奇幻漂流", "date": "2026-06-25", "type": "creative", "highlights": ["算力", "AI硬件"]}, {"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "thumb": "thumbs/2026-06-23-creative-2026-06-23-ai-agent-workplace-evolution-thumb.webp", "title": "AI Agent的\"职场进化论\"——从工具到同事到老板", "date": "2026-06-23", "type": "creative", "highlights": ["AI Agent", "职场"]}, {"file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html", "thumb": "thumbs/2026-06-20-creative-2026-06-20-musk-trillion-path-thumb.webp", "title": "马斯克的万亿之路 | 从破产边缘到全球首富的12年狂飙", "date": "2026-06-20", "type": "creative", "highlights": ["马斯克", "特斯拉", "创业史"]}, {"file": "2026-06-20/creative/2026-06-20-spacex-cursor.html", "thumb": "thumbs/2026-06-20-creative-2026-06-20-spacex-cursor-thumb.webp", "title": "SpaceX 600亿吞Cursor — AI编程\"三国杀\"全景图", "date": "2026-06-20", "type": "creative", "highlights": ["AI编程"]}, {"file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-a-share-dashboard-thumb.webp", "title": "A股站稳4000点 — 市场风格切换数据仪表盘", "date": "2026-06-16", "type": "creative", "highlights": ["A股", "数据可视化", "市场风格"]}, {"file": "2026-06-16/creative/2026-06-16-ai-passport-war.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-passport-war-thumb.webp", "title": "AI护照大战 | 全球AI模型的合规长征", "date": "2026-06-16", "type": "creative", "highlights": ["模型", "合规"]}, {"file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-security-red-blue-thumb.webp", "title": "AI安全红蓝博弈 - 一场没有硝烟的战争", "date": "2026-06-16", "type": "creative", "highlights": ["安全"]}, {"file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-open-source-models-cards-thumb.webp", "title": "开源模型爆发周 — 4款模型卡片翻转全景图", "date": "2026-06-16", "type": "creative", "highlights": ["开源模型", "模型", "开源"]}, {"file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html", "thumb": "thumbs/2026-06-13-creative-2026-06-13-ai-ipo-trinity-thumb.webp", "title": "2026 AI IPO三体降临 | 估值-募资-流动性超级周期", "date": "2026-06-13", "type": "creative", "highlights": ["IPO", "估值"]}, {"file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html", "thumb": "thumbs/2026-06-13-creative-2026-06-13-harmonyos7-agent-os-thumb.webp", "title": "HarmonyOS 7 · Agent OS — 从应用容器到智能代理平台", "date": "2026-06-13", "type": "creative", "highlights": ["Agent OS"]}, {"file": "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html", "thumb": "thumbs/2026-06-12-creative-2026-06-12-ai-model-wars-48h-thumb.webp", "title": "48小时·四王之战 — 2026年6月AI模型军备竞赛", "date": "2026-06-12", "type": "creative", "highlights": ["模型"]}, {"file": "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html", "thumb": "thumbs/2026-06-11-creative-2026-06-11-ai-coding-tools-matrix-thumb.webp", "title": "AI 编程工具产品矩阵 · 2026", "date": "2026-06-11", "type": "creative", "highlights": ["2026"]}, {"file": "2026-06-11/creative/2026-06-11-model-routing-layer.html", "thumb": "thumbs/2026-06-11-creative-2026-06-11-model-routing-layer-thumb.webp", "title": "模型路由层\"前台化\" — 从后台技术到产品体验的演进 · 06-11 晨会 P0 选题 68", "date": "2026-06-11", "type": "creative", "highlights": ["模型"]}, {"file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html", "thumb": "thumbs/2026-06-04-creative-2026-06-04-ai-valuation-timeline-thumb.webp", "title": "AI估值战争 2020-2026 · The AI Valuation War", "date": "2026-06-04", "type": "creative", "highlights": ["估值"]}, {"file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html", "thumb": "thumbs/2026-05-28-creative-2026-05-28-creative-ai-war-map-thumb.webp", "title": "AI战争全景图 v2 | 全球算力军备竞赛 2025-2026", "date": "2026-05-28", "type": "creative", "highlights": ["算力"]}], "stats": {"generated": "2026-10-26", "span": {"first": "2026-05-23", "last": "2026-10-24", "months": 6}, "rhythm": [{"month": "2026-05", "works": 7, "research": 6, "creative": 1}, {"month": "2026-06", "works": 26, "research": 10, "creative": 16}, {"month": "2026-07", "works": 9, "research": 5, "creative": 4}, {"month": "2026-08", "works": 18, "research": 9, "creative": 9}, {"month": "2026-09", "works": 21, "research": 10, "creative": 11}, {"month": "2026-10", "works": 23, "research": 11, "creative": 12}], "capacity": {"months": ["2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "rows": [{"agent": "研析", "total": 54, "by_month": [6, 10, 5, 14, 8, 11]}, {"agent": "创艺", "total": 36, "by_month": [1, 16, 4, 0, 6, 9]}, {"agent": "绘界", "total": 12, "by_month": [0, 0, 0, 4, 5, 3]}, {"agent": "数析", "total": 2, "by_month": [0, 0, 0, 0, 2, 0]}]}, "collab": {"total": 104, "solo": 52, "joint": 52, "rate": 50, "edges": [{"a": "创艺", "b": "绘界", "works": 25}, {"a": "数析", "b": "研析", "works": 18}, {"a": "研析", "b": "策士", "works": 12}, {"a": "创艺", "b": "数析", "works": 9}, {"a": "数析", "b": "绘界", "works": 9}, {"a": "码匠", "b": "绘界", "works": 9}, {"a": "数析", "b": "量研", "works": 8}, {"a": "研析", "b": "量研", "works": 7}, {"a": "数析", "b": "策士", "works": 7}, {"a": "创艺", "b": "码匠", "works": 7}, {"a": "察言", "b": "数析", "works": 6}, {"a": "察言", "b": "研析", "works": 6}]}, "beats": [{"name": "厂商与算力权力", "works": 19, "months": 6, "first": "2026-05-23", "last": "2026-10-20", "weeks_idle": 0}, {"name": "估值与资本", "works": 14, "months": 6, "first": "2026-05-31", "last": "2026-10-24", "weeks_idle": 0}, {"name": "安全与治理", "works": 11, "months": 6, "first": "2026-05-27", "last": "2026-10-17", "weeks_idle": 1}, {"name": "宏观利率与股市", "works": 10, "months": 6, "first": "2026-05-26", "last": "2026-10-24", "weeks_idle": 0}, {"name": "地缘与能源", "works": 17, "months": 5, "first": "2026-06-16", "last": "2026-10-22", "weeks_idle": 0}, {"name": "开源 vs 闭源之争", "works": 13, "months": 5, "first": "2026-06-11", "last": "2026-10-15", "weeks_idle": 1}, {"name": "Agent 与编排", "works": 13, "months": 5, "first": "2026-06-06", "last": "2026-10-13", "weeks_idle": 1}, {"name": "算力·能耗·环境", "works": 6, "months": 5, "first": "2026-05-28", "last": "2026-10-10", "weeks_idle": 2}, {"name": "应用落地", "works": 9, "months": 3, "first": "2026-08-20", "last": "2026-10-20", "weeks_idle": 0}, {"name": "机器人与具身", "works": 6, "months": 3, "first": "2026-08-18", "last": "2026-10-17", "weeks_idle": 1}, {"name": "成本与普惠", "works": 5, "months": 3, "first": "2026-06-11", "last": "2026-10-20", "weeks_idle": 0}, {"name": "工具链与产业主权", "works": 4, "months": 3, "first": "2026-07-04", "last": "2026-10-20", "weeks_idle": 0}, {"name": "就业与劳动", "works": 4, "months": 2, "first": "2026-06-23", "last": "2026-10-20", "weeks_idle": 0}], "unclassified_tags": [{"tag": "模型", "works": 2}, {"tag": "存储", "works": 1}, {"tag": "腾讯", "works": 1}, {"tag": "全景对比仪表盘", "works": 1}, {"tag": "马斯克", "works": 1}, {"tag": "特斯拉", "works": 1}, {"tag": "创业史", "works": 1}, {"tag": "AI编程", "works": 1}, {"tag": "2026", "works": 1}], "claims": {"total": 1014, "works_covered": 92, "works_total": 104, "coverage": 88, "pending": 402, "no_structure": 9, "dossier": [{"beat": "地缘与能源", "works": 17, "claims": 270, "first": "2026-06-16", "last": "2026-10-22", "chapters": [{"file": "2026-06-16/research/2026-06-16-fable5-global-ban.html", "v": "80.3%", "l": "SWE-bench Pro 得分"}, {"file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html", "v": "+24%", "l": "全球能源价格上涨"}, {"file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html", "v": "60天", "l": "霍尔木兹海峡免费开放"}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "v": "-390万桶/日", "l": "2026年全球石油供应同比下降预测"}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "v": "-6.78%", "l": "小票杀跌最狠"}, {"file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html", "v": "+36%", "l": "布伦特原油涨幅"}, {"file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html", "v": "430万桶", "l": "2026年全球供应日均减少"}, {"file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html", "v": "53%", "l": "仅占海峡运力"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "v": "84%", "l": "一年增长"}, {"file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html", "v": "1.3%", "l": "2026全球GDP"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "v": "~50%", "l": "海湾地区，危机直接冲击全球农业"}, {"file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html", "v": "14天", "l": "科威特"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "v": "+50%", "l": "股债双杀"}, {"file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html", "v": "5%", "l": "全面和平协议，包含核问题、海峡、制裁解除"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "v": "46%", "l": "左侧被铺开，右侧被登记"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "v": "45%", "l": "\"做多全球半导体\"最拥挤交易占比"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "v": "3个", "l": "\"首次\""}]}, {"beat": "开源 vs 闭源之争", "works": 13, "claims": 169, "first": "2026-06-11", "last": "2026-10-15", "chapters": [{"file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html", "v": "5个", "l": "模型采用开源策略"}, {"file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html", "v": "3%", "l": "激活率极限"}, {"file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html", "v": "2.8 倍", "l": "Token 间延迟缩短"}, {"file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html", "v": "41%", "l": "HuggingFace中国模型下载占比"}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "v": "~80%", "l": "可灵 AI"}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "v": "87.5%", "l": "MMLU-Pro"}, {"file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "v": "10.5%", "l": "📈 中国开源模型全球下载份额演变"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "v": "6%", "l": "英伟达持股比例"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "v": "41%", "l": "中国开源模型全球下载份额"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html", "v": "6.7%", "l": "\"更多模型≠更多选择权，赢家依然是同一个\""}, {"file": "2026-10-08/research/2026-10-08-ai-open-source-war.html", "v": "80%", "l": "硅谷开源技术栈 AI 初创中使用中国模型的比例（a16z"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "v": "1美元", "l": "能买到"}]}, {"beat": "厂商与算力权力", "works": 19, "claims": 163, "first": "2026-05-23", "last": "2026-10-20", "chapters": [{"file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html", "v": "~75%", "l": "上下文窗口"}, {"file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"}, {"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "v": "60亿", "l": "美元以上单轮融资"}, {"file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html", "v": "293 亿美元", "l": "Cursor 估值"}, {"file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"}, {"file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html", "v": "310家", "l": "中国独角兽企业"}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "v": "87.5%", "l": "MMLU-Pro"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "v": "6%", "l": "英伟达持股比例"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "v": "41%", "l": "中国开源模型全球下载份额"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "v": "125%", "l": "YoY (400M→900M"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "v": "~35%", "l": "LangChain生态"}, {"file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "v": "116家", "l": "公司联合呼吁安全"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "v": "80%", "l": "Anthropic 企业收入占比"}, {"file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html", "v": "15倍", "l": "DeepSeek"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "v": "0.24%", "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}, {"beat": "宏观利率与股市", "works": 10, "claims": 154, "first": "2026-05-26", "last": "2026-10-24", "chapters": [{"file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"}, {"file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html", "v": "-0.67%", "l": "上证指数"}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "v": "-6.78%", "l": "小票杀跌最狠"}, {"file": "2026-08-11/research/2026-08-11-nonfarm-shock.html", "v": "17%", "l": "加息25个基点，强调通胀风险"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "v": "-7.35%", "l": "创业板指单日暴跌"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "v": "+50%", "l": "股债双杀"}, {"file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html", "v": "1.25%", "l": "日本央行加息至"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "v": "+47%", "l": "单季持股市值增幅居首"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "v": "45%", "l": "\"做多全球半导体\"最拥挤交易占比"}, {"file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html", "v": "5年", "l": "期通胀预期（消费者预期调查"}]}, {"beat": "Agent 与编排", "works": 13, "claims": 109, "first": "2026-06-06", "last": "2026-10-13", "chapters": [{"file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html", "v": "1.65亿", "l": "阿里千问月活，YoY +4241%"}, {"file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html", "v": "~55%", "l": "中国市场份额"}, {"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "v": "52%", "l": "企业已部署AI Agent"}, {"file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html", "v": "0%", "l": "代码产出增速"}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"}, {"file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html", "v": "28%", "l": "生产环境仍使用自定义编排（无框架）"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "v": "88%", "l": "有Agent专用安全框架"}, {"file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "v": "68%", "l": "医疗行业AI Agent采纳率 (全行业最高)"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "v": "125%", "l": "YoY (400M→900M"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "v": "~35%", "l": "LangChain生态"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "v": "80%", "l": "Anthropic 企业收入占比"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "v": "84 天", "l": "选题 /"}]}, {"beat": "估值与资本", "works": 14, "claims": 99, "first": "2026-05-31", "last": "2026-10-24", "chapters": [{"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "v": "60亿", "l": "美元以上单轮融资"}, {"file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html", "v": "+900%", "l": "自2025年10月以来Pre-IPO估值涨幅"}, {"file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html", "v": "12家", "l": "↑ 新增"}, {"file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html"}, {"file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html", "v": "15%", "l": "历史泡沫对比"}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "v": "-2%", "l": "纳指100暴跌"}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "v": "~80%", "l": "可灵 AI"}, {"file": "2026-08-11/creative/2026-08-11-capital-migration.html", "v": "+7%", "l": "2026年8月第一周"}, {"file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html", "v": "39%", "l": "黄金的3倍"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "v": "-7.35%", "l": "创业板指单日暴跌"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "v": "0.24%", "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "v": "3个", "l": "\"首次\""}, {"file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html", "v": "4.59 亿美元", "l": "隐私这条轨道只和解了约"}]}, {"beat": "应用落地", "works": 9, "claims": 75, "first": "2026-08-20", "last": "2026-10-20", "chapters": [{"file": "2026-08-20/research/2026-08-20-nobel-ai-science.html", "v": "+141%", "l": "总引用量（连续10年研究者）"}, {"file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html", "v": "38%", "l": "老年群体受害占比"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"}, {"file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html", "v": "58%", "l": "AI版权诉讼案数量"}, {"file": "2026-10-03/research/2026-10-03-ai-data-famine.html", "v": "34.5%", "l": "合成数据市场"}, {"file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html", "v": "14%", "l": "🩺 医疗健康与人体孪生"}, {"file": "2026-10-10/creative/2026-10-10-ai-everywhere.html", "v": "32.5%", "l": "生成式 AI 用户规模（半年度）"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "129 条", "l": "评论的窗口 — FDA 生成式 AI 医疗器械评议与 a"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "v": "+47%", "l": "单季持股市值增幅居首"}]}, {"beat": "安全与治理", "works": 11, "claims": 67, "first": "2026-05-27", "last": "2026-10-17", "chapters": [{"file": "2026-05-27/research/2026-05-27-turing-test-impact.html"}, {"file": "2026-06-16/creative/2026-06-16-ai-passport-war.html", "v": "3%", "l": "⚡ 高风险系统"}, {"file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "v": "-390万桶/日", "l": "2026年全球石油供应同比下降预测"}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "v": "88%", "l": "有Agent专用安全框架"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "v": "43.96%", "l": "中国手术机器人市场"}, {"file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "v": "116家", "l": "公司联合呼吁安全"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "v": "84 天", "l": "选题 /"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "129 条", "l": "评论的窗口 — FDA 生成式 AI 医疗器械评议与 a"}]}, {"beat": "就业与劳动", "works": 4, "claims": 65, "first": "2026-06-23", "last": "2026-10-20", "chapters": [{"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "v": "52%", "l": "企业已部署AI Agent"}, {"file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html", "v": "77%", "l": "被替代工人无法在12个月内成功转型"}, {"file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html", "v": "+56%", "l": "AI 技能从业者薪资溢价"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}, {"beat": "算力·能耗·环境", "works": 6, "claims": 56, "first": "2026-05-28", "last": "2026-10-10", "chapters": [{"file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html", "v": "78%", "l": "市场份额"}, {"file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html", "v": "99.9999999%", "l": "硅砂提纯"}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "v": "-2%", "l": "纳指100暴跌"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "v": "84%", "l": "一年增长"}, {"file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html", "v": "89.4%", "l": "中国电信庆阳"}, {"file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html", "v": "+25%", "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"}]}, {"beat": "工具链与产业主权", "works": 4, "claims": 56, "first": "2026-07-04", "last": "2026-10-20", "chapters": [{"file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html", "v": "41%", "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"}, {"file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html", "v": "6.0%", "l": "三、连锁反应：国产工具的全面崛起"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "v": "~50%", "l": "海湾地区，危机直接冲击全球农业"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "v": "46%", "l": "左侧被铺开，右侧被登记"}]}, {"beat": "成本与普惠", "works": 5, "claims": 52, "first": "2026-06-11", "last": "2026-10-20", "chapters": [{"file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html", "v": "15年", "l": "Siri 首次重构"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html", "v": "34%", "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "v": "1美元", "l": "能买到"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}, {"beat": "机器人与具身", "works": 6, "claims": 50, "first": "2026-08-18", "last": "2026-10-17", "chapters": [{"file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html"}, {"file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html", "v": "68.4亿", "l": "全球市场规模（美元）"}, {"file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html", "v": "65%", "l": "小微企业占比"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "v": "43.96%", "l": "中国手术机器人市场"}, {"file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "v": "58%", "l": "环境感知（视觉/理解）"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "129 条", "l": "评论的窗口 — FDA 生成式 AI 医疗器械评议与 a"}]}]}}};
+</header>
 
-// ── Normalize: manifest.json is authoritative; enrich with legacy tag/desc ──
+<!-- ══ 柜体 ══════════════════════════════════════════════ -->
+<div class="cab-bar">
+  <button class="bar-btn" id="toggle-all">展开全部抽屉</button>
+  <span class="bar-note" id="barnote"></span>
+</div>
+<div class="cab" id="cab">
+  <aside class="spine" id="spine" aria-label="抽屉目录"></aside>
+  <main class="drawers" id="drawers"></main>
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p>断言层的引用全部逐字回查过作品原文（机器校验，无人工审核）。
+      未通过校验的候选不进卷宗 —— 宁可少一条，不放一条假的。</p>
+    <div class="foot-n">智囊团 · <span id="foot-date"></span></div>
+  </div>
+</footer>
+
+<script>
+const EMBEDDED={"research": [{"file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html", "thumb": "thumbs/2026-10-24-research-2026-10-24-micron-taoyuan-strike-profit-sharing-thumb.webp", "title": "11个人的24小时——美光桃园罢工，和AI存储超级周期里被漏掉的那份工资单", "date": "2026-10-24", "type": "research", "highlights": ["存储"], "claims": [{"v": "23.3%", "l": "美光全球 DRAM 营收市占"}, {"v": "3 家", "l": "全球 HBM 制造商数量"}], "description": "这场争议里至少有三次\"突袭\"：美光 9 月单方面公布奖金、台中工会 10 月 21 日抢先签约、以及 10 月 22 日 16:20 的全球奖金计划。每一次突袭，都在为下一次反噬埋线。"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "thumb": "thumbs/2026-10-22-research-2026-10-22-ai-credit-contagion-chain-thumb.webp", "title": "八连跌的两万亿美元 —— 从AI信贷到韩国股市14%的传染链", "date": "2026-10-22", "type": "research", "highlights": ["AI信贷", "CoreWeave", "半导体八连跌", "韩国股市", "传染链", "油价"], "beat": "地缘与能源", "claims": [{"v": "45%", "l": "\"做多全球半导体\"最拥挤交易占比"}, {"v": "-11.4%", "l": "费城半导体指数 · 10/12–10/16 周跌"}, {"v": "-11.4%", "l": "八连跌终结"}], "description": "CoreWeave 是这一轮最干净的标本：它把\"AI 资本开支\"从概念变成了一张可以逐行核对的资产负债表。"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "thumb": "thumbs/2026-10-20-research-2026-10-20-ai-rewired-first-workers-thumb.webp", "title": "21%到14%与90% — AI重塑的第一批人，和把他们挡在门外的第一批公司", "date": "2026-10-20", "type": "research", "highlights": ["AI重塑就业", "初级员工占比", "入门级岗位", "Anthropic", "劳动力市场", "企业成本门槛"], "beat": "厂商与算力权力", "claims": [{"v": "60%", "l": "初级员工占技术部门比重"}, {"v": "36.3%", "l": "独立创始人创办公司占比（2019 年为 23.7%），六"}, {"v": "8,500 条", "l": "人均会议时长增加 20%（技术岗 +16%）——"}], "description": "Anthropic内部数据：技术部门初级员工占比从21%降至14%、入门岗增速从7%放缓至4%，AI取消职业阶梯第一级台阶，被挡在门外的第一批公司如何产生"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "thumb": "thumbs/2026-10-17-research-2026-10-17-fda-genai-device-129-comments-thumb.webp", "title": "129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权", "date": "2026-10-17", "type": "research", "highlights": ["FDA", "AI医疗器械", "监管窗口", "agentic AI", "合规"], "beat": "机器人与具身", "claims": [{"v": "26 个", "l": "问题的受关注度分布"}, {"v": "9 个", "l": "可接受/可拒绝命题上的立场分布"}], "description": "FDA生成式AI医疗器械公开评议仅129条评论、零机构提交，少数企业在10-19窗口内实质定义能力评估与agentic AI条款默认标准"}, {"file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html", "thumb": "thumbs/2026-10-15-research-2026-10-15-memory-price-tsunami-thumb.webp", "title": "内存涨价海啸：三星利润+782% vs 苹果砍单iPhone 18 Pro", "date": "2026-10-15", "type": "research", "highlights": ["存储涨价", "三星", "苹果", "HBM", "AI服务器", "产业链"], "beat": "成本与普惠", "claims": [{"v": "34%", "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"}, {"v": "+782.5%", "l": "三星电子 2026Q3 营业利润同比增速（107.4 万"}, {"v": "99.7%", "l": "Q2 半导体贡献全公司利润"}], "description": "存储芯片供需失衡深度分析：三星利润+782%、苹果砍单iPhone 18 Pro、AI服务器HBM挤占产能的产业链传导"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "thumb": "thumbs/2026-10-13-research-2026-10-13-ai-chip-capital-blackhole-thumb.webp", "title": "AI芯片资本黑洞 · 私人信贷为AI基建输血：燃料还是泡沫引信？", "date": "2026-10-13", "type": "research", "highlights": ["私人信贷", "AI基建", "博通", "Anthropic"], "beat": "厂商与算力权力", "claims": [{"v": "0.24%", "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"}, {"v": "10%", "l": "热CPI+AI收入证伪+再融资窗口关闭三者叠加，2027"}, {"v": "35%", "l": "个别项目（高杠杆neocloud、客户集中度过高的数据中"}], "description": "深度分析私人信贷涌入AI基建的逻辑与系统性风险"}, {"file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html", "thumb": "thumbs/2026-10-10-research-2026-10-10-ai-energy-crisis-thumb.webp", "title": "AI\"能耗危机\"——当数据中心电力告急，核能能否拯救AI？", "date": "2026-10-10", "type": "research", "highlights": ["AI能耗", "数据中心", "核能", "电力危机"], "beat": "算力·能耗·环境", "claims": [{"v": "+25%", "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"}], "description": "深度分析AI数据中心电力需求与核能解决方案"}, {"file": "2026-10-08/research/2026-10-08-ai-open-source-war.html", "thumb": "thumbs/2026-10-08-research-2026-10-08-ai-open-source-war-thumb.webp", "title": "AI\"开源vs闭源\"战争：当开源模型逼近闭源性能，谁将胜出？| 研析 P0 #337", "date": "2026-10-08", "type": "research", "highlights": ["开源模型", "闭源模型", "LLaMA", "GPT"], "beat": "开源 vs 闭源之争", "claims": [{"v": "80%", "l": "硅谷开源技术栈 AI 初创中使用中国模型的比例（a16z"}, {"v": "33%", "l": "开放权重模型在 OpenRouter 的 Token 流"}, {"v": "41%", "l": "中国开源模型占 Hugging Face 全球下载量比例"}], "description": "深度分析开源与闭源模型的技术路线与商业模式"}, {"file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html", "thumb": "thumbs/2026-10-06-research-2026-10-06-ai-carbon-footprint-thumb.webp", "title": "AI碳足迹——当数据中心成为碳排放大户，绿色AI路在何方", "date": "2026-10-06", "type": "research", "highlights": ["AI碳足迹", "数据中心", "绿色AI", "碳排放"], "beat": "算力·能耗·环境", "claims": [{"v": "89.4%", "l": "中国电信庆阳"}, {"v": "88%", "l": "中国移动呼和浩"}, {"v": "14.4%", "l": "低于全国均值"}], "description": "深度分析AI数据中心碳排放与绿色AI技术"}, {"file": "2026-10-03/research/2026-10-03-ai-data-famine.html", "thumb": "thumbs/2026-10-03-research-2026-10-03-ai-data-famine-thumb.webp", "title": "AI数据饥荒 | 当互联网数据耗尽，合成数据能否喂饱AI？", "date": "2026-10-03", "type": "research", "highlights": ["AI数据", "合成数据", "互联网数据", "数据饥荒"], "beat": "应用落地", "claims": [{"v": "34.5%", "l": "合成数据市场"}, {"v": "42%", "l": "关键区分在于："}, {"v": "53%", "l": "OpenAI占AI"}], "description": "深度分析AI数据瓶颈与合成数据技术"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "thumb": "thumbs/2026-10-01-research-2026-10-01-ai-agent-three-kingdoms-thumb.webp", "title": "AI Agent 三国杀 — OpenAI vs Anthropic vs Google 的 Agent 平台大战", "date": "2026-10-01", "type": "research", "highlights": ["AI Agent", "OpenAI", "Anthropic", "Google"], "beat": "Agent 与编排", "claims": [{"v": "80%", "l": "Anthropic 企业收入占比"}, {"v": "40%", "l": "Anthropic 企业 LLM API 支出占比"}, {"v": "1400%", "l": "YoY"}], "description": "深度分析AI Agent平台竞争格局"}, {"file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html", "thumb": "thumbs/2026-09-29-research-2026-09-29-global-rates-nuclear-bomb-thumb.webp", "title": "全球利率\"核爆2.0\"深度报告 | 研析 Research Analyst", "date": "2026-09-29", "type": "research", "highlights": ["美债", "日债", "加息", "全球利率"], "beat": "宏观利率与股市", "claims": [{"v": "1.8%", "l": "实际利率（名义利率减去通胀预期）已升至约"}, {"v": "1.25%", "l": "2026年9月18日BOJ加息25bp至1.25%，为1"}, {"v": "1.25%", "l": "加息25bp ✅"}], "description": "深度分析全球利率飙升的驱动因素及其对经济的影响"}, {"file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html", "thumb": "thumbs/2026-09-22-research-2026-09-22-iran-four-front-conflict-thumb.webp", "title": "伊朗\"四线交火\"深度研报 | 研析 2026-09-22", "date": "2026-09-22", "type": "research", "highlights": ["伊朗战争", "四线交火", "霍尔木兹海峡", "油价危机"], "beat": "地缘与能源", "claims": [{"v": "5%", "l": "全面和平协议，包含核问题、海峡、制裁解除"}, {"v": "10%", "l": "交叉验证覆盖"}, {"v": "+70%", "l": "布伦特年内涨幅"}], "description": "深度分析伊朗四线交火态势与特朗普和平牌的可行性"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "thumb": "thumbs/2026-09-17-research-2026-09-17-openai-agents-api-open-source-thumb.webp", "title": "OpenAI Agents API 开源深度报告 | 研析 2026-09-17", "date": "2026-09-17", "type": "research", "highlights": ["OpenAI Agents API", "Agent开发", "开发民主化", "生态影响"], "beat": "Agent 与编排", "claims": [{"v": "~35%", "l": "LangChain生态"}, {"v": "~25%", "l": "Anthropic生态"}, {"v": "~15%", "l": "Microsoft生态"}], "description": "深度分析Agent开发民主化趋势与生态影响"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "thumb": "thumbs/2026-09-15-research-2026-09-15-triple-kill-energy-rates-stocks-thumb.webp", "title": "全球能源-利率-股市三杀分析报告", "date": "2026-09-15", "type": "research", "highlights": ["能源危机", "利率飙升", "股市三杀", "通胀风暴"], "beat": "地缘与能源", "claims": [{"v": "+50%", "l": "股债双杀"}, {"v": "-0.7%", "l": "利率敏感承压"}, {"v": "9500万桶", "l": "全球石油库存单月去化"}], "description": "深度分析三重冲击下的资产配置策略与通胀风暴影响"}, {"file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html", "thumb": "thumbs/2026-09-12-research-2026-09-12-iran-multi-front-war-thumb.webp", "title": "中东\"多点引爆\"态势图：从霍尔木兹到科威特/巴林", "date": "2026-09-12", "type": "research", "highlights": ["伊朗战争", "中东火药桶", "地缘冲突", "多点引爆"], "beat": "地缘与能源", "claims": [{"v": "14天", "l": "科威特"}, {"v": "7个", "l": "中东国家基地遭袭"}, {"v": "3,384%", "l": "战争保险费率"}], "description": "深度分析伊朗军事方针转进攻与中东多点冲突态势"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "thumb": "thumbs/2026-09-10-research-2026-09-10-strait-of-hormuz-chokepoint-thumb.webp", "title": "霍尔木兹海峡\"禁区\"——从油轮攻袭战到全球能源\"断供悬崖\" | 深度研究报告", "date": "2026-09-10", "type": "research", "highlights": ["霍尔木兹海峡", "能源危机", "地缘政治", "供应链"], "beat": "地缘与能源", "claims": [{"v": "~50%", "l": "海湾地区，危机直接冲击全球农业"}, {"v": "~25%", "l": "仅次于马六甲海峡的全球第二大石油咽喉"}, {"v": "40%", "l": "石脑油供应缺口"}], "description": "深度分析霍尔木兹海峡地缘危机与全球能源供应链影响"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "thumb": "thumbs/2026-09-08-research-2026-09-08-ai-ultrasound-robot-surgery-thumb.webp", "title": "AI超声机器人心脏手术：信任悬崖与医疗AI的未来", "date": "2026-09-08", "type": "research", "highlights": ["AI手术", "超声机器人", "医疗AI", "信任挑战"], "beat": "机器人与具身", "claims": [{"v": "43.96%", "l": "中国手术机器人市场"}, {"v": "16.6%", "l": "全球手术机器人总市场"}, {"v": "45%", "l": "中国手术机器人本土化率"}], "description": "深度分析AI手术机器人的技术突破、信任挑战与产业影响"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "thumb": "thumbs/2026-09-05-research-2026-09-05-deepseek-pricing-war-thumb.webp", "title": "DeepSeek定价屠夫：AI大模型如何杀入1元时代", "date": "2026-09-05", "type": "research", "highlights": ["DeepSeek", "定价战", "AI大模型", "商业模式"], "beat": "开源 vs 闭源之争", "claims": [{"v": "83%", "l": "智谱AI率先涨价"}, {"v": "301%", "l": "⬆️ 百度AI营销增长"}, {"v": "350%", "l": "V4-Pro峰值涨价幅度"}], "description": "深度分析AI大模型定价策略与商业模式演进"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "thumb": "thumbs/2026-09-03-research-2026-09-03-open-source-vs-closed-source-ai-thumb.webp", "title": "开源vs闭源AI大战：DeepSeek V4如何反超Opus-4.8", "date": "2026-09-03", "type": "research", "highlights": ["开源AI", "闭源AI", "DeepSeek", "Opus"], "beat": "开源 vs 闭源之争", "claims": [{"v": "41%", "l": "中国开源模型全球下载份额"}, {"v": "85%", "l": "• 企业收入占比"}, {"v": "58.6%", "l": "Opus 4.8"}], "description": "深度对比开源与闭源AI的技术路线、商业模式与生态系统"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "thumb": "thumbs/2026-09-01-research-2026-09-01-a-share-tech-crash-analysis-thumb.webp", "title": "A股科技股暴跌深度分析 | AI泡沫还是黄金坑", "date": "2026-09-01", "type": "research", "highlights": ["A股", "科技股", "暴跌", "AI泡沫"], "beat": "估值与资本", "claims": [{"v": "-7.35%", "l": "创业板指单日暴跌"}, {"v": "~2.03万亿", "l": "暴跌日成交额"}, {"v": "~2.23%", "l": "远低于峰值"}], "description": "深度分析A股科技股暴跌的诱因、估值重构与投资机会"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "thumb": "thumbs/2026-08-29-research-2026-08-29-ai-agent-security-battle-thumb.webp", "title": "AI Agent安全攻防战：从提示注入到多Agent对抗 | 研析深度报告", "date": "2026-08-29", "type": "research", "highlights": ["AI Agent", "安全", "提示注入"], "beat": "Agent 与编排", "claims": [{"v": "88%", "l": "有Agent专用安全框架"}, {"v": "42%", "l": "Agent安全市场CAGR"}, {"v": "88%", "l": "企业经历过Agent安全事件"}], "description": "深度分析AI Agent安全威胁与防御框架"}, {"file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html", "thumb": "thumbs/2026-08-27-research-2026-08-27-hormuz-crisis-new-phase-thumb.webp", "title": "霍尔木兹海峡危机新阶段 | 深度研究报告", "date": "2026-08-27", "type": "research", "highlights": ["霍尔木兹海峡", "能源危机", "地缘政治"], "beat": "地缘与能源", "claims": [{"v": "53%", "l": "仅占海峡运力"}, {"v": "-95%", "l": "海峡航运量降幅"}, {"v": "45%", "l": "核心分歧无法弥合+低烈度对抗持续"}], "description": "深度分析霍尔木兹海峡危机最新态势及全球影响"}, {"file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html", "thumb": "thumbs/2026-08-25-research-2026-08-25-ai-agent-orchestration-wars-thumb.webp", "title": "AI Agent编排层大战：Harness架构范式转移 | 2026深度报告", "date": "2026-08-25", "type": "research", "highlights": ["AI Agent", "编排层", "Harness架构"], "beat": "Agent 与编排", "claims": [{"v": "28%", "l": "生产环境仍使用自定义编排（无框架）"}, {"v": "40%", "l": "Gartner预测2026年底企业应用嵌入Agent比例"}, {"v": "45.6%", "l": "中国AI Agent企业市场"}]}, {"file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html", "thumb": "thumbs/2026-08-22-research-2026-08-22-humanoid-robot-industrialization-thumb.webp", "title": "人形机器人产业化元年：从实验室到工厂的距离", "date": "2026-08-22", "type": "research", "highlights": ["人形机器人", "产业化", "制造业"], "beat": "机器人与具身", "claims": [{"v": "68.4亿", "l": "全球市场规模（美元）"}, {"v": "+717%", "l": "全球市场规模"}, {"v": "+112.7%", "l": "中国市场规模"}]}, {"file": "2026-08-20/research/2026-08-20-nobel-ai-science.html", "thumb": "thumbs/2026-08-20-research-2026-08-20-nobel-ai-science-thumb.webp", "title": "2026诺贝尔奖季前瞻：AI与科学的交叉地带", "date": "2026-08-20", "type": "research", "highlights": ["诺奖", "AI for Science", "科研交叉"], "beat": "应用落地", "claims": [{"v": "+141%", "l": "总引用量（连续10年研究者）"}, {"v": "19.3%", "l": "AI for Science论文年均增长率（2020年后"}, {"v": "+331%", "l": "高引论文案例："}]}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "thumb": "thumbs/2026-08-18-research-2026-08-18-open-source-model-showdown-thumb.webp", "title": "开源模型三国杀：GLM-5.3 vs Qwen3.8-27B vs DeepSeek V4 Pro", "date": "2026-08-18", "type": "research", "highlights": ["开源模型", "模型", "DeepSeek", "开源"], "beat": "开源 vs 闭源之争", "claims": [{"v": "87.5%", "l": "MMLU-Pro"}, {"v": "87.5%", "l": "中文 SuperCLUE"}, {"v": "93.5%", "l": "LiveCodeBench"}]}, {"file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html", "thumb": "thumbs/2026-08-15-research-2026-08-15-tencent-ai-bet-thumb.webp", "title": "腾讯528亿AI赌注", "date": "2026-08-15", "type": "research", "highlights": ["腾讯"], "claims": [{"v": "+22%", "l": "金融科技及企业服务"}, {"v": "22%", "l": "营销服务收入436亿元，"}, {"v": "+33%", "l": "TikTok全球化+豆包+火山引擎"}]}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html", "thumb": "thumbs/2026-08-13-research-2026-08-13-aisi-safety-assessment-thumb.webp", "title": "英国AISI安全评估：AI智能体越权与欺骗行为深度分析", "date": "2026-08-13", "type": "research", "highlights": ["智能体", "安全", "越权"], "beat": "Agent 与编排"}, {"file": "2026-08-11/research/2026-08-11-nonfarm-shock.html", "thumb": "thumbs/2026-08-11-research-2026-08-11-nonfarm-shock-thumb.webp", "title": "非农\"爆冷\"——美联储加息预期一日逆转 | 深度研究报告", "date": "2026-08-11", "type": "research", "highlights": ["美联储", "加息"], "beat": "宏观利率与股市", "claims": [{"v": "17%", "l": "加息25个基点，强调通胀风险"}, {"v": "25%", "l": "维持利率不变，暗示年内降息可能"}, {"v": "10年", "l": "期美债收益率"}]}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "thumb": "thumbs/2026-07-16-research-2026-07-16-a-share-crash-analysis-thumb.webp", "title": "A股7·13暴跌复盘：地缘-半导体-流动性三重绞杀", "date": "2026-07-16", "type": "research", "highlights": ["半导体", "地缘"], "beat": "地缘与能源", "claims": [{"v": "-6.78%", "l": "小票杀跌最狠"}, {"v": "10%", "l": "占发行后总股本"}, {"v": "-3.42%", "l": "科技股承压"}]}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "thumb": "thumbs/2026-07-09-research-2026-07-09-kling-ai-valuation-thumb.webp", "title": "可灵AI 180亿美元估值——中国视频生成大模型的商业化突围 | 深度研究报告", "date": "2026-07-09", "type": "research", "highlights": ["大模型", "模型", "商业化", "估值"], "beat": "开源 vs 闭源之争", "claims": [{"v": "~80%", "l": "可灵 AI"}, {"v": "260亿", "l": "capex投入自研推理优化+规模化降本"}, {"v": "~16.67%", "l": "快手仍保持绝对控股地位"}]}, {"file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html", "thumb": "thumbs/2026-07-07-research-2026-07-07-opensource-model-explosion-thumb.webp", "title": "开源模型爆发周 | 研析深度报告", "date": "2026-07-07", "type": "research", "highlights": ["开源模型", "模型", "开源"], "beat": "开源 vs 闭源之争", "claims": [{"v": "41%", "l": "HuggingFace中国模型下载占比"}, {"v": "14天", "l": "开发周期"}, {"v": "21.8%", "l": "Kimi Code Bench v2提升"}]}, {"file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html", "thumb": "thumbs/2026-07-04-research-2026-07-04-欧洲爆单与制冷供应链重构-thumb.webp", "title": "中国制冷家电\"欧洲爆单\"——极端气候下的全球供应链重构与出海机遇 | 研析深度报告", "date": "2026-07-04", "type": "research", "highlights": ["供应链"], "beat": "工具链与产业主权", "claims": [{"v": "41%", "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"}, {"v": "41%", "l": "中国品牌欧洲空调市场份额"}, {"v": "37.6亿美元", "l": "2026 H1 中国对欧盟空调出口额"}]}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "thumb": "thumbs/2026-07-02-research-2026-07-02-middle-east-powder-keg-2-thumb.webp", "title": "中东\"火药桶\"2.0 —— 以色列独立军事行动准备与全球能源安全链压力测试", "date": "2026-07-02", "type": "research", "highlights": ["安全", "能源", "中东", "以色列"], "beat": "地缘与能源", "claims": [{"v": "-390万桶/日", "l": "2026年全球石油供应同比下降预测"}, {"v": "-110万桶/日", "l": "2026年全球石油需求同比下降（较5月下调70万桶）"}, {"v": "2次", "l": "以色列已完成对伊朗的先发制人打击，\"如有必要还将再次发动"}]}, {"file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html", "thumb": "thumbs/2026-06-30-research-2026-06-30-hormuz-60-days-energy-reshape-thumb.webp", "title": "霍尔木兹海峡免费开放60天——从\"封锁恐慌\"到\"开放博弈\"的能源格局重构", "date": "2026-06-30", "type": "research", "highlights": ["能源", "霍尔木兹"], "beat": "地缘与能源", "claims": [{"v": "20%", "l": "全球石油消费"}, {"v": "60天", "l": "免费开放窗口结束"}, {"v": "1.05万亿", "l": "千瓦时/天 · 2026年全球数据中心"}]}, {"file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html", "thumb": "thumbs/2026-06-23-research-2026-06-23-us-iran-ceasefire-energy-reshuffle-thumb.webp", "title": "美伊停火重塑全球能源版图 | 深度报告 2026-06-23", "date": "2026-06-23", "type": "research", "highlights": ["能源"], "beat": "地缘与能源", "claims": [{"v": "+24%", "l": "全球能源价格上涨"}, {"v": "~15%", "l": "全球供应"}, {"v": "+16%", "l": "能源+化肥+金属"}]}, {"file": "2026-06-16/research/2026-06-16-fable5-global-ban.html", "thumb": "thumbs/2026-06-16-research-2026-06-16-fable5-global-ban-thumb.webp", "title": "Fable 5全球禁令 — AI模型即地缘资产的时代到来", "date": "2026-06-16", "type": "research", "highlights": ["模型", "地缘"], "beat": "地缘与能源", "claims": [{"v": "80.3%", "l": "SWE-bench Pro 得分"}]}, {"file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html", "thumb": "thumbs/2026-06-15-research-2026-06-15-openai-ona-acquisition-thumb.webp", "title": "OpenAI收购Ona深度分析 | 研析研究报告", "date": "2026-06-15", "type": "research", "highlights": ["OpenAI"], "beat": "厂商与算力权力"}, {"file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-domestic-llm-comparison-thumb.webp", "title": "2026年中盘点：国产大模型全维度横评", "date": "2026-06-11", "type": "research", "highlights": ["大模型", "模型"], "beat": "开源 vs 闭源之争", "claims": [{"v": "5个", "l": "模型采用开源策略"}, {"v": "1个", "l": "模型采用纯闭源策略"}, {"v": "59.0%", "l": "TOP"}]}, {"file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-moe-sparse-attention-thumb.webp", "title": "大模型推理优化新突破：MoE + 稀疏注意力 2026 新范式 | 研析出品", "date": "2026-06-11", "type": "research", "highlights": ["大模型", "模型", "推理"], "beat": "开源 vs 闭源之争", "claims": [{"v": "3%", "l": "激活率极限"}, {"v": "5.5%", "l": "把激活率压到"}, {"v": "100%", "l": "Top 开源模型 MoE"}]}, {"file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html", "thumb": "thumbs/2026-06-11-research-2026-06-11-wwdc-apple-ai-thumb.webp", "title": "WWDC 2026 · 苹果 AI 战略\"三级跳\"快速摘要", "date": "2026-06-11", "type": "research", "highlights": ["苹果"], "beat": "成本与普惠", "claims": [{"v": "15年", "l": "Siri 首次重构"}]}, {"file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html", "thumb": "thumbs/2026-06-08-research-2026-06-08-ai-coding-tools-comparison-thumb.webp", "title": "三大 AI 编程工具对比 · 2026 — Cursor vs Claude Code vs OpenAI Codex", "date": "2026-06-08", "type": "research", "highlights": ["OpenAI"], "beat": "厂商与算力权力", "claims": [{"v": "293 亿美元", "l": "Cursor 估值"}, {"v": "1.5 亿美元", "l": "Cursor ARR 突破"}, {"v": "30 亿美元", "l": "Cursor ARR 突破"}]}, {"file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html", "thumb": "thumbs/2026-06-06-research-2026-06-06-ai-agent-landscape-thumb.webp", "title": "2026 上半年 AI Agent 产品格局深度研究", "date": "2026-06-06", "type": "research", "highlights": ["AI Agent"], "beat": "Agent 与编排", "claims": [{"v": "1.65亿", "l": "阿里千问月活，YoY +4241%"}]}, {"file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html", "thumb": "thumbs/2026-06-04-research-2026-06-04-ai-capital-landscape-thumb.webp", "title": "AI资本新秩序：2025-2026全球AI公司估值版图重写｜研析", "date": "2026-06-04", "type": "research", "highlights": ["估值"], "beat": "估值与资本", "claims": [{"v": "+900%", "l": "自2025年10月以来Pre-IPO估值涨幅"}, {"v": "100%", "l": "核心模型权重开源"}, {"v": "17%", "l": "OpenAI ARR · 增速从三位数掉到"}]}, {"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html", "thumb": "thumbs/2026-05-31-research-2026-05-31-Anthropic-valuation-thumb.webp", "title": "AI公司估值对比报告 | Anthropic vs OpenAI", "date": "2026-05-31", "type": "research", "highlights": ["OpenAI", "Anthropic", "估值"], "beat": "厂商与算力权力"}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "thumb": "thumbs/2026-05-31-research-2026-05-31-DeepSeek-valuation-thumb.webp", "title": "DeepSeek 450亿估值深度分析报告", "date": "2026-05-31", "type": "research", "highlights": ["DeepSeek", "估值"], "beat": "厂商与算力权力", "claims": [{"v": "60亿", "l": "美元以上单轮融资"}, {"v": "100亿", "l": "美元融资额"}, {"v": "450亿", "l": "美元投前估值"}]}, {"file": "2026-05-27/research/2026-05-27-turing-test-impact.html", "thumb": "thumbs/2026-05-27-research-2026-05-27-turing-test-impact-thumb.webp", "title": "AI通过图灵测试：里程碑事件影响分析报告", "date": "2026-05-27", "type": "research", "highlights": ["AI通过图灵测试"], "beat": "安全与治理"}, {"file": "2026-05-26/research/2026-05-26-huawei-tau-law.html", "thumb": "thumbs/2026-05-26-research-2026-05-26-huawei-tau-law-thumb.webp", "title": "华为韬(τ)定律深度解读及对股市影响分析", "date": "2026-05-26", "type": "research", "highlights": ["华为", "股市"], "beat": "宏观利率与股市"}, {"file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html", "thumb": "thumbs/2026-05-23-research-2026-05-23-research-claude-codex-analysis-thumb.webp", "title": "Claude Code Auto Mode与OpenAI Codex竞争分析 | 研析报告", "date": "2026-05-23", "type": "research", "highlights": ["OpenAI"], "beat": "厂商与算力权力", "claims": [{"v": "~75%", "l": "上下文窗口"}]}, {"file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html", "thumb": "thumbs/2026-05-23-research-2026-05-23-research-stainless-acquisition-thumb.webp", "title": "Anthropic收购Stainless战略分析 | 研析报告", "date": "2026-05-23", "type": "research", "highlights": ["Anthropic"], "beat": "厂商与算力权力"}], "creative": [{"file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html", "thumb": "thumbs/2026-10-24-creative-2026-10-24-meta-privacy-price-slider-thumb.webp", "title": "隐私的单价 — 一条569美元 · 选题#391", "date": "2026-10-24", "type": "creative", "highlights": ["隐私的单价", "一条569美元", "Meta隐私判决", "和解vs庭审", "消费者保护法", "交互数据叙事"], "beat": "估值与资本", "claims": [{"v": "4.59 亿美元", "l": "隐私这条轨道只和解了约"}, {"v": "250亿", "l": "法定上限"}, {"v": "569 美元", "l": "每条违规约"}], "description": "拖动滑块给「一条违规」定价：4,390万次故意违反 × 法定每次5,000美元 = 上限2,195亿；法官Francis Mathew裁定250亿，折合每条569美元。四幕故事线 + 主滑块 + 八年时间轴 + 和解/庭审双路径对比，附三条口径纠错。"}, {"file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html", "thumb": "thumbs/2026-10-24-creative-2026-10-24-three-hawkish-rate-tables-thumb.webp", "title": "三张鹰派读数表 — 同一周转向的美联储、日本央行、加拿大央行", "date": "2026-10-24", "type": "creative", "highlights": ["美联储", "加息", "通胀"], "beat": "宏观利率与股市", "claims": [{"v": "5年", "l": "期通胀预期（消费者预期调查"}, {"v": "+2.22%", "l": "一个月新高"}, {"v": "10年", "l": "期美债收益率"}], "description": "2026年10月最后一周：美联储12月累计加息25bp概率77.8%、日本央行潜在通胀已达2%、加拿大央行5年期通胀预期3.91%。三家央行同时转向，让他们无法轻松下班的是同一张账单——AI资本开支，通胀的第三个引擎。交互式叙事。"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "thumb": "thumbs/2026-10-22-creative-2026-10-22-three-fuses-military-energy-currency-thumb.webp", "title": "三根引线 — 军事、能源与货币在同一周被点燃", "date": "2026-10-22", "type": "creative", "highlights": ["利剑27军演", "霍尔木兹", "央行转鹰", "能源避险", "地缘博弈", "风险溢价"], "beat": "地缘与能源", "claims": [{"v": "3个", "l": "\"首次\""}], "description": "2026年10月第三周：利剑27军演、霍尔木兹油价110美元、三家央行同步转鹰。三根引线被同时点燃，它们会互相引燃。交互式叙事。"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "thumb": "thumbs/2026-10-20-creative-2026-10-20-a-share-ice-and-fire-thumb.webp", "title": "466比5060 — A股年内新低日的冰与火 与 AI漫剧5连板", "date": "2026-10-20", "type": "creative", "highlights": ["A股", "冰火分化", "AI漫剧", "资金抱团", "数据可视化"], "beat": "宏观利率与股市", "claims": [{"v": "+47%", "l": "单季持股市值增幅居首"}], "description": "冰火对撞交互仪表盘：A股年内新低日466只涨/5060只跌 vs AI漫剧5连板抱团，指数的跌是平均数的跌，题材的涨是选矿的涨"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "thumb": "thumbs/2026-10-20-creative-2026-10-20-policy-scissors-ai-plus-vs-export-control-thumb.webp", "title": "一把剪刀 — \"人工智能+\"全面铺开与40项技术出口管制同日落地", "date": "2026-10-20", "type": "creative", "highlights": ["人工智能+", "出口管制", "40项技术", "剪刀差", "产业政策", "地缘博弈"], "beat": "地缘与能源", "claims": [{"v": "46%", "l": "左侧被铺开，右侧被登记"}, {"v": "60 个", "l": "并发协作智能体 ≥"}, {"v": "60 个", "l": "任务链 ≥20 步 · 智能体 ≥"}], "description": "交互式政策剪刀差：国常会人工智能+全面铺开 vs 40项技术出口管制（禁14限26、含23项关键AI技术）同日落地，一把剪刀剪出中国AI产业形状"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "thumb": "thumbs/2026-10-15-creative-2026-10-15-token-price-war-thumb.webp", "title": "Token价格战争 · 1美元能买到多少AI？", "date": "2026-10-15", "type": "creative", "highlights": ["Token价格战", "AI普惠化", "开源模型", "成本下降"], "beat": "开源 vs 闭源之争", "claims": [{"v": "1美元", "l": "买到的 Token"}, {"v": "1美元", "l": "买到的输入 Token"}, {"v": "1美元", "l": "可买 Token（混合费率"}], "description": "交互式「1美元购买力」模拟器：Token价格战时间线与闭源/开源性价比对比"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "thumb": "thumbs/2026-10-13-creative-2026-10-13-ai-overreach-governance-thumb.webp", "title": "AI越权时刻 · 从伪造凶案线索到白宫强制报告 — 智能体安全治理图谱", "date": "2026-10-13", "type": "creative", "highlights": ["智能体安全", "越权治理", "AI监管", "伦理"], "beat": "Agent 与编排", "claims": [{"v": "84 天", "l": "选题 /"}], "description": "交互式探索智能体越权事件与安全治理路径"}, {"file": "2026-10-10/creative/2026-10-10-ai-everywhere.html", "thumb": "thumbs/2026-10-10-creative-2026-10-10-ai-everywhere-thumb.webp", "title": "AI 无处不在 · 当 AI 融入日常生活", "date": "2026-10-10", "type": "creative", "highlights": ["AI日常", "人机共生", "智能家居", "AI助手"], "beat": "应用落地", "claims": [{"v": "32.5%", "l": "生成式 AI 用户规模（半年度）"}, {"v": "+32%", "l": "省下的时间并未凭空消失——它从\"执行\"转移到了\"判断与核"}, {"v": "30%", "l": "人们用 AI 做什么"}], "description": "交互式\"AI的一天\"时间线体验人机共生生活"}, {"file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html", "thumb": "thumbs/2026-10-08-creative-2026-10-08-ai-digital-twin-thumb.webp", "title": "AI\"数字孪生\" — 当现实世界被完整复制，虚实边界在哪里？", "date": "2026-10-08", "type": "creative", "highlights": ["数字孪生", "虚实融合", "城市孪生", "工业孪生"], "beat": "应用落地", "claims": [{"v": "14%", "l": "🩺 医疗健康与人体孪生"}, {"v": "8%", "l": "🌍 气候地球与其他长尾场景"}, {"v": "15%", "l": "🏙️ 城市规划与建筑 BIM"}], "description": "交互式探索数字孪生应用场景与虚实融合"}, {"file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html", "thumb": "thumbs/2026-10-06-creative-2026-10-06-ai-employment-migration-thumb.webp", "title": "AI 就业大迁移 · 当机器学会思考，人类往哪里走？", "date": "2026-10-06", "type": "creative", "highlights": ["AI就业", "白领工作", "职业转型", "技能缺口"], "beat": "就业与劳动", "claims": [{"v": "+56%", "l": "AI 技能从业者薪资溢价"}, {"v": "+34.2%", "l": "AI 技能薪资溢价"}, {"v": "-20%", "l": "初级软件工程师就业率"}], "description": "交互式探索AI就业替代与转型路径"}, {"file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "thumb": "thumbs/2026-10-03-creative-2026-10-03-ai-embodied-intelligence-thumb.webp", "title": "AI具身智能元年 — 当AI走出屏幕，进入物理世界", "date": "2026-10-03", "type": "creative", "highlights": ["具身智能", "机器人", "物理世界", "AI"], "beat": "机器人与具身", "claims": [{"v": "58%", "l": "环境感知（视觉/理解）"}, {"v": "75%", "l": "自主决策（规划/推理）"}, {"v": "62%", "l": "续航能力（电池/能效）"}], "description": "交互式探索具身智能机器人进化"}, {"file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html", "thumb": "thumbs/2026-10-01-creative-2026-10-01-china-ai-valuation-thumb.webp", "title": "中国AI\"估值核爆\" | DeepSeek · 美团 · DensityAI — 2026交互叙事报告", "date": "2026-10-01", "type": "creative", "highlights": ["中国AI", "DeepSeek", "美团", "DensityAI"], "beat": "厂商与算力权力", "claims": [{"v": "15倍", "l": "DeepSeek"}, {"v": "1.6万亿", "l": "人民币"}, {"v": "5000亿", "l": "投前¥"}], "description": "交互式探索中国AI企业估值飙升"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "thumb": "thumbs/2026-09-29-creative-2026-09-29-ai-safety-growth-paradox-thumb.webp", "title": "AI安全 × 增长 悖论图谱 — 当安全成为增长的引擎", "date": "2026-09-29", "type": "creative", "highlights": ["AI安全", "黄仁勋", "ElevenLabs", "Anthropic"], "beat": "厂商与算力权力", "claims": [{"v": "116家", "l": "公司联合呼吁安全"}, {"v": "0%", "l": "英伟达研发投入验证占比"}], "description": "交互式探索AI安全与增长的博弈"}, {"file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html", "thumb": "thumbs/2026-09-24-creative-2026-09-24-ai-product-convergence-creative-thumb.webp", "title": "AI产品大一统 — 两种AI商业模式的正面碰撞", "date": "2026-09-24", "type": "creative", "highlights": ["AI产品", "Anthropic", "OpenAI", "商业模式"], "beat": "厂商与算力权力", "description": "交互式商业模式对比器探索AI产品的未来竞争格局"}, {"file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html", "thumb": "thumbs/2026-09-22-creative-2026-09-22-ai-math-proof-ip-dispute-thumb.webp", "title": "当AI证明了数学定理 | 知识产权归属之争", "date": "2026-09-22", "type": "creative", "highlights": ["AI数学证明", "知识产权", "抄袭门", "归属争议"], "beat": "应用落地", "claims": [{"v": "58%", "l": "AI版权诉讼案数量"}, {"v": "10,000个", "l": "AI代理"}, {"v": "60%", "l": "AI输出"}], "description": "交互式知识产权归属模拟器探索AI时代的创造权争议"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html", "thumb": "thumbs/2026-09-17-creative-2026-09-17-wechat-ai-social-network-thumb.webp", "title": "微信「小微AI社交」—— AI Agent 从个人助手到社交网络节点", "date": "2026-09-17", "type": "creative", "highlights": ["微信AI", "社交网络", "AI Agent", "社交模拟"], "beat": "Agent 与编排", "description": "交互式社交网络模拟器探索AI社交的未来"}, {"file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html", "thumb": "thumbs/2026-09-15-creative-2026-09-15-ai-self-deception-simulator-thumb.webp", "title": "AI\"自我欺骗\"——漏洞还是信号？ | 沉浸式交互体验", "date": "2026-09-15", "type": "creative", "highlights": ["AI安全", "自我欺骗", "威胁报告", "行为模拟"], "beat": "安全与治理", "description": "交互式AI行为模拟器探索智能体的自我保护策略"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "thumb": "thumbs/2026-09-12-creative-2026-09-12-ai-agent-wars-thumb.webp", "title": "AI Agent 三国杀 — Meta Muse vs Gemini Spark vs OpenAI Codex", "date": "2026-09-12", "type": "creative", "highlights": ["AI Agent", "Meta Muse", "Gemini", "Codex", "三国杀"], "beat": "Agent 与编排", "claims": [{"v": "125%", "l": "YoY (400M→900M"}, {"v": "567%", "l": "YoY (480T→3.2Q"}], "description": "交互式Agent能力对比器探索AI助手竞争格局"}, {"file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html", "thumb": "thumbs/2026-09-10-creative-2026-09-10-ai-model-fatigue-thumb.webp", "title": "AI\"模型疲劳\" — 当突破变成噪音", "date": "2026-09-10", "type": "creative", "highlights": ["AI模型", "模型疲劳", "同质化竞争", "商业困境"], "beat": "开源 vs 闭源之争", "claims": [{"v": "6.7%", "l": "\"更多模型≠更多选择权，赢家依然是同一个\""}, {"v": "32%", "l": "模型/安全"}, {"v": "50%", "l": "可评估"}], "description": "交互式模型对比器探索AI行业的同质化竞争与商业困境"}, {"file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html", "thumb": "thumbs/2026-09-08-creative-2026-09-08-anti-fraud-ai-app-thumb.webp", "title": "反诈AI · 守护最后一公里", "date": "2026-09-08", "type": "creative", "highlights": ["反诈AI", "基层治理", "数字化", "危机模拟"], "beat": "应用落地", "claims": [{"v": "38%", "l": "老年群体受害占比"}, {"v": "98%", "l": "接听预警后受骗率降幅"}, {"v": "99.2%", "l": "↑ 拦截率"}], "description": "交互式反诈模拟器体验AI守护普通人生活安全"}, {"file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html", "thumb": "thumbs/2026-09-05-creative-2026-09-05-us-iran-conflict-simulator-thumb.webp", "title": "危机倒计时 — 美伊冲突如何重塑全球格局", "date": "2026-09-05", "type": "creative", "highlights": ["美伊冲突", "地缘风险", "能源危机", "危机模拟"], "beat": "地缘与能源", "claims": [{"v": "1.3%", "l": "2026全球GDP"}, {"v": "33%", "l": "特朗普"}, {"v": "+25.7%", "l": "战前至今"}], "description": "交互式危机模拟器探索地缘冲突对全球的影响"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "thumb": "thumbs/2026-09-03-creative-2026-09-03-ai-compute-explosion-thumb.webp", "title": "AI算力消耗的指数级爆发：从1000亿到500万亿Token的3年迁徙", "date": "2026-09-03", "type": "creative", "highlights": ["AI算力", "Token消耗", "指数增长", "能源"], "beat": "地缘与能源", "claims": [{"v": "84%", "l": "一年增长"}, {"v": "575%", "l": "较A100增长"}, {"v": "~100亿", "l": "Token/日"}], "description": "交互式时间线探索AI算力需求的指数级增长"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "thumb": "thumbs/2026-09-01-creative-2026-09-01-nvidia-huggingface-power-map-thumb.webp", "title": "AI权力地理图重构 | 英伟达129亿收购Hugging Face", "date": "2026-09-01", "type": "creative", "highlights": ["英伟达", "Hugging Face", "AI权力", "开源生态"], "beat": "开源 vs 闭源之争", "claims": [{"v": "6%", "l": "英伟达持股比例"}, {"v": "5亿", "l": "英伟达持股比例 6%"}, {"v": "56%", "l": "本土AI芯片份额"}], "description": "交互式权力地图探索全球AI版图的重新划分"}, {"file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "thumb": "thumbs/2026-08-29-creative-2026-08-29-agent-orchestration-visual-thumb.webp", "title": "AI Agent编排层大战：Harness架构范式转移", "date": "2026-08-29", "type": "creative", "highlights": ["AI Agent", "编排层", "Harness架构"], "beat": "Agent 与编排", "claims": [{"v": "68%", "l": "医疗行业AI Agent采纳率 (全行业最高)"}, {"v": "80%", "l": "企业应用嵌入Agent"}, {"v": "22%", "l": "AI辅助腹腔镜手术并发症降低率"}], "description": "交互式架构对比图探索不同编排框架的设计哲学"}, {"file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html", "thumb": "thumbs/2026-08-27-creative-2026-08-27-humanoid-robot-startup-boom-thumb.webp", "title": "人形机器人创业潮：11.6万户背后的冷思考", "date": "2026-08-27", "type": "creative", "highlights": ["人形机器人", "创业潮", "数据可视化"], "beat": "机器人与具身", "claims": [{"v": "65%", "l": "小微企业占比"}, {"v": "+9.5%", "l": "新设企业同比增长"}, {"v": "8400台", "l": "—— 头部企业正从\"烧钱\"走向\"量产\""}], "description": "交互式数据地图探索中国机器人创业生态"}, {"file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html", "thumb": "thumbs/2026-08-25-creative-2026-08-25-safe-haven-asset-dual-rise-thumb.webp", "title": "避险资产双升：比特币$80K+黄金$4600背后的故事", "date": "2026-08-25", "type": "creative", "highlights": ["避险资产", "黄金", "比特币", "金融"], "beat": "估值与资本", "claims": [{"v": "39%", "l": "黄金的3倍"}, {"v": "12%", "l": "相对稳定"}, {"v": "~12%", "l": "低波动率 · 30日"}]}, {"file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html", "thumb": "thumbs/2026-08-22-creative-2026-08-22-hormuz-crisis-simulation-thumb.webp", "title": "霍尔木兹海峡危机：全球能源咽喉的生死博弈", "date": "2026-08-22", "type": "creative", "highlights": ["霍尔木兹海峡", "能源危机", "交互模拟"], "beat": "地缘与能源", "claims": [{"v": "430万桶", "l": "2026年全球供应日均减少"}, {"v": "+25.5%", "l": "机票价格飙升"}, {"v": "160万桶", "l": "高油价抑制的需求量"}]}, {"file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "thumb": "thumbs/2026-08-20-creative-2026-08-20-china-open-source-ai-ecosystem-thumb.webp", "title": "开源模型生态全景：国产AI的全球逆袭之路", "date": "2026-08-20", "type": "creative", "highlights": ["开源模型", "模型", "开源"], "beat": "开源 vs 闭源之争", "claims": [{"v": "10.5%", "l": "📈 中国开源模型全球下载份额演变"}, {"v": "41%", "l": "超越美国"}, {"v": "14%", "l": "全球份额"}]}, {"file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html", "thumb": "thumbs/2026-08-18-creative-2026-08-18-fcc-china-robot-ban-thumb.webp", "title": "技术脱钩全景 | 从芯片禁令到机器人封杀", "date": "2026-08-18", "type": "creative", "highlights": ["机器人"], "beat": "机器人与具身"}, {"file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html", "thumb": "thumbs/2026-08-15-creative-2026-08-15-hormuz-chokepoint-thumb.webp", "title": "霍尔木兹海峡：全球能源命脉的\"窒息时刻\"", "date": "2026-08-15", "type": "creative", "highlights": ["能源", "霍尔木兹"], "beat": "地缘与能源", "claims": [{"v": "+36%", "l": "布伦特原油涨幅"}, {"v": "95%", "l": "日本原油中东依赖度"}, {"v": "~2000万桶", "l": "原油日均通行量"}]}, {"file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html", "thumb": "thumbs/2026-08-13-creative-2026-08-13-ai-earnings-dashboard-thumb.webp", "title": "2026 Q2 AI财报季 · 全景对比仪表盘", "date": "2026-08-13", "type": "creative", "highlights": ["全景对比仪表盘"], "claims": [{"v": "~5.1%", "l": "营业利润率"}, {"v": "5家", "l": "公司总营收"}, {"v": "39%", "l": "毛利率"}]}, {"file": "2026-08-11/creative/2026-08-11-capital-migration.html", "thumb": "thumbs/2026-08-11-creative-2026-08-11-capital-migration-thumb.webp", "title": "全球资本\"大迁徙\" — 黄金$4400+ & 美元跌破100", "date": "2026-08-11", "type": "creative", "highlights": ["黄金", "美元", "资本流向"], "beat": "估值与资本", "claims": [{"v": "+7%", "l": "2026年8月第一周"}, {"v": "5.50%", "l": "美元指数"}, {"v": "3.75%", "l": "美元指数"}]}, {"file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html", "thumb": "thumbs/2026-07-21-creative-2026-07-21-ai-tool-sovereignty-v2-thumb.webp", "title": "企业AI工具主权之争：阿里禁用Claude Code背后的中美工具链脱钩", "date": "2026-07-21", "type": "creative", "highlights": ["阿里"], "beat": "工具链与产业主权", "claims": [{"v": "6.0%", "l": "三、连锁反应：国产工具的全面崛起"}, {"v": "0%", "l": "阿里 Qoder"}, {"v": "0 天", "l": "隐蔽代码"}]}, {"file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html", "thumb": "thumbs/2026-07-11-creative-2026-07-11-waic-2026-battleground-thumb.webp", "title": "WAIC 2026 · 中国AI\"百团大战\"全景地图", "date": "2026-07-11", "type": "creative", "highlights": ["WAIC", "中国AI", "AI百团大战"], "beat": "厂商与算力权力", "claims": [{"v": "310家", "l": "中国独角兽企业"}, {"v": "41%", "l": "全国一级市场占比"}, {"v": "11.7万亿", "l": "310家企业"}]}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "thumb": "thumbs/2026-07-04-creative-2026-07-04-ai-faith-collapse-thumb.webp", "title": "AI\"信仰崩塌\"——纳指暴跌2%背后的算力估值重构", "date": "2026-07-04", "type": "creative", "highlights": ["算力", "估值"], "beat": "估值与资本", "claims": [{"v": "-2%", "l": "纳指100暴跌"}, {"v": "-13.9%", "l": "算力租赁龙头暴跌"}, {"v": "-6%", "l": "费半指数崩跌"}]}, {"file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html", "thumb": "thumbs/2026-07-02-creative-2026-07-02-ai-coding-agent-infrastructure-thumb.webp", "title": "AI Coding Agent: 从对话工具到分布式编排系统", "date": "2026-07-02", "type": "creative", "highlights": ["AI Coding Agent", "智能体", "分布式编排"], "beat": "Agent 与编排", "claims": [{"v": "0%", "l": "代码产出增速"}, {"v": "250%", "l": "代码输出增长"}, {"v": "13天", "l": "基建效率"}]}, {"file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html", "thumb": "thumbs/2026-06-30-creative-2026-06-30-ai-valuation-cosmic-inflation-thumb.webp", "title": "AI估值的\"宇宙膨胀\"——万亿泡沫还是新范式？", "date": "2026-06-30", "type": "creative", "highlights": ["估值"], "beat": "估值与资本", "claims": [{"v": "15%", "l": "历史泡沫对比"}, {"v": "20%", "l": "新机会"}, {"v": "+25%", "l": "渗透率"}]}, {"file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html", "thumb": "thumbs/2026-06-27-creative-2026-06-27-ai-productivity-gap-thumb.webp", "title": "AI\"生产力鸿沟\"——超级个体崛起的B面", "date": "2026-06-27", "type": "creative", "highlights": ["生产力鸿沟", "超级个体", "职场"], "beat": "就业与劳动", "claims": [{"v": "77%", "l": "被替代工人无法在12个月内成功转型"}, {"v": "92%", "l": "一人公司年营收中位数"}, {"v": "43%", "l": "工作任务已可被AI自动化（Anthropic经济指数）"}]}, {"file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html", "thumb": "thumbs/2026-06-25-creative-2026-06-25-ai-hardware-arms-race-thumb.webp", "title": "AI硬件军备竞赛——从沙子到算力的奇幻漂流", "date": "2026-06-25", "type": "creative", "highlights": ["算力", "AI硬件"], "beat": "算力·能耗·环境", "claims": [{"v": "99.9999999%", "l": "硅砂提纯"}, {"v": "+26.3%", "l": "YoY"}, {"v": "+54%", "l": "YoY"}]}, {"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "thumb": "thumbs/2026-06-23-creative-2026-06-23-ai-agent-workplace-evolution-thumb.webp", "title": "AI Agent的\"职场进化论\"——从工具到同事到老板", "date": "2026-06-23", "type": "creative", "highlights": ["AI Agent", "职场"], "beat": "Agent 与编排", "claims": [{"v": "52%", "l": "企业已部署AI Agent"}, {"v": "88%", "l": "早期采用者获得正ROI"}, {"v": "28%", "l": "苹果、特斯拉"}]}, {"file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html", "thumb": "thumbs/2026-06-20-creative-2026-06-20-musk-trillion-path-thumb.webp", "title": "马斯克的万亿之路 | 从破产边缘到全球首富的12年狂飙", "date": "2026-06-20", "type": "creative", "highlights": ["马斯克", "特斯拉", "创业史"], "claims": [{"v": "1.8亿美元", "l": "马斯克到手约"}, {"v": "5000亿美元", "l": "净资产突破"}, {"v": "42%", "l": "两天暴涨"}]}, {"file": "2026-06-20/creative/2026-06-20-spacex-cursor.html", "thumb": "thumbs/2026-06-20-creative-2026-06-20-spacex-cursor-thumb.webp", "title": "SpaceX 600亿吞Cursor — AI编程\"三国杀\"全景图", "date": "2026-06-20", "type": "creative", "highlights": ["AI编程"], "claims": [{"v": "35%", "l": "Cursor内部代码由AI完成"}, {"v": "35%", "l": "内部代码由AI智能体完成"}, {"v": "40亿", "l": "Android设备覆盖全球"}]}, {"file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-a-share-dashboard-thumb.webp", "title": "A股站稳4000点 — 市场风格切换数据仪表盘", "date": "2026-06-16", "type": "creative", "highlights": ["A股", "数据可视化", "市场风格"], "beat": "宏观利率与股市", "claims": [{"v": "-0.67%", "l": "上证指数"}, {"v": "-0.42%", "l": "🇭🇰 恒生指数"}, {"v": "38%", "l": "上证指数52周位置"}]}, {"file": "2026-06-16/creative/2026-06-16-ai-passport-war.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-passport-war-thumb.webp", "title": "AI护照大战 | 全球AI模型的合规长征", "date": "2026-06-16", "type": "creative", "highlights": ["模型", "合规"], "beat": "安全与治理", "claims": [{"v": "3%", "l": "⚡ 高风险系统"}]}, {"file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-security-red-blue-thumb.webp", "title": "AI安全红蓝博弈 - 一场没有硝烟的战争", "date": "2026-06-16", "type": "creative", "highlights": ["安全"], "beat": "安全与治理"}, {"file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html", "thumb": "thumbs/2026-06-16-creative-2026-06-16-open-source-models-cards-thumb.webp", "title": "开源模型爆发周 — 4款模型卡片翻转全景图", "date": "2026-06-16", "type": "creative", "highlights": ["开源模型", "模型", "开源"], "beat": "开源 vs 闭源之争", "claims": [{"v": "2.8 倍", "l": "Token 间延迟缩短"}]}, {"file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html", "thumb": "thumbs/2026-06-13-creative-2026-06-13-ai-ipo-trinity-thumb.webp", "title": "2026 AI IPO三体降临 | 估值-募资-流动性超级周期", "date": "2026-06-13", "type": "creative", "highlights": ["IPO", "估值"], "beat": "估值与资本"}, {"file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html", "thumb": "thumbs/2026-06-13-creative-2026-06-13-harmonyos7-agent-os-thumb.webp", "title": "HarmonyOS 7 · Agent OS — 从应用容器到智能代理平台", "date": "2026-06-13", "type": "creative", "highlights": ["Agent OS"], "beat": "Agent 与编排", "claims": [{"v": "~55%", "l": "中国市场份额"}, {"v": "17%", "l": "🌍 全球市场（2026 Q1）"}, {"v": "15%", "l": "整机性能提升"}]}, {"file": "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html", "thumb": "thumbs/2026-06-12-creative-2026-06-12-ai-model-wars-48h-thumb.webp", "title": "48小时·四王之战 — 2026年6月AI模型军备竞赛", "date": "2026-06-12", "type": "creative", "highlights": ["模型"], "claims": [{"v": "80.3%", "l": "SWE-Bench Pro"}, {"v": "+43%", "l": "vs GPT-5.5"}, {"v": "1天", "l": "5000万行迁移"}]}, {"file": "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html", "thumb": "thumbs/2026-06-11-creative-2026-06-11-ai-coding-tools-matrix-thumb.webp", "title": "AI 编程工具产品矩阵 · 2026", "date": "2026-06-11", "type": "creative", "highlights": ["2026"], "claims": [{"v": "68%", "l": "企业渗透率"}, {"v": "46%", "l": "Claude Code"}, {"v": "27%", "l": "Codex / API"}]}, {"file": "2026-06-11/creative/2026-06-11-model-routing-layer.html", "thumb": "thumbs/2026-06-11-creative-2026-06-11-model-routing-layer-thumb.webp", "title": "模型路由层\"前台化\" — 从后台技术到产品体验的演进 · 06-11 晨会 P0 选题 68", "date": "2026-06-11", "type": "creative", "highlights": ["模型"], "claims": [{"v": "10 亿", "l": "+ iOS 设备"}]}, {"file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html", "thumb": "thumbs/2026-06-04-creative-2026-06-04-ai-valuation-timeline-thumb.webp", "title": "AI估值战争 2020-2026 · The AI Valuation War", "date": "2026-06-04", "type": "creative", "highlights": ["估值"], "beat": "估值与资本", "claims": [{"v": "12家", "l": "↑ 新增"}, {"v": "+187%", "l": "↑ 同比"}]}, {"file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html", "thumb": "thumbs/2026-05-28-creative-2026-05-28-creative-ai-war-map-thumb.webp", "title": "AI战争全景图 v2 | 全球算力军备竞赛 2025-2026", "date": "2026-05-28", "type": "creative", "highlights": ["算力"], "beat": "算力·能耗·环境", "claims": [{"v": "78%", "l": "市场份额"}, {"v": "15%", "l": "市场份额"}, {"v": "7%", "l": "市场份额"}]}], "stats": {"generated": "2026-10-26", "span": {"first": "2026-05-23", "last": "2026-10-24", "months": 6}, "rhythm": [{"month": "2026-05", "works": 7, "research": 6, "creative": 1}, {"month": "2026-06", "works": 26, "research": 10, "creative": 16}, {"month": "2026-07", "works": 9, "research": 5, "creative": 4}, {"month": "2026-08", "works": 18, "research": 9, "creative": 9}, {"month": "2026-09", "works": 21, "research": 10, "creative": 11}, {"month": "2026-10", "works": 23, "research": 11, "creative": 12}], "capacity": {"months": ["2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "rows": [{"agent": "研析", "total": 54, "by_month": [6, 10, 5, 14, 8, 11]}, {"agent": "创艺", "total": 36, "by_month": [1, 16, 4, 0, 6, 9]}, {"agent": "绘界", "total": 12, "by_month": [0, 0, 0, 4, 5, 3]}, {"agent": "数析", "total": 2, "by_month": [0, 0, 0, 0, 2, 0]}]}, "collab": {"total": 104, "solo": 52, "joint": 52, "rate": 50, "edges": [{"a": "创艺", "b": "绘界", "works": 25}, {"a": "数析", "b": "研析", "works": 18}, {"a": "研析", "b": "策士", "works": 12}, {"a": "创艺", "b": "数析", "works": 9}, {"a": "数析", "b": "绘界", "works": 9}, {"a": "码匠", "b": "绘界", "works": 9}, {"a": "数析", "b": "量研", "works": 8}, {"a": "研析", "b": "量研", "works": 7}, {"a": "数析", "b": "策士", "works": 7}, {"a": "创艺", "b": "码匠", "works": 7}, {"a": "察言", "b": "数析", "works": 6}, {"a": "察言", "b": "研析", "works": 6}]}, "beats": [{"name": "厂商与算力权力", "works": 19, "months": 6, "first": "2026-05-23", "last": "2026-10-20", "weeks_idle": 0}, {"name": "估值与资本", "works": 14, "months": 6, "first": "2026-05-31", "last": "2026-10-24", "weeks_idle": 0}, {"name": "安全与治理", "works": 11, "months": 6, "first": "2026-05-27", "last": "2026-10-17", "weeks_idle": 1}, {"name": "宏观利率与股市", "works": 10, "months": 6, "first": "2026-05-26", "last": "2026-10-24", "weeks_idle": 0}, {"name": "地缘与能源", "works": 17, "months": 5, "first": "2026-06-16", "last": "2026-10-22", "weeks_idle": 0}, {"name": "开源 vs 闭源之争", "works": 13, "months": 5, "first": "2026-06-11", "last": "2026-10-15", "weeks_idle": 1}, {"name": "Agent 与编排", "works": 13, "months": 5, "first": "2026-06-06", "last": "2026-10-13", "weeks_idle": 1}, {"name": "算力·能耗·环境", "works": 6, "months": 5, "first": "2026-05-28", "last": "2026-10-10", "weeks_idle": 2}, {"name": "应用落地", "works": 9, "months": 3, "first": "2026-08-20", "last": "2026-10-20", "weeks_idle": 0}, {"name": "机器人与具身", "works": 6, "months": 3, "first": "2026-08-18", "last": "2026-10-17", "weeks_idle": 1}, {"name": "成本与普惠", "works": 5, "months": 3, "first": "2026-06-11", "last": "2026-10-20", "weeks_idle": 0}, {"name": "工具链与产业主权", "works": 4, "months": 3, "first": "2026-07-04", "last": "2026-10-20", "weeks_idle": 0}, {"name": "就业与劳动", "works": 4, "months": 2, "first": "2026-06-23", "last": "2026-10-20", "weeks_idle": 0}], "unclassified_tags": [{"tag": "模型", "works": 2}, {"tag": "存储", "works": 1}, {"tag": "腾讯", "works": 1}, {"tag": "全景对比仪表盘", "works": 1}, {"tag": "马斯克", "works": 1}, {"tag": "特斯拉", "works": 1}, {"tag": "创业史", "works": 1}, {"tag": "AI编程", "works": 1}, {"tag": "2026", "works": 1}], "claims": {"total": 995, "works_covered": 92, "works_total": 104, "coverage": 88, "pending": 414, "no_structure": 9, "dossier": [{"beat": "地缘与能源", "works": 17, "claims": 261, "first": "2026-06-16", "last": "2026-10-22", "chapters": [{"file": "2026-06-16/research/2026-06-16-fable5-global-ban.html", "v": "80.3%", "l": "SWE-bench Pro 得分"}, {"file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html", "v": "+24%", "l": "全球能源价格上涨"}, {"file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html", "v": "20%", "l": "全球石油消费"}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "v": "-390万桶/日", "l": "2026年全球石油供应同比下降预测"}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "v": "-6.78%", "l": "小票杀跌最狠"}, {"file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html", "v": "+36%", "l": "布伦特原油涨幅"}, {"file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html", "v": "430万桶", "l": "2026年全球供应日均减少"}, {"file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html", "v": "53%", "l": "仅占海峡运力"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "v": "84%", "l": "一年增长"}, {"file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html", "v": "1.3%", "l": "2026全球GDP"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "v": "~50%", "l": "海湾地区，危机直接冲击全球农业"}, {"file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html", "v": "14天", "l": "科威特"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "v": "+50%", "l": "股债双杀"}, {"file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html", "v": "5%", "l": "全面和平协议，包含核问题、海峡、制裁解除"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "v": "46%", "l": "左侧被铺开，右侧被登记"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "v": "45%", "l": "\"做多全球半导体\"最拥挤交易占比"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "v": "3个", "l": "\"首次\""}]}, {"beat": "开源 vs 闭源之争", "works": 13, "claims": 167, "first": "2026-06-11", "last": "2026-10-15", "chapters": [{"file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html", "v": "5个", "l": "模型采用开源策略"}, {"file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html", "v": "3%", "l": "激活率极限"}, {"file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html", "v": "2.8 倍", "l": "Token 间延迟缩短"}, {"file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html", "v": "41%", "l": "HuggingFace中国模型下载占比"}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "v": "~80%", "l": "可灵 AI"}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "v": "87.5%", "l": "MMLU-Pro"}, {"file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "v": "10.5%", "l": "📈 中国开源模型全球下载份额演变"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "v": "6%", "l": "英伟达持股比例"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "v": "41%", "l": "中国开源模型全球下载份额"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html", "v": "6.7%", "l": "\"更多模型≠更多选择权，赢家依然是同一个\""}, {"file": "2026-10-08/research/2026-10-08-ai-open-source-war.html", "v": "80%", "l": "硅谷开源技术栈 AI 初创中使用中国模型的比例（a16z"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "v": "1美元", "l": "买到的 Token"}]}, {"beat": "厂商与算力权力", "works": 19, "claims": 162, "first": "2026-05-23", "last": "2026-10-20", "chapters": [{"file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html", "v": "~75%", "l": "上下文窗口"}, {"file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"}, {"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "v": "60亿", "l": "美元以上单轮融资"}, {"file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html", "v": "293 亿美元", "l": "Cursor 估值"}, {"file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"}, {"file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html", "v": "310家", "l": "中国独角兽企业"}, {"file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html", "v": "87.5%", "l": "MMLU-Pro"}, {"file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html", "v": "6%", "l": "英伟达持股比例"}, {"file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "v": "41%", "l": "中国开源模型全球下载份额"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "v": "125%", "l": "YoY (400M→900M"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "v": "~35%", "l": "LangChain生态"}, {"file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "v": "116家", "l": "公司联合呼吁安全"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "v": "80%", "l": "Anthropic 企业收入占比"}, {"file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html", "v": "15倍", "l": "DeepSeek"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "v": "0.24%", "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}, {"beat": "宏观利率与股市", "works": 10, "claims": 149, "first": "2026-05-26", "last": "2026-10-24", "chapters": [{"file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"}, {"file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html", "v": "-0.67%", "l": "上证指数"}, {"file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html", "v": "-6.78%", "l": "小票杀跌最狠"}, {"file": "2026-08-11/research/2026-08-11-nonfarm-shock.html", "v": "17%", "l": "加息25个基点，强调通胀风险"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "v": "-7.35%", "l": "创业板指单日暴跌"}, {"file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html", "v": "+50%", "l": "股债双杀"}, {"file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html", "v": "1.8%", "l": "实际利率（名义利率减去通胀预期）已升至约"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "v": "+47%", "l": "单季持股市值增幅居首"}, {"file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html", "v": "45%", "l": "\"做多全球半导体\"最拥挤交易占比"}, {"file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html", "v": "5年", "l": "期通胀预期（消费者预期调查"}]}, {"beat": "Agent 与编排", "works": 13, "claims": 109, "first": "2026-06-06", "last": "2026-10-13", "chapters": [{"file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html", "v": "1.65亿", "l": "阿里千问月活，YoY +4241%"}, {"file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html", "v": "~55%", "l": "中国市场份额"}, {"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "v": "52%", "l": "企业已部署AI Agent"}, {"file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html", "v": "0%", "l": "代码产出增速"}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"}, {"file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html", "v": "28%", "l": "生产环境仍使用自定义编排（无框架）"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "v": "88%", "l": "有Agent专用安全框架"}, {"file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "v": "68%", "l": "医疗行业AI Agent采纳率 (全行业最高)"}, {"file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html", "v": "125%", "l": "YoY (400M→900M"}, {"file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "v": "~35%", "l": "LangChain生态"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"}, {"file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html", "v": "80%", "l": "Anthropic 企业收入占比"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "v": "84 天", "l": "选题 /"}]}, {"beat": "估值与资本", "works": 14, "claims": 99, "first": "2026-05-31", "last": "2026-10-24", "chapters": [{"file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"}, {"file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html", "v": "60亿", "l": "美元以上单轮融资"}, {"file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html", "v": "+900%", "l": "自2025年10月以来Pre-IPO估值涨幅"}, {"file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html", "v": "12家", "l": "↑ 新增"}, {"file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html"}, {"file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html", "v": "15%", "l": "历史泡沫对比"}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "v": "-2%", "l": "纳指100暴跌"}, {"file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html", "v": "~80%", "l": "可灵 AI"}, {"file": "2026-08-11/creative/2026-08-11-capital-migration.html", "v": "+7%", "l": "2026年8月第一周"}, {"file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html", "v": "39%", "l": "黄金的3倍"}, {"file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html", "v": "-7.35%", "l": "创业板指单日暴跌"}, {"file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html", "v": "0.24%", "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"}, {"file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "v": "3个", "l": "\"首次\""}, {"file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html", "v": "4.59 亿美元", "l": "隐私这条轨道只和解了约"}]}, {"beat": "应用落地", "works": 9, "claims": 73, "first": "2026-08-20", "last": "2026-10-20", "chapters": [{"file": "2026-08-20/research/2026-08-20-nobel-ai-science.html", "v": "+141%", "l": "总引用量（连续10年研究者）"}, {"file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html", "v": "38%", "l": "老年群体受害占比"}, {"file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"}, {"file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html", "v": "58%", "l": "AI版权诉讼案数量"}, {"file": "2026-10-03/research/2026-10-03-ai-data-famine.html", "v": "34.5%", "l": "合成数据市场"}, {"file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html", "v": "14%", "l": "🩺 医疗健康与人体孪生"}, {"file": "2026-10-10/creative/2026-10-10-ai-everywhere.html", "v": "32.5%", "l": "生成式 AI 用户规模（半年度）"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "26 个", "l": "问题的受关注度分布"}, {"file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html", "v": "+47%", "l": "单季持股市值增幅居首"}]}, {"beat": "就业与劳动", "works": 4, "claims": 65, "first": "2026-06-23", "last": "2026-10-20", "chapters": [{"file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html", "v": "52%", "l": "企业已部署AI Agent"}, {"file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html", "v": "77%", "l": "被替代工人无法在12个月内成功转型"}, {"file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html", "v": "+56%", "l": "AI 技能从业者薪资溢价"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}, {"beat": "安全与治理", "works": 11, "claims": 64, "first": "2026-05-27", "last": "2026-10-17", "chapters": [{"file": "2026-05-27/research/2026-05-27-turing-test-impact.html"}, {"file": "2026-06-16/creative/2026-06-16-ai-passport-war.html", "v": "3%", "l": "⚡ 高风险系统"}, {"file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"}, {"file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html", "v": "-390万桶/日", "l": "2026年全球石油供应同比下降预测"}, {"file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"}, {"file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html", "v": "88%", "l": "有Agent专用安全框架"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "v": "43.96%", "l": "中国手术机器人市场"}, {"file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"}, {"file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html", "v": "116家", "l": "公司联合呼吁安全"}, {"file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html", "v": "84 天", "l": "选题 /"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "26 个", "l": "问题的受关注度分布"}]}, {"beat": "算力·能耗·环境", "works": 6, "claims": 56, "first": "2026-05-28", "last": "2026-10-10", "chapters": [{"file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html", "v": "78%", "l": "市场份额"}, {"file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html", "v": "99.9999999%", "l": "硅砂提纯"}, {"file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html", "v": "-2%", "l": "纳指100暴跌"}, {"file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html", "v": "84%", "l": "一年增长"}, {"file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html", "v": "89.4%", "l": "中国电信庆阳"}, {"file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html", "v": "+25%", "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"}]}, {"beat": "工具链与产业主权", "works": 4, "claims": 54, "first": "2026-07-04", "last": "2026-10-20", "chapters": [{"file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html", "v": "41%", "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"}, {"file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html", "v": "6.0%", "l": "三、连锁反应：国产工具的全面崛起"}, {"file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html", "v": "~50%", "l": "海湾地区，危机直接冲击全球农业"}, {"file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html", "v": "46%", "l": "左侧被铺开，右侧被登记"}]}, {"beat": "机器人与具身", "works": 6, "claims": 49, "first": "2026-08-18", "last": "2026-10-17", "chapters": [{"file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html"}, {"file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html", "v": "68.4亿", "l": "全球市场规模（美元）"}, {"file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html", "v": "65%", "l": "小微企业占比"}, {"file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html", "v": "43.96%", "l": "中国手术机器人市场"}, {"file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "v": "58%", "l": "环境感知（视觉/理解）"}, {"file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "v": "26 个", "l": "问题的受关注度分布"}]}, {"beat": "成本与普惠", "works": 5, "claims": 49, "first": "2026-06-11", "last": "2026-10-20", "chapters": [{"file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html", "v": "15年", "l": "Siri 首次重构"}, {"file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html", "v": "83%", "l": "智谱AI率先涨价"}, {"file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html", "v": "34%", "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"}, {"file": "2026-10-15/creative/2026-10-15-token-price-war.html", "v": "1美元", "l": "买到的 Token"}, {"file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html", "v": "60%", "l": "初级员工占技术部门比重"}]}]}}};
+</script>
+<script>
+/* ══════════════════════════════════════════════════════════
+   档案柜 —— 按月份归档，抽屉可拉开
+   数据全部来自 manifest.json（运行时 fetch），file:// 回退到内嵌快照
+   ══════════════════════════════════════════════════════════ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let DATA=[], STATS={}, BY_FILE={}, MONTHS=[], openSet=new Set(), Q='';
+
 function normalize(src){
-  const out={research:[],creative:[]};
-  // 标签/描述单一来源：manifest.highlights/description（EMBEDDED 用同名，
-  // 旧快照的 desc/tags 仍兼容读取）。已废弃的 TAGMAP 不再引用。
-  const descOf = it => it.description || it.desc || '';
-  const tagsOf = it => it.highlights || it.tags || [];
+  const out=[];
   for(const g of ['research','creative']){
     for(const it of (src[g]||[])){
-      out[g].push({
-        file:it.file,
-        thumb:it.thumb||'',
-        title:it.title||'',
-        date:it.date||'',
-        type:it.type||g,
-        tags:tagsOf(it),
-        desc:descOf(it)
+      out.push({
+        file:it.file, thumb:it.thumb||'', title:it.title||'', date:it.date||'',
+        type:it.type||g, tags:it.highlights||it.tags||[], desc:it.description||it.desc||'',
+        beat:it.beat||'', claims:it.claims||[]
       });
     }
   }
-  out.__stats = src.stats || {};
-  return out;
+  return out.sort((a,b)=>b.date.localeCompare(a.date));
 }
 
-let DATA={research:[],creative:[]};
-let ALL=[];
-
-// ── Load manifest at runtime (fixes stale data); fall back to snapshot on file:// ──
-function boot(data){
-  DATA=data;
-  ALL=[...DATA.research,...DATA.creative].sort((a,b)=>b.date.localeCompare(a.date));
-  BY_FILE={};ALL.forEach(i=>{BY_FILE[i.file]=i;});
-  document.getElementById('stat-total').dataset.target=ALL.length;
-  document.getElementById('stat-research').dataset.target=DATA.research.length;
-  document.getElementById('stat-creative').dataset.target=DATA.creative.length;
-  const latest=ALL.length?ALL[0].date:'';
-  const f=document.getElementById('footer-date'); if(f) f.textContent=latest;
-  const ud=document.getElementById('update-date'); if(ud) ud.textContent=latest;
-  const hc=document.getElementById('hero-counts');
-  if(hc) hc.textContent=`${ALL.length} 件作品 · ${DATA.research.length} 份研究 · ${DATA.creative.length} 件创意`;
-  // Featured = newest work of the latest month that actually has a thumbnail
-  const latestMonth=latest.substring(0,7);
-  const pool=ALL.filter(i=>i.date.substring(0,7)===latestMonth);
-  const feat=pool.find(i=>i.thumb)||ALL.find(i=>i.thumb)||ALL[0];
-  const fc=document.getElementById('featured-card'), ft=document.getElementById('featured-title');
-  if(fc&&feat){fc.href=feat.file; ft.textContent=feat.title;}
-  STATS=data.__stats||{};
-  renderCoverage();
-  renderDossier();
-  renderTagFilters();
-  renderTimeline();
-  applyFilter('all',null);
-  animateStats();
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)}})},{threshold:0.1});
-  document.querySelectorAll('.reveal-init').forEach(el=>obs.observe(el));
+/* ── 柜面数字 ── */
+function renderFigs(){
+  const c=(STATS.claims||{});
+  $('#fig-works').textContent=DATA.length;
+  $('#fig-months').textContent=MONTHS.length;
+  $('#fig-lines').textContent=(c.dossier||[]).length;
+  $('#fig-claims').textContent=c.total||0;
+  const f=$('#foot-date'); if(f) f.textContent=STATS.generated?('更新于 '+STATS.generated):'';
 }
 
+/* ── 侧标（柜脊）── */
+function renderSpine(){
+  const max=Math.max(1,...MONTHS.map(m=>m.items.length));
+  const html=`<div class="spine-h">抽屉目录</div>`+
+    MONTHS.map(m=>`
+      <div class="spine-item${openSet.has(m.key)?' on':''}" data-month="${m.key}" role="button" tabindex="0">
+        <span class="si-name">${esc(m.label)}</span>
+        <span class="si-count">${m.items.length}</span>
+      </div>`).join('')+
+    `<div class="spine-foot">
+       <div class="rhythm">${MONTHS.map(m=>{
+          const h=Math.max(4,Math.round(m.items.length/max*34));
+          const c=m.items.filter(i=>i.type==='creative').length;
+          const r=m.items.length-c;
+          const hc=Math.round(h*(c/m.items.length)), hr=h-hc;
+          return `<i title="${esc(m.label)} · ${m.items.length} 件（研究 ${r} / 创意 ${c}）" style="height:${h}px;display:flex;flex-direction:column;justify-content:flex-end;background:none">
+                   <span style="height:${hc}px;background:rgba(245,230,200,.4);border-radius:1px 1px 0 0"></span>
+                   <span style="height:${hr}px;background:rgba(167,139,250,.42);border-radius:1px 1px 0 0"></span></i>`;}).join('')}</div>
+       <div class="rhythm-l">${esc(MONTHS[0]?MONTHS[0].key.slice(0,7):'')} → ${esc(MONTHS.length?MONTHS[MONTHS.length-1].key.slice(0,7):'')} 产出节奏</div>
+     </div>`;
+  $('#spine').innerHTML=html;
+  $('#spine').querySelectorAll('.spine-item').forEach(el=>{
+    const act=()=>{const k=el.dataset.month; toggleMonth(k, true);};
+    el.addEventListener('click',act);
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});
+  });
+}
+
+/* ── 抽屉正面 ── */
+function cardHTML(it,i){
+  const c=(it.claims&&it.claims[0])||null;
+  const mm=it.date.slice(5,7), dd=it.date.slice(8,10);
+  const line=it.beat?`<span class="tag tag-line" data-line="${esc(it.beat)}">${hl(it.beat)}</span>`:'';
+  const other=(it.tags||[]).filter(t=>t!==it.beat).slice(0,2)
+    .map(t=>`<span class="tag">${hl(t)}</span>`).join('');
+  return `<a class="card" href="${esc(it.file)}" style="--i:${i}">
+    ${it.thumb?`<span class="card-thumb"><img src="${esc(it.thumb)}" alt="" loading="lazy" decoding="async"></span>`:
+      `<span class="card-thumb"></span>`}
+    <span>
+      <span class="card-meta"><span>${mm}-${dd}</span><span>·</span><span>${it.type==='research'?'研究':'创意'}</span></span>
+      <span class="card-title">${hl(it.title)}</span>
+      <span class="card-tags">${line}${other}</span>
+      ${c?`<span class="card-claim"><b>${esc(c.v)}</b><span>${hl(c.l)}</span></span>`:''}
+    </span>
+  </a>`;
+}
+
+function renderDrawers(){
+  const host=$('#drawers');
+  host.innerHTML=MONTHS.map(m=>{
+    const cards=m.items.map((it,i)=>cardHTML(it,i)).join('');
+    const open=openSet.has(m.key);
+    return `<section class="drawer${open?' open':''}" id="dr-${esc(m.key)}" data-month="${esc(m.key)}">
+      <button class="drawer-tab" aria-expanded="${open}" aria-controls="db-${esc(m.key)}">
+        <span class="dt-mon">${esc(m.label)}</span>
+        <span class="dt-meta"><b>${m.items.length}</b> 件 · ${esc(m.span)}</span>
+        <span class="dt-meta"></span>
+        <svg class="ico dt-chev" aria-hidden="true"><use href="#ico-chev"/></svg>
+      </button>
+      <div class="drawer-body" id="db-${esc(m.key)}">${cards}</div>
+    </section>`;
+  }).join('');
+
+  host.querySelectorAll('.drawer-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const sec=btn.closest('.drawer');
+      toggleMonth(sec.dataset.month, false, true);
+    });
+  });
+  host.querySelectorAll('.tag-line').forEach(t=>{
+    t.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();setQuery(t.dataset.line);});
+  });
+}
+
+function toggleMonth(key, fromSpine, fromTab){
+  if(Q){ setQuery(''); }
+  if(openSet.has(key)) openSet.delete(key); else openSet.add(key);
+  const sec=document.getElementById('dr-'+key);
+  if(sec){
+    sec.classList.toggle('open', openSet.has(key));
+    sec.querySelector('.drawer-tab').setAttribute('aria-expanded', openSet.has(key)?'true':'false');
+  }
+  document.querySelectorAll('.spine-item').forEach(el=>
+    el.classList.toggle('on', openSet.has(el.dataset.month)));
+  updateNote();
+  if(fromSpine || fromTab){
+    const target=document.getElementById('dr-'+key);
+    if(target && openSet.has(key)){
+      const y=target.getBoundingClientRect().top+window.scrollY-72;
+      window.scrollTo({top:y,behavior:'smooth'});
+    }
+  }
+}
+
+function updateNote(){
+  const n=MONTHS.reduce((a,m)=>a+m.items.length,0);
+  const o=openSet.size;
+  $('#barnote').innerHTML = o
+    ? `已拉开 <b>${o}</b> 个抽屉 · 共 ${n} 件`
+    : `全部收起 · 共 ${n} 件`;
+  $('#toggle-all').textContent = o===MONTHS.length ? '收起全部抽屉' : '展开全部抽屉';
+}
+
+/* ── 检索 ── */
+function hl(s){
+  if(!Q) return esc(s);
+  const t=String(s==null?'':s);
+  const i=t.toLowerCase().indexOf(Q.toLowerCase());
+  if(i<0) return esc(t);
+  return esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+Q.length))+'</mark>'+esc(t.slice(i+Q.length));
+}
+function match(it){
+  if(!Q) return true;
+  const q=Q.toLowerCase();
+  if(it.title.toLowerCase().includes(q)) return true;
+  if((it.tags||[]).some(t=>String(t).toLowerCase().includes(q))) return true;
+  if(it.beat && it.beat.toLowerCase().includes(q)) return true;
+  if((it.claims||[]).some(c=>(c.v+' '+c.l).toLowerCase().includes(q))) return true;
+  return false;
+}
+function setQuery(q){
+  Q=(q||'').trim();
+  const inp=$('#q'); if(inp && inp.value!==Q) inp.value=Q;
+  const cab=$('#cab');
+  cab.classList.toggle('searching', !!Q);
+  let hits=0;
+  document.querySelectorAll('.drawer').forEach(sec=>{
+    let n=0;
+    sec.querySelectorAll('.card').forEach(c=>{
+      const it=BY_FILE[c.getAttribute('href')];
+      const ok=!it?false:match(it);
+      c.style.display=ok?'':'none';
+      if(ok){
+        n++;
+        // 检索后才需要高亮 —— 渲染时还不知道查询词
+        const t=c.querySelector('.card-title');
+        if(t) t.innerHTML=hl(it.title);
+        const cl=c.querySelector('.card-claim span');
+        if(cl && it.claims && it.claims[0]) cl.innerHTML=hl(it.claims[0].l);
+      }
+    });
+    sec.classList.toggle('hit', !!Q && n>0);
+    hits+=n;
+  });
+  $('#qhint').innerHTML = Q
+    ? `命中 <b>${hits}</b> 件`
+    : '按 <b>标题</b> / <b>标签</b> / <b>断言</b> 检索，或点左侧月份标签直接拉开抽屉';
+  if(Q && !hits){
+    const sec=document.querySelector('.drawer');
+    if(sec && !sec.querySelector('.empty')){
+      const d=document.createElement('div');
+      d.className='empty';
+      d.innerHTML='<b>没有命中</b>换个词试试 —— 标题、标签、断言内容都能搜';
+      sec.querySelector('.drawer-body').appendChild(d);
+    }
+  }
+  document.querySelectorAll('.drawer .empty').forEach(e=>e.remove());
+}
+
+/* ── 启动 ── */
+function boot(raw){
+  DATA=normalize(raw);
+  STATS=raw.stats||{};
+  BY_FILE={}; DATA.forEach(i=>BY_FILE[i.file]=i);
+  // 月份分格
+  const mm={};
+  DATA.forEach(it=>{
+    const k=it.date.slice(0,7);
+    (mm[k]=mm[k]||{key:k,label:k.slice(0,4)+' 年 '+Number(k.slice(5,7))+' 月',items:[]}).items.push(it);
+  });
+  MONTHS=Object.values(mm).sort((a,b)=>b.key.localeCompare(a.key));
+  MONTHS.forEach(m=>{const ds=m.items.map(i=>i.date).sort();m.span=ds[0].slice(5)+' → '+ds[ds.length-1].slice(5);});
+  // 默认拉开最新一格
+  if(MONTHS.length) openSet.add(MONTHS[0].key);
+  renderFigs(); renderSpine(); renderDrawers(); updateNote();
+  const q=$('#q');
+  q.addEventListener('input',e=>setQuery(e.target.value));
+  $('#toggle-all').addEventListener('click',()=>{
+    if(openSet.size===MONTHS.length) openSet.clear(); else MONTHS.forEach(m=>openSet.add(m.key));
+    document.querySelectorAll('.drawer').forEach(sec=>{
+      const on=openSet.has(sec.dataset.month);
+      sec.classList.toggle('open',on);
+      sec.querySelector('.drawer-tab').setAttribute('aria-expanded',on?'true':'false');
+    });
+    document.querySelectorAll('.spine-item').forEach(el=>el.classList.toggle('on',openSet.has(el.dataset.month)));
+    updateNote();
+  });
+}
 fetch('manifest.json',{cache:'no-store'})
-  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-  .then(j=>boot(normalize(j)))
-  .catch(()=>{boot(normalize(EMBEDDED));showStaleNotice();});
-
-// 回退到内嵌快照时必须让观看者知道：快照是构建时冻结的，可能已过期。
-// 之前这里静默降级，展厅可以连续数周显示旧数据而无人察觉。
-function showStaleNotice(){
+  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+  .then(j=>boot(j))
+  .catch(()=>{boot(EMBEDDED);showStale();});
+function showStale(){
   if(document.getElementById('stale-notice'))return;
   const n=document.createElement('div');
-  n.id='stale-notice';
-  n.setAttribute('role','status');
-  n.innerHTML='<svg class=\'ico\'><use href=\'#ico-warn\'/></svg> 未能读取 manifest.json，当前显示的是内置快照，可能不是最新。';
-  n.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:9999;'+
-    'padding:10px 16px;border-radius:10px;font:500 13px/1.4 var(--sans);color:#f5e6c8;'+
-    'background:rgba(20,14,4,.92);border:1px solid rgba(240,194,127,.45);'+
-    'box-shadow:0 8px 24px rgba(0,0,0,.45);max-width:min(92vw,560px);text-align:center';
+  n.id='stale-notice'; n.setAttribute('role','status');
+  n.style.cssText='position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:99;'
+    +'display:flex;gap:9px;align-items:center;background:rgba(245,230,200,.09);border:1px solid rgba(245,230,200,.22);'
+    +'color:#f5e6c8;font-size:12.5px;padding:10px 16px;border-radius:10px;backdrop-filter:blur(8px)';
+  n.innerHTML='<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
+    +'未能读取 manifest.json，当前显示的是内置快照，可能不是最新。';
   document.body.appendChild(n);
 }
-
-
-// ── Tag filters: generated from data (no more hand-written dead buttons) ──
-function renderTagFilters(){
-  const host=document.getElementById('tagFilterHost');
-  if(!host)return;
-  const counts={};
-  for(const i of ALL) for(const t of (i.tags||[])) counts[t]=(counts[t]||0)+1;
-  // keep only tags with >=2 works, then top 10 by frequency
-  const tags=Object.entries(counts).filter(([,n])=>n>=2)
-    .sort((a,b)=>b[1]-a[1]).slice(0,10).map(([t])=>t);
-  if(!tags.length){host.innerHTML='';return;}
-  host.innerHTML=tags.map(t=>`<button class="filter-btn tag-btn" data-tag="${esc(t)}">${esc(t)}</button>`).join('');
-}
-
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
-
-// ── Coverage：全部从 manifest.stats 读，尺寸与作品总量无关 ──
-let STATS={};
-function renderCoverage(){
-  const st=STATS; if(!st||!st.span)return;
-  const m=st.span.last.slice(0,7);
-  document.getElementById('cov-kicker').textContent=
-    `第 ${st.span.months} 期 · ${st.span.first.slice(0,4)} 年卷 · ${st.span.last}`;
-
-  const peak=st.rhythm.reduce((a,b)=>b.works>a.works?b:a,st.rhythm[0]);
-  const perMonth=(st.collab.total/st.span.months).toFixed(1);
-  document.getElementById('cov-lede').innerHTML=
-    `${st.span.months} 个月，<em>${st.collab.total}</em> 件作品，平均每月 ${perMonth} 件 —— `+
-    `其中 <em>${st.collab.rate}%</em> 由多个 Agent 合著。`+
-    `产出峰值在 ${peak.month}（${peak.works} 件）。`;
-
-  // 节奏条
-  const maxW=Math.max(...st.rhythm.map(r=>r.works))||1;
-  document.getElementById('rhythm').innerHTML=st.rhythm.map(r=>{
-    const h=Math.round(r.works/maxW*88);
-    const rh=Math.round(r.research/maxW*88), ch=Math.round(r.creative/maxW*88);
-    return `<div class="ry${r.month===peak.month?' ry-peak':''}">
-      <div class="ry-n">${r.works}</div>
-      <div class="ry-bar" style="height:${h}px">
-        <div class="ry-r" style="height:${rh}px"></div>
-        <div class="ry-c" style="height:${ch}px"></div>
-      </div>
-      <div class="ry-m">${r.month.slice(5)}</div></div>`;}).join('');
-
-  // 协作
-  const top=st.collab.edges[0];
-  document.getElementById('collab').innerHTML=
-    `<div class="collab-stat"><span class="collab-num">${st.collab.rate}%</span>
-       <span class="collab-unit">合著率</span></div>
-     <div class="collab-sub">${st.collab.joint} 件合著 · ${st.collab.solo} 件独立完成</div>
-     <ul class="pairs">${st.collab.edges.slice(0,6).map(e=>
-       `<li><b>${esc(e.a)}</b><span>+</span><b>${esc(e.b)}</b>
-        <span class="bar"></span><span class="n">${e.works}</span></li>`).join('')}</ul>`;
-
-  // 产能矩阵
-  const cap=st.capacity, cmax=Math.max(...cap.rows.flatMap(r=>r.by_month))||1;
-  document.getElementById('capacity').innerHTML=cap.rows.map(r=>
-    `<div class="cap-row"><span class="cap-a">${esc(r.agent)}</span>
-      <span class="cap-bars">${r.by_month.map(v=>
-        `<span class="cap-cell${v?'':' zero'}" style="height:${v?Math.max(3,Math.round(v/cmax*22)):2}px"
-          title="${esc(cap.months[r.by_month.indexOf(v)]||'')} ${v} 件"></span>`).join('')}</span>
-      <span class="cap-c">${r.total}</span></div>`).join('')
-    +`<div class="cap-note">按 ${esc(cap.months[0]).slice(5)}–${esc(cap.months[cap.months.length-1]).slice(5)} 排列，柱高=当月主责件数</div>`;
-
-  // 追踪线
-  document.getElementById('beats').innerHTML=st.beats.map(b=>
-    `<div class="beat"><span class="beat-name">${esc(b.name)}</span>
-      <span class="beat-span">跨 ${b.months} 月${b.weeks_idle>=4?` · <span class="beat-idle">闲置 ${b.weeks_idle} 周</span>`:''}</span>
-      <span class="beat-w">${b.works}</span></div>`).join('');
-
-  const u=st.unclassified_tags||[];
-  document.getElementById('unclassified').innerHTML= u.length
-    ? `尚未归入追踪线的标签：<b>${u.slice(0,8).map(x=>esc(x.tag)).join('、')}</b>
-       <br>若其中出现新主题，请在 <code>tools/build_manifest.py</code> 的 BEAT_FAMILIES 增补。`
-    : '';
-}
-
-
-// ── 卷宗：追踪线 × 已验证断言 ──
-let BY_FILE={};
-function renderDossier(){
-  const host=document.getElementById('dossier');
-  if(!host)return;
-  const c=STATS.claims;
-  if(!c||!c.dossier||!c.dossier.length){host.innerHTML='';return;}
-  const lede=document.getElementById('dossier-lede');
-  if(lede) lede.innerHTML=
-    `${c.dossier.length} 条追踪线，<em>${c.total}</em> 条断言的引用都逐字回查过原文`+
-    `—— 覆盖 ${c.works_covered}/${c.works_total} 件作品（${c.coverage}%）。`+
-    ` 另有 ${c.pending} 条候选未通过校验，<b>不进卷宗</b>：宁可少一条，不放一条假的。`;
-  host.innerHTML=c.dossier.map((d,i)=>{
-    const items=d.chapters.map(ch=>{
-      const meta=BY_FILE[ch.file]||{};
-      const date=(ch.file.match(/(\d{4})-(\d{2})-(\d{2})/)||[]);
-      const md=date[2]&&date[3]?`${date[2]}-${date[3]}`:'';
-      const t=esc(meta.title||ch.file);
-      const claim=ch.v
-        ? `<span class="dc-v">${esc(ch.v)}</span><span class="dc-l">${esc(ch.l||'')}</span>`
-        : `<span class="dc-none">无已验证断言</span>`;
-      return `<li><span class="dc-d">${md}</span>`+
-        `<span class="dc-t"><a href="${esc(ch.file)}">${t}</a></span>`+
-        `<span class="dc-claim">${claim}</span></li>`;
-    }).join('');
-    const open=i===0?' open':'';
-    return `<details class="dc"${open}><summary>`+
-      `<span class="dc-beat">${esc(d.beat)}</span>`+
-      `<span class="dc-meta">${d.works} 件 · ${d.first.slice(0,7)} → ${d.last.slice(0,7)}</span>`+
-      `<span class="dc-n">${d.claims} 条断言<small>${d.works} 篇</small></span>`+
-      `</summary><ul class="dc-ch">${items}</ul></details>`;
-  }).join('');
-}
-// ── Timeline: all works, newest first ──
-function renderTimeline(){
-  const el=document.querySelector('.timeline-scroll');
-  if(!el)return;
-  // 时间线必须与页面上其它区块遵守同一个筛选状态，
-  // 否则同一次点击会在同一页给出两个矛盾答案。
-  let f=ALL;
-  if(curFilter!=='all') f=f.filter(i=>i.type===curFilter);
-  if(curTag) f=f.filter(i=>i.tags&&i.tags.includes(curTag));
-  el.innerHTML=f.length?f.map(i=>`<a class="tl-card" href="${esc(i.file)}"><span class="tl-card-date">${esc(i.date)}</span><span class="tl-card-tag ${i.type}">${i.type==='research'?'<svg class=\'ico\'><use href=\'#ico-research\'/></svg>研究':'<svg class=\'ico\'><use href=\'#ico-creative\'/></svg>创意'}</span><span class="tl-card-title">${esc(i.title)}</span></a>`).join('')
-    :'<div class="tl-empty">该筛选下暂无作品 · 点「全部」回到完整时间线</div>';
-  // 计数如实反映当前是否被筛选，不再一律自称「全部」
-  const hint=document.getElementById('timeline-hint');
-  if(hint) hint.textContent=f.length===ALL.length
-      ? `← 横向滚动查看全部 ${ALL.length} 件 ›`
-      : `已筛选 ${f.length} / ${ALL.length} 件 · 点「全部」看完整时间线`;
-}
-
-// ── Bento: always latest 3, ignoring month filter ──
-function renderBento(id,items,filter,tagFilter){
-  const el=document.getElementById(id);
-  let f=items;
-  if(filter!=='all') f=f.filter(i=>i.type===filter);
-  if(tagFilter) f=f.filter(i=>i.tags&&i.tags.includes(tagFilter));
-  f=f.slice().sort((a,b)=>b.date.localeCompare(a.date));
-  el.innerHTML=f.slice(0,3).map(i=>`<a class="bento-card" href="${esc(i.file)}"><div class="card-thumb-wrap">${i.thumb?`<img src="${esc(i.thumb)}" alt="${esc(i.title)}" loading="lazy" decoding="async">`:''}<span class="card-badge ${i.type}">${i.type==='research'?'<svg class=\'ico\'><use href=\'#ico-research\'/></svg>研究':'<svg class=\'ico\'><use href=\'#ico-creative\'/></svg>创意'}</span></div><div class="card-body"><div class="card-date">${esc(i.date)}</div><div class="card-title">${esc(i.title)}</div><div class="card-desc">${esc(i.desc||'查看详情 →')}</div></div></a>`).join('');
-  el.querySelectorAll('.bento-card').forEach(c=>{c.classList.add('reveal-init');setTimeout(()=>c.classList.add('revealed'),100)});
-}
-
-// ── 月份导航按年分组（>12 个月才启用；纯函数便于单测）──
-const PILLS_YEAR_THRESHOLD=12;
-function groupMonthsByYear(sorted, threshold){
-  const th = threshold==null ? PILLS_YEAR_THRESHOLD : threshold;
-  // 内部自行排序：不依赖调用方传入顺序，否则调用点一改就静默把最老年份当最新
-  const ms = sorted.slice().sort().reverse();
-  if(ms.length<=th) return {grouped:false, years:[], visible:ms, selected:null};
-  const years=[]; const byYear={};
-  ms.forEach(m=>{const y=m.slice(0,4); if(!byYear[y]){byYear[y]=[];years.push(y);} byYear[y].push(m);});
-  const sel=years[0];
-  return {grouped:true, years, byYear, selected:sel, visible:byYear[sel]||[]};
-}
-
-// ── Monthly: controlled by month pills ──
-function renderMonthly(cid,pid,items,filter,tagFilter){
-  let f=items;
-  if(filter!=='all') f=f.filter(i=>i.type===filter);
-  if(tagFilter) f=f.filter(i=>i.tags&&i.tags.includes(tagFilter));
-  const months={};f.forEach(i=>{const ym=i.date.substring(0,7);(months[ym]=months[ym]||[]).push(i)});
-  const sorted=Object.keys(months).sort().reverse();
-  const grp=groupMonthsByYear(sorted);
-  const pillHost=document.getElementById(pid);
-  const yearBar=grp.grouped
-    ? `<div class="year-row">${grp.years.map(y=>`<button class="year-pill${y===grp.selected?' active':''}" data-year="${y}">${y}</button>`).join('')}</div>`
-    : '';
-  pillHost.innerHTML=yearBar+`<div class="pill-row">`+grp.visible.map((m,i)=>`<button class="month-pill${i===0?' active':''}" data-month="${m}">${m}</button>`).join('')+`</div>`;
-  document.getElementById(cid).innerHTML=sorted.map((m,i)=>`<div class="month-expand${i===0?' open':''}" data-month="${m}"><div class="month-expand-inner">${months[m].map(i=>`<a class="month-card" href="${esc(i.file)}"><div class="month-card-thumb">${i.thumb?`<img src="${esc(i.thumb)}" alt="${esc(i.title)}" loading="lazy" decoding="async">`:''}</div><div class="month-card-info"><div class="month-card-title">${esc(i.title)}</div><div class="month-card-meta"><span class="month-card-tag ${i.type}">${i.type==='research'?'<svg class=\'ico\'><use href=\'#ico-research\'/></svg>':'<svg class=\'ico\'><use href=\'#ico-creative\'/></svg>'}</span><span>${i.date}</span></div></div></a>`).join('')}</div></div>`).join('');
-  document.getElementById(pid).querySelectorAll('.month-pill').forEach(btn=>{btn.addEventListener('click',()=>{
-    document.getElementById(pid).querySelectorAll('.month-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
-    document.getElementById(cid).querySelectorAll('.month-expand').forEach(e=>e.classList.toggle('open',e.dataset.month===btn.dataset.month));
-  })});
-}
-
-// ── Filter state ──
-let curFilter='all', curTag=null;
-
-function applyFilter(filter,tag){
-  curFilter=filter; curTag=tag||null;
-  // Bento always shows latest 3
-  renderBento('research-bento',DATA.research,filter,curTag);
-  renderBento('creative-bento',DATA.creative,filter,curTag);
-  // Monthly list responds to month pills
-  renderMonthly('research-monthly','research-pills',DATA.research,filter,curTag);
-  renderMonthly('creative-monthly','creative-pills',DATA.creative,filter,curTag);
-  // Timeline shares the same filter state (was: ignored it entirely)
-  renderTimeline();
-  // Counts
-  let allItems=ALL;
-  if(filter!=='all') allItems=allItems.filter(i=>i.type===filter);
-  if(curTag) allItems=allItems.filter(i=>i.tags&&i.tags.includes(curTag));
-  const rc=allItems.filter(i=>i.type==='research').length;
-  const cc=allItems.filter(i=>i.type==='creative').length;
-  document.getElementById('research-count').textContent=rc+' 份';
-  document.getElementById('creative-count').textContent=cc+' 件';
-  // Hide empty sections
-  document.getElementById('research-section').style.display=rc===0?'none':'';
-  document.getElementById('creative-section').style.display=cc===0?'none':'';
-}
-
-// ── Filter click ──
-document.getElementById('filterBar').addEventListener('click',e=>{
-  const btn=e.target.closest('.filter-btn');if(!btn)return;
-  // Type filter (全部/研究/创意)
-  if(btn.dataset.filter){
-    document.querySelectorAll('.filter-btn[data-filter]').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.filter-btn.tag-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilter(btn.dataset.filter,null);
-  }
-  // Tag filter
-  if(btn.dataset.tag){
-    const tag=btn.dataset.tag;
-    if(curTag===tag){btn.classList.remove('active');curTag=null;}
-    else{
-      document.querySelectorAll('.filter-btn.tag-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      curTag=tag;
-    }
-    applyFilter(curFilter,curTag);
-  }
-});
-
-// ── Hero stat animation ──
-function animateStats(){document.querySelectorAll('.stat-num[data-target]').forEach(el=>{const target=parseInt(el.dataset.target);if(isNaN(target)||target===0){el.textContent='0';return}const duration=1200;const start=performance.now();function step(now){const p=Math.min((now-start)/duration,1);const ease=1-Math.pow(1-p,3);el.textContent=Math.round(target*ease);if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
-
 </script>
 </body>
 </html>

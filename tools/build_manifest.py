@@ -192,10 +192,23 @@ def sync_embedded(manifest):
     cutoff = (datetime.date.today() - datetime.timedelta(days=RECENT_DESC_DAYS)).isoformat()
     snap = {g: [] for g in ('research', 'creative')}
     kept = 0
+    # 解析追踪线归属：声明优先，否则按关键词推断（与聚合层同一套口径）
+    line_of = {}
+    for name, hits in group_by_line(manifest['research'] + manifest['creative'])[0].items():
+        for it in hits:
+            line_of.setdefault(it['file'], name)
     for g in ('research', 'creative'):
         for i in manifest[g]:
             rec = {'file': i['file'], 'thumb': i['thumb'], 'title': i['title'],
                    'date': i['date'], 'type': i['type'], 'highlights': i['highlights']}
+            beat = i.get('beat') or line_of.get(i['file']) or ''
+            if beat:
+                rec['beat'] = beat
+            # 断言（压缩为 value/label，供卡片展示与搜索命中）
+            cl = i.get('claims') or []
+            if cl:
+                rec['claims'] = [{'v': c.get('value', ''), 'l': c.get('label', '')}
+                                 for c in cl[:3]]
             if i['date'] >= cutoff and i['description']:
                 rec['description'] = i['description']
                 kept += 1
@@ -480,6 +493,26 @@ def group_by_line(items):
     return out, unclassified
 
 
+def order_claims(claims, work):
+    """把最具代表性的断言排到第一位，其余保持原序。
+
+    卡片只展示第一条。若直接用抽取顺序，会出现标题被拆成指标的碎片
+    （实测：「11个人的24小时」被抽成 值="11个" / 标签="人的24小时"）。
+    这里用与卷宗一致的相关性打分（标题/标签/摘要 × 标签重合度）来排序。
+    """
+    if len(claims) < 2:
+        return claims
+    ctx = ' '.join([work.get('title', ''), work.get('description', ''),
+                    ' '.join(work.get('highlights') or [])]).lower()
+    ctx_tokens = set(_TOKEN_SPLIT.findall(ctx))
+    def score(c):
+        lt = set(_TOKEN_SPLIT.findall(str(c.get('label', '')).lower()))
+        return (len(lt & ctx_tokens) * 2.0
+                + (1.0 if '%' in str(c.get('value', '')) else 0.0)
+                - len(str(c.get('label', ''))) * 0.01)
+    return sorted(claims, key=lambda c: -score(c))
+
+
 def compute_dossier(manifest, gate):
     """
     卷宗数据：把「追踪线」从一行计数升级为**可读的叙事 + 已验证断言**。
@@ -669,6 +702,10 @@ def main():
                               f'（引用不在原文或标签像句子）')
         elif e.get('claims') is not None:
             item['claims'] = e['claims']
+        # 断言排序：**最具代表性的一条排第一** —— 卡片只显示第一条，
+        # 顺序不当会出现「11个 / 人的24小时」这种标题碎片当指标展示
+        if item.get('claims'):
+            item['claims'] = order_claims(item['claims'], item)
         # 追踪线声明
         beat = read_declared_beat(os.path.join(ROOT, rel))
         if beat:
