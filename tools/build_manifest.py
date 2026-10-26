@@ -729,8 +729,15 @@ def main():
         # 顺序不当会出现「11个 / 人的24小时」这种标题碎片当指标展示
         if item.get('claims'):
             item['claims'] = order_claims(item['claims'], item)
-        # 追踪线声明
+        # 追踪线：声明优先，否则按关键词推断 —— **解析后的归属一律写入 item**，
+        # 否则 manifest 只记「声明过的」，而 EMBEDDED 记「解析后的」，
+        # 同一件作品在两处显示不同归属（实测 manifest 说无、EMBEDDED 说有）。
         beat = read_declared_beat(os.path.join(ROOT, rel))
+        if not beat:
+            for _name, _kws in BEAT_FAMILIES.items():
+                if any(any(k in t for k in _kws) for t in (e.get('highlights') or [])):
+                    beat = _name
+                    break
         if beat:
             item['beat'] = beat
             # 「待归类」是显式退出（作者知道该篇不属于任何现有线），不是错误；
