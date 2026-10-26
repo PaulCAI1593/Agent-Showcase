@@ -633,10 +633,10 @@ def phase_thumbs(disk_works, manifest, registry, dry):
             try:
                 os.makedirs(THUMB_SRC, exist_ok=True)
                 dst = os.path.join(THUMB_SRC, os.path.basename(png))
-                if not os.path.exists(dst):
-                    os.replace(png, dst)
-                else:
-                    os.remove(png)
+                # ⚠️ 必须**覆盖**旧源，不能「已存在就删掉新图」。
+                # 否则：作品被修好后重截 → 新 PNG 被删除 → 转的还是旧坏图 →
+                # 坏缩略图永远修不好（实测：反诈AI 修好 JS 后重截仍是 1506 字节）。
+                os.replace(png, dst)
                 make_thumbs_webp.convert_one(dst)
                 log(f'  ✓ 已转 webp，PNG 高清源归入 _private/thumbs-src/')
             except Exception as e:            # 转换失败不影响上架：png 仍在 thumbs/ 可用
@@ -708,6 +708,68 @@ def prune_orphan_enrich(disk_works):
         log('  ✓ 无孤儿键')
 
 
+JS_BLOCKED = os.path.join(ROOT, 'tools', '.js_blocked.json')
+
+
+def check_inline_js(disk_works):
+    """硬校验：内联脚本必须语法正确。
+
+    为什么必须有：HTML 写错一个引号，**页面照样渲染**（内容都在 DOM 里），
+    但脚本整段挂掉 → 依赖脚本的显现动画/交互永远不执行 → 整页空白。
+    实测：反诈AI（2026-09-08）因一个字符串里的 ASCII 单引号把字符串提前终止，
+    整页只剩导航条、hero 全白 —— 结构检查（计数/缩略图/标签/断言）全过，
+    因为它们只看文件与数据，不看脚本能否运行。
+
+    用 node --check 逐个校验；没有 node 时跳过（并说明）。
+    """
+    rule('阶段 4.5 · 内联脚本语法校验（防「脚本挂掉 → 整页空白」）')
+    node = shutil.which('node')
+    if not node:
+        log('  [skip] 未找到 node，跳过脚本语法校验')
+        return []
+    import tempfile
+    bad = []
+    for rel in disk_works:
+        path = os.path.join(ROOT, rel)
+        try:
+            html = open(path, encoding='utf-8', errors='ignore').read()
+        except OSError:
+            continue
+        scripts = re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', html, re.S)
+        for sc in scripts:
+            if not sc.strip():
+                continue
+            with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False,
+                                             encoding='utf-8') as t:
+                t.write(sc)
+                tmp = t.name
+            r = subprocess.run([node, '--check', tmp], capture_output=True, text=True)
+            os.unlink(tmp)
+            if r.returncode != 0:
+                msg = ''
+                for line in (r.stderr or '').splitlines():
+                    if 'Error' in line:
+                        msg = line.strip()
+                        break
+                bad.append((rel, msg[:120]))
+                break
+    if bad:
+        log(f'  ✗ {len(bad)} 件作品的内联脚本有语法错误 —— 脚本挂掉会导致该页空白')
+        for rel, msg in bad[:5]:
+            log(f'        ! {rel}: {msg}')
+        # 写进排除清单：空白页不留在展厅里（比缺页更糟），但流水线以非零退出码
+        # 大声报出来，由 agent 去修 —— 不静默、不隐藏。
+    else:
+        log(f'  ✓ {len(disk_works)} 件作品的内联脚本语法均正确')
+    # 每次都重写清单：已修好/已删除的作品自动解除排除（否则会被永久排除）
+    try:
+        with open(JS_BLOCKED, 'w', encoding='utf-8') as f:
+            json.dump([r for r, _ in bad], f, ensure_ascii=False, indent=2)
+    except OSError:
+        pass
+    return bad
+
+
 def phase_manifest(dry):
     """调用既有 build_manifest.py 重建索引（不改其逻辑）。"""
     rule('阶段 6 · 重建索引：调用 tools/build_manifest.py')
@@ -725,7 +787,7 @@ def phase_manifest(dry):
             log('  ! ' + line)
 
 
-def phase_validate(pre_manifest, pre_tags, excluded=None):
+def phase_validate(pre_manifest, pre_tags, excluded=None, js_bad=None):
     """硬校验：任何一项不达标 → 非零退出码。"""
     rule('阶段 7 · 校验（任一不达标即以非零退出码报错）')
     manifest = load_json(MANIFEST, {})
@@ -898,6 +960,8 @@ def phase_validate(pre_manifest, pre_tags, excluded=None):
         fails.append(f'缺返回链 {len(no_backlink)}')
     if claim_bad:
         fails.append(f'断言引用失效 {claim_bad}')
+    if js_bad:
+        fails.append(f'内联脚本语法错误 {len(js_bad)}')
 
     log('')
     if fails:
@@ -972,6 +1036,9 @@ def main():
     disk_works = live_works()
     phase_metadata(disk_works, args.dry_run)
 
+    # ── 阶段 4.5：内联脚本语法校验（发现问题即判失败，不让它上展）
+    js_bad = check_inline_js(live_works())
+
     # ── 阶段 5：缩略图
     if not args.skip_thumbs:
         phase_thumbs(disk_works, pre_manifest, registry, args.dry_run)
@@ -996,7 +1063,7 @@ def main():
             log(f'  幂等: {", ".join(same)} 内容未变，已还原 mtime')
 
     # ── 阶段 7：校验
-    fails, tag_count = phase_validate(pre_manifest, len(pre_tags), quarantined)
+    fails, tag_count = phase_validate(pre_manifest, len(pre_tags), quarantined, js_bad)
 
     rule('结果')
     if args.dry_run:

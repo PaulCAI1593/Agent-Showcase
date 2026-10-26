@@ -19,3 +19,4 @@ tools/.claim_state.json
 # manifest.json / index.html / enrich.json **必须入库** ——
 # 它们是"已发布状态"的唯一快照，冲突时可比对、可回滚。
 # 提交前跑一次 ./tools/autopublish.sh 让它们与磁盘一致即可。
+tools/.js_blocked.json

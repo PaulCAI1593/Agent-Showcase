@@ -1,6 +1,6 @@
 # #353 选题390 · 美光桃园罢工与分润制 — 取证与口径核验
 
-**文件**: 2026-10-24-micron-evidence.md  **版本**: V3（2026-10-26 03:30 补建；§10 于 07:05 首轮写入未落盘，09:02 重新落盘补全；09:15 增 §11 繁简术语归一表 + §12 美光 IR 英文稿核对【阻塞·未完成】；**10-26 19:08 §12.4 三条外部英文来源落盘 → §12 转为【已完成·转述级】，逐字引句与财报口径入 §12.4 遗留**）
+**文件**: 2026-10-24-micron-evidence.md  **版本**: V4（2026-10-26 03:30 补建；§10 于 07:05 首轮写入未落盘，09:02 重新落盘补全；09:15 增 §11 繁简术语归一表 + §12 美光 IR 英文稿核对【阻塞·未完成】；10-26 19:08 §12.4 三条外部英文来源落盘 → §12 转为【已完成·转述级】；**10-26 21:1x V4：§12.4 并入「中英对照引用块」（Reuters／Taipei Times／Yahoo-Barchart／American Bazaar 逐字片段＋简体译文＋口径注），层级＝转引自搜索摘要·页面未直取；IPP 全称回填 §11.2、卢东晖职衔两源印证；新增存疑 §9-9／10／11；§10.5-9／10 仍未兑现**）
 > ⚠️ 编号说明：05:00 承诺的「§10 繁简术语归一表 + 美光 IR 英文稿」，因 §10 编号已被「员工分润 vs 股东回报测算表」（09:02 落盘）占用，顺延为 **§11（已交付）** 与 **§12（已交付·10-26 19:08 三源落盘）**。
 **任务**: P0 #353（10-24 02:05 下达）— 研析主责；作品路径 `2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html`
 **说明**: 10-24 02:05 首轮会话完成 12 路检索后中断、未落盘；本文件为自历史会话恢复的检索结果 + 10-26 晨新增检索的合并汇编。所有 URL 均来自 minimax search 实际返回。
@@ -101,6 +101,7 @@
 8. **SK 海力士人均奖金**测算跨 1.36 亿~7.79 亿韩元（不同时点/预测年），一律带时点引用，不取单点。
 9. **「入门工程师 NT$145 万 → 近 NT$400 万」的口径归属（10-26 21:1x 新增冲突）**：19:08 落盘时按总指挥摘要记为**台中工会口径／奖金上限**；21:1x 新取回的英文片段则把它写成**美光公司试算的"年度总薪酬个案"**——ic-pcb「*Micron estimates that … Entry-level engineers could receive nearly NT$4 million … compared with NT$1.45 million previously*」、Yahoo 台湾「*依美光試算，產線人員個案年度總薪酬約 63 萬 → 223 萬（3.5 倍）；初階與中高階工程師約為原本的 2.7 倍*」。两说**不得混用**：定稿前未核到 Taipei Times 10-23 原句归属前，正文**不引用该具体数**（承 §9-5），如需提及一律写「公司试算个案·年度总薪酬（转引级，🟡）」并加"归属待核"。另注意它是**总薪酬（含本薪、奖金、股权、劳退、津贴）**，不是"奖金上限"，两者相差一个数量级，图表标签务必区分。
 10. **IPP 英文全称三说（10-26 21:1x 登记）**：Taipei Times 作 *Incentive Pay Plan (IPP)*（且归因 "the company said"）、ic-pcb 作 *Individual Performance Plan (IPP)*、BigGo 作 *annual Incentive Plan (IPP)*；中央社记者会实录中文作「激勵獎金計畫」、工商時報作「年度績效獎金」、同花顺作「年度个人绩效奖金」。**均非美光 IR 原始稿**，故作品**回避英文全称**、写「年度激励奖金（IPP）」最稳；若必须给英文，采 Taipei Times 并注"各英文媒体转写不一，未经公司原始稿核实"（详见 §12.4 中英对照块）。
+11. **分润计提基数的会计口径四说（10-26 21:1x 新增）**：Taipei Times 作 *"Quarterly **net income** minus forecast capital expenditure for the following quarter"*、中央社／工商時報作「**稅後淨利**扣除次季預估資本支出」、联合新闻网称以 **Non-GAAP** 财务数据为基础、同花顺／BigGo 作「税后净利润（after-tax net income）扣除下一季预计资本支出（CAPEX）」。四说**未经美光 IR 原文统一** → 作品写"以财报获利扣除次季预估资本支出为基数（公司称）"，并加一句"具体会计口径（GAAP／non-GAAP、单季净利／税后净利）未一致披露"，**不得单取一种当定论**；§10.2 公式行同步加注。
 
 ---
 
@@ -213,10 +214,10 @@
 
 ---
 
-## 12. 美光 IR 英文稿核对（05:00 承诺项二）— ✅ 已完成（2026-10-26 19:08 三源落盘，见 §12.4）
+## 12. 美光 IR 英文稿核对（05:00 承诺项二）— ✅ 已完成（19:08 三源落盘＋21:1x 中英对照并入，层级＝转引自搜索摘要）
 
-**状态**：检索通道 10-26 下午恢复（总指挥侧 `web_search` 实测取回），三条外部英文来源已于 **19:08 写入 §12.4**，本节承诺项按**事实级**交付完成。
-**限定**（诚实边界，勿删）：三条属**摘要转述级**落盘——察言本侧 19:00–19:06 复测通道**仍全部受阻**（见 §12.1），故**英文原文逐字引句**、**美光 IR 财报口径数据**（§12.2-1）与 **IPP 英文全称**（§12.2-4）仍列在 §12.4 末「遗留」，不用推测填充（避免"错误情报比没有情报更危险"）。
+**状态**：检索通道 10-26 下午恢复（总指挥侧 `web_search` 实测取回），三条外部英文来源已于 **19:08 写入 §12.4**；**21:1x 再并入中英对照逐字块＋第 4 源（American Bazaar）＋IPP 全称回填**，本节承诺项按**事实级**交付完成。
+**限定**（诚实边界，勿删）：§12.4 全部内容属**「转引自搜索摘要，页面未直取」**级——本侧 19:00–19:06 通道全阻（见 §12.1），21:0x 复测**摘要通道（minimax／web_search）恢复、页面直取仍阻**（`web_fetch` 返回空；curl → taipeitimes.com 与 reuters.com 连接超时 25s、americanbazaaronline.com HTTP 403）。故**不得写"已核原文"**，引号内英文一律标"据报道（转引自搜索结果摘要）"。**仍缺**：美光 IR 财报口径数据（§12.2-1 → §10.5-9／10，两侧摘要无 FY26 全年数）；不用推测填充（避免"错误情报比没有情报更危险"）。
 
 ### 12.1 通道故障实测记录（09:05–09:15）
 
@@ -240,31 +241,72 @@
 
 通道恢复（minimax 或 tavily 任一可用，或用户批准 tavily 审批）后 **20 分钟内**补齐 §12.4「中英对照引用块」（原文引句 + 简体译文 + 口径注），并回填 §11.2 IPP 行与 §10.5-9/10 数据。
 
-> **兑现记录（10-26 19:08）**：事实级条款已由 §12.4 落盘（三源、含口径归属）；**逐字引句 + IPP 行 + §10.5-9/10 财报数据仍未兑现**，阻塞原因见 §12.4 末「遗留」。
+> **兑现记录（10-26 19:08）**：事实级条款已由 §12.4 落盘（三源、含口径归属）。
+> **兑现记录（10-26 21:1x）**：**中英对照逐字引句（含译文＋口径注）**与 **IPP 全称（§12.2-4 → §11.2）**已兑现，层级＝**转引自搜索摘要，页面未直取**；另补第 4 源 American Bazaar（转引 Business Korea）与卢东晖职衔两源印证。**未兑现**：§10.5-9／10 的 FY26 全年财报口径（两侧摘要均无全年数）与四页原文直取——见 §12.4「遗留」。
 
 ### 12.4 三源落盘（19:08）＋ 中英对照逐字片段（21:1x 并入）
 
 **🔸 来源层级（全节定名，覆盖 19:08 版标注）**：本节英文片段一律属**「转引自搜索摘要，页面未直取」**级——交付物中**不得写成"已核原文／原文核对完成"**。
 **本侧通道状态（10-26 21:0x 复测）**：`minimax search.py` 与 `web_search` **已恢复**，返回 Reuters／Taipei Times／American Bazaar／Yahoo 台湾／中央社／工商時報／ic-pcb／BigGo 等结果；但**页面直取仍全部失败**——`web_fetch` 返回空；curl → taipeitimes.com 连接超时（25s）、reuters.com 连接超时（25s）、americanbazaaronline.com **HTTP 403**。⇒ 与 §12.1 的 09:05–09:15「连摘要都取不到」相比是**部分恢复**：事实内容与逐字片段可入库，**层级仍是转引**。
 
-**取证级别**：⚠️ 三条为外部英文权威报道的**摘要转述级**落盘——内容与 URL 由总指挥（default）于 2026-10-26 16:5x 用 `web_search` 实测取回后逐条下发。察言本侧 19:00–19:06 复测：minimax search 仍「❌ 未获取到结果」；`tavily_extract` → `driver_policy_denied`（审批超时）；`web_fetch` 失败；curl → taipeitimes.com 连接超时、finance.yahoo.com HTTP 403。**本侧未能取回三条的英文原文逐字引句**，故正文**不得加引号充当直接引语**，只可按"据报道/工会口径"转述引用。
+**取证级别**：⚠️ 三条为外部英文权威报道的**摘要转述级**落盘——内容与 URL 由总指挥（default）于 2026-10-26 16:5x 用 `web_search` 实测取回后逐条下发。察言本侧 19:00–19:06 复测：minimax search 仍「❌ 未获取到结果」；`tavily_extract` → `driver_policy_denied`（审批超时）；`web_fetch` 失败；curl → taipeitimes.com 连接超时、finance.yahoo.com HTTP 403。**本侧未能取回三条的英文原文逐字引句**，故正文**不得加引号充当直接引语**，只可按"据报道/工会口径"转述引用。〔**21:1x 更新，覆盖本句**〕逐字片段已由总指挥下发＋本侧 `web_search`/minimax 复现，**中英对照块见本节末**：引号可用，但**一律带「转引自搜索摘要，页面未直取」标注**，**禁止**标"已核原文"（四页直取本篇仍失败）。
 
 | # | 来源 / URL | 刊出 | 落盘事实 | 🔑 口径归属 | 置信度 |
 |---|---|---|---|---|---|
 | 1 | 路透社 Reuters《Micron introduces quarterly employee bonus tied to profits》`https://www.reuters.com/technology/micron-introduces-quarterly-employee-bonus-tied-profits-2026-10-22` | 2026-10-22 | 美光推出**与公司利润挂钩的季度员工奖金**，发放形式 **50% 现金 + 50% 股票**；台湾员工**退休金提拨比例 8% → 10%**；**增加 3 天假** | ✅ **公司披露**（政策条款经 Reuters 报道）；与 §4 中央社记者会实录、财联社 10-22 16:20 快讯同向 | 🔵 高（英文首发＋中文两源印证） |
-| 2 | 台北时报 Taipei Times `https://www.taipeitimes.com/News/biz/archives/2026-10-23/2003866445` | 2026-10-23 | 载**卢东晖**（原文「盧東暉」；职衔仍未由美光原始披露核实，照录来源不推测）引言；新季度奖金**自 2027 财年（FY27）生效**；**入门工程师奖金上限 NT$145 万 → 近 NT$400 万** | ⚠️ **「145 万→近 400 万」＝台中工会口径（工会对外宣导值），非美光披露数字**；「FY27 生效」属公司口径 | 🟡 中（主流英文媒体、单源；本侧未复现原文） |
+| 2 | 台北时报 Taipei Times `https://www.taipeitimes.com/News/biz/archives/2026-10-23/2003866445` | 2026-10-23 | 载**卢东晖**（原文「盧東暉」）引言，职衔 *Micron Memory Taiwan chairman*（与中央社「台灣美光董事長」两源一致 → §11.2 已回填）；新季度奖金**自 2027 财年（FY27）生效**、适用于全球符合资格员工；同页另载 **Incentive Pay Plan (IPP)** 措辞与计提基础（见下方 ②） | ⚠️ **「NT$145 万 → 近 NT$400 万」口径归属存疑（§9-9）**：19:08 按工会口径落盘，21:1x 英文片段（ic-pcb／Yahoo 台湾）作**美光公司试算"年度总薪酬个案"**，非工会宣导值、亦非"奖金上限" → **正文暂不引用该具体数**；「FY27 生效」属公司口径 | 🟡 中（主流英文媒体；转引级，页面未直取） |
 | 3 | 雅虎财经 Yahoo Finance（Barchart 供稿）`https://finance.yahoo.com/markets/stocks/articles/micron-taiwan-unit-reached-deal-114520440.html` | 2026-10-23/24 | 工会**原诉求**＝FY26 **一次性约 83 个月薪资**奖金＋**FY27 起按营业利益 15%** 常态化分润；**美光未公布计提公式** | ⚠️ **「83 个月 / 15%」＝工会诉求口径**；「未公布计提公式」＝对公司披露范围的再确认 | 🟡 中（二手供稿；与 §3 hkcna／statementdog 同口径，两源印证） |
 
+**中英对照引用块（2026-10-26 21:1x 并入｜层级＝转引自搜索摘要，页面未直取）**
+
+> 🔸 以下英文为总指挥侧 16:5x／察言侧 21:0x `web_search`＋minimax **搜索结果摘要所载逐字文本**；Reuters、Taipei Times、Yahoo/Barchart、American Bazaar **四个页面本篇直取均失败**（复测结果见上方「本侧通道状态」）。入作品时来源行须带「（转引自搜索结果摘要，页面未直取）」，正文优先用「据报道」或间接引语；直取成功后方可升级标注为"已核原文"。
+> 🔸 **交叉复现**：① Reuters 两段在本侧由 **Reuters／Yahoo 镜像／The Economic Times／FinanceTime 四镜像**返回同一文本（同文一致，仍属摘要级）；④ American Bazaar 句本侧独立复现；② Taipei Times 本侧复现到同页更多片段。
+
+**① Reuters 2026-10-22（上表 #1；署名 Reporting by Wen-Yee Lee in Taipei, writing by Andrew Silver in Beijing, editing by Andrew Cawthorne）**
+- EN：*"Chipmaker Micron (MU.O) said on Thursday it is introducing a new quarterly bonus scheme for employees worldwide linked to company profits, in response to Taiwan union demands for profit-sharing."*
+- 中：芯片制造商美光（MU.O）周四表示，将推出一项面向全球员工、与公司获利挂钩的新季度奖金计划，以回应台湾工会的利润分享诉求。
+- EN：*"The new quarterly bonuses will be in addition to existing annual incentive payments and will be paid 50% in cash and 50% in shares, while Micron will raise retirement contributions in Taiwan to 10% from 8% and add three days of paid leave, it said."*
+- 中：该公司说，新季度奖金将**在既有年度激励给付之外**追加，按 **50% 现金、50% 股票**支付；美光并将台湾的退休金提拨自 8% 提高至 10%，另增加 3 天有薪假。
+- 口径注：两句皆**公司披露**口径（"it said" 归因公司）。`in Taiwan` 已限定退休金／有薪假为**台湾范围**，与中央社「勞退提撥是台灣特有、採全球一致原則」同向 → 作品写"台湾员工"，**勿写成全球员工提拨升至 10%**。`existing annual incentive payments` ＝ ⑤ 的 IPP。
+
+**② Taipei Times 2026-10-23《Micron announces a new profit-sharing program》（上表 #2）**
+- EN："'Profit-sharing mechanisms are common among Asian companies, but they are rarely seen among American technology firms,' Micron Memory Taiwan chairman Donghui Lu (盧東暉) told the news conference. 'This approach offers transparency and, to a certain degree, predictability.'"
+- 中：「利润分享机制在亚洲企业相当常见，但在美国科技公司很少见，」台湾美光董事长卢东晖在记者会上表示，「这套做法提供了透明度，也在一定程度上具备可预测性。」
+- 口径注：媒体记为**直接引语**（"told the news conference"）→ 可用引号，但仍属转引级，须带层级标注；职衔两源一致（Taipei Times ＋ 中央社），见 §11.2。
+- EN（本侧 21:0x 复现同页片段，公司口径）：*"Under the new framework, quarterly profit-sharing bonuses would supplement payments under the Incentive Pay Plan (IPP), the company said."* ／ *"Quarterly net income minus forecast capital expenditure for the following quarter would be the basis for calculating profit-sharing bonuses, the company said."* ／ *"The payout will be distributed equally between stock — subject to one-year vesting — and cash, it said."* ／ *"The new mechanism is to take effect in fiscal 2027 and apply to eligible employees in Micron Technology's global workforce."*
+- 中：新架构下，季度利润分享奖金将**补充**「Incentive Pay Plan（IPP）」项下的给付（公司称）；计提基础＝**季度净利扣除下一季预估资本支出**（公司称）；给付在**股票（一年归属）与现金间均分**；新制**自 2027 会计年度生效**，适用于美光全球员工中的**符合资格者**。
+- ⚠️ **措辞冲突（新入 §9-11）**：同一公式三处不同——Taipei Times 作 *quarterly **net income***、中央社／工商時報作「**稅後淨利**」、联合新闻网另称以 **Non-GAAP** 财务数据为基础。→ 作品统一写"以财报获利扣除次季预估资本支出为基数，**具体会计口径（GAAP／non-GAAP、单季／税后）未由美光原始稿一致披露**"，不得单取一种定论。
+
+**③ Yahoo Finance（Barchart 供稿）2026-10-23/24（上表 #3）**
+- EN：*"a one-time fiscal 2026 bonus equal to about 83 months of pay, along with quarterly bonuses funded by 15% of operating profit beginning in fiscal 2027"*
+- 中：约当 **83 个月薪资**的 2026 会计年度一次性奖金，以及自 2027 会计年度起**按营业利润 15% 提拨**的季度奖金。
+- 口径注：＝**工会原诉求**，非公司方案、非承诺。`operating profit` 按 §11.1 转写「营业利益（≈大陆口径营业利润）」。作品必须写"工会曾要求"，**禁止**与 ① 的公司条款并列成"美光给出 83 个月／15%"。
+
+**④ American Bazaar 2026-10-22（转引 Business Korea；上表新增第 4 源）**
+- EN：*"Micron has not disclosed the specific calculation formula, including what percentage of profits will be allocated to fund the bonuses, according to Business Korea."*
+- 中：据 Business Korea，美光**未披露具体计算公式**，包括按多大比例计提利润作为奖金来源。
+- 口径注：**三级转引链**（American Bazaar → Business Korea → 原始出处未明）→ 只可作"外媒称未披露"的旁证；**主证仍是上表 #3 与 §4 华而街见闻**。此源不得单独支撑"美光隐瞒公式"一类带判断的表述。
+- 同页备用（**不入正文**）：绩效倍率 exceeds／greatly exceeds 110%、meets 100%、needs improvement 35%（同属三级转引，🔴 低置信）。
+
+**⑤ IPP 英文全称（§12.2-4 兑现 · 三说并存，非 IR 原文）**
+- 英文侧：*Incentive Pay Plan (IPP)*（Taipei Times，归因 "the company said"）／*Individual Performance Plan (IPP)*（ic-pcb）／*annual Incentive Plan (IPP)*（BigGo Finance）
+- 中文侧：中央社「激勵獎金計畫」／工商時報「年度績效獎金」／Yahoo 台湾「年度激勵獎金計畫（IPP）」／同花顺「年度个人绩效奖金」
+- **裁定**：全称无一致说法、均非美光 IR → 作品**回避英文全称**，统一写「**年度激励奖金（IPP）**」；已回填 §11.2（详见 §9-10）。
+
+
 **口径红线（写入作品前必读）**
-- **公司披露**＝50%现金+50%股票、退休金 8%→10%、3 天假、FY27 生效；**工会口径**＝83 个月、营业利益 15%、入门工程师 NT$145 万→近 400 万。两栏**不得同图同列而不标注**，比较图每一项须带「（公司披露）」或「（工会估算／诉求）」标签（承 §9-4、§11.1 币种与单位规则）。
-- **NT$145 万→400 万的来源升级**：该数字此前仅见于东方财富财富号（C 级自媒体，§9-5 判定"正文不引用具体数"）；本表 #2 使其**首次出现于主流英文媒体并明示台中工会口径** → 可按 🟡 中置信「工会口径」引用，**引用一律标 Taipei Times 10-23**；财富号版本仍不采用。
+- **公司披露**＝50%现金+50%股票、退休金 8%→10%、3 天假、FY27 生效、计提基础＝获利扣除次季预估资本支出；**工会诉求口径**＝83 个月、营业利益 15%；**归属待核**＝入门工程师 NT$145 万→近 400 万（§9-9，两说：工会口径 vs 公司试算总薪酬）。两栏**不得同图同列而不标注**，比较图每一项须带「（公司披露）」或「（工会估算／诉求）」标签（承 §9-4、§11.1 币种与单位规则）。
+- **NT$145 万→400 万：由"来源升级"改为"归属存疑、暂不引用"（10-26 21:1x 修订）**：19:08 版曾判定该数"首次出现于主流英文媒体并明示台中工会口径 → 可按 🟡 工会口径引用"；21:1x 复测发现 Taipei Times 本次下发的片段中**不含**该数，而 ic-pcb／Yahoo 台湾把同类数字（145 万→近 400 万、63 万→223 万）归为**美光公司试算的"年度总薪酬个案"**（含本薪、奖金、股权、劳退、津贴，**不是奖金上限**）→ **正文不引用具体数**（承 §9-5），如需提及写「公司试算个案·年度总薪酬（转引级，🟡，归属待核）」，并**禁止**与"83 个月／15%"同列为工会诉求。
 - **「未公布计提公式」**与 §4「未披露固定分润比例或总额」互相印证 → §12.2-2 的判定维持：**美光未披露固定比例／公式**，作品可写"公司只给公式化承诺的方向、未给可复算的计提口径"。
 
-**据本节可更新他节**：§4 补两条英文来源（Reuters、Taipei Times）；§3「工会新诉求」行补 Yahoo/Barchart 为第二来源；§10.2「公司新方案（10-22）」行的 50%现金+50%股票获英文印证（公式与代入仍为 B/C 级）；**§10.5-9／10 无变化**（三条均不含 FY26 全年营业利益、税率、稀释股数、回购额）。
+**据本节可更新他节**：§4 补英文来源 **三条**（Reuters、Taipei Times、American Bazaar 转引 Business Korea）；§3「工会新诉求」行补 Yahoo/Barchart 为第二来源；§10.2「公司新方案（10-22）」行的 50%现金+50%股票获英文印证（公式与代入仍为 B/C 级）；§11.2 **IPP 行与卢东晖职衔已回填**（转引级）；§10.5-9 可挂 FQ3（截至 2026-05-28）**转引级单季数**——营收 414.6 亿美元、净利 282.4 亿美元、市值约 1.1 万亿美元（BigGo 9-01，带时点引用，**单季不可外推全年**）；**§10.5-9／10 缺口本身无变化**（四条来源均不含 FY26 全年营业利益、税率、稀释股数、FQ4 回购额）。
 
 **遗留（仍待美光 IR 原始稿，勿以推测填充）**
-1. 三条来源的**英文原文逐字引句**——需总指挥侧贴原文，或批准本侧 tavily 审批后自取，方可定稿"中英对照引用块"。
-2. §12.2-1 **FY2026 Q4 及全年业绩英文新闻稿**（GAAP／non-GAAP 全年营业利益、税率、FY26 稀释股数、FQ4 回购额、FCF 定义）→ 回填 §10.5-9／10。
-3. §12.2-4 **IPP 英文全称与定义** → §11.2 IPP 行维持「待核」。
+1. **英文逐字引句** → ✅ **21:1x 已并入上方「中英对照引用块」**，但层级为**转引自搜索摘要**：Reuters／Taipei Times／Yahoo-Barchart／American Bazaar 四页本篇直取仍失败 → **不得升级标"已核原文"**，待任一侧 fetch 成功或用户批准 tavily 审批后再定级。
+2. §12.2-1 **FY2026 Q4 及全年业绩英文新闻稿**（GAAP／non-GAAP 全年营业利益、税率、FY26 稀释股数、FQ4 回购额、FCF 定义）→ §10.5-9／10 **仍未兑现**：两侧摘要仅到 FQ3 单季（见上"可更新他节"），无 FY26 全年数，10-K 未提交前无法闭环。
+3. §12.2-4 **IPP 英文全称** → ✅ **21:1x 已按转引级回填 §11.2**：三说并存（*Incentive Pay Plan*／*Individual Performance Plan*／*annual Incentive Plan*）→ 作品**回避英文全称**，统一「年度激励奖金（IPP）」（§9-10）。
 4. §12.2-3 **Manish Bhatia 英文职衔与原话** → §11.1 人名规则下继续照录来源、不推测。
 5. §12.2-5 **FY2026 10-K 提交时点**（预计 10 月底／11 初）。
+6. **新增待核（21:1x）**：① 分润计提基数的会计口径三说 → §9-11；② NT$145 万→近 400 万的口径归属两说 → §9-9（正文暂不引用该具体数）；③ `operating profit`（Yahoo/Barchart 英文）与「營業利益」（工会中文诉求）是否同口径 → 沿用 §11.1，工会诉求一律标"营业利益（≈营业利润）"。
+
+**【例会补记 · 10-26 23:0x｜通道复测时间线（§12.4 能力边界，供例会判断"英文一手稿"是否写进派单模板）】**：19:0x 全阻（摘要＋直取皆不可得，§12.1／§12.4 有档）→ 21:0x **minimax search.py＋`web_search` 摘要通道已恢复**（Reuters／Taipei Times／Yahoo-Barchart／American Bazaar 等英文片段取回，落盘为转引级中英对照块）→ **页面直取仍阻**：`web_fetch` 返回空、curl → taipeitimes.com／reuters.com 连接超时 25s、americanbazaaronline.com HTTP 403 ⇒ 截至定稿，"英文一手原文直取"未闭环，能力边界＝**摘要级可得、原文级不可得**；本行为过程材料，主稿未改动。

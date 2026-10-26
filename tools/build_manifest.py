@@ -80,6 +80,9 @@ def load_type_registry():
     return {k: v for k, v in reg.items() if v in ('research', 'creative')}
 
 EXCLUDE_DIRS = {'_archive', 'thumbs', '.git', '__pycache__', 'templates', 'tools', 'assets', 'notes'}
+# 被 JS 语法校验拦下的作品（内联脚本挂掉 → 整页空白）—— 不进 manifest，
+# 不让空白页污染展厅。清单由 autopublish 阶段 4.5 写入。
+JS_BLOCKED = os.path.join(ROOT, 'tools', '.js_blocked.json')
 EXCLUDE_FILES = {'index.html', 'enrich.json', 'manifest.json', 'build_manifest.py'}
 BACKUP_RE = re.compile(r'\.bak\.\d{8}-\d{6}$')
 # 交付前必须替换的占位符：模板 {{ }} 与旧式【】 两种都算
@@ -109,6 +112,9 @@ def scan_works():
             full = os.path.join(dirpath, fn)
             rel = os.path.relpath(full, ROOT)
             out.append(rel)
+    blocked = set(load_json(JS_BLOCKED, []))
+    if blocked:
+        out = [r for r in out if r not in blocked]
     return sorted(out)
 
 
