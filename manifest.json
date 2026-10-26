@@ -7011,6 +7011,38 @@
     },
     "beats": [
       {
+        "name": "厂商与算力权力",
+        "works": 19,
+        "months": 6,
+        "first": "2026-05-23",
+        "last": "2026-10-20",
+        "weeks_idle": 0
+      },
+      {
+        "name": "估值与资本",
+        "works": 14,
+        "months": 6,
+        "first": "2026-05-31",
+        "last": "2026-10-24",
+        "weeks_idle": 0
+      },
+      {
+        "name": "安全与治理",
+        "works": 11,
+        "months": 6,
+        "first": "2026-05-27",
+        "last": "2026-10-17",
+        "weeks_idle": 1
+      },
+      {
+        "name": "宏观利率与股市",
+        "works": 10,
+        "months": 6,
+        "first": "2026-05-26",
+        "last": "2026-10-24",
+        "weeks_idle": 0
+      },
+      {
         "name": "地缘与能源",
         "works": 17,
         "months": 5,
@@ -7035,27 +7067,19 @@
         "weeks_idle": 1
       },
       {
-        "name": "厂商与算力权力",
-        "works": 12,
-        "months": 5,
-        "first": "2026-05-23",
-        "last": "2026-10-20",
-        "weeks_idle": 0
-      },
-      {
-        "name": "估值与资本",
-        "works": 9,
-        "months": 5,
-        "first": "2026-06-04",
-        "last": "2026-10-24",
-        "weeks_idle": 0
-      },
-      {
-        "name": "宏观利率与股市",
+        "name": "算力·能耗·环境",
         "works": 6,
         "months": 5,
-        "first": "2026-05-26",
-        "last": "2026-10-24",
+        "first": "2026-05-28",
+        "last": "2026-10-10",
+        "weeks_idle": 2
+      },
+      {
+        "name": "应用落地",
+        "works": 9,
+        "months": 3,
+        "first": "2026-08-20",
+        "last": "2026-10-20",
         "weeks_idle": 0
       },
       {
@@ -7067,52 +7091,28 @@
         "weeks_idle": 1
       },
       {
-        "name": "应用落地",
-        "works": 6,
-        "months": 3,
-        "first": "2026-08-20",
-        "last": "2026-10-10",
-        "weeks_idle": 2
-      },
-      {
-        "name": "算力·能耗·环境",
-        "works": 4,
-        "months": 3,
-        "first": "2026-05-28",
-        "last": "2026-10-10",
-        "weeks_idle": 2
-      },
-      {
-        "name": "安全与治理",
-        "works": 4,
-        "months": 3,
-        "first": "2026-05-27",
-        "last": "2026-09-15",
-        "weeks_idle": 5
-      },
-      {
-        "name": "就业与劳动",
-        "works": 2,
-        "months": 2,
-        "first": "2026-06-27",
-        "last": "2026-10-06",
-        "weeks_idle": 2
-      },
-      {
         "name": "成本与普惠",
-        "works": 2,
-        "months": 2,
+        "works": 5,
+        "months": 3,
         "first": "2026-06-11",
-        "last": "2026-10-15",
-        "weeks_idle": 1
+        "last": "2026-10-20",
+        "weeks_idle": 0
       },
       {
         "name": "工具链与产业主权",
-        "works": 2,
-        "months": 1,
+        "works": 4,
+        "months": 3,
         "first": "2026-07-04",
-        "last": "2026-07-21",
-        "weeks_idle": 13
+        "last": "2026-10-20",
+        "weeks_idle": 0
+      },
+      {
+        "name": "就业与劳动",
+        "works": 4,
+        "months": 2,
+        "first": "2026-06-23",
+        "last": "2026-10-20",
+        "weeks_idle": 0
       }
     ],
     "unclassified_tags": [
@@ -7330,6 +7330,159 @@
           ]
         },
         {
+          "beat": "厂商与算力权力",
+          "works": 19,
+          "claims": 162,
+          "first": "2026-05-23",
+          "last": "2026-10-20",
+          "chapters": [
+            {
+              "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
+              "v": "~75%",
+              "l": "上下文窗口"
+            },
+            {
+              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
+            },
+            {
+              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
+            },
+            {
+              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
+              "v": "60亿",
+              "l": "美元以上单轮融资"
+            },
+            {
+              "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
+              "v": "293 亿美元",
+              "l": "Cursor 估值"
+            },
+            {
+              "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"
+            },
+            {
+              "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
+              "v": "310家",
+              "l": "中国独角兽企业"
+            },
+            {
+              "file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html",
+              "v": "87.5%",
+              "l": "MMLU-Pro"
+            },
+            {
+              "file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
+              "v": "6%",
+              "l": "英伟达持股比例"
+            },
+            {
+              "file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+              "v": "41%",
+              "l": "中国开源模型全球下载份额"
+            },
+            {
+              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+              "v": "83%",
+              "l": "智谱AI率先涨价"
+            },
+            {
+              "file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html",
+              "v": "125%",
+              "l": "YoY (400M→900M"
+            },
+            {
+              "file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
+              "v": "~35%",
+              "l": "LangChain生态"
+            },
+            {
+              "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"
+            },
+            {
+              "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
+              "v": "116家",
+              "l": "公司联合呼吁安全"
+            },
+            {
+              "file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
+              "v": "80%",
+              "l": "Anthropic 企业收入占比"
+            },
+            {
+              "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
+              "v": "15倍",
+              "l": "DeepSeek"
+            },
+            {
+              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
+              "v": "0.24%",
+              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
+            },
+            {
+              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+              "v": "60%",
+              "l": "初级员工占技术部门比重"
+            }
+          ]
+        },
+        {
+          "beat": "宏观利率与股市",
+          "works": 10,
+          "claims": 149,
+          "first": "2026-05-26",
+          "last": "2026-10-24",
+          "chapters": [
+            {
+              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
+            },
+            {
+              "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
+              "v": "-0.67%",
+              "l": "上证指数"
+            },
+            {
+              "file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
+              "v": "-6.78%",
+              "l": "小票杀跌最狠"
+            },
+            {
+              "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
+              "v": "17%",
+              "l": "加息25个基点，强调通胀风险"
+            },
+            {
+              "file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
+              "v": "-7.35%",
+              "l": "创业板指单日暴跌"
+            },
+            {
+              "file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
+              "v": "+50%",
+              "l": "股债双杀"
+            },
+            {
+              "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
+              "v": "1.8%",
+              "l": "实际利率（名义利率减去通胀预期）已升至约"
+            },
+            {
+              "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
+              "v": "+47%",
+              "l": "单季持股市值增幅居首"
+            },
+            {
+              "file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html",
+              "v": "45%",
+              "l": "\"做多全球半导体\"最拥挤交易占比"
+            },
+            {
+              "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+              "v": "5年",
+              "l": "期通胀预期（消费者预期调查"
+            }
+          ]
+        },
+        {
           "beat": "Agent 与编排",
           "works": 13,
           "claims": 109,
@@ -7401,11 +7554,19 @@
         },
         {
           "beat": "估值与资本",
-          "works": 9,
-          "claims": 73,
-          "first": "2026-06-04",
+          "works": 14,
+          "claims": 99,
+          "first": "2026-05-31",
           "last": "2026-10-24",
           "chapters": [
+            {
+              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
+            },
+            {
+              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
+              "v": "60亿",
+              "l": "美元以上单轮融资"
+            },
             {
               "file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html",
               "v": "+900%",
@@ -7430,6 +7591,11 @@
               "l": "纳指100暴跌"
             },
             {
+              "file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html",
+              "v": "~80%",
+              "l": "可灵 AI"
+            },
+            {
               "file": "2026-08-11/creative/2026-08-11-capital-migration.html",
               "v": "+7%",
               "l": "2026年8月第一周"
@@ -7445,6 +7611,16 @@
               "l": "创业板指单日暴跌"
             },
             {
+              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
+              "v": "0.24%",
+              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
+            },
+            {
+              "file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
+              "v": "3个",
+              "l": "\"首次\""
+            },
+            {
               "file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
               "v": "4.59 亿美元",
               "l": "隐私这条轨道只和解了约"
@@ -7453,10 +7629,10 @@
         },
         {
           "beat": "应用落地",
-          "works": 6,
-          "claims": 70,
+          "works": 9,
+          "claims": 73,
           "first": "2026-08-20",
-          "last": "2026-10-10",
+          "last": "2026-10-20",
           "chapters": [
             {
               "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
@@ -7467,6 +7643,9 @@
               "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
               "v": "38%",
               "l": "老年群体受害占比"
+            },
+            {
+              "file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"
             },
             {
               "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
@@ -7487,84 +7666,86 @@
               "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
               "v": "32.5%",
               "l": "生成式 AI 用户规模（半年度）"
-            }
-          ]
-        },
-        {
-          "beat": "宏观利率与股市",
-          "works": 6,
-          "claims": 59,
-          "first": "2026-05-26",
-          "last": "2026-10-24",
-          "chapters": [
-            {
-              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
             },
             {
-              "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
-              "v": "-0.67%",
-              "l": "上证指数"
-            },
-            {
-              "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
-              "v": "17%",
-              "l": "加息25个基点，强调通胀风险"
-            },
-            {
-              "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
-              "v": "1.8%",
-              "l": "实际利率（名义利率减去通胀预期）已升至约"
+              "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
+              "v": "26 个",
+              "l": "问题的受关注度分布"
             },
             {
               "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
               "v": "+47%",
               "l": "单季持股市值增幅居首"
-            },
-            {
-              "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
-              "v": "5年",
-              "l": "期通胀预期（消费者预期调查"
             }
           ]
         },
         {
-          "beat": "厂商与算力权力",
-          "works": 12,
-          "claims": 57,
-          "first": "2026-05-23",
+          "beat": "就业与劳动",
+          "works": 4,
+          "claims": 65,
+          "first": "2026-06-23",
           "last": "2026-10-20",
           "chapters": [
             {
-              "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
-              "v": "~75%",
-              "l": "上下文窗口"
+              "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
+              "v": "52%",
+              "l": "企业已部署AI Agent"
             },
             {
-              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
+              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+              "v": "77%",
+              "l": "被替代工人无法在12个月内成功转型"
             },
             {
-              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
+              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+              "v": "+56%",
+              "l": "AI 技能从业者薪资溢价"
             },
             {
-              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
-              "v": "60亿",
-              "l": "美元以上单轮融资"
+              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+              "v": "60%",
+              "l": "初级员工占技术部门比重"
+            }
+          ]
+        },
+        {
+          "beat": "安全与治理",
+          "works": 11,
+          "claims": 64,
+          "first": "2026-05-27",
+          "last": "2026-10-17",
+          "chapters": [
+            {
+              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html"
             },
             {
-              "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
-              "v": "293 亿美元",
-              "l": "Cursor 估值"
+              "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
+              "v": "3%",
+              "l": "⚡ 高风险系统"
             },
             {
-              "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"
+              "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"
             },
             {
-              "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
-              "v": "310家",
-              "l": "中国独角兽企业"
+              "file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
+              "v": "-390万桶/日",
+              "l": "2026年全球石油供应同比下降预测"
             },
             {
-              "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"
+              "file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"
+            },
+            {
+              "file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
+              "v": "88%",
+              "l": "有Agent专用安全框架"
+            },
+            {
+              "file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
+              "v": "43.96%",
+              "l": "中国手术机器人市场"
+            },
+            {
+              "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"
             },
             {
               "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
@@ -7572,19 +7753,82 @@
               "l": "公司联合呼吁安全"
             },
             {
-              "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
-              "v": "15倍",
-              "l": "DeepSeek"
+              "file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
+              "v": "84 天",
+              "l": "选题 /"
             },
             {
-              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
-              "v": "0.24%",
-              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
+              "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
+              "v": "26 个",
+              "l": "问题的受关注度分布"
+            }
+          ]
+        },
+        {
+          "beat": "算力·能耗·环境",
+          "works": 6,
+          "claims": 56,
+          "first": "2026-05-28",
+          "last": "2026-10-10",
+          "chapters": [
+            {
+              "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
+              "v": "78%",
+              "l": "市场份额"
             },
             {
-              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
-              "v": "60%",
-              "l": "初级员工占技术部门比重"
+              "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
+              "v": "99.9999999%",
+              "l": "硅砂提纯"
+            },
+            {
+              "file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
+              "v": "-2%",
+              "l": "纳指100暴跌"
+            },
+            {
+              "file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
+              "v": "84%",
+              "l": "一年增长"
+            },
+            {
+              "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
+              "v": "89.4%",
+              "l": "中国电信庆阳"
+            },
+            {
+              "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
+              "v": "+25%",
+              "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
+            }
+          ]
+        },
+        {
+          "beat": "工具链与产业主权",
+          "works": 4,
+          "claims": 54,
+          "first": "2026-07-04",
+          "last": "2026-10-20",
+          "chapters": [
+            {
+              "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+              "v": "41%",
+              "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"
+            },
+            {
+              "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
+              "v": "6.0%",
+              "l": "三、连锁反应：国产工具的全面崛起"
+            },
+            {
+              "file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
+              "v": "~50%",
+              "l": "海湾地区，危机直接冲击全球农业"
+            },
+            {
+              "file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
+              "v": "46%",
+              "l": "左侧被铺开，右侧被登记"
             }
           ]
         },
@@ -7626,78 +7870,11 @@
           ]
         },
         {
-          "beat": "就业与劳动",
-          "works": 2,
-          "claims": 37,
-          "first": "2026-06-27",
-          "last": "2026-10-06",
-          "chapters": [
-            {
-              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
-              "v": "77%",
-              "l": "被替代工人无法在12个月内成功转型"
-            },
-            {
-              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
-              "v": "+56%",
-              "l": "AI 技能从业者薪资溢价"
-            }
-          ]
-        },
-        {
-          "beat": "算力·能耗·环境",
-          "works": 4,
-          "claims": 27,
-          "first": "2026-05-28",
-          "last": "2026-10-10",
-          "chapters": [
-            {
-              "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
-              "v": "78%",
-              "l": "市场份额"
-            },
-            {
-              "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
-              "v": "99.9999999%",
-              "l": "硅砂提纯"
-            },
-            {
-              "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
-              "v": "89.4%",
-              "l": "中国电信庆阳"
-            },
-            {
-              "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
-              "v": "+25%",
-              "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
-            }
-          ]
-        },
-        {
-          "beat": "工具链与产业主权",
-          "works": 2,
-          "claims": 15,
-          "first": "2026-07-04",
-          "last": "2026-07-21",
-          "chapters": [
-            {
-              "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
-              "v": "41%",
-              "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"
-            },
-            {
-              "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
-              "v": "6.0%",
-              "l": "三、连锁反应：国产工具的全面崛起"
-            }
-          ]
-        },
-        {
           "beat": "成本与普惠",
-          "works": 2,
-          "claims": 8,
+          "works": 5,
+          "claims": 49,
           "first": "2026-06-11",
-          "last": "2026-10-15",
+          "last": "2026-10-20",
           "chapters": [
             {
               "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
@@ -7705,32 +7882,24 @@
               "l": "Siri 首次重构"
             },
             {
+              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+              "v": "83%",
+              "l": "智谱AI率先涨价"
+            },
+            {
               "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
               "v": "34%",
               "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"
-            }
-          ]
-        },
-        {
-          "beat": "安全与治理",
-          "works": 4,
-          "claims": 1,
-          "first": "2026-05-27",
-          "last": "2026-09-15",
-          "chapters": [
-            {
-              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html"
             },
             {
-              "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
-              "v": "3%",
-              "l": "⚡ 高风险系统"
+              "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
+              "v": "1美元",
+              "l": "买到的 Token"
             },
             {
-              "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"
-            },
-            {
-              "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"
+              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+              "v": "60%",
+              "l": "初级员工占技术部门比重"
             }
           ]
         }
@@ -7754,48 +7923,48 @@
         "claims": 167
       },
       {
+        "name": "厂商与算力权力",
+        "claims": 162
+      },
+      {
+        "name": "宏观利率与股市",
+        "claims": 149
+      },
+      {
         "name": "Agent 与编排",
         "claims": 109
       },
       {
         "name": "估值与资本",
-        "claims": 73
+        "claims": 99
       },
       {
         "name": "应用落地",
-        "claims": 70
+        "claims": 73
       },
       {
-        "name": "宏观利率与股市",
-        "claims": 59
+        "name": "就业与劳动",
+        "claims": 65
       },
       {
-        "name": "厂商与算力权力",
-        "claims": 57
+        "name": "安全与治理",
+        "claims": 64
+      },
+      {
+        "name": "算力·能耗·环境",
+        "claims": 56
+      },
+      {
+        "name": "工具链与产业主权",
+        "claims": 54
       },
       {
         "name": "机器人与具身",
         "claims": 49
       },
       {
-        "name": "就业与劳动",
-        "claims": 37
-      },
-      {
-        "name": "算力·能耗·环境",
-        "claims": 27
-      },
-      {
-        "name": "工具链与产业主权",
-        "claims": 15
-      },
-      {
         "name": "成本与普惠",
-        "claims": 8
-      },
-      {
-        "name": "安全与治理",
-        "claims": 1
+        "claims": 49
       }
     ]
   }

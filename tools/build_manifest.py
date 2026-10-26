@@ -493,9 +493,11 @@ def group_by_line(items):
     out = {name: [] for name in BEAT_FAMILIES}
     unclassified = []
     for i in items:
-        beat = (i.get('beat') or '').strip()
-        if beat:
-            # 声明了但不在封闭集 → 进「待归类」，不硬塞进某条线
+        # ⚠️ 只有**显式声明**才独占一条线；推断归属仍按关键词多归属
+        # （BEAT_FAMILIES 的注释已写明「跨族标签会重复计入，是刻意取舍」——
+        #  追踪线要的是「这条主题覆盖了多少作品」，不是互斥分区）。
+        if i.get('beat_declared'):
+            beat = (i.get('beat') or '').strip()
             if beat in out:
                 out[beat].append(i)
             else:
@@ -733,13 +735,15 @@ def main():
         # 否则 manifest 只记「声明过的」，而 EMBEDDED 记「解析后的」，
         # 同一件作品在两处显示不同归属（实测 manifest 说无、EMBEDDED 说有）。
         beat = read_declared_beat(os.path.join(ROOT, rel))
-        if not beat:
+        if beat:
+            item['beat_declared'] = True      # 显式声明 = 权威，单归属
+        else:
             for _name, _kws in BEAT_FAMILIES.items():
                 if any(any(k in t for k in _kws) for t in (e.get('highlights') or [])):
                     beat = _name
                     break
         if beat:
-            item['beat'] = beat
+            item['beat'] = beat              # 解析后归属（卡片主标签，单条）
             # 「待归类」是显式退出（作者知道该篇不属于任何现有线），不是错误；
             # 其他不在封闭集里的名字才是真问题（写错了）。
             if beat not in BEAT_FAMILIES and beat != BEAT_PENDING:
