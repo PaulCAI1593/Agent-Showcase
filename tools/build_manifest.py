@@ -206,11 +206,14 @@ def sync_embedded(manifest):
             beat = i.get('beat') or line_of.get(i['file']) or ''
             if beat:
                 rec['beat'] = beat
-            # 断言（压缩为 value/label，供卡片展示与搜索命中）
+            # 断言（压缩为 value/label，供卡片展示与**全文检索**命中）
+            # ⚠️ 必须放**全部**：平均每件 10.8 条，只放前 3 条等于七成断言搜不到
+            # （实测 997 条里只索引了 250 条）。全量仅增约 31KB，预算内。
+            # 卡片只显示 claims[0]（最具代表性的一条，由 order_claims 排在首位）。
             cl = i.get('claims') or []
             if cl:
                 rec['claims'] = [{'v': c.get('value', ''), 'l': c.get('label', '')}
-                                 for c in cl[:3]]
+                                 for c in cl]
             if i['date'] >= cutoff and i['description']:
                 rec['description'] = i['description']
                 kept += 1
