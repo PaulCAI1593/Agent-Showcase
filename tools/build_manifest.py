@@ -82,6 +82,8 @@ def load_type_registry():
 EXCLUDE_DIRS = {'_archive', 'thumbs', '.git', '__pycache__', 'templates', 'tools', 'assets', 'notes'}
 EXCLUDE_FILES = {'index.html', 'enrich.json', 'manifest.json', 'build_manifest.py'}
 BACKUP_RE = re.compile(r'\.bak\.\d{8}-\d{6}$')
+# 交付前必须替换的占位符：模板 {{ }} 与旧式【】 两种都算
+PLACEHOLDER_RE = re.compile(r'\{\{[^}]*\}\}|【[^】]{2,20}】')
 
 
 def load_json(path, default):
@@ -264,6 +266,20 @@ def guardrails(manifest):
         except json.JSONDecodeError as exc:
             problems.append(f'EMBEDDED 解析失败: {exc}')
 
+    # 交付前必须替换的占位符：模板 {{ }} 与旧式【】 两种都算
+    # 曾出现模板的【作品标题】占位被原样发布上展 —— 必须在护栏里硬失败
+    leftovers = []
+    for g in ('research', 'creative'):
+        for i in manifest[g]:
+            for field, val in (('标题', i.get('title') or ''),
+                               ('描述', i.get('description') or '')):
+                if PLACEHOLDER_RE.search(val):
+                    leftovers.append(f'{i["file"]} 的{field}仍含占位符（{val[:36]}）')
+    if leftovers:
+        problems.append(f'{len(leftovers)} 件作品仍含未替换的占位符 —— 交付前必须替换')
+        for x in leftovers[:5]:
+            print('       !', x)
+
     if size_kb > SIZE_BUDGET_KB:
         problems.append(f'index.html {size_kb:.0f}KB 超出预算 {SIZE_BUDGET_KB}KB')
 
@@ -336,22 +352,22 @@ def compute_claim_stats(manifest, gate):
     total = covered = 0
     by_beat = Counter()
     unverified = 0
+    # ⚠️ total 取**已入库的 claims**，不取重新扫描的结果 ——
+    # 两者会差 1~2 条（重扫描与回填的分类边界不完全一致），
+    # 导致「断言总数 1001」却「重校验 1000/1000 通过」这种自相矛盾。
     for i in items:
-        g = results.get(i['file'])
-        if not g:
-            continue
-        n = len(g['l0'])
+        n = len(i.get('claims') or [])
         total += n
         if n:
             covered += 1
-        unverified += len(g['l1'])
+        g = results.get(i['file'])
+        if g:
+            unverified += len(g['l1'])
     # 断言按作品所属追踪线归集（**声明优先**，与卷宗口径一致）
     line_works, _ = group_by_line(items)
     for name, hit in line_works.items():
         for i in hit:
-            g = results.get(i['file'])
-            if g:
-                by_beat[name] += len(g['l0'])
+            by_beat[name] += len(i.get('claims') or [])
     l1 = sum(len(g['l1']) for g in results.values())
     l2 = sum(1 for g in results.values() if g['l2_reason'])
     return {
@@ -679,6 +695,10 @@ def main():
         title = e.get('title') or html_title or old.get('title') or ''
         if (not e.get('title')) and html_title and old.get('title') and html_title != old['title']:
             issues.append(f'标题以作品 <title> 为准（原 manifest: {old["title"][:34]}）: {rel}')
+        # 占位符残留 → 直接判 FAIL（曾出现模板的【】占位标题被原样发布上展）
+        for field, val in (('标题', title), ('描述', e.get('description') or old.get('description') or '')):
+            if PLACEHOLDER_RE.search(val or ''):
+                issues.append(f'{rel}: {field}仍含占位符（{val[:40]}）—— 交付前必须替换')
 
         item = {
             'id': old.get('id') or f'item-{date}-{typ}-{os.path.basename(rel)[:-5]}',

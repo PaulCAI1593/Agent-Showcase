@@ -684,6 +684,30 @@ def phase_claims(disk_works, dry):
             log('  ! ' + line)
 
 
+def prune_orphan_enrich(disk_works):
+    """自愈：清掉 enrich.json 里指向**已不存在作品**的孤儿条目。
+
+    为什么需要：手工删掉一件作品后，它的 enrich 条目会永远留着 ——
+    阶段7 的「孤儿键」校验会永久失败、标签总数也会永久对不上，
+    流水线从此卡死。自动清理让流水线可自愈。
+    """
+    rule('阶段 5.8 · 自愈：清理 enrich.json 孤儿键')
+    data = load_json(ENRICH, {'works': []})
+    if not isinstance(data, dict) or 'works' not in data:
+        log('  [skip] enrich.json 结构非预期，跳过')
+        return
+    alive = set(disk_works)
+    before = len(data['works'])
+    kept = [w for w in data['works'] if w.get('file') in alive]
+    removed = before - len(kept)
+    if removed:
+        data['works'] = kept
+        save_json_if_changed(ENRICH, data, 2)
+        log(f'  ✓ 清理孤儿键 {removed} 条（作品已不在磁盘上）')
+    else:
+        log('  ✓ 无孤儿键')
+
+
 def phase_manifest(dry):
     """调用既有 build_manifest.py 重建索引（不改其逻辑）。"""
     rule('阶段 6 · 重建索引：调用 tools/build_manifest.py')
@@ -957,6 +981,10 @@ def main():
 
     # ── 阶段 5.5：返回链 + 断言回填
     phase_claims(disk_works, args.dry_run)
+
+    # ── 阶段 5.8：自愈（清孤儿键）
+    if not args.dry_run:
+        prune_orphan_enrich(live_works())
 
     # ── 阶段 6：重建索引
     phase_manifest(args.dry_run)

@@ -28,6 +28,16 @@
           "value": "3 家",
           "label": "全球 HBM 制造商数量",
           "quote": "3 家 全球 HBM 制造商数量"
+        },
+        {
+          "value": "10.6%",
+          "label": "×营业利益",
+          "quote": "10.6%×营业利益"
+        },
+        {
+          "value": "2.31%",
+          "label": "10.9 ÷ 472.68",
+          "quote": "2.31% 10.9 ÷ 472.68"
         }
       ]
     },
@@ -7048,11 +7058,11 @@
       }
     ],
     "claims": {
-      "total": 995,
+      "total": 997,
       "works_covered": 92,
       "works_total": 104,
       "coverage": 88,
-      "pending": 414,
+      "pending": 423,
       "no_structure": 9,
       "dossier": [
         {
@@ -7801,11 +7811,11 @@
     }
   },
   "claim_stats": {
-    "total": 995,
+    "total": 997,
     "works_covered": 92,
     "works_total": 104,
     "coverage": 88,
-    "pending": 414,
+    "pending": 423,
     "no_structure": 9,
     "by_beat": [
       {
