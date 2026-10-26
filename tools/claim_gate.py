@@ -583,6 +583,17 @@ def selftest():
           '</script>')
     check('未替换的占位值被拒', len(filter_declared(ph, declared_claims(ph) or [])), 0)
 
+    print('【创意类：自由结构（无语义 class 名）】')
+    # 创意类不用模板 —— class 名任意，只能靠声明把断言送进卷宗
+    free = ('<div class="whatever-x"><span>$0.10 / 1M</span>'
+            '<span>Token 价格战下沿单价</span></div>'
+            '<script type="application/json" id="claims">'
+            '[{"value":"$0.10 / 1M","label":"Token 价格战下沿单价","quote":"$0.10 / 1M"}]'
+            '</script>')
+    check('自由结构能读出声明', len(declared_claims(free) or []), 1)
+    check('自由结构的声明能过闸', len(filter_declared(free, declared_claims(free) or [])), 1)
+    check('自由结构自动抽取为 0（所以必须声明）', len(extract_candidates(free)), 0)
+
     print('【闸门端到端】')
     g = gate_work('<p>布伦特原油两周跌幅 -16%</p><p>存储芯片在 iPhone 18 Pro 物料成本 34%</p>')
     check('L0 有 2 条', len(g['l0']), 2)
