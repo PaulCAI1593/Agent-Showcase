@@ -33,25 +33,104 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
 /* ══ 柜面 ══════════════════════════════════════════════ */
-.cab-face{
-  position:relative;padding:96px 28px 56px;overflow:hidden;
-  background:radial-gradient(ellipse 110% 70% at 22% -10%,rgba(245,230,200,.07) 0%,transparent 58%),
-             radial-gradient(ellipse 70% 60% at 88% 12%,rgba(167,139,250,.07) 0%,transparent 55%),var(--g0);
+/* ══ 封面（海报）═════════════════════════════════════════════
+   封面只做一件事：让人想往下翻。所以只留一个主导视觉（本期代表作）、
+   一句主张、超大字号。工具（检索/筛选）全部下沉到柜子里。
+   高度撑满一屏，柜子在下一屏 —— 像一本杂志的封面与内页。 */
+.cover{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;
+  overflow:hidden;padding:38px 28px 30px;
+  background:
+    radial-gradient(ellipse 90% 62% at 14% -6%,rgba(245,230,200,.085) 0%,transparent 60%),
+    radial-gradient(ellipse 64% 58% at 92% 8%,rgba(167,139,250,.085) 0%,transparent 56%),
+    var(--g0);
   border-bottom:1px solid var(--border);
 }
-.cab-face-inner{max-width:1240px;margin:0 auto}
-.cab-title{font-family:var(--serif);font-size:clamp(38px,5.4vw,64px);font-weight:700;line-height:1.1;
-  letter-spacing:-.022em;margin:0}
-.cab-title em{font-style:normal;color:var(--gold)}
-.cab-lede{margin-top:18px;font-size:16.5px;line-height:1.72;color:var(--t2);max-width:58ch}
-.cab-top{display:flex;gap:40px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-top:38px}
-.cab-figs{display:flex;gap:34px;flex-wrap:wrap}
-.fig-n{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--gold);line-height:1.05;
-  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.fig-l{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-top:5px}
+.cover-inner{max-width:1240px;width:100%;margin:0 auto;flex:1;display:flex;flex-direction:column}
+.cover-issue{
+  display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);
+  font-family:var(--serif);padding-bottom:18px;border-bottom:1px solid var(--border);
+}
+.cover-issue b{color:var(--gold);font-weight:600;letter-spacing:.05em}
+.cover-body{
+  flex:1;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  gap:64px;align-items:center;padding:52px 0 40px;
+}
+.cover-title{
+  font-family:var(--serif);font-weight:700;letter-spacing:-.03em;
+  font-size:clamp(50px,7.4vw,104px);line-height:1.03;margin:0;
+  text-wrap:balance;
+}
+.cover-title em{font-style:normal;color:var(--gold);display:block}
+.cover-rule{width:76px;height:2px;background:var(--gold);margin:34px 0 26px;opacity:.9}
+.cover-lede{font-size:17px;line-height:1.8;color:var(--t2);max-width:23em;text-wrap:pretty}
+.cover-lede b{color:var(--t1);font-weight:500}
+.cover-figs{display:flex;gap:0;flex-wrap:wrap;margin-top:44px}
+.cover-figs>div{padding:0 30px;border-left:1px solid var(--border)}
+.cover-figs>div:first-child{padding-left:0;border-left:0}
+.fig-n{font-family:var(--serif);font-size:clamp(30px,3.4vw,44px);font-weight:600;color:var(--gold);
+  line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.fig-l{font-size:12px;letter-spacing:.04em;color:var(--t3);margin-top:9px}
+
+/* 本期主打：像画廊里裱起来的那一张 */
+.cover-plate{position:relative;margin:0;display:block}
+.cover-plate img{
+  display:block;width:100%;aspect-ratio:1260/800;object-fit:cover;object-position:top center;
+  border-radius:3px;border:1px solid var(--border-h);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9),0 2px 10px rgba(0,0,0,.5);
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease);
+}
+.cover-plate:hover img{transform:translateY(-4px) scale(1.006);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.95),0 2px 12px rgba(0,0,0,.55)}
+.cover-plate figcaption{
+  display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--border);
+  font-size:12.5px;color:var(--t3);
+}
+.cp-tag{font-size:11.5px;letter-spacing:.04em;color:var(--gold);
+  font-family:var(--serif);white-space:nowrap}
+.cp-title{font-family:var(--serif);font-size:15px;color:var(--t1);line-height:1.45}
+.cp-claim{display:flex;gap:8px;align-items:baseline;margin-top:9px;font-size:12.5px;color:var(--t3)}
+.cp-claim b{font-family:var(--serif);font-size:15px;color:var(--gold);font-weight:600;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 底部：追踪线条目（像杂志的目录条）+ 下翻提示 */
+.cover-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;
+  padding-top:20px;border-top:1px solid var(--border)}
+.cover-lines{display:flex;gap:0;flex-wrap:wrap;font-size:12.5px;color:var(--t3);
+  font-family:var(--serif);letter-spacing:.02em}
+.cover-lines span{padding:0 13px;border-left:1px solid var(--border);transition:color .2s}
+.cover-lines span:hover{color:var(--t1)}
+.cover-lines span:first-child{padding-left:0;border-left:0}
+.cover-scroll{display:flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.05em;
+  color:var(--t3);font-family:var(--serif);white-space:nowrap}
+.cover-scroll svg{width:15px;height:15px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(-2px);opacity:.7}50%{transform:translateY(3px);opacity:1}}
+
+/* 封面入场：唯一的一次性编排（不是每屏同样的入场） */
+.cover-issue,.cover-title,.cover-rule,.cover-lede,.cover-figs,.cover-plate,.cover-foot{
+  opacity:0;transform:translateY(16px);
+}
+.cover-in .cover-issue{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .9s var(--ease)}
+.cover-in .cover-title{opacity:1;transform:none;transition:opacity .8s var(--ease) .08s,transform 1s var(--ease) .08s}
+.cover-in .cover-rule{opacity:1;transform:none;transition:opacity .6s var(--ease) .3s,transform .8s var(--ease) .3s}
+.cover-in .cover-lede{opacity:1;transform:none;transition:opacity .8s var(--ease) .36s,transform 1s var(--ease) .36s}
+.cover-in .cover-figs{opacity:1;transform:none;transition:opacity .8s var(--ease) .46s,transform 1s var(--ease) .46s}
+.cover-in .cover-plate{opacity:1;transform:none;transition:opacity 1s var(--ease) .2s,transform 1.2s var(--ease) .2s}
+.cover-in .cover-foot{opacity:1;transform:none;transition:opacity .9s var(--ease) .58s,transform 1s var(--ease) .58s}
+@media(prefers-reduced-motion:reduce){
+  .cover-issue,.cover-title,.cover-rule,.cover-lede,.cover-figs,.cover-plate,.cover-foot{opacity:1;transform:none}
+  .cover-scroll svg{animation:none}
+}
 
 /* 搜索：档案柜的主控制 */
 .search{position:relative;flex:1 1 320px;max-width:420px;min-width:260px}
+.search--bar{flex:0 1 300px;min-width:190px;max-width:300px}
+.search--bar input{padding:7px 12px 7px 38px;font-size:13.5px;border-radius:980px}
+.search--bar svg{left:13px;width:14px;height:14px}
+.search-hint--bar{max-width:1240px;margin:0 auto;padding:10px 34px 0;font-size:12px;color:var(--t3)}
+.search-hint--bar:empty{display:none}
 .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
 .search input{
   width:100%;padding:13px 15px 13px 44px;border-radius:11px;
@@ -202,6 +281,18 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 .foot .foot-n{font-family:var(--serif);font-size:12.5px;color:var(--t3);white-space:nowrap}
 
 @media(max-width:1000px){
+  #stale-notice{font-size:11.5px;bottom:14px;padding:8px 11px}
+  .cover{min-height:auto;padding:26px 22px 22px}
+  .cover-body{grid-template-columns:1fr;gap:34px;padding:34px 0 26px}
+  .cover-title{font-size:clamp(38px,9vw,64px)}
+  .cover-rule{margin:24px 0 18px}
+  .cover-lede{font-size:16px}
+  .cover-figs{margin-top:30px}
+  .cover-figs>div{padding:0 20px}
+  .cover-plate{order:-1}
+  .cover-foot{padding-top:14px}
+  .cover-lines{font-size:11.5px}
+  .cover-scroll{font-size:12px}
   .cab{grid-template-columns:1fr;border:0}
   .spine{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--border);
     display:flex;gap:6px;overflow-x:auto;padding:14px 22px;scrollbar-width:none}
@@ -242,24 +333,47 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 </svg>
 
 <!-- ══ 柜面 ══════════════════════════════════════════════ -->
-<header class="cab-face">
-  <div class="cab-face-inner">
-    <h1 class="cab-title">按月份归档的<em>团队档案</em></h1>
-    <p class="cab-lede">每一格是一段时间，抽出来就是那段时间里团队做了什么、发现了什么。
-      卡片上的金色数字不是修辞 —— 它们的引用都逐字回查过原文。</p>
+<header class="cover" id="cover">
+  <div class="cover-inner">
+    <div class="cover-issue">
+      <span>Zhinang Archive · 智囊团档案柜</span>
+      <b id="cv-issue"></b>
+      <span id="cv-span"></span>
+    </div>
 
-    <div class="cab-top">
-      <div class="cab-figs">
-        <div><div class="fig-n" id="fig-works">0</div><div class="fig-l">件作品</div></div>
-        <div><div class="fig-n" id="fig-months">0</div><div class="fig-l">个月份</div></div>
-        <div><div class="fig-n" id="fig-lines">0</div><div class="fig-l">条追踪线</div></div>
-        <div><div class="fig-n" id="fig-claims">0</div><div class="fig-l">条已验证断言</div></div>
+    <div class="cover-body">
+      <div>
+        <h1 class="cover-title">按月份归档的<em>团队档案</em></h1>
+        <div class="cover-rule"></div>
+        <p class="cover-lede">每一格是一段时间。抽出来，就是那段时间团队做了什么、发现了什么。<br>
+          卡片上的金色数字不是修辞 ——
+          <b>它们的引用都逐字回查过原文。</b></p>
+        <div class="cover-figs">
+          <div><div class="fig-n" id="fig-works">0</div><div class="fig-l">件作品</div></div>
+          <div><div class="fig-n" id="fig-months">0</div><div class="fig-l">个月份</div></div>
+          <div><div class="fig-n" id="fig-lines">0</div><div class="fig-l">条追踪线</div></div>
+          <div><div class="fig-n" id="fig-claims">0</div><div class="fig-l">条已验证断言</div></div>
+        </div>
       </div>
-      <div class="search">
-        <svg class="ico" aria-hidden="true"><use href="#ico-search"/></svg>
-        <input id="q" type="search" placeholder="检索标题、标签、断言…"
-               autocomplete="off" aria-label="检索档案">
-        <div class="search-hint" id="qhint">按 <b>标题</b> / <b>标签</b> / <b>断言</b> 检索，或点左侧月份标签直接拉开抽屉</div>
+
+      <figure class="cover-plate" id="cover-plate">
+        <a id="cover-plate-link" href="#">
+          <img id="cover-img" alt="" decoding="async" fetchpriority="high" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1260' height='800'%3E%3Crect width='1260' height='800' fill='%230b0c12'/%3E%3C/svg%3E">
+        </a>
+        <figcaption>
+          <span class="cp-tag" id="cover-tag">本期主打</span>
+          <span class="cp-title" id="cover-title"></span>
+          <span class="cp-claim" id="cover-claim"></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="cover-foot">
+      <div class="cover-lines" id="cover-lines"></div>
+      <div class="cover-scroll">
+        进入档案柜
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
       </div>
     </div>
   </div>
@@ -271,11 +385,17 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
   <span class="bar-sep"></span>
   <span class="bar-note" id="barnote"></span>
   <span class="bar-spacer"></span>
+  <span class="search search--bar">
+    <svg class="ico" aria-hidden="true"><use href="#ico-search"/></svg>
+    <input id="q" type="search" placeholder="检索标题、标签、断言…"
+           autocomplete="off" aria-label="检索档案">
+  </span>
   <span class="bar-modes" role="group" aria-label="抽屉内容">
     <button class="mode-btn on" data-mode="works">按作品</button>
     <button class="mode-btn" data-mode="claims">按断言</button>
   </span>
 </div>
+<div class="search-hint search-hint--bar" id="qhint"></div>
 <div class="cab" id="cab">
   <aside class="spine" id="spine" aria-label="抽屉目录"></aside>
   <main class="drawers" id="drawers"></main>
@@ -300,7 +420,7 @@ const EMBEDDED={"research": [{"file": "2026-10-24/research/2026-10-24-micron-tao
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-let DATA=[], STATS={}, BY_FILE={}, MONTHS=[], openSet=new Set(), Q='', MODE='works';
+let DATA=[], ALL=[], STATS={}, BY_FILE={}, MONTHS=[], openSet=new Set(), Q='', MODE='works';
 
 function normalize(src){
   const out=[];
@@ -333,6 +453,62 @@ function renderFigs(){
   $('#fig-lines').textContent=(c.dossier||[]).length;
   $('#fig-claims').textContent=c.total||0;
   const f=$('#foot-date'); if(f) f.textContent=STATS.generated?('更新于 '+STATS.generated):'';
+}
+
+// 封面数字递增（一次落定的瞬间 —— 封面唯一的"表演"）
+function countUpFigs(){
+  const ids=['fig-works','fig-months','fig-lines','fig-claims'];
+  ids.forEach((id,k)=>{
+    const el=document.getElementById(id); if(!el) return;
+    const target=parseInt(el.textContent,10); if(isNaN(target)||target===0) return;
+    const dur=900, delay=420+k*90;
+    setTimeout(()=>{
+      const t0=performance.now();
+      const step=now=>{
+        const p=Math.min((now-t0)/dur,1);
+        const eased=1-Math.pow(1-p,3);
+        el.textContent=Math.round(target*eased).toLocaleString('en-US');
+        if(p<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, delay);
+  });
+}
+
+// 封面：期号 / 跨度 / 本期主打 / 追踪线条目 —— 全部由数据算出，随作品自动更新
+function renderCover(feat){
+  const c=(STATS.claims||{});
+  const dossier=c.dossier||[];
+  const first=(MONTHS.length?MONTHS[MONTHS.length-1].key:'');
+  const last=(MONTHS.length?MONTHS[0].key:'');
+  const issue=$('#cv-issue');
+  if(issue) issue.textContent='第 '+MONTHS.length+' 期';
+  const sp=$('#cv-span');
+  if(sp) sp.textContent=first+' — '+last;
+
+  // 追踪线条目（像杂志的目录条）
+  const cl=$('#cover-lines');
+  if(cl) cl.innerHTML=dossier.slice(0,8).map(d=>`<span>${esc(d.beat)}</span>`).join('')
+    + (dossier.length>8?`<span>+${dossier.length-8}</span>`:'');
+
+  // 本期主打
+  if(feat){
+    const img=$('#cover-img');
+    if(img && feat.thumb){ img.src=feat.thumb; img.alt=feat.title; }
+    const link=$('#cover-plate-link'); if(link) link.href=feat.file;
+    const tag=$('#cover-tag');
+    if(tag) tag.textContent='本期主打 · '+feat.date;
+    const t=$('#cover-title'); if(t) t.textContent=feat.title;
+    const cl2=$('#cover-claim');
+    const c0=(feat.claims&&feat.claims[0])||null;
+    if(cl2) cl2.innerHTML=c0
+      ? `<b>${esc(c0.v)}</b><span>${esc(c0.l)}</span>`
+      : '<span>本篇暂无已验证断言</span>';
+  }
+  // 入场编排
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const cov=document.getElementById('cover'); if(cov) cov.classList.add('cover-in');
+  }));
 }
 
 /* ── 侧标（柜脊）── */
@@ -541,6 +717,7 @@ function setQuery(q){
 /* ── 启动 ── */
 function boot(raw){
   DATA=normalize(raw);
+  ALL=DATA;                 // normalize 已按日期倒序（新的在前）
   STATS=raw.stats||{};
   BY_FILE={}; DATA.forEach(i=>BY_FILE[i.file]=i);
   // 月份分格
@@ -554,6 +731,13 @@ function boot(raw){
   // 默认拉开最新一格
   if(MONTHS.length) openSet.add(MONTHS[0].key);
   renderFigs(); renderSpine(); renderDrawers(); updateNote();
+  // 本期主打：最新月份里**有缩略图**的那件（没有缩略图会是一张空卡）
+  // ⚠️ ALL 已按日期倒序，ALL[0] 就是最新的一件
+  const latestMonth=ALL.length?ALL[0].date.substring(0,7):'';
+  const pool=ALL.filter(i=>i.date.substring(0,7)===latestMonth);
+  const feat=(pool.find(i=>i.thumb)||ALL.find(i=>i.thumb)||ALL[0])||null;
+  renderCover(feat);
+  countUpFigs();
   const q=$('#q');
   q.addEventListener('input',e=>setQuery(e.target.value));
   document.querySelectorAll('.mode-btn').forEach(b=>{
@@ -592,20 +776,26 @@ function showStale(){
   n.id='stale-notice'; n.setAttribute('role','status');
   n.style.cssText='position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:99;'
     +'display:flex;gap:10px;align-items:center;background:rgba(245,230,200,.09);border:1px solid rgba(245,230,200,.22);'
-    +'color:#f5e6c8;font-size:12.5px;padding:10px 16px;border-radius:10px;backdrop-filter:blur(8px);max-width:min(92vw,620px)';
+    +'color:#f5e6c8;font-size:12px;line-height:1.55;padding:9px 13px;border-radius:10px;'
+    +'backdrop-filter:blur(8px);max-width:min(92vw,560px)';
+  n.querySelector('span{flex:1;min-width:0}'
+    +'.stale-x{flex-shrink:0;background:none;border:0;color:inherit;font-size:17px;line-height:1;'
+    +'opacity:.6;cursor:pointer;padding:0 2px}.stale-x:hover{opacity:1}');
   // 区分两种情况：file:// 是**预期降级**（浏览器禁止 fetch 本地 json），
   // HTTP 下取不到才是真故障 —— 混为一谈会让人以为系统坏了。
   const isFile = location.protocol === 'file:';
   const built = (STATS && STATS.generated) ? STATS.generated : '未知';
   n.innerHTML = isFile
     ? '<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
-      + '<span><b>离线模式</b> · 浏览器禁止 file:// 读取本地 json，已回退到内置快照'
-      + '（构建于 '+esc(built)+'，与磁盘一致）。要实时数据请跑 '
-      + '<code>python3 tools/serve.py</code> 后访问 http://127.0.0.1:8940/</span>'
+      + '<span><b>离线模式</b> · file:// 下浏览器不允许读取本地 json，已回退到内置快照'
+      + '（'+esc(built)+'，与磁盘一致）。要实时数据：<code>python3 tools/serve.py</code></span>'
     : '<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
-      + '<span><b>取不到 manifest.json</b> —— 这是真故障（文件缺失或服务异常）。'
-      + '当前显示内置快照（构建于 '+esc(built)+'）。</span>';
+      + '<span><b>取不到 manifest.json</b> —— 真故障（文件缺失或服务异常）。'
+      + '当前是内置快照（'+esc(built)+'）。</span>'
+    + '<button class="stale-x" aria-label="关闭提示">×</button>';
   document.body.appendChild(n);
+  // 可关闭：提示是"降级说明"，不该一直挡着内容
+  n.querySelector('.stale-x').addEventListener('click',()=>n.remove());
 }
 </script>
 </body>
