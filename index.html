@@ -490,10 +490,20 @@ function showStale(){
   const n=document.createElement('div');
   n.id='stale-notice'; n.setAttribute('role','status');
   n.style.cssText='position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:99;'
-    +'display:flex;gap:9px;align-items:center;background:rgba(245,230,200,.09);border:1px solid rgba(245,230,200,.22);'
-    +'color:#f5e6c8;font-size:12.5px;padding:10px 16px;border-radius:10px;backdrop-filter:blur(8px)';
-  n.innerHTML='<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
-    +'未能读取 manifest.json，当前显示的是内置快照，可能不是最新。';
+    +'display:flex;gap:10px;align-items:center;background:rgba(245,230,200,.09);border:1px solid rgba(245,230,200,.22);'
+    +'color:#f5e6c8;font-size:12.5px;padding:10px 16px;border-radius:10px;backdrop-filter:blur(8px);max-width:min(92vw,620px)';
+  // 区分两种情况：file:// 是**预期降级**（浏览器禁止 fetch 本地 json），
+  // HTTP 下取不到才是真故障 —— 混为一谈会让人以为系统坏了。
+  const isFile = location.protocol === 'file:';
+  const built = (STATS && STATS.generated) ? STATS.generated : '未知';
+  n.innerHTML = isFile
+    ? '<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
+      + '<span><b>离线模式</b> · 浏览器禁止 file:// 读取本地 json，已回退到内置快照'
+      + '（构建于 '+esc(built)+'，与磁盘一致）。要实时数据请跑 '
+      + '<code>python3 tools/serve.py</code> 后访问 http://127.0.0.1:8940/</span>'
+    : '<svg class="ico" aria-hidden="true"><use href="#ico-warn"/></svg>'
+      + '<span><b>取不到 manifest.json</b> —— 这是真故障（文件缺失或服务异常）。'
+      + '当前显示内置快照（构建于 '+esc(built)+'）。</span>';
   document.body.appendChild(n);
 }
 </script>
