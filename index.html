@@ -159,6 +159,40 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 .bar-btn:hover{background:var(--glass-h);border-color:var(--border-h);color:var(--t1)}
 .bar-note{font-size:12px;color:var(--t3);font-family:var(--serif)}
 .bar-note b{color:var(--gold);font-weight:500}
+.bar-sep{width:1px;height:14px;background:var(--border)}
+.bar-spacer{flex:1}
+.bar-modes{display:inline-flex;border:1px solid var(--border);border-radius:980px;overflow:hidden}
+.mode-btn{font-family:var(--sans);font-size:12.5px;color:var(--t3);background:transparent;border:0;
+  padding:6px 15px;cursor:pointer;transition:.2s}
+.mode-btn:hover{color:var(--t2)}
+.mode-btn.on{background:var(--gold);color:#14130f}
+/* 断言账目行：抽屉换成"账目"视图 */
+.led{display:block}
+/* 两行账目：值跨两行；第一行 = 值 + 指标名 + 追踪线 + 日期；第二行 = 作品标题
+   （单行挤不下 —— 指标名被截成「美光全…」而标题挤成「11个…」） */
+.led-row{display:grid;grid-template-columns:112px minmax(0,1fr) 104px 46px;
+  grid-template-areas:"v l line d" "v w w w";
+  gap:1px 16px;align-items:baseline;padding:10px 12px;border-radius:8px;transition:background .18s}
+.led-v{grid-area:v;align-self:start;padding-top:1px}
+.led-l{grid-area:l}
+.led-line{grid-area:line}
+.led-d{grid-area:d}
+.led-w{grid-area:w;margin-top:2px}
+.led-row:hover{background:var(--glass)}
+.led-row+.led-row{border-top:1px solid rgba(255,255,255,.035)}
+.led-v{font-family:var(--serif);font-size:14.5px;color:var(--gold);font-weight:600;
+  font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.led-l{font-size:13.5px;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.led-line{font-size:11px;color:var(--violet);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.led-d{font-family:var(--serif);font-size:11.5px;color:var(--t3);font-variant-numeric:tabular-nums}
+.led-w{font-size:12px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.led-w a{color:var(--t3)}
+.led-w a:hover{color:var(--gold)}
+@media(max-width:860px){
+  .led-row{grid-template-columns:88px minmax(0,1fr) 46px;
+    grid-template-areas:"v l d" ". w w";row-gap:2px}
+  .led-line{display:none}
+}
 
 /* 页脚 */
 .foot{border-top:1px solid var(--border);padding:40px 28px 54px}
@@ -234,7 +268,13 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 <!-- ══ 柜体 ══════════════════════════════════════════════ -->
 <div class="cab-bar">
   <button class="bar-btn" id="toggle-all">展开全部抽屉</button>
+  <span class="bar-sep"></span>
   <span class="bar-note" id="barnote"></span>
+  <span class="bar-spacer"></span>
+  <span class="bar-modes" role="group" aria-label="抽屉内容">
+    <button class="mode-btn on" data-mode="works">按作品</button>
+    <button class="mode-btn" data-mode="claims">按断言</button>
+  </span>
 </div>
 <div class="cab" id="cab">
   <aside class="spine" id="spine" aria-label="抽屉目录"></aside>
@@ -260,7 +300,7 @@ const EMBEDDED={"research": [{"file": "2026-10-24/research/2026-10-24-micron-tao
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-let DATA=[], STATS={}, BY_FILE={}, MONTHS=[], openSet=new Set(), Q='';
+let DATA=[], STATS={}, BY_FILE={}, MONTHS=[], openSet=new Set(), Q='', MODE='works';
 
 function normalize(src){
   const out=[];
@@ -269,7 +309,16 @@ function normalize(src){
       out.push({
         file:it.file, thumb:it.thumb||'', title:it.title||'', date:it.date||'',
         type:it.type||g, tags:it.highlights||it.tags||[], desc:it.description||it.desc||'',
-        beat:it.beat||'', claims:it.claims||[]
+        beat:it.beat||'',
+        // ⚠️ 两种数据源的 claims 形状不同：
+        //    manifest.json  → {value, label, quote}
+        //    EMBEDDED 快照  → {v, l}（为压缩体积）
+        //    客户端同时吃两种 —— 否则 HTTP 路径下断言全空白（实测）。
+        claims:(it.claims||[]).map(c=>({
+          v:c.v!=null?c.v:(c.value!=null?c.value:''),
+          l:c.l!=null?c.l:(c.label!=null?c.label:''),
+          q:c.quote||''
+        }))
       });
     }
   }
@@ -333,10 +382,27 @@ function cardHTML(it,i){
   </a>`;
 }
 
+function ledgerHTML(m){
+  // 断言账目：把该月的**已验证断言**逐条列出（每条都带作品链接，可回原文核对）
+  const rows=[];
+  m.items.forEach(it=>{
+    (it.claims||[]).forEach(c=>{
+      rows.push(`<div class="led-row" data-file="${esc(it.file)}" data-c="${(it.claims||[]).indexOf(c)}">
+        <span class="led-v">${esc(c.v)}</span>
+        <span class="led-l">${hl(c.l)}</span>
+        <span class="led-line">${it.beat?hl(it.beat):''}</span>
+        <span class="led-d">${it.date.slice(5)}</span>
+        <span class="led-w"><a href="${esc(it.file)}">${hl(it.title)}</a></span>
+      </div>`);
+    });
+  });
+  return `<div class="led">${rows.join('')}</div>`;
+}
+
 function renderDrawers(){
   const host=$('#drawers');
   host.innerHTML=MONTHS.map(m=>{
-    const cards=m.items.map((it,i)=>cardHTML(it,i)).join('');
+    const body = MODE==='claims' ? ledgerHTML(m) : m.items.map((it,i)=>cardHTML(it,i)).join('');
     const open=openSet.has(m.key);
     return `<section class="drawer${open?' open':''}" id="dr-${esc(m.key)}" data-month="${esc(m.key)}">
       <button class="drawer-tab" aria-expanded="${open}" aria-controls="db-${esc(m.key)}">
@@ -345,7 +411,7 @@ function renderDrawers(){
         <span class="dt-meta"></span>
         <svg class="ico dt-chev" aria-hidden="true"><use href="#ico-chev"/></svg>
       </button>
-      <div class="drawer-body" id="db-${esc(m.key)}">${cards}</div>
+      <div class="drawer-body" id="db-${esc(m.key)}">${body}</div>
     </section>`;
   }).join('');
 
@@ -382,10 +448,13 @@ function toggleMonth(key, fromSpine, fromTab){
 
 function updateNote(){
   const n=MONTHS.reduce((a,m)=>a+m.items.length,0);
+  const nc=MONTHS.reduce((a,m)=>a+m.items.reduce((b,i)=>b+(i.claims||[]).length,0),0);
   const o=openSet.size;
-  $('#barnote').innerHTML = o
-    ? `已拉开 <b>${o}</b> 个抽屉 · 共 ${n} 件`
-    : `全部收起 · 共 ${n} 件`;
+  $('#barnote').innerHTML = MODE==='claims'
+    ? (o ? `已拉开 <b>${o}</b> 个抽屉 · 共 <b>${nc}</b> 条已验证断言`
+          : `全部收起 · 共 <b>${nc}</b> 条已验证断言`)
+    : (o ? `已拉开 <b>${o}</b> 个抽屉 · 共 ${n} 件`
+          : `全部收起 · 共 ${n} 件`);
   $('#toggle-all').textContent = o===MONTHS.length ? '收起全部抽屉' : '展开全部抽屉';
 }
 
@@ -414,31 +483,48 @@ function setQuery(q){
   let hits=0;
   document.querySelectorAll('.drawer').forEach(sec=>{
     let n=0;
-    sec.querySelectorAll('.card').forEach(c=>{
-      const it=BY_FILE[c.getAttribute('href')];
-      const ok=!it?false:match(it);
-      c.style.display=ok?'':'none';
-      if(ok){
-        n++;
-        // 检索后才需要高亮 —— 渲染时还不知道查询词
-        const t=c.querySelector('.card-title');
-        if(t) t.innerHTML=hl(it.title);
-        // 显示**被命中的那条断言**，而不是固定第一条 ——
-        // 命中常在第 4+ 条（每件平均 10.8 条），显示第一条等于没命中
-        const cs=it.claims||[];
-        const hit=cs.find(c=>((c.v+' '+c.l).toLowerCase().includes(Q.toLowerCase())));
-        const shown=hit||cs[0];
-        const vb=c.querySelector('.card-claim b');
-        const cl=c.querySelector('.card-claim span');
-        if(vb&&shown) vb.textContent=shown.v;
-        if(cl&&shown) cl.innerHTML=hl(shown.l);
+    sec.querySelectorAll('.card, .led-row').forEach(c=>{
+      const isRow=c.classList.contains('led-row');
+      const it=BY_FILE[isRow?c.dataset.file:c.getAttribute('href')];
+      if(!it){ c.style.display='none'; return; }
+      let ok=false, shown=null;
+      if(isRow){
+        // 账目行按**行**匹配：该条断言命中，或该作品整体命中（标题/标签/追踪线）
+        const cl=(it.claims||[])[+c.dataset.c]||null;
+        const q=Q.toLowerCase();
+        const rowHit=cl && (cl.v+' '+cl.l).toLowerCase().includes(q);
+        const workHit=it.title.toLowerCase().includes(q)
+          || (it.tags||[]).some(t=>String(t).toLowerCase().includes(q))
+          || (it.beat&&it.beat.toLowerCase().includes(q));
+        ok=rowHit||workHit;
+        if(cl){
+          c.querySelector('.led-v').textContent=cl.v;
+          c.querySelector('.led-l').innerHTML=hl(cl.l);
+        }
+      }else{
+        ok=match(it);
+        if(ok){
+          // 显示**被命中的那条断言**，而不是固定第一条 ——
+          // 命中常在第 4+ 条（每件平均 10.8 条），显示第一条等于没命中
+          const cs=it.claims||[];
+          const hit=cs.find(x=>((x.v+' '+x.l).toLowerCase().includes(Q.toLowerCase())));
+          shown=hit||cs[0];
+          const t=c.querySelector('.card-title');
+          if(t) t.innerHTML=hl(it.title);
+          const vb=c.querySelector('.card-claim b');
+          const cl=c.querySelector('.card-claim span');
+          if(vb&&shown) vb.textContent=shown.v;
+          if(cl&&shown) cl.innerHTML=hl(shown.l);
+        }
       }
+      c.style.display=ok?'':'none';
+      if(ok)n++;
     });
     sec.classList.toggle('hit', !!Q && n>0);
     hits+=n;
   });
   $('#qhint').innerHTML = Q
-    ? `命中 <b>${hits}</b> 件`
+    ? `命中 <b>${hits}</b> ${MODE==='claims'?'条断言':'件'}`
     : '按 <b>标题</b> / <b>标签</b> / <b>断言</b> 检索，或点左侧月份标签直接拉开抽屉';
   if(Q && !hits){
     const sec=document.querySelector('.drawer');
@@ -470,6 +556,21 @@ function boot(raw){
   renderFigs(); renderSpine(); renderDrawers(); updateNote();
   const q=$('#q');
   q.addEventListener('input',e=>setQuery(e.target.value));
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      MODE=b.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(x=>x.classList.toggle('on',x===b));
+      renderDrawers();
+      // 重排后恢复开合状态与高亮
+      document.querySelectorAll('.drawer').forEach(sec=>{
+        const on=openSet.has(sec.dataset.month);
+        sec.classList.toggle('open',on);
+        sec.querySelector('.drawer-tab').setAttribute('aria-expanded',on?'true':'false');
+      });
+      if(Q) setQuery(Q);
+      updateNote();
+    });
+  });
   $('#toggle-all').addEventListener('click',()=>{
     if(openSet.size===MONTHS.length) openSet.clear(); else MONTHS.forEach(m=>openSet.add(m.key));
     document.querySelectorAll('.drawer').forEach(sec=>{
