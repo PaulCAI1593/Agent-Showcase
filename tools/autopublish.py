@@ -30,6 +30,7 @@ autopublish.py — 智囊团展厅「交付即上架」自动化流水线
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -70,12 +71,75 @@ def thumb_present(rel, date, typ):
     """该作品是否已有可用缩略图（webp 或 png 均算）。返回相对路径或 ''。"""
     return build_manifest.resolve_thumb(rel, date, typ)
 
+
+# 缩略图就绪判据（10-27 例会固化，直击三类"看着有、其实是坏的/旧的"首图）：
+#   1) 只有 png 不算就绪 —— 必须转成 webp 才算（否则绕过截图流程手工落的 PNG 永不补转）
+#   2) webp 字节过小视为近空白图（实测反诈AI 1506B / 720×405）
+#   3) 作品正文比 webp 新 —— 展厅首图会与正文永久分叉（实测 #353 主稿 19:09 vs 首图 04:11）
+WEBP_MIN_BYTES = 4096
+# 内容指纹表：记录"上次截图时作品正文的指纹"。
+# 为什么不用裸 mtime 比较：10-26 16:25 那轮批量注入「返回展厅」把 104 件作品的
+# mtime 集体推到各自缩略图之后 —— 纯 mtime 判据会触发 104 次无意义重截（约10分钟）。
+# 指纹只认"正文是否真的变了"，并剔除流水线自己注入的两块（返回链 / claims 声明），
+# 因此注入不算变更、作者改稿一定算变更。
+THUMB_STATE = os.path.join(ROOT, '_private', 'thumb_state.json')
+
+BACKLINK_RE = re.compile(r'<!--\s*showcase-backlink.*?-->', re.S)
+CLAIMS_BLOCK_RE = re.compile(r'<script[^>]+id=["\']claims["\'][^>]*>.*?</script>', re.S)
+
+
+def content_fingerprint(rel):
+    """作品正文指纹（剔除流水线注入物）。文件不存在返回 ''。"""
+    path = os.path.join(ROOT, rel)
+    if not os.path.exists(path):
+        return ''
+    try:
+        html = read_text(path)
+    except OSError:
+        return ''
+    html = BACKLINK_RE.sub('', html)
+    html = CLAIMS_BLOCK_RE.sub('', html)
+    html = re.sub(r'\s+', ' ', html)
+    return hashlib.sha1(html.encode('utf-8', 'ignore')).hexdigest()[:16]
+
+
+def thumb_state_key(rel, date, typ):
+    return f'{date}|{typ}|{work_key(rel)}'
+
+
+def thumb_ready(rel, date, typ, state):
+    """返回 (ready, reason)。reason='' 表示就绪。"""
+    stem = work_key(rel)
+    webp = os.path.join(THUMBS, f'{date}-{typ}-{stem}-thumb.webp')
+    png = os.path.join(THUMBS, f'{date}-{typ}-{stem}-thumb.png')
+    hi_res = os.path.join(THUMB_SRC, f'{date}-{typ}-{stem}-thumb.png')
+    if not os.path.exists(webp):
+        if os.path.exists(png) or os.path.exists(hi_res):
+            return False, 'png-only 待转 webp'
+        return False, '无缩略图'
+    size = os.path.getsize(webp)
+    if size < WEBP_MIN_BYTES:
+        return False, f'webp 过小({size}B < {WEBP_MIN_BYTES}B)，疑空白首图'
+    key = thumb_state_key(rel, date, typ)
+    fp = content_fingerprint(rel)
+    if key not in state:
+        # 惰性建档：存量作品信任既有首图，登记指纹后交由后续变更触发重截
+        state[key] = {'fp': fp, 'webp': os.path.getsize(webp)}
+        return True, '（建档）'
+    if fp and state[key].get('fp') and fp != state[key]['fp']:
+        return False, '正文指纹已变，需重截'
+    return True, ''
+
 BACKUP_RE = build_manifest.BACKUP_RE
 
 # 流水线自己管理的数据文件（不计入「产出是否在写入」判定）
 # 流水线自己维护、或属于文档性质的根文件：不是作品，也不该触发静默门禁。
 # （否则改一次 README 就会把上架流程锁 180s）
 PIPELINE_MANAGED = {'manifest.json', 'enrich.json', 'index.html', 'README.md'}
+
+# showcase 根目录允许存在的文件（白名单）。白名单外的一律在 W2 报出，
+# 避免 preview.png / test.txt 这类死重长期隐身（原判据只统计 .html）。
+ROOT_ALLOWED = PIPELINE_MANAGED | {'DESIGN_REFERENCE.md'}
 
 # 临时/草稿目录名（命中即整体隔离）
 SCRATCH_DIR_NAMES = {
@@ -599,7 +663,8 @@ def phase_thumbs(disk_works, manifest, registry, dry):
     old_types = {i['file']: i.get('type', 'research')
                  for g in ('research', 'creative') for i in manifest.get(g, [])}
     os.makedirs(THUMBS, exist_ok=True)
-    made, skipped = [], []
+    made, skipped, converted = [], [], 0
+    state = load_json(THUMB_STATE, {})
     for rel in disk_works:
         stem = work_key(rel)
         parts = rel.split(os.sep)
@@ -612,13 +677,39 @@ def phase_thumbs(disk_works, manifest, registry, dry):
             continue
         typ, _src = resolve_type(rel, old_types, registry)
         canonical = f'{date}-{typ}-{stem}-thumb.png'
-        if thumb_present(rel, date, typ):
-            continue                      # 幂等：webp/png 任一存在即视为已就绪
+        ready, why = thumb_ready(rel, date, typ, state)
+        if ready:
+            continue            # 幂等：webp 存在 + 字节达标 + 不早于正文
+        if why == 'png-only 待转 webp':
+            # 图已经是对的，只是没转格式 —— 补转即可，不必重截（省 4 分钟/百张）
+            if dry:
+                log(f'  [dry] 将补转 webp（png-only）：{canonical}')
+                continue
+            log(f'  → 补转 webp（png-only）：{rel}')
+            try:
+                os.makedirs(THUMB_SRC, exist_ok=True)
+                hi = os.path.join(THUMB_SRC, canonical)
+                loose = os.path.join(THUMBS, canonical)
+                if os.path.exists(loose):
+                    os.replace(loose, hi)      # 越界 PNG 归位到私有高清源
+                if os.path.exists(hi):
+                    make_thumbs_webp.convert_one(hi)
+                    converted += 1
+                    state[thumb_state_key(rel, date, typ)] = {
+                        'fp': content_fingerprint(rel),
+                        'webp': os.path.getsize(os.path.join(
+                            THUMBS, f'{date}-{typ}-{stem}-thumb.webp'))
+                        if os.path.exists(os.path.join(THUMBS, f'{date}-{typ}-{stem}-thumb.webp'))
+                        else 0}
+                    log('  ✓ 已补转，PNG 高清源归入 _private/thumbs-src/')
+            except Exception as e:
+                skipped.append((rel, f'补转失败：{e}'))
+            continue
         if dry:
             made.append(canonical)
-            log(f'  [dry] 将生成 {canonical}')
+            log(f'  [dry] 将重截 {canonical}（原因：{why}）')
             continue
-        log(f'  → {rel} ({typ})')
+        log(f'  → {rel} ({typ})｜原因：{why}')
         gen_thumb.shoot(rel, typ)
         produced = f'{stem[:10]}-{typ}-{stem}-thumb.png'   # gen_thumb 按 stem[:10] 取日期
         if produced != canonical:
@@ -642,9 +733,18 @@ def phase_thumbs(disk_works, manifest, registry, dry):
             except Exception as e:            # 转换失败不影响上架：png 仍在 thumbs/ 可用
                 log(f'  ! webp 转换跳过（沿用 png）：{e}')
             made.append(canonical)
+            # 截图完成 → 登记新指纹，下次只有在正文真的变了才会再截
+            wp = os.path.join(THUMBS, f'{date}-{typ}-{stem}-thumb.webp')
+            state[thumb_state_key(rel, date, typ)] = {
+                'fp': content_fingerprint(rel),
+                'webp': os.path.getsize(wp) if os.path.exists(wp) else 0}
         else:
             skipped.append((rel, '生成失败'))
-    log(f'  ✓ 新生成缩略图 {len(made)} 张，失败/跳过 {len(skipped)} 项')
+    if not dry:
+        save_json_if_changed(THUMB_STATE, state)
+    seeded = sum(1 for v in state.values() if v.get('fp'))
+    log(f'  ✓ 新生成/重截缩略图 {len(made)} 张，补转 {converted} 张，'
+        f'失败/跳过 {len(skipped)} 项｜指纹表 {seeded} 条')
     for rel, why in skipped:
         log(f'      ! {rel}: {why}')
     return made, skipped
@@ -938,6 +1038,26 @@ def phase_validate(pre_manifest, pre_tags, excluded=None, js_bad=None):
             f'无结构 {cs.get("no_structure", 0)}')
 
     fails = []
+    # ── 以下为 WARN（不判失败）：十项硬校验的语义保持不变，
+    #    但让两类"看着全绿其实有洞"的缺口不再隐身（10-27 例会新增）。
+    #  W1 作品契约声明块缺失（规则15）：0/104 时"断言层全绿"是假象 ——
+    #      manifest 里的 claims 是 claim_gate 自动抽取的回落值，不是作者声明。
+    no_claims = [i['file'] for i in items
+                 if '<script type="application/json" id="claims">' not in
+                 read_text(os.path.join(ROOT, i['file']))]
+    no_beat = [i['file'] for i in items
+               if 'name="showcase-beat"' not in read_text(os.path.join(ROOT, i['file']))]
+    #  W2 根目录非白名单残留：原「根目录残留=0」只统计 .html，
+    #      preview.png / test.txt 这类死重一直检不出来（10-26 实测 3 个）。
+    strays = sorted(f for f in os.listdir(ROOT)
+                    if os.path.isfile(os.path.join(ROOT, f))
+                    and not f.startswith('.') and f not in ROOT_ALLOWED)
+    log(f'  ⚠ W1 作品契约  缺claims声明 {len(no_claims)} 件 · 缺追踪线声明 {len(no_beat)} 件'
+        f'（不判失败，但覆盖率 88% 的缺口就在这里）')
+    for f in no_claims[-3:]:
+        log(f'        ! 无 claims 声明块: {f}')
+    if strays:
+        log(f'  ⚠ W2 根目录非白名单文件 {len(strays)} 个: ' + ', '.join(strays[:8]))
     if not c_count:
         fails.append('计数不一致')
     if miss_file:

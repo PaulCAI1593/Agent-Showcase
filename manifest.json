@@ -20,26 +20,48 @@
       "thumb": "thumbs/2026-10-24-research-2026-10-24-micron-taoyuan-strike-profit-sharing-thumb.webp",
       "claims": [
         {
-          "value": "23.3%",
-          "label": "美光全球 DRAM 营收市占",
-          "quote": "23.3% 美光全球 DRAM 营收市占"
+          "value": "约15,000人",
+          "label": "美光在台员工总数",
+          "quote": "美光在台员工约15,000人"
         },
         {
-          "value": "3 家",
-          "label": "全球 HBM 制造商数量",
-          "quote": "3 家 全球 HBM 制造商数量"
+          "value": "2,335名",
+          "label": "桃园工会会员数（自述）",
+          "quote": "桃园工会自述2,335名会员"
         },
         {
-          "value": "10.6%",
-          "label": "×营业利益",
-          "quote": "10.6%×营业利益"
+          "value": "1,633人",
+          "label": "否决公司方案的会员票数",
+          "quote": "1,633人反对公司方案"
         },
         {
-          "value": "2.31%",
-          "label": "10.9 ÷ 472.68",
-          "quote": "2.31% 10.9 ÷ 472.68"
+          "value": "99.1%",
+          "label": "罢工授权投票同意占投票人比例",
+          "quote": "同意占投票人99.1%"
+        },
+        {
+          "value": "11人",
+          "label": "实际走上纠察线人数",
+          "quote": "10月22日实际走上纠察线的是11名工会干部时长24小时"
+        },
+        {
+          "value": "1,994票",
+          "label": "罢工授权投票同意票数",
+          "quote": "1,994是10月1–6日罢工授权投票的同意票数"
+        },
+        {
+          "value": "8%→10%",
+          "label": "劳退提拨比例",
+          "quote": "劳退提拨8%→10%"
+        },
+        {
+          "value": "1,500→4,500元",
+          "label": "白班津贴调升幅度",
+          "quote": "白班津贴1,500→4,500元"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "就业与劳动"
     },
     {
       "id": "item-2026-10-22-research-2026-10-22-ai-credit-contagion-chain",
@@ -6837,7 +6859,7 @@
     }
   ],
   "stats": {
-    "generated": "2026-10-26",
+    "generated": "2026-10-27",
     "span": {
       "first": "2026-05-23",
       "last": "2026-10-24",
@@ -7016,7 +7038,7 @@
         "months": 6,
         "first": "2026-05-23",
         "last": "2026-10-20",
-        "weeks_idle": 0
+        "weeks_idle": 1
       },
       {
         "name": "估值与资本",
@@ -7064,7 +7086,7 @@
         "months": 5,
         "first": "2026-06-06",
         "last": "2026-10-13",
-        "weeks_idle": 1
+        "weeks_idle": 2
       },
       {
         "name": "算力·能耗·环境",
@@ -7080,7 +7102,7 @@
         "months": 3,
         "first": "2026-08-20",
         "last": "2026-10-20",
-        "weeks_idle": 0
+        "weeks_idle": 1
       },
       {
         "name": "机器人与具身",
@@ -7096,7 +7118,7 @@
         "months": 3,
         "first": "2026-06-11",
         "last": "2026-10-20",
-        "weeks_idle": 0
+        "weeks_idle": 1
       },
       {
         "name": "工具链与产业主权",
@@ -7104,14 +7126,14 @@
         "months": 3,
         "first": "2026-07-04",
         "last": "2026-10-20",
-        "weeks_idle": 0
+        "weeks_idle": 1
       },
       {
         "name": "就业与劳动",
-        "works": 4,
+        "works": 5,
         "months": 2,
         "first": "2026-06-23",
-        "last": "2026-10-20",
+        "last": "2026-10-24",
         "weeks_idle": 0
       }
     ],
@@ -7119,10 +7141,6 @@
       {
         "tag": "模型",
         "works": 2
-      },
-      {
-        "tag": "存储",
-        "works": 1
       },
       {
         "tag": "腾讯",
@@ -7154,7 +7172,7 @@
       }
     ],
     "claims": {
-      "total": 997,
+      "total": 1001,
       "works_covered": 92,
       "works_total": 104,
       "coverage": 88,
@@ -7681,10 +7699,10 @@
         },
         {
           "beat": "就业与劳动",
-          "works": 4,
-          "claims": 65,
+          "works": 5,
+          "claims": 69,
           "first": "2026-06-23",
-          "last": "2026-10-20",
+          "last": "2026-10-24",
           "chapters": [
             {
               "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
@@ -7705,6 +7723,11 @@
               "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
               "v": "60%",
               "l": "初级员工占技术部门比重"
+            },
+            {
+              "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+              "v": "23.3%",
+              "l": "美光全球 DRAM 营收市占"
             }
           ]
         },
@@ -7907,7 +7930,7 @@
     }
   },
   "claim_stats": {
-    "total": 997,
+    "total": 1001,
     "works_covered": 92,
     "works_total": 104,
     "coverage": 88,
@@ -7939,12 +7962,12 @@
         "claims": 99
       },
       {
-        "name": "应用落地",
+        "name": "就业与劳动",
         "claims": 73
       },
       {
-        "name": "就业与劳动",
-        "claims": 65
+        "name": "应用落地",
+        "claims": 73
       },
       {
         "name": "安全与治理",

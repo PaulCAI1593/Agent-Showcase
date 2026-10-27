@@ -440,6 +440,23 @@ def claim_guardrails(manifest, gate):
                         f'突增逾 15pp（抽取规则可能已失效）')
 
     if state.get('total') != total or state.get('reject_rate') is None:
+        # 对账留痕：changelog 原先只记 claim_stale（降级），
+        # 于是 10-26 出现"净减 19 条但 changelog 只有 2 条"的盲区 ——
+        # 断言层悄悄缩水没人看得出来。总数变化必须自己留一条。
+        if state.get('total') not in (None, total):
+            try:
+                import datetime as _dt
+                with open(os.path.join(ROOT, 'tools', 'claim_changelog.jsonl'), 'a',
+                          encoding='utf-8') as f:
+                    f.write(json.dumps({
+                        'ts': _dt.datetime.now().isoformat(timespec='seconds'),
+                        'event': 'claims_total', 'work': '(全馆)',
+                        'detail': {'from': state.get('total'), 'to': total,
+                                   'delta': total - (state.get('total') or 0),
+                                   'reject_rate': round(rate, 4)}},
+                        ensure_ascii=False) + '\n')
+            except OSError:
+                pass
         try:
             with open(state_path, 'w', encoding='utf-8') as f:
                 json.dump({'total': total, 'reject_rate': round(rate, 4),
