@@ -171,164 +171,27 @@ a{color:inherit;text-decoration:none}
 .search-hint b{color:var(--gold);font-weight:500}
 
 
-/* ── 封面变体 A：纯数据海报（账簿墙是唯一视觉，砍掉图注板）── */
-.cover[data-variant="a"] .cover-body{grid-template-columns:1fr;gap:0}
-.cover[data-variant="a"] .cover-plate{display:none}
-.cover[data-variant="a"] .ev-slip,.cover[data-variant="a"] .ev-tail{display:none}
-.cover[data-variant="a"] .cover-title{font-size:clamp(58px,10.4vw,152px)}
-.cover[data-variant="a"] .cover-lede{max-width:30em;font-size:18.5px}
-.cover[data-variant="a"] .cover-figs{margin-top:54px}
-.cover[data-variant="a"] .cover-veil{background:
-  linear-gradient(to top,rgba(5,5,8,.95) 0%,rgba(5,5,8,.6) 18%,rgba(5,5,8,0) 34%),
-  linear-gradient(100deg,rgba(5,5,8,.86) 0%,rgba(5,5,8,.55) 42%,rgba(5,5,8,.2) 70%,rgba(5,5,8,.5) 100%)}
 
-/* ── 封面变体 B：账簿墙 + 2×2 作品图阵列（展览墙感）── */
-.cover[data-variant="b"] .cover-plate img{display:none}
-.cover[data-variant="b"] .ev-slip,.cover[data-variant="b"] .ev-tail{display:none}
-.cover[data-variant="b"] .cover-plate .plate-grid{display:grid;
-  grid-template-columns:1fr 1fr;gap:10px}
-.cover[data-variant="b"] .cover-plate .plate-grid figure{position:relative;margin:0;
-  border-radius:3px;overflow:hidden;border:1px solid var(--border-h);aspect-ratio:1260/800}
-.cover[data-variant="b"] .cover-plate .plate-grid img{display:block;width:100%;height:100%;
-  object-fit:cover;object-position:top center}
-.cover[data-variant="b"] .cover-body{grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:52px}
-
-/* ── 封面变体 C：月份抽屉（档案柜正视）── */
-.cover[data-variant="c"] .ledger-wall{columns:8;font-size:12px;opacity:.5}
-.cover[data-variant="c"] .cover-plate{display:none}
-.cover[data-variant="c"] .ev-slip,.cover[data-variant="c"] .ev-tail{display:none}
-.cover[data-variant="c"] .cabinet{display:block}
-/* C 的主角是柜子 → 标题退为题头，柜子占主位 */
-.cover[data-variant="c"] .cover-title{font-size:clamp(30px,3.6vw,46px)}
-.cover[data-variant="c"] .cover-title em{display:inline}
-.cover[data-variant="c"] .cover-body{padding:26px 0 22px}
-.cover[data-variant="c"] .cover-rule{margin:18px 0 14px;width:52px;height:1px}
-.cover[data-variant="c"] .cover-lede{font-size:15px;max-width:52em;margin-bottom:4px}
-.cover[data-variant="c"] .cover-figs{display:none}
-.cover[data-variant="c"] .cabinet{margin-top:22px}
-.cabinet{display:none;margin-top:34px}
-.cab-drawer{display:grid;grid-template-columns:186px minmax(0,1fr);gap:0;
-  border:1px solid var(--border-h);border-bottom:0;background:rgba(255,255,255,.018)}
-.cab-drawer:last-of-type{border-bottom:1px solid var(--border-h)}
-.cab-drawer.open{background:rgba(255,255,255,.035)}
-.cab-label{display:flex;flex-direction:column;justify-content:center;gap:6px;
-  padding:15px 18px;border-right:1px solid var(--border-h);
-  background:linear-gradient(180deg,rgba(245,230,200,.07),rgba(245,230,200,.02))}
-.cab-month{font-family:var(--serif);font-size:17px;color:var(--t1);font-weight:600;
-  font-variant-numeric:tabular-nums}
-.cab-n{font-family:var(--serif);font-size:11.5px;color:var(--gold);letter-spacing:.03em}
-.cab-edge{position:relative;display:flex;align-items:flex-end;gap:3px;padding:13px 16px;
-  min-height:62px;overflow:hidden}
-.cab-edge i{flex:1;max-width:15px;border-radius:2px 2px 0 0;
-  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.025));
-  border-top:2px solid rgba(240,194,127,.55)}
-.cab-edge i:nth-child(3n){border-top-color:rgba(167,139,250,.6)}
-.cab-edge i:nth-child(5n){border-top-color:rgba(255,255,255,.4)}
 /* 关着的抽屉：只露一条文件边（像关上的柜子只看到缝） */
-.cab-drawer:not(.open) .cab-edge{height:30px;min-height:30px;align-items:flex-end;padding:12px 16px 10px}
-.cab-drawer:not(.open) .cab-edge i{height:11px}
+/* 抽屉样式已随变体 C 移除 */
 /* 拉开的那格：位移 + 投影 + 卷宗高低错落 */
-.cab-drawer.open .cab-edge{align-items:flex-end;padding:15px 16px 12px;
-  box-shadow:inset 0 14px 26px -14px rgba(0,0,0,.9)}
-.cab-drawer.open .cab-edge i{animation:filepop .5s var(--ease) backwards;
-  height:calc(100% - var(--h,0%))}
-.cab-drawer.open{transform:translateX(10px)}
+/* 抽屉样式已随变体 C 移除 */
 @keyframes filepop{from{height:0;opacity:0}}
 /* 抽屉标签牌：黄铜拉手 */
-.cab-label{position:relative}
-.cab-label::after{content:'';position:absolute;left:18px;bottom:11px;width:26px;height:1px;
-  background:rgba(240,194,127,.5)}
-.cab-drawer:not(.open) .cab-label::after{opacity:.35}
+/* 抽屉样式已随变体 C 移除 */
 @media(max-width:1000px){
-  .cover[data-variant="c"] .cab-drawer{grid-template-columns:1fr}
-  .cab-label{border-right:0;border-bottom:1px solid var(--border-h)}
+/* 抽屉样式已随变体 C 移除 */
 }
 
 
-/* ══ 变体 P：纸质账簿封面 ══════════════════════════════════
-   换一整套视觉语言：暖纸 + 竖红线分栏 + 黑色表格线 + 真实断言表。
-   这是**中国账簿**的形式（每格一竖线、逐条记录），不是任何 AI 站点的
-   暗色编辑部形式。与下面的暗色柜子形成"从档案纸回到档案柜"的转换。 */
-.cover[data-variant="p"]{
-  background:#f1ebdd;color:#171512;
-  border-bottom:1px solid #cfc6b0;
-}
-.cover[data-variant="p"] .ledger-wall{display:none}
-.cover[data-variant="p"] .cover-veil{display:none}
-.cover[data-variant="p"] .cover-issue{
-  color:#7a6f5c;border-bottom:1px solid #cfc6b0;padding-bottom:14px;
-  border-bottom:1px solid #b8352a;
-}
-.cover[data-variant="p"] .cover-issue b{color:#b8352a}
-.cover[data-variant="p"] .cover-body{grid-template-columns:1fr;gap:0;padding:30px 0 18px}
-.cover[data-variant="p"] .cover-title{
-  color:#14110d;text-shadow:none;font-size:clamp(42px,6.2vw,82px);line-height:1.08;
-  letter-spacing:-.02em;max-width:15em;
-}
-.cover[data-variant="p"] .cover-title em{color:#b8352a;display:inline}
-.cover[data-variant="p"] .cov-n{color:#b8352a}
-.cover[data-variant="p"] .cover-rule{background:#b8352a;height:2px;width:64px;margin:20px 0 16px}
-.cover[data-variant="p"] .cover-lede{color:#4a4438;max-width:44em;font-size:16.5px}
-.cover[data-variant="p"] .cover-lede b{color:#14110d}
-.cover[data-variant="p"] .cover-figs{margin-top:28px}
-.cover[data-variant="p"] .cover-figs>div{border-left-color:#cfc6b0}
-.cover[data-variant="p"] .fig-n{color:#b8352a;text-shadow:none}
-.cover[data-variant="p"] .fig-l{color:#7a6f5c;text-shadow:none}
-.cover[data-variant="p"] .cover-plate{display:none.cover[data-variant="p"] .ev-slip,.cover[data-variant="p"] .ev-tail{display:none}}
-/* 账簿表：竖红线分栏 + 黑横线 */
-.ledger-table{
-  margin-top:22px;border-collapse:collapse;width:100%;
-  font-family:var(--serif);font-size:12.5px;color:#2a251d;
-  border-top:2px solid #171512;border-bottom:1px solid #171512;
-}
-.ledger-table th{
-  font-weight:600;color:#6b6152;text-align:left;padding:7px 12px 7px 0;
-  border-bottom:1px solid #171512;white-space:nowrap;
-  font-size:11px;letter-spacing:.14em;
-}
-/* 竖栏线用真实边框，不用 repeating-gradient —— 账簿的栏位线本就存在 */
-.ledger-table th+th,.ledger-table td+td{border-left:1px solid rgba(184,53,42,.22)}
-.ledger-table td{
-  padding:6px 12px 6px 0;border-bottom:1px solid rgba(23,21,18,.13);
-  vertical-align:baseline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.ledger-table td:nth-child(1){width:74px;color:#8a7f6b;font-variant-numeric:tabular-nums}
-.ledger-table td:nth-child(2){width:96px;color:#b8352a;font-variant-numeric:tabular-nums;
-  font-size:13.5px;font-weight:600}
-.ledger-table td:nth-child(3){max-width:0;width:38%}
-.ledger-table td:nth-child(4){width:22%;color:#6b6152}
-.ledger-table tr:hover td{background:rgba(184,53,42,.05)}
-.cover[data-variant="p"] .cover-scroll{color:#6b6152}
-.cover[data-variant="p"] .cover-lines{color:#7a6f5c;text-shadow:none}
-.cover[data-variant="p"] .cover-lines span{border-left-color:#cfc6b0}
-.cover[data-variant="p"] .cover-foot{border-top-color:#cfc6b0}
-.cover[data-variant="p"] .cover-inner{padding-bottom:2px}
-@media(max-width:1000px){
-  .cover[data-variant="p"]{min-height:auto}
-  .ledger-table{font-size:11.5px}
-  .ledger-table td:nth-child(4){display:none}
-}
-
-
-/* ══ 变体 E：证据单 ══════════════════════════════════════
+════════
    立意：**不展示"这里有 104 个作品"，展示一条断言凭什么可信。**
    封面 = 一张证据单（单据式结构：抬头 / 主值 / 溯源链 / 核验章），
    满屏一列。1001 条这样的记录在下面。
    结构与其它变体完全不同：没有左右分栏、没有图阵列、没有抽屉。 */
-.cover[data-variant="e"] .ledger-wall{display:none}
-.cover[data-variant="e"] .cover-veil{display:none}
-.cover[data-variant="e"] .cover-plate{display:none}
-.cover[data-variant="e"] .cover-title,
-.cover[data-variant="e"] .cover-rule,
-.cover[data-variant="e"] .cover-lede,
-.cover[data-variant="e"] .cover-figs,
-.cover[data-variant="e"] .cabinet,
-.cover[data-variant="e"] .ledger-table-wrap{display:none}
-.cover[data-variant="e"] .cover-inner{justify-content:flex-start}
-.cover[data-variant="e"] .cover-body{grid-template-columns:1fr;padding:18px 0 0;gap:0;flex:0 0 auto}
-.cover[data-variant="e"] .ev-tail{margin:0 0 18px}
-.cover[data-variant="e"] .ev-slip{width:100%}
-.cover[data-variant="e"] .cover-issue{border-bottom-color:var(--border)}
+.cover .ledger-wall{display:none}
+.cover .cover-veil{display:none}
+.cover .cover-plate{display:none}
 
 /* 证据单 */
 .ev-slip{
@@ -373,15 +236,15 @@ a{color:inherit;text-decoration:none}
 }
 .ev-tail p{font-family:var(--serif);font-size:15.5px;color:var(--t2);max-width:38em}
 .ev-tail p b{color:var(--t1);font-weight:500}
-.ev-n{display:inline-flex;align-items:baseline;gap:8px;font-family:var(--serif)}
-.ev-n i{font-style:normal;font-size:40px;color:var(--gold);font-variant-numeric:tabular-nums;
-  letter-spacing:-.02em;font-weight:600}
-.ev-n span{font-size:12.5px;color:var(--t3);letter-spacing:.04em}
+.ev-n{display:inline-flex;align-items:baseline;gap:4px 20px;font-family:var(--serif);flex-wrap:wrap}
+.ev-n i{font-style:normal;font-size:clamp(24px,3vw,36px);color:var(--gold);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;font-weight:600;margin-right:6px}
+.ev-n span{font-size:12.5px;color:var(--t3);letter-spacing:.04em;margin-right:12px}
 @media(max-height:800px){
-  .cover[data-variant="e"] .ev-main{padding:18px 22px 16px}
-  .cover[data-variant="e"] .ev-val{font-size:clamp(40px,6vw,72px)}
-  .cover[data-variant="e"] .ev-row>dt,
-  .cover[data-variant="e"] .ev-row>dd{padding:9px 0}
+  .cover .ev-main{padding:18px 22px 16px}
+  .cover .ev-val{font-size:clamp(40px,6vw,72px)}
+  .cover .ev-row>dt,
+  .cover .ev-row>dd{padding:9px 0}
 }
 @media(max-width:700px){
   .ev-rows{grid-template-columns:1fr}
@@ -391,28 +254,49 @@ a{color:inherit;text-decoration:none}
 }
 
 
-/* ══ 封面变体显隐矩阵（单一收口，不再逐个打补丁）══════════════
-   每个变体只显示自己那套主体，互斥。这里是最后一层，
-   覆盖上面各变体的零散规则。 */
-.cover .ev-slip,.cover .ev-tail,.cover .ledger-table-wrap{display:none}
-.cover[data-variant="p"] .ledger-table-wrap{display:block}
-.cover[data-variant="e"] .ev-slip{display:block}
-.cover[data-variant="e"] .ev-tail{display:block}
-.cover[data-variant="a"] .ledger-wall,.cover[data-variant="b"] .ledger-wall,
-.cover[data-variant="c"] .ledger-wall{display:block}
-.cover[data-variant="p"] .ledger-wall,.cover[data-variant="e"] .ledger-wall{display:none}
-.cover[data-variant="a"] .cover-plate,.cover[data-variant="c"] .cover-plate,
-.cover[data-variant="p"] .cover-plate{display:none}
-.cover[data-variant="b"] .cover-plate{display:block}
-.cover[data-variant="a"] .cover-plate img,.cover[data-variant="b"] .cover-plate img,
-.cover[data-variant="c"] .cover-plate img{display:none}
-.cover[data-variant="c"] .cover-plate .plate-grid{display:none}
-.cover[data-variant="b"] .cover-plate .plate-grid,.cover[data-variant="c"] .cover-plate .plate-grid{display:none}
-.cover[data-variant="c"] .cabinet{display:block}
-.cover[data-variant="a"] .cabinet,.cover[data-variant="b"] .cabinet,
-.cover[data-variant="p"] .cabinet,.cover[data-variant="e"] .cabinet{display:none}
+════════════════════════════════════════════ */
+/* ══ 封面定稿：一叠数据上的一张单据 ═══════════════════════
+   层级（底→顶）：
+     ① 账簿墙 —— 铺满全屏的 1001 条断言，压暗，像一张铺满数据的桌面
+     ② 证据单 —— 实体单据（不透明表面 + 投影 + 流水号）
+     ③ 数值   —— 大到占据主体
+     ④ 印章   —— 压在单据右上（像真盖上去的章）
+   全幅出血：无页边距，像一张被扫描放大到墙上的文件。 */
+.cover{padding:0}
+.cover .ledger-wall{opacity:.30;filter:saturate(.55)}
+.cover .cover-veil{background:linear-gradient(180deg,rgba(5,5,8,.78) 0%,rgba(5,5,8,.52) 44%,rgba(5,5,8,.92) 100%)}
+.cover .cover-inner{max-width:none;padding:0}
+.cover .cover-issue{padding:15px 30px;border-bottom:1px solid var(--border);
+  background:rgba(5,5,8,.6);backdrop-filter:blur(6px)}
+.cover .cover-body{flex:1;display:flex;flex-direction:column;padding:0;min-height:0;
+  align-items:stretch;grid-template-columns:none}
+.cover .ev-tail{padding:26px 30px 0;max-width:none;display:flex;align-items:baseline;
+  justify-content:space-between;gap:26px;flex-wrap:wrap}
+.cover .ev-tail p{font-size:16.5px;color:var(--t2);max-width:46em}
+.cover .ev-n i{font-size:clamp(24px,3vw,36px)}
+.cover .ev-slip{
+  margin:20px 30px 0;max-width:none;border-radius:3px;flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,rgba(15,16,21,.985),rgba(8,9,13,.985));
+  border:1px solid var(--border-h);
+  box-shadow:0 44px 100px -36px rgba(0,0,0,.96),0 2px 10px rgba(0,0,0,.6);
+}
+.cover .ev-main{padding:32px 34px 26px;position:relative;flex:0 0 auto}
+.cover .ev-val{font-size:clamp(56px,10vw,142px);line-height:.94;letter-spacing:-.045em;
+  font-weight:600;color:var(--gold)}
+.cover .ev-label{font-size:clamp(19px,2.3vw,30px);margin-top:14px;max-width:20em}
+.cover .ev-rows{flex:1 1 auto;align-content:start}
+.cover .ev-seal{position:absolute;right:32px;top:26px;width:104px;height:104px}
+.cover .ev-foot{margin-top:auto;padding:14px 30px}
+.cover .cover-foot{padding:16px 30px 24px;background:rgba(5,5,8,.55);backdrop-filter:blur(6px)}
+@media(max-width:1000px){
+  .cover .ev-slip{margin:16px 18px 0}
+  .cover .ev-tail{padding:20px 18px 0}
+  .cover .ev-main{padding:22px 20px 20px}
+  .cover .ev-seal{width:68px;height:68px;right:18px;top:18px}
+  .cover .ev-val{font-size:clamp(46px,13vw,96px)}
+}
 
-/* ══ 柜体 ══════════════════════════════════════════════ */
 .cab{display:grid;grid-template-columns:236px minmax(0,1fr);gap:0;max-width:1240px;margin:0 auto;
   border-left:1px solid var(--border);border-right:1px solid var(--border)}
 /* 侧标（柜脊） */
@@ -614,36 +498,14 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
     </div>
 
     <div class="cover-body">
-      <div>
-        <h1 class="cover-title"><span class="cov-n" id="cov-n">0</span><em>条断言，每一条都回查过原文</em></h1>
-        <div class="cover-rule"></div>
-        <p class="cover-lede">按月份归档的团队档案。每一格是一段时间，抽出来就是那段时间团队做了什么、发现了什么。</p>
-        <div class="cover-figs">
-          <div><div class="fig-n" id="fig-works">0</div><div class="fig-l">件作品</div></div>
-          <div><div class="fig-n" id="fig-months">0</div><div class="fig-l">个月份</div></div>
-          <div><div class="fig-n" id="fig-lines">0</div><div class="fig-l">条追踪线</div></div>
-          <div><div class="fig-n" id="fig-claims">0</div><div class="fig-l">条已验证断言</div></div>
-        </div>
-      </div>
-
-      <figure class="cover-plate" id="cover-plate">
-        <a id="cover-plate-link" href="#">
-          <img id="cover-img" alt="" decoding="async" fetchpriority="high" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1260' height='800'%3E%3Crect width='1260' height='800' fill='%230b0c12'/%3E%3C/svg%3E">
-        </a>
-        <div class="plate-grid" id="plate-grid"></div>
-        <figcaption>
-          <span class="cp-tag" id="cover-tag">本期主打</span>
-          <span class="cp-title" id="cover-title"></span>
-          <span class="cp-claim" id="cover-claim"></span>
-        </figcaption>
-      </figure>
-
       <div class="ev-tail" id="ev-tail"></div>
       <div class="ev-slip" id="ev-slip"></div>
     </div>
+      </div>
 
-    <div class="cabinet" id="cabinet"></div>
-    <div class="ledger-table-wrap" id="ledger-table-wrap"></div>
+
+    </div>
+
 
     <div class="cover-foot">
       <div class="cover-lines" id="cover-lines"></div>
@@ -726,10 +588,14 @@ function normalize(src){
 /* ── 柜面数字 ── */
 function renderFigs(){
   const c=(STATS.claims||{});
-  $('#fig-works').textContent=DATA.length;
-  $('#fig-months').textContent=MONTHS.length;
-  $('#fig-lines').textContent=(c.dossier||[]).length;
-  $('#fig-claims').textContent=c.total||0;
+  // 元素可能已被移除（封面重构后这几个数字块不再存在）—— 必须判空，
+  // 否则一次 null 赋值就让整个 boot() 中断（页面白屏）
+  const set=(id,v)=>{const el=document.getElementById(id); if(el) el.textContent=v;};
+  set('fig-works',DATA.length);
+  set('fig-months',MONTHS.length);
+  set('fig-lines',(c.dossier||[]).length);
+  set('fig-claims',c.total||0);
+  set('cov-n',c.total||0);
   const f=$('#foot-date'); if(f) f.textContent=STATS.generated?('更新于 '+STATS.generated):'';
 }
 
@@ -763,55 +629,10 @@ function renderLedgerWall(){
   wall.innerHTML=rows.map(r=>r.html).join('');
 }
 
-// 变体 B：作品图阵列（展览墙感 —— 四幅缩略图并置，而不是一张放大的截图）
-function renderPlateGrid(){
-  const g=document.getElementById('plate-grid');
-  if(!g) return;
-  const picks=ALL.filter(i=>i.thumb).slice(0,4);
-  g.innerHTML=picks.map(i=>
-    `<figure><img src="${esc(i.thumb)}" alt="${esc(i.title)}" loading="lazy" decoding="async"></figure>`
-  ).join('');
-}
 
 // 变体 C：月份抽屉（档案柜正视）
 // 每个抽屉 = 一个月份；抽屉里立着该月作品的「文件侧边」——
-// 不用缩略图（放大就是一团小字），用文件边立起来表达"这里有很多卷"。
-function renderCabinet(){
-  const cab=document.getElementById('cabinet');
-  if(!cab) return;
-  cab.innerHTML=MONTHS.map((m,i)=>{
-    const edges=m.items.slice(0,26).map((_,k)=>{
-      // 高低错落 —— 真文件不会一样高
-      const h=((hashOf(m.key+k)%9))*4;
-      return `<i style="--h:${h}%"></i>`;
-    }).join('');
-    const extra=m.items.length>26?`<span style="font-size:11px;color:var(--t3);margin-left:6px">+${m.items.length-26}</span>`:'';
-    return `<div class="cab-drawer${i===0?' open':''}">
-      <div class="cab-label"><span class="cab-month">${esc(m.label)}</span>
-        <span class="cab-n">${m.items.length} 件</span></div>
-      <div class="cab-edge">${edges}${extra}</div>
-    </div>`;
-  }).join('');
-}
 
-// 变体 P：账簿表（真实断言逐条记录，竖红线分栏 = 中国账簿的形式）
-function renderLedgerTable(){
-  const wrap=document.getElementById('ledger-table-wrap');
-  if(!wrap) return;
-  const rows=[];
-  DATA.forEach(it=>{
-    (it.claims||[]).forEach(c=>{
-      rows.push({d:it.date, v:c.v, l:c.l, beat:it.beat||''});
-    });
-  });
-  rows.sort((a,b)=>hashOf('t'+a.d+a.v+a.l)-hashOf('t'+b.d+b.v+b.l));
-  const body=rows.slice(0,16).map(r=>
-    `<tr><td>${esc(r.d)}</td><td>${esc(r.v)}</td><td>${esc(r.l)}</td><td>${esc(r.beat)}</td></tr>`
-  ).join('');
-  wrap.innerHTML = `<table class="ledger-table">
-    <thead><tr><th>日期</th><th>数值</th><th>指标</th><th>追踪线</th></tr></thead>
-    <tbody>${body}</tbody></table>`;
-}
 
 // 变体 E：证据单 —— 一条断言 + 它的完整溯源链
 // 立意：不展示"这里有 104 个作品"，展示**一条断言凭什么可信**。
@@ -820,38 +641,76 @@ function renderEvidenceSlip(feat){
   if(!slip || !feat) return;
   const all=feat.claims||[];
   // 优先选**有引证出处**的那条（出处是真数据时，证据链才完整）
-  const cl=all.find(c=>c.s)||all[0]||null;
+  const pool=(all.filter(c=>c.s).length?all.filter(c=>c.s):all);
   const c=(STATS.claims||{});
-  const rows=[];
-  if(cl&&cl.s) rows.push(['出处', cl.s]);       // 只在真有引证时才出现 —— 不放半可靠的行
-  rows.push(['原文', cl?(cl.q||(cl.v+' '+cl.l)):'—', true]);
-  rows.push(['作品', feat.title, false, feat.file]);
-  rows.push(['日期', feat.date]);
-  rows.push(['追踪线', feat.beat||'未归类']);
-  const body=rows.map(r=>{
-    const val = r[3] ? `<a href="${esc(r[3])}">${esc(r[1])}</a>` : esc(r[1]);
-    return `<div class="ev-row"><dt>${esc(r[0])}</dt><dd class="${r[2]?'q':''}">${val}</dd></div>`;
-  }).join('');
+  const seq=pool.length?pool:[null];
+  let idx=0;
+  const serial='№ '+feat.date.replace(/-/g,'')+'-'+String(idx+1).padStart(2,'0');
+  function rowsFor(cl){
+    const rows=[];
+    if(cl&&cl.s) rows.push(['出处', cl.s]);   // 只在真有引证时才出现 —— 不放半可靠的行
+    rows.push(['原文', cl?(cl.q||(cl.v+' '+cl.l)):'—', true]);
+    rows.push(['作品', feat.title, false, feat.file]);
+    rows.push(['日期', feat.date]);
+    rows.push(['追踪线', feat.beat||'未归类']);
+    return rows.map(r=>{
+      const val = r[3] ? `<a href="${esc(r[3])}">${esc(r[1])}</a>` : esc(r[1]);
+      return `<div class="ev-row"><dt>${esc(r[0])}</dt><dd class="${r[2]?'q':''}">${val}</dd></div>`;
+    }).join('');
+  }
+  function paint(i, animate){
+    const cl=seq[i];
+    const main=document.getElementById('ev-main');
+    const rows=document.getElementById('ev-rows');
+    const put=()=>{
+      main.innerHTML=`<span class="ev-seal"><b>✓</b><span>引用已逐字回查原文</span></span>
+        <div class="ev-val">${cl?esc(cl.v):'—'}</div>
+        <div class="ev-label">${cl?esc(cl.l):'本篇暂无已验证断言'}</div>`;
+      rows.innerHTML=rowsFor(cl);
+      document.getElementById('ev-serial-no').textContent=
+        '№ '+feat.date.replace(/-/g,'')+'-'+String(i+1).padStart(2,'0');
+      document.getElementById('ev-dots').innerHTML=seq.map((_,k)=>
+        `<i class="${k===i?'on':''}"></i>`).join('');
+    };
+    if(!animate){ put(); return; }
+    main.classList.add('out'); rows.classList.add('out');
+    setTimeout(()=>{ put(); main.classList.remove('out'); rows.classList.remove('out'); }, 430);
+  }
   slip.innerHTML = `
-    <div class="ev-head"><span>断言证据单 · VERIFICATION SLIP</span>
-      <b>第 ${MONTHS.length} 期 · ${esc(MONTHS.length?MONTHS[0].key:'')}</b></div>
-    <div class="ev-main">
-      <div class="ev-val">${cl?esc(cl.v):'—'}</div>
-      <div class="ev-label">${cl?esc(cl.l):'本篇暂无已验证断言'}</div>
+    <div class="ev-serial"><span>断言证据单 · VERIFICATION SLIP</span>
+      <b id="ev-serial-no">${serial}</b>
+      <span>第 ${MONTHS.length} 期 · ${esc(MONTHS.length?MONTHS[0].key:'')}</span></div>
+    <div class="ev-main" id="ev-main">
+      <span class="ev-seal"><b>✓</b><span>引用已逐字回查原文</span></span>
     </div>
-    <dl class="ev-rows">${body}</dl>
-    <div style="padding:13px 20px;border-top:1px solid var(--border-h)">
-      <span class="ev-seal">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
-             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11"/></svg>
-        引用已逐字回查原文
-      </span>
+    <dl class="ev-rows ev-swap" id="ev-rows"></dl>
+    <div class="ev-foot">
+      <span style="flex:1"></span>
+      <span class="ev-dots" id="ev-dots"></span>
+      <span class="ev-pick" id="ev-pick">${seq.length>1?'换一条 ▸':''}</span>
     </div>`;
+  paint(0,false);
+  // 自动轮换：封面是活的；点「换一条」也能手动切
+  let timer=null;
+  function startTimer(){
+    if(timer) clearInterval(timer);
+    if(seq.length<2) return;
+    timer=setInterval(()=>{ idx=(idx+1)%seq.length; paint(idx,true); }, 7000);
+  }
+  startTimer();
+  const pick=document.getElementById('ev-pick');
+  if(pick) pick.addEventListener('click',()=>{ idx=(idx+1)%seq.length; paint(idx,true); startTimer(); });
+  const sl=document.getElementById('ev-slip');
+  if(sl) sl.addEventListener('mouseenter',()=>{ if(timer) clearInterval(timer); });
+  if(sl) sl.addEventListener('mouseleave',startTimer);
   const tail=document.getElementById('ev-tail');
   if(tail){
-    tail.innerHTML=`<p>这个柜子里有 <b>${c.total||0}</b> 条这样的记录 ——
-      每一条都带着自己的原文、作品与日期，引用逐字回查过。</p>
-      <span class="ev-n"><i>${c.total||0}</i><span>条已验证断言</span></span>`;
+    tail.innerHTML=`<p><b>按月份归档的团队档案</b> ——
+      每一格是一段时间，抽出来就是那段时间团队做了什么、发现了什么。<br>
+      柜子里有 <b>${c.total||0}</b> 条这样的记录，每一条都带着自己的原文、作品与日期。</p>
+      <span class="ev-n"><i>${DATA.length}</i><span>件作品</span>
+        <i>${MONTHS.length}</i><span>个月份</span>
+        <i>${(c.dossier||[]).length}</i><span>条追踪线</span></span>`;
   }
 }
 
@@ -1118,10 +977,6 @@ function setQuery(q){
 
 /* ── 启动 ── */
 function boot(raw){
-  // 封面变体：?v=a|b|c（默认 b —— 账簿墙 + 作品图阵列）
-  const cv=(new URLSearchParams(location.search).get('v')||'b').toLowerCase();
-  const cov=document.getElementById('cover');
-  if(cov) cov.setAttribute('data-variant', ['a','b','c','p','e'].includes(cv)?cv:'b');
   DATA=normalize(raw);
   ALL=DATA;                 // normalize 已按日期倒序（新的在前）
   STATS=raw.stats||{};
@@ -1144,9 +999,6 @@ function boot(raw){
   const feat=(pool.find(i=>i.thumb)||ALL.find(i=>i.thumb)||ALL[0])||null;
   renderCover(feat);
   renderLedgerWall();
-  renderPlateGrid();
-  renderCabinet();
-  renderLedgerTable();
   renderEvidenceSlip(feat);
   countUpFigs();
   const q=$('#q');
