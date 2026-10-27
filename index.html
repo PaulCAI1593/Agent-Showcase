@@ -639,20 +639,28 @@ function renderLedgerWall(){
 function renderEvidenceSlip(feat){
   const slip=document.getElementById('ev-slip');
   if(!slip || !feat) return;
-  const all=feat.claims||[];
-  // 优先选**有引证出处**的那条（出处是真数据时，证据链才完整）
-  const pool=(all.filter(c=>c.s).length?all.filter(c=>c.s):all);
   const c=(STATS.claims||{});
-  const seq=pool.length?pool:[null];
+  // 轮换池 = **全档案最近**的已验证断言（不是只在一件作品里转）。
+  // 这样新作品的断言会自动出现在封面上 —— 封面因此是活的，且随档案更新。
+  // 优先带引证出处的（证据链才完整），其次按作品日期倒序。
+  const pool=[];
+  DATA.slice().sort((a,b)=>b.date.localeCompare(a.date)).forEach(it=>{
+    (it.claims||[]).forEach(cl=>{ pool.push({it:it, c:cl}); });
+  });
+  const withSrc=pool.filter(x=>x.c.s), without=pool.filter(x=>!x.c.s);
+  const seqPool=(withSrc.length>=6?withSrc:pool).concat(without).slice(0,14);
+  const seq=seqPool.length?seqPool.map(x=>x.c):[null];
+  const seqOwner=seqPool.length?seqPool.map(x=>x.it):[feat];
   let idx=0;
   const serial='№ '+feat.date.replace(/-/g,'')+'-'+String(idx+1).padStart(2,'0');
-  function rowsFor(cl){
+  function rowsFor(cl, owner){
+    owner=owner||feat;
     const rows=[];
     if(cl&&cl.s) rows.push(['出处', cl.s]);   // 只在真有引证时才出现 —— 不放半可靠的行
     rows.push(['原文', cl?(cl.q||(cl.v+' '+cl.l)):'—', true]);
-    rows.push(['作品', feat.title, false, feat.file]);
-    rows.push(['日期', feat.date]);
-    rows.push(['追踪线', feat.beat||'未归类']);
+    rows.push(['作品', owner.title, false, owner.file]);
+    rows.push(['日期', owner.date]);
+    rows.push(['追踪线', owner.beat||'未归类']);
     return rows.map(r=>{
       const val = r[3] ? `<a href="${esc(r[3])}">${esc(r[1])}</a>` : esc(r[1]);
       return `<div class="ev-row"><dt>${esc(r[0])}</dt><dd class="${r[2]?'q':''}">${val}</dd></div>`;
@@ -666,9 +674,10 @@ function renderEvidenceSlip(feat){
       main.innerHTML=`<span class="ev-seal"><b>✓</b><span>引用已逐字回查原文</span></span>
         <div class="ev-val">${cl?esc(cl.v):'—'}</div>
         <div class="ev-label">${cl?esc(cl.l):'本篇暂无已验证断言'}</div>`;
-      rows.innerHTML=rowsFor(cl);
+      rows.innerHTML=rowsFor(cl, seqOwner[i]);
+      const ow=seqOwner[i]||feat;
       document.getElementById('ev-serial-no').textContent=
-        '№ '+feat.date.replace(/-/g,'')+'-'+String(i+1).padStart(2,'0');
+        '№ '+ow.date.replace(/-/g,'')+'-'+String(i+1).padStart(2,'0');
       document.getElementById('ev-dots').innerHTML=seq.map((_,k)=>
         `<i class="${k===i?'on':''}"></i>`).join('');
     };
