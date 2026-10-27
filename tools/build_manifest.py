@@ -218,8 +218,8 @@ def sync_embedded(manifest):
             # 卡片只显示 claims[0]（最具代表性的一条，由 order_claims 排在首位）。
             cl = i.get('claims') or []
             if cl:
-                rec['claims'] = [{'v': c.get('value', ''), 'l': c.get('label', '')}
-                                 for c in cl]
+                rec['claims'] = [{'v': c.get('value', ''), 'l': c.get('label', ''),
+                                  's': c.get('source', '')} for c in cl]
             if i['date'] >= cutoff and i['description']:
                 rec['description'] = i['description']
                 kept += 1

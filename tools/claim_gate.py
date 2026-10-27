@@ -225,6 +225,21 @@ def _extract_inline(text):
     return _mk(value, core[:28], t)
 
 
+# 出处的样子：机构 · 口径 · 日期，或机构名 + 年份。纯数字样（"200K"）
+# 是下一个指标的值，不是出处 —— 抓错了会让证据单的"出处"行变成假数据。
+_NUMERIC_LOOK = re.compile(r'^[\d.,]+\s*[%A-Za-z万亿个件家天年倍元]*$')
+_SOURCE_HINT = re.compile(r'[·/、]|\b(?:19|20)\d{2}\b|Q[1-4]|报告|数据|口径|来源|年|季|预测|统计|协会|局|部|部|委|院')
+
+
+def _looks_like_source(s):
+    """这个文本像出处（引证）而不是数值。"""
+    if not s or len(s) > 60:
+        return False
+    if _NUMERIC_LOOK.match(s):
+        return False
+    return bool(_SOURCE_HINT.search(s))
+
+
 def extract_candidates(html):
     """
     抽取「数值 + 标签」配对，两种来源：
@@ -280,7 +295,18 @@ def extract_candidates(html):
         if key in seen:
             continue
         seen.add(key)
-        out.append(_mk(value, label, f'{value} {label}'))
+        # 出处：label 之后的下一个元素（研究类模板里 .metric-source 紧随 .metric-label）
+        # 抽出来之后，封面「证据单」的出处行才是真数据，而不是"见作品原文"
+        src = ''
+        for k in range(j + 1, min(j + 2, len(tokens))):
+            cand2 = re.sub(r'\s+', ' ', tokens[k][2]).strip()
+            if cand2 and not _VALUE_RE.match(cand2) and _looks_like_source(cand2):
+                src = cand2[:48]
+                break
+        item = _mk(value, label, f'{value} {label}')
+        if src:
+            item['source'] = src
+        out.append(item)
     return out
 
 
