@@ -1,11 +1,73 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 104,
-  "researchCount": 51,
-  "creativeCount": 53,
-  "latestDate": "2026-10-24",
+  "total": 106,
+  "researchCount": 52,
+  "creativeCount": 54,
+  "latestDate": "2026-10-27",
   "research": [
+    {
+      "id": "item-2026-10-27-research-2026-10-27-three-prices-of-one-token",
+      "title": "13.46元与1美元——同一条 token 的三种价格",
+      "description": "信通院 10-23 监测：国内归一化均价 6.8→13.46 元（近翻倍），境外 117.8 元，全球开源 1 美元以下——同一条 token 的三种价格；量价同向，总支出指数约 7.9 倍。",
+      "agent": "数析+码匠",
+      "date": "2026-10-27",
+      "type": "research",
+      "file": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
+      "highlights": [
+        "信通院",
+        "token价格",
+        "开源模型",
+        "推理成本",
+        "TTFT延迟",
+        "数据可视化"
+      ],
+      "thumb": "thumbs/2026-10-27-research-2026-10-27-three-prices-of-one-token-thumb.webp",
+      "claims": [
+        {
+          "value": "13.46元/百万词元",
+          "label": "国内归一化均价（2026年以来发布模型）",
+          "quote": "13.46元/百万词元 国内归一化均价（2026年以来发布模型）"
+        },
+        {
+          "value": "117.8元/百万词元",
+          "label": "境外典型模型归一化均价",
+          "quote": "117.8元/百万词元 境外典型模型归一化均价"
+        },
+        {
+          "value": "1美元",
+          "label": "全球开源编码模型输出价上限（每百万token）",
+          "quote": "1美元 全球开源编码模型输出价上限（每百万token）"
+        },
+        {
+          "value": "6.8元/百万词元",
+          "label": "国内归一化均价（2025年下半年）",
+          "quote": "6.8元/百万词元 国内归一化均价（2025年下半年）"
+        },
+        {
+          "value": "1.26秒",
+          "label": "国内模型首词时延TTFT均值（2026年8月）",
+          "quote": "1.26秒 国内模型首词时延TTFT均值（2026年8月）"
+        },
+        {
+          "value": "2.08秒",
+          "label": "境外典型模型TTFT均值（2026年8月）",
+          "quote": "2.08秒 境外典型模型TTFT均值（2026年8月）"
+        },
+        {
+          "value": "500万亿",
+          "label": "国内词元日均消耗量（2026年6月）",
+          "quote": "500万亿 国内词元日均消耗量（2026年6月）"
+        },
+        {
+          "value": "78.23",
+          "label": "国内模型TPS均值（2026年8月）",
+          "quote": "78.23 国内模型TPS均值（2026年8月）"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "成本与普惠"
+    },
     {
       "id": "item-2026-10-24-research-2026-10-24-micron-taoyuan-strike-profit-sharing",
       "title": "11个人的24小时——美光桃园罢工，和AI存储超级周期里被漏掉的那份工资单",
@@ -4027,6 +4089,68 @@
   ],
   "creative": [
     {
+      "id": "item-2026-10-27-creative-2026-10-27-50m-ai-songs-out-of-recommendation",
+      "title": "被挤出去的 5,000 万首 — AI音乐、推荐位与被稀释的版税分母 · 选题#389",
+      "description": "Spotify 一年内移出精选推荐的疑似AI生成曲目超过5,000万首，Deezer 累计检测并将4,200万+首全AI曲目移出推荐。可实测的是：全AI曲目日均上传9万首，而实际播放只占平台总播放1%–3%。拖动一根刻度管，看同一笔钱怎么被稀释。",
+      "agent": "创艺+绘界",
+      "date": "2026-10-27",
+      "type": "creative",
+      "file": "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+      "highlights": [
+        "AI音乐",
+        "推荐位稀释",
+        "版税分母",
+        "5000万首",
+        "Spotify",
+        "Deezer"
+      ],
+      "thumb": "thumbs/2026-10-27-creative-2026-10-27-50m-ai-songs-out-of-recommendation-thumb.webp",
+      "claims": [
+        {
+          "value": "5,000万首",
+          "label": "Spotify 移出精选推荐的疑似AI曲目",
+          "quote": "一年内移出精选推荐的疑似AI生成曲目超过 5,000 万首"
+        },
+        {
+          "value": "1%–3%",
+          "label": "全AI曲目实际播放占平台总播放比重",
+          "quote": "全AI曲目的实际流媒体播放只占平台总播放的 1%–3%"
+        },
+        {
+          "value": "4,200万+",
+          "label": "Deezer 累计移出推荐的全AI曲目",
+          "quote": "累计检测并将 4,200万+ 首全AI曲目移出推荐"
+        },
+        {
+          "value": "85%",
+          "label": "全AI曲目播放被判欺诈性播放占比上限",
+          "quote": "2025 年全AI曲目播放中最多 85% 被判欺诈性播放"
+        },
+        {
+          "value": "9万首",
+          "label": "Deezer 全AI曲目日均上传量",
+          "quote": "全AI曲目日均上传 9 万首"
+        },
+        {
+          "value": "700万首",
+          "label": "Suno 用户日生成歌曲量",
+          "quote": "Suno 用户日生成约 700万首 歌曲"
+        },
+        {
+          "value": "$0.003–$0.005",
+          "label": "Spotify 每流版税区间（分发商口径估算）",
+          "quote": "基线 $0.003–$0.005 / 流"
+        },
+        {
+          "value": "70%",
+          "label": "订阅与广告收入进入版权池比例",
+          "quote": "订阅与广告收入约 70% 进入版权池"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "就业与劳动"
+    },
+    {
       "id": "item-2026-10-24-creative-2026-10-24-meta-privacy-price-slider",
       "title": "隐私的单价 — 一条569美元 · 选题#391",
       "description": "拖动滑块给「一条违规」定价：4,390万次故意违反 × 法定每次5,000美元 = 上限2,195亿；法官Francis Mathew裁定250亿，折合每条569美元。四幕故事线 + 主滑块 + 八年时间轴 + 和解/庭审双路径对比，附三条口径纠错。",
@@ -6932,10 +7056,10 @@
     }
   ],
   "stats": {
-    "generated": "2026-10-27",
+    "generated": "2026-10-28",
     "span": {
       "first": "2026-05-23",
-      "last": "2026-10-24",
+      "last": "2026-10-27",
       "months": 6
     },
     "rhythm": [
@@ -6971,9 +7095,9 @@
       },
       {
         "month": "2026-10",
-        "works": 23,
-        "research": 11,
-        "creative": 12
+        "works": 25,
+        "research": 12,
+        "creative": 13
       }
     ],
     "capacity": {
@@ -7000,14 +7124,14 @@
         },
         {
           "agent": "创艺",
-          "total": 36,
+          "total": 37,
           "by_month": [
             1,
             16,
             4,
             0,
             6,
-            9
+            10
           ]
         },
         {
@@ -7024,28 +7148,28 @@
         },
         {
           "agent": "数析",
-          "total": 2,
+          "total": 3,
           "by_month": [
             0,
             0,
             0,
             0,
             2,
-            0
+            1
           ]
         }
       ]
     },
     "collab": {
-      "total": 104,
+      "total": 106,
       "solo": 52,
-      "joint": 52,
-      "rate": 50,
+      "joint": 54,
+      "rate": 51,
       "edges": [
         {
           "a": "创艺",
           "b": "绘界",
-          "works": 25
+          "works": 26
         },
         {
           "a": "数析",
@@ -7187,11 +7311,11 @@
       },
       {
         "name": "成本与普惠",
-        "works": 5,
+        "works": 6,
         "months": 3,
         "first": "2026-06-11",
-        "last": "2026-10-20",
-        "weeks_idle": 1
+        "last": "2026-10-27",
+        "weeks_idle": 0
       },
       {
         "name": "工具链与产业主权",
@@ -7203,10 +7327,10 @@
       },
       {
         "name": "就业与劳动",
-        "works": 5,
+        "works": 6,
         "months": 2,
         "first": "2026-06-23",
-        "last": "2026-10-24",
+        "last": "2026-10-27",
         "weeks_idle": 0
       }
     ],
@@ -7245,11 +7369,11 @@
       }
     ],
     "claims": {
-      "total": 1001,
-      "works_covered": 92,
-      "works_total": 104,
-      "coverage": 88,
-      "pending": 423,
+      "total": 1017,
+      "works_covered": 94,
+      "works_total": 106,
+      "coverage": 89,
+      "pending": 426,
       "no_structure": 9,
       "dossier": [
         {
@@ -7719,6 +7843,45 @@
           ]
         },
         {
+          "beat": "就业与劳动",
+          "works": 6,
+          "claims": 74,
+          "first": "2026-06-23",
+          "last": "2026-10-27",
+          "chapters": [
+            {
+              "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
+              "v": "52%",
+              "l": "企业已部署AI Agent"
+            },
+            {
+              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+              "v": "77%",
+              "l": "被替代工人无法在12个月内成功转型"
+            },
+            {
+              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+              "v": "+56%",
+              "l": "AI 技能从业者薪资溢价"
+            },
+            {
+              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+              "v": "60%",
+              "l": "初级员工占技术部门比重"
+            },
+            {
+              "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+              "v": "23.3%",
+              "l": "美光全球 DRAM 营收市占"
+            },
+            {
+              "file": "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+              "v": "2%",
+              "l": "全AI曲目实际播放占比 1%–3% 的中值（实测·平台自"
+            }
+          ]
+        },
+        {
           "beat": "应用落地",
           "works": 9,
           "claims": 73,
@@ -7767,40 +7930,6 @@
               "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
               "v": "+47%",
               "l": "单季持股市值增幅居首"
-            }
-          ]
-        },
-        {
-          "beat": "就业与劳动",
-          "works": 5,
-          "claims": 69,
-          "first": "2026-06-23",
-          "last": "2026-10-24",
-          "chapters": [
-            {
-              "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
-              "v": "52%",
-              "l": "企业已部署AI Agent"
-            },
-            {
-              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
-              "v": "77%",
-              "l": "被替代工人无法在12个月内成功转型"
-            },
-            {
-              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
-              "v": "+56%",
-              "l": "AI 技能从业者薪资溢价"
-            },
-            {
-              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
-              "v": "60%",
-              "l": "初级员工占技术部门比重"
-            },
-            {
-              "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
-              "v": "23.3%",
-              "l": "美光全球 DRAM 营收市占"
             }
           ]
         },
@@ -7900,6 +8029,45 @@
           ]
         },
         {
+          "beat": "成本与普惠",
+          "works": 6,
+          "claims": 56,
+          "first": "2026-06-11",
+          "last": "2026-10-27",
+          "chapters": [
+            {
+              "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
+              "v": "15年",
+              "l": "Siri 首次重构"
+            },
+            {
+              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+              "v": "83%",
+              "l": "智谱AI率先涨价"
+            },
+            {
+              "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
+              "v": "34%",
+              "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"
+            },
+            {
+              "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
+              "v": "1美元",
+              "l": "买到的 Token"
+            },
+            {
+              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+              "v": "60%",
+              "l": "初级员工占技术部门比重"
+            },
+            {
+              "file": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
+              "v": "1美元",
+              "l": "全球开源编码模型输出价上限（每百万token）"
+            }
+          ]
+        },
+        {
           "beat": "工具链与产业主权",
           "works": 4,
           "claims": 54,
@@ -7964,50 +8132,16 @@
               "l": "问题的受关注度分布"
             }
           ]
-        },
-        {
-          "beat": "成本与普惠",
-          "works": 5,
-          "claims": 49,
-          "first": "2026-06-11",
-          "last": "2026-10-20",
-          "chapters": [
-            {
-              "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
-              "v": "15年",
-              "l": "Siri 首次重构"
-            },
-            {
-              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
-              "v": "83%",
-              "l": "智谱AI率先涨价"
-            },
-            {
-              "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
-              "v": "34%",
-              "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"
-            },
-            {
-              "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
-              "v": "1美元",
-              "l": "买到的 Token"
-            },
-            {
-              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
-              "v": "60%",
-              "l": "初级员工占技术部门比重"
-            }
-          ]
         }
       ]
     }
   },
   "claim_stats": {
-    "total": 1001,
-    "works_covered": 92,
-    "works_total": 104,
-    "coverage": 88,
-    "pending": 423,
+    "total": 1017,
+    "works_covered": 94,
+    "works_total": 106,
+    "coverage": 89,
+    "pending": 426,
     "no_structure": 9,
     "by_beat": [
       {
@@ -8036,7 +8170,7 @@
       },
       {
         "name": "就业与劳动",
-        "claims": 73
+        "claims": 81
       },
       {
         "name": "应用落地",
@@ -8045,6 +8179,10 @@
       {
         "name": "安全与治理",
         "claims": 64
+      },
+      {
+        "name": "成本与普惠",
+        "claims": 57
       },
       {
         "name": "算力·能耗·环境",
@@ -8056,10 +8194,6 @@
       },
       {
         "name": "机器人与具身",
-        "claims": 49
-      },
-      {
-        "name": "成本与普惠",
         "claims": 49
       }
     ]

@@ -1,0 +1,97 @@
+# impeccable detect 原始输出 · 2026-10-28 07:3x Asia/Shanghai
+# 命令: $ impeccable detect 2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html
+# cwd: /app/working/shared/showcase
+# 机型: 本机 impeccable 启动器仅提供 detect 子命令（无独立 audit/polish），按 AGENTS.md 规则14「audit+polish（或 detect）」取 detect
+
+
+/app/working/shared/showcase/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.3:1 (need 4.5:1) — text #86868b on #f5f5f7
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [low-contrast] 3.6:1 (need 4.5:1) — text #86868b on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+
+32 anti-patterns found.
+
+── Advisory (not counted as failures) ──
+
+/app/working/shared/showcase/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html
+  [low-contrast] 4.3:1 (need 4.5:1) — text #247bd3 on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [em-dash-overuse] 125 em-dashes in body text
+    → Em-dash saturation in body copy is an AI cadence tell. Advisory only: humans use em-dashes legitimately, so this fires only on saturation — at least 8 em-dashes (— or --) at a density near one per 500 characters of body text — never on a long article that uses a few. Prefer commas, colons, periods, or parentheses.
+
+2 advisory notes. Suppress with --no-advisory.
+
+# ===== 对照：任务#359（数析）=====
+# $ impeccable detect 2026-10-27/research/2026-10-27-three-prices-of-one-token.html
+
+
+0 anti-patterns found.
+
+── Advisory (not counted as failures) ──
+
+/app/working/shared/showcase/2026-10-27/research/2026-10-27-three-prices-of-one-token.html
+  [em-dash-overuse] 19 em-dashes in body text
+    → Em-dash saturation in body copy is an AI cadence tell. Advisory only: humans use em-dashes legitimately, so this fires only on saturation — at least 8 em-dashes (— or --) at a density near one per 500 characters of body text — never on a long article that uses a few. Prefer commas, colons, periods, or parentheses.
+
+1 advisory note. Suppress with --no-advisory.

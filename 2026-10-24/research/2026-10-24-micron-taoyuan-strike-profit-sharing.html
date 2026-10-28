@@ -8,7 +8,9 @@
 <script src="../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'"></script>
 <style>
 :root{
+  /* 次级文字按底色分两个令牌：浅底 --text-secondary（#ffffff 5.07:1 / #f5f5f7 4.66:1），深底 --mid-gray（#000000 5.80:1） */
   --black:#000000; --near-black:#1d1d1f; --light-gray:#f5f5f7; --mid-gray:#86868b;
+  --text-secondary:#6e6e73;
   --dark-gray:#4a4a4f; --rule:#d2d2d7; --apple-blue:#0071e3; --link-blue:#0066cc;
   --white:#ffffff; --maxw:980px;
 }
@@ -31,6 +33,10 @@ section.dark table td{border-color:#2a2a2c}
 section.dark table th{color:#86868b}
 section.dark .rule{background:#2a2a2c}
 section.dark .note{color:#86868b}
+section.dark sup{color:#a1a1a6}
+section.dark .metrics .l{color:#a1a1a6}
+section.dark .metrics .d{color:#a1a1a6}
+section.dark .chartbox .cs{color:#a1a1a6}
 .hero{background:var(--black);color:var(--white);padding:120px 0 104px;text-align:left}
 .hero .eyebrow{font-size:14px;letter-spacing:0.4px;color:#86868b;margin-bottom:26px}
 .hero h1{font-size:56px;line-height:1.07;letter-spacing:-0.28px;font-weight:600;max-width:16ch}
@@ -48,35 +54,35 @@ strong{font-weight:600}
 a{color:var(--link-blue);text-decoration:none}
 a:hover{text-decoration:underline}
 .small{font-size:14px;line-height:1.5;color:var(--dark-gray);letter-spacing:-0.08px}
-.note{font-size:14px;line-height:1.5;color:var(--mid-gray);letter-spacing:-0.08px;max-width:70ch}
-sup{font-size:11px;color:var(--mid-gray);font-weight:400}
+.note{font-size:14px;line-height:1.5;color:var(--text-secondary);letter-spacing:-0.08px;max-width:70ch}
+sup{font-size:11px;color:var(--text-secondary);font-weight:400}
 hr.rule{border:0;height:1px;background:var(--rule);margin:44px 0}
 .verdict{background:var(--light-gray);border-radius:28px;padding:44px 40px;margin:36px 0}
 .verdict.dark-verdict{background:#1d1d1f;color:#f5f5f7}
-.verdict .q{font-size:13px;letter-spacing:0.6px;color:var(--mid-gray);margin-bottom:14px}
+.verdict .q{font-size:13px;letter-spacing:0.6px;color:var(--text-secondary);margin-bottom:14px}
 .verdict .a{font-size:34px;line-height:1.2;letter-spacing:-0.3px;font-weight:600;margin-bottom:18px}
 .verdict p{color:var(--dark-gray);margin-bottom:14px}
 .verdict.dark-verdict p{color:#a1a1a6}
-.verdict.dark-verdict .q{color:#86868b}
+.verdict.dark-verdict .q{color:#a1a1a6}
 .tag{display:inline-block;font-size:11px;line-height:1;letter-spacing:0.3px;padding:5px 9px;border-radius:980px;border:1px solid var(--rule);color:var(--dark-gray);background:#fff;margin-right:6px;white-space:nowrap;vertical-align:2px}
 .tag.solid{background:var(--near-black);color:#fff;border-color:var(--near-black)}
-.tag.ghost{border-style:dashed;color:var(--mid-gray)}
+.tag.ghost{border-style:dashed;color:var(--text-secondary)}
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:2px;background:var(--rule);border-radius:20px;overflow:hidden;margin:32px 0}
 .metrics .cell{background:#fff;padding:26px 22px}
 section.dark .metrics{background:#2a2a2c}
 section.dark .metrics .cell{background:#000}
 .metrics .v{font-size:33px;line-height:1.12;letter-spacing:-0.4px;font-weight:600;margin-bottom:7px}
-.metrics .l{font-size:13px;line-height:1.35;color:var(--mid-gray);letter-spacing:-0.05px}
-.metrics .d{font-size:12px;line-height:1.4;color:var(--mid-gray);margin-top:7px;letter-spacing:-0.03px}
+.metrics .l{font-size:13px;line-height:1.35;color:var(--text-secondary);letter-spacing:-0.05px}
+.metrics .d{font-size:12px;line-height:1.4;color:var(--text-secondary);margin-top:7px;letter-spacing:-0.03px}
 table{width:100%;border-collapse:collapse;margin:26px 0;font-size:15px;letter-spacing:-0.1px}
-th{text-align:left;font-weight:600;font-size:12px;letter-spacing:0.3px;color:var(--mid-gray);padding:0 14px 11px 0;border-bottom:1px solid var(--rule)}
+th{text-align:left;font-weight:600;font-size:12px;letter-spacing:0.3px;color:var(--text-secondary);padding:0 14px 11px 0;border-bottom:1px solid var(--rule)}
 td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 td.num{font-variant-numeric:tabular-nums}
 .chartbox{background:var(--white);border-radius:18px;padding:28px 24px;margin:32px 0}
 section.dark .chartbox{background:#1d1d1f}
 section.alt .chartbox{background:#fff}
 .chartbox .ct{font-size:17px;font-weight:600;margin-bottom:4px}
-.chartbox .cs{font-size:13px;color:var(--mid-gray);margin-bottom:18px}
+.chartbox .cs{font-size:13px;color:var(--text-secondary);margin-bottom:18px}
 .chartwrap{position:relative;height:340px}
 .correction{border-left:3px solid var(--apple-blue);padding:6px 0 6px 20px;margin:26px 0;max-width:64ch}
 .correction .big{font-size:22px;font-weight:600;letter-spacing:-0.2px;line-height:1.3;margin-bottom:8px}
@@ -86,6 +92,11 @@ ul.plain{margin:14px 0 20px 20px;max-width:64ch}
 ul.plain li{margin-bottom:10px}
 footer{padding:60px 0 80px;background:var(--black);color:#86868b;font-size:13px;line-height:1.7}
 footer b{color:#d2d2d7;font-weight:400}
+:focus-visible{outline:2px solid var(--apple-blue);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important}
+}
 </style>
 </head>
 <body>
@@ -518,6 +529,7 @@ footer b{color:#d2d2d7;font-weight:400}
 <script>
 const AX = {grid:{color:'rgba(128,128,135,.18)'},ticks:{font:{size:12}}};
 if (window.Chart){
+ if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) Chart.defaults.animation = false;
  Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
  Chart.defaults.color = '#6e6e73';
 

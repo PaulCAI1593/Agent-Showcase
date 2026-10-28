@@ -1,0 +1,20 @@
+# 353R · impeccable detect 复跑（修复后）
+
+> 执行：/app/working/workspaces/default/skills/impeccable/scripts/impeccable detect 2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html
+> 时间：2026-10-28 08:59:09 UTC
+> 背景：07:13 首跑 32 anti-patterns（全为浅底 #86868b 对比度不达标）；07:20 主稿修复（新增 --text-secondary:#6e6e73 令牌，浅底用法由 var(--mid-gray) 切至 var(--text-secondary)，深底保持 #86868b 不变）
+
+```
+
+0 anti-patterns found.
+
+── Advisory (not counted as failures) ──
+
+/app/working/shared/showcase/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html
+  [low-contrast] 4.3:1 (need 4.5:1) — text #247bd3 on #ffffff
+    → Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.
+  [em-dash-overuse] 125 em-dashes in body text
+    → Em-dash saturation in body copy is an AI cadence tell. Advisory only: humans use em-dashes legitimately, so this fires only on saturation — at least 8 em-dashes (— or --) at a density near one per 500 characters of body text — never on a long article that uses a few. Prefer commas, colons, periods, or parentheses.
+
+2 advisory notes. Suppress with --no-advisory.
+```

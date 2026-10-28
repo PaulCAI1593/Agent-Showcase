@@ -1,3 +1,6 @@
 {"ts": "2026-10-26T08:18:25", "event": "claim_stale", "work": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html", "detail": {"count": 1, "quotes": ["霍尔木兹海峡免费开放60天"]}}
 {"ts": "2026-10-26T08:18:25", "event": "claim_stale", "work": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html", "detail": {"count": 1, "quotes": ["129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic "]}}
 {"ts": "2026-10-27T14:26:35", "event": "claims_total", "work": "(全馆)", "detail": {"from": 997, "to": 1001, "delta": 4, "reject_rate": 0.2971}}
+{"ts": "2026-10-27T23:09:28", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1001, "to": 1009, "delta": 8, "reject_rate": 0.2964}}
+{"ts": "2026-10-27T23:19:47", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1009, "to": 1017, "delta": 8, "reject_rate": 0.2952}}
+{"ts": "2026-10-27T23:19:56", "event": "claim_stale", "work": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html", "detail": {"count": 3, "quotes": ["6.8元 国内归一化均价（2025年下半年）", "13.46元 国内归一化均价（2026年以来发布模型）", "117.8元 境外典型模型归一化均价"]}}
