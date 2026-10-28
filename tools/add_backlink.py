@@ -22,6 +22,11 @@ import json, os, re, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANIFEST = os.path.join(ROOT, 'manifest.json')
+def esc(x):
+    return (str(x).replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;').replace('"', '&quot;'))
+
+
 MARKER = '<!-- showcase-backlink -->'
 
 STYLE_ID = 'showcase-backlink'
@@ -57,6 +62,56 @@ _js = (
     '})();'
 )
 
+# ── 档案条 ──────────────────────────────────────────────────
+# 每件作品顶部横一条暗色窄条：日期 · 追踪线 · 该月件数 · 回到柜子。
+# 目的：106 件作品页各自为政（浅色/深色/Apple/档案卷宗四种风格），
+# 用同一条窄条把它们的"归属"说清楚 —— 这件是哪天的、哪条线的、
+# 柜子第几格。数据全部来自 manifest，自动更新。
+BAR_ID = 'showcase-bar'
+
+
+def bar_html(rel, meta):
+    m = meta or {}
+    bits = []
+    if m.get('date'):
+        bits.append('<span class="sb-date">%s</span>' % esc(m['date']))
+    if m.get('beat'):
+        bits.append('<span class="sb-beat">%s</span>' % esc(m['beat']))
+    if m.get('month_count'):
+        bits.append('<span class="sb-cnt">%s 件 / %s</span>'
+                    % (m['month_count'], esc(m.get('month') or '')))
+    if m.get('claim_count'):
+        bits.append('<span class="sb-cnt sb-claims">%s 条已验证断言</span>'
+                    % m['claim_count'])
+    sep = '<span class="sb-sep">/</span>'
+    body = sep.join(bits)
+    B = BAR_ID
+    css = (
+        f'#{B}{{position:relative;z-index:5;display:flex;align-items:center;gap:14px;'
+        f'flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);'
+        f'border-bottom:1px solid rgba(255,255,255,.09);'
+        f'font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;'
+        f'letter-spacing:.02em}}'
+        f'#{B} .sb-brand{{font-family:Georgia,"Songti SC",serif;color:#f0c27f;'
+        f'letter-spacing:.16em;text-transform:uppercase;font-size:10.5px}}'
+        f'#{B} .sb-sep{{color:rgba(255,255,255,.2)}}'
+        f'#{B} .sb-beat{{color:#a78bfa}}'
+        f'#{B} .sb-cnt{{color:rgba(255,255,255,.44)}}'
+        f'#{B} .sb-back{{margin-left:auto;color:#f5e6c8;text-decoration:none;'
+        f'border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;'
+        f'font-size:11.5px;transition:background .2s,border-color .2s}}'
+        f'#{B} .sb-back:hover{{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}}'
+        f'@media(max-width:640px){{#{B}{{gap:9px;padding:8px 14px;font-size:11px}}'
+        f'#{B} .sb-back{{margin-left:0;order:9}}}}'
+    )
+    return (
+        f'{MARKER}\n<style>{css}</style>\n'
+        f'<div id="{B}"><span class="sb-brand">Zhinang Archive</span>'
+        + (sep if body else '') + body
+        + f'<a class="sb-back" href="{esc(index_rel_for(rel))}">回到柜子</a></div>\n'
+    )
+
+
 def snippet(index_rel: str) -> str:
     return (
         f'{MARKER}\n'
@@ -90,6 +145,33 @@ def snippet(index_rel: str) -> str:
 def index_rel_for(work_rel: str) -> str:
     work_dir = os.path.dirname(os.path.join(ROOT, work_rel))
     return os.path.relpath(os.path.join(ROOT, 'index.html'), work_dir).replace(os.sep, '/')
+
+
+def manifest_meta():
+    """从 manifest.json 取每件作品的档案条元数据。
+
+    档案条要说的就是「这件属于哪里」：日期、追踪线、该月有多少件、
+    有多少条已验证断言 —— 全部自动更新，不需要人工维护。
+    """
+    try:
+        m = json.load(open(MANIFEST, encoding='utf-8'))
+    except Exception:
+        return {}
+    items = list(m.get('research', [])) + list(m.get('creative', []))
+    months = {}
+    for it in items:
+        k = (it.get('date') or '')[:7]
+        months[k] = months.get(k, 0) + 1
+    out = {}
+    for it in items:
+        out[it['file']] = {
+            'date': it.get('date') or '',
+            'beat': it.get('beat') or '',
+            'month': (it.get('date') or '')[:7],
+            'month_count': months.get((it.get('date') or '')[:7], 0),
+            'claim_count': len(it.get('claims') or []),
+        }
+    return out
 
 
 def load_works():
@@ -130,6 +212,8 @@ def main():
             new = re.sub(r'<style>#' + STYLE_ID + r'\{[\s\S]*?</style>\n?', '', new, count=1)
             new = re.sub(r'<script id="showcase-backlink-js">[\s\S]*?</script>\n?',
                          '', new, count=1)
+            new = re.sub(r'<style>#' + BAR_ID + r'\{[\s\S]*?</style>\n?', '', new, count=1)
+            new = re.sub(r'<div id="' + BAR_ID + r'">[\s\S]*?</div>\n?', '', new, count=1)
             if not dry:
                 open(p, 'w', encoding='utf-8').write(new)
             changed += 1
@@ -142,7 +226,11 @@ def main():
         if not mb:
             skipped += 1
             continue
-        new = txt[:mb.end()] + '\n' + snippet(index_rel_for(rel)) + txt[mb.end():]
+        meta_all = manifest_meta()
+        new = (txt[:mb.end()]
+               + '\n' + bar_html(rel, meta_all.get(rel))
+               + snippet(index_rel_for(rel))
+               + txt[mb.end():])
         if dry:
             changed += 1
             continue

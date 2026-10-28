@@ -4,3 +4,4 @@
 {"ts": "2026-10-27T23:09:28", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1001, "to": 1009, "delta": 8, "reject_rate": 0.2964}}
 {"ts": "2026-10-27T23:19:47", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1009, "to": 1017, "delta": 8, "reject_rate": 0.2952}}
 {"ts": "2026-10-27T23:19:56", "event": "claim_stale", "work": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html", "detail": {"count": 3, "quotes": ["6.8元 国内归一化均价（2025年下半年）", "13.46元 国内归一化均价（2026年以来发布模型）", "117.8元 境外典型模型归一化均价"]}}
+{"ts": "2026-10-28T17:49:17", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1017, "to": 1108, "delta": 91, "reject_rate": 0.2777}}
