@@ -315,7 +315,9 @@ a{color:inherit;text-decoration:none}
   100%{transform:translate3d(0,0,0) rotate(var(--rot)) scale(1)}
 }
 @media(prefers-reduced-motion:reduce){.cover-field img{animation:none!important}}
-.cover-focus{position:absolute;z-index:2;pointer-events:none;transition:opacity .85s ease}
+.cover-focus{position:absolute;z-index:2;transition:opacity .85s ease}
+.cover-focus a{display:block;line-height:0}
+.cover-focus a:hover img{transform:scale(1.015)}
 .cover-focus img{
   display:block;border-radius:4px;border:1px solid rgba(255,255,255,.14);
   box-shadow:0 50px 110px -40px rgba(0,0,0,.95);
@@ -717,7 +719,8 @@ function renderFocus(){
     const cl=(it.claims&&it.claims[0])||null;
     box.classList.add('fade');
     setTimeout(()=>{
-      box.innerHTML=`<img src="${esc(it.thumb)}" alt="">`;
+      box.innerHTML=`<a href="${esc(it.file)}" title="${esc(it.title)}" aria-label="${esc(it.title)}">`
+        +`<img src="${esc(it.thumb)}" alt=""></a>`;
       box.style.left='54%'; box.style.top='11%';
       box.style.width='44vw'; box.style.height='62vh';
       box.classList.remove('fade');
