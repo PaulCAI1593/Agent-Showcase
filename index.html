@@ -334,9 +334,13 @@ a{color:inherit;text-decoration:none}
   linear-gradient(to top,rgba(5,5,8,.92) 0%,rgba(5,5,8,.30) 18%,rgba(5,5,8,0) 42%)}
 .cover-inner{position:relative;z-index:3}
 .cover .cover-body{display:block;padding:0;min-height:calc(100vh - 300px)}
-.cover #ev-tail p{text-shadow:0 2px 22px rgba(5,5,8,1),0 0 8px rgba(5,5,8,.95),0 0 2px rgba(5,5,8,.9)}
+.cover #ev-tail{position:relative}
+.cover #ev-tail::before{content:'';position:absolute;left:-40px;top:-34px;
+  width:calc(100% + 120px);height:calc(100% + 80px);z-index:-1;
+  background:radial-gradient(ellipse 70% 60% at 28% 50%,rgba(5,5,8,.94) 0%,rgba(5,5,8,.72) 46%,transparent 78%)}
+.cover #ev-tail p{text-shadow:0 2px 22px rgba(5,5,8,1),0 0 8px rgba(5,5,8,.95)}
 .cover .cover-foot{background:none;backdrop-filter:none;padding:20px 30px 26px}
-.cover .cover-issue{background:rgba(5,5,8,.82);backdrop-filter:blur(12px)}
+.cover .cover-issue{background:rgba(5,5,8,.95);backdrop-filter:blur(16px)}
 
 .cab{display:grid;grid-template-columns:236px minmax(0,1fr);gap:0;max-width:1240px;margin:0 auto;
   border-left:1px solid var(--border);border-right:1px solid var(--border)}
@@ -684,26 +688,39 @@ function buildField(){
   if(!field) return;
   const imgs=ALL.filter(i=>i.thumb);
   if(!imgs.length){ field.innerHTML=''; return; }
-  const N=Math.min(52,imgs.length);
-  const step=Math.max(1,Math.floor(imgs.length/N));
-  const picked=imgs.filter((_,k)=>k%step===0).slice(0,N);
+  // ⚠️ JS 里 `>>>` 的优先级**低于** `%`：`h >>> 13 % 24` 实际是 `h >>> (13%24)`
+  //    = `h >>> 13` —— 那个 `% 24` 根本没生效，于是宽度变成 276581vw、
+  //    透明度 708025，整场飞出屏幕（实测 52/52 张都加载了却看不见）。
+  //    位移与取模混算必须显式加括号。
+  //
+  // 分布：**网格分层 + 格内抖动**（而不是纯哈希撒点）。
+  // 纯哈希会结块（实测中间挤成一团），读着像事故；分层后像一面有节奏的屏幕墙。
+  const COLS=10, ROWS=6;
+  const cells=[];
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) cells.push({r,c});
+  // 用哈希给格子排序 → 选中的格子均匀铺开
+  cells.sort((a,b)=>hashOf('c'+a.r+'-'+a.c)-hashOf('c'+b.r+'-'+b.c));
+  const picked=imgs.filter((_,k)=>k%Math.max(1,Math.floor(imgs.length/(COLS*ROWS)))===0)
+                  .slice(0,COLS*ROWS);
+  const cw=100/COLS, ch=100/ROWS;
   field.innerHTML=picked.map((it,k)=>{
     const h=hashOf(it.file);
-    // ⚠️ JS 里 `>>>` 的优先级**低于** `%`：`h >>> 13 % 24` 实际是 `h >>> (13%24)`
-    //    = `h >>> 13` —— 那个 `% 24` 根本没生效，于是宽度变成 276581vw、
-    //    透明度 708025，整场飞出屏幕（实测 52/52 张都加载了却看不见）。
-    //    位移与取模混算必须显式加括号。
-    let x=(h%104)/104*100; const y=((h>>>7)%100)/100*100;
-    // 左侧 32% 是文字区 —— 落在那儿的影像推到右边，别压字
-    if(x<32) x+=34;
-    const w=9+((h>>>13)%24), rot=(((h>>>19)%70)-35)/10;
-    const dx=((h>>>23)%120)-60, dy=((h>>>29)%120)-60;
+    const cell=cells[k%cells.length];
+    // 格内抖动（±0.35 格）—— 有机但不结块
+    const jx=(((h>>>5)%70)-35)/100*cw, jy=(((h>>>11)%70)-35)/100*ch;
+    let x=cell.c*cw+cw/2+jx, y=cell.r*ch+ch/2+jy;
+    // 只避开**左侧文字区**（x<32% 且 y 12%~58%）：这些挪到底部带。
+    // 右侧（聚焦图后面）也放 —— 聚焦图不透明，那部分看不见，但让分布更自然。
+    if(x<32 && y>12 && y<58){ x=4+((h>>>3)%28); y=62+((h>>>17)%32); }
+    if(x<5) x=5; if(x>95) x=95; if(y<3) y=3; if(y>93) y=93;
+    const w=7+((h>>>13)%13), rot=(((h>>>19)%60)-30)/12;
+    const dx=((h>>>23)%90)-45, dy=((h>>>29)%90)-45;
     const dur=26+((h>>>33)%40);
-    const op=.26+((h>>>37)%30)/100;
+    const op=.17+((h>>>37)%26)/100;
     return `<img src="${esc(it.thumb)}" alt="" decoding="async"
-      style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;width:${w}vw;height:${w*0.62}vh;
+      style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;width:${w}vw;height:${w*0.64}vh;
              --rot:${rot.toFixed(1)}deg;--dx:${dx}px;--dy:${dy}px;animation-duration:${dur}s;
-             animation-delay:-${(h>>>41%dur)}s;opacity:${op.toFixed(2)}">`;
+             animation-delay:-${((h>>>41)%dur)}s;opacity:${op.toFixed(2)}">`;
   }).join('');
 }
 
@@ -721,8 +738,8 @@ function renderFocus(){
     setTimeout(()=>{
       box.innerHTML=`<a href="${esc(it.file)}" title="${esc(it.title)}" aria-label="${esc(it.title)}">`
         +`<img src="${esc(it.thumb)}" alt=""></a>`;
-      box.style.left='54%'; box.style.top='11%';
-      box.style.width='44vw'; box.style.height='62vh';
+      box.style.left='57%'; box.style.top='13%';
+      box.style.width='37vw'; box.style.height='56vh';
       box.classList.remove('fade');
       // 说明文字跟着换
       const tail=document.getElementById('ev-tail');

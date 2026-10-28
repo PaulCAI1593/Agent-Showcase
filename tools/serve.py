@@ -62,7 +62,9 @@ class Server(socketserver.TCPServer):
 
 
 if __name__ == '__main__':
-    with Server((HOST, PORT), Handler) as httpd:
+    # ⚠️ 必须用**多线程**服务器：封面一次要加载 52 张缩略图 + 1 张大图，
+    # 单线程 HTTPServer 串行处理 → 首屏加载 30 秒超时（实测）。
+    with http.server.ThreadingHTTPServer((HOST, PORT), Handler) as httpd:
         print(f'showcase 预览：http://{HOST}:{PORT}/index.html')
         if HOST != '127.0.0.1':
             print('  ⚠ 已监听 0.0.0.0 —— 局域网内其他设备可访问')
