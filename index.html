@@ -218,9 +218,13 @@
 }
 @media(prefers-reduced-motion:reduce){.cover-field img{animation:none!important}}
 @media(max-width:860px){
-  .led-row{grid-template-columns:88px minmax(0,1fr) 46px;
-    grid-template-areas:"v l d" ". w w";row-gap:2px}
-  .led-line{display:none}
+  /* 行结构已变：值+指标名 是链接块（跨 1~2 列），旧的 grid-template-areas 已过时 */
+  .led-row{grid-template-columns:minmax(0,1fr);gap:2px}
+  .led-link{grid-column:1;grid-template-columns:minmax(88px,auto) minmax(0,1fr);gap:12px}
+  .led-d{display:none}
+  .led-w{grid-column:1;text-align:left;margin-top:3px;font-size:11.5px}
+  .led-cont .led-link{padding-left:12px}
+  .led-go{display:none}
 }
 @media(max-width:1000px){
   #stale-notice{font-size:11.5px;bottom:14px;padding:8px 11px}
@@ -241,9 +245,9 @@
   .spine::-webkit-scrollbar{display:none}
   .spine-h,.spine-foot{display:none}
   .spine-item{border-left:0;border-bottom:2px solid transparent;padding:7px 13px;white-space:nowrap;
-    background:var(--glass);border-radius:8px}
+    background:var(--glass);border-radius:8px;flex:0 0 auto}
   .spine-item.on{border-left:0;border-bottom-color:var(--gold)}
-  .spine-item .si-name{white-space:nowrap}
+  .spine-item .si-name{white-space:nowrap;overflow:visible;text-overflow:clip}
   .drawers{padding:24px 22px 70px}
   .cab-bar{padding:12px 22px}
 }
