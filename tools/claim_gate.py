@@ -58,6 +58,9 @@ CHANGELOG = os.path.join(ROOT, 'tools', 'claim_changelog.jsonl')
 
 EXCLUDE_DIRS = {'_archive', 'thumbs', '.git', '__pycache__', 'notes',
                 'templates', 'tools', 'assets'}
+# 页面架构元素：抽取断言时必须跳过（自引用会导致断言集体失效）
+CHROME_IDS = ('showcase-bar', 'showcase-backlink', 'stale-notice')
+
 EXCLUDE_FILES = {'index.html', 'enrich.json', 'manifest.json'}
 
 # ── G2 语义可疑启发式 ──
@@ -133,6 +136,13 @@ def strip_code(html):
     # 这类标题碎片（实测多张卡片如此）。
     # 只清 title 与 h1 —— h2~h6 仍可能承载真实指标，不排除。
     html = re.sub(r'<(title|h1)\b[^>]*>.*?</\1>', r'<\1></\1>', html, flags=re.S | re.I)
+    # ── 页面架构（chrome）不是作品内容，不该被抽成断言 ──
+    # 曾因档案条里写「8 条已验证断言」被抽成一条断言 → 断言数变了 →
+    # 档案条改写成「11 条」→ 旧 quote 失效 → 91 条断言集体失效。
+    # 自引用循环，必须把架构元素排除在抽取之外。
+    for cid in CHROME_IDS:
+        html = re.sub(r'<[^>]*\bid=["\']' + cid + r'["\'][^>]*>.*?</[^>]+>\s*',
+                      '', html, flags=re.S | re.I)
     return html
 
 
@@ -607,6 +617,17 @@ def selftest():
     check('注释含 script 字面量时正文未被吞', '布伦特原油' in strip_code(tricky), True)
     dec = declared_claims(tricky)
     check('声明块能正确解析', len(dec) if dec else 0, 1)
+
+    print('【页面架构排除（自引用回归）】')
+    # 档案条里写着「8 条已验证断言」→ 曾被抽成一条断言 → 断言数变了 →
+    # 档案条改写 → 旧 quote 失效 → 91 条断言集体失效（自引用循环）
+    chrome = ('<body><div id="showcase-bar">8 条已验证断言</div>'
+              '<p>布伦特原油两周跌幅 -16%</p></body>')
+    check('档案条文字不被抽成断言',
+          len([c for c in extract_candidates(chrome)
+               if '已验证断言' in c.get('label','')]), 0)
+    check('档案条移除后正文仍可抽取',
+          any('布伦特' in c.get('label','') for c in extract_candidates(chrome)), True)
 
     print('【占位符守卫】')
     ph = ('<p>布伦特原油两周跌幅 -16%</p>'

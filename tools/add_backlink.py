@@ -93,7 +93,7 @@ def bar_html(rel, meta):
         f'font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;'
         f'letter-spacing:.02em}}'
         f'#{B} .sb-brand{{font-family:Georgia,"Songti SC",serif;color:#f0c27f;'
-        f'letter-spacing:.16em;text-transform:uppercase;font-size:10.5px}}'
+        f'letter-spacing:.16em;text-transform:uppercase;font-size:11px}}'
         f'#{B} .sb-sep{{color:rgba(255,255,255,.2)}}'
         f'#{B} .sb-beat{{color:#a78bfa}}'
         f'#{B} .sb-cnt{{color:rgba(255,255,255,.44)}}'

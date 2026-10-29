@@ -43,7 +43,10 @@ def shoot(html_rel, typ):
             args=["--no-sandbox", "--hide-scrollbars", "--force-device-scale-factor=1"],
         )
         pg = b.new_page(viewport={"width": 1260, "height": 800})
-        pg.goto(url, wait_until="load", timeout=45000)
+        # ⚠️ 用 domcontentloaded 而不是 load：某件作品的远程资源挂住时，
+        # load 会一直等到超时 —— 一件坏作品曾把整条流水线带崩。
+        # 截图本来就只需要 DOM 出来。
+        pg.goto(url, wait_until="domcontentloaded", timeout=20000)
         pg.add_style_tag(content=CSS)
         pg.wait_for_timeout(2500)
         pg.screenshot(path=out_path, clip={"x": 0, "y": 0, "width": 1260, "height": 800})

@@ -710,7 +710,12 @@ def phase_thumbs(disk_works, manifest, registry, dry):
             log(f'  [dry] 将重截 {canonical}（原因：{why}）')
             continue
         log(f'  → {rel} ({typ})｜原因：{why}')
-        gen_thumb.shoot(rel, typ)
+        try:
+            gen_thumb.shoot(rel, typ)
+        except Exception as exc:
+            # 一件作品截不出缩略图（远程资源挂住等）不该带崩整条流水线
+            log(f'  ! 缩略图失败（跳过）: {rel} — {str(exc)[:70]}')
+            continue
         produced = f'{stem[:10]}-{typ}-{stem}-thumb.png'   # gen_thumb 按 stem[:10] 取日期
         if produced != canonical:
             src = os.path.join(THUMBS, produced)

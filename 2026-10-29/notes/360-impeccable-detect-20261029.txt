@@ -1,0 +1,4 @@
+# impeccable detect 原始输出 · #360 · 2026-10-29
+# 命令: /app/working/workspaces/agents/research-analyst/skills/impeccable/scripts/impeccable detect --json 2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html
+# 首轮输出：1 条 advisory（em-dash-overuse，正文 20 处破折号）→ 已改写为冒号/分号/句号，剩余 0 处
+# 复跑输出：[]
