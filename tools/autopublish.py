@@ -107,6 +107,23 @@ def thumb_state_key(rel, date, typ):
     return f'{date}|{typ}|{work_key(rel)}'
 
 
+def thumb_is_blank(path):
+    """缩略图是不是一张「视觉上空白」的图。
+
+    判据用**灰度标准差**而不是「亮像素占比」——
+    亮像素占比会把深色主题作品整片误判（实测 104 件里 98 件被误判）。
+    空白页（内容被永久隐藏 → 拍出来全黑或全白）的标准差 ≈ 0；
+    深色页有文字/图形 → 标准差明显大于 0。
+    """
+    try:
+        from PIL import Image, ImageStat
+        im = Image.open(path).convert('L')
+        st = ImageStat.Stat(im)
+        return st.stddev[0] < 2.0
+    except Exception:
+        return False
+
+
 def thumb_ready(rel, date, typ, state):
     """返回 (ready, reason)。reason='' 表示就绪。"""
     stem = work_key(rel)
@@ -120,6 +137,8 @@ def thumb_ready(rel, date, typ, state):
     size = os.path.getsize(webp)
     if size < WEBP_MIN_BYTES:
         return False, f'webp 过小({size}B < {WEBP_MIN_BYTES}B)，疑空白首图'
+    if thumb_is_blank(webp):
+        return False, 'webp 是视觉空白图（页面内容可能被永久隐藏）'
     key = thumb_state_key(rel, date, typ)
     fp = content_fingerprint(rel)
     if key not in state:
