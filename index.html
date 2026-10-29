@@ -458,6 +458,9 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 .led-w{grid-area:w;margin-top:2px}
 .led-row:hover{background:var(--glass)}
 .led-row+.led-row{border-top:1px solid rgba(255,255,255,.035)}
+.led-cont .led-l{padding-left:14px;border-left:1px solid rgba(255,255,255,.10)}
+.led-start{border-top:1px solid rgba(255,255,255,.10)!important;margin-top:2px}
+.led-start .led-l{font-weight:500;color:var(--t1)}
 .led-v{font-family:var(--serif);font-size:14.5px;color:var(--gold);font-weight:600;
   font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
 .led-l{font-size:13.5px;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -953,15 +956,19 @@ function cardHTML(it,i){
 
 function ledgerHTML(m){
   // 断言账目：把该月的**已验证断言**逐条列出（每条都带作品链接，可回原文核对）
+  // 按作品分组：同一件作品的若干条断言，标题只出现一次，其余行缩进 ——
+  // 否则一件作品的 8 条断言会把标题重复 8 次（实测如此）。
   const rows=[];
   m.items.forEach(it=>{
-    (it.claims||[]).forEach(c=>{
-      rows.push(`<div class="led-row" data-file="${esc(it.file)}" data-c="${(it.claims||[]).indexOf(c)}">
+    const cs=it.claims||[];
+    cs.forEach((c,k)=>{
+      const first = k===0;
+      rows.push(`<div class="led-row${first?' led-start':' led-cont'}" data-file="${esc(it.file)}" data-c="${k}">
         <span class="led-v">${esc(c.v)}</span>
         <span class="led-l">${hl(c.l)}</span>
         <span class="led-line">${it.beat?hl(it.beat):''}</span>
         <span class="led-d">${it.date.slice(5)}</span>
-        <span class="led-w"><a href="${esc(it.file)}">${hl(it.title)}</a></span>
+        <span class="led-w">${first?`<a href="${esc(it.file)}">${hl(it.title)}</a>`:''}</span>
       </div>`);
     });
   });
