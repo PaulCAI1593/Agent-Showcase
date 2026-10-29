@@ -112,6 +112,116 @@ def bar_html(rel, meta):
     )
 
 
+# ── 死规则救援 ────────────────────────────────────────────────
+# 有一批作品写了「滚动显现」的样式（.fade-in / .reveal / .rv … 设 opacity:0），
+# 但**没有任何规则或 JS 让它变可见** —— 内容永久隐藏，整页视觉全黑。
+# 实测 59 件作品有 281 处这种死规则（缩略图全黑、首页卡片是黑块）。
+#
+# 这里不改动作者写的 CSS（保留原意），而是**追加一条覆盖规则**把内容放出来：
+#   <被隐藏类>{opacity:1!important;visibility:visible!important;transform:none!important}
+# 关键是只对「设了 opacity:0 且全篇没有可见对应物」的选择器生效。
+
+RULE_RE = re.compile(r'([^{}]+)\{([^{}]*)\}', re.S)
+_KEYFRAME_STEP = re.compile(r'^(from|to|\d+%)$')
+
+
+def dead_rules(html):
+    """找出「永久隐藏内容」的选择器。"""
+    css = '\n'.join(re.findall(r'<style[^>]*>(.*?)</style>', html, re.S))
+    if not css:
+        return []
+    rules = RULE_RE.findall(css)
+    # 收集所有选择器 → 是否有可见对应物
+    visible = set()
+    for sel, body in rules:
+        sel_c = ' '.join(sel.split())
+        if _KEYFRAME_STEP.match(sel_c.strip()):
+            continue
+        if re.search(r'opacity\s*:\s*(1|0\.[1-9])', body) or 'animation' in body:
+            visible.add(sel_c)
+    dead = []
+    for sel, body in rules:
+        sel_c = ' '.join(sel.split())
+        if _KEYFRAME_STEP.match(sel_c.strip()):
+            continue
+        if '::' in sel_c or ',' in sel_c:
+            continue                       # 伪元素 / 组合选择器：不动
+        if not re.search(r'opacity\s*:\s*0(?![.\d])', body):
+            continue
+        if sel_c in visible:
+            continue                       # 有对应物（正常显现）
+        # 「前缀式」对应物也算活着：.hero-title 的对应物常写成 .hero-title.visible
+        # / .hero-title.in-view —— 精确匹配会漏判，把正常作品误判成死规则。
+        alive = False
+        pat = re.compile(r'(^|[\s,])' + re.escape(sel_c) + r'(?![\w-])')
+        for o, b in rules:
+            if o.strip() == sel_c:
+                continue
+            if pat.search(' '.join(o.split())) and (
+                    re.search(r'opacity\s*:\s*(1|0\.[1-9])', b) or 'animation' in b):
+                alive = True
+                break
+        if alive:
+            continue
+        if sel_c not in [d[0] for d in dead]:
+            dead.append((sel_c, 'transform' in body))
+    return dead
+
+
+def rescue_css(html):
+    dead = dead_rules(html)
+    sels = []
+    for sel, has_tf in dead:
+        decl = 'opacity:1!important;visibility:visible!important'
+        if has_tf:
+            decl += ';transform:none!important'
+        sels.append(f'{sel}{{{decl}}}')
+    # 预加载遮罩没被关掉 → 整页被盖住（黑屏）。JS 失败时就会这样。
+    if re.search(r'id=["\']preloader["\']', html, re.I):
+        sels.append('#preloader{display:none!important;opacity:0!important;pointer-events:none!important}')
+    if not sels:
+        return ''
+    return ('<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */'
+            + ''.join(sels) + '</style>\n')
+
+_ARTIFACTS = [
+    r'<!--\s*showcase-backlink\s*-->\s*',
+    r'<style>\s*#showcase-bar\{.*?</style>\s*',
+    r'<style>\s*#showcase-backlink\{.*?</style>\s*',
+    r'<style\s+id="showcase-rescue">.*?</style>\s*',
+    r'<div\s+id="showcase-bar">.*?</div>\s*',
+    r'<a\s+id="showcase-backlink"[^>]*>.*?</a>\s*',
+    r'<script\s+id="showcase-backlink-js">.*?</script>\s*',
+    r'</div>\s*',
+    r'回到柜子</a>\s*',
+]
+
+
+def strip_injected(html):
+    """从 body 开头反复剥离所有注入物与历史残渣，直到稳定。
+
+    为什么不能只用一条正则：注入物里有嵌套（档案条内部还有一个 <a>），
+    而早期的移除正则 `MARKER…</a>` 会撞上档案条内部的链接 —— 把档案条
+    整段吃掉并留下孤立的 </div>，108 件作品全被注入了畸形 HTML。
+    改成「从 body 开头逐段剥离」，每一步都可验证、不靠猜。
+    """
+    m = re.search(r'<body[^>]*>', html, re.I)
+    if not m:
+        return html
+    head, rest = html[:m.end()], html[m.end():]
+    changed = True
+    while changed:
+        changed = False
+        t = rest.lstrip('\n\r\t ')
+        for pat in _ARTIFACTS:
+            mm = re.match(pat, t, re.S | re.I)
+            if mm:
+                rest = t[mm.end():]
+                changed = True
+                break
+    return head + '\n' + rest
+
+
 def snippet(index_rel: str) -> str:
     return (
         f'{MARKER}\n'
@@ -205,15 +315,7 @@ def main():
         txt = open(p, encoding='utf-8', errors='ignore').read()
 
         if remove:
-            if MARKER not in txt:
-                skipped += 1
-                continue
-            new = re.sub(re.escape(MARKER) + r'[\s\S]*?</a>\n?', '', txt, count=1)
-            new = re.sub(r'<style>#' + STYLE_ID + r'\{[\s\S]*?</style>\n?', '', new, count=1)
-            new = re.sub(r'<script id="showcase-backlink-js">[\s\S]*?</script>\n?',
-                         '', new, count=1)
-            new = re.sub(r'<style>#' + BAR_ID + r'\{[\s\S]*?</style>\n?', '', new, count=1)
-            new = re.sub(r'<div id="' + BAR_ID + r'">[\s\S]*?</div>\n?', '', new, count=1)
+            new = strip_injected(txt)
             if not dry:
                 open(p, 'w', encoding='utf-8').write(new)
             changed += 1
@@ -229,6 +331,7 @@ def main():
         meta_all = manifest_meta()
         new = (txt[:mb.end()]
                + '\n' + bar_html(rel, meta_all.get(rel))
+               + rescue_css(txt)
                + snippet(index_rel_for(rel))
                + txt[mb.end():])
         if dry:

@@ -1164,15 +1164,17 @@ def main():
     # ── 阶段 4.5：内联脚本语法校验（发现问题即判失败，不让它上展）
     js_bad = check_inline_js(live_works())
 
+    # ── 阶段 4.8：注入档案条 + 死规则救援
+    # ⚠️ 必须**在截图之前**：缩略图是页面截图，若此时页面还没注入救援样式
+    # （59 件作品的内容被死规则永久隐藏），拍出来就是全黑 —— 实测 50 张黑图。
+    phase_claims(disk_works, args.dry_run)
+
     # ── 阶段 5：缩略图
     if not args.skip_thumbs:
         phase_thumbs(disk_works, pre_manifest, registry, args.dry_run)
     else:
         rule('阶段 5 · 缩略图')
         log('  [skip] 按参数跳过')
-
-    # ── 阶段 5.5：返回链 + 断言回填
-    phase_claims(disk_works, args.dry_run)
 
     # ── 阶段 5.8：自愈（清孤儿键）
     if not args.dry_run:

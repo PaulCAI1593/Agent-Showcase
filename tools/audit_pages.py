@@ -70,14 +70,40 @@ def audit_one(pg, rel):
 
     pg.wait_for_timeout(2200)
 
-    # 可见内容：取 body 的 innerText（不可见元素不计入）
+    # 真实可见内容 —— ⚠️ 不能用 innerText：它把 opacity:0 的文字也算进去。
+    # 实测 2026-06-20 等作品整页被 .fade-in 这类**死规则**永久隐藏，
+    # innerText 有 15524 字、视觉上却全黑 —— 巡检因此漏掉了它们。
+    #
+    # 判定要点：
+    #  ① 合成可见性（父元素 opacity:0 会合成生效，子元素 computed opacity 仍是 1）
+    #     → 用 Element.checkVisibility（浏览器原生）
+    #  ② 只看**首屏内**（截图只拍首屏，屏外的不可见不算问题）
     try:
         vis = pg.evaluate("""() => {
-            const t = (document.body.innerText || '').replace(/\\s+/g, '');
-            return {len: t.length, sample: t.slice(0, 60)};
+            const vh = window.innerHeight;
+            const leaves = [...document.querySelectorAll('body *')].filter(
+                e => e.children.length === 0 && (e.textContent || '').trim().length);
+            const shown = leaves.filter(e => {
+                const r = e.getBoundingClientRect();
+                if (r.height <= 2 || r.width <= 2) return false;
+                if (r.bottom <= 0 || r.top >= vh) return false;
+                if (typeof e.checkVisibility === 'function') {
+                    return e.checkVisibility({opacityProperty: true, visibilityProperty: true});
+                }
+                let op = 1, el = e;
+                while (el && el !== document.body) {
+                    const cs = getComputedStyle(el);
+                    op *= parseFloat(cs.opacity);
+                    if (cs.visibility === 'hidden' || cs.display === 'none') { op = 0; break; }
+                    el = el.parentElement;
+                }
+                return op > 0.05;
+            });
+            return {len: shown.length, leaves: leaves.length,
+                    sample: (shown[0] ? shown[0].textContent : '').trim().slice(0, 40)};
         }""")
     except Exception:
-        vis = {"len": -1, "sample": ""}
+        vis = {"len": -1, "leaves": -1, "sample": ""}
 
     # 高度为 0 的主容器 → 内容被隐藏（fade-up 没触发那类）
     try:
@@ -108,8 +134,9 @@ def audit_one(pg, rel):
         real = [u for u in failed if "favicon" not in u]
         if real:
             problems.append(f"资源加载失败 ×{len(real)}: {real[0]}")
-    if 0 <= vis["len"] < 120:
-        problems.append(f"可见内容过少（{vis['len']} 字）")
+    if 0 <= vis["len"] < 8:
+        problems.append(f"首屏几乎没有可见内容（可见叶子 {vis['len']} / 总叶子 {vis.get('leaves','?')}）"
+                        f" —— 典型的「死规则把内容永久隐藏」")
     if hidden > 0:
         problems.append(f"{hidden} 个主容器被隐藏（opacity/visibility 为 0）")
 

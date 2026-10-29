@@ -43,12 +43,31 @@ def shoot(html_rel, typ):
             args=["--no-sandbox", "--hide-scrollbars", "--force-device-scale-factor=1"],
         )
         pg = b.new_page(viewport={"width": 1260, "height": 800})
-        # ⚠️ 用 domcontentloaded 而不是 load：某件作品的远程资源挂住时，
-        # load 会一直等到超时 —— 一件坏作品曾把整条流水线带崩。
-        # 截图本来就只需要 DOM 出来。
-        pg.goto(url, wait_until="domcontentloaded", timeout=20000)
+        # 掐断外部请求：作品按契约**零远程依赖**，任何外链要么是坏的、
+        # 要么会把 load 挂住（曾有一件作品拖 45 秒并带崩整条流水线）。
+        # 掐断后 load 不会挂，且能暴露"这件其实依赖外链"。
+        def _route(route):
+            u = route.request.url
+            if u.startswith('file://') or u.startswith('data:') or u.startswith('about:'):
+                route.continue_()
+            else:
+                route.abort()
+        try:
+            pg.route('**/*', _route)
+        except Exception:
+            pass
+        # ⚠️ 必须等 load（样式与图片就绪），否则截到半张白纸 ——
+        # 曾用 domcontentloaded 绕开超时，结果 51 张缩略图全黑。
+        # 超时则降级到 domcontentloaded 再截，宁可截到未完全渲染也不能不截。
+        try:
+            pg.goto(url, wait_until="load", timeout=20000)
+        except Exception:
+            try:
+                pg.goto(url, wait_until="domcontentloaded", timeout=10000)
+            except Exception:
+                pass
         pg.add_style_tag(content=CSS)
-        pg.wait_for_timeout(2500)
+        pg.wait_for_timeout(3500)
         pg.screenshot(path=out_path, clip={"x": 0, "y": 0, "width": 1260, "height": 800})
         b.close()
     print(f"  ✅ {out_name}  ({os.path.getsize(out_path)}B)")
