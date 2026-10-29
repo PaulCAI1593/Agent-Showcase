@@ -446,6 +446,11 @@ mark{background:rgba(240,194,127,.2);color:var(--gold);border-radius:2px;padding
 .mode-btn.on{background:var(--gold);color:#14130f}
 /* 断言账目行：抽屉换成"账目"视图 */
 .led{display:block;grid-column:1 / -1}   /* 跨满抽屉体全部列 —— 否则只占一列 */
+.led-sec{display:flex;align-items:baseline;gap:12px;padding:16px 4px 8px;
+  margin-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+.led-sec:first-child{border-top:0;margin-top:0;padding-top:4px}
+.led-sec-n{font-family:var(--serif);font-size:15px;color:var(--violet);font-weight:600}
+.led-sec-c{font-family:var(--serif);font-size:11.5px;color:var(--t3)}
 /* 两行账目：值跨两行；第一行 = 值 + 指标名 + 追踪线 + 日期；第二行 = 作品标题
    （单行挤不下 —— 指标名被截成「美光全…」而标题挤成「11个…」） */
 .led-row{display:grid;grid-template-columns:minmax(96px,auto) minmax(0,2.7fr) 124px 50px minmax(0,1.35fr);
@@ -956,23 +961,33 @@ function cardHTML(it,i){
 
 function ledgerHTML(m){
   // 断言账目：把该月的**已验证断言**逐条列出（每条都带作品链接，可回原文核对）
-  // 按作品分组：同一件作品的若干条断言，标题只出现一次，其余行缩进 ——
-  // 否则一件作品的 8 条断言会把标题重复 8 次（实测如此）。
-  const rows=[];
+  // 三级结构：月份（抽屉）→ 追踪线（小标题）→ 断言（行）
+  // 平铺 300 条没法翻，分组后像翻账簿。
+  const byLine = new Map();
   m.items.forEach(it=>{
-    const cs=it.claims||[];
-    cs.forEach((c,k)=>{
-      const first = k===0;
-      rows.push(`<div class="led-row${first?' led-start':' led-cont'}" data-file="${esc(it.file)}" data-c="${k}">
+    const line = it.beat || '未归类';
+    if(!byLine.has(line)) byLine.set(line, []);
+    byLine.get(line).push(it);
+  });
+  const lines = [...byLine.entries()].sort((a,b)=>b[1].length-a[1].length);
+  let out='';
+  lines.forEach(([line, its])=>{
+    const n = its.reduce((a,it)=>a+(it.claims||[]).length,0);
+    out += `<div class="led-sec"><span class="led-sec-n">${hl(line)}</span><span class="led-sec-c">${n} 条断言 · ${its.length} 件</span></div>`;
+    its.forEach(it=>{
+      const cs=it.claims||[];
+      cs.forEach((c,k)=>{
+        const first = k===0;
+        out += `<div class="led-row${first?' led-start':' led-cont'}" data-file="${esc(it.file)}" data-c="${k}">
         <span class="led-v">${esc(c.v)}</span>
         <span class="led-l">${hl(c.l)}</span>
-        <span class="led-line">${it.beat?hl(it.beat):''}</span>
         <span class="led-d">${it.date.slice(5)}</span>
         <span class="led-w">${first?`<a href="${esc(it.file)}">${hl(it.title)}</a>`:''}</span>
-      </div>`);
+      </div>`;
+      });
     });
   });
-  return `<div class="led">${rows.join('')}</div>`;
+  return `<div class="led">${out}</div>`;
 }
 
 function renderDrawers(){
