@@ -96,6 +96,14 @@ def run(cmd, cwd=None, timeout=900):
         return 1, '', str(e)
 
 
+def load_json(path, default=None):
+    try:
+        with open(path, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return default if default is not None else {}
+
+
 def parse_json(text):
     """从可能夹杂日志的输出里抠出 JSON（对象 {} 或数组 [] 都认）。
 
@@ -183,7 +191,104 @@ def check_crons():
 
 
 # ── ③ 写回 HEARTBEAT_STATUS.md ────────────────────────────
-def write_heartbeat(crons, showcase_ok, showcase_detail):
+def check_claim_layer():
+    """断言层巡检（从例会 Step 5 迁来 —— 例会 429 期间这段就没人跑了）。
+
+    查三件事：
+      ① 有没有断言引用失效（源文件被改 / 断言陈旧）
+      ② 断言总数相对基线是否跌幅 >20%（抽取回归）
+      ③ 覆盖率是否低于 60%（新作品没用模板）
+    """
+    rc, out, err = run([sys.executable, os.path.join(SHOWCASE, 'tools', 'claim_gate.py'),
+                        '--verify'], cwd=SHOWCASE, timeout=600)
+    ok = (rc == 0)
+    note = ''
+    if not ok:
+        bad = [l.strip() for l in out.splitlines() if '失效' in l]
+        note = bad[0][:110] if bad else (out.strip().splitlines()[-1][:110] if out.strip() else '校验失败')
+    # 基线对比
+    try:
+        mf = os.path.join(SHOWCASE, 'manifest.json')
+        m = json.load(open(mf, encoding='utf-8'))
+        # claim_stats 在 manifest **顶层**（不在 stats 里）—— 读错位置会得到 0
+        cs = m.get('claim_stats') or (m.get('stats') or {}).get('claim_stats') or {}
+        base = load_json(os.path.join(SHOWCASE, 'tools', '.claim_state.json'), {})
+        total = cs.get('total', 0)
+        prev = base.get('total')
+        if prev and total < prev * 0.8 and ok:
+            ok = False
+            note = f'断言总数 {total} 较基线 {prev} 跌超 20%（抽取回归）'
+        cov = cs.get('coverage', 100)
+        if cov < 60:
+            note = (note + '；' if note else '') + f'断言覆盖率仅 {cov}%（新作品可能没用模板）'
+    except Exception as e:
+        note = (note + '；' if note else '') + f'读基线失败 {e}'
+    log(f'断言层: {"✓" if ok else "✗"} {note}')
+    return ok, note
+
+
+def check_runtime(pages=None):
+    """作品页运行时巡检（从例会 Step 4.9 迁来）。
+
+    全量 108 件约 4 分钟；守护里每 N 轮跑一次全量太重 → 默认抽样。
+    """
+    cmd = [sys.executable, os.path.join(SHOWCASE, 'tools', 'audit_pages.py')]
+    if pages:
+        cmd += ['--sample', str(pages)]
+    rc, out, err = run(cmd, cwd=SHOWCASE, timeout=1800)
+    ok = (rc == 0)
+    m = re.search(r'巡检完成：(\d+) 件，(\d+) 件有问题', out)
+    if m:
+        n, bad = m.group(1), m.group(2)
+        note = f'{n} 件真实加载，{bad} 件有问题'
+        ok = (bad == '0')
+        log(f'运行时巡检: {"✓" if ok else "✗"} {note}')
+        return ok, note
+    note = (out.strip().splitlines()[-1][:110] if out.strip() else '巡检未产出结果')
+    log(f'运行时巡检: ✗ {note}')
+    return False, note
+
+
+BRIEF_DIRS = [
+    '/app/working/shared/tasks/每日AI技术动态简报',
+    '/app/working/shared/tasks/每日热点新闻简报',
+    '/app/working/shared/tasks/每日股市简报',
+]
+BRIEF_STALE_HOURS = 36
+
+
+def check_briefs():
+    """素材侧健康：三份每日简报有没有停更。
+
+    实测 2026-11-01：三份简报最后一篇都是 **10-29** —— 素材链已停 3 天。
+    素材一停，选题识别就没有输入，整条链（素材→选题→作品→上展）断在源头。
+    守护要能看到这件事，否则它安静地停掉，没人知道。
+    """
+    import glob as _g
+    now = time.time()
+    rows = []
+    stale = []
+    for d in BRIEF_DIRS:
+        name = os.path.basename(d)
+        try:
+            files = [f for f in _g.glob(os.path.join(d, '*.md'))]
+            if not files:
+                stale.append(f'{name}：无任何简报')
+                continue
+            newest = max(files, key=os.path.getmtime)
+            age_h = (now - os.path.getmtime(newest)) / 3600
+            day = os.path.basename(newest).replace('.md', '')
+            rows.append(f'{name} 最新 {day}（{age_h:.0f} 小时前）')
+            if age_h > BRIEF_STALE_HOURS:
+                stale.append(f'{name} 已停更 {age_h:.0f} 小时（最新 {day}）')
+        except Exception as e:
+            stale.append(f'{name}：读取失败 {e}')
+    ok = not stale
+    log(f'素材侧: {"✓" if ok else "✗"} ' + ('；'.join(stale) if stale else '；'.join(rows)))
+    return ok, ('；'.join(stale) if stale else '；'.join(rows))
+
+
+def write_heartbeat(crons, showcase_ok, showcase_detail, extra=None):
     if not os.path.exists(HEARTBEAT_STATUS):
         return
     try:
@@ -195,6 +300,9 @@ def write_heartbeat(crons, showcase_ok, showcase_detail):
     lines = []
     if not showcase_ok:
         lines.append(f'| {ts} | 🔴 | 展厅收敛失败 | {showcase_detail or "见 autopublish 日志"} | ✅已处置 |')
+    for label, ok_, detail in (extra or []):
+        lines.append(f'| {ts} | {"🟢" if ok_ else "🔴"} | {label} | {detail} | '
+                     f'{"✅已处置" if ok_ else "待处理"} |')
     for c in bad:
         lines.append(f'| {ts} | 🔴 | cron「{c["name"]}」异常 | '
                      f'{c["note"] or ("状态 " + c["status"])} | 待处理 |')
@@ -237,10 +345,18 @@ def write_state(crons, showcase_ok, showcase_detail):
         pass
 
 
-def tick():
+def tick(do_audit=False):
     ok, detail = converge_showcase()
     crons = check_crons()
-    write_heartbeat(crons, ok, detail)
+    extra = []
+    brief_ok, brief_note = check_briefs()
+    extra.append(('素材侧（每日简报）', brief_ok, brief_note))
+    claim_ok, claim_note = check_claim_layer()
+    extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+    if do_audit:
+        audit_ok, audit_note = check_runtime()
+        extra.append(('作品页运行时巡检', audit_ok, audit_note))
+    write_heartbeat(crons, ok, detail, extra)
     write_state(crons, ok, detail)
     bad = [c for c in crons if not c['ok']]
     if bad:
@@ -254,30 +370,47 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--once', action='store_true', help='跑一轮就退出')
     ap.add_argument('--interval', type=int, default=30, help='轮询间隔（分钟）')
+    ap.add_argument('--pages', type=int, default=0, help='运行时巡检抽样件数（0=全量）')
     ap.add_argument('--no-showcase', action='store_true', help='跳过展厅收敛（只查 cron）')
+    ap.add_argument('--audit', action='store_true', help='本轮跑全量运行时巡检')
     args = ap.parse_args()
 
     if args.once:
-        if args.no_showcase:
-            ok, detail = True, ''
-        else:
-            ok, detail = converge_showcase()
+        ok, detail = (True, '') if args.no_showcase else converge_showcase()
         crons = check_crons()
-        write_heartbeat(crons, ok, detail)
+        extra = []
+        brief_ok, brief_note = check_briefs()
+        extra.append(('素材侧（每日简报）', brief_ok, brief_note))
+        claim_ok, claim_note = check_claim_layer()
+        extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+        if args.audit:
+            audit_ok, audit_note = check_runtime(args.pages)
+            extra.append(('作品页运行时巡检', audit_ok, audit_note))
+        write_heartbeat(crons, ok, detail, extra)
         write_state(crons, ok, detail)
         bad = [c for c in crons if not c['ok']]
-        log(f'一轮完成：展厅 {"✓" if ok else "✗"} · cron 异常 {len(bad)}/{len(crons)}')
-        return 0 if (ok and not bad) else 1
+        log(f'一轮完成：展厅 {"✓" if ok else "✗"} · 断言层 {"✓" if claim_ok else "✗"} · '
+            f'cron 异常 {len(bad)}/{len(crons)}')
+        return 0 if (ok and not bad and claim_ok) else 1
 
     log(f'守护启动，间隔 {args.interval} 分钟（Ctrl-C 停止）')
+    n = 0
     while True:
         try:
-            if not args.no_showcase:
-                converge_showcase()
+            # 每 6 轮（约 3 小时）跑一次全量运行时巡检 —— 从例会迁来，
+            # 因为例会正 429，这段检查不能只住在那里。
+            do_audit = (n % 6 == 0)
+            ok, detail = converge_showcase()
             crons = check_crons()
-            # 收敛结果也要拿到，写入用
-            write_heartbeat(crons, True, '')
-            write_state(crons, True, '')
+            extra = []
+            claim_ok, claim_note = check_claim_layer()
+            extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+            if do_audit:
+                audit_ok, audit_note = check_runtime()
+                extra.append(('作品页运行时巡检（每3小时全量）', audit_ok, audit_note))
+            write_heartbeat(crons, ok, detail, extra)
+            write_state(crons, ok, detail)
+            n += 1
         except Exception as e:
             log(f'轮次异常: {e}')
         try:
