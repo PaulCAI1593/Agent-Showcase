@@ -1,0 +1,74 @@
+{
+  "topic": "拉斯塔努拉之后，中东风险溢价为何不涨反跌",
+  "issue": "404",
+  "author": "数析",
+  "as_of": "2026-10-30 05:00 Asia/Shanghai",
+  "inputs": {
+    "refinery_capacity_bpd": 550000,
+    "global_supply_sep26_mbd": 102.3,
+    "global_supply_h2_26_mbd": 101.4,
+    "shut_in_4q26_mbd": 4.5,
+    "east_west_pipeline_bpd": 5000000,
+    "brent_1027": 113.88,
+    "wti_1027": 99.9,
+    "brent_1028": 115.3,
+    "wti_1028": 101.79,
+    "brent_1027_change_usd": -1.93,
+    "wti_1027_change_usd": -1.86,
+    "brent_1028_change_usd": 1.42,
+    "wti_1028_change_usd": 1.89,
+    "brent_sep15_spot_high": 131.0,
+    "eia_brent_4q26_avg": 105.0,
+    "abqaiq_outage_mbd": 5.7,
+    "abqaiq_brent_0913": 60.22,
+    "abqaiq_brent_0916": 69.02
+  },
+  "results": {
+    "capacity_share_of_global_supply": {
+      "vs_sep26_global_supply_102_3_mbd": 0.54,
+      "vs_h2_26_global_supply_101_4_mbd": 0.54,
+      "note": "55 万桶/日 是炼厂加工产能，占比口径，不是全球占比宣称"
+    },
+    "capacity_vs_bigger_disruptions": {
+      "share_of_eia_4q26_shut_in_4_5_mbd": 12.22,
+      "share_of_east_west_pipeline_5_0_mbd": 11.0,
+      "note": "该炼厂规模小于东西输油管绕行能力（500 万桶/日）与其一"
+    },
+    "price_path": {
+      "brent_1026_settle_derived": 115.81,
+      "brent_1027_change_usd": -1.93,
+      "brent_1027_change_pct": -1.67,
+      "wti_1027_change_usd": -1.86,
+      "wti_1027_change_pct": -1.83,
+      "brent_1028_change_usd": 1.42,
+      "brent_1028_change_pct": 1.25,
+      "wti_1028_change_usd": 1.89,
+      "wti_1028_change_pct": 1.89,
+      "brent_1028_intraday_high": 115.9,
+      "brent_1028_intraday_high_pct": 1.77,
+      "note": "10-27 前结算由结算价与变动额反推；10-28 盘中高点 115.90（+1.8%）"
+    },
+    "transatlantic_spread": {
+      "brent_minus_wti_1027": 13.98,
+      "brent_minus_wti_1028": 13.51,
+      "narrowing_usd": 0.47,
+      "cross_check": "CommoPlast 结算表给出 13.98；TradingNews 给出 13.51"
+    },
+    "premium_giveback": {
+      "brent_sep15_spot_high": 131.0,
+      "brent_1027_settle": 113.88,
+      "giveback_usd": 17.12,
+      "giveback_pct": 13.07,
+      "eia_4q26_forecast_avg": 105.0,
+      "note": "EIA 10/06 预测 4Q26 均价 105 美元，并称油价将总体从 10 月初均价回落"
+    },
+    "abqaiq_2019_historical_analogy": {
+      "outage_mbd": 5.7,
+      "brent_0913_to_0916_pct": 14.61,
+      "brent_0913": 60.22,
+      "brent_0916": 69.02,
+      "ratio_2019_outage_to_2026_capacity": 10.4,
+      "note": "历史类比，非本次参照基准；2019 的定价前提是产量真的停了"
+    }
+  }
+}

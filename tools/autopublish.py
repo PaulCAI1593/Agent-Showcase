@@ -859,6 +859,10 @@ def check_inline_js(disk_works):
             html = open(path, encoding='utf-8', errors='ignore').read()
         except OSError:
             continue
+        # 先剥掉 HTML 注释 —— 模板的文档注释里写过字面量 <script id="claims">
+        # （教学示例），不剥会被当成真脚本 → 抽出注释文字 → node --check 报语法错误
+        # → 好作品被误判为坏页（实测 2026-10-29 ras-tanura 一件）。
+        html = re.sub(r'<!--.*?-->', '', html, flags=re.S)
         scripts = re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', html, re.S)
         for sc in scripts:
             if not sc.strip():

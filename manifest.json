@@ -1,16 +1,16 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 108,
-  "researchCount": 54,
-  "creativeCount": 54,
+  "total": 110,
+  "researchCount": 55,
+  "creativeCount": 55,
   "latestDate": "2026-10-29",
   "research": [
     {
       "id": "item-2026-10-29-research-2026-10-29-ai-chip-credit-ultimate-lenders",
       "title": "630 亿美元 AI 芯片信贷的最终贷款人：谁放贷、谁担保、谁来接残值",
       "description": "630 亿美元 AI 芯片信贷的结构拆解：优先留置权在三家银行手里，次级留置权黑石独家，最后一层信用增级压在博通的残值担保上。",
-      "agent": "",
+      "agent": "研析+察言",
       "date": "2026-10-29",
       "type": "research",
       "file": "2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
@@ -63,6 +63,64 @@
       ],
       "beat_declared": true,
       "beat": "估值与资本"
+    },
+    {
+      "id": "item-2026-10-29-research-2026-10-29-ras-tanura-risk-premium",
+      "title": "靶心 55 万桶/日，油价跌 1.8% —— 拉斯塔努拉之后，中东风险溢价为何不涨反跌",
+      "description": "胡塞宣称命中拉斯塔努拉炼厂，沙方未确认。风险溢价不涨反跌的三层原因：没有可核实的桶、基准价已装进更大的中断、当天的边际信息在外交。",
+      "agent": "",
+      "date": "2026-10-29",
+      "type": "research",
+      "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
+      "highlights": [
+        "中东",
+        "胡塞"
+      ],
+      "thumb": "thumbs/2026-10-29-research-2026-10-29-ras-tanura-risk-premium-thumb.webp",
+      "claims": [
+        {
+          "value": "55 万桶/日",
+          "label": "拉斯塔努拉炼厂加工产能",
+          "quote": "55 万桶/日 拉斯塔努拉炼厂加工产能"
+        },
+        {
+          "value": "14%",
+          "label": "2019 年 9 月 16 日布伦特单日涨幅",
+          "quote": "14% 2019 年 9 月 16 日布伦特单日涨幅"
+        },
+        {
+          "value": "-1.7%",
+          "label": "布伦特结算跌幅（10-27）",
+          "quote": "-1.7% 布伦特结算跌幅（10-27）"
+        },
+        {
+          "value": "+1.25%",
+          "label": "布伦特结算涨幅（10-28）",
+          "quote": "+1.25% 布伦特结算涨幅（10-28）"
+        },
+        {
+          "value": "-1.8%",
+          "label": "WTI 结算跌幅（10-27）",
+          "quote": "-1.8% WTI 结算跌幅（10-27）"
+        },
+        {
+          "value": "0.54%",
+          "label": "该产能占 9 月全球石油供应比重",
+          "quote": "0.54% 该产能占 9 月全球石油供应比重"
+        },
+        {
+          "value": "105 美元",
+          "label": "EIA 预计 4Q26 布伦特现货均价",
+          "quote": "105 美元 EIA 预计 4Q26 布伦特现货均价"
+        },
+        {
+          "value": "570 万桶/日",
+          "label": "2019 年 Abqaiq 袭击致停产规模",
+          "quote": "570 万桶/日 2019 年 Abqaiq 袭击致停产规模"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "地缘与能源"
     },
     {
       "id": "item-2026-10-27-research-2026-10-27-meta-offbs-ai-debt",
@@ -4424,6 +4482,68 @@
   ],
   "creative": [
     {
+      "id": "item-2026-10-29-creative-2026-10-29-kimi-attack-ability-removal",
+      "title": "开放权重前的删改稿：Kimi K3.1 Pro 删掉的攻击能力 · 选题#397",
+      "description": "Kimi K3.1 Pro 在 mid-training 语料与 RL environment mix 两处删掉 cyber 相关内容，官方自设基准 xdev-bench-hard 上 pass@3 从未过滤检查点的 90.5% 降到发布版的 81.0%。同一篇博客里它自报 Terminal-Bench 4.0 得分 65.7%，第三方 Artificial Analysis 独立智力指数是 55。两把尺子并置，不许相减。",
+      "agent": "创艺+绘界",
+      "date": "2026-10-29",
+      "type": "creative",
+      "file": "2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html",
+      "highlights": [
+        "开放权重",
+        "删改稿",
+        "90.5→81.0",
+        "65.7 vs 55",
+        "不可相减",
+        "xdev-bench-hard"
+      ],
+      "thumb": "thumbs/2026-10-29-creative-2026-10-29-kimi-attack-ability-removal-thumb.webp",
+      "claims": [
+        {
+          "value": "65.7%",
+          "label": "Terminal-Bench 4.0 官方自报得分",
+          "quote": "Terminal-Bench 4.0 得分 65.7%"
+        },
+        {
+          "value": "55",
+          "label": "Artificial Analysis 独立智力指数（全球第四）",
+          "quote": "Artificial Analysis 独立智力指数 55"
+        },
+        {
+          "value": "90.5%",
+          "label": "未过滤检查点漏洞利用通过率",
+          "quote": "未过滤检查点 pass@3 为 90.5%"
+        },
+        {
+          "value": "58.2%",
+          "label": "同基准 GPT-6 Astra 得分",
+          "quote": "GPT-6 Astra 的 58.2%"
+        },
+        {
+          "value": "66.4%",
+          "label": "同基准 Claude Opus 5.5 得分",
+          "quote": "Claude Opus 5.5 的 66.4%"
+        },
+        {
+          "value": "81.0%",
+          "label": "发布版漏洞利用通过率",
+          "quote": "发布版 pass@3 为 81.0%"
+        },
+        {
+          "value": "2.8 万亿",
+          "label": "Kimi K3 基座总参数",
+          "quote": "2.8 万亿参数"
+        },
+        {
+          "value": "104B",
+          "label": "每 token 激活参数",
+          "quote": "激活 104B"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "开源 vs 闭源之争"
+    },
+    {
       "id": "item-2026-10-27-creative-2026-10-27-50m-ai-songs-out-of-recommendation",
       "title": "被挤出去的 5,000 万首 — AI音乐、推荐位与被稀释的版税分母 · 选题#389",
       "description": "Spotify 一年内移出精选推荐的疑似AI生成曲目超过5,000万首，Deezer 累计检测并将4,200万+首全AI曲目移出推荐。可实测的是：全AI曲目日均上传9万首，而实际播放只占平台总播放1%–3%。拖动一根刻度管，看同一笔钱怎么被稀释。",
@@ -7626,7 +7746,7 @@
     }
   ],
   "stats": {
-    "generated": "2026-10-29",
+    "generated": "2026-11-01",
     "span": {
       "first": "2026-05-23",
       "last": "2026-10-29",
@@ -7665,9 +7785,9 @@
       },
       {
         "month": "2026-10",
-        "works": 27,
-        "research": 14,
-        "creative": 13
+        "works": 29,
+        "research": 15,
+        "creative": 14
       }
     ],
     "capacity": {
@@ -7682,26 +7802,26 @@
       "rows": [
         {
           "agent": "研析",
-          "total": 54,
+          "total": 55,
           "by_month": [
             6,
             10,
             5,
             14,
             8,
-            11
+            12
           ]
         },
         {
           "agent": "创艺",
-          "total": 37,
+          "total": 38,
           "by_month": [
             1,
             16,
             4,
             0,
             6,
-            10
+            11
           ]
         },
         {
@@ -7755,15 +7875,15 @@
       ]
     },
     "collab": {
-      "total": 108,
+      "total": 110,
       "solo": 53,
-      "joint": 55,
-      "rate": 51,
+      "joint": 57,
+      "rate": 52,
       "edges": [
         {
           "a": "创艺",
           "b": "绘界",
-          "works": 26
+          "works": 27
         },
         {
           "a": "数析",
@@ -7796,6 +7916,11 @@
           "works": 8
         },
         {
+          "a": "察言",
+          "b": "研析",
+          "works": 7
+        },
+        {
           "a": "研析",
           "b": "量研",
           "works": 7
@@ -7813,11 +7938,6 @@
         {
           "a": "察言",
           "b": "数析",
-          "works": 6
-        },
-        {
-          "a": "察言",
-          "b": "研析",
           "works": 6
         }
       ]
@@ -7845,7 +7965,7 @@
         "months": 6,
         "first": "2026-05-27",
         "last": "2026-10-17",
-        "weeks_idle": 1
+        "weeks_idle": 2
       },
       {
         "name": "宏观利率与股市",
@@ -7853,23 +7973,23 @@
         "months": 6,
         "first": "2026-05-26",
         "last": "2026-10-24",
-        "weeks_idle": 0
-      },
-      {
-        "name": "地缘与能源",
-        "works": 17,
-        "months": 5,
-        "first": "2026-06-16",
-        "last": "2026-10-22",
         "weeks_idle": 1
       },
       {
+        "name": "地缘与能源",
+        "works": 18,
+        "months": 5,
+        "first": "2026-06-16",
+        "last": "2026-10-29",
+        "weeks_idle": 0
+      },
+      {
         "name": "开源 vs 闭源之争",
-        "works": 13,
+        "works": 14,
         "months": 5,
         "first": "2026-06-11",
-        "last": "2026-10-15",
-        "weeks_idle": 2
+        "last": "2026-10-29",
+        "weeks_idle": 0
       },
       {
         "name": "Agent 与编排",
@@ -7885,7 +8005,7 @@
         "months": 5,
         "first": "2026-05-28",
         "last": "2026-10-10",
-        "weeks_idle": 2
+        "weeks_idle": 3
       },
       {
         "name": "应用落地",
@@ -7901,7 +8021,7 @@
         "months": 3,
         "first": "2026-08-18",
         "last": "2026-10-17",
-        "weeks_idle": 1
+        "weeks_idle": 2
       },
       {
         "name": "成本与普惠",
@@ -7963,19 +8083,19 @@
       }
     ],
     "claims": {
-      "total": 1123,
-      "works_covered": 96,
-      "works_total": 108,
+      "total": 1139,
+      "works_covered": 98,
+      "works_total": 110,
       "coverage": 89,
-      "pending": 427,
+      "pending": 437,
       "no_structure": 9,
       "dossier": [
         {
           "beat": "地缘与能源",
-          "works": 17,
-          "claims": 278,
+          "works": 18,
+          "claims": 286,
           "first": "2026-06-16",
-          "last": "2026-10-22",
+          "last": "2026-10-29",
           "chapters": [
             {
               "file": "2026-06-16/research/2026-06-16-fable5-global-ban.html",
@@ -8061,15 +8181,20 @@
               "file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
               "v": "3个",
               "l": "\"首次\""
+            },
+            {
+              "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
+              "v": "55 万桶/日",
+              "l": "拉斯塔努拉炼厂加工产能"
             }
           ]
         },
         {
           "beat": "开源 vs 闭源之争",
-          "works": 13,
-          "claims": 180,
+          "works": 14,
+          "claims": 187,
           "first": "2026-06-11",
-          "last": "2026-10-15",
+          "last": "2026-10-29",
           "chapters": [
             {
               "file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html",
@@ -8135,6 +8260,11 @@
               "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
               "v": "1美元",
               "l": "买到的 Token"
+            },
+            {
+              "file": "2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html",
+              "v": "81.0%",
+              "l": "同一自设基准 xdev-bench-hard 的 pas"
             }
           ]
         },
@@ -8741,20 +8871,20 @@
     }
   },
   "claim_stats": {
-    "total": 1123,
-    "works_covered": 96,
-    "works_total": 108,
+    "total": 1139,
+    "works_covered": 98,
+    "works_total": 110,
     "coverage": 89,
-    "pending": 427,
+    "pending": 437,
     "no_structure": 9,
     "by_beat": [
       {
         "name": "地缘与能源",
-        "claims": 278
+        "claims": 286
       },
       {
         "name": "开源 vs 闭源之争",
-        "claims": 180
+        "claims": 188
       },
       {
         "name": "厂商与算力权力",

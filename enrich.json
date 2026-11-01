@@ -6931,7 +6931,7 @@
         "谁放贷",
         "谁担保"
       ],
-      "agent": "",
+      "agent": "研析+察言",
       "claims": [
         {
           "value": "630 亿美元",
@@ -6973,6 +6973,111 @@
           "label": "Anthropic 未起租未折现租赁义务",
           "quote": "321.4 亿美元 Anthropic 未起租未折现租赁义务"
         }
+      ]
+    },
+    {
+      "file": "2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html",
+      "description": "Kimi K3.1 Pro 在 mid-training 语料与 RL environment mix 两处删掉 cyber 相关内容，官方自设基准 xdev-bench-hard 上 pass@3 从未过滤检查点的 90.5% 降到发布版的 81.0%。同一篇博客里它自报 Terminal-Bench 4.0 得分 65.7%，第三方 Artificial Analysis 独立智力指数是 55。两把尺子并置，不许相减。",
+      "highlights": [
+        "开放权重",
+        "删改稿",
+        "90.5→81.0",
+        "65.7 vs 55",
+        "不可相减",
+        "xdev-bench-hard"
+      ],
+      "agent": "创艺+绘界",
+      "claims": [
+        {
+          "value": "65.7%",
+          "label": "Terminal-Bench 4.0 官方自报得分",
+          "quote": "Terminal-Bench 4.0 得分 65.7%"
+        },
+        {
+          "value": "58.2%",
+          "label": "同基准 GPT-6 Astra 得分",
+          "quote": "GPT-6 Astra 的 58.2%"
+        },
+        {
+          "value": "66.4%",
+          "label": "同基准 Claude Opus 5.5 得分",
+          "quote": "Claude Opus 5.5 的 66.4%"
+        },
+        {
+          "value": "55",
+          "label": "Artificial Analysis 独立智力指数（全球第四）",
+          "quote": "Artificial Analysis 独立智力指数 55"
+        },
+        {
+          "value": "90.5%",
+          "label": "未过滤检查点漏洞利用通过率",
+          "quote": "未过滤检查点 pass@3 为 90.5%"
+        },
+        {
+          "value": "81.0%",
+          "label": "发布版漏洞利用通过率",
+          "quote": "发布版 pass@3 为 81.0%"
+        },
+        {
+          "value": "2.8 万亿",
+          "label": "Kimi K3 基座总参数",
+          "quote": "2.8 万亿参数"
+        },
+        {
+          "value": "104B",
+          "label": "每 token 激活参数",
+          "quote": "激活 104B"
+        }
+      ]
+    },
+    {
+      "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
+      "claims": [
+        {
+          "value": "-1.8%",
+          "label": "WTI 结算跌幅（10-27）",
+          "quote": "-1.8% WTI 结算跌幅（10-27）"
+        },
+        {
+          "value": "-1.7%",
+          "label": "布伦特结算跌幅（10-27）",
+          "quote": "-1.7% 布伦特结算跌幅（10-27）"
+        },
+        {
+          "value": "+1.25%",
+          "label": "布伦特结算涨幅（10-28）",
+          "quote": "+1.25% 布伦特结算涨幅（10-28）"
+        },
+        {
+          "value": "55 万桶/日",
+          "label": "拉斯塔努拉炼厂加工产能",
+          "quote": "55 万桶/日 拉斯塔努拉炼厂加工产能"
+        },
+        {
+          "value": "0.54%",
+          "label": "该产能占 9 月全球石油供应比重",
+          "quote": "0.54% 该产能占 9 月全球石油供应比重"
+        },
+        {
+          "value": "570 万桶/日",
+          "label": "2019 年 Abqaiq 袭击致停产规模",
+          "quote": "570 万桶/日 2019 年 Abqaiq 袭击致停产规模"
+        },
+        {
+          "value": "14%",
+          "label": "2019 年 9 月 16 日布伦特单日涨幅",
+          "quote": "14% 2019 年 9 月 16 日布伦特单日涨幅"
+        },
+        {
+          "value": "105 美元",
+          "label": "EIA 预计 4Q26 布伦特现货均价",
+          "quote": "105 美元 EIA 预计 4Q26 布伦特现货均价"
+        }
+      ],
+      "description": "胡塞宣称命中拉斯塔努拉炼厂，沙方未确认。风险溢价不涨反跌的三层原因：没有可核实的桶、基准价已装进更大的中断、当天的边际信息在外交。",
+      "highlights": [
+        "中东",
+        "胡塞"
       ]
     }
   ]

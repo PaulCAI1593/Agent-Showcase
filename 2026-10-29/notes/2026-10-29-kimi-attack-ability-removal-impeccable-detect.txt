@@ -1,0 +1,9 @@
+# impeccable detect 原始输出 · #361 · 2026-10-29
+# 命令: /app/working/workspaces/agents/content-creator/skills/impeccable/scripts/impeccable detect --json 2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html
+# 首轮输出：4 类（逐类计数见下，类别名即 detector 的 antipattern id）
+#   low-contrast(2, advisory)  #8c7f6d on #271815 = 4.4:1 → --dim2 提亮为 #97887A
+#   cramped-padding(9, warning) #readings/.act-side/.cal .c 文字贴边 → 边框下移到行、给容器留内边距、日历改列间距
+#   flat-type-hierarchy(1, advisory) #body 14.5 / h4 16.5 / h3 19 → 正文 15、h3 22、h2 26+
+#   skipped-heading(2, warning) #h2 后直接 h4 → 全部 h4 改 h3
+# 复跑输出（最终）：
+[]

@@ -1,0 +1,16 @@
+{
+  "updated_at": "2026-11-01T16:41:49",
+  "showcase_ok": false,
+  "showcase_detail": "[Errno 2] No such file or directory: '/app/working/shared/showcase/shared/showcase'",
+  "crons": [
+    {
+      "name": "(解析失败)",
+      "status": "unknown",
+      "ok": false,
+      "note": "[\n  {\n    \"id\": \"55dfedc5-2c11-45ea-850f-4c9cba69e0cd\",\n    \"name\": \"每日热点选题识别v7.2\",\n    \"enabled\": t"
+    }
+  ],
+  "cron_bad": [
+    "(解析失败)"
+  ]
+}

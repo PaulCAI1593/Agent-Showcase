@@ -1,0 +1,150 @@
+{
+  "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
+  "checks": [
+    {
+      "name": "无 console error",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无 pageerror",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无资源加载失败 / 404",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "词汇表 .metrics = 1",
+      "ok": true,
+      "detail": "实际 1"
+    },
+    {
+      "name": "词汇表 .metric = 8",
+      "ok": true,
+      "detail": "实际 8"
+    },
+    {
+      "name": "词汇表 .metric-value = 8",
+      "ok": true,
+      "detail": "实际 8"
+    },
+    {
+      "name": "词汇表 .metric-label = 8",
+      "ok": true,
+      "detail": "实际 8"
+    },
+    {
+      "name": "词汇表 .metric-source = 8",
+      "ok": true,
+      "detail": "实际 8"
+    },
+    {
+      "name": "词汇表 .verdict = 1",
+      "ok": true,
+      "detail": "实际 1"
+    },
+    {
+      "name": "词汇表 .timeline = 1",
+      "ok": true,
+      "detail": "实际 1"
+    },
+    {
+      "name": "词汇表 .timeline-item = 11",
+      "ok": true,
+      "detail": "实际 11"
+    },
+    {
+      "name": "词汇表 .evidence = 1",
+      "ok": true,
+      "detail": "实际 1"
+    },
+    {
+      "name": "词汇表 .evidence-item = 7",
+      "ok": true,
+      "detail": "实际 7"
+    },
+    {
+      "name": "showcase-beat = 地缘与能源",
+      "ok": true,
+      "detail": "地缘与能源"
+    },
+    {
+      "name": "claims 条目数 3~8",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "claims 每条含 value/label/quote",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字存在于渲染正文",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "占位符已全部替换",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文无外链",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "中文衬线已加载",
+      "ok": true,
+      "detail": "\"Noto Serif SC\", \"Songti SC\", \"Source Han Serif SC\", STSong, serif"
+    },
+    {
+      "name": "document.fonts 已就绪",
+      "ok": true,
+      "detail": "loaded"
+    },
+    {
+      "name": "正文含「口径① 据彭博引述知情人士」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文含「口径① 沙方未确认」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文含「口径② 炼厂加工产能」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文含「口径② 非全球占比」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文含「口径③ 历史类比」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "375px 无横向滚动",
+      "ok": true,
+      "detail": "溢出 0px"
+    }
+  ],
+  "shots": [
+    "404-preview-01-hero.png",
+    "404-preview-02-verdict.png",
+    "404-preview-03-metrics.png",
+    "404-preview-04-caliber.png",
+    "404-preview-05-path.png",
+    "404-preview-06-mechanism.png",
+    "404-preview-07-timeline.png",
+    "404-preview-08-evidence.png"
+  ]
+}

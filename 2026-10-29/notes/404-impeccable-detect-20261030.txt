@@ -1,0 +1,50 @@
+﻿impeccable detect 原始输出 · 选题404 · 2026-10-30
+========================================================
+
+【命令】
+cd /app/working/shared/showcase && \
+  /app/working/workspaces/agents/data-analyst/skills/impeccable/scripts/impeccable detect --json \
+  2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html
+
+【首轮输出】
+[]
+
+【复跑输出（正文修订后再次执行）】
+[]
+
+【结论】
+零问题通过：0 error、0 warning、0 advisory。
+
+【工具可用性说明】
+本机 impeccable 启动器仅提供 `detect` 子命令
+（`impeccable --help` 输出：Commands 段落只列出 detect / ignores / help /
+install / link / update / check / telemetry，无独立 audit、polish 子命令）。
+按契约第 5 条「audit + polish（或 detect）」取 detect，符合 AGENTS.md 规则 14。
+
+【检测器有效性自证】
+为排除「启动器静默返回空数组」这一假阳性，另建探针文件验证检测器确实在扫描：
+
+  探针文件 /tmp/detprobe/probe.html（故意含三处反模式：
+    低对比度正文、9px 功能文字、11 处破折号连用）
+
+  命令：
+    cd /tmp/detprobe && \
+    /app/working/workspaces/agents/data-analyst/skills/impeccable/scripts/impeccable detect --json probe.html
+
+  探针输出（摘）：
+    low-contrast           warning   "1.2:1 (need 4.5:1) — text #eeeeee on #ffffff"
+    low-contrast           warning   "1.2:1 (need 4.5:1) — text #eeeeee on #ffffff"
+    undersized-ui-text    warning   "9px functional text \"Click\" (below 11px floor)"
+    em-dash-overuse       advisory  "11 em-dashes in body text"
+
+  结论：检测器对同一文件能正常报出问题，故本文的 `[]` 是真实的零问题通过，
+  不是工具未运行或未扫描本文件。
+
+【补充自检（脚本化，见 render_check_ras_tanura.py）】
+- 正文破折号（U+2014）计数：**2**（均在 <title>），detect 阈值为 ≥8，无触发风险
+- 最小字号：.ledger th 11.5px / .mast-meta dt 11px / .metric-source 12px /
+  .evidence-source 12.5px / .ledger .caveat 12.5px / .caliber-note 14px，
+  均不低于 11px 功能文字下限
+- 375px 窄屏横向溢出：**0px**
+- 对比度：沿用模板令牌（--ink-3 #646b67 on --paper #eaedea ≈ 5.1:1，
+  --brass #7d5a1c ≈ 6.1:1），detect 未报 low-contrast

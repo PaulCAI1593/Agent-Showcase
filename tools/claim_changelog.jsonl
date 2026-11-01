@@ -191,3 +191,7 @@
 {"ts": "2026-10-29T13:07:58", "event": "claim_stale", "work": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html", "detail": {"count": 1, "quotes": ["1 条已验证断言"]}}
 {"ts": "2026-10-29T13:07:58", "event": "claim_stale", "work": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html", "detail": {"count": 1, "quotes": ["12 条已验证断言"]}}
 {"ts": "2026-10-29T13:07:58", "event": "claim_stale", "work": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html", "detail": {"count": 1, "quotes": ["9 条已验证断言"]}}
+{"ts": "2026-10-29T21:13:44", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1123, "to": 1131, "delta": 8, "reject_rate": 0.2745}}
+{"ts": "2026-10-29T22:58:01", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1131, "to": 1139, "delta": 8, "reject_rate": 0.2773}}
+{"ts": "2026-11-01T16:42:25", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1139, "to": 1131, "delta": -8, "reject_rate": 0.2787}}
+{"ts": "2026-11-01T16:45:14", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1131, "to": 1139, "delta": 8, "reject_rate": 0.2773}}

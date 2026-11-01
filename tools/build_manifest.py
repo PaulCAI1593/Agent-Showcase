@@ -349,6 +349,32 @@ def read_declared_claims(path):
     return gate.declared_claims(html)
 
 
+def derive_tags(title, beat, desc):
+    """标签兜底：作品没写 highlights 时，从标题/追踪线推导。
+
+    为什么需要：流水线硬校验「缺标签 0」→ 没标签的好作品直接上不了展。
+    实测 2026-10-29 的 ras-tanura（有 beat、2.6 万字正文）就因 0 标签被挡下。
+
+    推导规则（保守，宁少勿错）：
+      1) 追踪线本身就是一个合法标签（作品确实属于那条线）
+      2) 从标题里取 1~2 个有实义的短词（长度 2~8 的中文/英文片段，
+         排除「分析」「研究」「报告」这类通用词）
+    """
+    out = []
+    if beat:
+        out.append(beat)
+    stop = {'分析', '研究', '报告', '综述', '解析', '解读', '洞察', '观察',
+            '万字', '深度', '全面', '最新', '重磅', '独家', '附', '篇'}
+    import re as _re
+    for seg in _re.split(r'[：:，,。、（）()【】\[\]「」“”\s]+', title or ''):
+        seg = seg.strip()
+        if 2 <= len(seg) <= 8 and seg not in stop and not seg.isdigit():
+            if seg not in out:
+                out.append(seg)
+            break
+    return out[:3]
+
+
 def compute_claim_stats(manifest, gate):
     """
     断言层聚合（来自 claim_gate 的 L0 层）。
@@ -736,7 +762,9 @@ def main():
             'date': date,
             'type': typ,
             'file': rel,
-            'highlights': e.get('highlights') or old.get('highlights') or [],
+            'highlights': (e.get('highlights') or old.get('highlights')
+                           or derive_tags(title, read_declared_beat(os.path.join(ROOT, rel)),
+                                          e.get('description') or old.get('description') or '')),
             'thumb': thumb,
         }
         # 断言层：作品自身声明优先，但**同样要过闸门**（声明不是特权）
