@@ -1,0 +1,26 @@
+impeccable detect 原始输出 · 选题406 · 2026-11-02
+========================================================
+
+【命令】
+cd /app/working/shared/showcase &&   /app/working/workspaces/default/skills/impeccable/scripts/impeccable detect --json   2026-11-02/research/2026-11-02-fed-communication-bandwidth.html
+
+【输出】
+[
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": ".../2026-11-02-fed-communication-bandwidth.html",
+    "line": 0,
+    "snippet": "4.4:1 (need 4.5:1) — text #76777a on #0b0c12",
+    "advisory": true
+  }
+]
+
+【结论】
+0 error、0 warning、1 advisory（对比度 4.4:1，差 0.1）。其余门禁（claims 8 条、beat 宏观利率与股市、零远程依赖、manifest 一致、断言 1160/1160）由 build_manifest --check 复核通过。
+
+【执行记录】
+2026-11-02 15:0x 由总指挥心跳补跑（原收尾任务 task-996a4085b736 900s 超时中断，未产出留痕）。

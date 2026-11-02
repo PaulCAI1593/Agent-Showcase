@@ -195,3 +195,8 @@
 {"ts": "2026-10-29T22:58:01", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1131, "to": 1139, "delta": 8, "reject_rate": 0.2773}}
 {"ts": "2026-11-01T16:42:25", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1139, "to": 1131, "delta": -8, "reject_rate": 0.2787}}
 {"ts": "2026-11-01T16:45:14", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1131, "to": 1139, "delta": 8, "reject_rate": 0.2773}}
+{"ts": "2026-11-02T07:09:25", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1139, "to": 1143, "delta": 4, "reject_rate": 0.2766}}
+{"ts": "2026-11-02T07:12:11", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1143, "to": 1152, "delta": 9, "reject_rate": 0.275}}
+{"ts": "2026-11-02T07:20:10", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1152, "to": 1151, "delta": -1, "reject_rate": 0.2752}}
+{"ts": "2026-11-02T07:26:59", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1151, "to": 1159, "delta": 8, "reject_rate": 0.2747}}
+{"ts": "2026-11-02T07:37:01", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1159, "to": 1160, "delta": 1, "reject_rate": 0.2745}}

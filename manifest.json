@@ -1,11 +1,123 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 110,
-  "researchCount": 55,
-  "creativeCount": 55,
-  "latestDate": "2026-10-29",
+  "total": 113,
+  "researchCount": 57,
+  "creativeCount": 56,
+  "latestDate": "2026-11-02",
   "research": [
+    {
+      "id": "item-2026-11-02-research-2026-11-02-alphabet-ai-monetization-gap",
+      "title": "营收超预期之外的那张表——Alphabet 首次把「AI 搜索的变现缺口」写进财报 —— 研析",
+      "description": "Alphabet 三季度：营收增长 25%，云 +103%、搜索仅 +12%，自由现金流 -90.7 亿美元，公司自认 AI 搜索的变现缺口。",
+      "agent": "研析+数析",
+      "date": "2026-11-02",
+      "type": "research",
+      "file": "2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
+      "highlights": [
+        "增长",
+        "云"
+      ],
+      "thumb": "thumbs/2026-11-02-research-2026-11-02-alphabet-ai-monetization-gap-thumb.webp",
+      "claims": [
+        {
+          "value": "-90.7 亿美元",
+          "label": "Alphabet 三季度自由现金流",
+          "quote": "自由现金流骤降至负90.7亿美元（预期负35亿）"
+        },
+        {
+          "value": "1275.8 亿美元",
+          "label": "Alphabet 三季度营收",
+          "quote": "营收1275.8亿美元同比增25%、低于预期1282.2亿美元"
+        },
+        {
+          "value": "+12%",
+          "label": "Alphabet 搜索收入同比增速",
+          "quote": "搜索收入仅增12%"
+        },
+        {
+          "value": "+103%",
+          "label": "Alphabet 云业务营收同比增速",
+          "quote": "云业务营收307亿美元同比增103%"
+        },
+        {
+          "value": "307 亿美元",
+          "label": "Alphabet 云业务营收",
+          "quote": "云业务营收307亿美元"
+        },
+        {
+          "value": "513.6 亿美元",
+          "label": "Alphabet 三季度资本开支",
+          "quote": "资本开支513.6亿美元低于预期557.8亿"
+        },
+        {
+          "value": "0",
+          "label": "Alphabet 三季度股票回购",
+          "quote": "本季股票回购为 0（上年同期 115.0 亿）"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "估值与资本"
+    },
+    {
+      "id": "item-2026-11-02-research-2026-11-02-fed-communication-bandwidth",
+      "title": "6 场会议与一句「强劲」——美联储在 82.6% 加息概率下选择减少信息带宽",
+      "description": "美联储 10 比 2 按兵不动、库克首次投反对票；2027 年起一年仅 6 场利率决议、不设软性通胀目标、不作前瞻指引——市场只能从资产价格反推政策路径。",
+      "agent": "数析",
+      "date": "2026-11-02",
+      "type": "research",
+      "file": "2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
+      "highlights": [
+        "美联储",
+        "加息",
+        "通胀"
+      ],
+      "thumb": "thumbs/2026-11-02-research-2026-11-02-fed-communication-bandwidth-thumb.webp",
+      "claims": [
+        {
+          "value": "79.7%",
+          "label": "CME 12月会议加息25个基点概率（决议前口径）",
+          "quote": "加息25个基点概率82.6%（决议前79.7%）"
+        },
+        {
+          "value": "82.6%",
+          "label": "CME 12月会议加息25个基点概率（决议后口径）",
+          "quote": "加息25个基点概率82.6%（决议前79.7%）"
+        },
+        {
+          "value": "6场",
+          "label": "年度利率决议会议次数（2028年起）",
+          "quote": "2028年增至两场、利率决议相应减至六场"
+        },
+        {
+          "value": "2.5%",
+          "label": "加拿大央行政策利率（10-29）",
+          "quote": "加拿大央行加息25个基点至2.5%，为三年多来首次"
+        },
+        {
+          "value": "5.021%",
+          "label": "10年期美债收益率（10-29）",
+          "quote": "10年期美债收益率涨3.5个基点报5.021%"
+        },
+        {
+          "value": "10比2",
+          "label": "FOMC决议票数（维持不变）",
+          "quote": "FOMC以10比2维持联邦基金利率在3.75%—4.00%不变"
+        },
+        {
+          "value": "4068.76美元/盎司",
+          "label": "现货黄金结算价（10-29）",
+          "quote": "现货黄金涨0.2%报4068.76美元/盎司、连续第三日走高"
+        },
+        {
+          "value": "102.78美元/桶",
+          "label": "WTI 12月合约结算价（10-29）",
+          "quote": "WTI 12月合约涨2.88%收102.78美元/桶"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "宏观利率与股市"
+    },
     {
       "id": "item-2026-10-29-research-2026-10-29-ai-chip-credit-ultimate-lenders",
       "title": "630 亿美元 AI 芯片信贷的最终贷款人：谁放贷、谁担保、谁来接残值",
@@ -68,7 +180,7 @@
       "id": "item-2026-10-29-research-2026-10-29-ras-tanura-risk-premium",
       "title": "靶心 55 万桶/日，油价跌 1.8% —— 拉斯塔努拉之后，中东风险溢价为何不涨反跌",
       "description": "胡塞宣称命中拉斯塔努拉炼厂，沙方未确认。风险溢价不涨反跌的三层原因：没有可核实的桶、基准价已装进更大的中断、当天的边际信息在外交。",
-      "agent": "",
+      "agent": "数析+码匠",
       "date": "2026-10-29",
       "type": "research",
       "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
@@ -4482,6 +4594,53 @@
   ],
   "creative": [
     {
+      "id": "item-2026-11-02-creative-2026-11-02-agent-access-layer",
+      "title": "谁在给智能体发上岗证：从应用内置 AI 到一个 IDE 并发 40 个智能体",
+      "description": "从「应用内置 AI」到「一个 IDE 里并发 40 个智能体」——接入层正在成为新的竞争面，协议与沙箱就是发证机关。",
+      "agent": "绘界",
+      "date": "2026-11-02",
+      "type": "creative",
+      "file": "2026-11-02/creative/2026-11-02-agent-access-layer.html",
+      "highlights": [
+        "智能体"
+      ],
+      "thumb": "thumbs/2026-11-02-creative-2026-11-02-agent-access-layer-thumb.webp",
+      "claims": [
+        {
+          "value": "40+",
+          "label": "Android Studio 同时接入的第三方编码智能体",
+          "quote": "40多个第三方编码智能体（含Claude Code、Codex）可在同一IDE并发运行"
+        },
+        {
+          "value": "macOS 27",
+          "label": "苹果生产力套件向外部智能体开放的系统版本门槛",
+          "quote": "外部智能体可直接在三款App内读取内容、执行编辑与自动化操作，需macOS 27"
+        },
+        {
+          "value": "500美元",
+          "label": "OpenAI为ChatGPT Pro与Business捆绑的每月最高API额度",
+          "quote": "OpenAI为ChatGPT Pro与Business捆绑每月最高500美元API额度"
+        },
+        {
+          "value": "320万条",
+          "label": "Exa向开发者开放的播客转录数量",
+          "quote": "Exa向开发者开放320万条播客转录可查询220万小时音频"
+        },
+        {
+          "value": "首次支持",
+          "label": "苹果对Model Context Protocol的采用",
+          "quote": "苹果为Keynote、Pages、Numbers与Logic Pro加入AI助手（自研模型+OpenAI模型），并首次支持Model Context Protocol"
+        },
+        {
+          "value": "1美元",
+          "label": "谷歌ER 2预览期每百万输入token定价",
+          "quote": "预览期每百万输入token 1美元、2027年1月起2美元"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "工具链与产业主权"
+    },
+    {
       "id": "item-2026-10-29-creative-2026-10-29-kimi-attack-ability-removal",
       "title": "开放权重前的删改稿：Kimi K3.1 Pro 删掉的攻击能力 · 选题#397",
       "description": "Kimi K3.1 Pro 在 mid-training 语料与 RL environment mix 两处删掉 cyber 相关内容，官方自设基准 xdev-bench-hard 上 pass@3 从未过滤检查点的 90.5% 降到发布版的 81.0%。同一篇博客里它自报 Terminal-Bench 4.0 得分 65.7%，第三方 Artificial Analysis 独立智力指数是 55。两把尺子并置，不许相减。",
@@ -7746,11 +7905,11 @@
     }
   ],
   "stats": {
-    "generated": "2026-11-01",
+    "generated": "2026-11-02",
     "span": {
       "first": "2026-05-23",
-      "last": "2026-10-29",
-      "months": 6
+      "last": "2026-11-02",
+      "months": 7
     },
     "rhythm": [
       {
@@ -7788,6 +7947,12 @@
         "works": 29,
         "research": 15,
         "creative": 14
+      },
+      {
+        "month": "2026-11",
+        "works": 3,
+        "research": 2,
+        "creative": 1
       }
     ],
     "capacity": {
@@ -7797,19 +7962,21 @@
         "2026-07",
         "2026-08",
         "2026-09",
-        "2026-10"
+        "2026-10",
+        "2026-11"
       ],
       "rows": [
         {
           "agent": "研析",
-          "total": 55,
+          "total": 56,
           "by_month": [
             6,
             10,
             5,
             14,
             8,
-            12
+            12,
+            1
           ]
         },
         {
@@ -7821,42 +7988,33 @@
             4,
             0,
             6,
-            11
+            11,
+            0
           ]
         },
         {
           "agent": "绘界",
-          "total": 12,
+          "total": 13,
           "by_month": [
             0,
             0,
             0,
             4,
             5,
-            3
+            3,
+            1
           ]
         },
         {
           "agent": "数析",
-          "total": 3,
+          "total": 5,
           "by_month": [
             0,
             0,
             0,
             0,
             2,
-            1
-          ]
-        },
-        {
-          "agent": "未署名",
-          "total": 1,
-          "by_month": [
-            0,
-            0,
-            0,
-            0,
-            0,
+            2,
             1
           ]
         },
@@ -7869,15 +8027,16 @@
             0,
             0,
             0,
-            1
+            1,
+            0
           ]
         }
       ]
     },
     "collab": {
-      "total": 110,
-      "solo": 53,
-      "joint": 57,
+      "total": 113,
+      "solo": 54,
+      "joint": 59,
       "rate": 52,
       "edges": [
         {
@@ -7888,7 +8047,7 @@
         {
           "a": "数析",
           "b": "研析",
-          "works": 18
+          "works": 19
         },
         {
           "a": "研析",
@@ -7944,6 +8103,22 @@
     },
     "beats": [
       {
+        "name": "估值与资本",
+        "works": 17,
+        "months": 7,
+        "first": "2026-05-31",
+        "last": "2026-11-02",
+        "weeks_idle": 0
+      },
+      {
+        "name": "宏观利率与股市",
+        "works": 11,
+        "months": 7,
+        "first": "2026-05-26",
+        "last": "2026-11-02",
+        "weeks_idle": 0
+      },
+      {
         "name": "厂商与算力权力",
         "works": 19,
         "months": 6,
@@ -7952,28 +8127,12 @@
         "weeks_idle": 1
       },
       {
-        "name": "估值与资本",
-        "works": 16,
-        "months": 6,
-        "first": "2026-05-31",
-        "last": "2026-10-29",
-        "weeks_idle": 0
-      },
-      {
         "name": "安全与治理",
         "works": 11,
         "months": 6,
         "first": "2026-05-27",
         "last": "2026-10-17",
         "weeks_idle": 2
-      },
-      {
-        "name": "宏观利率与股市",
-        "works": 10,
-        "months": 6,
-        "first": "2026-05-26",
-        "last": "2026-10-24",
-        "weeks_idle": 1
       },
       {
         "name": "地缘与能源",
@@ -8008,6 +8167,14 @@
         "weeks_idle": 3
       },
       {
+        "name": "工具链与产业主权",
+        "works": 5,
+        "months": 4,
+        "first": "2026-07-04",
+        "last": "2026-11-02",
+        "weeks_idle": 0
+      },
+      {
         "name": "应用落地",
         "works": 9,
         "months": 3,
@@ -8030,14 +8197,6 @@
         "first": "2026-06-11",
         "last": "2026-10-27",
         "weeks_idle": 0
-      },
-      {
-        "name": "工具链与产业主权",
-        "works": 4,
-        "months": 3,
-        "first": "2026-07-04",
-        "last": "2026-10-20",
-        "weeks_idle": 1
       },
       {
         "name": "就业与劳动",
@@ -8083,11 +8242,11 @@
       }
     ],
     "claims": {
-      "total": 1139,
-      "works_covered": 98,
-      "works_total": 110,
+      "total": 1160,
+      "works_covered": 101,
+      "works_total": 113,
       "coverage": 89,
-      "pending": 437,
+      "pending": 439,
       "no_structure": 9,
       "dossier": [
         {
@@ -8366,10 +8525,10 @@
         },
         {
           "beat": "宏观利率与股市",
-          "works": 10,
-          "claims": 158,
+          "works": 11,
+          "claims": 165,
           "first": "2026-05-26",
-          "last": "2026-10-24",
+          "last": "2026-11-02",
           "chapters": [
             {
               "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
@@ -8418,15 +8577,20 @@
               "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
               "v": "5年",
               "l": "期通胀预期（消费者预期调查"
+            },
+            {
+              "file": "2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
+              "v": "79.7%",
+              "l": "CME 12月会议加息25个基点概率（决议前口径）"
             }
           ]
         },
         {
           "beat": "估值与资本",
-          "works": 16,
-          "claims": 129,
+          "works": 17,
+          "claims": 142,
           "first": "2026-05-31",
-          "last": "2026-10-29",
+          "last": "2026-11-02",
           "chapters": [
             {
               "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
@@ -8503,6 +8667,11 @@
               "file": "2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
               "v": "290 亿美元",
               "l": "前笔 350 亿交易的博通担保上限"
+            },
+            {
+              "file": "2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
+              "v": "-90.7 亿美元",
+              "l": "Alphabet 三季度自由现金流"
             }
           ]
         },
@@ -8803,10 +8972,10 @@
         },
         {
           "beat": "工具链与产业主权",
-          "works": 4,
-          "claims": 58,
+          "works": 5,
+          "claims": 59,
           "first": "2026-07-04",
-          "last": "2026-10-20",
+          "last": "2026-11-02",
           "chapters": [
             {
               "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
@@ -8827,6 +8996,11 @@
               "file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
               "v": "46%",
               "l": "左侧被铺开，右侧被登记"
+            },
+            {
+              "file": "2026-11-02/creative/2026-11-02-agent-access-layer.html",
+              "v": "4 条",
+              "l": "已验证断言"
             }
           ]
         },
@@ -8871,11 +9045,11 @@
     }
   },
   "claim_stats": {
-    "total": 1139,
-    "works_covered": 98,
-    "works_total": 110,
+    "total": 1160,
+    "works_covered": 101,
+    "works_total": 113,
     "coverage": 89,
-    "pending": 437,
+    "pending": 439,
     "no_structure": 9,
     "by_beat": [
       {
@@ -8892,11 +9066,11 @@
       },
       {
         "name": "宏观利率与股市",
-        "claims": 158
+        "claims": 166
       },
       {
         "name": "估值与资本",
-        "claims": 126
+        "claims": 133
       },
       {
         "name": "Agent 与编排",
@@ -8915,16 +9089,16 @@
         "claims": 71
       },
       {
+        "name": "工具链与产业主权",
+        "claims": 64
+      },
+      {
         "name": "算力·能耗·环境",
         "claims": 62
       },
       {
         "name": "成本与普惠",
         "claims": 62
-      },
-      {
-        "name": "工具链与产业主权",
-        "claims": 58
       },
       {
         "name": "机器人与具身",

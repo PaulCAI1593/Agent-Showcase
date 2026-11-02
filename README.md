@@ -103,6 +103,8 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 | `reorganize.py` | 把放错位置的作品/材料归一成上述规范（幂等，含路径键重映射） |
 | `autotag.py` | 自动补标签 |
 | `claim_gate.py` | **断言闸门**：三道机器闸门 + 存量回填（见五-D） |
+| `break_ui_check.py` | **首页极端数据压测**：注入最坏数据（超长标题/空日期/单月 113 件/缺缩略图）后跑真实浏览器，查横向溢出、破图、undefined 字面量、空态；dev-only，页面不引用 |
+| `audit_pages.py` | 作品页运行时巡检（真实加载 + 抓 console 错误 / 资源 404 / 空白页） |
 | `serve.py` | 预览服务器（默认只监听 127.0.0.1），屏蔽 `_private` `_archive` `tools` `templates` 及**嵌套的** `notes/` |
 
 > 2026-10-26 清理：25 个历史遗留脚本已归档至 `_archive/tools-legacy/`

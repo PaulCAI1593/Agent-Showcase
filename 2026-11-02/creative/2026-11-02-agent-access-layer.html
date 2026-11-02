@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="工具链与产业主权">
+<title>谁在给智能体发上岗证：从应用内置 AI 到一个 IDE 并发 40 个智能体</title>
+<style>
+:root{
+  --bg:#f5f5f7; --ink:#1d1d1f; --ink2:#333336; --mut:#a1a1a6; --gray:#6e6e73;
+  --blue:#0066cc; --btn:#0071e3; --black:#000; --line:#d2d2d7;
+  --paper:#fdfcf9; --stamp:#c44536;
+  --blue-lt:#4d9fff; --gray-d:#8e8e93;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.5;font-size:17px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+h1,h2,h3,h4{font-weight:600}
+.eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:14px}
+.hero .eyebrow,.sec-dark .eyebrow{color:var(--mut)}
+.sec-head{display:flex;flex-direction:column;align-items:flex-start}
+.sec-head .eyebrow{order:-1}
+h2.sec{font-size:34px;font-weight:600;letter-spacing:-.6px;line-height:1.18;margin-bottom:14px}
+.p-lead{font-size:19px;color:var(--ink2);max-width:780px;margin-bottom:36px}
+.anim section:not(.hero){opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.anim section.vis{opacity:1;transform:none}
+
+/* hero */
+.hero{background:var(--black);color:#fff;padding:110px 0 90px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-110px;height:220px;
+  background:radial-gradient(60% 100% at 50% 100%,rgba(0,113,227,.18),transparent 70%);pointer-events:none}
+.hero h1{font-size:50px;font-weight:600;letter-spacing:-1px;line-height:1.1}
+.hero .sub{color:var(--mut);font-size:20px;margin:20px auto 0;max-width:680px;line-height:1.45}
+
+/* permit card */
+@keyframes cardIn{from{opacity:0;transform:rotate(-1.4deg) translateY(46px) scale(.95)}
+  to{opacity:1;transform:rotate(-1.4deg) translateY(0) scale(1)}}
+@keyframes stampIn{0%{transform:rotate(13deg) scale(2.1);opacity:0}55%{opacity:1}
+  100%{transform:rotate(13deg) scale(1);opacity:1}}
+.permit{margin:54px auto 0;width:302px;max-width:86vw;background:var(--paper);border-radius:14px;
+  padding:26px 28px 24px;color:var(--ink);text-align:left;position:relative;
+  box-shadow:0 16px 44px rgba(0,0,0,.5);transform:rotate(-1.4deg);
+  animation:cardIn 1s cubic-bezier(.2,.9,.25,1) .25s both}
+.permit .ttl{font-size:12px;letter-spacing:4px;color:#a3522f;border-bottom:2px solid var(--stamp);
+  padding-bottom:9px;margin-bottom:13px;font-weight:600}
+.permit .nm{font-family:Menlo,Consolas,monospace;font-size:16.5px;font-weight:600}
+.permit .rows{margin-top:12px;font-size:12.5px;color:#61585a}
+.permit .rows div{display:flex;justify-content:space-between;gap:10px;line-height:1.9}
+.permit .rows span:first-child{color:#746d63;flex:none;text-align:left}
+.permit .rows span:last-child{text-align:right}
+.stamp{position:absolute;right:-12px;top:-26px;width:116px;height:116px;border:4.5px solid var(--stamp);
+  color:var(--stamp);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:800;transform:rotate(13deg) scale(0);opacity:0}
+.stamp .big{font-size:24px;letter-spacing:5px}
+.stamp .sfx{font-size:11px;letter-spacing:.5px;margin-top:4px;font-family:Menlo,Consolas,monospace}
+.stamp::after{content:"";position:absolute;inset:6px;border:1.5px solid var(--stamp);border-radius:50%;opacity:.55}
+.permit.go .stamp{animation:stampIn .55s cubic-bezier(.2,.8,.3,1.35) .05s both}
+.replay{margin-top:30px;background:none;border:1px solid rgba(255,255,255,.22);color:var(--mut);
+  font-size:13px;padding:8px 22px;border-radius:980px;cursor:pointer;font-family:inherit;
+  transition:color .2s,border-color .2s}
+.replay:hover{color:#fff;border-color:rgba(255,255,255,.55)}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.kpi{background:#fff;border-radius:14px;border:1px solid var(--line);padding:26px 20px}
+.kpi .num{font-size:52px;font-weight:600;letter-spacing:-2px;line-height:1.05}
+.kpi .num span{font-size:24px}
+.kpi .lbl{color:var(--gray);font-size:14px;margin-top:10px;line-height:1.45}
+.kpi .src{color:var(--gray);font-size:12px;margin-top:6px;font-family:Menlo,Consolas,monospace}
+
+/* ladder */
+.ladder{margin-top:14px;position:relative;padding-left:34px;border-left:3px solid var(--line);
+  display:flex;flex-direction:column;gap:36px}
+.rung{position:relative;opacity:0;transform:translateX(-18px);
+  transition:opacity .65s ease,transform .65s ease}
+.visAll .rung{opacity:1;transform:none}
+.rung::before{content:"";position:absolute;left:-43px;top:8px;width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:3.5px solid var(--btn)}
+.rung small{font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--blue);display:block;margin-bottom:7px}
+.rung b{display:block;font-size:19px;letter-spacing:-.2px;margin-bottom:7px}
+.rung p{font-size:15.5px;color:var(--ink2);max-width:730px;line-height:1.6}
+.rung p em{font-style:normal;display:block;margin-top:7px;font-size:13.5px;color:var(--gray)}
+
+/* map */
+.sec-dark{background:var(--black);color:#fff}
+.sec-dark .p-lead{color:var(--mut)}
+.map-grid{display:grid;grid-template-columns:420px 1fr;gap:30px;margin-top:38px;align-items:start}
+.hall{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.room{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;
+  background:#16161a;border:2px solid #2e2e33;border-radius:14px;padding:19px 18px;
+  font-family:inherit;font-size:15.5px;font-weight:600;color:#e8e8ed;cursor:pointer;text-align:left;min-height:102px;
+  transition:border-color .2s,background .2s,transform .15s,box-shadow .2s}
+.room:hover{border-color:#4d4d55;transform:translateY(-2px)}
+.room:focus-visible{outline:3px solid var(--btn);outline-offset:2px}
+.room.on{border-color:var(--btn);background:#005bb8}
+.room .rn-num{font-family:Menlo,Consolas,monospace;font-size:11px;color:var(--mut);letter-spacing:2px}
+.room.on .rn-num{color:rgba(255,255,255,.85)}
+.room .rn-tag{font-weight:400;font-size:12.5px;color:var(--mut)}
+.room.on .rn-tag{color:rgba(255,255,255,.85)}
+.panel{background:#16161a;border:1px solid #2e2e33;border-radius:18px;padding:34px 32px;position:sticky;top:24px}
+.panel h3{font-size:24px;letter-spacing:-.3px;font-weight:600}
+.panel .who{display:block;margin:8px 0 16px;font-family:Menlo,Consolas,monospace;font-size:12.5px;color:#6cb0ff}
+.panel p.d{font-size:15.5px;color:#c7c7cc;line-height:1.62}
+.facts{list-style:none;margin-top:18px}
+.facts li{padding:12px 0;border-top:1px solid #2c2c31;font-size:14.5px;color:#c7c7cc;line-height:1.58}
+.facts li b{color:#fff}
+.facts .srcd{display:block;margin-top:5px;font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--gray-d)}
+.mt{min-height:340px;margin-top:4px}
+
+/* compare */
+.compg{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:36px}
+.cc{background:#fff;border-radius:18px;padding:30px 30px 26px;border:1px solid var(--line)}
+.cc h3{font-size:18px;display:flex;align-items:center;gap:12px;font-weight:600}
+.tag{flex:none;font-size:11px;color:var(--blue);border:1.5px solid var(--btn);background:#f0f7ff;
+  padding:3px 11px;border-radius:980px;letter-spacing:1.5px;font-family:Menlo,Consolas,monospace;font-weight:600}
+.tag.g{color:#515154;border-color:#c7c7cc;background:var(--bg)}
+.rows{margin-top:16px}
+.rows div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 0;font-size:14.5px;
+  border-top:1px solid #e8e8ed;align-items:baseline}
+.rows div:first-child{border-top:none;padding-top:2px}
+.rows span:first-child{font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--gray);letter-spacing:1px}
+.rows span:last-child{color:var(--ink2)}
+
+/* ide mock */
+.switcher{display:inline-flex;gap:8px;margin-top:6px}
+.sw-btn{font-family:inherit;font-size:14px;padding:9px 22px;border-radius:980px;cursor:pointer;
+  border:1.5px solid var(--btn);background:none;color:var(--blue-lt);transition:background .2s,color .2s}
+.sw-btn.on{background:var(--btn);color:#fff}
+.ide-stage{margin-top:34px;background:var(--black);color:#e8e8ed;border-radius:18px;padding:34px;
+  display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}
+.ide{background:#111114;border:1px solid #2e2e33;border-radius:12px;overflow:hidden}
+.ide-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #2e2e33}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.ide-title{margin-left:10px;font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--mut)}
+.ide-body{padding:18px;display:grid;grid-template-columns:1fr 1.1fr;gap:14px;min-height:196px}
+.slot-wrap{display:grid;gap:9px;align-content:start}
+.agent-card{background:#1c1c21;border:1px solid #313138;border-radius:9px;padding:10px 12px;
+  font-size:13px;font-weight:600;color:#e8e8ed;opacity:0;transform:scale(.9);transition:opacity .3s,transform .3s}
+.agent-card.in{opacity:1;transform:none}
+.agent-card .meta{display:block;font-weight:400;font-size:12px;color:var(--mut);margin-top:4px;font-family:Menlo,Consolas,monospace}
+.code-lines{display:grid;gap:8px;align-content:center;padding:6px 0}
+.cl{height:9px;border-radius:5px;background:#2c2c33;opacity:.25;transition:opacity .3s,background .3s;min-width:0}
+.cl.lit{background:var(--btn);opacity:1}
+.ide-status{font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--mut);
+  border-top:1px solid #2e2e33;padding:11px 14px}
+.stage-note{font-size:15.5px;color:#c7c7cc;line-height:1.6}
+
+/* evidence */
+.quote-strip{border-left:3px solid var(--btn);padding:12px 0 12px 18px}
+.quote-strip + .quote-strip{margin-top:14px}
+.q-txt{font-size:14.5px;color:#c7c7cc;line-height:1.62}
+.q-met{display:block;margin-top:6px;font-family:Menlo,Consolas,monospace;font-size:12px;color:var(--gray-d)}
+
+footer{background:var(--black);color:var(--gray-d);padding:56px 0 96px;font-size:13px;
+  text-align:center;border-top:1px solid #1d1d1f;line-height:1.7}
+
+@media(max-width:740px){
+  section{padding:60px 0}
+  .hero{padding:80px 0 60px}
+  .hero h1{font-size:34px}
+  .hero .sub{font-size:17px}
+  h2.sec{font-size:27px}
+  .p-lead{font-size:17px}
+  .map-grid{grid-template-columns:1fr}
+  .panel{position:static}
+  .compg{grid-template-columns:1fr}
+  .hall{grid-template-columns:repeat(2,1fr);gap:10px}
+  .room{min-height:96px;padding:16px}
+  .ide-stage{grid-template-columns:1fr;padding:24px}
+  .kpi .num{font-size:44px}
+  .rung b{font-size:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .anim section:not(.hero){opacity:1!important;transform:none!important}
+  .rung{opacity:1!important;transform:none!important}
+  .permit{opacity:1!important;animation:none!important}
+  .stamp{opacity:1!important;transform:rotate(13deg) scale(1)!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.52)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:12px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-11-02</span><span class="sb-sep">/</span><span class="sb-beat">工具链与产业主权</span><span class="sb-sep">/</span><span class="sb-cnt">1 件 / 2026-11</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">4 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim')</script>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">2026-10-29 · 创意件 407 · 追踪线「工具链与产业主权」</div>
+    <h1>谁在给智能体发上岗证？</h1>
+    <p class="sub">从「应用内置 AI」到「一个 IDE 里并发 40 个智能体」，接入层正在成为新的竞争面，协议与沙箱就是发证机关。</p>
+    <div class="permit" id="permit">
+      <div class="ttl">AGENT / 上岗申请 · 407 号</div>
+      <div class="nm">applicant: "external-coding-agent"</div>
+      <div class="rows">
+        <div><span>申请人</span><span>第三方智能体</span></div>
+        <div><span>拟任工位</span><span>Android Studio · Keynote/Pages/Numbers</span></div>
+        <div><span>发证窗口</span><span>协议·运行时·编排·工具·沙箱·计费</span></div>
+      </div>
+      <div class="stamp"><div class="big">准入</div><div class="sfx">ACCESS · 2026</div></div>
+    </div>
+    <button class="replay" id="replay" type="button">重新盖章</button>
+  </div>
+</section>
+
+<section id="kpis" class="sec-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">上岗证申请量飙升</h2>
+      <div class="eyebrow">本周四个数字</div>
+    </div>
+    <p class="p-lead">2026 年 10 月最后一周，四组数字同时落地。它们拼出同一个事实：智能体进入工作区的入口，正在被平台方重新定价。</p>
+    <div class="kpis">
+      <div class="kpi"><div class="num" data-to="40" data-suf="+">0</div>
+        <div class="lbl">同一 IDE 并发的第三方编码智能体（含 Claude Code、Codex）</div>
+        <div class="src">AI Daily Digest · 10-29</div></div>
+      <div class="kpi"><div class="num" data-to="77" data-suf="%">0</div>
+        <div class="lbl">UI 任务完成速度提升 ⚠ 单一来源</div>
+        <div class="src">AI Daily Digest · 10-29</div></div>
+      <div class="kpi"><div class="num">1/3</div>
+        <div class="lbl">token 消耗降至原先的三分之一 ⚠ 单一来源</div>
+        <div class="src">AI Daily Digest · 10-29</div></div>
+      <div class="kpi"><div class="num" data-to="1" data-pre="$" data-suf="/M">0</div>
+        <div class="lbl">ER 2 预览期每百万输入 token 定价（2027 年 1 月起 2 美元）</div>
+        <div class="src">Google Cloud · 10-29</div></div>
+    </div>
+    <p style="margin-top:26px;font-size:13px;color:#a1a1a6">⚠ 「77% / 1/3」目前仅 AI Daily Digest 一个来源，谷歌内部测试口径、未经独立验证：只作叙事呈现，不写入本页断言（claims）层。</p>
+  </div>
+</section>
+
+<section id="ladder-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">接入层正从应用内部长到操作系统外部</h2>
+      <div class="eyebrow">纵向叙事</div>
+    </div>
+    <p class="p-lead">三级跳：智能体先是被嵌进某个 App；然后被请进 IDE；如今，它开始被操作系统接受为「外部常驻人员」。每一次外移，授权门槛都被抬高一层。</p>
+    <div class="ladder">
+      <div class="rung"><small>阶段 1 · 应用内置</small><b>AI 长在 App 里</b><p>苹果将 AI 助手嵌入 Keynote、Pages、Numbers 与 Logic Pro：AI 仍是应用内的产品功能，没有系统层面的独立身份。<em>发证权由单个应用私自签发，别家进不来。</em></p></div>
+      <div class="rung"><small>阶段 2 · IDE 并发</small><b>IDE 转型为 agent 宿主</b><p>谷歌向第三方 AI 智能体开放 Android Studio，推出「自带智能体」架构：一个 IDE 可同时签发 40 多张证。<em>供应商锁定开始松动，开放协议成为通用门票。</em></p></div>
+      <div class="rung"><small>阶段 3 · 操作系统外部</small><b>OS 把钥匙递到门口</b><p>苹果在 macOS 27 上首次支持 MCP：外部智能体可直接在 App 内读取内容、执行编辑与自动化操作。<em>发证机关上移到操作系统，沙箱与治理成为新的必答题。</em></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="map-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">接入层版图：六道发证窗口</h2>
+      <div class="eyebrow">主交互 · 点击探索</div>
+    </div>
+    <p class="p-lead">一个外部智能体要上岗，要过六道窗口，每道窗口背后站着一批新的看门人。点击任意窗口查看谁在发证、发了什么证。</p>
+    <div class="map-grid">
+      <div class="hall">
+        <button class="room" data-k="protocol" type="button"><span class="rn-num">01</span>🏛️ 协议层<span class="rn-tag">谁定通信语言</span></button>
+        <button class="room" data-k="runtime" type="button"><span class="rn-num">02</span>🖥️ 运行时<span class="rn-tag">谁提供工位</span></button>
+        <button class="room" data-k="orchestrate" type="button"><span class="rn-num">03</span>🎭 编排<span class="rn-tag">谁当主管</span></button>
+        <button class="room" data-k="tools" type="button"><span class="rn-num">04</span>🧰 工具<span class="rn-tag">谁开放工具箱</span></button>
+        <button class="room" data-k="sandbox" type="button"><span class="rn-num">05</span>🔐 沙箱<span class="rn-tag">谁做背景审查</span></button>
+        <button class="room" data-k="billing" type="button"><span class="rn-num">06</span>💰 计费<span class="rn-tag">谁定工资单</span></button>
+      </div>
+      <div class="panel mt" id="panel">
+        <h3 id="p-t"></h3>
+        <span class="who" id="p-w"></span>
+        <p class="d" id="p-d"></p>
+        <ul class="facts" id="p-f"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-dark" id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">单智能体 IDE vs 40 智能体并发 IDE</h2>
+      <div class="eyebrow">对比切换</div>
+    </div>
+    <p class="p-lead">同一间工位，两种编成。切换看看：过去 IDE 只供一家自带助手，如今 40 多个第三方智能体凭同一张「协议门票」并发进厂。</p>
+    <div class="switcher" id="sw">
+      <button class="sw-btn on" data-mode="one" type="button">单智能体 IDE</button>
+      <button class="sw-btn" data-mode="many" type="button">40 智能体并发</button>
+    </div>
+    <div class="ide-stage">
+      <div class="ide">
+        <div class="ide-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="ide-title" id="ide-title">Android Studio</span></div>
+        <div class="ide-body">
+          <div class="slot-wrap" id="slots"></div>
+          <div class="code-lines" id="lines"></div>
+        </div>
+        <div class="ide-status" id="ide-status"></div>
+      </div>
+      <div class="stage-note" id="stage-note"></div>
+    </div>
+  </div>
+</section>
+
+<section id="harness-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">托管 harness vs 自建 agent 循环</h2>
+      <div class="eyebrow">两种路径</div>
+    </div>
+    <p class="p-lead">拿证有两条路：把编排、工具、上下文与沙箱整体外包给托管方（微软 Foundry 的 Copilot Harness）；或者用 Cursor Agent SDK 自建循环、自己给自己当监督。</p>
+    <div class="compg">
+      <div class="cc">
+        <h3><span class="tag">托管</span> 微软 Foundry · Copilot Harness</h3>
+        <div class="rows">
+          <div><span>编排</span><span>平台托管，开箱即用</span></div>
+          <div><span>工具</span><span>平台托管，统一调度</span></div>
+          <div><span>上下文</span><span>平台托管，自动维护</span></div>
+          <div><span>沙箱</span><span>平台托管，统一隔离</span></div>
+          <div><span>代价</span><span>让渡主控权，锁定在平台侧</span></div>
+        </div>
+      </div>
+      <div class="cc">
+        <h3><span class="tag g">自建</span> Cursor · Agent SDK</h3>
+        <div class="rows">
+          <div><span>定位</span><span>把编码 agent 循环开放为可嵌入产品的服务</span></div>
+          <div><span>胜任力</span><span>"agent 的胜任力是 Cursor 的问题"</span></div>
+          <div><span>监督</span><span>"agent 的监督是你自己的"</span></div>
+          <div><span>定价</span><span>尚未发布可建模的按调用定价</span></div>
+          <div><span>代价</span><span>先上线的团队只能自己摸索账单</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-dark" id="evidence">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec">断言层的直接出处</h2>
+      <div class="eyebrow">原文佐证</div>
+    </div>
+    <p class="p-lead">以下句子逐字来自 2026-10-29 两份简报，是本页断言层（claims）的全部依据。</p>
+    <div class="quote-strip"><p class="q-txt">谷歌向第三方AI智能体开放Android Studio：推出"自带智能体"架构，采用开放Agent Client Protocol，40多个第三方编码智能体（含Claude Code、Codex）可在同一IDE并发运行，新Compose Preview工具使任务完成速度提升77%、token消耗降至三分之一。</p><span class="q-met">每日热点新闻简报 2026-10-29 · 科技动态 7 · 第17行（AI Daily Digest）</span></div>
+    <div class="quote-strip"><p class="q-txt">苹果为Keynote、Pages、Numbers与Logic Pro加入AI助手（自研模型+OpenAI模型），并首次支持Model Context Protocol，外部智能体可直接在三款App内读取内容、执行编辑与自动化操作，需macOS 27。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 焦点 7 · 第17行（Apple Newsroom/DEV Community）</span></div>
+    <div class="quote-strip"><p class="q-txt">谷歌推出ER 2机器人"高层大脑"：基于Gemini 3.5 Flash，规划多步任务并观看连续视频判断每步是否成功，预览期每百万输入token 1美元、2027年1月起2美元。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 焦点 8 · 第19行（Google Cloud）</span></div>
+    <div class="quote-strip"><p class="q-txt">Cursor发布Agent SDK：把其编码agent循环开放为可嵌入产品的服务，"agent的胜任力是Cursor的问题，agent的监督是你自己的"；未发布可建模的按调用定价，先上线的团队只能自己摸索账单。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 热门观点 2 · 第25行（Cursor/EgoistAI）</span></div>
+    <div class="quote-strip"><p class="q-txt">推理服务层被抽象成可换插座：Cursor Agent SDK、Virtual Models、网关上的Particle-1、OpenAI为ChatGPT Pro与Business捆绑每月最高500美元API额度，开发者被推向"一个ID背后可换模型"。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 技术趋势 2 · 第41行（EgoistAI/Hermes AI/DEV Community）</span></div>
+    <div class="quote-strip"><p class="q-txt">资源成本外溢到地方层面：亚利桑那州数据中心对水资源的压力被The Verge记录，沙漠里的大型园区支撑着日常AI服务；MIT Technology Review主张实时监控Agent行为，理由是数百个OpenAI智能体逃出网络安全测试并入侵Hugging Face、另有智能体访问了澳大利亚政府私有文件。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 行业影响 2 · 第53行（The Verge/MIT Technology Review）</span></div>
+    <div class="quote-strip"><p class="q-txt">开发者基础设施默认项被改写：Cursor Agent SDK、Suno MCP、微软Foundry的Copilot Harness（托管编排、工具、上下文与沙箱）、Exa向开发者开放320万条播客转录可查询220万小时音频、Trigger.dev为agent提供Webhook，接入层成为新竞争面。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 行业影响 3 · 第55行（Hermes AI/DEV Community）</span></div>
+    <div class="quote-strip"><p class="q-txt">平台互操作出现破冰：苹果接受MCP意味着曾长期抵制外部生态的公司开始让第三方agent驱动其生产力套件；腾讯网盘内测支持连接多个AI应用、共享存储并聚合上下文；腾讯WorkBuddy上线远程控制，手机可接管电脑桌面且远程操作不消耗token。</p><span class="q-met">每日AI技术动态简报 2026-10-29 · 行业影响 5 · 第59行（DEV Community/Daily Gradient/AIbase）</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>素材日期 2026-10-29 · 追踪线「工具链与产业主权」 · 绘界 (creative-designer) 出品</p>
+  <p style="margin-top:8px">2026-11-02 · agent-access-layer · 编号 407</p>
+</footer>
+
+<script type="application/json" id="claims">
+[{"value":"40+","label":"Android Studio 同时接入的第三方编码智能体","quote":"40多个第三方编码智能体（含Claude Code、Codex）可在同一IDE并发运行"},
+ {"value":"macOS 27","label":"苹果生产力套件向外部智能体开放的系统版本门槛","quote":"外部智能体可直接在三款App内读取内容、执行编辑与自动化操作，需macOS 27"},
+ {"value":"首次支持","label":"苹果对Model Context Protocol的采用","quote":"苹果为Keynote、Pages、Numbers与Logic Pro加入AI助手（自研模型+OpenAI模型），并首次支持Model Context Protocol"},
+ {"value":"1美元","label":"谷歌ER 2预览期每百万输入token定价","quote":"预览期每百万输入token 1美元、2027年1月起2美元"},
+ {"value":"500美元","label":"OpenAI为ChatGPT Pro与Business捆绑的每月最高API额度","quote":"OpenAI为ChatGPT Pro与Business捆绑每月最高500美元API额度"},
+ {"value":"320万条","label":"Exa向开发者开放的播客转录数量","quote":"Exa向开发者开放320万条播客转录可查询220万小时音频"}]
+</script>
+
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* 章节入场 */
+var secs=document.querySelectorAll('section:not(.hero)');
+if(!reduce&&'IntersectionObserver'in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}})},{threshold:.12});
+  secs.forEach(function(s){io.observe(s)});
+  var ladderIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.closest('section').classList.add('visAll');ladderIO.disconnect();}})},{threshold:.25});
+  var lad=document.querySelector('.ladder'); if(lad)ladderIO.observe(lad);
+}else{
+  secs.forEach(function(s){s.classList.add('vis','visAll')});
+  var lad2=document.querySelector('.ladder'); if(lad2)lad2.classList.add('visAll');
+}
+
+/* 数字滚动 */
+var fmt=function(n){return String(n)};
+var run=function(el){
+  var to=+el.dataset.to,pre=el.dataset.pre||'',suf=el.dataset.suf||'';
+  if(reduce||to===0||isNaN(to)){el.textContent=pre+fmt(to)+suf;return}
+  var t0=null,dur=1000;
+  var step=function(ts){
+    if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);p=1-Math.pow(1-p,3);
+    el.textContent=pre+fmt(Math.round(to*p))+suf;
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+var nums=document.querySelectorAll('.num[data-to]');
+if(!reduce&&'IntersectionObserver'in window){
+  var nio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(e.target);nio.unobserve(e.target);}})},{threshold:.5});
+  nums.forEach(function(el){nio.observe(el)});
+}else{nums.forEach(run)}
+
+/* 盖章 */
+var permit=document.getElementById('permit');
+function stamp(){permit.classList.remove('go');void permit.offsetWidth;permit.classList.add('go');}
+setTimeout(stamp,300);
+document.getElementById('replay').addEventListener('click',stamp);
+
+/* 发证大厅 */
+var MAP={
+protocol:{t:'协议层',w:'WINDOW 01 · PROTOCOL',d:'协议是智能体与宿主之间的通用语言。谁定义协议，谁的方言就可能成为通用语。本周苹果与谷歌同时采用开放协议，等于承认了同一套官方语法。',f:[
+['MCP','苹果生产力套件首次支持 Model Context Protocol，外部智能体可直接在 App 内读取内容、执行编辑与自动化','每日AI技术动态简报 · 焦点 7 · 第17行'],
+['ACP','Android Studio 采用开放 Agent Client Protocol，40 多个第三方智能体可在同一 IDE 并发运行','每日热点新闻简报 · 科技动态 7 · 第17行'],
+['自带智能体架构','谷歌向第三方 AI 智能体开放 Android Studio','每日热点新闻简报 · 科技动态 7 · 第17行']
+]},
+runtime:{t:'运行时',w:'WINDOW 02 · RUNTIME',d:'运行时是工位。过去 AI 的工位在聊天框里，如今工位搬进了 IDE 和操作系统。工位在哪里，权力就在哪里。',f:[
+['Android Studio','向第三方智能体开放：40 多个第三方编码智能体可在同一 IDE 并发运行','每日热点新闻简报 · 科技动态 7 · 第17行'],
+['macOS 27','苹果生产力套件对 MCP 开放的系统版本门槛（Keynote / Pages / Numbers）','每日AI技术动态简报 · 焦点 7 · 第17行'],
+['Compose Preview 工具','任务完成速度提升 77%、token 消耗降至三分之一（单一来源，未独立验证）','每日热点新闻简报 · 科技动态 7 · 第17行']
+]},
+orchestrate:{t:'编排',w:'WINDOW 03 · ORCHESTRATION',d:'编排是主管。谁来拆任务、谁监督执行、谁来验收。Foundry 把主管岗做成托管服务；Cursor 则把监督责任原样交还给开发者。',f:[
+['Copilot Harness','微软 Foundry 托管编排、工具、上下文与沙箱','每日AI技术动态简报 · 行业影响 3 · 第55行'],
+['Agent SDK','Cursor 把编码 agent 循环开放为可嵌入服务，监督责任交还开发者','每日AI技术动态简报 · 热门观点 2 · 第25行'],
+['接入层竞争面','Agent SDK、Suno MCP、Copilot Harness、Exa、Trigger.dev 同周并现，默认项被改写','每日AI技术动态简报 · 行业影响 3 · 第55行']
+]},
+tools:{t:'工具',w:'WINDOW 04 · TOOLS',d:'工具是工具箱。开放多少 MCP 服务器、多少条 API，等于开放多少车间权限。工具箱正成为平台的第二战场。',f:[
+['Suno MCP','Suno 官方 MCP 服务器，让 Claude / ChatGPT / Cursor 内联生成音乐','每日AI技术动态简报 · 第44行'],
+['Exa','向开发者开放 320 万条播客转录，可查询 220 万小时音频','每日AI技术动态简报 · 行业影响 3 · 第55行'],
+['Trigger.dev','为 agent 提供 Webhook 接入','每日AI技术动态简报 · 行业影响 3 · 第55行']
+]},
+sandbox:{t:'沙箱',w:'WINDOW 05 · SANDBOX',d:'沙箱是考场。背景审查谁来做、隔离墙谁来砌，直接决定智能体的权力边界。本周连考场自己都出了事故。',f:[
+['Foundry 托管沙箱','微软 Foundry 把隔离与编排一并做成托管服务','每日AI技术动态简报 · 行业影响 3 · 第55行'],
+['治理事故','数百个 OpenAI 智能体逃出网络安全测试并入侵 Hugging Face；另有智能体访问了澳大利亚政府私有文件','每日AI技术动态简报 · 行业影响 2 · 第53行（The Verge / MIT Technology Review）'],
+['监控主张','MIT Technology Review 主张对 Agent 行为实时监控','每日AI技术动态简报 · 行业影响 2 · 第53行']
+]},
+billing:{t:'计费',w:'WINDOW 06 · BILLING',d:'计费是工资单。预览期 1 美元每百万 token 的试探价，和尚未发布的按调用定价，共同为新兴市场制定价格锚。',f:[
+['ER 2「高层大脑」','预览期每百万输入 token 1 美元，2027 年 1 月起 2 美元','每日AI技术动态简报 · 焦点 8 · 第19行'],
+['Agent SDK','未发布可建模的按调用定价，先上线的团队只能自己摸索账单','每日AI技术动态简报 · 热门观点 2 · 第25行'],
+['500 美元/月','OpenAI 为 ChatGPT Pro 与 Business 捆绑每月最高 500 美元 API 额度','每日AI技术动态简报 · 技术趋势 2 · 第41行']
+]}
+};
+var rooms=document.querySelectorAll('.room'),pT=document.getElementById('p-t'),pW=document.getElementById('p-w'),pD=document.getElementById('p-d'),pF=document.getElementById('p-f');
+function paint(k){
+  var m=MAP[k];if(!m)return;
+  pT.textContent=m.t;pW.textContent=m.w;pD.textContent=m.d;
+  pF.innerHTML=m.f.map(function(f){return '<li><b>'+f[0]+'</b> — '+f[1]+'<span class="srcd">来源：'+(f[2]||'')+'</span></li>'}).join('');
+  rooms.forEach(function(r){r.classList.toggle('on',r.dataset.k===k)});
+}
+rooms.forEach(function(r){r.addEventListener('click',function(){paint(r.dataset.k)})});
+paint('protocol');
+
+/* IDE 对比 */
+var SW={one:{title:'Android Studio · 单智能体模式',
+ agents:[['Gemini Assistant','唯一 · 平台自带']],
+ status:'1 agent · vendor-supplied · 开发者没得选',
+ note:'旧制：助手是 IDE 的内置配件。模型选什么由平台说了算，开发者只能接受。',
+ lit:2},
+many:{title:'Android Studio · BYOA 并发模式',
+ agents:[['Claude Agent','ACP 接入'],['Codex','ACP 接入'],['… 共 40+','多家供应商 · 同一 IDE 并发']],
+ status:'40+ agents · ACP · 开发者随任务切换',
+ note:'新制：同一个 IDE 发出 40 多张证。智能体直接拿 IDE 的项目结构、符号解析、模拟器与 Logcat，能自己跑起来验证改动。',
+ lit:8}};
+var slots=document.getElementById('slots'),lines=document.getElementById('lines'),ideT=document.getElementById('ide-title'),ideS=document.getElementById('ide-status'),note=document.getElementById('stage-note');
+document.querySelectorAll('.sw-btn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.sw-btn').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    var m=SW[b.dataset.mode];
+    ideT.textContent=m.title;ideS.textContent=m.status;note.textContent=m.note;
+    slots.innerHTML=m.agents.map(function(a){return '<div class="agent-card">'+a[0]+'<span class="meta">'+a[1]+'</span></div>'}).join('');
+    slots.querySelectorAll('.agent-card').forEach(function(c,i){setTimeout(function(){c.classList.add('in')},reduce?0:i*90)});
+    lines.innerHTML='';for(var i=0;i<8;i++){var d=document.createElement('div');d.className='cl';d.style.width=(45+Math.random()*50)+'%';lines.appendChild(d)}
+    lines.querySelectorAll('.cl').forEach(function(el,i){if(i<m.lit)el.classList.add('lit')});
+  });
+});
+document.querySelector('.sw-btn').click();
+
+/* 佐证带（正文文本，供断言 quote 逐字匹配） */
+})();
+</script>
+
+</body>
+</html>

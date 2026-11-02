@@ -230,6 +230,17 @@ def sync_embedded(manifest):
     new_emb = 'const EMBEDDED=' + json.dumps(snap, ensure_ascii=False) + ';'
     html = html[:m.start()] + new_emb + html[m.end():]
 
+    # meta description 里的计数必须跟着数据走：曾长期写着「104 件作品、1014 条断言」，
+    # 与磁盘（113 件 / 1160 条）不符。硬编码的数字必然陈旧 —— 按 manifest 现算改写。
+    n_works = len(manifest['research']) + len(manifest['creative'])
+    n_claims = sum(len(i.get('claims') or []) for i in manifest['research'] + manifest['creative'])
+    n_beats = len(manifest.get('stats', {}).get('beats') or [])
+    desc_new = (f'<meta name="description" content="按月份归档的团队档案：{n_works} 件作品、'
+                f'{n_beats} 条追踪线、{n_claims} 条逐字回查过原文的已验证断言。">')
+    dm = re.search(r'<meta name="description" content="[^"]*">', html)
+    if dm:
+        html = html[:dm.start()] + desc_new + html[dm.end():]
+
     # TAGMAP 已废弃：它 100/103 与 manifest.highlights 重复，且部分条目更旧会反向覆盖。
     # 标签唯一来源现在是 manifest.highlights / EMBEDDED.highlights。
     tm = re.search(r'^const TAGMAP=(\{.*\});$\n?', html, re.M)
@@ -256,6 +267,22 @@ def guardrails(manifest):
 
     if 'const TAGMAP=' in ih:
         problems.append('index.html 仍含已废弃的 TAGMAP 数据段')
+
+    # meta description 的计数必须与 manifest 一致：曾长期写着「104 件作品、1014 条断言」，
+    # 与磁盘（113 件 / 1160 条）不符。sync_embedded 会改写，这里做反向校验，
+    # 防止有人手改 index.html 后又对不上。
+    dm = re.search(r'<meta name="description" content="([^"]*)">', ih)
+    if dm:
+        n_works = manifest['total']
+        n_claims = sum(len(i.get('claims') or []) for g in ('research', 'creative')
+                        for i in manifest[g])
+        n_beats = len(manifest.get('stats', {}).get('beats') or [])
+        nums = re.findall(r'(\d+)\s*件作品、(\d+)\s*条追踪线、(\d+)\s*条', dm.group(1))
+        if nums:
+            a, b, c = nums[0]
+            if (int(a), int(b), int(c)) != (n_works, n_beats, n_claims):
+                problems.append(f'index.html meta description 计数 {a}/{b}/{c} '
+                                f'≠ manifest {n_works}/{n_beats}/{n_claims}（陈旧）')
 
     em = re.search(r'^const EMBEDDED=(\{.*\});$', ih, re.M)
     if not em:
