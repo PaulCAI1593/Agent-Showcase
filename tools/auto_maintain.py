@@ -249,6 +249,41 @@ def check_runtime(pages=None):
     return False, note
 
 
+def check_design(full=False):
+    """设计质量棘轮：impeccable detect 的规则分布只许降不许升。
+
+    为什么要有：规则14 要求交付前跑 detect+polish，但没有任何机器闸门强制，
+    于是全馆积压 4907 条 findings（111/116 件有）。一次性清完不现实
+    （每件都是独立视觉世界，批量改色会毁掉作者的世界）——
+    所以走棘轮：全量扫描后与基线比，任何规则条数**上升**即判回归。
+
+    full=False 只扫近 30 天改动的作品（快，用于日常巡检，不比棘轮）。
+    """
+    scope = 'all' if full else 'recent:30'
+    cmd = [sys.executable, os.path.join(SHOWCASE, 'tools', 'design_scan.py'),
+           '--scope', scope]
+    rc, out, err = run(cmd, cwd=SHOWCASE, timeout=3600)
+    if rc == 2:
+        note = (out.strip().splitlines()[-1][:110] if out.strip() else 'detect 不可用')
+        log(f'设计扫描: ✗ {note}')
+        return False, note
+    m = re.search(r'findings (\d+) 条 .*?涉及 (\d+) 件', out)
+    if not m:
+        note = (out.strip().splitlines()[-1][:110] if out.strip() else '未产出结果')
+        log(f'设计扫描: ✗ {note}')
+        return False, note
+    total, files = m.group(1), m.group(2)
+    if not full:
+        note = f'近 30 天改动作品：findings {total} 条 / {files} 件'
+        log(f'设计扫描: ✓ {note}')
+        return True, note
+    ok = (rc == 0)
+    note = (f'全量 {files} 件 · findings {total} 条 · '
+            + ('棘轮通过（无一规则上升）' if ok else '棘轮被打破：有规则上升'))
+    log(f'设计扫描: {"✓" if ok else "✗"} {note}')
+    return ok, note
+
+
 BRIEF_DIRS = [
     '/app/working/shared/tasks/每日AI技术动态简报',
     '/app/working/shared/tasks/每日热点新闻简报',
@@ -373,6 +408,7 @@ def main():
     ap.add_argument('--pages', type=int, default=0, help='运行时巡检抽样件数（0=全量）')
     ap.add_argument('--no-showcase', action='store_true', help='跳过展厅收敛（只查 cron）')
     ap.add_argument('--audit', action='store_true', help='本轮跑全量运行时巡检')
+    ap.add_argument('--design', action='store_true', help='本轮跑全量设计棘轮（detect 规则分布）')
     args = ap.parse_args()
 
     if args.once:
@@ -386,6 +422,9 @@ def main():
         if args.audit:
             audit_ok, audit_note = check_runtime(args.pages)
             extra.append(('作品页运行时巡检', audit_ok, audit_note))
+        if args.design:
+            design_ok, design_note = check_design(full=True)
+            extra.append(('设计质量棘轮（全量 detect）', design_ok, design_note))
         write_heartbeat(crons, ok, detail, extra)
         write_state(crons, ok, detail)
         bad = [c for c in crons if not c['ok']]
@@ -400,6 +439,8 @@ def main():
             # 每 6 轮（约 3 小时）跑一次全量运行时巡检 —— 从例会迁来，
             # 因为例会正 429，这段检查不能只住在那里。
             do_audit = (n % 6 == 0)
+            # 设计棘轮每 12 轮（约 6 小时）跑一次全量比对 —— 扫描本身约 7 分钟
+            do_design = (n % 12 == 0)
             ok, detail = converge_showcase()
             crons = check_crons()
             extra = []
@@ -408,6 +449,9 @@ def main():
             if do_audit:
                 audit_ok, audit_note = check_runtime()
                 extra.append(('作品页运行时巡检（每3小时全量）', audit_ok, audit_note))
+            if do_design:
+                design_ok, design_note = check_design(full=True)
+                extra.append(('设计质量棘轮（每6小时全量）', design_ok, design_note))
             write_heartbeat(crons, ok, detail, extra)
             write_state(crons, ok, detail)
             n += 1

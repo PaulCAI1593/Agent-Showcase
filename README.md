@@ -104,6 +104,14 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 | `autotag.py` | 自动补标签 |
 | `claim_gate.py` | **断言闸门**：三道机器闸门 + 存量回填（见五-D） |
 | `inject_contracts.py` | **作品契约注入**：把已过闸门的断言（`enrich.json`）与追踪线（`manifest.json`）搬进缺声明的作品 HTML —— 只搬运不发明，逐条仍受闸门校验；幂等，`--dry-run` 只算不写 |
+| `design_scan.py` | **设计质量棘轮**：全馆跑 `impeccable detect`，与 `tools/design_baseline.json` 比对，**任何规则条数上升即判回归**（退出码 1）；`--update-baseline` 在有意改善后收紧 |
+
+> ⚠️ **「N 条已验证断言」的两个数不是一回事**（2026-11-03 起）
+> 100 件作品的页头自写「N 条已验证断言」，其中 91 件比机器声明数多 1。
+> 根因：作者的计数行**本身**也被算进了那 N 条里（它逐字在原文、通过 G1），
+> 而闸门 G4 会把它判为「页面自身计数行（非命题）」剔除。
+> 所以：**页面自写数 = 设计槽位，声明数 = 可验证命题**。差 1 是口径差，不是错。
+> 不去改作者正文（那是内容决策，属作品作者/策士）；此处只留痕。
 | `break_ui_check.py` | **首页极端数据压测**：注入最坏数据（超长标题/空日期/单月 113 件/缺缩略图）后跑真实浏览器，查横向溢出、破图、undefined 字面量、空态；dev-only，页面不引用 |
 | `audit_pages.py` | 作品页运行时巡检（真实加载 + 抓 console 错误 / 资源 404 / 空白页） |
 | `serve.py` | 预览服务器（默认只监听 127.0.0.1），屏蔽 `_private` `_archive` `tools` `templates` 及**嵌套的** `notes/` |
@@ -364,3 +372,42 @@ python3 tools/build_manifest.py --check   # 期望：[check] manifest 与磁盘 
 
 断言层另有三条不变量（`--check` 内置）：
 引用失效 > 0 / 断言总数较基线跌 > 20% / 抽取拒绝率较基线突增 > 15pp
+
+## 五-E、设计质量棘轮（`tools/design_scan.py`）
+
+规则14 要求「设计类工作交付前跑 detect + polish」，但**没有任何机器闸门强制它** ——
+全靠 Agent 自报。结果是存量积压：全馆 116 件作品、**4907 条 findings、111 件有**。
+
+一次性清完不现实：每件都是独立的视觉世界，机器批量改色会毁掉作者的世界。
+所以走**棘轮**路线（与既有「标签总数不得下降」同一思路）：
+
+| 机制 | 做法 |
+|---|---|
+| 基线 | `tools/design_baseline.json` 记录当前每条规则的 findings 数 |
+| 判定 | 全量扫描后比对，**任何规则条数上升 → 退出码 1（回归）**；下降 → 通过 |
+| 收紧 | 修完一批后跑 `--update-baseline`，棘轮随之更紧 |
+| 周期 | 守护进程 `auto_maintain.py` 每 12 轮（约 6 小时）跑一次全量比对 |
+
+```bash
+python3 tools/design_scan.py --scope all                          # 全量 + 棘轮比对
+python3 tools/design_scan.py --scope all --update-baseline        # 修完后收紧基线
+python3 tools/design_scan.py --scope recent:30                    # 只扫近 30 天改动的作品
+python3 tools/design_scan.py --scope file:<路径>                   # 单件交付前自检
+```
+
+**当前积压分布**（2026-11-03 基线）：
+
+| 类别 | 条数 | 说明 |
+|---|---|---|
+| low-contrast | 2961 | 其中 **757 条低于 3:1**（连大字号都不达标）· 160 条低于 2:1（几乎不可读） |
+| undersized-ui-text | 487 | UI 文字偏小 |
+| side-tab | 308 | 卡片单侧粗色边框（AI slop 特征） |
+| gradient-text / dark-glow | 189 / 168 | 渐变文字 / 发光阴影 |
+| skipped-heading / cramped-padding / tiny-text | 117 / 99 / 96 | 标题层级跳跃 / 间距过挤 / 字号过小 |
+| kicker-above-heading | 65 | 标题上方的眉标（craft-floor 明令禁止项） |
+| numbered-section-labels | 55 | 章节序号（craft-floor 禁止项） |
+| border-accent-on-rounded | 38 | 圆角卡片上的粗色边框（禁止项） |
+| ai-color-palette / pulsing-dot / bounce-easing / icon-tile-stack | 31 / 37 / 16 / 42 | 调色板 / 呼吸点 / 弹跳缓动 / 图标堆 |
+
+**处置原则**：棘轮只保证「不继续恶化」。清积压要**按作品批次**做（每件单独 polish，
+尊重它自己的视觉世界），一次一批、每批收紧基线；不做全库批量改色。
