@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="showcase-beat" content="机器人与具身">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权</title>
 <script src="../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'"></script>
@@ -669,6 +670,12 @@ new Chart(document.getElementById('chPos'),{
       tooltip:{callbacks:{label:function(c){return c.label+'：'+c.parsed+'%（共 370 个立场）';}}}}},
   plugins:[centreText]
 });
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "26 个", "label": "问题的受关注度分布", "quote": "26 个问题的受关注度分布"},
+  {"value": "9 个", "label": "可接受/可拒绝命题上的立场分布", "quote": "9 个可接受/可拒绝命题上的立场分布"}
+]
 </script>
 </body>
 </html>

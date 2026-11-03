@@ -146,6 +146,14 @@ def strip_code(html):
     return html
 
 
+# 页面**自身**的计数行不是命题：统计块里写「8 条已验证断言」，
+# 抽出来是 value='8 条' / label='已验证断言' / quote='8 条已验证断言'。
+# 它逐字命中原文（G1 过），却没有任何信息量 —— 还会顶掉更有价值的断言成为「代表断言」，
+# 让首页卡片显示成「8 条 · 已验证断言」。实测 91 件作品都中招。
+# ⚠️ 必须精确匹配：像「交叉验证覆盖」「英伟达研发投入验证占比」是正当指标，不能误伤。
+META_LABEL = re.compile(r'^已验证断言$')
+
+
 def is_suspect_label(label):
     """G2：标签是否「像一句被截断的话」——这类多半是错配。
 
@@ -346,6 +354,9 @@ def gate_work(html):
         if reasons:
             l1.append({**c, 'reason': '; '.join(reasons)})
             continue
+        if META_LABEL.match(c['label'].strip()):
+            l1.append({**c, 'reason': '页面自身计数行（非命题）'})
+            continue
         l0.append(c)
 
     l2_reason = ''
@@ -402,6 +413,8 @@ def filter_declared(html, declared):
             continue                       # G1：引用不在原文 → 拒绝
         if is_suspect_label(label):
             continue                       # G2：标签像句子 → 拒绝
+        if META_LABEL.match(label):
+            continue                       # G4：页面自身计数行 → 拒绝
         out.append({'value': value, 'label': label, 'quote': quote})
     return out
 

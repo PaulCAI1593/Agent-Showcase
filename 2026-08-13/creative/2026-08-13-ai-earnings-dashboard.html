@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="showcase-beat" content="估值与资本">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 Q2 AI财报季 · 全景对比仪表盘</title>
 <style>
@@ -237,6 +238,20 @@ slTk.forEach((tk,i)=>tk.addEventListener('click',()=>{sl.value=i;sl.dispatchEven
 (function(){const cv=document.getElementById('pcanvas');if(!cv)return;const ctx=cv.getContext('2d');let w,h,ps=[];function rs(){w=cv.width=window.innerWidth;h=cv.height=window.innerHeight}rs();window.addEventListener('resize',rs);class P{constructor(){this.reset()}reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.a=Math.random()*.3+.1;this.c=Math.random()>.7?'rgba(255,215,0,':'rgba(0,212,255,'}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset()}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.c+this.a+')';ctx.fill()}}for(let i=0;i<60;i++)ps.push(new P);function an(){ctx.clearRect(0,0,w,h);ps.forEach(p=>{p.update();p.draw()});for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){const dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle='rgba(0,212,255,'+(0.05*(1-d/150))+')';ctx.lineWidth=.5;ctx.stroke()}}requestAnimationFrame(an)}an()})();
 
 setTimeout(()=>{document.querySelectorAll('.hero-stats').forEach(el=>animCount(el));const cb=document.getElementById('revenueBars');if(cb&&cb.getBoundingClientRect().top<window.innerHeight)animBars(cb)},1200);
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "5家", "label": "公司总营收", "quote": "5家公司总营收"},
+  {"value": "+127%", "label": "QoQ", "quote": "+127% QoQ"},
+  {"value": "+200%", "label": "YoY", "quote": "+200% YoY"},
+  {"value": "+24%", "label": "YoY", "quote": "+24% YoY"},
+  {"value": "+28%", "label": "YoY", "quote": "+28% YoY"},
+  {"value": "0%", "label": "Google Cloud增速", "quote": "0% Google Cloud增速"},
+  {"value": "~5.1%", "label": "营业利润率", "quote": "~5.1% 营业利润率"},
+  {"value": "39%", "label": "毛利率", "quote": "39% 毛利率"},
+  {"value": "82%", "label": "Cloud增速", "quote": "82% Cloud增速"},
+  {"value": "36亿", "label": "日活用户", "quote": "36亿 日活用户"}
+]
 </script>
 </body>
 </html>

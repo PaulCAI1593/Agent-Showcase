@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「穆迪没有下调」：法国主权信用的供给重定价 | 2026-11-03</title>
+
+<!--
+  智囊团 · 研究类作品（基于 templates/work.html v2.0「档案卷宗」）
+  选题 394 · 2026-11-03 · 主责 策士（主责）/ 量研（协作）
+  来源状态：除 ECB 2026-10-29 货币政策声明与拉加德记者会为页面直取外，
+  其余全部为转引自搜索摘要、页面未直取。
+-->
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  契约：封闭语义词汇表（只用这些，不要自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（带单位）
+          .metric-label      指标名（一行名词短语）
+          .metric-source     出处（机构 · 口径 · 日期）
+      .verdict             核心判断
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  ═══════════════════════════════════════════════════════════════════
+-->
+
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="穆迪 10-23 维持 Aa3 与负面展望并未下调；法国主权重定价由 2027 年创纪录的 3400 亿欧元净发行与 ECB 到期不续作驱动。">
+
+<style>
+/* ── 自托管衬线 ───────────────────────────────────────────
+   国内可达：字体取自 fonts.loli.net 镜像，随作品一起分发，离线可用。
+   中文衬线只取字频最高的 30 个切片；生僻字回落系统字体。 */
+@import url('../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DD,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,
+                 U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;          /* 冷调档案纸（账簿灰绿） */
+  --paper-raised:#f4f6f4;   /* 抬起面（账册带） */
+  --ink:#171a18;
+  --ink-2:#4f5551;          /* 次要文字 6.9:1 */
+  --ink-3:#646b67;          /* 三级文字 5.1:1 */
+  --rule:#d2d8d4;           /* 发丝线 */
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;          /* 陈铜强调（冷底上的暖调） 6.1:1 */
+  --brass-wash:#efe4cc;
+  --deep:#121513;           /* 深色带 */
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头：标题 + 边注元信息（不对称双栏）───────────────── */
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(34px,4.4vw,52px);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:40ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:38px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+b{font-weight:600;color:var(--ink)}
+em{font-style:normal;color:var(--brass)}
+ul{margin:18px 0 0;padding-left:1.35em;max-width:68ch}
+li{margin-top:11px;color:var(--ink-2)}
+li b{color:var(--ink)}
+li::marker{color:var(--ink-3)}
+figure{margin:0}
+
+/* ── 核心判断：整幅深色带（页面唯一的高对比时刻）──────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(24px,2.7vw,32px);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:30ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.65;color:var(--deep-2);max-width:58ch;
+}
+
+/* ── 关键数据：账册（发丝线分隔，非卡片）──────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:36px;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{
+  margin-top:12px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 进程：左侧边注日期 ─────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+/* ── 证据：悬挂引号 ─────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.62;color:var(--ink);
+  max-width:56ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon p{font-size:13.5px;line-height:1.7;color:var(--ink-3);max-width:60ch}
+
+/* ── 动效：发丝线自左绘出（页面唯一的一次性动作）──────── */
+.rule-draw{
+  width:100%;height:2px;background:var(--brass);margin-bottom:30px;
+  transform:scaleX(0);transform-origin:left center;will-change:transform;
+}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-11-03</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">5 件 / 2026-11</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">8 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>「穆迪没有下调」，法国仍被重定价</h1>
+        <p class="standfirst">10 月法国主权的重定价不是评级事件，而是供给事件：2027 年创纪录的 3400 亿欧元中长期净发行，叠加欧洲央行到期债券不再续作。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd><b>2026-11-03</b></dd></div>
+          <div><dt>主责</dt><dd>策士（主责）· 量研（协作）</dd></div>
+          <div><dt>追踪线</dt><dd>宏观利率与股市</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <div class="rule-draw" aria-hidden="true"></div>
+    <p class="verdict">法国主权重定价的驱动力是供给，不是评级。穆迪 10 月 23 日维持 Aa3 与负面展望、并未下调；推高融资成本的是 2027 年创纪录的 3400 亿欧元净发行，叠加欧洲央行到期债券不再续作。</p>
+    <p class="verdict-note">支撑这句话的是三个可查的事实：穆迪当次是定期审查而非评级行动；利差从年初约 56 个基点走到 10 月 23 日开盘 176 个基点，同期法国 2027 年中长期净发行计划升至 AFT 史上最大；拉加德 10 月 29 日记者会明确「我们没有改变政策，即到期债券不续作购买」。本文的判定线写在第五节：若 11 月 5 日十年期 OAT 拍卖倍数跌破 1.8，或利差上破 300 个基点并伴随 OIEC 传染，本结论即被推翻。</p>
+  </div>
+</section>
+
+<!-- ── 口径纠偏 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径纠偏：四条预设放回原位</h2>
+    <p class="lede">这一篇开工前先做了一轮事实核查，四条派单预设里有三条不成立或需要限定。下面是核定的口径，全文按此书写。</p>
+    <ul>
+      <li><b>评级没有下调。</b>2026 年 10 月 23 日，穆迪完成对法国政府评级的<em>定期审查</em>，维持 <b>Aa3</b>、维持<em>负面展望</em>。市场此前普遍预期下调至 A1 以与 S&P、Fitch 的 A+ 对齐；该预期不成立。穆迪上一次真正的下调发生在 2024 年 12 月 14 日，由 Aa2 降至 Aa3。</li>
+      <li><b>2.2% 是利息支出占 GDP，不是占财政收入。</b>该数字对应 <b>2025 年</b>口径；按 RESF 2027 草案，利息支出占 GDP 将从 2025 年的 2.2% 升到 2027 年的 2.9%。写成「占财政收入」会把数量级讲错一个量级。</li>
+      <li><b>119.3% 是 2026 年预测，不是当前值。</b>该数字来自 RESF 2027 草案（2026 年 10 月 1 日提交预算案）的 <b>2026 年</b>预测；<b>2027 年</b>为 121.7%。裸写「119%」会丢掉年份限定，也就丢掉了「债务在 2027 年继续创新高」这个事实本身。</li>
+      <li><b>3400 亿是 2027 年的净发行。</b>AFT 2026 年 9 月 29 日公告：2027 年中长期净发行 <b>3400 亿欧元</b>（净回购后口径），2026 年为 3100 亿欧元。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">评级没动，价格动了。这组数字分三段：评级与利率（市场怎么定价）、财政底座（利息与债务怎么走）、供给（2027 年要发多少）。每格都带年份与出处。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">Aa3</div>
+        <div class="metric-label">穆迪法国主权评级</div>
+        <div class="metric-source">穆迪定期审查 · 2026-10-23 · 维持评级与负面展望 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.93%</div>
+        <div class="metric-label">10 年期 OAT 收益率</div>
+        <div class="metric-source">市场报价 · 2026-10-29 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">155 bp</div>
+        <div class="metric-label">OAT-Bund 利差</div>
+        <div class="metric-source">市场报价 · 2026-10-29 · 约 155bp，10 年期 Bund 3.38% · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">81 bp</div>
+        <div class="metric-label">法国 5 年期 CDS 利差</div>
+        <div class="metric-source">市场报价 · 2026-10-02 · 主要欧盟主权中最贵 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">121.7%</div>
+        <div class="metric-label">法国公共债务占 GDP（2027 年预测）</div>
+        <div class="metric-source">OFI 引 RESF 2027 草案 · 2027 年 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2.9%</div>
+        <div class="metric-label">利息支出占 GDP（2027 年预测）</div>
+        <div class="metric-source">OFI 引 RESF 2027 草案 · 2027 年 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3,400 亿欧元</div>
+        <div class="metric-label">2027 年中长期净发行</div>
+        <div class="metric-source">AFT 公告 · 2026-09-29 · 净回购后口径 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">729 亿欧元</div>
+        <div class="metric-label">2027 年国家债务还本付息</div>
+        <div class="metric-source">AFT 公告 · 2026-09-29 · 转引自搜索摘要，页面未直取</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">这条线索不是从 10 月开始的。2024 年 12 月穆迪真下调过一次；一年后展望转负；2026 年 10 月走完的是价格，不是评级。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2024-12-14</span>
+        <div>
+          <div class="timeline-title">穆迪上一次真正下调：由 Aa2 降至 Aa3</div>
+          <div class="timeline-detail">背景是政治碎片化阻碍财政整固：2024 年 12 月 4 日国民议会通过对 2025 年社会保障法案的不信任案，马克龙政府由巴尼耶组阁。这是本次「预期下调」被反复引用的原型。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2025-10-24</span>
+        <div>
+          <div class="timeline-title">展望由稳定转负，确认 Aa3</div>
+          <div class="timeline-detail">负面展望自此维持。2026 年 10 月 23 日的定期审查没有改动它；市场此前普遍预期的是下调至 A1。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-21</span>
+        <div>
+          <div class="timeline-title">10 年期 OAT 收益率突破 5%</div>
+          <div class="timeline-detail">2002 年以来首次。次日盘中报 5.0601%（LSEG），为 2002 年 7 月以来最高。触发因素是财政，不是评级：法国融资成本已超过意大利等更低评级的主权。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-23</span>
+        <div>
+          <div class="timeline-title">穆迪定期审查维持 Aa3，同日利差开盘 176 个基点</div>
+          <div class="timeline-detail">评级没动，价格动了：OAT-Bund 利差开盘 176 个基点，为 2011 年以来最宽（2011 年峰值 191 个基点）。同日财政部给出的 2027 年 10 年期 OAT 收益率假设是 4.3%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-29</span>
+        <div>
+          <div class="timeline-title">ECB 按兵不动，拉加德记者会确认到期债券不续作购买</div>
+          <div class="timeline-detail">「我们没有改变政策，即到期债券不续作购买。」同时她称除非有重大变化，12 月「方向相当清楚」，并透露 10 月 29 日讨论中「有观点认为何不加息」，最终一致决定等待。12 月为投影月。当日 OAT 10 年期收 4.93%，利差约 155 个基点。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-30</span>
+        <div>
+          <div class="timeline-title">Le Monde：法国目前不在主权危机中</div>
+          <div class="timeline-detail">融资无困难（最近一次 10 年期发行顺利）、国际收支平衡、私人储蓄率强。同日利差 175 个基点，仍被描述为 2011 年以来最高。高盛 Alexandre Stott 一句话概括了当届的偏好：「根本解是削减赤字，而非救援计划。」</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div>
+          <div class="timeline-title">国民议会就 2027 年预算税收部分表决</div>
+          <div class="timeline-detail">原定 10 月 20 日，因审议社会安全法案顺延。截至本篇截稿，表决结果未见于已核定的来源台账，标为待确认。表决结果直接决定 2027 年的节省规模能否落地。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-12</span>
+        <div>
+          <div class="timeline-title">两个日历同时到期：AFT 发 2027 年发行计划，ECB 投影月</div>
+          <div class="timeline-detail">AFT 2027 年详细中长期发行计划将于 2026 年 12 月发布；ECB 12 月决议为投影月，重投资口径是否调整在此窗口被定价。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 机制 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>机制：供给与需求两侧同时变了</h2>
+    <p class="lede">利差从年初约 56 个基点走到 176 个基点，市场重新定价的不是法国的偿付能力，而是谁在接下来两年接住法国的债券。</p>
+    <p><b>供给侧：2027 年的发行量是 AFT 史上最大。</b>AFT 2026 年 9 月 29 日公告给出 2027 年融资需求 3397 亿欧元，较更新后的 2026 年 3117 亿欧元增加 280 亿欧元；中长期净发行 3400 亿欧元。同一份公告里还有三个数字值得并排看：2027 年国家债务还本付息 <b>729 亿欧元</b>，2026 年为 626 亿，增幅约 16.5%；2027 年到期中长期债务 1870 亿欧元；至 2030 年累计到期近 1 万亿欧元（Covid 与能源危机期间发行）。需求只增长约 9%，还本付息却要增长约 16.5%，缺口由价格补。</p>
+    <p><b>需求侧：欧洲央行从买方变回供给的一部分。</b>拉加德 10 月 29 日记者会明确「我们没有改变政策，即到期债券不续作购买」。ABN AMRO 测算，2027 年 PSPP 与 PEPP 的公共部门持仓到期 3550 亿欧元，其中约 19%（670 亿欧元）为 OAT，约相当于 2027 年中长期发行量的 20%。换句话说，市场要在承接 3400 亿欧元新发量的同时，额外消化欧洲央行手里那约 670 亿欧元不再续作的到期 OAT。</p>
+    <p><b>欧元区供给同时加压。</b>德国 2027 年预算草案允许最多 2036 亿欧元借款，国防支出从 2026 年的 822 亿升至近 1097 亿欧元，另有 5000 亿欧元基础设施基金。法国不是独自面对买盘收缩。</p>
+    <p><b>量研测算（透明算术，非预测）。</b>以 2026 年一季度公共债务存量 3.536 万亿欧元静态计算，OAT-Bund 利差每走阔 100 个基点，对应年化利息支出的量级约为 354 亿欧元，未计入久期、票息重定价与增长效应。按此口径，176 个基点（10 月 23 日峰值）相对 155 个基点（10 月 29 日）多出约 74 亿欧元每年；300 个基点（Oxford Economics 判定「仍不构成主权危机」的水位）多出约 513 亿欧元每年，接近 2027 年 729 亿欧元还本付息预算的七成；400 个基点（OMFIF 的极端情景）多出约 866 亿欧元每年。Fitch 2026 年 10 月 12 日研究的口径一致：2026 至 2028 年利息支出累计上升 0.8 个百分点 GDP，而一年前的同口径预期是 0.3 个百分点。</p>
+  </div>
+</section>
+
+<!-- ── 门槛 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>为什么还不是危机：三道门槛</h2>
+    <p class="lede">价格已经重定价，制度还没有进入危机程序。三个可查的理由，加上三道有具体数字的门槛。</p>
+    <ul>
+      <li><b>银行敞口有限，主权-银行反馈环弱。</b>法国银行 OAT 敞口约为 CET1 的 15–30%，意大利则超过 100%；多数以摊余成本持有（TwentyFour AM 引欧洲央行数据）。这是法国与意大利最实质的差别。</li>
+      <li><b>融资仍然可得，只是变贵。</b>10 月 1 日四条长端 OAT 拍卖，投标 274.87 亿欧元、配售 119.99 亿欧元，竞投倍数约 2.29；年内其他场次为 2.41–3.33、3.22 与 2.71。钱还在场，只是要的价格更高。</li>
+      <li><b>宏观与外部账户没有失序。</b>Le Monde 10 月 30 日判断法国目前不在主权危机中：融资无困难、国际收支平衡、私人储蓄率强。IMF 介入被认为极不可能。</li>
+    </ul>
+    <p><b>门槛一：300 个基点。</b>Oxford Economics（10 月 28 日）认为利差可远高于 200 个基点的基准，即使到 300 个基点也不会出现主权危机。理由是银行国内主权敞口有限、金融体系有韧性、没有系统性压力迹象。</p>
+    <p><b>门槛二：TPI 的资格是有条件的。</b>欧洲央行 2022 年 7 月 21 日公告的 TPI 四项条件，第一项是遵守欧盟财政框架（不处于超额赤字程序或未被认定未采取有效行动）。法国已在 EDP 之内，理事会建议 2029 年前消除赤字，净支出名义增速上限为 2025 年 0.8%、2026 至 2028 年各 1.2%、2029 年 1.1%。条件是「可动态调整」的输入项，不是硬门槛，但法国这一条确实有瑕疵。OMFIF 五情景（10 月 28 日）的判据是：利差低于 250–300 个基点不需要 TPI；超过 300 个基点并伴随 OIEC 传染，才出现 TPI 讨论；更极端的情景里欧洲央行称法国不再符合 TPI 保护、利差走阔至 400 个基点。ABN AMRO 的表述更直接：没有特定利差水平会触发干预，取决于偏离程度、速度与波动。OMT 是另一条路，但需要 ESM 施加财政纪律方案；ESM 可动用上限 4330 亿欧元，法国出资 160 亿欧元。</p>
+    <p><b>门槛三：财政本身有没有守住 5%。</b>法国 2027 年赤字目标为 GDP 的 5.0%（2026 年 5.4%、2025 年 5.1%），需要 430 亿欧元新措施，否则赤字约 6.5%。法国央行的金融稳定报告（2026 年 6 月）把这写成了条件句：若法国无法把赤字降至至少 5% GDP，支持主权债务的因素将进一步被侵蚀，可能带来进一步下调，并抬升波动与流动性风险，且可能被套利型对冲基金放大，回购市场尤其活跃。净支出口径已扣除利息支付，因此利息上升不直接击穿理事会路径，但会侵蚀达标空间。</p>
+  </div>
+</section>
+
+<!-- ── 触发器 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>接下来三周看什么</h2>
+    <p class="lede">本节的四个判定线是本文的可证伪点：任何一条被触发，结论就要改写。</p>
+    <ul>
+      <li><b>11 月 3 日（今日）：国民议会 2027 年预算税收部分表决。</b>四条路径：正常通过；<b>49.3</b>（2025、2026 预算都用过，2026 预算拖到 2027 年 2 月才成法）；<b>ordonnance</b>（政府法从未用过，一旦使用即使政府倒台预算仍有效，但需先满 70 天审议，10 月 20 日已满足）；特别滚存法。反对党 2828 项修正案待处理，楼层修正案在 10 月 13 日至 19 日已增加约 100 亿欧元赤字（10 月 19 日一场就加 60 亿），社会党 8 月即威胁 censure。参议院右翼多数可剥离内容。</li>
+      <li><b>11 月 5 日：10 年期 OAT 拍卖</b>（投资日历口径，未独立证实）。这是供给端的价格发现窗口，也是判定线①的观测点。</li>
+      <li><b>12 月：ECB 决议与 AFT 发行计划。</b>ECB 12 月为投影月，重投资口径是否调整在此定价；AFT 2027 年详细中长期发行计划同月发布。</li>
+      <li><b>评级日历：S&P 2026 年 11 月 27 日</b>（口径未独立证实）；Fitch 下次审查最晚 2027 年 2 月底；2027 年 2 月理事会后拉加德离任，继任者遴选已启动。</li>
+    </ul>
+    <p><b>判定线①</b>：11 月 5 日十年期 OAT 拍卖倍数跌破 1.8，或出现缩量配售：供给冲击升级为流动性事件，利差中枢上移至 200 个基点以上，「150 个基点中枢」判断失效。</p>
+    <p><b>判定线②</b>：11 月 3 日预算以 49.3 或 ordonnance 方式落地，2027 年节省落空，OFI 基准情景的 100–150 个基点利差区间失效。（节省规模本身有两源不一致：OFI/欧盟口径 430 亿欧元约合 1.4% GDP，Reuters 引 540 亿欧元；两说分别标注，未合并。）</p>
+    <p><b>判定线③</b>：利差上破 300 个基点并伴随 OIEC 传染，TPI 进入讨论，评级下调概率上升。</p>
+    <p><b>反向证伪</b>：利差回落至 150 个基点以下、且拍卖倍数回到年内 2.4–3.3 的区间，供给被顺利吸收，「重定价而非危机」成立，负面展望短期不动。</p>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。只有一条是页面直取，其余均为转引自搜索摘要、页面未直取，已逐条标注。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">我们没有改变政策，即到期债券不续作购买。</p>
+        <cite class="evidence-source">欧洲央行 · 拉加德 2026-10-29 记者会全文 · 页面直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Aa3 评级假定 2027 年通过削减赤字的预算，而融资成本与社会紧张局势在未来数月有所缓解。</p>
+        <cite class="evidence-source">穆迪 2026-10-23 定期审查声明 · 经 Euronext / Reuters 转引 · 页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">2027 年融资需求 3397 亿欧元，较更新后的 2026 年 3117 亿欧元增加 280 亿欧元；2027 年中长期净发行 3400 亿欧元；2027 年国家债务还本付息 729 亿欧元；2027 年到期中长期债务 1870 亿欧元。</p>
+        <cite class="evidence-source">法国财政部 AFT 公告「French State funding for 2027 and update for 2026」 · 2026-09-29 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">法国财政危机不太可能触发欧洲央行行动：利差可以远高于 200 个基点的基准，即使到 300 个基点也不会出现主权危机——银行国内主权敞口有限、金融体系有韧性、没有系统性压力迹象。</p>
+        <cite class="evidence-source">Oxford Economics · 2026-10-28 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">五情景判据：利差低于 250–300 个基点，无须动用 TPI；超过 300 个基点且伴随 OIEC 传染，出现 TPI 讨论；更极端的情景中欧洲央行称法国不再符合 TPI 保护、利差走阔至 400 个基点。</p>
+        <cite class="evidence-source">OMFIF 主权债市五情景 · 2026-10-28 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">欧洲央行直接干预法国国债的可能性低：没有特定利差水平会触发干预，取决于利差偏离的程度、速度与波动。2027 年 PSPP 与 PEPP 公共部门持仓到期 3550 亿欧元，其中约 19%（670 亿欧元）为 OAT，约相当于 2027 年中长期发行量的 20%。</p>
+        <cite class="evidence-source">ABN AMRO · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">法国目前不在主权危机中——融资无困难（最近一次 10 年期发行顺利）、国际收支平衡、私人储蓄率强。</p>
+        <cite class="evidence-source">Le Monde · 2026-10-30 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">维持评级反映政府提交的 2027 年财政法案的可信度。</p>
+        <cite class="evidence-source">法国财长回应 · 经 Reuters 转引 · 2026-10-23 · 页面未直取</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>来源层级。</b>S1 页面直取：欧洲央行 2026-10-29 货币政策声明与拉加德记者会全文（唯一一条一手稿）。S2 转引自搜索摘要、页面未直取：穆迪公告（经 Euronext / Reuters）、AFT 2026-09-29 公告、OFI 引 RESF 2027 草案、Fitch 研究与评级行动、Oxford Economics、OMFIF、ABN AMRO、TwentyFour AM、法国央行金融稳定报告、Le Monde、Reuters、新闻社行情转引。S3 口径未证实：S&P 下次审查日 2026-11-27、10 年期 OAT 拍卖日 2026-11-05（投资日历口径）。S4 本篇不写：欧洲央行存款便利利率水平（未取到一手，不写该数字）。</p>
+    <p><b>纠偏记录。</b>派单预设的四条核查结论已由过程台账《01-事实核查与来源台账.md》核定，本文按核定口径书写，未重做核查。「穆迪已下调」不成立；2.2% 为利息支出占 GDP（2025 年）；119.3% 为 2026 年预测、2027 年为 121.7%；3400 亿欧元为 2027 年中长期净发行，2026 年为 3100 亿欧元。</p>
+    <p><b>两源不一致，未合并。</b>2027 年节省规模：OFI / 欧盟口径 430 亿欧元（约 1.4% GDP）对 Reuters 引 540 亿欧元。2027 年债务：欧委会秋季预测 120.2% 对 RESF 草案 121.7%（不同预测批次）。2027 年利息支出占 GDP：OFI / RESF 2.9% 对欧委会秋季预测 2.8%。市场点位存在多家报价并存（如 10 月 22 日 5.0601% / 5.1% / 5.14%；10 月 23 日 176 个基点开盘对 10 月 30 日 175 个基点），本文取各时点明确标注来源的一组，未做跨源拼接。</p>
+    <p><b>测算说明。</b>利差到利息的换算是静态测算：2026 年一季度公共债务存量 3.536 万亿欧元乘以利差，得每 100 个基点约 354 亿欧元每年的量级。未计入久期、票息重定价与增长效应，不是预测，也不代表财政部的利息路径。</p>
+    <p><b>待确认。</b>11 月 3 日国民议会表决结果（截至截稿未见已核定来源）；S&P 下次审查日 2026-11-27；10 年期 OAT 拍卖日 2026-11-05。</p>
+    <p><b>概念标注。</b>「供给驱动的重定价」「三道门槛」「判定线」是本团队对事实的归纳提法，非评级机构、欧洲央行或财政部的官方用语。所有判断性结论只存在于正文，断言层只放可逐字回查的数值。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  8 条，全部对应「关键数据」区块中的同名指标。
+-->
+<script type="application/json" id="claims">
+[
+  {"value": "Aa3", "label": "穆迪法国主权评级", "quote": "Aa3 穆迪法国主权评级"},
+  {"value": "4.93%", "label": "10 年期 OAT 收益率", "quote": "4.93% 10 年期 OAT 收益率"},
+  {"value": "155 bp", "label": "OAT-Bund 利差", "quote": "155 bp OAT-Bund 利差"},
+  {"value": "81 bp", "label": "法国 5 年期 CDS 利差", "quote": "81 bp 法国 5 年期 CDS 利差"},
+  {"value": "121.7%", "label": "法国公共债务占 GDP（2027 年预测）", "quote": "121.7% 法国公共债务占 GDP（2027 年预测）"},
+  {"value": "2.9%", "label": "利息支出占 GDP（2027 年预测）", "quote": "2.9% 利息支出占 GDP（2027 年预测）"},
+  {"value": "3,400 亿欧元", "label": "2027 年中长期净发行", "quote": "3,400 亿欧元 2027 年中长期净发行"},
+  {"value": "729 亿欧元", "label": "2027 年国家债务还本付息", "quote": "729 亿欧元 2027 年国家债务还本付息"}
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

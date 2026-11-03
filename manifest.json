@@ -1,11 +1,69 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 113,
-  "researchCount": 57,
-  "creativeCount": 56,
-  "latestDate": "2026-11-02",
+  "total": 115,
+  "researchCount": 58,
+  "creativeCount": 57,
+  "latestDate": "2026-11-03",
   "research": [
+    {
+      "id": "item-2026-11-03-research-2026-11-03-france-sovereign-repricing",
+      "title": "「穆迪没有下调」：法国主权信用的供给重定价 | 2026-11-03",
+      "description": "穆迪 10-23 维持 Aa3 与负面展望并未下调；法国主权重定价由 2027 年创纪录的 3400 亿欧元净发行与 ECB 到期不续作驱动。",
+      "agent": "策士+量研",
+      "date": "2026-11-03",
+      "type": "research",
+      "file": "2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
+      "highlights": [
+        "「穆迪没有下调」",
+        "11"
+      ],
+      "thumb": "thumbs/2026-11-03-research-2026-11-03-france-sovereign-repricing-thumb.webp",
+      "claims": [
+        {
+          "value": "Aa3",
+          "label": "穆迪法国主权评级",
+          "quote": "Aa3 穆迪法国主权评级"
+        },
+        {
+          "value": "3,400 亿欧元",
+          "label": "2027 年中长期净发行",
+          "quote": "3,400 亿欧元 2027 年中长期净发行"
+        },
+        {
+          "value": "121.7%",
+          "label": "法国公共债务占 GDP（2027 年预测）",
+          "quote": "121.7% 法国公共债务占 GDP（2027 年预测）"
+        },
+        {
+          "value": "81 bp",
+          "label": "法国 5 年期 CDS 利差",
+          "quote": "81 bp 法国 5 年期 CDS 利差"
+        },
+        {
+          "value": "4.93%",
+          "label": "10 年期 OAT 收益率",
+          "quote": "4.93% 10 年期 OAT 收益率"
+        },
+        {
+          "value": "729 亿欧元",
+          "label": "2027 年国家债务还本付息",
+          "quote": "729 亿欧元 2027 年国家债务还本付息"
+        },
+        {
+          "value": "2.9%",
+          "label": "利息支出占 GDP（2027 年预测）",
+          "quote": "2.9% 利息支出占 GDP（2027 年预测）"
+        },
+        {
+          "value": "155 bp",
+          "label": "OAT-Bund 利差",
+          "quote": "155 bp OAT-Bund 利差"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "宏观利率与股市"
+    },
     {
       "id": "item-2026-11-02-research-2026-11-02-alphabet-ai-monetization-gap",
       "title": "营收超预期之外的那张表——Alphabet 首次把「AI 搜索的变现缺口」写进财报 —— 研析",
@@ -23,7 +81,7 @@
         {
           "value": "-90.7 亿美元",
           "label": "Alphabet 三季度自由现金流",
-          "quote": "自由现金流骤降至负90.7亿美元（预期负35亿）"
+          "quote": "该公司报告的第三季度自由现金流为负90.7亿美元，这比分析师预期的负27亿美元要糟糕得多"
         },
         {
           "value": "1275.8 亿美元",
@@ -48,7 +106,7 @@
         {
           "value": "513.6 亿美元",
           "label": "Alphabet 三季度资本开支",
-          "quote": "资本开支513.6亿美元低于预期557.8亿"
+          "quote": "Alphabet第三季度资本支出为513.6亿美元，低于分析师预期的550.9亿美元"
         },
         {
           "value": "0",
@@ -436,8 +494,7 @@
         {
           "value": "-11.4%",
           "label": "费城半导体指数 · 10/12–10/16 周跌",
-          "quote": "-11.4% 费城半导体指数 · 10/12–10/16 周跌",
-          "source": "八连跌终结日 10/16 当日 -3.83%；8 日累跌逾 13%"
+          "quote": "-11.4% 费城半导体指数 · 10/12–10/16 周跌"
         },
         {
           "value": "-11.4%",
@@ -452,13 +509,12 @@
         {
           "value": "-14%",
           "label": "韩国 KOSPI 周跌（10/12–10/16）",
-          "quote": "-14% 韩国 KOSPI 周跌（10/12–10/16）",
-          "source": "2008 年以来最大单周跌幅；距夏季峰值逾 37%"
+          "quote": "-14% 韩国 KOSPI 周跌（10/12–10/16）"
         },
         {
           "value": "-14.6%",
-          "label": "DRAM ETF 单周 -19%，4 月以来最大，连续 ",
-          "quote": "-14.6% DRAM ETF 单周 -19%，4 月以来最大，连续 "
+          "label": "DRAM ETF 单周 -19%，4 月以来最大，连续",
+          "quote": "-14.6% DRAM ETF 单周 -19%，4 月以来最大，连续"
         },
         {
           "value": "-2.29%",
@@ -473,8 +529,7 @@
         {
           "value": "-25%",
           "label": "CoreWeave 周跌（10/16 收盘）",
-          "quote": "-25% CoreWeave 周跌（10/16 收盘）",
-          "source": "当日 -11.91%；年内较高点腰斩逾 50%"
+          "quote": "-25% CoreWeave 周跌（10/16 收盘）"
         },
         {
           "value": "15.97%",
@@ -499,20 +554,17 @@
         {
           "value": "-22%",
           "label": "戴尔周跌（10/16 收盘）",
-          "quote": "-22% 戴尔周跌（10/16 收盘）",
-          "source": "2018 年重新上市以来最大单周跌幅"
+          "quote": "-22% 戴尔周跌（10/16 收盘）"
         },
         {
           "value": "-6.94%",
           "label": "SK海力士、闪迪、西部数据、希捷同跌超 6%",
-          "quote": "-6.94% SK海力士、闪迪、西部数据、希捷同跌超 6%",
-          "source": "超威 AMD / 英特尔"
+          "quote": "-6.94% SK海力士、闪迪、西部数据、希捷同跌超 6%"
         },
         {
           "value": "-11.57%",
           "label": "雅加达综合指数单日跌（10/16 收盘 5,185.11",
-          "quote": "-11.57% 雅加达综合指数单日跌（10/16 收盘 5,185.11",
-          "source": "1998 年 1 月以来最大单日跌幅；30 分钟熔断"
+          "quote": "-11.57% 雅加达综合指数单日跌（10/16 收盘 5,185.11"
         },
         {
           "value": "516 亿",
@@ -545,16 +597,12 @@
           "quote": "-11.57% 报 5,185.11 点"
         },
         {
-          "value": "24 条",
-          "label": "已验证断言",
-          "quote": "24 条已验证断言"
-        },
-        {
           "value": "5 年",
           "label": "期 CDS 利差",
           "quote": "5 年期 CDS 利差"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -663,15 +711,10 @@
         {
           "value": "36.3%",
           "label": "2019 → 2025 上半年（引 Carta 2025",
-          "quote": "36.3% 2019 → 2025 上半年（引 Carta 2025",
-          "source": "本报告采用其中经原始报告核对的口径；\"AI 标签 5 倍溢价\"系对 Carta 原始报告的二手转"
-        },
-        {
-          "value": "19 条",
-          "label": "已验证断言",
-          "quote": "19 条已验证断言"
+          "quote": "36.3% 2019 → 2025 上半年（引 Carta 2025"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -700,13 +743,9 @@
           "value": "9 个",
           "label": "可接受/可拒绝命题上的立场分布",
           "quote": "9 个可接受/可拒绝命题上的立场分布"
-        },
-        {
-          "value": "3 条",
-          "label": "已验证断言",
-          "quote": "3 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -761,13 +800,9 @@
           "value": "+89%",
           "label": "③ BOM 结构改写",
           "quote": "+89% ③ BOM 结构改写"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "成本与普惠"
     },
     {
@@ -799,14 +834,12 @@
         {
           "value": "35%",
           "label": "个别项目（高杠杆neocloud、客户集中度过高的数据中",
-          "quote": "35% 个别项目（高杠杆neocloud、客户集中度过高的数据中",
-          "source": "引信点燃（尾部）"
+          "quote": "35% 个别项目（高杠杆neocloud、客户集中度过高的数据中"
         },
         {
           "value": "≈1500亿美元",
           "label": "博通500亿+/SpaceX 400亿/Anthropi",
-          "quote": "≈1500亿美元 博通500亿+/SpaceX 400亿/Anthropi",
-          "source": "WSJ/FT/Bloomberg｜高"
+          "quote": "≈1500亿美元 博通500亿+/SpaceX 400亿/Anthropi"
         },
         {
           "value": "+5%",
@@ -816,20 +849,17 @@
         {
           "value": "≈300亿美元",
           "label": "Anthropic 600亿交易中，随租赁付款递减",
-          "quote": "≈300亿美元 Anthropic 600亿交易中，随租赁付款递减",
-          "source": "Bloomberg/雪球综述｜中"
+          "quote": "≈300亿美元 Anthropic 600亿交易中，随租赁付款递减"
         },
         {
           "value": "3.4%",
           "label": "3.6%–3.7%",
-          "quote": "3.4% 3.6%–3.7%",
-          "source": "汽油环比+9.23%（同比+34.8%）、取暖油同比+38.8%、中东局势推升油价与机票"
+          "quote": "3.4% 3.6%–3.7%"
         },
         {
           "value": "2.4%",
           "label": "2.4%–2.5%",
-          "quote": "2.4% 2.4%–2.5%",
-          "source": "住房稳定（OER环比+0.24%），机票/医疗仍有支撑"
+          "quote": "2.4% 2.4%–2.5%"
         },
         {
           "value": "0.4%",
@@ -839,20 +869,15 @@
         {
           "value": "55%",
           "label": "CPI符合预期、12月最后一次加息、2027年利率见顶回",
-          "quote": "55% CPI符合预期、12月最后一次加息、2027年利率见顶回",
-          "source": "局部爆破"
+          "quote": "55% CPI符合预期、12月最后一次加息、2027年利率见顶回"
         },
         {
           "value": "2000亿",
           "label": "+美元",
           "quote": "2000亿+美元"
-        },
-        {
-          "value": "12 条",
-          "label": "已验证断言",
-          "quote": "12 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -875,13 +900,9 @@
           "value": "+25%",
           "label": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据",
           "quote": "+25% 微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "算力·能耗·环境"
     },
     {
@@ -959,13 +980,9 @@
           "value": "5.8%",
           "label": "aimodelbenchmarks（2026.2）",
           "quote": "5.8% aimodelbenchmarks（2026.2）"
-        },
-        {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -992,8 +1009,7 @@
         {
           "value": "88%",
           "label": "中国移动呼和浩",
-          "quote": "88% 中国移动呼和浩",
-          "source": "年减排CO₂ 37万吨"
+          "quote": "88% 中国移动呼和浩"
         },
         {
           "value": "14.4%",
@@ -1008,15 +1024,10 @@
         {
           "value": "2.86亿",
           "label": "吨CO₂",
-          "quote": "2.86亿 吨CO₂",
-          "source": "2025年全球数据中心碳排放总量"
-        },
-        {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
+          "quote": "2.86亿 吨CO₂"
         }
       ],
+      "beat_declared": true,
       "beat": "算力·能耗·环境"
     },
     {
@@ -1038,8 +1049,7 @@
         {
           "value": "34.5%",
           "label": "合成数据市场",
-          "quote": "34.5% 合成数据市场",
-          "source": "年复合增长率"
+          "quote": "34.5% 合成数据市场"
         },
         {
           "value": "42%",
@@ -1049,8 +1059,7 @@
         {
           "value": "53%",
           "label": "OpenAI占AI",
-          "quote": "53% OpenAI占AI",
-          "source": "数据采购份额"
+          "quote": "53% OpenAI占AI"
         },
         {
           "value": "74.2%",
@@ -1123,11 +1132,6 @@
           "quote": "26% Google 被封锁"
         },
         {
-          "value": "22 条",
-          "label": "已验证断言",
-          "quote": "22 条已验证断言"
-        },
-        {
           "value": "300万亿",
           "label": "token",
           "quote": "300万亿token"
@@ -1148,6 +1152,7 @@
           "quote": "300万亿 全球高质量公开文本"
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -1174,8 +1179,7 @@
         {
           "value": "40%",
           "label": "Anthropic 企业 LLM API 支出占比",
-          "quote": "40% Anthropic 企业 LLM API 支出占比",
-          "source": "（2025·Menlo Ventures）"
+          "quote": "40% Anthropic 企业 LLM API 支出占比"
         },
         {
           "value": "1400%",
@@ -1245,14 +1249,12 @@
         {
           "value": "46.4%",
           "label": "ChatGPT 全球市场份额",
-          "quote": "46.4% ChatGPT 全球市场份额",
-          "source": "（2026年5月·Sensor Tower）"
+          "quote": "46.4% ChatGPT 全球市场份额"
         },
         {
           "value": "67%",
           "label": "Fortune 500 企业",
-          "quote": "67% Fortune 500 企业",
-          "source": "已部署AI Agent"
+          "quote": "67% Fortune 500 企业"
         },
         {
           "value": "50%",
@@ -1285,16 +1287,12 @@
           "quote": "2.45亿MAU"
         },
         {
-          "value": "25 条",
-          "label": "已验证断言",
-          "quote": "25 条已验证断言"
-        },
-        {
           "value": "30亿",
           "label": "+企业用户",
           "quote": "30亿+企业用户"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -1326,14 +1324,12 @@
         {
           "value": "1.25%",
           "label": "加息25bp ✅",
-          "quote": "1.25% 加息25bp ✅",
-          "source": "每3-4个月加息一次（DBS预测）"
+          "quote": "1.25% 加息25bp ✅"
         },
         {
           "value": "4.00%",
           "label": "2026年9月FOMC加息25bp至3.75%-4.00",
-          "quote": "4.00% 2026年9月FOMC加息25bp至3.75%-4.00",
-          "source": "CNBC / Fed"
+          "quote": "4.00% 2026年9月FOMC加息25bp至3.75%-4.00"
         },
         {
           "value": "60%",
@@ -1373,8 +1369,7 @@
         {
           "value": "10亿桶",
           "label": "Vitol CEO估计美伊战争已造成10亿桶原油产量损失",
-          "quote": "10亿桶 Vitol CEO估计美伊战争已造成10亿桶原油产量损失",
-          "source": "Wikipedia / Intellectia"
+          "quote": "10亿桶 Vitol CEO估计美伊战争已造成10亿桶原油产量损失"
         },
         {
           "value": "+40.6%",
@@ -1455,13 +1450,9 @@
           "value": "3.6%",
           "label": "Fed 2029年才达标",
           "quote": "3.6% Fed 2029年才达标"
-        },
-        {
-          "value": "29 条",
-          "label": "已验证断言",
-          "quote": "29 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -1488,8 +1479,7 @@
         {
           "value": "10%",
           "label": "交叉验证覆盖",
-          "quote": "10% 交叉验证覆盖",
-          "source": "• 关键数据点：≥3个独立来源交叉验证"
+          "quote": "10% 交叉验证覆盖"
         },
         {
           "value": "+70%",
@@ -1507,16 +1497,12 @@
           "quote": "日均约5艘"
         },
         {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
-        },
-        {
           "value": "670万桶",
           "label": "中东日减产",
           "quote": "中东日减产670万桶"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -1596,16 +1582,12 @@
           "quote": "88% Fortune 500 试点率"
         },
         {
-          "value": "14 条",
-          "label": "已验证断言",
-          "quote": "14 条已验证断言"
-        },
-        {
           "value": "9倍",
           "label": "企业收入占比",
           "quote": "9倍 企业收入占比"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -1722,14 +1704,12 @@
         {
           "value": "4.95%",
           "label": "+98bp",
-          "quote": "4.95% +98bp",
-          "source": "2023年10月以来最高"
+          "quote": "4.95% +98bp"
         },
         {
           "value": "5.35%",
           "label": "+85bp",
-          "quote": "5.35% +85bp",
-          "source": "2007年以来最高"
+          "quote": "5.35% +85bp"
         },
         {
           "value": "49%",
@@ -1744,8 +1724,7 @@
         {
           "value": "3.3%",
           "label": "高于2%目标",
-          "quote": "3.3% 高于2%目标",
-          "source": "连续5年未达标"
+          "quote": "3.3% 高于2%目标"
         },
         {
           "value": "-0.6%",
@@ -1775,14 +1754,12 @@
         {
           "value": "5.35%",
           "label": "↑ 19年新高",
-          "quote": "5.35% ↑ 19年新高",
-          "source": "2007年以来最高"
+          "quote": "5.35% ↑ 19年新高"
         },
         {
           "value": "4.59%",
           "label": "↑ +14bp",
-          "quote": "4.59% ↑ +14bp",
-          "source": "2023年以来高位"
+          "quote": "4.59% ↑ +14bp"
         },
         {
           "value": "4.95%",
@@ -1802,8 +1779,7 @@
         {
           "value": "4.95%",
           "label": "↑ 本周+18bp",
-          "quote": "4.95% ↑ 本周+18bp",
-          "source": "2023年10月以来最高"
+          "quote": "4.95% ↑ 本周+18bp"
         },
         {
           "value": "5.4%",
@@ -1829,13 +1805,9 @@
           "value": "1000万桶/日",
           "label": "供应中断",
           "quote": "供应中断1000万桶/日"
-        },
-        {
-          "value": "41 条",
-          "label": "已验证断言",
-          "quote": "41 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -1907,14 +1879,12 @@
         {
           "value": "73%",
           "label": "波斯湾油轮运费",
-          "quote": "73% 波斯湾油轮运费",
-          "source": "$80万/航次"
+          "quote": "73% 波斯湾油轮运费"
         },
         {
           "value": "3,000%",
           "label": "集装箱运费（亚欧）",
-          "quote": "3,000% 集装箱运费（亚欧）",
-          "source": "$2,200/TEU"
+          "quote": "3,000% 集装箱运费（亚欧）"
         },
         {
           "value": "1,088%",
@@ -1927,11 +1897,6 @@
           "quote": "↑ 价值250亿美元"
         },
         {
-          "value": "17 条",
-          "label": "已验证断言",
-          "quote": "17 条已验证断言"
-        },
-        {
           "value": "1,600万桶",
           "label": "日供应缺口",
           "quote": "1,600万桶 日供应缺口"
@@ -1942,6 +1907,7 @@
           "quote": "25天 海湾国家最大维持时间"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -1999,11 +1965,6 @@
           "value": "84%",
           "label": "中国（540万桶/日）、印度、日本、韩国为主",
           "quote": "84% 中国（540万桶/日）、印度、日本、韩国为主"
-        },
-        {
-          "value": "21 条",
-          "label": "已验证断言",
-          "quote": "21 条已验证断言"
         },
         {
           "value": "+49.5%",
@@ -2066,6 +2027,7 @@
           "quote": "~1.8亿吨/年（俄罗斯+美洲+非洲+中亚）"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -2173,13 +2135,9 @@
           "value": "16.6%",
           "label": "CAGR年复合增长率",
           "quote": "16.6% CAGR年复合增长率"
-        },
-        {
-          "value": "19 条",
-          "label": "已验证断言",
-          "quote": "19 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -2256,19 +2214,12 @@
         {
           "value": "36%",
           "label": "中国全球Token调用占比",
-          "quote": "36% 中国全球Token调用占比",
-          "source": "单周超美国，OpenRouter数据"
-        },
-        {
-          "value": "19 条",
-          "label": "已验证断言",
-          "quote": "19 条已验证断言"
+          "quote": "36% 中国全球Token调用占比"
         },
         {
           "value": "3.5亿",
           "label": "月均网站访问量",
-          "quote": "3.5亿 月均网站访问量",
-          "source": "2026年3月，SimilarWeb数据"
+          "quote": "3.5亿 月均网站访问量"
         },
         {
           "value": "140万亿Token",
@@ -2296,6 +2247,7 @@
           "quote": "140万亿 2026年3月·日均Token"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -2317,8 +2269,7 @@
         {
           "value": "41%",
           "label": "中国开源模型全球下载份额",
-          "quote": "41% 中国开源模型全球下载份额",
-          "source": "根据Hugging Face 2026春季报告，中国模型首次超越美国(36.5%)成为全球开发者"
+          "quote": "41% 中国开源模型全球下载份额"
         },
         {
           "value": "85%",
@@ -2398,8 +2349,7 @@
         {
           "value": "85%",
           "label": "成本降低潜力",
-          "quote": "85% 成本降低潜力",
-          "source": "企业使用自托管开源模型替代商业API时，典型成本降低幅度。30B token/月是自托管盈亏平衡"
+          "quote": "85% 成本降低潜力"
         },
         {
           "value": "18.7%",
@@ -2437,11 +2387,6 @@
           "quote": "• 估值9650亿美元"
         },
         {
-          "value": "28 条",
-          "label": "已验证断言",
-          "quote": "28 条已验证断言"
-        },
-        {
           "value": "6.75万亿",
           "label": "token",
           "quote": "6.75万亿token"
@@ -2457,6 +2402,7 @@
           "quote": "• 年化营收470亿美元"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -2561,11 +2507,6 @@
           "quote": "~21倍 全球参照"
         },
         {
-          "value": "22 条",
-          "label": "已验证断言",
-          "quote": "22 条已验证断言"
-        },
-        {
           "value": "3年",
           "label": "期定存利率",
           "quote": "3年期定存利率"
@@ -2586,6 +2527,7 @@
           "quote": "5年期LPR（连续15月不变）"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -2651,14 +2593,12 @@
         {
           "value": "18%",
           "label": "↑ 增长",
-          "quote": "18% ↑ 增长",
-          "source": "78%部署无策略执行"
+          "quote": "18% ↑ 增长"
         },
         {
           "value": "12%",
           "label": "→ 稳定",
-          "quote": "12% → 稳定",
-          "source": "PII暴露、上下文窃取"
+          "quote": "12% → 稳定"
         },
         {
           "value": "8%",
@@ -2678,8 +2618,7 @@
         {
           "value": "22%",
           "label": "↑↑ 快速增长",
-          "quote": "22% ↑↑ 快速增长",
-          "source": "MCP服务器、插件生态成新靶点"
+          "quote": "22% ↑↑ 快速增长"
         },
         {
           "value": "1.95亿",
@@ -2687,16 +2626,12 @@
           "quote": "1.95亿条记录"
         },
         {
-          "value": "18 条",
-          "label": "已验证断言",
-          "quote": "18 条已验证断言"
-        },
-        {
           "value": "1.95亿",
           "label": "记录泄露 · 国家级",
           "quote": "1.95亿记录泄露 · 国家级"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -2722,8 +2657,7 @@
         {
           "value": "-95%",
           "label": "海峡航运量降幅",
-          "quote": "-95% 海峡航运量降幅",
-          "source": "(vs.战前130-140艘/日)"
+          "quote": "-95% 海峡航运量降幅"
         },
         {
           "value": "45%",
@@ -2778,8 +2712,7 @@
         {
           "value": "+70%",
           "label": "欧洲天然气TTF涨幅",
-          "quote": "+70% 欧洲天然气TTF涨幅",
-          "source": "(31.96→54+ EUR/MWh)"
+          "quote": "+70% 欧洲天然气TTF涨幅"
         },
         {
           "value": "~1%",
@@ -2802,15 +2735,9 @@
           "quote": "1200万桶/日（后中断）"
         },
         {
-          "value": "23 条",
-          "label": "已验证断言",
-          "quote": "23 条已验证断言"
-        },
-        {
           "value": "2.987亿桶",
           "label": "美国SPR",
-          "quote": "2.987亿桶 美国SPR",
-          "source": "创1983年以来新低"
+          "quote": "2.987亿桶 美国SPR"
         },
         {
           "value": "13人",
@@ -2825,8 +2752,7 @@
         {
           "value": "2.987亿桶",
           "label": "美国SPR当前库存",
-          "quote": "2.987亿桶 美国SPR当前库存",
-          "source": "1983年以来最低"
+          "quote": "2.987亿桶 美国SPR当前库存"
         },
         {
           "value": "2.987亿桶",
@@ -2834,6 +2760,7 @@
           "quote": "2.987亿桶 -1.16亿桶（另有1.72亿桶授权待释放）"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -2910,13 +2837,9 @@
           "value": "60%",
           "label": "F500, 150+企业",
           "quote": "60% F500, 150+企业"
-        },
-        {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -2948,11 +2871,6 @@
           "value": "+112.7%",
           "label": "中国市场规模",
           "quote": "+112.7% 中国市场规模"
-        },
-        {
-          "value": "14 条",
-          "label": "已验证断言",
-          "quote": "14 条已验证断言"
         },
         {
           "value": "935亿",
@@ -3005,6 +2923,7 @@
           "quote": "融资爆发——H1融资935亿"
         }
       ],
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -3065,8 +2984,7 @@
         {
           "value": "18.5%",
           "label": "量子计算、宇宙学、粒子物理",
-          "quote": "18.5% 量子计算、宇宙学、粒子物理",
-          "source": "中：AI用于数据分析和模拟加速"
+          "quote": "18.5% 量子计算、宇宙学、粒子物理"
         },
         {
           "value": "21.3%",
@@ -3076,8 +2994,7 @@
         {
           "value": "17.2%",
           "label": "气候建模、环境监测、资源勘探",
-          "quote": "17.2% 气候建模、环境监测、资源勘探",
-          "source": "中：AI提高预测精度和监测效率"
+          "quote": "17.2% 气候建模、环境监测、资源勘探"
         },
         {
           "value": "15.8%",
@@ -3088,13 +3005,9 @@
           "value": "21.8%",
           "label": "材料设计、制造优化、自动化控制",
           "quote": "21.8% 材料设计、制造优化、自动化控制"
-        },
-        {
-          "value": "14 条",
-          "label": "已验证断言",
-          "quote": "14 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -3141,13 +3054,7 @@
         {
           "value": "0.025元",
           "label": "部署门槛",
-          "quote": "0.025元 部署门槛",
-          "source": "需多卡/云服务"
-        },
-        {
-          "value": "12 条",
-          "label": "已验证断言",
-          "quote": "12 条已验证断言"
+          "quote": "0.025元 部署门槛"
         },
         {
           "value": "6元",
@@ -3175,6 +3082,7 @@
           "quote": "3元 输出100万token"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -3198,8 +3106,7 @@
         {
           "value": "22%",
           "label": "营销服务收入436亿元，",
-          "quote": "22% 营销服务收入436亿元，",
-          "source": "连续15个季度双位数增长"
+          "quote": "22% 营销服务收入436亿元，"
         },
         {
           "value": "+33%",
@@ -3307,16 +3214,13 @@
           "quote": "1.66亿 阿里巴巴"
         },
         {
-          "value": "25 条",
-          "label": "已验证断言",
-          "quote": "25 条已验证断言"
-        },
-        {
           "value": "~2,000亿",
           "label": "元（高盛/摩根大通",
           "quote": "~2,000亿元（高盛/摩根大通）"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "估值与资本"
     },
     {
       "id": "item-2026-08-13-research-2026-08-13-aisi-safety-assessment",
@@ -3332,6 +3236,7 @@
         "越权"
       ],
       "thumb": "thumbs/2026-08-13-research-2026-08-13-aisi-safety-assessment-thumb.webp",
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -3402,13 +3307,9 @@
           "value": "+3.1%",
           "label": "避险资产需求上升",
           "quote": "+3.1% 避险资产需求上升"
-        },
-        {
-          "value": "12 条",
-          "label": "已验证断言",
-          "quote": "12 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -3451,16 +3352,12 @@
           "quote": "372亿 主力抛售"
         },
         {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
-        },
-        {
           "value": "2.82万亿",
           "label": "缩量5708亿",
           "quote": "2.82万亿 缩量5708亿"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -3500,11 +3397,6 @@
           "quote": "~2% ⚠️ 关于市占率数据的说明"
         },
         {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
-        },
-        {
           "value": "+300%",
           "label": "YoY",
           "quote": "YoY +300%"
@@ -3520,6 +3412,7 @@
           "quote": "ARR一年增长4倍"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -3540,8 +3433,7 @@
         {
           "value": "41%",
           "label": "HuggingFace中国模型下载占比",
-          "quote": "41% HuggingFace中国模型下载占比",
-          "source": "2026年春季报告显示，中国开源模型全球累计下载突破100亿次，占全球41%"
+          "quote": "41% HuggingFace中国模型下载占比"
         },
         {
           "value": "14天",
@@ -3584,11 +3476,6 @@
           "quote": "SWE-Bench Pro V2得分62%"
         },
         {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
-        },
-        {
           "value": "6倍",
           "label": "速高速版可选",
           "quote": "6倍速高速版可选"
@@ -3604,6 +3491,7 @@
           "quote": "18GB显存消费级GPU"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -3627,8 +3515,7 @@
         {
           "value": "41%",
           "label": "中国品牌欧洲空调市场份额",
-          "quote": "41% 中国品牌欧洲空调市场份额",
-          "source": "首次成为第一大供应来源"
+          "quote": "41% 中国品牌欧洲空调市场份额"
         },
         {
           "value": "37.6亿美元",
@@ -3674,13 +3561,9 @@
           "value": "50%",
           "label": "政策变动风险",
           "quote": "50% 政策变动风险"
-        },
-        {
-          "value": "12 条",
-          "label": "已验证断言",
-          "quote": "12 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "工具链与产业主权"
     },
     {
@@ -3790,11 +3673,6 @@
           "quote": "布伦特90美元"
         },
         {
-          "value": "24 条",
-          "label": "已验证断言",
-          "quote": "24 条已验证断言"
-        },
-        {
           "value": "1360万桶/日",
           "label": "较冲突前低",
           "quote": "较冲突前低1360万桶/日"
@@ -3807,8 +3685,7 @@
         {
           "value": "1393万桶/日",
           "label": "创历史新高，页岩油稳产",
-          "quote": "1393万桶/日 创历史新高，页岩油稳产",
-          "source": "EIA预测（5月）"
+          "quote": "1393万桶/日 创历史新高，页岩油稳产"
         },
         {
           "value": "1.72亿桶",
@@ -3821,6 +3698,7 @@
           "quote": "128天 美伊冲突自2月23日\"真实承诺3号\"起算"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -3855,8 +3733,7 @@
         {
           "value": "15%",
           "label": "重新封锁或大幅加征",
-          "quote": "15% 重新封锁或大幅加征",
-          "source": "\"6·21罗生门\"再现"
+          "quote": "15% 重新封锁或大幅加征"
         },
         {
           "value": "33%",
@@ -3876,8 +3753,7 @@
         {
           "value": "80%",
           "label": "2025年新建算力设施绿电占比目标",
-          "quote": "80% 2025年新建算力设施绿电占比目标",
-          "source": "2026年政府工作报告首次将\"算电协同\"写入国家战略，标志数字经济基础设施进入\"能源+算力\"双轮"
+          "quote": "80% 2025年新建算力设施绿电占比目标"
         },
         {
           "value": "20%",
@@ -3923,13 +3799,9 @@
           "value": "-3.2%",
           "label": "🟡 避险情绪消退",
           "quote": "-3.2% 🟡 避险情绪消退"
-        },
-        {
-          "value": "18 条",
-          "label": "已验证断言",
-          "quote": "18 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -3948,8 +3820,7 @@
         {
           "value": "+24%",
           "label": "全球能源价格上涨",
-          "quote": "+24% 全球能源价格上涨",
-          "source": "世行预测·俄乌以来最高"
+          "quote": "+24% 全球能源价格上涨"
         },
         {
           "value": "~15%",
@@ -3985,11 +3856,6 @@
           "value": "-3.18%",
           "label": "⚠️ 关键判断：尚未回到战前水平",
           "quote": "-3.18% ⚠️ 关键判断：尚未回到战前水平"
-        },
-        {
-          "value": "22 条",
-          "label": "已验证断言",
-          "quote": "22 条已验证断言"
         },
         {
           "value": "60天",
@@ -4049,8 +3915,7 @@
         {
           "value": "4亿桶",
           "label": "史上最大规模协调释放",
-          "quote": "4亿桶 史上最大规模协调释放",
-          "source": "2026全年供应缺口"
+          "quote": "4亿桶 史上最大规模协调释放"
         },
         {
           "value": "-390万桶/日",
@@ -4058,6 +3923,7 @@
           "quote": "-390万桶/日 IEA预测·即便恢复后"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -4078,13 +3944,9 @@
           "value": "80.3%",
           "label": "SWE-bench Pro 得分",
           "quote": "80.3% SWE-bench Pro 得分"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -4099,6 +3961,7 @@
         "OpenAI"
       ],
       "thumb": "thumbs/2026-06-15-research-2026-06-15-openai-ona-acquisition-thumb.webp",
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -4141,16 +4004,12 @@
           "quote": "3.45亿 月活用户"
         },
         {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
-        },
-        {
           "value": "9倍",
           "label": "prefilling加速",
           "quote": "prefilling加速9倍"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -4219,11 +4078,6 @@
           "quote": "5.5% Qwen3-235B-A22B：128 专家 + MoE"
         },
         {
-          "value": "23 条",
-          "label": "已验证断言",
-          "quote": "23 条已验证断言"
-        },
-        {
           "value": "1 美元",
           "label": "可买（输出",
           "quote": "1 美元可买（输出）"
@@ -4231,20 +4085,17 @@
         {
           "value": "27.6%",
           "label": "32K",
-          "quote": "27.6% 32K",
-          "source": "2023-12"
+          "quote": "27.6% 32K"
         },
         {
           "value": "8.57%",
           "label": "128K",
-          "quote": "8.57% 128K",
-          "source": "2026-04-16"
+          "quote": "8.57% 128K"
         },
         {
           "value": "9.36%",
           "label": "128K",
-          "quote": "9.36% 128K",
-          "source": "2025-04-29"
+          "quote": "9.36% 128K"
         },
         {
           "value": "-3%",
@@ -4287,6 +4138,7 @@
           "quote": "1 美元可买（输入）"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -4306,13 +4158,9 @@
           "value": "15年",
           "label": "Siri 首次重构",
           "quote": "15年 Siri 首次重构"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "成本与普惠"
     },
     {
@@ -4349,16 +4197,12 @@
           "quote": "93.7% 简单任务 token 降幅"
         },
         {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
-        },
-        {
           "value": "440 亿",
           "label": "未单独披露(Anthropic ARR",
           "quote": "未单独披露(Anthropic ARR 440 亿)"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -4375,16 +4219,12 @@
       "thumb": "thumbs/2026-06-06-research-2026-06-06-ai-agent-landscape-thumb.webp",
       "claims": [
         {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
-        },
-        {
           "value": "1.65亿",
           "label": "阿里千问月活，YoY +4241%",
           "quote": "1.65亿 阿里千问月活，YoY +4241%"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -4431,11 +4271,6 @@
           "quote": "60% 收入靠C端订阅"
         },
         {
-          "value": "9 条",
-          "label": "已验证断言",
-          "quote": "9 条已验证断言"
-        },
-        {
           "value": "5GW",
           "label": "亚马逊AWS",
           "quote": "亚马逊AWS · 5GW"
@@ -4446,6 +4281,7 @@
           "quote": "谷歌Cloud + 博通 · 5GW"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -4463,6 +4299,7 @@
       ],
       "thumb": "thumbs/2026-05-31-research-2026-05-31-Anthropic-valuation-thumb.webp",
       "claims": [],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -4513,13 +4350,9 @@
           "value": "700亿",
           "label": "元人民币",
           "quote": "700亿元人民币"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -4534,6 +4367,7 @@
         "AI通过图灵测试"
       ],
       "thumb": "thumbs/2026-05-27-research-2026-05-27-turing-test-impact-thumb.webp",
+      "beat_declared": true,
       "beat": "安全与治理"
     },
     {
@@ -4549,6 +4383,7 @@
         "股市"
       ],
       "thumb": "thumbs/2026-05-26-research-2026-05-26-huawei-tau-law-thumb.webp",
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -4568,13 +4403,9 @@
           "value": "~75%",
           "label": "上下文窗口",
           "quote": "~75% 上下文窗口"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -4589,10 +4420,71 @@
         "Anthropic"
       ],
       "thumb": "thumbs/2026-05-23-research-2026-05-23-research-stainless-acquisition-thumb.webp",
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     }
   ],
   "creative": [
+    {
+      "id": "item-2026-11-03-creative-2026-11-03-ai-accelerator-crown-shift",
+      "title": "算力王座没有易主：34% 与 28% 之间的供给台阶 · 选题#403",
+      "description": "IDC 2026 上半年中国数据中心 AI 加速器市场：英伟达 34%、华为 28%，差 6 个百分点。两个供给闸门（CoWoS 报价上调 10%—20%、芯片设备交期 3—6 个月拉长到 6—8 个月）联动，把供给缺口对价格与份额的传导做成可拖的界面。",
+      "agent": "创艺",
+      "date": "2026-11-03",
+      "type": "creative",
+      "file": "2026-11-03/creative/2026-11-03-ai-accelerator-crown-shift.html",
+      "highlights": [
+        "算力",
+        "封装",
+        "HBM",
+        "设备交期"
+      ],
+      "thumb": "thumbs/2026-11-03-creative-2026-11-03-ai-accelerator-crown-shift-thumb.webp",
+      "claims": [
+        {
+          "value": "34%",
+          "label": "英伟达在中国数据中心 AI 加速器市场的份额",
+          "quote": "中国数据中心 AI 加速器市场里英伟达占 34%"
+        },
+        {
+          "value": "28%",
+          "label": "华为在中国数据中心 AI 加速器市场的份额",
+          "quote": "华为 28%"
+        },
+        {
+          "value": "57.2 万颗",
+          "label": "华为 2026 年上半年 AI 加速器出货量",
+          "quote": "华为同期出货 57.2 万颗"
+        },
+        {
+          "value": "10%—20%",
+          "label": "CoWoS 封装报价上调区间",
+          "quote": "CoWoS 封装报价上调 10%—20%"
+        },
+        {
+          "value": "101.6 万颗",
+          "label": "非 GPU AI 加速器上半年出货量",
+          "quote": "非 GPU 加速器 101.6 万颗"
+        },
+        {
+          "value": "6—8 个月",
+          "label": "芯片设备交付周期",
+          "quote": "芯片设备交期从 3—6 个月拉长到 6—8 个月"
+        },
+        {
+          "value": "62.1%",
+          "label": "费城半导体指数",
+          "quote": "费城半导体指数半年内涨 62.1%"
+        },
+        {
+          "value": "8 层",
+          "label": "Rubin Ultra 转向的 HBM4 堆叠层数",
+          "quote": "8 层 HBM4"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "工具链与产业主权"
+    },
     {
       "id": "item-2026-11-02-creative-2026-11-02-agent-access-layer",
       "title": "谁在给智能体发上岗证：从应用内置 AI 到一个 IDE 并发 40 个智能体",
@@ -4841,13 +4733,9 @@
           "value": "11.4%",
           "label": "应付 TOTAL DUE",
           "quote": "11.4% 应付 TOTAL DUE"
-        },
-        {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -4901,11 +4789,6 @@
           "quote": "恰好加息 1 次"
         },
         {
-          "value": "10 条",
-          "label": "已验证断言",
-          "quote": "10 条已验证断言"
-        },
-        {
           "value": "75 万亿",
           "label": "今年底恐破",
           "quote": "今年底恐破 75 万亿"
@@ -4916,6 +4799,7 @@
           "quote": "15.8% COUNTDOWN"
         }
       ],
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -4940,13 +4824,9 @@
           "value": "3个",
           "label": "\"首次\"",
           "quote": "3个\"首次\""
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -4970,13 +4850,9 @@
           "value": "+47%",
           "label": "单季持股市值增幅居首",
           "quote": "+47% 单季持股市值增幅居首"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -5088,16 +4964,12 @@
           "quote": "检测准确率和召回率 ≥95%"
         },
         {
-          "value": "20 条",
-          "label": "已验证断言",
-          "quote": "20 条已验证断言"
-        },
-        {
           "value": "1.2 万亿",
           "label": "红线：2 万亿",
           "quote": "1.2 万亿 红线：2 万亿"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -5140,13 +5012,9 @@
           "value": "1 美元",
           "label": "Token",
           "quote": "Token / 1 美元"
-        },
-        {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -5168,15 +5036,10 @@
         {
           "value": "84 天",
           "label": "选题 /",
-          "quote": "84 天 选题 /",
-          "source": "361 · AI越权时刻"
-        },
-        {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
+          "quote": "84 天 选题 /"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -5226,11 +5089,6 @@
           "quote": "2501.4 亿元的投票"
         },
         {
-          "value": "14 条",
-          "label": "已验证断言",
-          "quote": "14 条已验证断言"
-        },
-        {
           "value": "94.2%",
           "label": "健康管理",
           "quote": "94.2% 健康管理"
@@ -5266,6 +5124,7 @@
           "quote": "16.5% \"领导预期变高了\""
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -5317,8 +5176,7 @@
         {
           "value": "63%",
           "label": "本地部署主导",
-          "quote": "63% 本地部署主导",
-          "source": "云部署为最快增长引擎 · CAGR 31%"
+          "quote": "63% 本地部署主导"
         },
         {
           "value": "17%",
@@ -5334,13 +5192,9 @@
           "value": "31%",
           "label": "云部署为最快增长引擎 · CAGR",
           "quote": "云部署为最快增长引擎 · CAGR 31%"
-        },
-        {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -5437,8 +5291,7 @@
         {
           "value": "+789%",
           "label": "AI 岗位量同比增速",
-          "quote": "+789% AI 岗位量同比增速",
-          "source": "这是最焦虑也最有机会的一代。他们有 5–15 年工作经验，正处于"
+          "quote": "+789% AI 岗位量同比增速"
         },
         {
           "value": "+47.3%",
@@ -5496,16 +5349,12 @@
           "quote": "-80% 入门级岗位季度降幅"
         },
         {
-          "value": "29 条",
-          "label": "已验证断言",
-          "quote": "29 条已验证断言"
-        },
-        {
           "value": "18 个",
           "label": "百分点的差距",
           "quote": "18 个百分点的差距"
         }
       ],
+      "beat_declared": true,
       "beat": "就业与劳动"
     },
     {
@@ -5573,13 +5422,9 @@
           "value": "72%",
           "label": "灵巧操作（抓取/装配）",
           "quote": "72% 灵巧操作（抓取/装配）"
-        },
-        {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -5612,13 +5457,9 @@
           "value": "5000亿",
           "label": "投前¥",
           "quote": "投前¥5000亿"
-        },
-        {
-          "value": "4 条",
-          "label": "已验证断言",
-          "quote": "4 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -5646,13 +5487,9 @@
           "value": "0%",
           "label": "英伟达研发投入验证占比",
           "quote": "0% 英伟达研发投入验证占比"
-        },
-        {
-          "value": "3 条",
-          "label": "已验证断言",
-          "quote": "3 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -5670,6 +5507,7 @@
         "商业模式"
       ],
       "thumb": "thumbs/2026-09-24-creative-2026-09-24-ai-product-convergence-creative-thumb.webp",
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -5691,8 +5529,7 @@
         {
           "value": "58%",
           "label": "AI版权诉讼案数量",
-          "quote": "58% AI版权诉讼案数量",
-          "source": "峰值年"
+          "quote": "58% AI版权诉讼案数量"
         },
         {
           "value": "10,000个",
@@ -5715,11 +5552,6 @@
           "quote": "10% 全球三大法域AI专利适格性对比"
         },
         {
-          "value": "9 条",
-          "label": "已验证断言",
-          "quote": "9 条已验证断言"
-        },
-        {
           "value": "22%",
           "label": "诉讼量激增",
           "quote": "诉讼量激增22%"
@@ -5735,6 +5567,7 @@
           "quote": "+22% 2026年全球专利诉讼同比增长预计"
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -5752,6 +5585,7 @@
         "社交模拟"
       ],
       "thumb": "thumbs/2026-09-17-creative-2026-09-17-wechat-ai-social-network-thumb.webp",
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -5770,6 +5604,7 @@
       ],
       "thumb": "thumbs/2026-09-15-creative-2026-09-15-ai-self-deception-simulator-thumb.webp",
       "claims": [],
+      "beat_declared": true,
       "beat": "安全与治理"
     },
     {
@@ -5798,13 +5633,9 @@
           "value": "567%",
           "label": "YoY (480T→3.2Q",
           "quote": "↑ 567% YoY (480T→3.2Q)"
-        },
-        {
-          "value": "3 条",
-          "label": "已验证断言",
-          "quote": "3 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -5851,8 +5682,7 @@
         {
           "value": "15%",
           "label": "用户选择分布",
-          "quote": "15% 用户选择分布",
-          "source": "Overchat AI · 1500万次交互"
+          "quote": "15% 用户选择分布"
         },
         {
           "value": "83.4%",
@@ -5880,16 +5710,12 @@
           "quote": "14 天 2026"
         },
         {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
-        },
-        {
           "value": "11 天",
           "label": "OpenAI 发布间隔：",
           "quote": "11 天 OpenAI 发布间隔："
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -5919,11 +5745,6 @@
           "quote": "98% 接听预警后受骗率降幅"
         },
         {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
-        },
-        {
           "value": "99.2%",
           "label": "↑ 拦截率",
           "quote": "↑ 拦截率 99.2%"
@@ -5939,6 +5760,7 @@
           "quote": "62% 受害者出现焦虑症状"
         }
       ],
+      "beat_declared": true,
       "beat": "应用落地"
     },
     {
@@ -5960,8 +5782,7 @@
         {
           "value": "1.3%",
           "label": "2026全球GDP",
-          "quote": "1.3% 2026全球GDP",
-          "source": "增速预测"
+          "quote": "1.3% 2026全球GDP"
         },
         {
           "value": "33%",
@@ -5992,13 +5813,9 @@
           "value": "4.2%",
           "label": "BEYOND THE HEADLINES",
           "quote": "4.2% BEYOND THE HEADLINES"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -6055,8 +5872,7 @@
         {
           "value": "22%",
           "label": "核心对比",
-          "quote": "22% 核心对比",
-          "source": "训练 vs 推理：算力格局的根本性逆转"
+          "quote": "22% 核心对比"
         },
         {
           "value": "52%",
@@ -6084,11 +5900,6 @@
           "quote": "~100亿 2023"
         },
         {
-          "value": "18 条",
-          "label": "已验证断言",
-          "quote": "18 条已验证断言"
-        },
-        {
           "value": "1,000亿",
           "label": "2024初",
           "quote": "1,000亿 2024初"
@@ -6109,6 +5920,7 @@
           "quote": "140万亿 2026.3"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -6173,16 +5985,12 @@
           "quote": "500亿估值崛起"
         },
         {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
-        },
-        {
           "value": "45亿",
           "label": "2023年D轮估值（美元）",
           "quote": "45亿 2023年D轮估值（美元）"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -6284,13 +6092,9 @@
           "value": "98%",
           "label": "认知障碍筛查特异性 (Mass General Brig",
           "quote": "98% 认知障碍筛查特异性 (Mass General Brig"
-        },
-        {
-          "value": "18 条",
-          "label": "已验证断言",
-          "quote": "18 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -6334,16 +6138,12 @@
           "quote": "40% 无明确量产时间表"
         },
         {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
-        },
-        {
           "value": "935亿",
           "label": "H1融资总额（元）",
           "quote": "935亿 H1融资总额（元）"
         }
       ],
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -6386,13 +6186,9 @@
           "value": "24%",
           "label": "🚀 美债回购翻倍 → BTC暴涨",
           "quote": "🚀 美债回购翻倍 → BTC暴涨24%"
-        },
-        {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -6423,8 +6219,7 @@
         {
           "value": "160万桶",
           "label": "高油价抑制的需求量",
-          "quote": "160万桶 高油价抑制的需求量",
-          "source": "数据来源：EIA, IEA, 新华社, Vortexa, Wood Mackenzie | 截至"
+          "quote": "160万桶 高油价抑制的需求量"
         },
         {
           "value": "+45%",
@@ -6444,14 +6239,12 @@
         {
           "value": "+24.6%",
           "label": "汽油价格上涨",
-          "quote": "+24.6% 汽油价格上涨",
-          "source": "战前约$3.04/加仑"
+          "quote": "+24.6% 汽油价格上涨"
         },
         {
           "value": "+18%",
           "label": "物流运输成本",
-          "quote": "+18% 物流运输成本",
-          "source": "柴油价格$4.85/加仑"
+          "quote": "+18% 物流运输成本"
         },
         {
           "value": "+12%",
@@ -6472,11 +6265,6 @@
           "value": "3.4%",
           "label": "通胀率（美国CPI）",
           "quote": "3.4% 通胀率（美国CPI）"
-        },
-        {
-          "value": "19 条",
-          "label": "已验证断言",
-          "quote": "19 条已验证断言"
         },
         {
           "value": "2.99亿桶",
@@ -6509,6 +6297,7 @@
           "quote": "STRAIT OF HORMUZ · 最窄21海里"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -6559,20 +6348,17 @@
         {
           "value": "41%",
           "label": "代表模型",
-          "quote": "41% 代表模型",
-          "source": "Qwen / DeepSeek"
+          "quote": "41% 代表模型"
         },
         {
           "value": "36.5%",
           "label": "代表模型",
-          "quote": "36.5% 代表模型",
-          "source": "Llama / Gemma"
+          "quote": "36.5% 代表模型"
         },
         {
           "value": "12%",
           "label": "代表模型",
-          "quote": "12% 代表模型",
-          "source": "Mistral / Falcon"
+          "quote": "12% 代表模型"
         },
         {
           "value": "41%",
@@ -6640,11 +6426,6 @@
           "quote": "~2亿 增长趋势"
         },
         {
-          "value": "25 条",
-          "label": "已验证断言",
-          "quote": "25 条已验证断言"
-        },
-        {
           "value": "8.83万亿",
           "label": "周Token调用",
           "quote": "8.83万亿 周Token调用"
@@ -6655,6 +6436,7 @@
           "quote": "3.08万亿 MiMo周Token"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -6669,6 +6451,7 @@
         "机器人"
       ],
       "thumb": "thumbs/2026-08-18-creative-2026-08-18-fcc-china-robot-ban-thumb.webp",
+      "beat_declared": true,
       "beat": "机器人与具身"
     },
     {
@@ -6701,16 +6484,12 @@
           "quote": "~2000万桶 原油日均通行量"
         },
         {
-          "value": "5 条",
-          "label": "已验证断言",
-          "quote": "5 条已验证断言"
-        },
-        {
           "value": "~400万桶",
           "label": "骤降80%，事实性停滞",
           "quote": "~400万桶 骤降80%，事实性停滞"
         }
       ],
+      "beat_declared": true,
       "beat": "地缘与能源"
     },
     {
@@ -6775,13 +6554,10 @@
           "value": "36亿",
           "label": "日活用户",
           "quote": "36亿 日活用户"
-        },
-        {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "估值与资本"
     },
     {
       "id": "item-2026-08-11-creative-2026-08-11-capital-migration",
@@ -6832,13 +6608,9 @@
           "value": "1.00%",
           "label": "🔴 加息周期 (2022-2023)",
           "quote": "1.00% 🔴 加息周期 (2022-2023)"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -6870,16 +6642,12 @@
           "quote": "0 天 隐蔽代码"
         },
         {
-          "value": "5 条",
-          "label": "已验证断言",
-          "quote": "5 条已验证断言"
-        },
-        {
           "value": "147 个",
           "label": "监控黑名单域名",
           "quote": "147 个监控黑名单域名"
         }
       ],
+      "beat_declared": true,
       "beat": "工具链与产业主权"
     },
     {
@@ -6943,16 +6711,12 @@
           "quote": "1.2万亿港元市值"
         },
         {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
-        },
-        {
           "value": "763.8亿",
           "label": "577笔事件",
           "quote": "763.8亿 577笔事件"
         }
       ],
+      "beat_declared": true,
       "beat": "厂商与算力权力"
     },
     {
@@ -7028,13 +6792,9 @@
           "value": "-17.0%",
           "label": "CoreWeave (CRWV)",
           "quote": "-17.0% CoreWeave (CRWV)"
-        },
-        {
-          "value": "13 条",
-          "label": "已验证断言",
-          "quote": "13 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -7071,13 +6831,9 @@
           "value": "100%",
           "label": "内部变革",
           "quote": "100% 内部变革"
-        },
-        {
-          "value": "5 条",
-          "label": "已验证断言",
-          "quote": "5 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -7111,8 +6867,7 @@
         {
           "value": "-60%",
           "label": "恢复周期",
-          "quote": "-60% 恢复周期",
-          "source": "3-5年"
+          "quote": "-60% 恢复周期"
         },
         {
           "value": "40%",
@@ -7120,16 +6875,12 @@
           "quote": "40% 盈利拐点"
         },
         {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
-        },
-        {
           "value": "650亿美元",
           "label": "📈 H轮融资",
           "quote": "📈 H轮融资650亿美元"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -7191,13 +6942,9 @@
           "value": "23%",
           "label": "技能转型周期",
           "quote": "23% 技能转型周期"
-        },
-        {
-          "value": "10 条",
-          "label": "已验证断言",
-          "quote": "10 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "就业与劳动"
     },
     {
@@ -7232,8 +6979,7 @@
         {
           "value": "~90%",
           "label": "旗舰芯片",
-          "quote": "~90% 旗舰芯片",
-          "source": "B200 / Rubin"
+          "quote": "~90% 旗舰芯片"
         },
         {
           "value": "~8%",
@@ -7276,11 +7022,6 @@
           "quote": "1750亿 参数规模"
         },
         {
-          "value": "15 条",
-          "label": "已验证断言",
-          "quote": "15 条已验证断言"
-        },
-        {
           "value": "1503亿",
           "label": "英伟达营收",
           "quote": "英伟达营收1503亿"
@@ -7291,6 +7032,7 @@
           "quote": "2080亿 单芯片晶体管数量"
         }
       ],
+      "beat_declared": true,
       "beat": "算力·能耗·环境"
     },
     {
@@ -7356,13 +7098,9 @@
           "value": "35%",
           "label": "微软、Salesforce",
           "quote": "35% 微软、Salesforce"
-        },
-        {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -7409,13 +7147,10 @@
           "value": "1万亿",
           "label": "美元大关",
           "quote": "1万亿美元大关"
-        },
-        {
-          "value": "7 条",
-          "label": "已验证断言",
-          "quote": "7 条已验证断言"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "估值与资本"
     },
     {
       "id": "item-2026-06-20-2026-06-20-spacex-cursor",
@@ -7439,11 +7174,6 @@
           "value": "35%",
           "label": "内部代码由AI智能体完成",
           "quote": "35% 内部代码由AI智能体完成"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         },
         {
           "value": "40亿",
@@ -7470,7 +7200,9 @@
           "label": "用户 · 数据飞轮",
           "quote": "6亿用户 · 数据飞轮"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "工具链与产业主权"
     },
     {
       "id": "item-2026-06-16-2026-06-16-a-share-dashboard",
@@ -7500,8 +7232,7 @@
         {
           "value": "38%",
           "label": "上证指数52周位置",
-          "quote": "38% 上证指数52周位置",
-          "source": "▲ 近一年高位"
+          "quote": "38% 上证指数52周位置"
         },
         {
           "value": "+0.32%",
@@ -7534,16 +7265,12 @@
           "quote": "+0.86% 🥇 COMEX黄金"
         },
         {
-          "value": "11 条",
-          "label": "已验证断言",
-          "quote": "11 条已验证断言"
-        },
-        {
           "value": "+4655亿",
           "label": "较前日放量",
           "quote": "▲ +4655亿 较前日放量"
         }
       ],
+      "beat_declared": true,
       "beat": "宏观利率与股市"
     },
     {
@@ -7561,16 +7288,12 @@
       "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-passport-war-thumb.webp",
       "claims": [
         {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
-        },
-        {
           "value": "3%",
           "label": "⚡ 高风险系统",
           "quote": "⚡ 高风险系统 (3%)"
         }
       ],
+      "beat_declared": true,
       "beat": "安全与治理"
     },
     {
@@ -7585,6 +7308,7 @@
         "安全"
       ],
       "thumb": "thumbs/2026-06-16-creative-2026-06-16-ai-security-red-blue-thumb.webp",
+      "beat_declared": true,
       "beat": "安全与治理"
     },
     {
@@ -7603,16 +7327,12 @@
       "thumb": "thumbs/2026-06-16-creative-2026-06-16-open-source-models-cards-thumb.webp",
       "claims": [
         {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
-        },
-        {
           "value": "2.8 倍",
           "label": "Token 间延迟缩短",
           "quote": "2.8 倍 Token 间延迟缩短"
         }
       ],
+      "beat_declared": true,
       "beat": "开源 vs 闭源之争"
     },
     {
@@ -7628,6 +7348,7 @@
         "估值"
       ],
       "thumb": "thumbs/2026-06-13-creative-2026-06-13-ai-ipo-trinity-thumb.webp",
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -7682,13 +7403,9 @@
           "value": "90%",
           "label": "复杂任务成功率",
           "quote": "90% 复杂任务成功率"
-        },
-        {
-          "value": "9 条",
-          "label": "已验证断言",
-          "quote": "9 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "Agent 与编排"
     },
     {
@@ -7715,11 +7432,6 @@
           "quote": "+43% vs GPT-5.5"
         },
         {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
-        },
-        {
           "value": "1天",
           "label": "5000万行迁移",
           "quote": "1天 5000万行迁移"
@@ -7744,7 +7456,9 @@
           "label": "FrontierCode",
           "quote": "29.3% FrontierCode"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "厂商与算力权力"
     },
     {
       "id": "item-2026-06-11-2026-06-11-ai-coding-tools-matrix",
@@ -7783,13 +7497,10 @@
           "value": "18%",
           "label": "Copilot",
           "quote": "18% Copilot"
-        },
-        {
-          "value": "6 条",
-          "label": "已验证断言",
-          "quote": "6 条已验证断言"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "工具链与产业主权"
     },
     {
       "id": "item-2026-06-11-2026-06-11-model-routing-layer",
@@ -7805,16 +7516,13 @@
       "thumb": "thumbs/2026-06-11-creative-2026-06-11-model-routing-layer-thumb.webp",
       "claims": [
         {
-          "value": "2 条",
-          "label": "已验证断言",
-          "quote": "2 条已验证断言"
-        },
-        {
           "value": "10 亿",
           "label": "+ iOS 设备",
           "quote": "10 亿+ iOS 设备"
         }
-      ]
+      ],
+      "beat_declared": true,
+      "beat": "工具链与产业主权"
     },
     {
       "id": "item-2026-06-04-2026-06-04-ai-valuation-timeline",
@@ -7835,16 +7543,12 @@
           "quote": "↑ 新增 12家"
         },
         {
-          "value": "3 条",
-          "label": "已验证断言",
-          "quote": "3 条已验证断言"
-        },
-        {
           "value": "+187%",
           "label": "↑ 同比",
           "quote": "↑ 同比 +187%"
         }
       ],
+      "beat_declared": true,
       "beat": "估值与资本"
     },
     {
@@ -7894,21 +7598,17 @@
           "value": "28%",
           "label": "YoY",
           "quote": "↑ 28% YoY"
-        },
-        {
-          "value": "8 条",
-          "label": "已验证断言",
-          "quote": "8 条已验证断言"
         }
       ],
+      "beat_declared": true,
       "beat": "算力·能耗·环境"
     }
   ],
   "stats": {
-    "generated": "2026-11-02",
+    "generated": "2026-11-03",
     "span": {
       "first": "2026-05-23",
-      "last": "2026-11-02",
+      "last": "2026-11-03",
       "months": 7
     },
     "rhythm": [
@@ -7950,9 +7650,9 @@
       },
       {
         "month": "2026-11",
-        "works": 3,
-        "research": 2,
-        "creative": 1
+        "works": 5,
+        "research": 3,
+        "creative": 2
       }
     ],
     "capacity": {
@@ -7981,7 +7681,7 @@
         },
         {
           "agent": "创艺",
-          "total": 38,
+          "total": 39,
           "by_month": [
             1,
             16,
@@ -7989,7 +7689,7 @@
             0,
             6,
             11,
-            0
+            1
           ]
         },
         {
@@ -8019,6 +7719,19 @@
           ]
         },
         {
+          "agent": "策士",
+          "total": 1,
+          "by_month": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
           "agent": "量研",
           "total": 1,
           "by_month": [
@@ -8034,9 +7747,9 @@
       ]
     },
     "collab": {
-      "total": 113,
-      "solo": 54,
-      "joint": 59,
+      "total": 115,
+      "solo": 55,
+      "joint": 60,
       "rate": 52,
       "edges": [
         {
@@ -8104,35 +7817,19 @@
     "beats": [
       {
         "name": "估值与资本",
-        "works": 17,
-        "months": 7,
-        "first": "2026-05-31",
+        "works": 15,
+        "months": 6,
+        "first": "2026-06-04",
         "last": "2026-11-02",
         "weeks_idle": 0
       },
       {
         "name": "宏观利率与股市",
-        "works": 11,
-        "months": 7,
+        "works": 8,
+        "months": 6,
         "first": "2026-05-26",
-        "last": "2026-11-02",
+        "last": "2026-11-03",
         "weeks_idle": 0
-      },
-      {
-        "name": "厂商与算力权力",
-        "works": 19,
-        "months": 6,
-        "first": "2026-05-23",
-        "last": "2026-10-20",
-        "weeks_idle": 1
-      },
-      {
-        "name": "安全与治理",
-        "works": 11,
-        "months": 6,
-        "first": "2026-05-27",
-        "last": "2026-10-17",
-        "weeks_idle": 2
       },
       {
         "name": "地缘与能源",
@@ -8156,31 +7853,23 @@
         "months": 5,
         "first": "2026-06-06",
         "last": "2026-10-13",
-        "weeks_idle": 2
-      },
-      {
-        "name": "算力·能耗·环境",
-        "works": 6,
-        "months": 5,
-        "first": "2026-05-28",
-        "last": "2026-10-10",
         "weeks_idle": 3
       },
       {
-        "name": "工具链与产业主权",
-        "works": 5,
-        "months": 4,
-        "first": "2026-07-04",
-        "last": "2026-11-02",
-        "weeks_idle": 0
+        "name": "厂商与算力权力",
+        "works": 13,
+        "months": 5,
+        "first": "2026-05-23",
+        "last": "2026-10-20",
+        "weeks_idle": 2
       },
       {
-        "name": "应用落地",
-        "works": 9,
+        "name": "工具链与产业主权",
+        "works": 7,
         "months": 3,
-        "first": "2026-08-20",
-        "last": "2026-10-20",
-        "weeks_idle": 1
+        "first": "2026-06-11",
+        "last": "2026-11-03",
+        "weeks_idle": 0
       },
       {
         "name": "机器人与具身",
@@ -8191,68 +7880,59 @@
         "weeks_idle": 2
       },
       {
-        "name": "成本与普惠",
+        "name": "应用落地",
         "works": 6,
         "months": 3,
-        "first": "2026-06-11",
-        "last": "2026-10-27",
-        "weeks_idle": 0
+        "first": "2026-08-20",
+        "last": "2026-10-10",
+        "weeks_idle": 3
+      },
+      {
+        "name": "算力·能耗·环境",
+        "works": 4,
+        "months": 3,
+        "first": "2026-05-28",
+        "last": "2026-10-10",
+        "weeks_idle": 3
+      },
+      {
+        "name": "安全与治理",
+        "works": 4,
+        "months": 3,
+        "first": "2026-05-27",
+        "last": "2026-09-15",
+        "weeks_idle": 7
       },
       {
         "name": "就业与劳动",
-        "works": 6,
+        "works": 4,
         "months": 2,
-        "first": "2026-06-23",
+        "first": "2026-06-27",
         "last": "2026-10-27",
-        "weeks_idle": 0
+        "weeks_idle": 1
+      },
+      {
+        "name": "成本与普惠",
+        "works": 3,
+        "months": 2,
+        "first": "2026-06-11",
+        "last": "2026-10-27",
+        "weeks_idle": 1
       }
     ],
-    "unclassified_tags": [
-      {
-        "tag": "模型",
-        "works": 2
-      },
-      {
-        "tag": "腾讯",
-        "works": 1
-      },
-      {
-        "tag": "全景对比仪表盘",
-        "works": 1
-      },
-      {
-        "tag": "马斯克",
-        "works": 1
-      },
-      {
-        "tag": "特斯拉",
-        "works": 1
-      },
-      {
-        "tag": "创业史",
-        "works": 1
-      },
-      {
-        "tag": "AI编程",
-        "works": 1
-      },
-      {
-        "tag": "2026",
-        "works": 1
-      }
-    ],
+    "unclassified_tags": [],
     "claims": {
-      "total": 1160,
-      "works_covered": 101,
-      "works_total": 113,
-      "coverage": 89,
-      "pending": 439,
+      "total": 1085,
+      "works_covered": 103,
+      "works_total": 115,
+      "coverage": 90,
+      "pending": 539,
       "no_structure": 9,
       "dossier": [
         {
           "beat": "地缘与能源",
           "works": 18,
-          "claims": 286,
+          "claims": 269,
           "first": "2026-06-16",
           "last": "2026-10-29",
           "chapters": [
@@ -8351,7 +8031,7 @@
         {
           "beat": "开源 vs 闭源之争",
           "works": 14,
-          "claims": 187,
+          "claims": 174,
           "first": "2026-06-11",
           "last": "2026-10-29",
           "chapters": [
@@ -8367,8 +8047,8 @@
             },
             {
               "file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html",
-              "v": "2 条",
-              "l": "已验证断言"
+              "v": "2.8 倍",
+              "l": "Token 间延迟缩短"
             },
             {
               "file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html",
@@ -8428,178 +8108,12 @@
           ]
         },
         {
-          "beat": "厂商与算力权力",
-          "works": 19,
-          "claims": 177,
-          "first": "2026-05-23",
-          "last": "2026-10-20",
-          "chapters": [
-            {
-              "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
-              "v": "~75%",
-              "l": "上下文窗口"
-            },
-            {
-              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
-            },
-            {
-              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
-            },
-            {
-              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
-              "v": "60亿",
-              "l": "美元以上单轮融资"
-            },
-            {
-              "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
-              "v": "293 亿美元",
-              "l": "Cursor 估值"
-            },
-            {
-              "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"
-            },
-            {
-              "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
-              "v": "310家",
-              "l": "中国独角兽企业"
-            },
-            {
-              "file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html",
-              "v": "87.5%",
-              "l": "MMLU-Pro"
-            },
-            {
-              "file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
-              "v": "6%",
-              "l": "英伟达持股比例"
-            },
-            {
-              "file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
-              "v": "41%",
-              "l": "中国开源模型全球下载份额"
-            },
-            {
-              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
-              "v": "83%",
-              "l": "智谱AI率先涨价"
-            },
-            {
-              "file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html",
-              "v": "125%",
-              "l": "YoY (400M→900M"
-            },
-            {
-              "file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
-              "v": "~35%",
-              "l": "LangChain生态"
-            },
-            {
-              "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"
-            },
-            {
-              "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
-              "v": "116家",
-              "l": "公司联合呼吁安全"
-            },
-            {
-              "file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
-              "v": "80%",
-              "l": "Anthropic 企业收入占比"
-            },
-            {
-              "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
-              "v": "15倍",
-              "l": "DeepSeek"
-            },
-            {
-              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
-              "v": "0.24%",
-              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
-            },
-            {
-              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
-              "v": "60%",
-              "l": "初级员工占技术部门比重"
-            }
-          ]
-        },
-        {
-          "beat": "宏观利率与股市",
-          "works": 11,
-          "claims": 165,
-          "first": "2026-05-26",
-          "last": "2026-11-02",
-          "chapters": [
-            {
-              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
-            },
-            {
-              "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
-              "v": "-0.67%",
-              "l": "上证指数"
-            },
-            {
-              "file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
-              "v": "-6.78%",
-              "l": "小票杀跌最狠"
-            },
-            {
-              "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
-              "v": "17%",
-              "l": "加息25个基点，强调通胀风险"
-            },
-            {
-              "file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
-              "v": "-7.35%",
-              "l": "创业板指单日暴跌"
-            },
-            {
-              "file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
-              "v": "+50%",
-              "l": "股债双杀"
-            },
-            {
-              "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
-              "v": "1.8%",
-              "l": "实际利率（名义利率减去通胀预期）已升至约"
-            },
-            {
-              "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
-              "v": "+47%",
-              "l": "单季持股市值增幅居首"
-            },
-            {
-              "file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html",
-              "v": "45%",
-              "l": "\"做多全球半导体\"最拥挤交易占比"
-            },
-            {
-              "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
-              "v": "5年",
-              "l": "期通胀预期（消费者预期调查"
-            },
-            {
-              "file": "2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
-              "v": "79.7%",
-              "l": "CME 12月会议加息25个基点概率（决议前口径）"
-            }
-          ]
-        },
-        {
           "beat": "估值与资本",
-          "works": 17,
-          "claims": 142,
-          "first": "2026-05-31",
+          "works": 15,
+          "claims": 141,
+          "first": "2026-06-04",
           "last": "2026-11-02",
           "chapters": [
-            {
-              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
-            },
-            {
-              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
-              "v": "60亿",
-              "l": "美元以上单轮融资"
-            },
             {
               "file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html",
               "v": "+900%",
@@ -8614,6 +8128,11 @@
               "file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html"
             },
             {
+              "file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
+              "v": "1.8亿美元",
+              "l": "马斯克到手约"
+            },
+            {
               "file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
               "v": "15%",
               "l": "历史泡沫对比"
@@ -8624,14 +8143,19 @@
               "l": "纳指100暴跌"
             },
             {
-              "file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html",
-              "v": "~80%",
-              "l": "可灵 AI"
-            },
-            {
               "file": "2026-08-11/creative/2026-08-11-capital-migration.html",
               "v": "+7%",
               "l": "2026年8月第一周"
+            },
+            {
+              "file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
+              "v": "~5.1%",
+              "l": "营业利润率"
+            },
+            {
+              "file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+              "v": "+22%",
+              "l": "金融科技及企业服务"
             },
             {
               "file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
@@ -8642,16 +8166,6 @@
               "file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
               "v": "-7.35%",
               "l": "创业板指单日暴跌"
-            },
-            {
-              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
-              "v": "0.24%",
-              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
-            },
-            {
-              "file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
-              "v": "3个",
-              "l": "\"首次\""
             },
             {
               "file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
@@ -8678,14 +8192,14 @@
         {
           "beat": "Agent 与编排",
           "works": 13,
-          "claims": 120,
+          "claims": 109,
           "first": "2026-06-06",
           "last": "2026-10-13",
           "chapters": [
             {
               "file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html",
-              "v": "2 条",
-              "l": "已验证断言"
+              "v": "1.65亿",
+              "l": "阿里千问月活，YoY +4241%"
             },
             {
               "file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html",
@@ -8747,10 +8261,10 @@
         },
         {
           "beat": "应用落地",
-          "works": 9,
-          "claims": 81,
+          "works": 6,
+          "claims": 70,
           "first": "2026-08-20",
-          "last": "2026-10-20",
+          "last": "2026-10-10",
           "chapters": [
             {
               "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
@@ -8761,9 +8275,6 @@
               "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
               "v": "38%",
               "l": "老年群体受害占比"
-            },
-            {
-              "file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html"
             },
             {
               "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
@@ -8784,96 +8295,99 @@
               "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
               "v": "32.5%",
               "l": "生成式 AI 用户规模（半年度）"
+            }
+          ]
+        },
+        {
+          "beat": "宏观利率与股市",
+          "works": 8,
+          "claims": 69,
+          "first": "2026-05-26",
+          "last": "2026-11-03",
+          "chapters": [
+            {
+              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
             },
             {
-              "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
-              "v": "26 个",
-              "l": "问题的受关注度分布"
+              "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
+              "v": "-0.67%",
+              "l": "上证指数"
+            },
+            {
+              "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
+              "v": "17%",
+              "l": "加息25个基点，强调通胀风险"
+            },
+            {
+              "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
+              "v": "1.8%",
+              "l": "实际利率（名义利率减去通胀预期）已升至约"
             },
             {
               "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
               "v": "+47%",
               "l": "单季持股市值增幅居首"
+            },
+            {
+              "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+              "v": "5年",
+              "l": "期通胀预期（消费者预期调查"
+            },
+            {
+              "file": "2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
+              "v": "79.7%",
+              "l": "CME 12月会议加息25个基点概率（决议前口径）"
+            },
+            {
+              "file": "2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
+              "v": "121.7%",
+              "l": "法国公共债务占 GDP（2027 年预测）"
             }
           ]
         },
         {
-          "beat": "就业与劳动",
-          "works": 6,
-          "claims": 80,
-          "first": "2026-06-23",
-          "last": "2026-10-27",
+          "beat": "厂商与算力权力",
+          "works": 13,
+          "claims": 64,
+          "first": "2026-05-23",
+          "last": "2026-10-20",
           "chapters": [
             {
-              "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
-              "v": "52%",
-              "l": "企业已部署AI Agent"
+              "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
+              "v": "~75%",
+              "l": "上下文窗口"
             },
             {
-              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
-              "v": "77%",
-              "l": "被替代工人无法在12个月内成功转型"
+              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
             },
             {
-              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
-              "v": "+56%",
-              "l": "AI 技能从业者薪资溢价"
+              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
             },
             {
-              "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
-              "v": "60%",
-              "l": "初级员工占技术部门比重"
+              "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
+              "v": "60亿",
+              "l": "美元以上单轮融资"
             },
             {
-              "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
-              "v": "23.3%",
-              "l": "美光全球 DRAM 营收市占"
+              "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
+              "v": "293 亿美元",
+              "l": "Cursor 估值"
             },
             {
-              "file": "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
-              "v": "2%",
-              "l": "全AI曲目实际播放占比 1%–3% 的中值（实测·平台自"
-            }
-          ]
-        },
-        {
-          "beat": "安全与治理",
-          "works": 11,
-          "claims": 71,
-          "first": "2026-05-27",
-          "last": "2026-10-17",
-          "chapters": [
-            {
-              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html"
+              "file": "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html",
+              "v": "80.3%",
+              "l": "SWE-Bench Pro"
             },
             {
-              "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
-              "v": "2 条",
-              "l": "已验证断言"
+              "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html"
             },
             {
-              "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"
+              "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
+              "v": "310家",
+              "l": "中国独角兽企业"
             },
             {
-              "file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
-              "v": "-390万桶/日",
-              "l": "2026年全球石油供应同比下降预测"
-            },
-            {
-              "file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html"
-            },
-            {
-              "file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
-              "v": "88%",
-              "l": "有Agent专用安全框架"
-            },
-            {
-              "file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
-              "v": "43.96%",
-              "l": "中国手术机器人市场"
-            },
-            {
-              "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"
+              "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html"
             },
             {
               "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
@@ -8881,133 +8395,26 @@
               "l": "公司联合呼吁安全"
             },
             {
-              "file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
-              "v": "84 天",
-              "l": "选题 /"
+              "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
+              "v": "15倍",
+              "l": "DeepSeek"
             },
             {
-              "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
-              "v": "26 个",
-              "l": "问题的受关注度分布"
-            }
-          ]
-        },
-        {
-          "beat": "算力·能耗·环境",
-          "works": 6,
-          "claims": 62,
-          "first": "2026-05-28",
-          "last": "2026-10-10",
-          "chapters": [
-            {
-              "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
-              "v": "78%",
-              "l": "市场份额"
-            },
-            {
-              "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
-              "v": "99.9999999%",
-              "l": "硅砂提纯"
-            },
-            {
-              "file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
-              "v": "-2%",
-              "l": "纳指100暴跌"
-            },
-            {
-              "file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
-              "v": "84%",
-              "l": "一年增长"
-            },
-            {
-              "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
-              "v": "89.4%",
-              "l": "中国电信庆阳"
-            },
-            {
-              "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
-              "v": "+25%",
-              "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
-            }
-          ]
-        },
-        {
-          "beat": "成本与普惠",
-          "works": 6,
-          "claims": 62,
-          "first": "2026-06-11",
-          "last": "2026-10-27",
-          "chapters": [
-            {
-              "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
-              "v": "15年",
-              "l": "Siri 首次重构"
-            },
-            {
-              "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
-              "v": "83%",
-              "l": "智谱AI率先涨价"
-            },
-            {
-              "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
-              "v": "34%",
-              "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"
-            },
-            {
-              "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
-              "v": "1美元",
-              "l": "买到的 Token"
+              "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
+              "v": "0.24%",
+              "l": "8月无线通信服务异常涨价部分回落（巴克莱/大摩一致预测）"
             },
             {
               "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
               "v": "60%",
               "l": "初级员工占技术部门比重"
-            },
-            {
-              "file": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
-              "v": "1美元",
-              "l": "全球开源编码模型输出价上限（每百万token）"
-            }
-          ]
-        },
-        {
-          "beat": "工具链与产业主权",
-          "works": 5,
-          "claims": 59,
-          "first": "2026-07-04",
-          "last": "2026-11-02",
-          "chapters": [
-            {
-              "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
-              "v": "41%",
-              "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"
-            },
-            {
-              "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
-              "v": "6.0%",
-              "l": "三、连锁反应：国产工具的全面崛起"
-            },
-            {
-              "file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
-              "v": "~50%",
-              "l": "海湾地区，危机直接冲击全球农业"
-            },
-            {
-              "file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
-              "v": "46%",
-              "l": "左侧被铺开，右侧被登记"
-            },
-            {
-              "file": "2026-11-02/creative/2026-11-02-agent-access-layer.html",
-              "v": "4 条",
-              "l": "已验证断言"
             }
           ]
         },
         {
           "beat": "机器人与具身",
           "works": 6,
-          "claims": 54,
+          "claims": 49,
           "first": "2026-08-18",
           "last": "2026-10-17",
           "chapters": [
@@ -9040,69 +8447,216 @@
               "l": "问题的受关注度分布"
             }
           ]
+        },
+        {
+          "beat": "就业与劳动",
+          "works": 4,
+          "claims": 46,
+          "first": "2026-06-27",
+          "last": "2026-10-27",
+          "chapters": [
+            {
+              "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+              "v": "77%",
+              "l": "被替代工人无法在12个月内成功转型"
+            },
+            {
+              "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+              "v": "+56%",
+              "l": "AI 技能从业者薪资溢价"
+            },
+            {
+              "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+              "v": "23.3%",
+              "l": "美光全球 DRAM 营收市占"
+            },
+            {
+              "file": "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+              "v": "2%",
+              "l": "全AI曲目实际播放占比 1%–3% 的中值（实测·平台自"
+            }
+          ]
+        },
+        {
+          "beat": "工具链与产业主权",
+          "works": 7,
+          "claims": 36,
+          "first": "2026-06-11",
+          "last": "2026-11-03",
+          "chapters": [
+            {
+              "file": "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html",
+              "v": "68%",
+              "l": "企业渗透率"
+            },
+            {
+              "file": "2026-06-11/creative/2026-06-11-model-routing-layer.html",
+              "v": "10 亿",
+              "l": "+ iOS 设备"
+            },
+            {
+              "file": "2026-06-20/creative/2026-06-20-spacex-cursor.html",
+              "v": "35%",
+              "l": "Cursor内部代码由AI完成"
+            },
+            {
+              "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+              "v": "41%",
+              "l": "2025冷年，中国品牌首次成为欧洲第一大空调供应来源，2"
+            },
+            {
+              "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
+              "v": "6.0%",
+              "l": "三、连锁反应：国产工具的全面崛起"
+            },
+            {
+              "file": "2026-11-02/creative/2026-11-02-agent-access-layer.html"
+            },
+            {
+              "file": "2026-11-03/creative/2026-11-03-ai-accelerator-crown-shift.html",
+              "v": "30%",
+              "l": "2026 年 10 月 27 日的消息里，晶圆代工与封测"
+            }
+          ]
+        },
+        {
+          "beat": "算力·能耗·环境",
+          "works": 4,
+          "claims": 27,
+          "first": "2026-05-28",
+          "last": "2026-10-10",
+          "chapters": [
+            {
+              "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
+              "v": "78%",
+              "l": "市场份额"
+            },
+            {
+              "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
+              "v": "99.9999999%",
+              "l": "硅砂提纯"
+            },
+            {
+              "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
+              "v": "89.4%",
+              "l": "中国电信庆阳"
+            },
+            {
+              "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
+              "v": "+25%",
+              "l": "微软碳排放增至 2,000 万吨 CO₂e，\"主要由数据"
+            }
+          ]
+        },
+        {
+          "beat": "成本与普惠",
+          "works": 3,
+          "claims": 15,
+          "first": "2026-06-11",
+          "last": "2026-10-27",
+          "chapters": [
+            {
+              "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
+              "v": "15年",
+              "l": "Siri 首次重构"
+            },
+            {
+              "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
+              "v": "34%",
+              "l": "存储芯片在 iPhone 18 Pro 物料成本中的占比"
+            },
+            {
+              "file": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
+              "v": "1美元",
+              "l": "全球开源编码模型输出价上限（每百万token）"
+            }
+          ]
+        },
+        {
+          "beat": "安全与治理",
+          "works": 4,
+          "claims": 1,
+          "first": "2026-05-27",
+          "last": "2026-09-15",
+          "chapters": [
+            {
+              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html"
+            },
+            {
+              "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
+              "v": "3%",
+              "l": "⚡ 高风险系统"
+            },
+            {
+              "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html"
+            },
+            {
+              "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"
+            }
+          ]
         }
       ]
     }
   },
   "claim_stats": {
-    "total": 1160,
-    "works_covered": 101,
-    "works_total": 113,
-    "coverage": 89,
-    "pending": 439,
+    "total": 1085,
+    "works_covered": 103,
+    "works_total": 115,
+    "coverage": 90,
+    "pending": 539,
     "no_structure": 9,
     "by_beat": [
       {
         "name": "地缘与能源",
-        "claims": 286
+        "claims": 269
       },
       {
         "name": "开源 vs 闭源之争",
-        "claims": 188
-      },
-      {
-        "name": "厂商与算力权力",
-        "claims": 177
-      },
-      {
-        "name": "宏观利率与股市",
-        "claims": 166
+        "claims": 175
       },
       {
         "name": "估值与资本",
-        "claims": 133
+        "claims": 135
       },
       {
         "name": "Agent 与编排",
-        "claims": 120
+        "claims": 109
       },
       {
-        "name": "就业与劳动",
-        "claims": 85
+        "name": "宏观利率与股市",
+        "claims": 75
       },
       {
         "name": "应用落地",
-        "claims": 81
+        "claims": 70
       },
       {
-        "name": "安全与治理",
-        "claims": 71
-      },
-      {
-        "name": "工具链与产业主权",
+        "name": "厂商与算力权力",
         "claims": 64
       },
       {
-        "name": "算力·能耗·环境",
-        "claims": 62
-      },
-      {
-        "name": "成本与普惠",
-        "claims": 62
+        "name": "就业与劳动",
+        "claims": 53
       },
       {
         "name": "机器人与具身",
-        "claims": 54
+        "claims": 49
+      },
+      {
+        "name": "工具链与产业主权",
+        "claims": 42
+      },
+      {
+        "name": "算力·能耗·环境",
+        "claims": 27
+      },
+      {
+        "name": "成本与普惠",
+        "claims": 16
+      },
+      {
+        "name": "安全与治理",
+        "claims": 1
       }
     ]
   }

@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="showcase-beat" content="开源 vs 闭源之争">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>大模型推理优化新突破：MoE + 稀疏注意力 2026 新范式 | 研析出品</title>
 <style>
@@ -1144,5 +1145,31 @@ for scenario, tokens in SCENARIOS.items():
   <div class="meta-line">来源可靠性：A 级（官方论文+官方定价）占 85%、B 级（技术博客）占 12%、C 级（社区分析）占 3%</div>
 </footer>
 
+<script type="application/json" id="claims">
+[
+  {"value": "9 倍", "label": "训练加速", "quote": "9 倍训练加速"},
+  {"value": "4 倍", "label": "解码加速", "quote": "4 倍解码加速"},
+  {"value": "93.3%", "label": "KV Cache 减少", "quote": "KV Cache 减少 93.3%"},
+  {"value": "97%", "label": "精度保留", "quote": "精度保留 97%"},
+  {"value": "16 倍", "label": "专家拆分到比传统 MoE 细", "quote": "专家拆分到比传统 MoE 细 16 倍"},
+  {"value": "5.5%", "label": "把激活率压到", "quote": "把激活率压到 5.5%"},
+  {"value": "1 美元", "label": "可买（输入", "quote": "1 美元可买（输入）"},
+  {"value": "1 美元", "label": "可买（输出", "quote": "1 美元可买（输出）"},
+  {"value": "3%", "label": "激活率极限", "quote": "3% 激活率极限"},
+  {"value": "100%", "label": "Top 开源模型 MoE", "quote": "100% Top 开源模型 MoE"},
+  {"value": "8.57%", "label": "128K", "quote": "8.57% 128K"},
+  {"value": "9.36%", "label": "128K", "quote": "9.36% 128K"},
+  {"value": "27.6%", "label": "32K", "quote": "27.6% 32K"},
+  {"value": "+0.3%", "label": "精度损失（vs Full Attn）", "quote": "+0.3% 精度损失（vs Full Attn）"},
+  {"value": "0%", "label": "vLLM / TGI / SGLang", "quote": "0% vLLM / TGI / SGLang"},
+  {"value": "0%", "label": "PyTorch 2.3+ 原生", "quote": "0% PyTorch 2.3+ 原生"},
+  {"value": "-1%", "label": "Llama-3 / Mistral", "quote": "-1% Llama-3 / Mistral"},
+  {"value": "-3%", "label": "vLLM 插件", "quote": "-3% vLLM 插件"},
+  {"value": "-5%", "label": "研究阶段", "quote": "-5% 研究阶段"},
+  {"value": "5.5%", "label": "Qwen3-235B-A22B：128 专家 + MoE", "quote": "5.5% Qwen3-235B-A22B：128 专家 + MoE"},
+  {"value": "9.4%", "label": "Mixtral 8x22B：经典 MoE 范式", "quote": "9.4% Mixtral 8x22B：经典 MoE 范式"},
+  {"value": "27.7%", "label": "专家数量", "quote": "27.7% 专家数量"}
+]
+</script>
 </body>
 </html>

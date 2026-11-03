@@ -1,0 +1,28 @@
+﻿impeccable detect 原始输出 · 选题405 · 2026-11-03
+========================================================
+
+【命令】
+cd /app/working/shared/showcase &&   /app/working/workspaces/default/skills/impeccable/scripts/impeccable detect --json   2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html
+
+【输出】
+[]
+
+【计数】
+输出条目总数 0 · error 0 · warning 0 · advisory 0（退出码 0）
+
+【结论】
+0 error、0 warning、0 advisory（输出为空数组 []）。本次改稿（口径统一为 LSEG 调查分析师口径：自由现金流共识 -27 亿、资本开支共识 550.9 亿）未引入新 advisory。
+其余门禁由同目录命令复核通过：
+- claim_gate --scan 退出码 0；--backfill 变更条目 1（本篇断言已回填）；--verify 重校验 1160 条断言「✓ 全部通过」
+- build_manifest --check 退出码 0：manifest 与磁盘一致，断言 1160 条 · 覆盖 101/113 件 · 重校验 1160/1160 通过
+- 缩略图按改后正文重截：thumbs/2026-11-02-research-2026-11-02-alphabet-ai-monetization-gap-thumb.webp（20,352 B）
+
+【口径依据】
+/app/working/shared/showcase/2026-11-02/notes/405-caliber-ruling-20261103.md（第 5 节：正文 4 处 + 断言 2 条 quote）
+
+【说明】
+- notes/impeccable_detect_alphabet.json 原为 3 字节空数组，按任务要求保留不删。
+- 本文件为 2026-11-03 改稿后重跑的留痕，格式对齐 406-impeccable-detect-20261102.txt。
+
+【执行记录】
+2026-11-03 由研析在口径裁定落地改稿后补跑（改稿前该篇 detect 亦为 []）。
