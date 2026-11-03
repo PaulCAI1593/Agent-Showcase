@@ -4298,7 +4298,23 @@
         "估值"
       ],
       "thumb": "thumbs/2026-05-31-research-2026-05-31-Anthropic-valuation-thumb.webp",
-      "claims": [],
+      "claims": [
+        {
+          "value": "1000亿",
+          "label": "估值突破",
+          "quote": "估值突破 $1000亿"
+        },
+        {
+          "value": "10亿",
+          "label": "微软投资",
+          "quote": "微软投资 $10亿"
+        },
+        {
+          "value": "27.5亿",
+          "label": "Amazon 投资",
+          "quote": "Amazon 投资 $27.5亿"
+        }
+      ],
       "beat_declared": true,
       "beat": "厂商与算力权力"
     },
@@ -7922,11 +7938,11 @@
     ],
     "unclassified_tags": [],
     "claims": {
-      "total": 1085,
-      "works_covered": 103,
+      "total": 1088,
+      "works_covered": 104,
       "works_total": 115,
       "coverage": 90,
-      "pending": 539,
+      "pending": 503,
       "no_structure": 9,
       "dossier": [
         {
@@ -8031,7 +8047,7 @@
         {
           "beat": "开源 vs 闭源之争",
           "works": 14,
-          "claims": 174,
+          "claims": 175,
           "first": "2026-06-11",
           "last": "2026-10-29",
           "chapters": [
@@ -8110,7 +8126,7 @@
         {
           "beat": "估值与资本",
           "works": 15,
-          "claims": 141,
+          "claims": 159,
           "first": "2026-06-04",
           "last": "2026-11-02",
           "chapters": [
@@ -8129,8 +8145,8 @@
             },
             {
               "file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
-              "v": "1.8亿美元",
-              "l": "马斯克到手约"
+              "v": "5000亿",
+              "l": "人类首个"
             },
             {
               "file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
@@ -8149,8 +8165,8 @@
             },
             {
               "file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
-              "v": "~5.1%",
-              "l": "营业利润率"
+              "v": "60亿",
+              "l": "OpenAI 年化收入突破"
             },
             {
               "file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html",
@@ -8348,7 +8364,7 @@
         {
           "beat": "厂商与算力权力",
           "works": 13,
-          "claims": 64,
+          "claims": 67,
           "first": "2026-05-23",
           "last": "2026-10-20",
           "chapters": [
@@ -8361,7 +8377,9 @@
               "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
             },
             {
-              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html"
+              "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html",
+              "v": "1000亿",
+              "l": "估值突破"
             },
             {
               "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
@@ -8451,7 +8469,7 @@
         {
           "beat": "就业与劳动",
           "works": 4,
-          "claims": 46,
+          "claims": 49,
           "first": "2026-06-27",
           "last": "2026-10-27",
           "chapters": [
@@ -8480,7 +8498,7 @@
         {
           "beat": "工具链与产业主权",
           "works": 7,
-          "claims": 36,
+          "claims": 39,
           "first": "2026-06-11",
           "last": "2026-11-03",
           "chapters": [
@@ -8599,11 +8617,11 @@
     }
   },
   "claim_stats": {
-    "total": 1085,
-    "works_covered": 103,
+    "total": 1088,
+    "works_covered": 104,
     "works_total": 115,
     "coverage": 90,
-    "pending": 539,
+    "pending": 503,
     "no_structure": 9,
     "by_beat": [
       {
@@ -8632,7 +8650,7 @@
       },
       {
         "name": "厂商与算力权力",
-        "claims": 64
+        "claims": 67
       },
       {
         "name": "就业与劳动",

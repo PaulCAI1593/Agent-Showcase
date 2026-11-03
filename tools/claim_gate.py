@@ -100,6 +100,16 @@ _VALUE_RE = re.compile(
 )
 _HAS_UNIT = re.compile('(?:' + '|'.join(re.escape(u) for u in UNITS) + r')')
 _TOKEN_RE = re.compile(r'<(\w+)([^>]*)>([^<>]{1,80})')
+# 金额 token：标签里若还挂着一个金额，说明配对错位（见规则 B2）
+# ⚠️ 单位表必须收窄：无歧义的货币单位才收。
+#    万/元 会误伤「5000万行迁移」「70万桶」「13.46元/百万词元」；
+#    K 是 token 长度（128K）、M/B 常是模型参数（8x22B、70B）——
+#    靠 (?<![A-Za-z×x]) 豁免字母前缀的参数量写法。
+# ⚠️ 判别「这是钱」最可靠的锚点是**货币符号**，不是数字形状：
+#    「$450M」是金额；「235B」「8x22B」「128K」「5000万行」是参数量/规模/行数。
+#    所以只认「货币符号 + 数字」，且必须在剥符号**之前**判断（剥了就丢了这个锚点）。
+_MONEY_TOKEN = re.compile(r'[$¥€£]\s*\d[\d,\.]*\s*(?:[KMB]|亿|万|兆)?')
+
 _INLINE_NUM = re.compile(r'[\-+~≈<>]?[\d][\d,\.]*\s*(?:' +
                          '|'.join(re.escape(u) for u in UNITS) + r')')
 _YEAR_ONLY = re.compile(r'^\d{4}\s*年$')      # 2026年 是年份，不是指标
@@ -186,8 +196,18 @@ _MARKER_PREFIX = re.compile(r'^[\s•·▲▼🔴🟠🟡🟢➡️↑↓*\u2022
 _TRAIL_PUNCT = re.compile(r'^[\s.,;:!?%)\]}》」』…·•\-—–]*$')
 
 
+# 货币符号与波浪号属于**数值侧**：原文写「估值 $50亿」，抽出来应是
+# value=「50亿」 label=「估值」，而不是 label=「估值 $」——
+# 后者会被 G2 的「含结构符号」判掉，于是真指标被误杀。
+# 实测全馆 31 条这样的候选被这条规则误杀（Anthropic 估值、马斯克财富史等）。
+_CCY_NOISE = re.compile(r'[~$¥€£]+')
+_TRAIL_SEP = re.compile(r'[\s·|:：]+$')
+
+
 def _clean_label(s):
-    """剥掉标签首尾的装饰性标点，返回核心串。"""
+    """剥掉标签首尾的装饰性标点与货币符号，返回核心串。"""
+    s = _CCY_NOISE.sub('', s)
+    s = _TRAIL_SEP.sub('', s)
     return s.strip(' 　,，。;；:：()（）[]【】·|/-—–')
 
 
@@ -233,6 +253,12 @@ def _extract_inline(text):
         return None
     # B 残留首尾不能是数字（说明还挂着另一个数值）
     if core[0].isdigit() or core[-1].isdigit():
+        return None
+    # B2 残留里若还挂着**另一个金额**，配对就是错的：
+    #    「B轮融资 $450M · 估值 $50亿」里，50亿 对应的标签不是
+    #    「B轮融资 450M · 估值」——那是把两个值混成一条。
+    #    只认金额单位（亿/万亿/M/美元…），不碰 25bp、3.75% 这类指标名里的数字。
+    if _MONEY_TOKEN.search(rest):          # 用**剥符号前**的原文判断
         return None
     # C 至少 2 个词字
     if len(_WORD.findall(core)) < 2:
