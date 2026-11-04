@@ -48,8 +48,9 @@ sys.path.insert(0, TOOLS)
 # 复用既有工具的逻辑（只读导入，不改动其源码）
 import autotag          # noqa: E402
 import build_manifest   # noqa: E402
-import gen_thumb        # noqa: E402
 import make_thumbs_webp  # noqa: E402
+# gen_thumb 顶层依赖 playwright，CI 环境未安装；它只在阶段5 非 dry
+# 分支被调用，故改为延迟导入（--dry-run 永远不会执行到该分支）。
 
 MANIFEST = os.path.join(ROOT, 'manifest.json')
 ENRICH = os.path.join(ROOT, 'enrich.json')
@@ -163,7 +164,7 @@ PIPELINE_MANAGED = {'manifest.json', 'enrich.json', 'index.html', 'README.md'}
 
 # showcase 根目录允许存在的文件（白名单）。白名单外的一律在 W2 报出，
 # 避免 preview.png / test.txt 这类死重长期隐身（原判据只统计 .html）。
-ROOT_ALLOWED = PIPELINE_MANAGED | {'DESIGN_REFERENCE.md'}
+ROOT_ALLOWED = PIPELINE_MANAGED | {'DESIGN_REFERENCE.md', 'LICENSE', 'CONTRIBUTING.md'}
 
 # 临时/草稿目录名（命中即整体隔离）
 SCRATCH_DIR_NAMES = {
@@ -735,6 +736,7 @@ def phase_thumbs(disk_works, manifest, registry, dry):
             continue
         log(f'  → {rel} ({typ})｜原因：{why}')
         try:
+            import gen_thumb      # 延迟导入：仅此处需要 playwright
             gen_thumb.shoot(rel, typ)
         except Exception as exc:
             # 一件作品截不出缩略图（远程资源挂住等）不该带崩整条流水线
