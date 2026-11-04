@@ -37,7 +37,7 @@ VIEWPORT = {"width": 1260, "height": 800}
 
 def works():
     out = []
-    for f in sorted(glob.glob("20*/*/*.html")):
+    for f in sorted(glob.glob("works/20*/*/*.html")):
         if ".bak" in f or f.startswith("."):
             continue
         out.append(f)

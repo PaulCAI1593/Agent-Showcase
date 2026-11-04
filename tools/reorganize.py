@@ -65,8 +65,10 @@ def current_types():
 
 def work_date(rel):
     parts = rel.split(os.sep)
-    if parts and DATE_RE.match(parts[0]):
-        return parts[0]
+    # works/YYYY-MM-DD/... 的日期在第 2 段；兼容旧的根级日期目录
+    idx = 1 if parts and parts[0] == 'works' else 0
+    if len(parts) > idx and DATE_RE.match(parts[idx]):
+        return parts[idx]
     m = LEAD_DATE_RE.match(os.path.basename(rel))
     return m.group(1) if m else None
 
@@ -78,14 +80,19 @@ def slug_of(rel):
 
 
 def canonical_path(date, typ, slug):
-    return os.path.join(date, typ, f'{date}-{slug}.html')
+    # 日期目录统一在 works/ 下（2026-11-04 目录整理）
+    return os.path.join('works', date, typ, f'{date}-{slug}.html')
 
 
 def is_canonical(rel):
+    # 结构：works/YYYY-MM-DD/{research|creative}/YYYY-MM-DD-slug.html（4 段）
     parts = rel.split(os.sep)
-    if len(parts) != 3 or not DATE_RE.match(parts[0]) or parts[1] not in ('research', 'creative'):
+    if len(parts) != 4 or parts[0] != 'works':
         return False
-    return parts[2] == f'{parts[0]}-{slug_of(parts[2])}.html'
+    date, typ, fn = parts[1], parts[2], parts[3]
+    if not DATE_RE.match(date) or typ not in ('research', 'creative'):
+        return False
+    return fn == f'{date}-{slug_of(fn)}.html'
 
 
 def main():
@@ -110,15 +117,15 @@ def main():
 
     # 过程材料：日期目录内所有非 .html 文件 → notes/
     notes_moves = []
-    for d in sorted(os.listdir(ROOT)):
+    for d in sorted(os.listdir(os.path.join(ROOT, 'works'))):
         if not DATE_RE.match(d):
             continue
-        for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, d)):
+        for dirpath, dirnames, filenames in os.walk(os.path.join(ROOT, 'works', d)):
             for fn in filenames:
                 if fn.endswith('.html'):
                     continue
                 rel = os.path.relpath(os.path.join(dirpath, fn), ROOT)
-                tgt = os.path.join(d, 'notes', fn)
+                tgt = os.path.join('works', d, 'notes', fn)
                 if rel != tgt:
                     notes_moves.append((rel, tgt))
 
@@ -150,7 +157,7 @@ def main():
         new_stem = os.path.basename(n)[:-5]
         if old_stem != new_stem:
             date = work_date(n)
-            typ = n.split(os.sep)[1]
+            typ = n.split(os.sep)[2] if n.split(os.sep)[0] == 'works' else n.split(os.sep)[1]
             for ext in ('webp', 'png'):
                 ot = os.path.join('thumbs', f'{date}-{typ}-{old_stem}-thumb.{ext}')
                 if os.path.exists(os.path.join(ROOT, ot)):

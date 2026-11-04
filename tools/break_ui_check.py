@@ -46,26 +46,26 @@ def fixture_worst():
     LONG = "国务院金融监督管理总局办公厅关于印发商业银行互联网贷款管理暂行办法的通知及实施细则的通知"
     w = [
         # 签名①：超长标题 + 缩略图 404 + 超长断言 + 超长标签
-        it("2026-11-01/research/a.html", LONG * 2, "2026-11-01", "research",
+        it("works/2026-11-01/research/a.html", LONG * 2, "2026-11-01", "research",
            thumb="thumbs/DOES-NOT-EXIST.webp", claims=[C(LONG, LONG, LONG)],
            beat="估值与资本", tags=["a" * 80], desc=LONG * 3),
         # 签名②：无断言 / 无标签 / 无追踪线
-        it("2026-11-01/creative/b.html", "短", "2026-11-01", "creative"),
+        it("works/2026-11-01/creative/b.html", "短", "2026-11-01", "creative"),
         # 签名③：空标题 + 空日期
-        it("2026-11-01/research/c.html", "", "", "research"),
+        it("works/2026-11-01/research/c.html", "", "", "research"),
         # 签名④：标题含 HTML 片段与引号
-        it("2026-11-01/research/d.html", '标题含"引号"与 <script> 与 & 符号',
+        it("works/2026-11-01/research/d.html", '标题含"引号"与 <script> 与 & 符号',
            "2026-11-01", "research", claims=[C("", ""), C("0", "")],
            beat="估值与资本", tags=["<b>x</b>"]),
         # 签名⑤：Emoji 开头
-        it("2026-11-01/creative/e.html", "🚀 Emoji 开头的标题", "2026-11-01", "creative"),
+        it("works/2026-11-01/creative/e.html", "🚀 Emoji 开头的标题", "2026-11-01", "creative"),
         # 签名⑥：400 字标题 + 300 字断言
-        it("2026-11-01/research/f.html", "f" * 400, "2026-11-01", "research",
+        it("works/2026-11-01/research/f.html", "f" * 400, "2026-11-01", "research",
            claims=[C("1" * 300, "x" * 300)]),
     ]
     # 签名⑦：单月 113 件（一个抽屉塞爆）
     for k in range(113):
-        w.append(it(f"2026-10-01/research/bulk{k}.html", f"批量作品 {k}",
+        w.append(it(f"works/2026-10-01/research/bulk{k}.html", f"批量作品 {k}",
                     "2026-10-01", "research", claims=[C(f"{k}%", f"指标 {k}")]))
     stats = {"generated": "2026-11-03", "span": {"a": 1}, "rhythm": [], "capacity": {},
              "collab": {}, "beats": ["估值与资本"], "unclassified_tags": [],

@@ -46,19 +46,19 @@ CHARSET_RE = re.compile(r'<meta charset="[^"]*">', re.I)
 # 所以这里注入声明，manifest 下次构建自动跟随 —— 不手改生成物。
 BEAT_OVERRIDES = {
     # 断言全是收入结构/毛利率/资本开支（+176% 2048、+35% -138、+22% 金融科技）→ 财务视角
-    '2026-08-15/research/2026-08-15-tencent-ai-bet.html': '估值与资本',
+    'works/2026-08-15/research/2026-08-15-tencent-ai-bet.html': '估值与资本',
     # 断言全是营收/YoY/毛利率/Cloud 增速的横向对比 → 财报视角
-    '2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html': '估值与资本',
+    'works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html': '估值与资本',
     # 断言是净资产/财富/市值里程碑 → 资本视角
-    '2026-06-20/creative/2026-06-20-musk-trillion-path.html': '估值与资本',
+    'works/2026-06-20/creative/2026-06-20-musk-trillion-path.html': '估值与资本',
     # 断言是工具份额/企业渗透/AI 写代码比例/设备覆盖 → AI 编程工具的产业面
-    '2026-06-20/creative/2026-06-20-spacex-cursor.html': '工具链与产业主权',
+    'works/2026-06-20/creative/2026-06-20-spacex-cursor.html': '工具链与产业主权',
     # 断言是 FrontierCode / SWE-Bench Pro / HLE 的模型对战 → 厂商军备竞赛
-    '2026-06-12/creative/2026-06-12-ai-model-wars-48h.html': '厂商与算力权力',
+    'works/2026-06-12/creative/2026-06-12-ai-model-wars-48h.html': '厂商与算力权力',
     # 断言是各 IDE 工具份额与渗透率 → 工具链
-    '2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html': '工具链与产业主权',
+    'works/2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html': '工具链与产业主权',
     # 断言是多模型路由的接入层 → 工具链（与 407「智能体上岗证」同面）
-    '2026-06-11/creative/2026-06-11-model-routing-layer.html': '工具链与产业主权',
+    'works/2026-06-11/creative/2026-06-11-model-routing-layer.html': '工具链与产业主权',
 }
 
 

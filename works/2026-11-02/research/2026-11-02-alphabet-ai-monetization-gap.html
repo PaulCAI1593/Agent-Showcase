@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>营收超预期之外的那张表——Alphabet 首次把「AI 搜索的变现缺口」写进财报 —— 研析</title>
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="Alphabet 三季度：营收增长 25%，云 +103%、搜索仅 +12%，自由现金流 -90.7 亿美元，公司自认 AI 搜索的变现缺口。">
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root{
+  --paper:#eaedea; --paper-raised:#f4f6f4;
+  --ink:#171a18; --ink-2:#4f5551; --ink-3:#646b67;
+  --rule:#d2d8d4; --rule-soft:#dfe4e0;
+  --brass:#7d5a1c; --brass-wash:#efe4cc;
+  --deep:#121513; --deep-ink:#eef0ee; --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+::selection{background:var(--brass-wash);color:var(--ink)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(34px,4.4vw,52px);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:40ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:38px}
+p{max-width:68ch;text-wrap:pretty}
+p + p{margin-top:16px}
+
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(24px,2.7vw,32px);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.65;color:var(--deep-2);max-width:58ch;
+}
+
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:36px;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:12px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.62;color:var(--ink);
+  max-width:56ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;
+}
+
+.colophon{padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.7;color:var(--ink-3);max-width:60ch}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>营收超预期之外的那张表——Alphabet 首次把「AI 搜索的变现缺口」写进财报</h1>
+        <p class="standfirst">损益表说一切正常：营收 +25%、营业利润 +30%。紧挨着它的是另外两张表：分部表上，云 +103% 与搜索 +12% 首次同框；现金流量表上，自由现金流 -90.7 亿美元、回购归零。公司自己承认 AI 模式收益低于传统搜索，「缺口」从市场传闻变成账面事实。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-02</dd></div>
+          <div><dt>主责</dt><dd>研析（主责）× 数析（口径）</dd></div>
+          <div><dt>追踪线</dt><dd>估值与资本</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">查询量创五年最高、搜索收入只增 12%：AI 的变现缺口，第一次写进了 Alphabet 自己的现金流量表。</p>
+    <p class="verdict-note">支撑机制有三层。其一，AI 模式直接给出完整答案，用户不点广告、不逛网站，付费点击同比只增 8%，追不上查询量的增速；其二，搜索占集团营收 49.7%、占广告收入 77.2%，基本盘落到 12% 就不再是分部小事；其三，资本开支 513.6 亿美元（同比 +114%）把单季现金打穿，负缺口靠发债与募股垫底。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八组数字同页对照，两张「表」的落差一目了然。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">1,275.8 亿美元</div>
+        <div class="metric-label">Alphabet 三季度营收</div>
+        <div class="metric-source">公司 EX-99.1 · 2026 Q3 · 同比 +25%（预期 1,282.2 亿）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">-90.7 亿美元</div>
+        <div class="metric-label">Alphabet 三季度自由现金流</div>
+        <div class="metric-source">公司 EX-99.1 · 2026 Q3 · 共识预期负 27 亿（LSEG 调查分析师口径）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">+103%</div>
+        <div class="metric-label">Alphabet 云业务营收</div>
+        <div class="metric-source">公司 EX-99.1 · 2026 Q3 · 单季 307 亿美元</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">+12%</div>
+        <div class="metric-label">Alphabet 搜索收入同比增速</div>
+        <div class="metric-source">公司 EX-99.1 · 2026 Q3 · 环比 +0.1%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">513.6 亿美元</div>
+        <div class="metric-label">Alphabet 三季度资本开支</div>
+        <div class="metric-source">公司 EX-99.1 · 2026 Q3 · 占营收 40.3%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">0</div>
+        <div class="metric-label">Alphabet 三季度股票回购</div>
+        <div class="metric-source">公司 EX-99.1 现金流量表 · 上年同期 115 亿</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,251 亿美元</div>
+        <div class="metric-label">Alphabet 长期债务余额</div>
+        <div class="metric-source">公司 EX-99.1 资产负债表 · 2026-09-30 · 较年末 +168.8%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">10 亿</div>
+        <div class="metric-label">Gemini 应用用户数</div>
+        <div class="metric-source">公司财报披露 · 2026 Q3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>把缺口拆成三段链条</h2>
+    <p class="lede">变现、资金、偿还，三段各自可核对的链条，拼出这张表的全貌。</p>
+    <p>第一段是变现。管理层口径的查询量同比增速创五年最高（未披露数值），而 10-Q 变现指标表里付费点击只增 8%、单次点击成本只增 4%，两者相乘也追不上收入端；搜索收入环比仅 +0.1%。AI 模式给的是完整答案，用户少点广告、少逛落地页，查询量与付费点击之间的裂口就是缺口本身。</p>
+    <p>第二段是资金。资本开支 513.6 亿美元低于预期 550.9 亿美元（LSEG 口径），占营收的比例从 23.4% 抬到 40.3%，前三季合计 1,319.5 亿美元。经营现金流 422.9 亿美元填不满单季开支，自由现金流 -90.7 亿美元（预期负 27 亿，LSEG 口径），前三季合计 -48.0 亿美元。缺口由融资端补：长期债务从 465.5 亿增至 1,251.0 亿美元（+168.8%），6 月股权融资净额合计 495.6 亿美元（含伯克希尔定向 100 亿、强制可转优先股 190.6 亿），本季股票回购为 0（上年同期 115.0 亿）。</p>
+    <p>第三段是偿还。云在手合同 5,608 亿美元（Google Cloud 口径的剩余履约义务）是收入侧的远期抵押；云营业利润率从 23.7% 升到 36.2%，但云营业利润 111.2 亿美元只相当于搜索收入 633.5 亿的 17.6%，增速翻倍也补不上搜索的量级。支出侧的承诺更长：10-Q 口径未来采购承诺 9,244 亿美元、未开始履行的租赁 1,305 亿美元，12 个月内到期 2,134 亿；按全年资本开支指引 1,950–2,050 亿美元反推，四季度还要花 630.5–730.5 亿，为三季度单季的 1.23–1.42 倍。</p>
+    <p>同步发生的还有一组镜像数字：云业务营收 307 亿美元同比增 103%，Gemini 应用用户达 10 亿。入口规模没有丢，丢的是入口里的变现密度。利润表内部同样在分岔：营业利润 +29.9%，但权益证券投资损失 86.6 亿美元拖累净利润 67 亿、每股 0.55；剔除后摊薄 EPS 2.67 美元，仍低于上年同期的 2.87。</p>
+    <p>团队判断（留在正文，不进断言层）：短期靠债务与股权融资接续现金，中期看 36% 的云利润率能否守住，长期赌 AI 模式的变现率追上查询量。在此之前，每一个财报季都值得先翻那张现金流表。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">搜索增速四季连降，自由现金流三季走完「盈、缩、负」，两条曲线在 10 月 29 日同框。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2025 Q4</span>
+        <div>
+          <div class="timeline-title">搜索 +16.7%，自由现金流 245.5 亿美元</div>
+          <div class="timeline-detail">资本开支 278.5 亿美元，经营现金流足以覆盖，AI 支出尚不需外部融资。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026 Q1</span>
+        <div>
+          <div class="timeline-title">搜索 +19.1%，自由现金流 101.2 亿美元</div>
+          <div class="timeline-detail">资本开支升至 356.7 亿美元，现金第一次逼近平衡线。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026 Q2</span>
+        <div>
+          <div class="timeline-title">搜索 +16.8%，自由现金流 -58.6 亿美元</div>
+          <div class="timeline-detail">资本开支 449.2 亿美元首次超过单季经营现金流 390.7 亿美元，转负。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-06</span>
+        <div>
+          <div class="timeline-title">官宣拟筹集 800 亿美元股权融资</div>
+          <div class="timeline-detail">伯克希尔以非公开配售投资 100 亿美元；10-Q 附注口径，当月股权融资净额合计 495.6 亿美元（含强制可转优先股 190.6 亿）。（每日热点新闻简报 2026-06-03）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-28</span>
+        <div>
+          <div class="timeline-title">Gemini 4 Carbon 登顶 Artificial Analysis 智能指数 v5.0（59 分）</div>
+          <div class="timeline-detail">模型能力登顶与现金流量表恶化出现在同一周。（每日热点新闻简报 2026-10-29 · 科技动态 1）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-29</span>
+        <div>
+          <div class="timeline-title">三季报落地，盘后跌超 10%</div>
+          <div class="timeline-detail">摊薄 EPS 2.12 美元（-26%）、净利润 261.70 亿美元（-25%）；搜索 +12% 与云 +103% 同框，自由现金流 -90.7 亿美元。（腾讯新闻/华尔街见闻，10-29）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-29</span>
+        <div>
+          <div class="timeline-title">信贷市场定价：微软与 Alphabet 五年期 CDS 同期创历史新高</div>
+          <div class="timeline-detail">AI 基建融资的债券与贷款收益率升至两位数，风险向保险资金转移遇阻。（财联社，10-29）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-01</span>
+        <div>
+          <div class="timeline-title">资本开支回报担忧打到估值</div>
+          <div class="timeline-detail">AI 相关市值合计蒸发 1 万亿美元；此前一周，巨头回购已因 AI 开支砍掉约八成（AI 简报 10-31）。（通信世界早报，11-01）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02</span>
+        <div>
+          <div class="timeline-title">谷歌自认 AI 搜索「太好用」</div>
+          <div class="timeline-detail">罕见承认用户不点广告、不逛网站；同期美国参议院就默认内嵌 AI 向 Google CEO 发函九问，限期 30 天回答。（AI风向/今日头条，经每日AI技术动态简报 11-02 转引）</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">谷歌AI模式开始伤及自身收入：搜索收入仅增12%，公司承认AI模式收益低于传统搜索，股价一度跌约10%，而Cloud收入翻倍至307亿美元；AI搜索的变现缺口首次在财报中显形。</p>
+        <cite class="evidence-source">The Verge／AI News Brief，转引自每日AI技术动态简报 2026-10-29 · 行业影响 1</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Alphabet三季度不及预期：营收1275.8亿美元同比增25%、低于预期1282.2亿美元，摊薄EPS 2.12美元同比降26%，净利润261.70亿美元同比降约25%……自由现金流骤降至负90.7亿美元（预期负35亿），资本开支513.6亿美元低于预期557.8亿；云业务营收307亿美元同比增103%超预期，Gemini应用用户达10亿</p>
+        <cite class="evidence-source">腾讯新闻／华尔街见闻，转引自每日热点新闻简报 2026-10-29 · 科技动态 2（公司财报口径；此条为华尔街见闻／腾讯新闻编译口径，非 LSEG）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">谷歌罕见承认自家AI搜索"太好用"——用户不点广告、不逛网站</p>
+        <cite class="evidence-source">AI风向／今日头条，转引自每日AI技术动态简报 2026-11-02 · 行业影响 4</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">微软与Alphabet五年期CDS同期创历史新高</p>
+        <cite class="evidence-source">财联社，转引自每日热点新闻简报 2026-10-29 · 金融动态 5</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Alphabet拟筹集800亿美元加码AI　谷歌母公司宣布股权融资，伯克希尔哈撒韦以非公开配售方式投资100亿美元</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-06-03 · 科技动态 1</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">AI资本开支第一次被市场逐项审账：Alphabet、亚马逊、Meta、微软合计资本开支计划超7400亿美元……微软等五家巨头因AI开支把回购砍掉约八成</p>
+        <cite class="evidence-source">AI Brief 10-31／财联社，转引自每日AI技术动态简报 2026-10-31 · 行业影响 1</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">以下是Alphabet业绩与LSEG调查分析师预期的对比情况：调整后每股收益：2.67 美元，低于预期的3.02美元营收：1275.8亿美元，略低于预期的1282.2亿美元……该公司报告的第三季度自由现金流为负90.7亿美元，这比分析师预期的负27亿美元要糟糕得多……资本支出方面，Alphabet第三季度资本支出为513.6亿美元，低于分析师预期的550.9亿美元。</p>
+        <cite class="evidence-source">财联社（编辑 卞纯）／澎湃新闻，2026-10-29 · LSEG 调查分析师预期对照表</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>方法与局限：财务数取自数析测算底稿 calc_alphabet_q3_2026.py（口径：SEC EDGAR EX-99.1 与 10-Q，百万美元原值），发布前本地复跑一次，与正文逐条核对一致。正文共识数统一采用 LSEG 调查分析师口径（营收预期 1,282.2 亿、自由现金流预期 -27 亿、资本开支预期 550.9 亿），底稿台账同口径。本次查证另有两套在流传的共识值不采纳：华尔街见闻／腾讯新闻编译口径（自由现金流预期 -35 亿、资本开支预期 557.8 亿），该稿只写「市场预期／分析师预估」，未标注具名数据商，其配套估计与 LSEG、FactSet 任一估计集都不吻合；路透口径引 LSEG 编译数据，自由现金流共识为 -0.36 亿（接近损益两平）。LSEG 终端原始一致预期值本次未直接核对。「查询量增速创五年最高」为管理层口径，未披露数值。未验证：SEC 原文逐表复核、CDS 数据独立回查；CDS 只有一家中文转引来源，置信度中等。断言 7 条，全部逐字回查；解释性判断（第一段变现缺口的结构性归因、末段团队判断）只存在于正文。Artificial Analysis 口径写明版本号 v5.0，与另一套「独立智力指数」未混用。事实与判断分离的边界同上。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+-->
+<script type="application/json" id="claims">
+[
+  {"value": "1275.8 亿美元", "label": "Alphabet 三季度营收", "quote": "营收1275.8亿美元同比增25%、低于预期1282.2亿美元"},
+  {"value": "-90.7 亿美元", "label": "Alphabet 三季度自由现金流", "quote": "该公司报告的第三季度自由现金流为负90.7亿美元，这比分析师预期的负27亿美元要糟糕得多"},
+  {"value": "+103%", "label": "Alphabet 云业务营收同比增速", "quote": "云业务营收307亿美元同比增103%"},
+  {"value": "307 亿美元", "label": "Alphabet 云业务营收", "quote": "云业务营收307亿美元"},
+  {"value": "+12%", "label": "Alphabet 搜索收入同比增速", "quote": "搜索收入仅增12%"},
+  {"value": "513.6 亿美元", "label": "Alphabet 三季度资本开支", "quote": "Alphabet第三季度资本支出为513.6亿美元，低于分析师预期的550.9亿美元"},
+  {"value": "0", "label": "Alphabet 三季度股票回购", "quote": "本季股票回购为 0（上年同期 115.0 亿）"}
+]
+</script>
+
+</body>
+</html>

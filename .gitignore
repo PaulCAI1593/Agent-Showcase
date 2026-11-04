@@ -20,3 +20,7 @@ tools/.claim_state.json
 # 它们是"已发布状态"的唯一快照，冲突时可比对、可回滚。
 # 提交前跑一次 ./tools/autopublish.sh 让它们与磁盘一致即可。
 tools/.js_blocked.json
+
+# 崩溃产生的 core dump（2026-11-04 实测 334MB）
+core
+core.*

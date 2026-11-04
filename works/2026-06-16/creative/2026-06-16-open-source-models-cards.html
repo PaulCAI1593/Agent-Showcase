@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="开源 vs 闭源之争">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开源模型爆发周 — 4款模型卡片翻转全景图</title>
+<style>
+  :root {
+    --bg:#000; --surface:#111113; --card-front:#161618; --card-back:#1a1a1e;
+    --text-1:#f5f5f7; --text-2:#a1a1a6; --text-3:#828286; --border:rgba(255,255,255,0.08);
+    --glow-0:#7e81f3; --glow-1:#06b6d4; --glow-2:#f97316; --glow-3:#f15959;
+    --radius:20px; --ease-out:cubic-bezier(0.16,1,0.3,1);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{font-size:16px;-webkit-font-smoothing:antialiased}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Noto Sans SC",sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;overflow-x:hidden;position:relative}
+  body::before{content:'';position:fixed;top:-20%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(99,102,241,0.06) 0%,transparent 70%);pointer-events:none;z-index:0}
+  body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(6,182,212,0.05) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+  /* HEADER */
+  .hero{position:relative;z-index:1;text-align:center;padding:80px 24px 20px}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:500;color:#a5b4fc;letter-spacing:0.04em;margin-bottom:24px;animation:fadeUp .8s var(--ease-out) both}
+  .hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;background:none;-webkit-background-clip:text;-webkit-text-fill-color:#f5f5f7;background-clip:text;animation:fadeUp .8s var(--ease-out) .1s both}
+  .hero p{font-size:clamp(16px,2.5vw,20px);color:var(--text-2);margin-top:16px;font-weight:400;animation:fadeUp .8s var(--ease-out) .2s both}
+  .hero .date-tag{display:inline-block;margin-top:12px;font-size:13px;color:var(--text-3);letter-spacing:.06em;animation:fadeUp .8s var(--ease-out) .25s both}
+
+  /* HINT */
+  .hint{text-align:center;padding:12px 0 8px;font-size:13px;color:var(--text-3);position:relative;z-index:1;animation:fadeUp .8s var(--ease-out) .3s both}
+  .hint span{display:inline-flex;align-items:center;gap:6px}
+  .hint .click-icon{display:inline-block;width:20px;height:20px;border:1.5px solid var(--text-3);border-radius:6px;position:relative;animation:hintPulse 2s ease-in-out infinite}
+  .hint .click-icon::after{content:'';position:absolute;top:50%;left:50%;width:6px;height:6px;background:var(--text-3);border-radius:50%;transform:translate(-50%,-50%)}
+
+  /* CARD GRID */
+  .cards-container{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+  /* CARD CORE */
+  .card-wrapper{perspective:1200px;cursor:pointer;height:420px;animation:fadeUp .8s var(--ease-out) both}
+  .card-wrapper:nth-child(1){animation-delay:.35s}
+  .card-wrapper:nth-child(2){animation-delay:.45s}
+  .card-wrapper:nth-child(3){animation-delay:.55s}
+  .card-wrapper:nth-child(4){animation-delay:.65s}
+  .card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s var(--ease-out)}
+  .card.flipped{transform:rotateY(180deg)}
+  .card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);overflow:hidden}
+
+  /* FRONT */
+  .card-front{background:var(--card-front);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 24px;text-align:center;transition:border-color .3s,box-shadow .3s}
+  .card-wrapper:hover .card-front{border-color:rgba(255,255,255,0.15)}
+  .card-front::before{content:'';position:absolute;top:-1px;left:50%;width:80px;height:3px;border-radius:0 0 3px 3px;transform:translateX(-50%);background:var(--card-accent);box-shadow:0 0 20px var(--card-accent);opacity:.8}
+  .card-front::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+  .card-icon{width:72px;height:72px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:20px;position:relative;z-index:1;background:linear-gradient(135deg,color-mix(in srgb,var(--card-accent) 20%,transparent),color-mix(in srgb,var(--card-accent) 8%,transparent));border:1px solid color-mix(in srgb,var(--card-accent) 25%,transparent)}
+  .card-company{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--card-accent);margin-bottom:8px;position:relative;z-index:1}
+  .card-name{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;position:relative;z-index:1}
+  .card-tagline{font-size:14px;color:var(--text-2);line-height:1.5;max-width:220px;position:relative;z-index:1}
+  .card-status{position:absolute;bottom:20px;display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:500;color:var(--text-3);z-index:1}
+  .card-status .dot{width:6px;height:6px;border-radius:50%;background:var(--card-accent);box-shadow:0 0 6px var(--card-accent);animation:none;}
+
+  /* BACK */
+  .card-back{background:var(--card-back);border:1px solid var(--border);transform:rotateY(180deg);padding:28px 22px;display:flex;flex-direction:column}
+  .card-back-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .card-back-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:linear-gradient(135deg,color-mix(in srgb,var(--card-accent) 20%,transparent),color-mix(in srgb,var(--card-accent) 8%,transparent))}
+  .card-back-title{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+  .card-back-org{font-size:14px;color:var(--text-3)}
+  .card-back-body{flex:1;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+  .detail-row{display:flex;align-items:flex-start;gap:8px}
+  .detail-label{font-size:14px;font-weight:600;color:var(--text-3);min-width:48px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;padding-top:1px}
+  .detail-value{font-size:13px;color:var(--text-2);line-height:1.5}
+  .detail-value strong{color:var(--text-1);font-weight:600}
+  .stat-bar{margin-top:4px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+  .stat-fill{height:100%;border-radius:2px;background:var(--card-accent);box-shadow:0 0 8px color-mix(in srgb,var(--card-accent) 50%,transparent);transition:width 1s var(--ease-out) .4s}
+  .tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+  .tag{font-size:14px;font-weight:500;padding:2px 8px;border-radius:100px;background:color-mix(in srgb,var(--card-accent) 12%,transparent);color:var(--card-accent);border:1px solid color-mix(in srgb,var(--card-accent) 20%,transparent)}
+  .card-back-footer{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .license-badge{font-size:14px;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)}
+  .back-hint{font-size:14px;color:var(--text-3)}
+
+  /* CARD COLOR THEMES */
+  .card-wrapper:nth-child(1){--card-accent:var(--glow-0)}
+  .card-wrapper:nth-child(2){--card-accent:var(--glow-1)}
+  .card-wrapper:nth-child(3){--card-accent:var(--glow-2)}
+  .card-wrapper:nth-child(4){--card-accent:var(--glow-3)}
+
+  /* FOOTER */
+  .page-footer{text-align:center;padding:0 24px 48px;font-size:12px;color:var(--text-3);position:relative;z-index:1}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){.cards-container{grid-template-columns:repeat(2,1fr);gap:16px;padding:24px 16px 60px}.card-wrapper{height:400px}.hero{padding:60px 20px 16px}}
+  @media(max-width:640px){.cards-container{grid-template-columns:1fr;gap:14px;max-width:340px;padding:20px 16px 48px}.card-wrapper{height:380px}.hero{padding:48px 16px 12px}.card-front{padding:28px 20px}.card-name{font-size:20px}.card-back{padding:22px 18px}}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes hintPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:1}}
+  .card-back-body::-webkit-scrollbar{width:3px}
+  .card-back-body::-webkit-scrollbar-track{background:transparent}
+  .card-back-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
+  .card-wrapper:active .card{transition:transform .15s ease-out}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-16</span><span class="sb-sep">/</span><span class="sb-beat">开源 vs 闭源之争</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">1 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+div.hint > span > i.click-icon::after{width:1px !important}
+div.card-wrapper > div.card > div.card-face::before{box-shadow:0 2px 10px rgba(0,0,0,1) !important}
+div.card-wrapper > div.card > div.card-face::before{width:1px !important}
+div.card-wrapper > div.card > div.card-face::after{width:1px !important}
+div.card-face > div.card-status > span.dot{box-shadow:0 2px 10px rgba(0,0,0,1) !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<header class="hero">
+  <div class="hero-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    2026.06.10 — 06.12 集中发布
+  </div>
+  <h1>开源模型爆发周</h1>
+  <p>4 款重磅模型 72 小时内密集开源<br>闭源前沿正被全方位「包抄」</p>
+  <span class="date-tag">2026 年 6 月 · 第 24 周</span>
+</header>
+
+<div class="hint"><span><i class="click-icon"></i> 点击卡片翻转查看详情</span></div>
+
+<section class="cards-container">
+
+  <!-- CARD 0: Kimi K2.7-Code -->
+  <div class="card-wrapper" onclick="this.querySelector('.card').classList.toggle('flipped')">
+    <div class="card">
+      <div class="card-face card-front">
+        <div class="card-icon">🌙</div>
+        <div class="card-company">月之暗面</div>
+        <div class="card-name">Kimi K2.7-Code</div>
+        <div class="card-tagline">Token 消耗降 30%，长程编程 Agent 能力跃升</div>
+        <div class="card-status"><span class="dot"></span> 2026-06-12 开源</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-back-header">
+          <div class="card-back-icon">🌙</div>
+          <div><div class="card-back-title">Kimi K2.7-Code</div><div class="card-back-org">月之暗面 · Moonshot AI</div></div>
+        </div>
+        <div class="card-back-body">
+          <div class="detail-row"><span class="detail-label">架构</span><span class="detail-value"><strong>MoE</strong> · K2.7 系列编程专用</span></div>
+          <div class="detail-row"><span class="detail-label">性能</span><span class="detail-value"><strong>Kimi Code Bench v2 +21%</strong><br>Agent 自主执行能力 <strong>+10%</strong><br><div class="stat-bar"><div class="stat-fill" data-width="89%"></div></div></span></div>
+          <div class="detail-row"><span class="detail-label">效率</span><span class="detail-value">平均 Token 消耗 <strong>减少 30%</strong><br>大幅改善长程任务过度思考倾向</span></div>
+          <div class="detail-row"><span class="detail-label">定价</span><span class="detail-value">输入 ¥6.5 / 1M tokens · 缓存 ¥1.3<br>输出 ¥27 / 1M tokens</span></div>
+          <div class="detail-row"><span class="detail-label">场景</span><span class="tag-list"><span class="tag">长上下文编程</span><span class="tag">Agent 任务</span><span class="tag">代码审查</span></span></div>
+        </div>
+        <div class="card-back-footer"><span class="license-badge">开源</span><span class="back-hint">点击返回</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 1: DiffusionGemma -->
+  <div class="card-wrapper" onclick="this.querySelector('.card').classList.toggle('flipped')">
+    <div class="card">
+      <div class="card-face card-front">
+        <div class="card-icon">💎</div>
+        <div class="card-company">Google</div>
+        <div class="card-name">DiffusionGemma</div>
+        <div class="card-tagline">颠覆自回归范式，并行生成速度飙升 4×</div>
+        <div class="card-status"><span class="dot"></span> 2026-06-10 开源</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-back-header">
+          <div class="card-back-icon">💎</div>
+          <div><div class="card-back-title">DiffusionGemma</div><div class="card-back-org">Google DeepMind</div></div>
+        </div>
+        <div class="card-back-body">
+          <div class="detail-row"><span class="detail-label">架构</span><span class="detail-value"><strong>26B MoE</strong> · 文本扩散 · Apache 2.0</span></div>
+          <div class="detail-row"><span class="detail-label">速度</span><span class="detail-value">RTX 5090 测试 <strong>~700 tokens/s</strong><br>并行生成，非逐 Token 自回归<br><div class="stat-bar"><div class="stat-fill" data-width="95%"></div></div></span></div>
+          <div class="detail-row"><span class="detail-label">内存</span><span class="detail-value"><strong>18 GB</strong> 显存 GPU 即可运行<br>消费级显卡跑大模型成为现实</span></div>
+          <div class="detail-row"><span class="detail-label">技术</span><span class="detail-value">扩散解码头 + 多轮并行去噪<br>来自 Gemini Diffusion 研究成果</span></div>
+          <div class="detail-row"><span class="detail-label">场景</span><span class="tag-list"><span class="tag">高速推理</span><span class="tag">本地部署</span><span class="tag">科研探索</span></span></div>
+        </div>
+        <div class="card-back-footer"><span class="license-badge">Apache 2.0</span><span class="back-hint">点击返回</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2: North Mini Code -->
+  <div class="card-wrapper" onclick="this.querySelector('.card').classList.toggle('flipped')">
+    <div class="card">
+      <div class="card-face card-front">
+        <div class="card-icon">🧭</div>
+        <div class="card-company">Cohere</div>
+        <div class="card-name">North Mini Code</div>
+        <div class="card-tagline">30B 仅激活 3B，吞吐量碾压同级 2.8×</div>
+        <div class="card-status"><span class="dot"></span> 2026-06-10 开源</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-back-header">
+          <div class="card-back-icon">🧭</div>
+          <div><div class="card-back-title">North Mini Code</div><div class="card-back-org">Cohere</div></div>
+        </div>
+        <div class="card-back-body">
+          <div class="detail-row"><span class="detail-label">架构</span><span class="detail-value"><strong>30B-A3B MoE</strong> · Apache 2.0<br>首个 Agentic Coding 专用模型</span></div>
+          <div class="detail-row"><span class="detail-label">吞吐</span><span class="detail-value">Devstral Small 2 的 <strong>2.8 倍</strong><br>Token 间延迟缩短 <strong>30%</strong><br><div class="stat-bar"><div class="stat-fill" data-width="84%"></div></div></span></div>
+          <div class="detail-row"><span class="detail-label">指数</span><span class="detail-value">Artificial Analysis 编程指数 <strong>33.4</strong><br>本地 / 私有云部署 · "主权AI"</span></div>
+          <div class="detail-row"><span class="detail-label">能力</span><span class="detail-value">复杂软件工程工作流<br>终端智能体任务 · 代码生成</span></div>
+          <div class="detail-row"><span class="detail-label">场景</span><span class="tag-list"><span class="tag">Agentic Coding</span><span class="tag">主权 AI</span><span class="tag">私有部署</span></span></div>
+        </div>
+        <div class="card-back-footer"><span class="license-badge">Apache 2.0</span><span class="back-hint">点击返回</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3: MiMo Code -->
+  <div class="card-wrapper" onclick="this.querySelector('.card').classList.toggle('flipped')">
+    <div class="card">
+      <div class="card-face card-front">
+        <div class="card-icon">🔥</div>
+        <div class="card-company">小米 Xiaomi</div>
+        <div class="card-name">MiMo Code</div>
+        <div class="card-tagline">持久记忆 + 终端原生，越用越懂你的编程队友</div>
+        <div class="card-status"><span class="dot"></span> 2026-06-11 开源</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-back-header">
+          <div class="card-back-icon">🔥</div>
+          <div><div class="card-back-title">MiMo Code</div><div class="card-back-org">小米 MiMo 团队</div></div>
+        </div>
+        <div class="card-back-body">
+          <div class="detail-row"><span class="detail-label">架构</span><span class="detail-value">基于 <strong>OpenCode</strong> 二次开发<br>内置 MiMo-V2.5 · MIT 协议</span></div>
+          <div class="detail-row"><span class="detail-label">记忆</span><span class="detail-value">独创<strong>持久记忆系统</strong><br>跨会话保持上下文，越用越精准<br><div class="stat-bar"><div class="stat-fill" data-width="88%"></div></div></span></div>
+          <div class="detail-row"><span class="detail-label">性能</span><span class="detail-value">长周期任务胜率<strong>超 Claude Code</strong><br>SWE-Bench Pro V2 + Terminal Bench<br>GitHub <strong>6.4k+ Stars</strong></span></div>
+          <div class="detail-row"><span class="detail-label">生态</span><span class="detail-value">支持 DeepSeek / Kimi / GLM 接入<br>限时免费 MiMo-V2.5 模型</span></div>
+          <div class="detail-row"><span class="detail-label">场景</span><span class="tag-list"><span class="tag">终端编程</span><span class="tag">长周期项目</span><span class="tag">记忆增强</span></span></div>
+        </div>
+        <div class="card-back-footer"><span class="license-badge">MIT</span><span class="back-hint">点击返回</span></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<footer class="page-footer">
+  数据来源：月之暗面、Google DeepMind、Cohere、小米 MiMo 官方公告 · 2026-06-10 至 2026-06-12
+</footer>
+
+<script>
+// Animate stat bars on card flip
+document.querySelectorAll('.card-wrapper').forEach(wrapper => {
+  wrapper.addEventListener('click', () => {
+    const card = wrapper.querySelector('.card');
+    const isFlipping = !card.classList.contains('flipped');
+    
+    if (isFlipping) {
+      // Entering back: animate stat bars after flip
+      setTimeout(() => {
+        wrapper.querySelectorAll('.stat-fill').forEach(fill => {
+          fill.style.width = fill.dataset.width;
+        });
+      }, 400);
+    } else {
+      // Returning to front: reset stat bars
+      wrapper.querySelectorAll('.stat-fill').forEach(fill => {
+        fill.style.width = '0%';
+      });
+    }
+  });
+});
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value": "2.8 倍", "label": "Token 间延迟缩短", "quote": "2.8 倍 Token 间延迟缩短"}
+]
+</script>
+</body>
+</html>

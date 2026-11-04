@@ -29,8 +29,8 @@
 | 2 | **零远程依赖**：不许 `<script src="https://...">` / 外链字体 / 外链图片 | 国内不可达 = 页面空白。历史事故：15 件作品因 CDN 不可达，图表渲染成空框 |
 | 3 | 需要图表用**本地** Chart.js / d3：`../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js` | 同上 |
 | 4 | 有 `<title>`，且与 manifest 标题一致 | 首页卡片 ↔ 打开页面的标题不能割裂 |
-| 5 | 落 `shared/showcase/YYYY-MM-DD/creative/YYYY-MM-DD-<slug>.html` | 目录即类型；`autopublish` 阶段 2 会搬移，但一次放对最好 |
-| 6 | 过程材料（截图/佐证 md/构建分片）落该日 `YYYY-MM-DD/notes/` | 不与作品混放 |
+| 5 | 落 `shared/showcase/works/YYYY-MM-DD/creative/YYYY-MM-DD-<slug>.html` | 目录即类型；`autopublish` 阶段 2 会搬移，但一次放对最好 |
+| 6 | 过程材料（截图/佐证 md/构建分片）落该日 `works/YYYY-MM-DD/notes/` | 不与作品混放 |
 | 7 | **对比度 ≥4.5:1**（正文与占位文字；大字号 ≥3:1） | 硬底线。`impeccable detect` 会查 |
 | 8 | **响应式**：375px 起可用，无横向滚动 | 手机也要能看 |
 | 9 | 尊重 `prefers-reduced-motion` | 前庭敏感 |

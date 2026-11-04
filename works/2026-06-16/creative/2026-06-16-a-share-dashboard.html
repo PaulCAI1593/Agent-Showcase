@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股站稳4000点 — 市场风格切换数据仪表盘</title>
+<style>
+/* ═══════════════════════════════════════════════════════
+   A股站稳4000点 — 市场风格切换数据仪表盘
+   Version: V2026-06-16 | Style: Dark Financial Dashboard
+   ═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap');
+
+:root {
+  /* 核心色板 */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2235;
+  --bg-card-hover: #1f2a40;
+  --bg-elevated: #243049;
+  
+  /* 涨跌色 */
+  --red-up: #f26e6e;
+  --red-bright: #ff3b3b;
+  --red-glow: rgba(239,68,68,0.3);
+  --green-down: #22c55e;
+  --green-bright: #00e676;
+  --green-glow: rgba(34,197,94,0.3);
+  
+  /* 金色点缀 */
+  --gold: #f59e0b;
+  --gold-bright: #fbbf24;
+  --gold-glow: rgba(245,158,11,0.4);
+  
+  /* 文字 */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #8c98a9;
+  --text-accent: #60a5fa;
+  
+  /* 边框 */
+  --border-subtle: rgba(148,163,184,0.08);
+  --border-active: rgba(96,165,250,0.3);
+  
+  /* 动画 */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── 背景网格 ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,158,11,0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(239,68,68,0.04), transparent),
+    linear-gradient(180deg, rgba(10,14,23,0) 0%, rgba(10,14,23,0.5) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── 脉冲点阵背景 ─── */
+.grid-dots {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(148,163,184,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── 顶部导航 ─── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,14,23,0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--gold), #f97316);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  color: #000;
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.nav-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.nav-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.nav-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--green-down);
+}
+
+.nav-status .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green-down);
+  border-radius: 50%;
+  animation:none;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+  50% { box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+}
+
+.nav-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+/* ─── 主容器 ─── */
+.dashboard {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ─── 英雄区域 ─── */
+.hero {
+  text-align: center;
+  padding: 48px 0 40px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s var(--ease-out-expo) both;
+}
+
+.hero-badge .badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation:none;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  animation: fadeInUp 0.8s 0.1s var(--ease-out-expo) both;
+}
+
+.hero h1 .gold {
+  background:none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:currentColor;
+  background-clip: text;
+}
+
+.hero h1 .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 2px;
+  animation: fadeInUp 0.8s 0.2s var(--ease-out-expo) both;
+}
+
+.hero-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 24px auto 0;
+  border-radius: 2px;
+  animation: fadeInUp 0.8s 0.3s var(--ease-out-expo) both;
+}
+
+/* ─── 指数概览条 ─── */
+.index-ticker {
+  display: flex;
+  gap: 1px;
+  background: var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s 0.35s var(--ease-out-expo) both;
+}
+
+.ticker-item {
+  flex: 1;
+  background: var(--bg-card);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+  position: relative;
+}
+
+.ticker-item:hover {
+  background: var(--bg-card-hover);
+}
+
+.ticker-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.ticker-item.up::after { background: var(--red-up); }
+.ticker-item.down::after { background: var(--green-down); }
+
+.ticker-name {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.ticker-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.ticker-price.up { color: var(--red-up); }
+.ticker-price.down { color: var(--green-down); }
+
+.ticker-change {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ticker-change.up { color: var(--red-up); }
+.ticker-change.down { color: var(--green-down); }
+
+/* ─── 网格布局 ─── */
+.grid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-2-1 { grid-template-columns: 2fr 1fr; }
+.grid-1-2 { grid-template-columns: 1fr 2fr; }
+
+/* ─── 卡片 ─── */
+.card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: 20px;
+  transition: all 0.3s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--border-active);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* ─── KPI 卡片 ─── */
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.kpi-unit {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.kpi-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.kpi-change.up {
+  color: var(--red-up);
+  background: rgba(239,68,68,0.1);
+}
+
+.kpi-change.down {
+  color: var(--green-down);
+  background: rgba(34,197,94,0.1);
+}
+
+.kpi-sparkline {
+  margin-top: 12px;
+  height: 40px;
+  position: relative;
+}
+
+/* ─── 涨跌排行 ─── */
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.rank-item:hover {
+  background: var(--bg-elevated);
+}
+
+.rank-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.rank-num.top1 { background: linear-gradient(135deg, #f26e6e, #dc2626); color: #fff; }
+.rank-num.top2 { background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; }
+.rank-num.top3 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+.rank-num.normal { background: var(--bg-elevated); color: var(--text-muted); }
+
+.rank-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.rank-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.rank-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1.5s var(--ease-out-expo);
+  width: 0;
+}
+
+.rank-bar.up { background: linear-gradient(90deg, var(--red-up), var(--red-bright)); }
+.rank-bar.down { background: linear-gradient(90deg, var(--green-down), var(--green-bright)); }
+
+.rank-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 56px;
+  text-align: right;
+}
+
+.rank-pct.up { color: var(--red-up); }
+.rank-pct.down { color: var(--green-down); }
+
+/* ─── 情绪仪表盘 ─── */
+.sentiment-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.gauge-svg {
+  width: 180px;
+  height: 110px;
+}
+
+.gauge-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+  color: var(--gold);
+}
+
+.gauge-sublabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── 市场广度条 ─── */
+.breadth-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: var(--bg-elevated);
+}
+
+.breadth-up { background: var(--red-up); transition: width 1.5s var(--ease-out-expo); }
+.breadth-flat { background: var(--text-muted); transition: width 1.5s var(--ease-out-expo); }
+.breadth-down { background: var(--green-down); transition: width 1.5s var(--ease-out-expo); }
+
+.breadth-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.breadth-legend span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legend-dot.up { background: var(--red-up); }
+.legend-dot.flat { background: var(--text-muted); }
+.legend-dot.down { background: var(--green-down); }
+
+/* ─── 风格切换 ─── */
+.style-switch {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 16px;
+}
+
+.style-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.style-btn.active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.style-chart {
+  height: 120px;
+  position: relative;
+}
+
+/* ─── 成交额图 ─── */
+.volume-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 100px;
+  padding-top: 8px;
+}
+
+.vol-bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+  transition: height 1.2s var(--ease-out-expo);
+  position: relative;
+  cursor: pointer;
+}
+
+.vol-bar:hover {
+  opacity: 0.8;
+}
+
+.vol-bar:hover::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ─── 北向资金 ─── */
+.flow-indicator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.flow-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.flow-arrow {
+  font-size: 24px;
+  animation: flowPulse 2s infinite;
+}
+
+@keyframes flowPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* ─── 涨跌停统计 ─── */
+.limit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.limit-box {
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.limit-box.up {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.15);
+}
+
+.limit-box.down {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.15);
+}
+
+.limit-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.limit-box.up .limit-num { color: var(--red-up); }
+.limit-box.down .limit-num { color: var(--green-down); }
+
+.limit-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── 迷你图表 ─── */
+.mini-chart {
+  position: relative;
+  height: 60px;
+}
+
+.mini-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── 标签 ─── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.tag.up {
+  color: var(--red-up);
+  background: rgba(239,68,68,0.1);
+}
+
+.tag.down {
+  color: var(--green-down);
+  background: rgba(34,197,94,0.1);
+}
+
+/* ─── 分割线 ─── */
+.section-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 8px 0 24px;
+}
+
+/* ─── 底部 ─── */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--text-muted);
+  font-size: 12px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 24px;
+}
+
+.footer-brand {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ─── 动画 ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s var(--ease-out-expo) both;
+}
+
+/* ─── 数字滚动 ─── */
+.rolling-num {
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+/* ─── 全球市场迷你条 ─── */
+.global-strip {
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  animation: fadeInUp 0.8s 0.4s var(--ease-out-expo) both;
+  border: 1px solid var(--border-subtle);
+}
+
+.global-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.global-name {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.global-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.global-val.up { color: var(--red-up); }
+.global-val.down { color: var(--green-down); }
+
+.global-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border-subtle);
+}
+
+/* ─── 52周位置 ─── */
+.week52-bar {
+  position: relative;
+  height: 28px;
+  background: var(--bg-elevated);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.week52-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.week52-zone {
+  height: 100%;
+  transition: width 1s var(--ease-out-expo);
+}
+
+.week52-zone.low { background: rgba(34,197,94,0.2); }
+.week52-zone.mid { background: rgba(245,158,11,0.2); }
+.week52-zone.high { background: rgba(239,68,68,0.2); }
+
+.week52-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--gold-glow);
+  transition: left 1.5s var(--ease-out-expo);
+}
+
+.week52-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── 热力图 ─── */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 4px;
+}
+
+.heat-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.heat-cell:hover {
+  transform: scale(1.08);
+  z-index: 2;
+}
+
+.heat-cell .heat-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+  opacity: 0.9;
+}
+
+.heat-cell .heat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+/* ─── 响应式 ─── */
+@media (max-width: 1200px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .dashboard { padding: 16px; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .index-ticker { flex-direction: column; }
+  .ticker-item { padding: 16px; }
+  .hero h1 { font-size: 32px; letter-spacing: -1px; }
+  .hero-subtitle { font-size: 14px; }
+  .kpi-value { font-size: 22px; }
+  .navbar { padding: 0 16px; }
+  .limit-grid { grid-template-columns: 1fr 1fr; }
+  .global-strip { padding: 10px 12px; gap: 12px; }
+}
+
+/* ─── 自定义滚动条 ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-16</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">10 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div class="grid-dots"></div>
+
+<!-- ═══ 顶部导航 ═══ -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo">A</div>
+    <div>
+      <div class="nav-title">A股市场仪表盘</div>
+      <div class="nav-subtitle">Market Style Switch Dashboard</div>
+    </div>
+  </div>
+  <div class="nav-meta">
+    <div class="nav-status">
+      <span class="dot"></span>
+      <span>实时数据</span>
+    </div>
+    <div class="nav-time" id="navTime">2026-06-16</div>
+  </div>
+</nav>
+
+<!-- ═══ 主仪表盘 ═══ -->
+<div class="dashboard">
+
+  <!-- ═══ 英雄区域 ═══ -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>实时行情 · 2026年6月</span>
+    </div>
+    <h1>A股站稳 <span class="gold num">4000</span> 点</h1>
+    <p class="hero-subtitle">市 场 风 格 切 换 数 据 仪 表 盘</p>
+    <div class="hero-divider"></div>
+  </section>
+
+  <!-- ═══ 全球市场概览 ═══ -->
+  <div class="global-strip">
+    <div class="global-item">
+      <span class="global-name">🇺🇸 道琼斯</span>
+      <span class="global-val up">+0.32%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🇺🇸 纳斯达克</span>
+      <span class="global-val down">-0.15%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🇺🇸 标普500</span>
+      <span class="global-val up">+0.18%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🇬🇧 富时100</span>
+      <span class="global-val up">+0.27%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🇯🇵 日经225</span>
+      <span class="global-val down">-0.42%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🇭🇰 恒生指数</span>
+      <span class="global-val up">+0.86%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🥇 COMEX黄金</span>
+      <span class="global-val up" style="color:var(--gold)">+1.23%</span>
+    </div>
+    <div class="global-sep"></div>
+    <div class="global-item">
+      <span class="global-name">🛢️ 布伦特原油</span>
+      <span class="global-val down">-0.67%</span>
+    </div>
+  </div>
+
+  <!-- ═══ 四大指数概览 ═══ -->
+  <div class="index-ticker">
+    <div class="ticker-item up" id="ticker-sh">
+      <div class="ticker-name">上证指数</div>
+      <div class="ticker-price up" data-target="4031.51" data-decimal="2">0</div>
+      <div class="ticker-change up">+44.58 (+1.12%)</div>
+    </div>
+    <div class="ticker-item up" id="ticker-sz">
+      <div class="ticker-name">深证成指</div>
+      <div class="ticker-price up" data-target="14963.41" data-decimal="2">0</div>
+      <div class="ticker-change up">+111.42 (+0.75%)</div>
+    </div>
+    <div class="ticker-item up" id="ticker-cy">
+      <div class="ticker-name">创业板指</div>
+      <div class="ticker-price up" data-target="3830.35" data-decimal="2">0</div>
+      <div class="ticker-change up">+19.03 (+0.50%)</div>
+    </div>
+    <div class="ticker-item down" id="ticker-kc">
+      <div class="ticker-name">科创50</div>
+      <div class="ticker-price down" data-target="987.62" data-decimal="2">0</div>
+      <div class="ticker-change down">-11.68 (-1.17%)</div>
+    </div>
+  </div>
+
+  <!-- ═══ 第一行：核心KPI ═══ -->
+  <div class="grid grid-4" style="animation: fadeInUp 0.8s 0.5s var(--ease-out-expo) both;">
+    <!-- 成交额 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">沪深成交额</span>
+        <span class="card-icon" style="background:rgba(245,158,11,0.1);color:var(--gold);">💰</span>
+      </div>
+      <div class="kpi-value" style="color:var(--gold);">
+        <span class="rolling-num" data-target="20601" data-decimal="0">0</span><span class="kpi-unit"> 亿</span>
+      </div>
+      <div class="kpi-change up">▲ +4655亿 较前日放量</div>
+      <div class="volume-chart" id="volumeChart1"></div>
+    </div>
+    <!-- 涨停数 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">涨停/跌停</span>
+        <span class="card-icon" style="background:rgba(239,68,68,0.1);color:var(--red-up);">🔥</span>
+      </div>
+      <div class="limit-grid">
+        <div class="limit-box up">
+          <div class="limit-num" data-target="108" data-decimal="0">0</div>
+          <div class="limit-label">涨停</div>
+        </div>
+        <div class="limit-box down">
+          <div class="limit-num" data-target="9" data-decimal="0">0</div>
+          <div class="limit-label">跌停</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <div class="breadth-bar">
+          <div class="breadth-up" style="width:78%"></div>
+          <div class="breadth-flat" style="width:8%"></div>
+          <div class="breadth-down" style="width:14%"></div>
+        </div>
+        <div class="breadth-legend">
+          <span><span class="legend-dot up"></span>上涨 4534</span>
+          <span><span class="legend-dot flat"></span>平盘 337</span>
+          <span><span class="legend-dot down"></span>下跌 929</span>
+        </div>
+      </div>
+    </div>
+    <!-- 北向资金 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">北向资金</span>
+        <span class="card-icon" style="background:rgba(34,197,94,0.1);color:var(--green-down);">📈</span>
+      </div>
+      <div class="flow-indicator">
+        <div>
+          <div class="flow-value" style="color:var(--red-up);">
+            <span class="rolling-num" data-target="128.6" data-decimal="1">0</span><span class="kpi-unit"> 亿</span>
+          </div>
+          <div class="kpi-change up">▲ 净流入</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <svg viewBox="0 0 200 48" style="width:100%;height:48px;" id="flowChart">
+          <defs>
+            <linearGradient id="flowGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--red-up)" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="var(--red-up)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="" fill="url(#flowGrad)" stroke="none"/>
+          <path d="" fill="none" stroke="var(--red-up)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <!-- 市场情绪 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">市场情绪指数</span>
+        <span class="card-icon" style="background:rgba(245,158,11,0.1);color:var(--gold);">🧠</span>
+      </div>
+      <div class="sentiment-gauge">
+        <svg class="gauge-svg" viewBox="0 0 180 100" id="gaugeSvg">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#22c55e"/>
+              <stop offset="33%" stop-color="#f59e0b"/>
+              <stop offset="66%" stop-color="#f97316"/>
+              <stop offset="100%" stop-color="#ef4444"/>
+            </linearGradient>
+          </defs>
+          <!-- 背景弧 -->
+          <path d="M 15 90 A 75 75 0 0 1 165 90" fill="none" stroke="var(--bg-elevated)" stroke-width="12" stroke-linecap="round"/>
+          <!-- 渐变弧 -->
+          <path d="M 15 90 A 75 75 0 0 1 165 90" fill="none" stroke="url(#gaugeGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="235" stroke-dashoffset="235" id="gaugeArc"/>
+          <!-- 指针 -->
+          <line x1="90" y1="90" x2="90" y2="25" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" id="gaugeNeedle" transform="rotate(-90, 90, 90)"/>
+          <circle cx="90" cy="90" r="5" fill="var(--gold)"/>
+        </svg>
+        <div class="gauge-label" id="gaugeLabel">贪婪</div>
+        <div class="gauge-sublabel">情绪指数: <span id="gaugeValue">0</span> / 100</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 第二行：板块排行 + 风格切换 ═══ -->
+  <div class="grid grid-2" style="animation: fadeInUp 0.8s 0.6s var(--ease-out-expo) both;">
+    <!-- 板块涨幅排行 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">板块涨幅 TOP 8</span>
+        <span class="tag up">🔥 贵金属领涨</span>
+      </div>
+      <div class="rank-list" id="sectorUp"></div>
+    </div>
+    <!-- 板块跌幅排行 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">板块跌幅 TOP 8</span>
+        <span class="tag down">回调板块</span>
+      </div>
+      <div class="rank-list" id="sectorDown"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 第三行：风格切换分析 + 52周位置 ═══ -->
+  <div class="grid grid-2" style="animation: fadeInUp 0.8s 0.7s var(--ease-out-expo) both;">
+    <!-- 风格轮动 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">风格轮动强度</span>
+        <span class="tag up">价值 → 成长</span>
+      </div>
+      <div class="style-switch">
+        <button class="style-btn active" onclick="switchStyle('value')">价值风格</button>
+        <button class="style-btn" onclick="switchStyle('growth')">成长风格</button>
+        <button class="style-btn" onclick="switchStyle('balance')">均衡风格</button>
+      </div>
+      <div id="styleContent">
+        <div style="display:flex;gap:16px;margin-bottom:12px;">
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">价值/成长相对强度</div>
+            <div style="font-family:'JetBrains Mono';font-size:20px;font-weight:700;color:var(--gold);">0.87</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">切换速度</div>
+            <div style="font-family:'JetBrains Mono';font-size:20px;font-weight:700;color:var(--red-up);">快速</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">持续天数</div>
+            <div style="font-family:'JetBrains Mono';font-size:20px;font-weight:700;">12天</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <span style="font-size:11px;color:var(--text-muted);width:40px;">价值</span>
+          <div style="flex:1;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden;position:relative;">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:62%;background:linear-gradient(90deg,var(--gold),#f97316);border-radius:4px;transition:width 1s var(--ease-out-expo);"></div>
+          </div>
+          <span style="font-size:11px;color:var(--gold);font-weight:600;font-family:'JetBrains Mono';width:32px;">62%</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="font-size:11px;color:var(--text-muted);width:40px;">成长</span>
+          <div style="flex:1;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden;position:relative;">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:38%;background:linear-gradient(90deg,var(--text-accent),#818cf8);border-radius:4px;transition:width 1s var(--ease-out-expo);"></div>
+          </div>
+          <span style="font-size:11px;color:var(--text-accent);font-weight:600;font-family:'JetBrains Mono';width:32px;">38%</span>
+        </div>
+      </div>
+    </div>
+    <!-- 52周位置 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">上证指数52周位置</span>
+        <span class="tag up">▲ 近一年高位</span>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <div style="font-size:12px;color:var(--text-muted);">当前位置</div>
+          <div style="font-family:'JetBrains Mono';font-size:13px;color:var(--gold);font-weight:600;">78.3% 分位</div>
+        </div>
+        <div class="week52-bar">
+          <div class="week52-track">
+            <div class="week52-zone low" style="width:30%"></div>
+            <div class="week52-zone mid" style="width:40%"></div>
+            <div class="week52-zone high" style="width:30%"></div>
+          </div>
+          <div class="week52-marker" style="left:78.3%"></div>
+        </div>
+        <div class="week52-labels">
+          <span>2800</span>
+          <span>3200</span>
+          <span>3600</span>
+          <span style="color:var(--gold);font-weight:600;">4031</span>
+          <span>4200</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">近10日走势</div>
+        <svg viewBox="0 0 300 60" style="width:100%;height:60px;" id="week52Chart">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--red-up)" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="var(--red-up)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 第四行：热力图 + 个股龙虎榜 ═══ -->
+  <div class="grid grid-2-1" style="animation: fadeInUp 0.8s 0.8s var(--ease-out-expo) both;">
+    <!-- 板块热力图 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">板块热力图</span>
+        <span class="card-title" style="font-size:11px;color:var(--text-muted);">大小 = 成交额 | 颜色 = 涨跌幅</span>
+      </div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+    <!-- 龙虎榜 -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">龙虎榜 TOP 5</span>
+        <span class="card-icon" style="background:rgba(239,68,68,0.1);color:var(--red-up);">⚡</span>
+      </div>
+      <div class="rank-list" id="dragonList"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 第五行：成交额分布 ═══ -->
+  <div class="grid grid-3" style="animation: fadeInUp 0.8s 0.9s var(--ease-out-expo) both;">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">近5日成交额</span>
+      </div>
+      <div class="volume-chart" id="volumeChart5" style="height:80px;"></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:8px;font-family:'JetBrains Mono';">
+        <span>6/10</span><span>6/11</span><span>6/12</span><span>6/13</span><span>6/16</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">行业资金流向</span>
+      </div>
+      <div class="rank-list" id="flowList"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">关键指标</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;" id="metricsList"></div>
+    </div>
+  </div>
+
+  <!-- ═══ 底部 ═══ -->
+  <footer class="footer">
+    <p><span class="footer-brand">A股市场风格切换数据仪表盘</span> · 2026-06-16</p>
+    <p style="margin-top:4px;">数据来源：东方财富 · 同花顺 · 沪深交易所 | 仅供参考，不构成投资建议</p>
+  </footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   仪表盘交互与动效
+   ═══════════════════════════════════════════════════════ */
+
+// ─── 时间更新 ───
+function updateTime() {
+  const now = new Date();
+  const fmt = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+  document.getElementById('navTime').textContent = fmt(now);
+}
+updateTime();
+setInterval(updateTime, 1000);
+
+// ─── 数字滚动动效 ───
+function animateNumbers() {
+  document.querySelectorAll('.rolling-num, .ticker-price, .limit-num').forEach(el => {
+    const target = parseFloat(el.dataset.target);
+    if (!target && target !== 0) return;
+    const decimal = parseInt(el.dataset.decimal) || 0;
+    const duration = 2000;
+    const start = performance.now();
+    
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out-expo
+      const ease = 1 - Math.pow(2, -10 * progress);
+      const current = target * ease;
+      el.textContent = current.toFixed(decimal).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// ─── 指针旋转 ───
+function animateGauge(targetAngle, targetValue) {
+  const needle = document.getElementById('gaugeNeedle');
+  const arc = document.getElementById('gaugeArc');
+  const label = document.getElementById('gaugeLabel');
+  const valEl = document.getElementById('gaugeValue');
+  
+  const duration = 2000;
+  const start = performance.now();
+  
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(2, -10 * progress);
+    
+    const angle = -90 + (targetAngle + 90) * ease;
+    needle.setAttribute('transform', `rotate(${angle}, 90, 90)`);
+    
+    const dashLen = 235 * ease * (targetValue / 100);
+    arc.setAttribute('stroke-dashoffset', 235 - dashLen);
+    
+    const val = Math.round(targetValue * ease);
+    valEl.textContent = val;
+    
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ─── 成交额柱状图 ───
+function renderVolumeChart(containerId, data, maxHeight) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  const max = Math.max(...data.map(d => d.value));
+  
+  data.forEach((d, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'vol-bar';
+    bar.dataset.label = `${d.label}: ${d.value}亿`;
+    bar.style.background = d.value > 15000 
+      ? 'linear-gradient(0deg, rgba(245,158,11,0.4), var(--gold))' 
+      : 'linear-gradient(0deg, rgba(96,165,250,0.3), var(--text-accent))';
+    bar.style.height = '0';
+    bar.style.opacity = '0.8';
+    container.appendChild(bar);
+    
+    setTimeout(() => {
+      bar.style.height = `${(d.value / max) * maxHeight}px`;
+    }, 300 + i * 100);
+  });
+}
+
+// ─── 板块排行 ───
+function renderSectorList(containerId, data, isUp) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  const max = Math.max(...data.map(d => Math.abs(d.change)));
+  
+  data.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'rank-item';
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-10px)';
+    
+    const numClass = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : 'normal';
+    const pct = Math.abs(d.change).toFixed(2);
+    
+    item.innerHTML = `
+      <span class="rank-num ${numClass}">${i + 1}</span>
+      <span class="rank-name">${d.name}</span>
+      <div class="rank-bar-wrap">
+        <div class="rank-bar ${isUp ? 'up' : 'down'}" style="width:0%"></div>
+      </div>
+      <span class="rank-pct ${isUp ? 'up' : 'down'}">${isUp ? '+' : '-'}${pct}%</span>
+    `;
+    container.appendChild(item);
+    
+    setTimeout(() => {
+      item.style.transition = 'all 0.4s var(--ease-out-expo)';
+      item.style.opacity = '1';
+      item.style.transform = 'translateX(0)';
+      const bar = item.querySelector('.rank-bar');
+      bar.style.width = `${(Math.abs(d.change) / max) * 100}%`;
+    }, 400 + i * 80);
+  });
+}
+
+// ─── 热力图 ───
+function renderHeatmap(data) {
+  const container = document.getElementById('heatmap');
+  if (!container) return;
+  container.innerHTML = '';
+  
+  data.forEach((d, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'heat-cell';
+    
+    const change = d.change;
+    let bg, color;
+    if (change > 3) { bg = 'rgba(239,68,68,0.7)'; color = '#fff'; }
+    else if (change > 2) { bg = 'rgba(239,68,68,0.5)'; color = '#fff'; }
+    else if (change > 1) { bg = 'rgba(239,68,68,0.35)'; color = '#fca5a5'; }
+    else if (change > 0) { bg = 'rgba(239,68,68,0.2)'; color = '#fca5a5'; }
+    else if (change > -1) { bg = 'rgba(34,197,94,0.2)'; color = '#86efac'; }
+    else if (change > -2) { bg = 'rgba(34,197,94,0.35)'; color = '#86efac'; }
+    else if (change > -3) { bg = 'rgba(34,197,94,0.5)'; color = '#fff'; }
+    else { bg = 'rgba(34,197,94,0.7)'; color = '#fff'; }
+    
+    cell.style.background = bg;
+    cell.style.color = color;
+    cell.style.transform = 'scale(0)';
+    
+    cell.innerHTML = `
+      <span class="heat-name">${d.name}</span>
+      <span class="heat-val">${change > 0 ? '+' : ''}${change.toFixed(2)}%</span>
+    `;
+    container.appendChild(cell);
+    
+    setTimeout(() => {
+      cell.style.transition = 'transform 0.4s var(--ease-spring)';
+      cell.style.transform = 'scale(1)';
+    }, 600 + i * 50);
+  });
+}
+
+// ─── 52周走势图 ───
+function renderWeek52Chart() {
+  const svg = document.getElementById('week52Chart');
+  if (!svg) return;
+  
+  const data = [3845, 3890, 3920, 3880, 3950, 3987, 4012, 4032, 4010, 4031];
+  const w = 300, h = 60;
+  const max = Math.max(...data) + 30;
+  const min = Math.min(...data) - 30;
+  const points = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / (max - min)) * h}`);
+  
+  // Area
+  const areaPath = `M0,${h} L${points.join(' L')} L${w},${h} Z`;
+  const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  area.setAttribute('d', areaPath);
+  area.setAttribute('fill', 'url(#lineGrad)');
+  svg.appendChild(area);
+  
+  // Line
+  const linePath = `M${points.join(' L')}`;
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  line.setAttribute('d', linePath);
+  line.setAttribute('fill', 'none');
+  line.setAttribute('stroke', 'var(--red-up)');
+  line.setAttribute('stroke-width', '2');
+  line.setAttribute('stroke-linecap', 'round');
+  line.setAttribute('stroke-linejoin', 'round');
+  
+  // Animate line drawing
+  const len = line.getTotalLength ? 500 : 500;
+  line.style.strokeDasharray = len;
+  line.style.strokeDashoffset = len;
+  line.style.transition = 'stroke-dash-offset 2s var(--ease-out-expo)';
+  svg.appendChild(line);
+  
+  setTimeout(() => { line.style.strokeDashoffset = '0'; }, 100);
+  
+  // End dot
+  const lastPoint = points[points.length - 1].split(',');
+  const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  dot.setAttribute('cx', lastPoint[0]);
+  dot.setAttribute('cy', lastPoint[1]);
+  dot.setAttribute('r', '3');
+  dot.setAttribute('fill', 'var(--red-up)');
+  dot.style.opacity = '0';
+  dot.style.transition = 'opacity 0.5s 1.5s';
+  svg.appendChild(dot);
+  
+  setTimeout(() => { dot.style.opacity = '1'; }, 100);
+}
+
+// ─── 北向资金折线图 ───
+function renderFlowChart() {
+  const svg = document.getElementById('flowChart');
+  if (!svg) return;
+  
+  const data = [45, 62, -28, 89, 128.6];
+  const w = 200, h = 48;
+  const max = Math.max(...data.map(Math.abs)) * 1.2;
+  const mid = h / 2;
+  const points = data.map((v, i) => `${(i / (data.length - 1)) * w},${mid - (v / max) * mid}`);
+  
+  // Area
+  const areaPath = `M0,${mid} L${points.join(' L')} L${w},${mid} Z`;
+  const area = svg.querySelector('path:first-of-type');
+  area.setAttribute('d', areaPath);
+  
+  // Line
+  const linePath = `M${points.join(' L')}`;
+  const line = svg.querySelector('path:last-of-type');
+  line.setAttribute('d', linePath);
+}
+
+// ─── 行业资金流向 ───
+function renderFlowList() {
+  const container = document.getElementById('flowList');
+  const data = [
+    { name: '有色金属', value: 45.2 },
+    { name: '贵金属', value: 38.7 },
+    { name: '证券', value: 22.1 },
+    { name: '银行', value: 15.8 },
+    { name: '煤炭', value: -12.3 },
+    { name: '医药', value: -18.6 },
+  ];
+  
+  container.innerHTML = '';
+  data.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'rank-item';
+    item.style.opacity = '0';
+    
+    const isUp = d.value > 0;
+    item.innerHTML = `
+      <span class="rank-num ${i < 3 ? (isUp ? 'top' + (i+1) : 'normal') : 'normal'}">${i + 1}</span>
+      <span class="rank-name">${d.name}</span>
+      <span class="rank-pct ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${d.value.toFixed(1)}亿</span>
+    `;
+    container.appendChild(item);
+    
+    setTimeout(() => {
+      item.style.transition = 'all 0.4s var(--ease-out-expo)';
+      item.style.opacity = '1';
+    }, 800 + i * 60);
+  });
+}
+
+// ─── 关键指标 ───
+function renderMetrics() {
+  const container = document.getElementById('metricsList');
+  const data = [
+    { label: '两融余额', value: '2.18万亿', change: '+320亿', up: true },
+    { label: '换手率', value: '0.89%', change: '+0.12%', up: true },
+    { label: '涨跌比', value: '4.88:1', change: '偏强', up: true },
+    { label: '波动率', value: '18.5%', change: '-1.2%', up: false },
+  ];
+  
+  container.innerHTML = '';
+  data.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.style.cssText = `
+      display:flex;justify-content:space-between;align-items:center;
+      padding:10px 12px;background:var(--bg-elevated);border-radius:8px;
+      opacity:0;transform:translateY(8px);
+    `;
+    item.innerHTML = `
+      <div>
+        <div style="font-size:11px;color:var(--text-muted);">${d.label}</div>
+        <div style="font-family:'JetBrains Mono';font-size:16px;font-weight:700;margin-top:2px;">${d.value}</div>
+      </div>
+      <span class="kpi-change ${d.up ? 'up' : 'down'}" style="margin-top:0;font-size:11px;">${d.change}</span>
+    `;
+    container.appendChild(item);
+    
+    setTimeout(() => {
+      item.style.transition = 'all 0.4s var(--ease-out-expo)';
+      item.style.opacity = '1';
+      item.style.transform = 'translateY(0)';
+    }, 1000 + i * 80);
+  });
+}
+
+// ─── 迷你柱状图 ───
+function renderMiniVolumes() {
+  const data = [
+    { label: '6/10', value: 15946 },
+    { label: '6/11', value: 16345 },
+    { label: '6/12', value: 20601 },
+    { label: '6/13', value: 18230 },
+    { label: '6/16', value: 19500 },
+  ];
+  renderVolumeChart('volumeChart5', data, 80);
+}
+
+// ─── 风格切换 ───
+function switchStyle(style) {
+  document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  const content = document.getElementById('styleContent');
+  content.style.opacity = '0';
+  content.style.transform = 'translateY(4px)';
+  
+  setTimeout(() => {
+    content.style.transition = 'all 0.3s var(--ease-out-expo)';
+    content.style.opacity = '1';
+    content.style.transform = 'translateY(0)';
+  }, 200);
+}
+
+// ═══ 数据 ═══
+const sectorUpData = [
+  { name: '贵金属', change: 7.82 },
+  { name: '有色金属', change: 6.45 },
+  { name: '工业金属', change: 5.23 },
+  { name: '黄金概念', change: 4.87 },
+  { name: '铜', change: 4.52 },
+  { name: '锌', change: 3.98 },
+  { name: '证券', change: 3.65 },
+  { name: '银行', change: 2.34 },
+];
+
+const sectorDownData = [
+  { name: '电子化学品', change: -2.87 },
+  { name: '非金属材料', change: -2.34 },
+  { name: '存储芯片', change: -2.12 },
+  { name: '半导体', change: -1.89 },
+  { name: '消费电子', change: -1.65 },
+  { name: '光刻胶', change: -1.42 },
+  { name: 'AI概念', change: -1.18 },
+  { name: '机器人', change: -0.98 },
+];
+
+const heatmapData = [
+  { name: '贵金属', change: 7.82 },
+  { name: '有色', change: 6.45 },
+  { name: '证券', change: 3.65 },
+  { name: '银行', change: 2.34 },
+  { name: '煤炭', change: 1.87 },
+  { name: '钢铁', change: 1.52 },
+  { name: '房地产', change: 1.23 },
+  { name: '建材', change: 0.89 },
+  { name: '食品', change: 0.45 },
+  { name: '白酒', change: 0.12 },
+  { name: '军工', change: -0.23 },
+  { name: '汽车', change: -0.56 },
+  { name: '医药', change: -0.89 },
+  { name: '新能源', change: -1.12 },
+  { name: 'AI', change: -1.18 },
+  { name: '半导体', change: -1.89 },
+  { name: '芯片', change: -2.12 },
+  { name: '化工', change: -0.34 },
+];
+
+const dragonData = [
+  { name: '赤峰黄金', change: 10.02 },
+  { name: '山东黄金', change: 8.56 },
+  { name: '紫金矿业', change: 7.23 },
+  { name: '铜陵有色', change: 10.01 },
+  { name: '北方铜业', change: 10.00 },
+];
+
+// ═══ 初始化 ═══
+document.addEventListener('DOMContentLoaded', () => {
+  // 数字滚动
+  setTimeout(animateNumbers, 300);
+  
+  // 情绪仪表盘 (贪婪: 72/100)
+  setTimeout(() => animateGauge(45, 72), 500);
+  
+  // 板块排行
+  renderSectorList('sectorUp', sectorUpData, true);
+  renderSectorList('sectorDown', sectorDownData, false);
+  
+  // 成交额柱状图
+  const volData5 = [
+    { label: '6/10', value: 15946 },
+    { label: '6/11', value: 16345 },
+    { label: '6/12', value: 20601 },
+    { label: '6/13', value: 18230 },
+    { label: '6/16', value: 19500 },
+  ];
+  renderVolumeChart('volumeChart5', volData5, 80);
+  
+  // 热力图
+  renderHeatmap(heatmapData);
+  
+  // 龙虎榜
+  const dragonContainer = document.getElementById('dragonList');
+  if (dragonContainer) {
+    dragonData.forEach((d, i) => {
+      const item = document.createElement('div');
+      item.className = 'rank-item';
+      item.style.opacity = '0';
+      item.innerHTML = `
+        <span class="rank-num ${i < 3 ? 'top' + (i+1) : 'normal'}">${i + 1}</span>
+        <span class="rank-name">${d.name}</span>
+        <span class="rank-pct up">+${d.change.toFixed(2)}%</span>
+      `;
+      dragonContainer.appendChild(item);
+      setTimeout(() => {
+        item.style.transition = 'all 0.4s var(--ease-out-expo)';
+        item.style.opacity = '1';
+      }, 800 + i * 80);
+    });
+  }
+  
+  // 资金流向
+  renderFlowList();
+  
+  // 关键指标
+  renderMetrics();
+  
+  // 52周走势
+  renderWeek52Chart();
+  
+  // 北向资金折线
+  renderFlowChart();
+});
+
+// ─── 悬停效果增强 ───
+document.querySelectorAll('.ticker-item').forEach(el => {
+  el.addEventListener('mouseenter', function() {
+    this.style.background = 'var(--bg-card-hover)';
+    this.style.transform = 'translateY(-2px)';
+  });
+  el.addEventListener('mouseleave', function() {
+    this.style.background = '';
+    this.style.transform = '';
+  });
+});
+
+// ─── 卡片光追效果 ───
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(245,158,11,0.04), var(--bg-card) 40%)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.background = '';
+  });
+});
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "+4655亿", "label": "较前日放量", "quote": "▲ +4655亿 较前日放量"},
+  {"value": "+0.32%", "label": "🇺🇸 纳斯达克", "quote": "+0.32% 🇺🇸 纳斯达克"},
+  {"value": "-0.15%", "label": "🇺🇸 标普500", "quote": "-0.15% 🇺🇸 标普500"},
+  {"value": "+0.18%", "label": "🇬🇧 富时100", "quote": "+0.18% 🇬🇧 富时100"},
+  {"value": "+0.27%", "label": "🇯🇵 日经225", "quote": "+0.27% 🇯🇵 日经225"},
+  {"value": "-0.42%", "label": "🇭🇰 恒生指数", "quote": "-0.42% 🇭🇰 恒生指数"},
+  {"value": "+0.86%", "label": "🥇 COMEX黄金", "quote": "+0.86% 🥇 COMEX黄金"},
+  {"value": "+1.23%", "label": "🛢️ 布伦特原油", "quote": "+1.23% 🛢️ 布伦特原油"},
+  {"value": "-0.67%", "label": "上证指数", "quote": "-0.67% 上证指数"},
+  {"value": "38%", "label": "上证指数52周位置", "quote": "38% 上证指数52周位置"}
+]
+</script>
+</body>
+</html>

@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="算力·能耗·环境">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI硬件军备竞赛——从沙子到算力的奇幻漂流</title>
+<script src="../../../assets/vendor/ajax_libs_gsap_3.12.5/gsap.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'"></script>
+<script src="../../../assets/vendor/ajax_libs_gsap_3.12.5/ScrollTrigger.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+/* ── Hero Section ── */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%, #0d1b2a 0%, #0a0a0f 70%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width:1px; height:1px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+}
+.hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #00D4FF;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  opacity: 0;
+}
+.hero h1 .highlight {
+  background:none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:#00D4FF;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 18px;
+  color: #888;
+  margin-top: 20px;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
+  opacity: 0;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 2px;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.2800000000000002px); }
+}
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #00D4FF, transparent);
+  margin: 8px auto 0;
+}
+
+/* ── Particle Canvas ── */
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.content-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section Base ── */
+section {
+  padding: 120px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #00D4FF;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 17px;
+  color: #999;
+  line-height: 1.7;
+  max-width: 700px;
+  margin-bottom: 48px;
+}
+
+/* ── Chapter Divider ── */
+.chapter-divider {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-divider::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+}
+.chapter-number {
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(0,212,255,0.06);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Supply Chain Journey ── */
+.journey-track {
+  position: relative;
+  padding: 40px 0;
+}
+.journey-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #00D4FF, #00FF88, transparent);
+  transform: translateX(-50%);
+}
+.journey-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+  position: relative;
+  opacity: 0;
+}
+.journey-step:nth-child(odd) { flex-direction: row; }
+.journey-step:nth-child(even) { flex-direction: row-reverse; }
+.journey-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00D4FF;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(0,212,255,0.5);
+}
+.journey-card {
+  width: 42%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.journey-card:hover {
+  border-color: rgba(0,212,255,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,212,255,0.1);
+}
+.journey-step:nth-child(odd) .journey-card { margin-right: auto; margin-left: 0; }
+.journey-step:nth-child(even) .journey-card { margin-left: auto; margin-right: 0; }
+.journey-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.journey-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.journey-card p {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.6;
+}
+.journey-card .stat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00FF88;
+  margin-top: 12px;
+}
+.journey-card .stat-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* ── Timeline Slider ── */
+.timeline-section {
+  padding: 100px 24px;
+  background: linear-gradient(180deg, transparent, rgba(0,212,255,0.02), transparent);
+}
+.timeline-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.timeline-slider-wrap {
+  position: relative;
+  margin-top: 40px;
+}
+.timeline-track {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0 40px;
+  scrollbar-width: none;
+}
+.timeline-track::-webkit-scrollbar { display: none; }
+.timeline-node {
+  flex: 0 0 240px;
+  scroll-snap-align: center;
+  position: relative;
+  padding: 0 16px;
+  cursor: pointer;
+}
+.timeline-node::after {
+  content: '';
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  height:1px;
+  background: rgba(0,212,255,0.2);
+}
+.timeline-node.active::after {
+  background: linear-gradient(90deg, #00D4FF, #00FF88);
+}
+.timeline-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 24px;
+  transition: color 0.3s;
+}
+.timeline-node.active .timeline-year { color: #00D4FF; }
+.timeline-dot2 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 2px solid #333;
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s;
+}
+.timeline-node.active .timeline-dot2 {
+  background: #00D4FF;
+  border-color: #00D4FF;
+  box-shadow: 0 0 16px rgba(0,212,255,0.6);
+}
+.timeline-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 6px;
+  transition: color 0.3s;
+}
+.timeline-node.active .timeline-title { color: #fff; }
+.timeline-desc {
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+  line-height: 1.5;
+}
+.timeline-detail-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 20px;
+  min-height: 200px;
+  transition: all 0.4s ease;
+}
+.timeline-detail-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.timeline-detail-card p {
+  font-size: 15px;
+  color: #aaa;
+  line-height: 1.7;
+}
+.timeline-detail-card .detail-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+}
+.detail-stat {
+  text-align: center;
+}
+.detail-stat .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00FF88;
+}
+.detail-stat .label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* ── Comparison Dashboard ── */
+.comparison-section {
+  padding: 100px 24px;
+}
+.comparison-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.comp-tab {
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.comp-tab:hover { border-color: rgba(0,212,255,0.3); color: #ccc; }
+.comp-tab.active {
+  background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,255,136,0.1));
+  border-color: rgba(0,212,255,0.4);
+  color: #fff;
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.comp-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.comp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height:1px;
+  background: linear-gradient(90deg, #00D4FF, #00FF88);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.comp-card:hover::before { opacity: 1; }
+.comp-card:hover {
+  border-color: rgba(0,212,255,0.2);
+  transform: translateY(-4px);
+}
+.comp-card .logo {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.comp-card .name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.comp-card .role {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 16px;
+}
+.comp-card .metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.comp-card .metric-label {
+  font-size: 13px;
+  color: #888;
+}
+.comp-card .metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #00FF88;
+}
+.comp-card .bar-bg {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.comp-card .bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #00D4FF, #00FF88);
+  transition: width 1.2s ease;
+}
+
+/* ── Data Dashboard ── */
+.dashboard-section {
+  padding: 100px 24px;
+  background: linear-gradient(180deg, transparent, rgba(0,212,255,0.015), transparent);
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.dash-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+.dash-card .dash-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.dash-card .dash-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  background:none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:#00D4FF;
+  background-clip: text;
+}
+.dash-card .dash-label {
+  font-size: 13px;
+  color: #777;
+  margin-top: 8px;
+}
+.dash-card .dash-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #00FF88;
+  margin-top: 4px;
+}
+
+/* ── Geopolitics Map ── */
+.geo-section {
+  padding: 100px 24px;
+}
+.geo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) { .geo-grid { grid-template-columns: 1fr; } }
+.geo-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.geo-card .geo-flag {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.geo-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.geo-card .geo-desc {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.geo-card .geo-impact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.geo-tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(0,212,255,0.08);
+  color: #00D4FF;
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+/* ── Chart: Market Size ── */
+.chart-section {
+  padding: 80px 24px;
+}
+.chart-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 300px;
+  padding: 0 0 40px;
+  position: relative;
+}
+.bar-chart::before {
+  content: '';
+  position: absolute;
+  bottom: 39px;
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.bar {
+  width: 48px;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  transition: height 1.5s ease;
+}
+.bar-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #00FF88;
+  white-space: nowrap;
+}
+.bar-year {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* ── Future Section ── */
+.future-section {
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+}
+.future-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height:1px;
+  background: linear-gradient(to bottom, transparent, #00D4FF);
+}
+.future-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.future-title .glow {
+  background:none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:#00D4FF;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.future-text {
+  font-size: 17px;
+  color: #888;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.future-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.future-stat {
+  text-align: center;
+}
+.future-stat .fs-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: #00D4FF;
+}
+.future-stat .fs-label {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 60px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.footer-text {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+.footer-source {
+  font-size: 12px;
+  color: #444;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+/* ── Floating Nav ── */
+.nav-dots {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-dot.active {
+  background: #00D4FF;
+  box-shadow: 0 0 12px rgba(0,212,255,0.5);
+  transform: scale(1.3);
+}
+.nav-dot:hover {
+  background: rgba(0,212,255,0.5);
+}
+@media (max-width: 768px) { .nav-dots { display: none; } }
+
+/* ── Supply Chain Flow Visualization ── */
+.flow-viz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 48px 0;
+  flex-wrap: wrap;
+}
+.flow-node-viz {
+  width: 100px;
+  text-align: center;
+  opacity: 0;
+}
+.flow-node-viz .flow-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+.flow-node-viz .flow-name {
+  font-size: 12px;
+  color: #aaa;
+}
+.flow-node-viz .flow-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #00FF88;
+  margin-top: 2px;
+}
+.flow-arrow {
+  font-size: 18px;
+  color: #00D4FF;
+  opacity: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .journey-line { left: 24px; }
+  .journey-step, .journey-step:nth-child(even) { flex-direction: row; }
+  .journey-card { width: 80%; margin-left: 48px !important; }
+  .journey-dot { left: 24px; }
+  .timeline-node { flex: 0 0 180px; }
+  .future-stats { gap: 24px; }
+}
+
+/* ── Counter Animation ── */
+.counter { display: inline-block; }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:12px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:12px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-25</span><span class="sb-sep">/</span><span class="sb-beat">算力·能耗·环境</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">14 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.hero-badge{opacity:1!important;visibility:visible!important;transform:none!important}.hero h1{opacity:1!important;visibility:visible!important}.hero-sub{opacity:1!important;visibility:visible!important}.journey-step{opacity:1!important;visibility:visible!important}.flow-node-viz{opacity:1!important;visibility:visible!important}.flow-arrow{opacity:1!important;visibility:visible!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+div.content-wrap > section.hero > div.hero-scroll{color:#797979 !important}
+div.journey-step > div.journey-card > div.stat-label{color:#7a7a7a !important}
+div.timeline-track > div.timeline-node > div.timeline-year{color:#797979 !important}
+div.detail-stats > div.detail-stat > div.label{color:#7a7a7a !important}
+div.comparison-grid > div.comp-card > div.role{color:#7a7a7a !important}
+div.dashboard-grid > div.dash-card > div.dash-label{color:#7a7a7a !important}
+div.bar-chart > div.bar-group > div.bar-year{color:#7a7a7a !important}
+div.future-stats > div.future-stat > div.fs-label{color:#7a7a7a !important}
+
+/* 设计修复（页内计算样式取证生成） */
+div.nav-dots > div.nav-dot{box-shadow:0 2px 10px rgba(1,1,1,0.5) !important}
+div.content-wrap > div.chapter-divider::before{width:1px !important}
+div.journey-track > div.journey-step > div.journey-dot{box-shadow:0 2px 10px rgba(1,1,1,0.5) !important}
+div.timeline-slider-wrap > div.timeline-track > div.timeline-node::after{width:1px !important}
+div.timeline-track > div.timeline-node > div.timeline-dot2{box-shadow:0 2px 10px rgba(1,1,1,0.6) !important}
+div.timeline-track > div.timeline-node > div.timeline-dot2{border-top-width:1px !important}
+section.comparison-section > div.comparison-grid > div.comp-card::before{width:1px !important}
+section.dashboard-section > div.chart-container > div.bar-chart::before{width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
+<!-- Navigation Dots -->
+<div class="nav-dots" id="navDots">
+  <div class="nav-dot active" data-section="0" title="开场"></div>
+  <div class="nav-dot" data-section="1" title="奇幻漂流"></div>
+  <div class="nav-dot" data-section="2" title="军备竞赛"></div>
+  <div class="nav-dot" data-section="3" title="数据仪表盘"></div>
+  <div class="nav-dot" data-section="4" title="地缘博弈"></div>
+  <div class="nav-dot" data-section="5" title="市场格局"></div>
+  <div class="nav-dot" data-section="6" title="未来"></div>
+</div>
+
+<div class="content-wrap">
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero" id="sec-hero">
+  <div class="hero-badge">DATA NARRATIVE · 2026.06</div>
+  <h1><span class="highlight">AI硬件</span>的<br>军备竞赛</h1>
+  <p class="hero-sub">从沙漠深处的一粒硅砂，到驱动文明的万亿算力——一场跨越物理极限与地缘博弈的奇幻漂流</p>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ════════════ CH1: Supply Chain Journey ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">01</span></div>
+<section id="sec-journey">
+  <div class="section-label">Chapter 01 · 从沙到芯</div>
+  <div class="section-title">一粒沙的奇幻漂流</div>
+  <div class="section-desc">
+    一克沙子含有约一亿亿个硅原子。从沙漠到晶圆厂，从原子级制造到万亿次运算——AI芯片的诞生之旅，是人类工程学最精密的奇迹。
+  </div>
+
+  <!-- Flow Visualization -->
+  <div class="flow-viz" id="flowViz">
+    <div class="flow-node-viz"><div class="flow-icon">🏜️</div><div class="flow-name">硅砂</div><div class="flow-time">0 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">🧊</div><div class="flow-name">多晶硅</div><div class="flow-time">~30 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">🔮</div><div class="flow-name">单晶硅锭</div><div class="flow-time">~14 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">💿</div><div class="flow-name">晶圆</div><div class="flow-time">~14 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">🔬</div><div class="flow-name">光刻蚀刻</div><div class="flow-time">~60 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">🧩</div><div class="flow-name">先进封装</div><div class="flow-time">~30 天</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node-viz"><div class="flow-icon">⚡</div><div class="flow-name">AI芯片</div><div class="flow-time">~180 天</div></div>
+  </div>
+
+  <!-- Timeline Journey -->
+  <div class="journey-track">
+    <div class="journey-line"></div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">🏜️</div>
+        <h3>硅砂提纯 — 99.9999999%</h3>
+        <p>从石英砂到电子级多晶硅，纯度需要达到9个9（9N）。每一步提纯都意味着指数级的成本增长。</p>
+        <div class="stat">$2/kg</div>
+        <div class="stat-label">电子级硅料原料成本</div>
+      </div>
+    </div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">🔮</div>
+        <h3>单晶生长 — 1500°C的舞蹈</h3>
+        <p>在1500°C的高温炉中，籽晶缓慢旋转上提，72小时不间断，生长出直径300mm的完美单晶硅锭。</p>
+        <div class="stat">72h</div>
+        <div class="stat-label">单晶硅生长周期</div>
+      </div>
+    </div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">💿</div>
+        <h3>晶圆切割 — 0.775mm的薄</h3>
+        <p>硅锭被切割成仅0.775mm厚的晶圆，再经过CMP抛光，表面粗糙度控制在原子级（<0.2nm RMS）。</p>
+        <div class="stat"><0.2nm</div>
+        <div class="stat-label">表面粗糙度（原子级）</div>
+      </div>
+    </div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">🔬</div>
+        <h3>EUV光刻 — 13.5nm的光剑</h3>
+        <p>每台ASML High-NA EUV光刻机售价超$3.5亿，重达150吨，需要40万个零件协作，在13.5nm波长下雕刻电路。</p>
+        <div class="stat">$3.5亿</div>
+        <div class="stat-label">单台ASML EUV光刻机</div>
+      </div>
+    </div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">🧩</div>
+        <h3>先进封装 — CoWoS瓶颈</h3>
+        <p>2026年全球CoWoS先进封装产能缺口超30%，封装价格飙升30%。先进封装已成为AI芯片量产的核心瓶颈。</p>
+        <div class="stat">>30%</div>
+        <div class="stat-label">CoWoS产能缺口</div>
+      </div>
+    </div>
+
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-card">
+        <div class="journey-icon">⚡</div>
+        <h3>AI芯片 — 算力的终极形态</h3>
+        <p>一颗NVIDIA B200 GPU包含2080亿个晶体管，3nm制程，288GB HBM3E内存，FP4精度下算力达40PFLOPS。</p>
+        <div class="stat">2080亿</div>
+        <div class="stat-label">单芯片晶体管数量</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH2: Timeline Slider ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">02</span></div>
+<section class="timeline-section" id="sec-timeline">
+  <div class="timeline-container">
+    <div class="section-label">Chapter 02 · 军备编年史</div>
+    <div class="section-title">算力军备竞赛时间轴</div>
+    <div class="section-desc">
+      从GPT-3到万亿参数模型，从A100到B200+Rubin——AI硬件的每一次迭代都在重塑全球权力版图。
+    </div>
+
+    <div class="timeline-slider-wrap">
+      <div class="timeline-track" id="timelineTrack">
+        <div class="timeline-node active" data-idx="0">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">GPT-3 元年</div>
+          <div class="timeline-desc">1750亿参数<br>A100 GPU 首发</div>
+        </div>
+        <div class="timeline-node" data-idx="1">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">ChatGPT 爆发</div>
+          <div class="timeline-desc">AI芯片供不应求<br>算力军备竞赛启动</div>
+        </div>
+        <div class="timeline-node" data-idx="2">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">H100 统治</div>
+          <div class="timeline-desc">英伟达市值破万亿<br>华为昇腾910B量产</div>
+        </div>
+        <div class="timeline-node" data-idx="3">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">B200 登场</div>
+          <div class="timeline-desc">Blackwell架构发布<br>2080亿晶体管</div>
+        </div>
+        <div class="timeline-node" data-idx="4">
+          <div class="timeline-year">2025</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">Vera Rubin</div>
+          <div class="timeline-desc">英伟达营收1503亿<br>AMD MI350X发布</div>
+        </div>
+        <div class="timeline-node" data-idx="5">
+          <div class="timeline-year">2026</div>
+          <div class="timeline-dot2"></div>
+          <div class="timeline-title">万亿市场</div>
+          <div class="timeline-desc">全球半导体破万亿<br>CoWoS成核心瓶颈</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-detail-card" id="timelineDetail">
+      <h3 id="detailTitle">GPT-3 元年 — AI觉醒</h3>
+      <p id="detailDesc">2020年，OpenAI发布GPT-3，1750亿参数的大语言模型首次展示了"涌现"能力。同年，NVIDIA A100 GPU正式量产，成为AI训练的标配硬件。这一年，AI从实验室走向产业化的序幕正式拉开。</p>
+      <div class="detail-stats">
+        <div class="detail-stat"><div class="num" id="ds1">1750亿</div><div class="label">参数规模</div></div>
+        <div class="detail-stat"><div class="num" id="ds2">312 TFLOPS</div><div class="label">A100 FP16算力</div></div>
+        <div class="detail-stat"><div class="num" id="ds3">~$10K</div><div class="label">A100单价</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH3: Players Comparison ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">03</span></div>
+<section class="comparison-section" id="sec-players">
+  <div class="section-label">Chapter 03 · 玩家格局</div>
+  <div class="section-title">AI芯片四方博弈</div>
+  <div class="section-desc">
+    英伟达、AMD、华为、Intel——四大玩家在先进制程、封装技术、AI生态三条战线上展开激烈角逐。
+  </div>
+
+  <div class="comparison-tabs" id="compTabs">
+    <button class="comp-tab active" data-tab="overview">总览</button>
+    <button class="comp-tab" data-tab="chip">芯片性能</button>
+    <button class="comp-tab" data-tab="market">市场份额</button>
+    <button class="comp-tab" data-tab="invest">研发投入</button>
+  </div>
+
+  <div class="comparison-grid" id="compGrid">
+    <!-- NVIDIA -->
+    <div class="comp-card">
+      <div class="logo">💚</div>
+      <div class="name">NVIDIA</div>
+      <div class="role">全球AI芯片霸主 · 美国</div>
+      <div class="metric"><span class="metric-label">2025营收</span><span class="metric-value">$1503亿</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 100%"></div></div>
+      <div class="metric"><span class="metric-label">AI芯片份额</span><span class="metric-value">~90%</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 90%"></div></div>
+      <div class="metric"><span class="metric-label">旗舰芯片</span><span class="metric-value">B200 / Rubin</span></div>
+      <div class="metric"><span class="metric-label">制程</span><span class="metric-value">3nm (TSMC)</span></div>
+    </div>
+    <!-- AMD -->
+    <div class="comp-card">
+      <div class="logo">🔴</div>
+      <div class="name">AMD</div>
+      <div class="role">挑战者 · 美国</div>
+      <div class="metric"><span class="metric-label">AI芯片份额</span><span class="metric-value">~8%</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 8%"></div></div>
+      <div class="metric"><span class="metric-label">旗舰芯片</span><span class="metric-value">MI350X</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
+      <div class="metric"><span class="metric-label">制程</span><span class="metric-value">3nm (TSMC)</span></div>
+      <div class="metric"><span class="metric-label">PCB投资</span><span class="metric-value">€20亿</span></div>
+    </div>
+    <!-- 华为 -->
+    <div class="comp-card">
+      <div class="logo">🔴</div>
+      <div class="name">华为昇腾</div>
+      <div class="role">国产替代龙头 · 中国</div>
+      <div class="metric"><span class="metric-label">中国市场份额</span><span class="metric-value">~50%</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 50%"></div></div>
+      <div class="metric"><span class="metric-label">旗舰芯片</span><span class="metric-value">Ascend 910C</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
+      <div class="metric"><span class="metric-label">制程</span><span class="metric-value">7nm (SMIC)</span></div>
+      <div class="metric"><span class="metric-label">超节点技术</span><span class="metric-value">领先</span></div>
+    </div>
+    <!-- Intel -->
+    <div class="comp-card">
+      <div class="logo">🔵</div>
+      <div class="name">Intel</div>
+      <div class="role">转型中的巨头 · 美国</div>
+      <div class="metric"><span class="metric-label">AI芯片份额</span><span class="metric-value">~2%</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 2%"></div></div>
+      <div class="metric"><span class="metric-label">旗舰芯片</span><span class="metric-value">Gaudi 3</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
+      <div class="metric"><span class="metric-label">制程</span><span class="metric-value">Intel 18A</span></div>
+      <div class="metric"><span class="metric-label">FPGA新品</span><span class="metric-value">15款/年</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH4: Data Dashboard ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">04</span></div>
+<section class="dashboard-section" id="sec-dashboard">
+  <div class="section-label">Chapter 04 · 数据仪表盘</div>
+  <div class="section-title">AI算力经济全景</div>
+  <div class="section-desc">
+    从芯片到市场，从制程到封装——数据揭示AI硬件军备竞赛的真实规模。
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dash-card">
+      <div class="dash-icon">🌐</div>
+      <div class="dash-num counter" data-target="9750">0</div>
+      <div class="dash-label">全球半导体市场（亿美元）</div>
+      <div class="dash-delta">+26.3% YoY</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon">💚</div>
+      <div class="dash-num counter" data-target="1503">0</div>
+      <div class="dash-label">NVIDIA营收（亿美元）</div>
+      <div class="dash-delta">+54% YoY</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon">🏭</div>
+      <div class="dash-num counter" data-target="2080">0</div>
+      <div class="dash-label">B200晶体管（亿个）</div>
+      <div class="dash-delta">3nm制程</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon">⚙️</div>
+      <div class="dash-num counter" data-target="35">0</div>
+      <div class="dash-label">CoWoS产能缺口</div>
+      <div class="dash-delta">+30%涨价</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon">🇨🇳</div>
+      <div class="dash-num counter" data-target="500">0</div>
+      <div class="dash-label">中国AI芯片市场（亿美元）</div>
+      <div class="dash-delta">2030年→$2000亿</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon">💰</div>
+      <div class="dash-num counter" data-target="350">0</div>
+      <div class="dash-label">ASML EUV光刻机（万美元）</div>
+      <div class="dash-delta">150吨/台</div>
+    </div>
+  </div>
+
+  <!-- Bar Chart: Market Size Growth -->
+  <div class="chart-container">
+    <div style="font-size: 16px; color: #888; margin-bottom: 24px;">全球半导体市场规模（亿美元）</div>
+    <div class="bar-chart" id="barChart">
+      <div class="bar-group">
+        <div class="bar" data-height="140" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.3), rgba(0,212,255,0.7));">
+          <div class="bar-label">5268</div>
+        </div>
+        <div class="bar-year">2020</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="152" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.3), rgba(0,212,255,0.7));">
+          <div class="bar-label">5559</div>
+        </div>
+        <div class="bar-year">2021</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="160" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.3), rgba(0,212,255,0.7));">
+          <div class="bar-label">5741</div>
+        </div>
+        <div class="bar-year">2022</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="148" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.3), rgba(0,212,255,0.7));">
+          <div class="bar-label">5201</div>
+        </div>
+        <div class="bar-year">2023</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="200" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.4), rgba(0,255,136,0.7));">
+          <div class="bar-label">6270</div>
+        </div>
+        <div class="bar-year">2024</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="230" style="height: 0; background: linear-gradient(to top, rgba(0,212,255,0.5), rgba(0,255,136,0.8));">
+          <div class="bar-label">7750</div>
+        </div>
+        <div class="bar-year">2025</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar" data-height="290" style="height: 0; background: linear-gradient(to top, #00D4FF, #00FF88);">
+          <div class="bar-label">9750</div>
+        </div>
+        <div class="bar-year">2026E</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH5: Geopolitics ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">05</span></div>
+<section class="geo-section" id="sec-geo">
+  <div class="section-label">Chapter 05 · 地缘博弈</div>
+  <div class="section-title">芯片成为新石油</div>
+  <div class="section-desc">
+    AI芯片已不仅是科技产品，更是地缘政治的核心筹码。出口管制、供应链脱钩、技术封锁——半导体正在重塑全球权力版图。
+  </div>
+
+  <div class="geo-grid">
+    <div class="geo-card">
+      <div class="geo-flag">🇺🇸</div>
+      <h3>美国：出口管制升级</h3>
+      <div class="geo-desc">
+        2026年5月BIS新规明确：中国企业即便通过境外子公司采购高端AI芯片，同样需要申请许可证。NVIDIA Rubin、Blackwell、AMD MI350X均在管制清单。中国买家至今未采购一片H200。
+      </div>
+      <div class="geo-impact">
+        <span class="geo-tag">BIS新规</span>
+        <span class="geo-tag">境外子公司堵截</span>
+        <span class="geo-tag">推定拒绝→逐案审查</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇨🇳</div>
+      <h3>中国：自主突围</h3>
+      <div class="geo-desc">
+        华为昇腾910C通过超节点互联技术引领AI基础设施新范式。国产AI芯片集体通过安全认证。先进封装成为"绕开制程卡脖子"的关键突破口，2026年被定义为"自主突围元年"。
+      </div>
+      <div class="geo-impact">
+        <span class="geo-tag">昇腾910C</span>
+        <span class="geo-tag">安全认证通过</span>
+        <span class="geo-tag">先进封装突围</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇹🇼</div>
+      <h3>台积电：不可替代的中枢</h3>
+      <div class="geo-desc">
+        3nm产能被苹果、英伟达、AMD、高通包下至2026年底。CoWoS先进封装年复合增长率>50%，建厂周期从3-5年缩短至1.5年。全球AI芯片命脉系于一岛。
+      </div>
+      <div class="geo-impact">
+        <span class="geo-tag">3nm产能满载</span>
+        <span class="geo-tag">CoWoS CAGR 50%+</span>
+        <span class="geo-tag">战略要地</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇪🇺</div>
+      <h3>欧洲：重新武装</h3>
+      <div class="geo-desc">
+        欧盟芯片法案落地，Intel在德国建厂、ASML荷兰坚守、AMD投资€20亿马来西亚PCB工厂。欧洲试图在AI芯片供应链中夺回话语权，但与美亚差距仍在扩大。
+      </div>
+      <div class="geo-impact">
+        <span class="geo-tag">EU Chips Act</span>
+        <span class="geo-tag">Intel德国建厂</span>
+        <span class="geo-tag">ASML垄断EUV</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH6: Market Share Visualization ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">06</span></div>
+<section id="sec-share">
+  <div class="section-label">Chapter 06 · 份额迁移</div>
+  <div class="section-title">中国AI芯片市场版图重构</div>
+  <div class="section-desc">
+    英伟达在中国的份额从绝对主导萎缩至8%，华为昇腾跃升至50%——出口管制正在重塑一个1.4万亿级市场。
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px;">
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 32px;">
+      <div style="font-size: 14px; color: #888; margin-bottom: 24px;">2024 · 英伟达主导时代</div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">NVIDIA</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 80%; height: 100%; background: linear-gradient(90deg, #76b900, #9acd32); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~80%</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">华为</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 12%; height: 100%; background: linear-gradient(90deg, #cf1322, #ff4d4f); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~12%</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">其他</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 8%; height: 100%; background: linear-gradient(90deg, #595959, #8c8c8c); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~8%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(0,212,255,0.2); border-radius: 16px; padding: 32px;">
+      <div style="font-size: 14px; color: #00D4FF; margin-bottom: 24px;">2026E · 国产替代崛起</div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">华为</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 50%; height: 100%; background: linear-gradient(90deg, #cf1322, #ff4d4f); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~50%</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">NVIDIA</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 8%; height: 100%; background: linear-gradient(90deg, #76b900, #9acd32); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~8%</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 14px; width: 80px; color: #ccc;">其他国产</span>
+          <div style="flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+            <div style="width: 42%; height: 100%; background: linear-gradient(90deg, #00D4FF, #00FF88); border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 700;">~42%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CH7: Future ════════════ -->
+<div class="chapter-divider"><span class="chapter-number">07</span></div>
+<section class="future-section" id="sec-future">
+  <div class="future-title">
+    从沙子到算力<br>
+    <span class="glow">竞赛才刚刚开始</span>
+  </div>
+  <div class="future-text">
+    2026年，全球半导体市场即将突破万亿美元大关。AI芯片已从科技产品演变为地缘政治的核心筹码。<br><br>
+    当我们在谈论芯片时，我们谈论的不仅是晶体管和制程——我们谈论的是人类文明的下一个十年。
+  </div>
+  <div class="future-stats">
+    <div class="future-stat">
+      <div class="fs-num">$2000亿</div>
+      <div class="fs-label">中国AI芯片市场 (2030E)</div>
+    </div>
+    <div class="future-stat">
+      <div class="fs-num">$1.5万亿</div>
+      <div class="fs-label">全球半导体市场 (2030E)</div>
+    </div>
+    <div class="future-stat">
+      <div class="fs-num">2nm</div>
+      <div class="fs-label">下一代制程节点</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<div class="footer">
+  <div class="footer-logo">🧠</div>
+  <div class="footer-text">AI硬件军备竞赛 — 从沙子到算力的奇幻漂流<br>Data Narrative · 2026.06.25</div>
+  <div class="footer-source">
+    数据来源：WSTS、Omdia、Bernstein Research、ASML、台积电财报、NVIDIA财报、BIS官网、爱集微<br>
+    制作：绘界（Creative Designer）· 智囊团
+  </div>
+</div>
+
+</div><!-- content-wrap -->
+
+<script>
+// ══════════════════════════════════════════
+// Particle System
+// ══════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.3 + 0.1;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ══════════════════════════════════════════
+// GSAP Animations
+// ══════════════════════════════════════════
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+gsap.to('.hero-badge', { opacity: 1, y: 0, duration: 1, delay: 0.3 });
+gsap.to('.hero h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.6 });
+gsap.to('.hero-sub', { opacity: 1, y: 0, duration: 1, delay: 1 });
+
+// Flow visualization
+gsap.to('.flow-node-viz', {
+  opacity: 1, y: 0, duration: 0.6, stagger: 0.15,
+  scrollTrigger: { trigger: '#flowViz', start: 'top 80%' }
+});
+gsap.to('.flow-arrow', {
+  opacity: 1, duration: 0.4, stagger: 0.15,
+  scrollTrigger: { trigger: '#flowViz', start: 'top 80%' }
+});
+
+// Journey steps
+gsap.utils.toArray('.journey-step').forEach((step, i) => {
+  gsap.to(step, {
+    opacity: 1, x: 0, duration: 0.8,
+    scrollTrigger: { trigger: step, start: 'top 85%' }
+  });
+});
+
+// Dashboard counters
+gsap.utils.toArray('.counter').forEach(counter => {
+  const target = parseInt(counter.getAttribute('data-target'));
+  const obj = { val: 0 };
+  gsap.to(obj, {
+    val: target, duration: 2, ease: 'power2.out',
+    scrollTrigger: { trigger: counter, start: 'top 85%' },
+    onUpdate: () => { counter.textContent = Math.round(obj.val).toLocaleString(); }
+  });
+});
+
+// Bar chart
+gsap.utils.toArray('.bar').forEach((bar, i) => {
+  const h = bar.getAttribute('data-height');
+  gsap.to(bar, {
+    height: h + 'px', duration: 1.2, delay: i * 0.1, ease: 'power2.out',
+    scrollTrigger: { trigger: '#barChart', start: 'top 85%' }
+  });
+});
+
+// Geo cards
+gsap.utils.toArray('.geo-card').forEach((card, i) => {
+  gsap.from(card, {
+    opacity: 0, y: 40, duration: 0.8, delay: i * 0.15,
+    scrollTrigger: { trigger: card, start: 'top 85%' }
+  });
+});
+
+// ══════════════════════════════════════════
+// Timeline Interactive
+// ══════════════════════════════════════════
+const timelineData = [
+  {
+    title: 'GPT-3 元年 — AI觉醒',
+    desc: '2020年，OpenAI发布GPT-3，1750亿参数的大语言模型首次展示了"涌现"能力。同年，NVIDIA A100 GPU正式量产，成为AI训练的标配硬件。这一年，AI从实验室走向产业化的序幕正式拉开。',
+    stats: ['1750亿', '312 TFLOPS', '~$10K'],
+    labels: ['参数规模', 'A100 FP16算力', 'A100单价']
+  },
+  {
+    title: 'ChatGPT 爆发 — 算力军备启动',
+    desc: '2022年11月ChatGPT上线，2个月用户破亿。全球科技巨头紧急抢购GPU，A100价格从$10K飙升至$40K+。英伟达数据中心营收首次超过游戏，AI芯片军备竞赛正式点燃。',
+    stats: ['2个月破亿', '$40K+', '3倍溢价'],
+    labels: ['ChatGPT用户增速', 'A100黑市价格', '价格涨幅']
+  },
+  {
+    title: 'H100 统治 — 英伟达封神',
+    desc: '2023年H100横空出世，FP8精度下单卡算力3958 TFLOPS，是A100的6倍。英伟达市值突破万亿美元，黄仁勋成为AI时代的"军火商"。同年华为昇腾910B量产，中国AI芯片自主化征程开启。',
+    stats: ['3958 TFLOPS', '6× A100', '$1万亿'],
+    labels: ['H100 FP8算力', '性能提升', '英伟达市值']
+  },
+  {
+    title: 'B200 登场 — 黑暗降临',
+    desc: '2024年英伟达发布Blackwell架构B200，2080亿晶体管，3nm制程，FP4精度下算力达40PFLOPS。单卡性能是H100的7倍。全球AI基础设施投资飙升至$2000亿+。',
+    stats: ['2080亿', '40 PFLOPS', '$2000亿+'],
+    labels: ['晶体管数量', 'FP4算力', '全球AI基础设施投资']
+  },
+  {
+    title: 'Vera Rubin — 下一代革命',
+    desc: '2025年英伟达发布Vera Rubin平台，黄仁勋称之为"人类历史上最复杂的计算系统"。同年NVIDIA全年营收达$1503亿，同比增长54%。AMD发布MI350X追赶，AI芯片竞争进入白热化。',
+    stats: ['$1503亿', '+54%', '$3.5万亿'],
+    labels: ['NVIDIA年营收', '同比增长', '英伟达市值']
+  },
+  {
+    title: '万亿市场 — 格局重构',
+    desc: '2026年全球半导体市场突破万亿美元。但先进封装成核心瓶颈，CoWoS产能缺口超30%。BIS新规堵截中国境外子公司采购渠道。华为昇腾在中国市场份额跃升至50%，NVIDIA萎缩至8%。AI芯片军备竞赛进入新阶段。',
+    stats: ['$9750亿', '>30%', '50%'],
+    labels: ['全球半导体市场', 'CoWoS产能缺口', '华为中国份额']
+  }
+];
+
+document.querySelectorAll('.timeline-node').forEach(node => {
+  node.addEventListener('click', () => {
+    document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+    node.classList.add('active');
+    const idx = parseInt(node.getAttribute('data-idx'));
+    const data = timelineData[idx];
+    const card = document.getElementById('timelineDetail');
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      document.getElementById('detailTitle').textContent = data.title;
+      document.getElementById('detailDesc').textContent = data.desc;
+      document.getElementById('ds1').textContent = data.stats[0];
+      document.getElementById('ds2').textContent = data.stats[1];
+      document.getElementById('ds3').textContent = data.stats[2];
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 200);
+    // Scroll node into view
+    node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+});
+
+// ══════════════════════════════════════════
+// Comparison Tabs
+// ══════════════════════════════════════════
+const tabData = {
+  overview: [
+    { name: 'NVIDIA', role: '全球AI芯片霸主 · 美国', metrics: [['2025营收','$1503亿',100],['AI芯片份额','~90%',90],['旗舰芯片','B200 / Rubin',0],['制程','3nm (TSMC)',0]] },
+    { name: 'AMD', role: '挑战者 · 美国', metrics: [['AI芯片份额','~8%',8],['旗舰芯片','MI350X',0],['制程','3nm (TSMC)',0],['PCB投资','€20亿',0]] },
+    { name: '华为昇腾', role: '国产替代龙头 · 中国', metrics: [['中国市场份额','~50%',50],['旗舰芯片','Ascend 910C',0],['制程','7nm (SMIC)',0],['超节点技术','领先',0]] },
+    { name: 'Intel', role: '转型中的巨头 · 美国', metrics: [['AI芯片份额','~2%',2],['旗舰芯片','Gaudi 3',0],['制程','Intel 18A',0],['FPGA新品','15款/年',0]] }
+  ],
+  chip: [
+    { name: 'NVIDIA B200', role: '旗舰GPU · Blackwell架构', metrics: [['晶体管','2080亿',100],['制程','3nm',100],['内存','288GB HBM3E',100],['FP4算力','40 PFLOPS',100]] },
+    { name: 'AMD MI350X', role: '追赶者 · CDNA4架构', metrics: [['制程','3nm',100],['HBM','288GB',80],['FP4算力','~20 PFLOPS',50],['发布','2025 H2',0]] },
+    { name: '华为 Ascend 910C', role: '国产旗舰 · 自研架构', metrics: [['制程','7nm',50],['互联','超节点架构',90],['AI推理','达标客户需求',60],['生态','MindSpore',50]] },
+    { name: 'Intel Gaudi 3', role: '转型之作 · Habana', metrics: [['制程','Intel 7',40],['HBM','128GB',40],['FP8算力','~1.8 PFLOPS',20],['定位','B2B推理',30]] }
+  ],
+  market: [
+    { name: 'NVIDIA', role: '全球AI芯片市场', metrics: [['全球份额','~90%',90],['数据中心营收','$1503亿',100],['YoY增长','+54%',54],['中国份额(2026E)','~8%',8]] },
+    { name: 'AMD', role: '全球AI加速器市场', metrics: [['全球份额','~8%',8],['MI300X营收','~$50亿',15],['YoY增长','+120%',30],['2026目标','MI350X放量',0]] },
+    { name: '华为昇腾', role: '中国AI芯片市场', metrics: [['中国份额(2026E)','~50%',50],['910C出货','快速增长',40],['YoY增长','+200%',60],['客户','三大运营商+互联网',0]] },
+    { name: '全球市场', role: '半导体总体格局', metrics: [['2026市场规模','$9750亿',100],['AI驱动占比','~40%',40],['YoY增长','+26.3%',26],['2030E','$1.5万亿',80]] }
+  ],
+  invest: [
+    { name: 'NVIDIA', role: '研发+生态投入', metrics: [['年研发投入','~$120亿',100],['CUDA开发者','500万+',100],['生态护城河','极高',100],['AI软件栈','cuDNN/TensorRT',0]] },
+    { name: 'AMD', role: '研发+制造投入', metrics: [['年研发投入','~$60亿',50],['PCB投资','€20亿(马来西亚)',20],['生态','ROCm追赶',40],['代工','TSMC 3nm',0]] },
+    { name: '华为昇腾', role: '国家战略支撑', metrics: [['研发投入','极高(未公开)',80],['国产替代','政策驱动',90],['生态','MindSpore+CANN',50],['超节点','自研互联',80]] },
+    { name: 'ASML', role: '光刻设备垄断', metrics: [['年营收','~€300亿',80],['EUV市占率','100%',100],['单台售价','$3.5亿+',100],['High-NA','2nm必备',0]] }
+  ]
+};
+
+const colors = ['#76b900', '#cf1322', '#cf1322', '#0071c5'];
+document.querySelectorAll('.comp-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.comp-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const key = tab.getAttribute('data-tab');
+    const grid = document.getElementById('compGrid');
+    const data = tabData[key];
+    grid.innerHTML = '';
+    data.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'comp-card';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      const emojis = ['💚', '🔴', '🔴', '🔵'];
+      let metricsHtml = item.metrics.map(m => `
+        <div class="metric"><span class="metric-label">${m[0]}</span><span class="metric-value">${m[1]}</span></div>
+        ${m[2] > 0 ? `<div class="bar-bg"><div class="bar-fill" style="width: 0%; transition: width 1s ease;" data-w="${m[2]}%"></div></div>` : ''}
+      `).join('');
+      card.innerHTML = `
+        <div class="logo">${emojis[i]}</div>
+        <div class="name">${item.name}</div>
+        <div class="role">${item.role}</div>
+        ${metricsHtml}
+      `;
+      grid.appendChild(card);
+      setTimeout(() => {
+        card.style.transition = 'all 0.4s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.querySelectorAll('.bar-fill').forEach(bar => {
+          setTimeout(() => { bar.style.width = bar.getAttribute('data-w'); }, 300);
+        });
+      }, i * 100);
+    });
+  });
+});
+
+// ══════════════════════════════════════════
+// Nav Dots
+// ══════════════════════════════════════════
+const sections = ['sec-hero', 'sec-journey', 'sec-timeline', 'sec-dashboard', 'sec-geo', 'sec-share', 'sec-future'];
+sections.forEach((id, i) => {
+  ScrollTrigger.create({
+    trigger: '#' + id,
+    start: 'top center',
+    end: 'bottom center',
+    onEnter: () => setActiveDot(i),
+    onEnterBack: () => setActiveDot(i)
+  });
+});
+function setActiveDot(idx) {
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+}
+document.querySelectorAll('.nav-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const idx = parseInt(dot.getAttribute('data-section'));
+    document.getElementById(sections[idx]).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value": "99.9999999%", "label": "硅砂提纯", "quote": "硅砂提纯 — 99.9999999%"},
+  {"value": "2080亿", "label": "晶体管", "quote": "2080亿晶体管"},
+  {"value": "1503亿", "label": "英伟达营收", "quote": "英伟达营收1503亿"},
+  {"value": "+26.3%", "label": "YoY", "quote": "+26.3% YoY"},
+  {"value": "+54%", "label": "YoY", "quote": "+54% YoY"},
+  {"value": "2080亿", "label": "单芯片晶体管数量", "quote": "2080亿 单芯片晶体管数量"},
+  {"value": "1750亿", "label": "参数规模", "quote": "1750亿 参数规模"},
+  {"value": "~90%", "label": "旗舰芯片", "quote": "~90% 旗舰芯片"},
+  {"value": "~8%", "label": "旗舰芯片", "quote": "~8% 旗舰芯片"},
+  {"value": "~50%", "label": "旗舰芯片", "quote": "~50% 旗舰芯片"},
+  {"value": "~2%", "label": "旗舰芯片", "quote": "~2% 旗舰芯片"},
+  {"value": "~8%", "label": "2026E · 国产替代崛起", "quote": "~8% 2026E · 国产替代崛起"},
+  {"value": "~50%", "label": "NVIDIA", "quote": "~50% NVIDIA"},
+  {"value": "~8%", "label": "其他国产", "quote": "~8% 其他国产"}
+]
+</script>
+</body>
+</html>

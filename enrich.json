@@ -1,7 +1,7 @@
 {
   "works": [
     {
-      "file": "2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
+      "file": "works/2026-05-23/research/2026-05-23-research-claude-codex-analysis.html",
       "description": "AI编程工具进入\"可靠性临界点\"的时代｜一、Claude Code Auto Mode 技术解析",
       "highlights": [
         "OpenAI"
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html",
+      "file": "works/2026-05-23/research/2026-05-23-research-stainless-acquisition.html",
       "description": "从SDK编译器到AI编程基础设施的战略布局｜一、Stainless是什么",
       "highlights": [
         "Anthropic"
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html",
+      "file": "works/2026-05-26/research/2026-05-26-huawei-tau-law.html",
       "description": "芯片新周期真的来了吗？——对A股市场的影响分析｜韬(τ)定律技术解析",
       "highlights": [
         "华为",
@@ -47,7 +47,7 @@
       ]
     },
     {
-      "file": "2026-05-27/research/2026-05-27-turing-test-impact.html",
+      "file": "works/2026-05-27/research/2026-05-27-turing-test-impact.html",
       "description": "从科学意义、产业变革到社会治理——全面剖析AI突破图灵测试后的多维度冲击与应对策略",
       "highlights": [
         "AI通过图灵测试"
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "file": "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
+      "file": "works/2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
       "description": "全球算力军备竞赛 · 2025-2026｜全球AI算力市场爆发",
       "highlights": [
         "算力"
@@ -132,7 +132,7 @@
       ]
     },
     {
-      "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html",
+      "file": "works/2026-05-31/research/2026-05-31-Anthropic-valuation.html",
       "description": "Anthropic vs OpenAI · 2024-2025 融资全景｜核心数据速览",
       "highlights": [
         "OpenAI",
@@ -159,7 +159,7 @@
       ]
     },
     {
-      "file": "2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
+      "file": "works/2026-05-31/research/2026-05-31-DeepSeek-valuation.html",
       "description": "中国AI独角兽的首轮融资里程碑｜一、DeepSeek 450亿估值：一场改变中国AI格局的融资",
       "highlights": [
         "DeepSeek",
@@ -205,7 +205,7 @@
       ]
     },
     {
-      "file": "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
+      "file": "works/2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
       "description": "六年间，AI公司从实验室走向世界之巅。资本用真金白银投票，重新定义下一个时代。｜估值洪流",
       "highlights": [
         "估值"
@@ -225,7 +225,7 @@
       ]
     },
     {
-      "file": "2026-06-04/research/2026-06-04-ai-capital-landscape.html",
+      "file": "works/2026-06-04/research/2026-06-04-ai-capital-landscape.html",
       "description": "2025–2026 全球AI公司估值版图正在重写。一场从Anthropic反超OpenAI、到DeepSeek用450亿估值搅动开源格局、再到xAI被并入SpaceX的资本大洗牌,正在改写未来十年的AI权力结构。",
       "highlights": [
         "估值"
@@ -275,7 +275,7 @@
       ]
     },
     {
-      "file": "2026-06-06/research/2026-06-06-ai-agent-landscape.html",
+      "file": "works/2026-06-06/research/2026-06-06-ai-agent-landscape.html",
       "description": "五大主流产品能力、商业化与市场反应的全面拆解｜Agent 元年的产品分化时刻",
       "highlights": [
         "AI Agent"
@@ -290,7 +290,7 @@
       ]
     },
     {
-      "file": "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
+      "file": "works/2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
       "description": "Claude Code 的挑战｜一句话看懂三巨头",
       "highlights": [
         "OpenAI"
@@ -325,7 +325,7 @@
       ]
     },
     {
-      "file": "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html",
+      "file": "works/2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html",
       "description": "Cursor、Claude Code、Codex 三足鼎立，分别代表 IDE 增强、Agent 原生、企业级 API 三种产品哲学。",
       "highlights": [
         "2026"
@@ -360,7 +360,7 @@
       ]
     },
     {
-      "file": "2026-06-11/creative/2026-06-11-model-routing-layer.html",
+      "file": "works/2026-06-11/creative/2026-06-11-model-routing-layer.html",
       "description": "从后台基础设施到产品体验 — Vercel、Apple、Box 与 Anthropic 正在把模型路由从工程师心智里的「脏活」,重写为终端用户面前的「主舞台」。",
       "highlights": [
         "模型"
@@ -375,7 +375,7 @@
       ]
     },
     {
-      "file": "2026-06-11/research/2026-06-11-domestic-llm-comparison.html",
+      "file": "works/2026-06-11/research/2026-06-11-domestic-llm-comparison.html",
       "description": "六大旗舰模型深度对比 · 编程/推理/Agent/多模态全维度解析｜整体格局",
       "highlights": [
         "大模型",
@@ -416,7 +416,7 @@
       ]
     },
     {
-      "file": "2026-06-11/research/2026-06-11-moe-sparse-attention.html",
+      "file": "works/2026-06-11/research/2026-06-11-moe-sparse-attention.html",
       "description": "从「参数堆叠」到「智能激活」——一份关于推理成本断崖式下降、激活率逼近极限的产业级深度研析",
       "highlights": [
         "大模型",
@@ -538,7 +538,7 @@
       ]
     },
     {
-      "file": "2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
+      "file": "works/2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
       "description": "2026 年 6 月 8 日，蒂姆·库克以 CEO 身份登台 WWDC 主旨演讲，宣布对 Siri 进行自 2011 年诞生以来最彻底的一次重构，并把整个 Apple Intelligence 体系从\"润色工具\"升级…",
       "highlights": [
         "苹果"
@@ -553,7 +553,7 @@
       ]
     },
     {
-      "file": "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html",
+      "file": "works/2026-06-12/creative/2026-06-12-ai-model-wars-48h.html",
       "description": "2026年6月，在短短数日内，四大AI巨头几乎同时亮出王牌。这不是巧合，而是蓄谋已久的军备竞赛。GPT-5.6以150万Token上下文震惊世界，Claude Fable 5以SWE-Bench Pro 80.3%改…",
       "highlights": [
         "模型"
@@ -598,7 +598,7 @@
       ]
     },
     {
-      "file": "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html",
+      "file": "works/2026-06-13/creative/2026-06-13-ai-ipo-trinity.html",
       "description": "一张图看懂估值-募资-流动性超级周期｜谁在排队敲钟？",
       "highlights": [
         "IPO",
@@ -607,7 +607,7 @@
       "agent": "创艺"
     },
     {
-      "file": "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html",
+      "file": "works/2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html",
       "description": "从应用容器到智能代理平台｜从应用商店到意图市场",
       "highlights": [
         "Agent OS"
@@ -657,7 +657,7 @@
       ]
     },
     {
-      "file": "2026-06-15/research/2026-06-15-openai-ona-acquisition.html",
+      "file": "works/2026-06-15/research/2026-06-15-openai-ona-acquisition.html",
       "description": "AI编程基础设施的关键布局，OpenAI如何构建完整的开发者工具生态｜研究要点",
       "highlights": [
         "OpenAI"
@@ -665,7 +665,7 @@
       "agent": "研析"
     },
     {
-      "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
+      "file": "works/2026-06-16/creative/2026-06-16-a-share-dashboard.html",
       "description": "市场风格切换数据仪表盘",
       "highlights": [
         "A股",
@@ -727,7 +727,7 @@
       ]
     },
     {
-      "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
+      "file": "works/2026-06-16/creative/2026-06-16-ai-passport-war.html",
       "description": "曾经，AI模型可以自由穿越任何国境。一个GPT在硅谷诞生，几毫秒后就能为上海的医生、柏林的律师、东京的设计师服务。没有人查它的\"证件\"，没有人在意它的出身。直到各国开始发放——AI 护照。",
       "highlights": [
         "模型",
@@ -743,7 +743,7 @@
       ]
     },
     {
-      "file": "2026-06-16/creative/2026-06-16-ai-security-red-blue.html",
+      "file": "works/2026-06-16/creative/2026-06-16-ai-security-red-blue.html",
       "description": "一场没有硝烟的战争——当AI学会欺骗，人类还能信任谁？｜📖 序章：两个AI的命运",
       "highlights": [
         "安全"
@@ -751,7 +751,7 @@
       "agent": "创艺"
     },
     {
-      "file": "2026-06-16/creative/2026-06-16-open-source-models-cards.html",
+      "file": "works/2026-06-16/creative/2026-06-16-open-source-models-cards.html",
       "description": "4 款重磅模型 72 小时内密集开源闭源前沿正被全方位「包抄」",
       "highlights": [
         "开源模型",
@@ -768,7 +768,7 @@
       ]
     },
     {
-      "file": "2026-06-16/research/2026-06-16-fable5-global-ban.html",
+      "file": "works/2026-06-16/research/2026-06-16-fable5-global-ban.html",
       "description": "AI模型即地缘资产的时代到来｜一场72小时的AI地缘风暴",
       "highlights": [
         "模型",
@@ -784,7 +784,7 @@
       ]
     },
     {
-      "file": "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
+      "file": "works/2026-06-20/creative/2026-06-20-musk-trillion-path.html",
       "description": "从破产边缘到全球首富，一个人类历史上首位万亿富翁的12年狂飙｜深渊边缘：赌上一切的豪赌",
       "highlights": [
         "马斯克",
@@ -826,7 +826,7 @@
       ]
     },
     {
-      "file": "2026-06-20/creative/2026-06-20-spacex-cursor.html",
+      "file": "works/2026-06-20/creative/2026-06-20-spacex-cursor.html",
       "description": "AI编程\"三国杀\"全景图 — 从IDE之争到平台级垄断，AI代码入口的终局之战｜AI编程赛道 · 5年并购编年史",
       "highlights": [
         "AI编程"
@@ -871,7 +871,7 @@
       ]
     },
     {
-      "file": "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
+      "file": "works/2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
       "description": "从工具到同事到老板——一场正在发生的职场革命｜进化时间轴：AI Agent的职场晋升之路",
       "highlights": [
         "AI Agent",
@@ -932,7 +932,7 @@
       ]
     },
     {
-      "file": "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html",
+      "file": "works/2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html",
       "description": "霍尔木兹海峡重新通航 · 1280万桶/日断供终结 · 全球能源秩序面临\"不可逆\"重构",
       "highlights": [
         "能源"
@@ -1047,7 +1047,7 @@
       ]
     },
     {
-      "file": "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
+      "file": "works/2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
       "description": "从沙漠深处的一粒硅砂，到驱动文明的万亿算力——一场跨越物理极限与地缘博弈的奇幻漂流",
       "highlights": [
         "算力",
@@ -1128,7 +1128,7 @@
       ]
     },
     {
-      "file": "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+      "file": "works/2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
       "description": "AI正在同时做两件事：让少数人变成\"超级个体\"，让多数人变成\"可替代零件\"。这是超级个体崛起的B面——一道正在撕裂社会的鸿沟。",
       "highlights": [
         "生产力鸿沟",
@@ -1185,7 +1185,7 @@
       ]
     },
     {
-      "file": "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
+      "file": "works/2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
       "description": "SpaceX 2.1万亿，Anthropic 9650亿，OpenAI万亿级——当数字开始失真，我们该如何衡量AI时代的价值？",
       "highlights": [
         "估值"
@@ -1225,7 +1225,7 @@
       ]
     },
     {
-      "file": "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html",
+      "file": "works/2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html",
       "description": "72小时三反转、地缘溢价归零、美联储鹰派转向——当全球能源命脉走出\"自由通行\"模式，油价、通胀、利率、算力、A股的连锁反应刚刚开始",
       "highlights": [
         "能源",
@@ -1321,7 +1321,7 @@
       ]
     },
     {
-      "file": "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html",
+      "file": "works/2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html",
       "description": "Agent基础设施军备竞赛全景图 — 从代码补全到多Agent协作编排，一场关于开发者生产力的终极博弈正在上演",
       "highlights": [
         "AI Coding Agent",
@@ -1353,7 +1353,7 @@
       ]
     },
     {
-      "file": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
+      "file": "works/2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
       "description": "以色列独立军事行动准备与全球能源安全链压力测试｜2026年中东危机全景时间线",
       "highlights": [
         "安全",
@@ -1481,7 +1481,7 @@
       ]
     },
     {
-      "file": "2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
+      "file": "works/2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
       "description": "当Meta说出\"我有太多算力\"的那一刻，一个估值万亿美元的信仰体系，在24小时内开始瓦解。",
       "highlights": [
         "算力",
@@ -1552,7 +1552,7 @@
       ]
     },
     {
-      "file": "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+      "file": "works/2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
       "description": "极端气候下的全球供应链重构与出海机遇 ——当热穹顶击穿欧洲20年的\"空调免疫\"神话",
       "highlights": [
         "供应链"
@@ -1617,7 +1617,7 @@
       ]
     },
     {
-      "file": "2026-07-07/research/2026-07-07-opensource-model-explosion.html",
+      "file": "works/2026-07-07/research/2026-07-07-opensource-model-explosion.html",
       "description": "Kimi K2.7 Code / DiffusionGemma / MiMo Code 集体开源，中国开源力量从\"追赶\"到\"领跑\"的生态拐点",
       "highlights": [
         "开源模型",
@@ -1689,7 +1689,7 @@
       ]
     },
     {
-      "file": "2026-07-09/research/2026-07-09-kling-ai-valuation.html",
+      "file": "works/2026-07-09/research/2026-07-09-kling-ai-valuation.html",
       "description": "从快手内部项目到全球AI视频赛道最大单笔融资，可灵AI用18个月证明了AIGC商业化的中国路径。",
       "highlights": [
         "大模型",
@@ -1737,7 +1737,7 @@
       ]
     },
     {
-      "file": "2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
+      "file": "works/2026-07-11/creative/2026-07-11-waic-2026-battleground.html",
       "description": "1100+企业 · 10万㎡展览 · 300+全球首发 · 谁将定义下一个十年？",
       "highlights": [
         "WAIC",
@@ -1799,7 +1799,7 @@
       ]
     },
     {
-      "file": "2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
+      "file": "works/2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
       "description": "2026年7月13日，A股遭遇\"黑色星期一\"，三大指数集体重挫。本报告深度剖析霍尔木兹海峡危机、半导体产业链冲击与流动性收紧的三重绞杀机制。",
       "highlights": [
         "半导体",
@@ -1840,7 +1840,7 @@
       ]
     },
     {
-      "file": "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
+      "file": "works/2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
       "description": "就在三个月前，阿里还在内部鼓励员工积极使用Claude Code等海外AI编程工具，甚至开放了大额报销通道。不少程序员每周在外部模型上的花费高达数百美元，Claude因其强大的代码生成能力被誉为\"效率神器\"。",
       "highlights": [
         "阿里"
@@ -1870,7 +1870,7 @@
       ]
     },
     {
-      "file": "2026-08-11/creative/2026-08-11-capital-migration.html",
+      "file": "works/2026-08-11/creative/2026-08-11-capital-migration.html",
       "description": "2026年8月，全球资本正在经历一场史无前例的大迁徙。黄金突破$4400，美元指数跌破100，这是全球货币体系重构的信号。",
       "highlights": [
         "黄金",
@@ -1917,7 +1917,7 @@
       ]
     },
     {
-      "file": "2026-08-11/research/2026-08-11-nonfarm-shock.html",
+      "file": "works/2026-08-11/research/2026-08-11-nonfarm-shock.html",
       "description": "2026年8月7日美国就业数据深度解析与货币政策展望｜7月非农数据深度剖析",
       "highlights": [
         "美联储",
@@ -1983,7 +1983,7 @@
       ]
     },
     {
-      "file": "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
+      "file": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
       "description": "2026年第二季度，AI商业化进入深水区。营收爆发式增长与巨额亏损并存，行业迎来历史性盈利拐点。",
       "highlights": [
         "全景对比仪表盘"
@@ -2043,7 +2043,7 @@
       ]
     },
     {
-      "file": "2026-08-13/research/2026-08-13-aisi-safety-assessment.html",
+      "file": "works/2026-08-13/research/2026-08-13-aisi-safety-assessment.html",
       "description": "基于英国AISI 2026年7月安全事件报告及全球AI安全监管框架对比研究｜AISI安全事件全景解析",
       "highlights": [
         "智能体",
@@ -2053,7 +2053,7 @@
       "agent": "研析"
     },
     {
-      "file": "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
+      "file": "works/2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
       "description": "全球1/5的石油运输必经之路，正面临前所未有的威胁。当34公里的海峡被封锁，整个世界的能源脉搏开始紊乱。",
       "highlights": [
         "能源",
@@ -2084,7 +2084,7 @@
       ]
     },
     {
-      "file": "2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+      "file": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
       "description": "AI投入从战略叙事到财报兑现的拐点Q2财报深度解读与全球科技巨头AI军备竞赛全景分析",
       "highlights": [
         "腾讯"
@@ -2214,7 +2214,7 @@
       ]
     },
     {
-      "file": "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html",
+      "file": "works/2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html",
       "description": "当美国联邦通信委员会将中国人形机器人列入受管制清单，一场始于半导体的科技冷战，正式蔓延到「物理世界」。",
       "highlights": [
         "机器人"
@@ -2222,7 +2222,7 @@
       "agent": "研析"
     },
     {
-      "file": "2026-08-18/research/2026-08-18-open-source-model-showdown.html",
+      "file": "works/2026-08-18/research/2026-08-18-open-source-model-showdown.html",
       "description": "GLM-5.3 · Qwen3.8-27B · DeepSeek V4 Pro — 三大国产开源旗舰模型的技术架构、性能基准、生态博弈与格局研判",
       "highlights": [
         "开源模型",
@@ -2290,7 +2290,7 @@
       ]
     },
     {
-      "file": "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+      "file": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
       "description": "2026年，中国开源AI模型全球下载量首次超越美国，占全球总量的41%——一场静悄悄的技术革命正在改写世界AI格局。",
       "highlights": [
         "开源模型",
@@ -2422,7 +2422,7 @@
       ]
     },
     {
-      "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
+      "file": "works/2026-08-20/research/2026-08-20-nobel-ai-science.html",
       "description": "AI与科学的交叉地带｜AI在科学研究中的突破性应用案例",
       "highlights": [
         "诺奖",
@@ -2500,7 +2500,7 @@
       ]
     },
     {
-      "file": "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html",
+      "file": "works/2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html",
       "description": "交互式危机模拟，探索地缘政治对全球能源的影响",
       "highlights": [
         "霍尔木兹海峡",
@@ -2602,7 +2602,7 @@
       ]
     },
     {
-      "file": "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html",
+      "file": "works/2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html",
       "description": "深度分析人形机器人产业化现状、应用场景与产业链",
       "highlights": [
         "人形机器人",
@@ -2679,7 +2679,7 @@
       ]
     },
     {
-      "file": "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
+      "file": "works/2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
       "description": "交互式对比图表，探索黄金与比特币同步飙升的深层逻辑",
       "highlights": [
         "避险资产",
@@ -2717,7 +2717,7 @@
       ]
     },
     {
-      "file": "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
+      "file": "works/2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
       "description": "深度对比LangGraph、AutoGen、CrewAI等Agent编排框架",
       "highlights": [
         "AI Agent",
@@ -2789,7 +2789,7 @@
       ]
     },
     {
-      "file": "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html",
+      "file": "works/2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html",
       "description": "交互式数据地图探索中国机器人创业生态",
       "highlights": [
         "人形机器人",
@@ -2831,7 +2831,7 @@
       ]
     },
     {
-      "file": "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html",
+      "file": "works/2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html",
       "description": "深度分析霍尔木兹海峡危机最新态势及全球影响",
       "highlights": [
         "霍尔木兹海峡",
@@ -2953,7 +2953,7 @@
       ]
     },
     {
-      "file": "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
+      "file": "works/2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
       "description": "交互式架构对比图探索不同编排框架的设计哲学",
       "highlights": [
         "AI Agent",
@@ -3050,7 +3050,7 @@
       ]
     },
     {
-      "file": "2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
+      "file": "works/2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
       "description": "深度分析AI Agent安全威胁与防御框架",
       "highlights": [
         "AI Agent",
@@ -3147,7 +3147,7 @@
       ]
     },
     {
-      "file": "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
+      "file": "works/2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
       "description": "交互式权力地图探索全球AI版图的重新划分",
       "highlights": [
         "英伟达",
@@ -3210,7 +3210,7 @@
       ]
     },
     {
-      "file": "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
+      "file": "works/2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
       "description": "深度分析A股科技股暴跌的诱因、估值重构与投资机会",
       "highlights": [
         "A股",
@@ -3328,7 +3328,7 @@
       ]
     },
     {
-      "file": "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
+      "file": "works/2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
       "description": "交互式时间线探索AI算力需求的指数级增长",
       "highlights": [
         "AI算力",
@@ -3426,7 +3426,7 @@
       ]
     },
     {
-      "file": "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+      "file": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
       "description": "深度对比开源与闭源AI的技术路线、商业模式与生态系统",
       "highlights": [
         "开源AI",
@@ -3574,7 +3574,7 @@
       ]
     },
     {
-      "file": "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html",
+      "file": "works/2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html",
       "description": "交互式危机模拟器探索地缘冲突对全球的影响",
       "highlights": [
         "美伊冲突",
@@ -3622,7 +3622,7 @@
       ]
     },
     {
-      "file": "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+      "file": "works/2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
       "description": "深度分析AI大模型定价策略与商业模式演进",
       "highlights": [
         "DeepSeek",
@@ -3725,7 +3725,7 @@
       ]
     },
     {
-      "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
+      "file": "works/2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
       "description": "交互式反诈模拟器体验AI守护普通人生活安全",
       "highlights": [
         "反诈AI",
@@ -3763,7 +3763,7 @@
       ]
     },
     {
-      "file": "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
+      "file": "works/2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
       "description": "深度分析AI手术机器人的技术突破、信任挑战与产业影响",
       "highlights": [
         "AI手术",
@@ -3866,7 +3866,7 @@
       ]
     },
     {
-      "file": "2026-09-10/creative/2026-09-10-ai-model-fatigue.html",
+      "file": "works/2026-09-10/creative/2026-09-10-ai-model-fatigue.html",
       "description": "交互式模型对比器探索AI行业的同质化竞争与商业困境",
       "highlights": [
         "AI模型",
@@ -3939,7 +3939,7 @@
       ]
     },
     {
-      "file": "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
+      "file": "works/2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
       "description": "深度分析霍尔木兹海峡地缘危机与全球能源供应链影响",
       "highlights": [
         "霍尔木兹海峡",
@@ -4052,7 +4052,7 @@
       ]
     },
     {
-      "file": "2026-09-12/creative/2026-09-12-ai-agent-wars.html",
+      "file": "works/2026-09-12/creative/2026-09-12-ai-agent-wars.html",
       "description": "交互式Agent能力对比器探索AI助手竞争格局",
       "highlights": [
         "AI Agent",
@@ -4076,7 +4076,7 @@
       ]
     },
     {
-      "file": "2026-09-12/research/2026-09-12-iran-multi-front-war.html",
+      "file": "works/2026-09-12/research/2026-09-12-iran-multi-front-war.html",
       "description": "深度分析伊朗军事方针转进攻与中东多点冲突态势",
       "highlights": [
         "伊朗战争",
@@ -4169,7 +4169,7 @@
       ]
     },
     {
-      "file": "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html",
+      "file": "works/2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html",
       "description": "交互式AI行为模拟器探索智能体的自我保护策略",
       "highlights": [
         "AI安全",
@@ -4181,7 +4181,7 @@
       "claims": []
     },
     {
-      "file": "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
+      "file": "works/2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
       "description": "深度分析三重冲击下的资产配置策略与通胀风暴影响",
       "highlights": [
         "能源危机",
@@ -4394,7 +4394,7 @@
       ]
     },
     {
-      "file": "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html",
+      "file": "works/2026-09-17/creative/2026-09-17-wechat-ai-social-network.html",
       "description": "交互式社交网络模拟器探索AI社交的未来",
       "highlights": [
         "微信AI",
@@ -4405,7 +4405,7 @@
       "agent": "创艺+绘界+策士"
     },
     {
-      "file": "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
+      "file": "works/2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
       "description": "深度分析Agent开发民主化趋势与生态影响",
       "highlights": [
         "OpenAI Agents API",
@@ -4483,7 +4483,7 @@
       ]
     },
     {
-      "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
+      "file": "works/2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
       "description": "交互式知识产权归属模拟器探索AI时代的创造权争议",
       "highlights": [
         "AI数学证明",
@@ -4536,7 +4536,7 @@
       ]
     },
     {
-      "file": "2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
+      "file": "works/2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
       "description": "深度分析伊朗四线交火态势与特朗普和平牌的可行性",
       "highlights": [
         "伊朗战争",
@@ -4579,7 +4579,7 @@
       ]
     },
     {
-      "file": "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html",
+      "file": "works/2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html",
       "description": "交互式商业模式对比器探索AI产品的未来竞争格局",
       "highlights": [
         "AI产品",
@@ -4590,7 +4590,7 @@
       "agent": "创艺+绘界+策士"
     },
     {
-      "file": "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
+      "file": "works/2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
       "description": "交互式探索AI安全与增长的博弈",
       "highlights": [
         "AI安全",
@@ -4613,7 +4613,7 @@
       ]
     },
     {
-      "file": "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
+      "file": "works/2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
       "description": "深度分析全球利率飙升的驱动因素及其对经济的影响",
       "highlights": [
         "美债",
@@ -4766,7 +4766,7 @@
       ]
     },
     {
-      "file": "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
+      "file": "works/2026-10-01/creative/2026-10-01-china-ai-valuation.html",
       "description": "交互式探索中国AI企业估值飙升",
       "highlights": [
         "中国AI",
@@ -4794,7 +4794,7 @@
       ]
     },
     {
-      "file": "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
+      "file": "works/2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
       "description": "深度分析AI Agent平台竞争格局",
       "highlights": [
         "AI Agent",
@@ -4927,7 +4927,7 @@
       ]
     },
     {
-      "file": "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+      "file": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
       "description": "交互式探索具身智能机器人进化",
       "highlights": [
         "具身智能",
@@ -4990,7 +4990,7 @@
       ]
     },
     {
-      "file": "2026-10-03/research/2026-10-03-ai-data-famine.html",
+      "file": "works/2026-10-03/research/2026-10-03-ai-data-famine.html",
       "description": "深度分析AI数据瓶颈与合成数据技术",
       "highlights": [
         "AI数据",
@@ -5108,7 +5108,7 @@
       ]
     },
     {
-      "file": "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+      "file": "works/2026-10-06/creative/2026-10-06-ai-employment-migration.html",
       "description": "交互式探索AI就业替代与转型路径",
       "highlights": [
         "AI就业",
@@ -5261,7 +5261,7 @@
       ]
     },
     {
-      "file": "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
+      "file": "works/2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
       "description": "深度分析AI数据中心碳排放与绿色AI技术",
       "highlights": [
         "AI碳足迹",
@@ -5299,7 +5299,7 @@
       ]
     },
     {
-      "file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
+      "file": "works/2026-10-08/creative/2026-10-08-ai-digital-twin.html",
       "description": "交互式探索数字孪生应用场景与虚实融合",
       "highlights": [
         "数字孪生",
@@ -5362,7 +5362,7 @@
       ]
     },
     {
-      "file": "2026-10-08/research/2026-10-08-ai-open-source-war.html",
+      "file": "works/2026-10-08/research/2026-10-08-ai-open-source-war.html",
       "description": "深度分析开源与闭源模型的技术路线与商业模式",
       "highlights": [
         "开源模型",
@@ -5435,7 +5435,7 @@
       ]
     },
     {
-      "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
+      "file": "works/2026-10-10/creative/2026-10-10-ai-everywhere.html",
       "description": "交互式\"AI的一天\"时间线体验人机共生生活",
       "highlights": [
         "AI日常",
@@ -5513,7 +5513,7 @@
       ]
     },
     {
-      "file": "2026-10-10/research/2026-10-10-ai-energy-crisis.html",
+      "file": "works/2026-10-10/research/2026-10-10-ai-energy-crisis.html",
       "description": "深度分析AI数据中心电力需求与核能解决方案",
       "highlights": [
         "AI能耗",
@@ -5531,7 +5531,7 @@
       ]
     },
     {
-      "file": "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
+      "file": "works/2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
       "description": "交互式探索智能体越权事件与安全治理路径",
       "highlights": [
         "智能体安全",
@@ -5549,7 +5549,7 @@
       ]
     },
     {
-      "file": "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
+      "file": "works/2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html",
       "description": "深度分析私人信贷涌入AI基建的逻辑与系统性风险",
       "highlights": [
         "私人信贷",
@@ -5617,7 +5617,7 @@
       ]
     },
     {
-      "file": "2026-10-15/creative/2026-10-15-token-price-war.html",
+      "file": "works/2026-10-15/creative/2026-10-15-token-price-war.html",
       "description": "交互式「1美元购买力」模拟器：Token价格战时间线与闭源/开源性价比对比",
       "highlights": [
         "Token价格战",
@@ -5655,7 +5655,7 @@
       ]
     },
     {
-      "file": "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
+      "file": "works/2026-10-15/research/2026-10-15-memory-price-tsunami.html",
       "description": "存储芯片供需失衡深度分析：三星利润+782%、苹果砍单iPhone 18 Pro、AI服务器HBM挤占产能的产业链传导",
       "highlights": [
         "存储涨价",
@@ -5705,7 +5705,7 @@
       ]
     },
     {
-      "file": "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
+      "file": "works/2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
       "title": "129 条评论的窗口 — FDA 生成式 AI 医疗器械评议与 agentic AI 默认标准的定义权",
       "description": "FDA生成式AI医疗器械公开评议仅129条评论、零机构提交，少数企业在10-19窗口内实质定义能力评估与agentic AI条款默认标准",
       "highlights": [
@@ -5730,7 +5730,7 @@
       ]
     },
     {
-      "file": "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
+      "file": "works/2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
       "description": "冰火对撞交互仪表盘：A股年内新低日466只涨/5060只跌 vs AI漫剧5连板抱团，指数的跌是平均数的跌，题材的涨是选矿的涨",
       "highlights": [
         "A股",
@@ -5750,7 +5750,7 @@
       ]
     },
     {
-      "file": "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
+      "file": "works/2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
       "description": "交互式政策剪刀差：国常会人工智能+全面铺开 vs 40项技术出口管制（禁14限26、含23项关键AI技术）同日落地，一把剪刀剪出中国AI产业形状",
       "highlights": [
         "人工智能+",
@@ -5861,7 +5861,7 @@
       ]
     },
     {
-      "file": "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
+      "file": "works/2026-10-20/research/2026-10-20-ai-rewired-first-workers.html",
       "description": "Anthropic内部数据：技术部门初级员工占比从21%降至14%、入门岗增速从7%放缓至4%，AI取消职业阶梯第一级台阶，被挡在门外的第一批公司如何产生",
       "highlights": [
         "AI重塑就业",
@@ -5967,7 +5967,7 @@
       ]
     },
     {
-      "file": "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
+      "file": "works/2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
       "description": "2026年10月第三周：利剑27军演、霍尔木兹油价110美元、三家央行同步转鹰。三根引线被同时点燃，它们会互相引燃。交互式叙事。",
       "highlights": [
         "利剑27军演",
@@ -5987,7 +5987,7 @@
       ]
     },
     {
-      "file": "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html",
+      "file": "works/2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html",
       "description": "CoreWeave 是这一轮最干净的标本：它把\"AI 资本开支\"从概念变成了一张可以逐行核对的资产负债表。",
       "highlights": [
         "AI信贷",
@@ -6117,7 +6117,7 @@
       ]
     },
     {
-      "file": "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
+      "file": "works/2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
       "description": "拖动滑块给「一条违规」定价：4,390万次故意违反 × 法定每次5,000美元 = 上限2,195亿；法官Francis Mathew裁定250亿，折合每条569美元。四幕故事线 + 主滑块 + 八年时间轴 + 和解/庭审双路径对比，附三条口径纠错。",
       "highlights": [
         "隐私的单价",
@@ -6192,7 +6192,7 @@
       ]
     },
     {
-      "file": "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+      "file": "works/2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
       "description": "2026年10月最后一周：美联储12月累计加息25bp概率77.8%、日本央行潜在通胀已达2%、加拿大央行5年期通胀预期3.91%。三家央行同时转向，让他们无法轻松下班的是同一张账单——AI资本开支，通胀的第三个引擎。交互式叙事。",
       "highlights": [
         "美联储",
@@ -6249,7 +6249,7 @@
       ]
     },
     {
-      "file": "2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+      "file": "works/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
       "description": "这场争议里至少有三次\"突袭\"：美光 9 月单方面公布奖金、台中工会 10 月 21 日抢先签约、以及 10 月 22 日 16:20 的全球奖金计划。每一次突袭，都在为下一次反噬埋线。",
       "highlights": [
         "存储"
@@ -6299,7 +6299,7 @@
       ]
     },
     {
-      "file": "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+      "file": "works/2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
       "claims": [
         {
           "value": "5,000万首",
@@ -6354,7 +6354,7 @@
       "agent": "创艺+绘界"
     },
     {
-      "file": "2026-10-27/research/2026-10-27-meta-offbs-ai-debt.html",
+      "file": "works/2026-10-27/research/2026-10-27-meta-offbs-ai-debt.html",
       "description": "Meta 10-Q：8,249 亿美元表外承诺未进资产负债表，2026 与 2027 两年到期 1,672.6 亿美元，三季度自由现金流十年来首次为负。",
       "highlights": [
         "Meta账外承诺",
@@ -6404,7 +6404,7 @@
       ]
     },
     {
-      "file": "2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
+      "file": "works/2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
       "description": "信通院 10-23 监测：国内归一化均价 6.8→13.46 元（近翻倍），境外 117.8 元，全球开源 1 美元以下——同一条 token 的三种价格；量价同向，总支出指数约 7.9 倍。",
       "highlights": [
         "信通院",
@@ -6459,7 +6459,7 @@
       ]
     },
     {
-      "file": "2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html",
+      "file": "works/2026-10-29/creative/2026-10-29-kimi-attack-ability-removal.html",
       "description": "Kimi K3.1 Pro 在 mid-training 语料与 RL environment mix 两处删掉 cyber 相关内容，官方自设基准 xdev-bench-hard 上 pass@3 从未过滤检查点的 90.5% 降到发布版的 81.0%。同一篇博客里它自报 Terminal-Bench 4.0 得分 65.7%，第三方 Artificial Analysis 独立智力指数是 55。两把尺子并置，不许相减。",
       "highlights": [
         "开放权重",
@@ -6514,7 +6514,7 @@
       ]
     },
     {
-      "file": "2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
+      "file": "works/2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
       "description": "630 亿美元 AI 芯片信贷的结构拆解：优先留置权在三家银行手里，次级留置权黑石独家，最后一层信用增级压在博通的残值担保上。",
       "highlights": [
         "谁放贷",
@@ -6565,7 +6565,7 @@
       ]
     },
     {
-      "file": "2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
+      "file": "works/2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
       "claims": [
         {
           "value": "-1.8%",
@@ -6616,7 +6616,7 @@
       "agent": "数析+码匠"
     },
     {
-      "file": "2026-11-02/creative/2026-11-02-agent-access-layer.html",
+      "file": "works/2026-11-02/creative/2026-11-02-agent-access-layer.html",
       "description": "从「应用内置 AI」到「一个 IDE 里并发 40 个智能体」——接入层正在成为新的竞争面，协议与沙箱就是发证机关。",
       "highlights": [
         "智能体"
@@ -6656,7 +6656,7 @@
       ]
     },
     {
-      "file": "2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
+      "file": "works/2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
       "description": "Alphabet 三季度：营收增长 25%，云 +103%、搜索仅 +12%，自由现金流 -90.7 亿美元，公司自认 AI 搜索的变现缺口。",
       "highlights": [
         "增长",
@@ -6702,7 +6702,7 @@
       ]
     },
     {
-      "file": "2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
+      "file": "works/2026-11-02/research/2026-11-02-fed-communication-bandwidth.html",
       "description": "美联储 10 比 2 按兵不动、库克首次投反对票；2027 年起一年仅 6 场利率决议、不设软性通胀目标、不作前瞻指引——市场只能从资产价格反推政策路径。",
       "highlights": [
         "美联储",
@@ -6754,7 +6754,7 @@
       ]
     },
     {
-      "file": "2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
+      "file": "works/2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
       "claims": [
         {
           "value": "Aa3",
@@ -6805,7 +6805,7 @@
       ]
     },
     {
-      "file": "2026-11-03/creative/2026-11-03-ai-accelerator-crown-shift.html",
+      "file": "works/2026-11-03/creative/2026-11-03-ai-accelerator-crown-shift.html",
       "claims": [
         {
           "value": "34%",

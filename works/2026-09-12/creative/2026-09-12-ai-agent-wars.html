@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="Agent 与编排">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 三国杀 — Meta Muse vs Gemini Spark vs OpenAI Codex</title>
+<style>
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: #0a0a0f;
+  color: #e8e8ed;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════
+   COLOR TOKENS
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --meta-blue: #0081FB;
+  --meta-blue-glow: rgba(0,129,251,0.3);
+  --gemini-gold: #F4B400;
+  --gemini-gold-glow: rgba(244,180,0,0.3);
+  --codex-green: #00C853;
+  --codex-green-glow: rgba(0,200,83,0.3);
+  --bg-dark: #0a0a0f;
+  --bg-card: #141419;
+  --bg-card-hover: #1a1a22;
+  --border: #2a2a35;
+  --text-primary: #e8e8ed;
+  --text-secondary: #8e8ea0;
+  --text-dim: #7d7d8d;
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: transform 0.3s;
+}
+.nav.hidden { transform: translateY(-100%); }
+.nav-brand {
+  font-size: 15px; font-weight: 600; letter-spacing: -0.3px;
+  background:none;
+  -webkit-background-clip: text; -webkit-text-fill-color:currentColor;
+}
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none; font-size: 13px;
+  font-weight: 500; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+/* ═══════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  text-align: center; padding: 2rem;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 25% 40%, var(--meta-blue-glow), transparent),
+    radial-gradient(ellipse 500px 350px at 50% 50%, var(--gemini-gold-glow), transparent),
+    radial-gradient(ellipse 600px 400px at 75% 60%, var(--codex-green-glow), transparent);
+  opacity: 0.4;
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  0% { opacity: 0.3; filter: blur(60px); }
+  100% { opacity: 0.5; filter: blur(80px); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-date {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700; letter-spacing: -1.5px;
+  line-height: 1.05; margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 .gradient-text {
+  background:none;
+  -webkit-background-clip: text; -webkit-text-fill-color:currentColor;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-secondary); max-width: 680px; margin: 0 auto 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+}
+.hero-players {
+  display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+}
+.player-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 1.2rem; border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px; font-weight: 500;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.player-badge:hover { transform: translateY(-2px); }
+.player-badge.meta { border-color: rgba(0,129,251,0.4); }
+.player-badge.gemini { border-color: rgba(244,180,0,0.4); }
+.player-badge.codex { border-color: rgba(0,200,83,0.4); }
+.player-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.player-dot.meta { background: var(--meta-blue); box-shadow: 0 0 8px var(--meta-blue-glow); }
+.player-dot.gemini { background: var(--gemini-gold); box-shadow: 0 0 8px var(--gemini-gold-glow); }
+.player-dot.codex { background: var(--codex-green); box-shadow: 0 0 8px var(--codex-green-glow); }
+
+.scroll-hint {
+  position: absolute; bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+}
+.scroll-hint span {
+  display: block; width: 24px; height: 40px;
+  border: 2px solid var(--text-dim); border-radius: 12px;
+  margin: 0 auto 0.5rem; position: relative;
+}
+.scroll-hint span::after {
+  content: ''; position: absolute; top: 6px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 8px; background: var(--text-dim);
+  border-radius: 2px; animation: scrollDot 1.5s infinite;
+}
+@keyframes scrollDot {
+  0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION COMMON
+   ═══════════════════════════════════════════════════════ */
+section {
+  padding: 6rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700; letter-spacing: -0.8px;
+  margin-bottom: 1rem; line-height: 1.15;
+}
+.section-desc {
+  font-size: 1.05rem; color: var(--text-secondary);
+  max-width: 700px; margin-bottom: 3rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TIMELINE (开场 → 发展)
+   ═══════════════════════════════════════════════════════ */
+.timeline {
+  position: relative; padding-left: 3rem;
+  border-left: 2px solid var(--border);
+}
+.timeline-item {
+  position: relative; margin-bottom: 3rem;
+  opacity: 0; transform: translateX(-20px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.timeline-item.visible {
+  opacity: 1; transform: translateX(0);
+}
+.timeline-dot {
+  position: absolute; left: -3rem; top: 0.3rem;
+  width: 12px; height: 12px; border-radius: 50%;
+  transform: translateX(-5px);
+}
+.timeline-date {
+  font-size: 13px; font-weight: 600; color: var(--text-dim);
+  margin-bottom: 0.3rem;
+}
+.timeline-title {
+  font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem;
+}
+.timeline-text {
+  font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;
+}
+.timeline-tag {
+  display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+  font-size: 11px; font-weight: 600; margin-top: 0.5rem;
+}
+.tag-meta { background: rgba(0,129,251,0.15); color: var(--meta-blue); }
+.tag-gemini { background: rgba(244,180,0,0.15); color: var(--gemini-gold); }
+.tag-codex { background: rgba(0,200,83,0.15); color: var(--codex-green); }
+
+/* ═══════════════════════════════════════════════════════
+   RADAR CHART (交互式对比)
+   ═══════════════════════════════════════════════════════ */
+.radar-section {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 3rem;
+  border: 1px solid var(--border);
+}
+.scene-tabs {
+  display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.scene-tab {
+  padding: 0.5rem 1.2rem; border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: all 0.25s;
+}
+.scene-tab:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+.scene-tab.active {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  color: var(--text-primary);
+}
+.radar-wrapper {
+  display: flex; gap: 3rem; align-items: center; flex-wrap: wrap;
+}
+.radar-canvas-wrap { flex: 1; min-width: 300px; display: flex; justify-content: center; }
+.radar-legend {
+  flex: 0 0 260px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem; border-radius: 10px;
+  margin-bottom: 0.5rem; cursor: pointer;
+  transition: background 0.2s;
+}
+.legend-item:hover { background: rgba(255,255,255,0.04); }
+.legend-item.dimmed { opacity: 0.3; }
+.legend-color {
+  width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0;
+}
+.legend-label { font-size: 14px; font-weight: 600; }
+.legend-score { font-size: 13px; color: var(--text-secondary); margin-left: auto; }
+
+/* ═══════════════════════════════════════════════════════
+   FEATURE MATRIX (功能矩阵)
+   ═══════════════════════════════════════════════════════ */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.matrix-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.matrix-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: 14px 14px 0 0;
+  opacity: 0; transition: opacity 0.3s;
+}
+.matrix-card:hover::before { opacity: 1; }
+.matrix-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+.matrix-card.cat-work::before { background: linear-gradient(90deg, var(--meta-blue), var(--gemini-gold)); }
+.matrix-card.cat-life::before { background: linear-gradient(90deg, var(--gemini-gold), var(--codex-green)); }
+.matrix-card.cat-create::before { background: linear-gradient(90deg, var(--codex-green), var(--meta-blue)); }
+.matrix-card-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+.matrix-card-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+.matrix-card-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+.matrix-bars { display: flex; flex-direction: column; gap: 0.5rem; }
+.matrix-bar-row { display: flex; align-items: center; gap: 0.5rem; }
+.matrix-bar-label {
+  font-size: 11px; font-weight: 600; width: 60px; flex-shrink: 0;
+  text-align: right;
+}
+.matrix-bar-track {
+  flex: 1; height: 6px; background: rgba(255,255,255,0.06);
+  border-radius: 3px; overflow: hidden;
+}
+.matrix-bar-fill {
+  height: 100%; border-radius: 3px;
+  width: 0; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.matrix-bar-fill.meta { background: var(--meta-blue); }
+.matrix-bar-fill.gemini { background: var(--gemini-gold); }
+.matrix-bar-fill.codex { background: var(--codex-green); }
+
+/* Detail overlay */
+.matrix-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 0;
+}
+.matrix-detail.open {
+  max-height: 300px;
+  margin-top: 1rem;
+}
+.matrix-detail-content {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;
+}
+.matrix-detail-content strong { color: var(--text-primary); }
+
+/* ═══════════════════════════════════════════════════════
+   DATA DASHBOARD (数据仪表盘)
+   ═══════════════════════════════════════════════════════ */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; border-radius: 0 0 14px 14px;
+}
+.kpi-card.meta::after { background: var(--meta-blue); }
+.kpi-card.gemini::after { background: var(--gemini-gold); }
+.kpi-card.codex::after { background: var(--codex-green); }
+.kpi-label { font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 0.5rem; }
+.kpi-value {
+  font-size: 2rem; font-weight: 700; letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-value.meta { color: var(--meta-blue); }
+.kpi-value.gemini { color: var(--gemini-gold); }
+.kpi-value.codex { color: var(--codex-green); }
+.kpi-change { font-size: 12px; color: var(--text-secondary); margin-top: 0.3rem; }
+.kpi-sub { font-size: 12px; color: var(--text-dim); margin-top: 0.2rem; }
+
+/* Bar chart */
+.bar-chart-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+}
+.bar-chart-title { font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+.bar-group { margin-bottom: 1.5rem; }
+.bar-group-label { font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.4rem; }
+.bar-agent-label { width: 70px; font-size: 12px; font-weight: 600; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; height: 28px; background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden; position: relative; }
+.bar-fill {
+  height: 100%; border-radius: 6px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 10px; font-size: 12px; font-weight: 700;
+  width: 0; transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  color: rgba(0,0,0,0.8);
+}
+.bar-fill.meta { background: var(--meta-blue); }
+.bar-fill.gemini { background: var(--gemini-gold); }
+.bar-fill.codex { background: var(--codex-green); }
+
+/* ═══════════════════════════════════════════════════════
+   PRICING COMPARISON
+   ═══════════════════════════════════════════════════════ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 800px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+.pricing-col {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  position: relative;
+}
+.pricing-col.meta { border-top: 3px solid var(--meta-blue); }
+.pricing-col.gemini { border-top: 3px solid var(--gemini-gold); }
+.pricing-col.codex { border-top: 3px solid var(--codex-green); }
+.pricing-agent { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.pricing-tagline { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.pricing-tier {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-tier:last-child { border-bottom: none; }
+.pricing-tier-name { font-size: 13px; font-weight: 600; }
+.pricing-tier-price { font-size: 1.4rem; font-weight: 700; margin: 0.2rem 0; }
+.pricing-tier-features { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════
+   ENDING / INSIGHT
+   ═══════════════════════════════════════════════════════ */
+.insight-section {
+  text-align: center;
+  padding: 8rem 2rem;
+}
+.insight-quote {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 600; letter-spacing: -0.5px;
+  line-height: 1.3; max-width: 800px; margin: 0 auto 2rem;
+}
+.insight-quote .em {
+  background:none;
+  -webkit-background-clip: text; -webkit-text-fill-color:currentColor;
+}
+.insight-author {
+  font-size: 0.95rem; color: var(--text-dim);
+}
+.footer-bar {
+  text-align: center; padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ═══════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.25rem; }
+  .radar-section { padding: 1.5rem; }
+  .radar-wrapper { flex-direction: column; }
+  .radar-legend { flex: none; width: 100%; }
+  .nav-links { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-09-12</span><span class="sb-sep">/</span><span class="sb-beat">Agent 与编排</span><span class="sb-sep">/</span><span class="sb-cnt">21 件 / 2026-09</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">2 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ═══════════════════════════════════════════════════════ REVEAL ANIMATIONS ═══════════════════════════════════════════════════════ */ .reveal{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+div.hero-players > div.player-badge > span.player-dot{box-shadow:0 2px 10px rgba(0,0,0,0.3) !important}
+section.hero > div.scroll-hint > span{border-top-width:1px !important}
+section.hero > div.scroll-hint > span::after{width:1px !important}
+section > div.matrix-grid > div.matrix-card::before{width:1px !important}
+section > div.dashboard > div.kpi-card::after{width:1px !important}
+section > div.dashboard > div.kpi-card{border-top-width:1px !important}
+section > div.pricing-grid > div.pricing-col{border-top-width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand">AI Agent 三国杀</div>
+  <div class="nav-links">
+    <a href="#timeline">时间线</a>
+    <a href="#radar">能力对比</a>
+    <a href="#matrix">功能矩阵</a>
+    <a href="#data">数据</a>
+    <a href="#pricing">定价</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-date">2026年9月 · 消费级AI Agent元年</div>
+    <h1>
+      <span class="gradient-text">三国杀</span><br>
+      AI Agent 正在争夺你的数字生活
+    </h1>
+    <p class="hero-sub">
+      三个月内，Meta、Google、OpenAI 同时推出了面向消费者的 AI Agent。它们不再只是回答问题——它们替你发邮件、订机票、做决策。<br>这场关于"谁更懂你"的战争，才刚刚开始。
+    </p>
+    <div class="hero-players">
+      <div class="player-badge meta"><span class="player-dot meta"></span>Meta Muse</div>
+      <div class="player-badge gemini"><span class="player-dot gemini"></span>Gemini Spark</div>
+      <div class="player-badge codex"><span class="player-dot codex"></span>OpenAI Codex</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span></span>
+    <div style="font-size:11px;color:var(--text-dim);">向下探索</div>
+  </div>
+</section>
+
+<!-- ═══ ACT 1: TIMELINE ═══ -->
+<section id="timeline">
+  <div class="reveal">
+    <div class="section-label">Act I · 序幕</div>
+    <h2 class="section-title">2026年，AI助手的分水岭</h2>
+    <p class="section-desc">从对话到行动——三巨头在短短数月内完成了从"聊天机器人"到"个人特工"的进化。</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--gemini-gold)"></div>
+      <div class="timeline-date">2026年5月20日</div>
+      <div class="timeline-title">Google I/O · Gemini Spark 发布</div>
+      <div class="timeline-text">
+        Google在I/O大会上发布 <strong>Gemini Spark</strong>——一个7×24小时运行的个人AI Agent。基于Gemini 3.5 Flash模型，深度整合Gmail、Docs、Slides。即使关掉手机，它仍在云端工作。同时发布Daily Brief（每日简报）和Neural Expressive全新设计语言。
+      </div>
+      <span class="timeline-tag tag-gemini">Google · 先发优势</span>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--codex-green)"></div>
+      <div class="timeline-date">2026年4月16日</div>
+      <div class="timeline-title">OpenAI · Codex 桌面级 Computer Use</div>
+      <div class="timeline-text">
+        Codex从开发者工具进化为通用桌面Agent。支持<strong>后台并行操作</strong>——多个Agent同时在后台点击、输入、浏览，而用户继续自己的工作。90+插件、内置浏览器、持久记忆。GPT-5.4驱动，百万token上下文窗口。
+      </div>
+      <span class="timeline-tag tag-codex">OpenAI · 开发者→消费者</span>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--meta-blue)"></div>
+      <div class="timeline-date">2026年9月8日</div>
+      <div class="timeline-title">Meta · Muse 正式上线</div>
+      <div class="timeline-text">
+        Meta推出<strong>Muse</strong>——首个面向大众的个人AI Agent。运行在Secure VM安全虚拟机中，集成Stripe Link支付、WhatsApp交互、AI眼镜计划。免费+Power($20/月)+Maximum($100/月)三档定价。目标：让每个人都有一个"个人超级智能"。
+      </div>
+      <span class="timeline-tag tag-meta">Meta · 消费级先行者</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACT 2: RADAR CHART ═══ -->
+<section id="radar">
+  <div class="reveal">
+    <div class="section-label">Act II · 交锋</div>
+    <h2 class="section-title">多维能力雷达</h2>
+    <p class="section-desc">切换不同场景，直观感受三位选手的差异化能力分布。</p>
+  </div>
+  <div class="radar-section reveal">
+    <div class="scene-tabs">
+      <button class="scene-tab active" data-scene="work">💼 工作场景</button>
+      <button class="scene-tab" data-scene="life">🏠 生活场景</button>
+      <button class="scene-tab" data-scene="create">🎨 创作场景</button>
+      <button class="scene-tab" data-scene="overall">📊 综合评估</button>
+    </div>
+    <div class="radar-wrapper">
+      <div class="radar-canvas-wrap">
+        <canvas id="radarCanvas" width="440" height="440"></canvas>
+      </div>
+      <div class="radar-legend" id="radarLegend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACT 3: FEATURE MATRIX ═══ -->
+<section id="matrix">
+  <div class="reveal">
+    <div class="section-label">Act III · 功能矩阵</div>
+    <h2 class="section-title">谁能做到？点击探索</h2>
+    <p class="section-desc">三大Agent在关键功能上的覆盖度对比。点击卡片查看详细解析。</p>
+  </div>
+  <div class="matrix-grid" id="matrixGrid"></div>
+</section>
+
+<!-- ═══ ACT 4: DATA DASHBOARD ═══ -->
+<section id="data">
+  <div class="reveal">
+    <div class="section-label">Act IV · 数据战报</div>
+    <h2 class="section-title">数字会说话</h2>
+    <p class="section-desc">用户规模、功能覆盖、定价策略——三大维度的硬核对比。</p>
+  </div>
+
+  <div class="dashboard reveal">
+    <div class="kpi-card meta">
+      <div class="kpi-label">Meta Muse · 月活用户</div>
+      <div class="kpi-value meta" data-target="0" data-suffix="M">—</div>
+      <div class="kpi-change">2026年9月8日上线</div>
+      <div class="kpi-sub">美国iOS/Android/Web</div>
+    </div>
+    <div class="kpi-card gemini">
+      <div class="kpi-label">Gemini · 月活用户</div>
+      <div class="kpi-value gemini" data-target="900" data-suffix="M">—</div>
+      <div class="kpi-change">↑ 125% YoY (400M→900M)</div>
+      <div class="kpi-sub">230+国家 · 70+语言</div>
+    </div>
+    <div class="kpi-card codex">
+      <div class="kpi-label">Codex · 周活用户</div>
+      <div class="kpi-value codex" data-target="5" data-suffix="M+">—</div>
+      <div class="kpi-change">↑ 733% (600K→5M in 6个月)</div>
+      <div class="kpi-sub">20%为非开发者</div>
+    </div>
+    <div class="kpi-card meta" style="border-top:3px solid var(--meta-blue)">
+      <div class="kpi-label">Meta · AI基础设施投资</div>
+      <div class="kpi-value meta" data-target="130" data-suffix="B">$—</div>
+      <div class="kpi-change">2026年度投资额</div>
+      <div class="kpi-sub">Meta Superintelligence Labs</div>
+    </div>
+    <div class="kpi-card gemini" style="border-top:3px solid var(--gemini-gold)">
+      <div class="kpi-label">Google · 月处理Token</div>
+      <div class="kpi-value gemini" data-target="3.2" data-suffix="Q">—</div>
+      <div class="kpi-change">↑ 567% YoY (480T→3.2Q)</div>
+      <div class="kpi-sub">Q = 千万亿 (Quadrillion)</div>
+    </div>
+    <div class="kpi-card codex" style="border-top:3px solid var(--codex-green)">
+      <div class="kpi-label">OpenAI · 插件生态</div>
+      <div class="kpi-value codex" data-target="90" data-suffix="+">—</div>
+      <div class="kpi-change">2026年4月扩展</div>
+      <div class="kpi-sub">JIRA/GitLab/M365/Slack…</div>
+    </div>
+  </div>
+
+  <div class="bar-chart-section reveal" id="barChart">
+    <div class="bar-chart-title">📊 功能覆盖度对比</div>
+
+    <div class="bar-group">
+      <div class="bar-group-label">📧 邮件/日历管理</div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--meta-blue)">Muse</span><div class="bar-track"><div class="bar-fill meta" data-width="90">90</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--gemini-gold)">Gemini</span><div class="bar-track"><div class="bar-fill gemini" data-width="95">95</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--codex-green)">Codex</span><div class="bar-track"><div class="bar-fill codex" data-width="65">65</div></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-group-label">🛒 购物/支付</div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--meta-blue)">Muse</span><div class="bar-track"><div class="bar-fill meta" data-width="95">95</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--gemini-gold)">Gemini</span><div class="bar-track"><div class="bar-fill gemini" data-width="40">40</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--codex-green)">Codex</span><div class="bar-track"><div class="bar-fill codex" data-width="55">55</div></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-group-label">💻 代码/开发</div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--meta-blue)">Muse</span><div class="bar-track"><div class="bar-fill meta" data-width="20">20</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--gemini-gold)">Gemini</span><div class="bar-track"><div class="bar-fill gemini" data-width="75">75</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--codex-green)">Codex</span><div class="bar-track"><div class="bar-fill codex" data-width="98">98</div></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-group-label">🔒 隐私/安全</div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--meta-blue)">Muse</span><div class="bar-track"><div class="bar-fill meta" data-width="85">85</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--gemini-gold)">Gemini</span><div class="bar-track"><div class="bar-fill gemini" data-width="80">80</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--codex-green)">Codex</span><div class="bar-track"><div class="bar-fill codex" data-width="90">90</div></div></div>
+    </div>
+
+    <div class="bar-group">
+      <div class="bar-group-label">🌍 生态整合</div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--meta-blue)">Muse</span><div class="bar-track"><div class="bar-fill meta" data-width="80">80</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--gemini-gold)">Gemini</span><div class="bar-track"><div class="bar-fill gemini" data-width="92">92</div></div></div>
+      <div class="bar-row"><span class="bar-agent-label" style="color:var(--codex-green)">Codex</span><div class="bar-track"><div class="bar-fill codex" data-width="88">88</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACT 5: PRICING ═══ -->
+<section id="pricing">
+  <div class="reveal">
+    <div class="section-label">Act V · 定价博弈</div>
+    <h2 class="section-title">多少钱能买一个"数字分身"？</h2>
+    <p class="section-desc">从免费到百美元月费，三家的定价策略折射出完全不同的商业逻辑。</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pricing-col meta">
+      <div class="pricing-agent" style="color:var(--meta-blue)">Meta Muse</div>
+      <div class="pricing-tagline">"免费入门，为执行付费"</div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Free</div>
+        <div class="pricing-tier-price">$0</div>
+        <div class="pricing-tier-features">核心Agent功能 · 有限使用量<br>需绑定支付方式</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Power</div>
+        <div class="pricing-tier-price">$20/月</div>
+        <div class="pricing-tier-features">更高使用量 · 更快响应<br>高级自动化功能</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Maximum</div>
+        <div class="pricing-tier-price">$100/月</div>
+        <div class="pricing-tier-features">全部能力 · 优先访问<br>重度用户专属</div>
+      </div>
+    </div>
+    <div class="pricing-col gemini">
+      <div class="pricing-agent" style="color:var(--gemini-gold)">Gemini Spark</div>
+      <div class="pricing-tagline">"生态捆绑，订阅增值"</div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">AI Plus</div>
+        <div class="pricing-tier-price">~$10/月</div>
+        <div class="pricing-tier-features">Daily Brief · 基础Agent<br>标准Gemini功能</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">AI Pro</div>
+        <div class="pricing-tier-price">$20/月</div>
+        <div class="pricing-tier-features">增强Agent · 更高限额<br>Neural Expressive界面</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">AI Ultra</div>
+        <div class="pricing-tier-price">$100/月</div>
+        <div class="pricing-tier-features">Gemini Spark · 20TB存储<br>YouTube Premium · Beta优先</div>
+      </div>
+    </div>
+    <div class="pricing-col codex">
+      <div class="pricing-agent" style="color:var(--codex-green)">OpenAI Codex</div>
+      <div class="pricing-tagline">"随ChatGPT订阅，无额外费用"</div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Free</div>
+        <div class="pricing-tier-price">$0</div>
+        <div class="pricing-tier-features">有限Codex访问<br>基础Agent功能</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Plus</div>
+        <div class="pricing-tier-price">$20/月</div>
+        <div class="pricing-tier-features">完整桌面Agent · Computer Use<br>并行线程 · 插件市场</div>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-name">Pro</div>
+        <div class="pricing-tier-price">$200/月</div>
+        <div class="pricing-tier-features">最高限额 · 全部模型<br>企业级Agent能力</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ENDING ═══ -->
+<section class="insight-section reveal" id="ending">
+  <div class="section-label" style="text-align:center;">终章 · 洞见</div>
+  <div class="insight-quote">
+    "AI Agent的终局不是<span class="em">谁更强</span>，<br>而是<span class="em">谁更懂你</span>。"
+  </div>
+  <p class="insight-author">
+    Meta赌的是信任——你愿意让AI接管多少数字生活？<br>
+    Google赌的是生态——9亿用户的习惯不可替代。<br>
+    OpenAI赌的是能力——从开发者工具进化为万能桌面助手。<br><br>
+    三场豪赌，一个共同赌注：<strong>你的注意力和数据</strong>。
+  </p>
+</section>
+
+<footer class="footer-bar">
+  <p>数据来源：Meta官方公告 · Google I/O 2026 · OpenAI Changelog · TechCrunch · WIRED · The Verge</p>
+  <p style="margin-top:0.5rem;">AI Agent 三国杀 · 2026年9月 · 绘界出品</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════ -->
+<script>
+// ─── Radar Data ───
+const radarScenes = {
+  work: {
+    labels: ['邮件管理', '日程安排', '文档处理', '数据分析', '代码开发', '会议协作'],
+    meta:   [90, 82, 75, 60, 20, 70],
+    gemini: [95, 90, 88, 70, 75, 80],
+    codex:  [65, 55, 70, 65, 98, 50]
+  },
+  life: {
+    labels: ['购物支付', '旅行预订', '餐饮推荐', '健康管理', '家居控制', '社交互动'],
+    meta:   [95, 88, 75, 70, 72, 85],
+    gemini: [40, 60, 55, 65, 50, 60],
+    codex:  [55, 45, 40, 35, 30, 45]
+  },
+  create: {
+    labels: ['写作辅助', '图像生成', '视频制作', '音乐创作', 'UI设计', '数据分析'],
+    meta:   [70, 65, 50, 45, 40, 55],
+    gemini: [85, 80, 85, 60, 70, 75],
+    codex:  [75, 70, 55, 40, 80, 85]
+  },
+  overall: {
+    labels: ['用户规模', '生态整合', '隐私安全', '功能广度', '技术深度', '定价竞争力'],
+    meta:   [50, 80, 85, 82, 65, 80],
+    gemini: [95, 92, 80, 85, 85, 75],
+    codex:  [55, 88, 90, 78, 95, 85]
+  }
+};
+
+let currentScene = 'work';
+let visibleAgents = { meta: true, gemini: true, codex: true };
+let radarAnimFrame;
+
+// ─── Radar Chart Drawing ───
+function drawRadar(scene, animate = true) {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const R = Math.min(W, H) / 2 - 60;
+  const data = radarScenes[scene];
+  const n = data.labels.length;
+  const angleStep = (Math.PI * 2) / n;
+  const startAngle = -Math.PI / 2;
+
+  let progress = animate ? 0 : 1;
+  if (radarAnimFrame) cancelAnimationFrame(radarAnimFrame);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid
+    for (let ring = 1; ring <= 5; ring++) {
+      const r = (R / 5) * ring;
+      ctx.beginPath();
+      for (let i = 0; i <= n; i++) {
+        const a = startAngle + angleStep * (i % n);
+        const x = cx + r * Math.cos(a);
+        const y = cy + r * Math.sin(a);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Axes + labels
+    for (let i = 0; i < n; i++) {
+      const a = startAngle + angleStep * i;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Label
+      const lx = cx + (R + 28) * Math.cos(a);
+      const ly = cy + (R + 28) * Math.sin(a);
+      ctx.font = '500 12px -apple-system, sans-serif';
+      ctx.fillStyle = '#8e8ea0';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(data.labels[i], lx, ly);
+    }
+
+    // Data polygons
+    const agents = [
+      { key: 'meta', color: '#0081FB', values: data.meta },
+      { key: 'gemini', color: '#F4B400', values: data.gemini },
+      { key: 'codex', color: '#00C853', values: data.codex }
+    ];
+
+    agents.forEach(ag => {
+      if (!visibleAgents[ag.key]) return;
+      ctx.beginPath();
+      for (let i = 0; i <= n; i++) {
+        const idx = i % n;
+        const a = startAngle + angleStep * idx;
+        const val = ag.values[idx] / 100;
+        const r = R * val * progress;
+        const x = cx + r * Math.cos(a);
+        const y = cy + r * Math.sin(a);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = ag.color + '18';
+      ctx.fill();
+      ctx.strokeStyle = ag.color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Dots
+      for (let i = 0; i < n; i++) {
+        const a = startAngle + angleStep * i;
+        const val = ag.values[i] / 100;
+        const r = R * val * progress;
+        ctx.beginPath();
+        ctx.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 4, 0, Math.PI * 2);
+        ctx.fillStyle = ag.color;
+        ctx.fill();
+      }
+    });
+
+    if (progress < 1) {
+      progress += 0.03;
+      radarAnimFrame = requestAnimationFrame(draw);
+    }
+  }
+  draw();
+  updateLegend(data);
+}
+
+function updateLegend(data) {
+  const el = document.getElementById('radarLegend');
+  const agents = [
+    { key: 'meta', name: 'Meta Muse', color: 'var(--meta-blue)', values: data.meta },
+    { key: 'gemini', name: 'Gemini Spark', color: 'var(--gemini-gold)', values: data.gemini },
+    { key: 'codex', name: 'OpenAI Codex', color: 'var(--codex-green)', values: data.codex }
+  ];
+  el.innerHTML = agents.map(ag => {
+    const avg = Math.round(ag.values.reduce((a,b) => a+b, 0) / ag.values.length);
+    const dimmed = visibleAgents[ag.key] ? '' : ' dimmed';
+    return `<div class="legend-item${dimmed}" data-agent="${ag.key}">
+      <div class="legend-color" style="background:${ag.color}"></div>
+      <div><div class="legend-label">${ag.name}</div></div>
+      <div class="legend-score">${avg}</div>
+    </div>`;
+  }).join('');
+
+  el.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const key = item.dataset.agent;
+      visibleAgents[key] = !visibleAgents[key];
+      drawRadar(currentScene, false);
+    });
+  });
+}
+
+// Scene tabs
+document.querySelectorAll('.scene-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelector('.scene-tab.active').classList.remove('active');
+    tab.classList.add('active');
+    currentScene = tab.dataset.scene;
+    drawRadar(currentScene);
+  });
+});
+
+// ─── Feature Matrix ───
+const features = [
+  { icon: '📧', title: '自动发邮件', cat: 'work',
+    desc: '代你撰写、审核并发送邮件',
+    meta: 90, gemini: 85, codex: 60,
+    detail: '<strong>Meta Muse</strong>支持跨应用邮件发送，发送前请求用户审批。<strong>Gemini Spark</strong>深度整合Gmail，可自动分类和回复。<strong>Codex</strong>通过插件支持，但非核心功能。' },
+  { icon: '✈️', title: '旅行预订', cat: 'life',
+    desc: '从搜索到下单，全链路自动化',
+    meta: 88, gemini: 60, codex: 45,
+    detail: '<strong>Muse</strong>最强，整合Ticketmaster、OpenTable等，可比较价格并代为下单。<strong>Gemini</strong>可通过MCP连接预订服务。<strong>Codex</strong>需要手动配置插件。' },
+  { icon: '💻', title: '代码开发', cat: 'create',
+    desc: '从需求到部署的全流程协作',
+    meta: 20, gemini: 75, codex: 98,
+    detail: '<strong>Codex</strong>绝对王者——百万token上下文、并行Agent、worktree隔离、90+开发插件。<strong>Gemini</strong>有Antigravity平台。<strong>Muse</strong>基本不涉及开发。' },
+  { icon: '🔒', title: '隐私架构', cat: 'work',
+    desc: '你的数据，谁能看到？',
+    meta: 85, gemini: 80, codex: 90,
+    detail: '<strong>Muse</strong>使用Secure VM隔离，Sentinel监控，但数据默认用于训练（可opt-out）。<strong>Gemini</strong>读取Google数据需用户授权。<strong>Codex</strong>在沙箱中运行，OS级隔离。' },
+  { icon: '🛒', title: '在线购物', cat: 'life',
+    desc: '比价、下单、支付一站式完成',
+    meta: 95, gemini: 40, codex: 55,
+    detail: '<strong>Muse</strong>最强——集成Stripe Link，生成一次性虚拟卡号，支持Shop Pay。购物是Meta的核心商业化路径。<strong>Codex</strong>通过浏览器操作可实现。<strong>Gemini</strong>目前不直接支持支付。' },
+  { icon: '⏰', title: '后台运行', cat: 'work',
+    desc: '关掉App后，Agent仍在工作',
+    meta: 80, gemini: 95, codex: 85,
+    detail: '<strong>Gemini Spark</strong>最彻底——完全云端运行，关机也能工作。<strong>Muse</strong>在Secure VM中持续运行。<strong>Codex</strong>支持后台任务和定时调度，但需设备在线。' },
+  { icon: '🎬', title: '视频创作', cat: 'create',
+    desc: '从文字到电影级视频',
+    meta: 50, gemini: 85, codex: 55,
+    detail: '<strong>Gemini Omni</strong>支持文本/图像/视频混合输入，生成高质量视频。<strong>Codex</strong>可生成简单视频。<strong>Muse</strong>暂无原生视频能力。' },
+  { icon: '📱', title: '设备覆盖', cat: 'life',
+    desc: 'iOS、Android、Web、桌面、眼镜…',
+    meta: 75, gemini: 95, codex: 70,
+    detail: '<strong>Gemini</strong>覆盖最广——Android、iOS、Web、macOS，且深度整合Android系统。<strong>Muse</strong>覆盖iOS/Android/Web/WhatsApp，计划支持AI眼镜。<strong>Codex</strong>目前仅macOS+Windows。' },
+  { icon: '🧠', title: '记忆与学习', cat: 'create',
+    desc: '随使用越来越懂你',
+    meta: 82, gemini: 88, codex: 75,
+    detail: '<strong>Muse</strong>从对话中学习偏好，可记住食谱、健康偏好。<strong>Gemini</strong>Personal Intelligence读取Gmail/Calendar/Photos建立画像。<strong>Codex</strong>新增持久记忆预览，尚在迭代。' }
+];
+
+function renderMatrix() {
+  const grid = document.getElementById('matrixGrid');
+  grid.innerHTML = features.map((f, i) => `
+    <div class="matrix-card cat-${f.cat} reveal" data-idx="${i}" style="transition-delay:${i * 0.05}s">
+      <div class="matrix-card-icon">${f.icon}</div>
+      <div class="matrix-card-title">${f.title}</div>
+      <div class="matrix-card-desc">${f.desc}</div>
+      <div class="matrix-bars">
+        <div class="matrix-bar-row">
+          <span class="matrix-bar-label" style="color:var(--meta-blue)">Muse</span>
+          <div class="matrix-bar-track"><div class="matrix-bar-fill meta" data-width="${f.meta}"></div></div>
+        </div>
+        <div class="matrix-bar-row">
+          <span class="matrix-bar-label" style="color:var(--gemini-gold)">Gemini</span>
+          <div class="matrix-bar-track"><div class="matrix-bar-fill gemini" data-width="${f.gemini}"></div></div>
+        </div>
+        <div class="matrix-bar-row">
+          <span class="matrix-bar-label" style="color:var(--codex-green)">Codex</span>
+          <div class="matrix-bar-track"><div class="matrix-bar-fill codex" data-width="${f.codex}"></div></div>
+        </div>
+      </div>
+      <div class="matrix-detail"><div class="matrix-detail-content">${f.detail}</div></div>
+    </div>
+  `).join('');
+
+  // Click toggle
+  grid.querySelectorAll('.matrix-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const detail = card.querySelector('.matrix-detail');
+      detail.classList.toggle('open');
+    });
+  });
+}
+
+// ─── Scroll Reveal ───
+function setupReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate bars inside
+        entry.target.querySelectorAll('.matrix-bar-fill, .bar-fill').forEach(bar => {
+          const w = bar.dataset.width;
+          setTimeout(() => { bar.style.width = w + '%'; }, 200);
+        });
+        // Animate KPI numbers
+        entry.target.querySelectorAll('.kpi-value[data-target]').forEach(kpi => {
+          animateNumber(kpi);
+        });
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+}
+
+function animateNumber(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1500;
+  const start = performance.now();
+  const isFloat = target % 1 !== 0;
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = target * eased;
+    el.textContent = (isFloat ? current.toFixed(1) : Math.round(current)) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ─── Nav Hide on Scroll ───
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  const cur = window.scrollY;
+  if (cur > lastScroll && cur > 100) nav.classList.add('hidden');
+  else nav.classList.remove('hidden');
+  lastScroll = cur;
+});
+
+// ─── Init ───
+document.addEventListener('DOMContentLoaded', () => {
+  renderMatrix();
+  drawRadar('work');
+  setupReveal();
+});
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "125%", "label": "YoY (400M→900M", "quote": "↑ 125% YoY (400M→900M)"},
+  {"value": "567%", "label": "YoY (480T→3.2Q", "quote": "↑ 567% YoY (480T→3.2Q)"}
+]
+</script>
+</body>
+</html>

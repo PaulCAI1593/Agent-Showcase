@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WAIC 2026 · 中国AI"百团大战"全景地图</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root {
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #111827;
+    --bg-card: #1a1f35;
+    --bg-card-hover: #222845;
+    --accent-blue: #5895f7;
+    --accent-cyan: #06b6d4;
+    --accent-purple: #a37ef8;
+    --accent-pink: #ec4899;
+    --accent-orange: #f97418;
+    --accent-green: #10b981;
+    --accent-red: #f15c5c;
+    --accent-yellow: #eab308;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #8e9aaa;
+    --border: rgba(255,255,255,0.06);
+    --glow-blue: rgba(59,130,246,0.3);
+    --glow-purple: rgba(139,92,246,0.3);
+    --glow-cyan: rgba(6,182,212,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', 'Space Grotesk', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* HERO SECTION */
+  /* ═══════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    padding: 2rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(6,182,212,0.08) 0%, transparent 50%);
+    animation: heroGlow 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroGlow {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-3%, 2%) rotate(3deg); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    animation: fadeSlideUp 0.8s ease-out;
+  }
+
+  .hero-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    animation:none;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeSlideUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero-title .gradient-text {
+    background:none;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color:#5895f7;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    animation: fadeSlideUp 0.8s ease-out 0.4s both;
+  }
+
+  .countdown-bar {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    animation: fadeSlideUp 0.8s ease-out 0.6s both;
+  }
+
+  .countdown-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    min-width: 90px;
+    backdrop-filter: blur(10px);
+  }
+
+  .countdown-number {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    line-height: 1;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeSlideUp 0.8s ease-out 0.8s both;
+  }
+
+  .hero-stat {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .hero-stat-number {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 24px;
+    height: 40px;
+    border: 2px solid var(--text-muted);
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .scroll-hint::before {
+    content: '';
+    width: 4px;
+    height: 8px;
+    background: var(--text-muted);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 46px;
+    animation: scrollDot 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes scrollDot {
+    0% { opacity: 1; top: 0; }
+    100% { opacity: 0; top: 20px; }
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION COMMONS */
+  /* ═══════════════════════════════════════════ */
+  .section {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    position: relative;
+    scroll-snap-align: start;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.2);
+    color: var(--accent-purple);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-desc {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 1: THE BIG PICTURE - Market Overview */
+  /* ═══════════════════════════════════════════ */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .market-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .market-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .market-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .market-card.blue::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)); }
+  .market-card.purple::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
+  .market-card.green::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); }
+
+  .market-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .market-card-value {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .market-card.blue .market-card-value { color: var(--accent-blue); }
+  .market-card.purple .market-card-value { color: var(--accent-purple); }
+  .market-card.green .market-card-value { color: var(--accent-green); }
+
+  .market-card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .market-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .market-card-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .trend-up {
+    background: rgba(16,185,129,0.1);
+    color: var(--accent-green);
+  }
+
+  .trend-hot {
+    background: rgba(239,68,68,0.1);
+    color: var(--accent-red);
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 2: TERRITORY MAP */
+  /* ═══════════════════════════════════════════ */
+  .territory-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .territory-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .territory-card:hover {
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .territory-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .territory-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .territory-icon.cloud { background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(6,182,212,0.2)); }
+  .territory-icon.model { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.2)); }
+  .territory-icon.robot { background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(234,179,8,0.2)); }
+  .territory-icon.app { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2)); }
+
+  .territory-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .territory-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .territory-companies {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .company-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    transition: background 0.2s;
+  }
+
+  .company-row:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .company-rank {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .company-rank.gold { background: rgba(234,179,8,0.15); color: var(--accent-yellow); }
+  .company-rank.silver { background: rgba(148,163,184,0.15); color: var(--text-secondary); }
+  .company-rank.bronze { background: rgba(249,115,22,0.15); color: var(--accent-orange); }
+
+  .company-info { flex: 1; }
+
+  .company-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .company-detail {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .company-tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .tag-cloud { background: rgba(59,130,246,0.1); color: var(--accent-blue); }
+  .tag-model { background: rgba(139,92,246,0.1); color: var(--accent-purple); }
+  .tag-robot { background: rgba(249,115,22,0.1); color: var(--accent-orange); }
+  .tag-app { background: rgba(16,185,129,0.1); color: var(--accent-green); }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 3: FINANCE TRACK */
+  /* ═══════════════════════════════════════════ */
+  .finance-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+
+  .finance-main {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+
+  .finance-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .finance-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .finance-stat-card:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .deal-timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .deal-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    border-radius: 2px;
+  }
+
+  .deal-item {
+    position: relative;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    border-left: none;
+    transition: background 0.2s;
+  }
+
+  .deal-item:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .deal-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 1.75rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    border: 3px solid var(--bg-primary);
+    transform: translateX(-5px);
+  }
+
+  .deal-item:nth-child(2)::before { background: var(--accent-purple); }
+  .deal-item:nth-child(3)::before { background: var(--accent-pink); }
+  .deal-item:nth-child(4)::before { background: var(--accent-orange); }
+  .deal-item:nth-child(5)::before { background: var(--accent-green); }
+
+  .deal-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .deal-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .deal-amount {
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent-cyan);
+  }
+
+  .deal-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .stat-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.5rem;
+  }
+
+  .stat-mini-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .stat-mini-value {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .stat-mini-change {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .stat-mini-change.up { color: var(--accent-green); }
+  .stat-mini-change.fire { color: var(--accent-red); }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 4: WAIC STAGE */
+  /* ═══════════════════════════════════════════ */
+  .waic-stage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stage-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .stage-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+  }
+
+  .stage-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .stage-emoji {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .stage-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .stage-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .stage-highlight {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 5: BATTLE FIELDS */
+  /* ═══════════════════════════════════════════ */
+  .battle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .battle-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .battle-card:hover {
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .battle-number {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .battle-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .battle-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .battle-players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .player-chip {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .player-chip.hot {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.2);
+    color: var(--accent-red);
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* SECTION 6: INSIGHTS */
+  /* ═══════════════════════════════════════════ */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .insight-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .insight-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .insight-icon.i1 { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.15)); }
+  .insight-icon.i2 { background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.15)); }
+  .insight-icon.i3 { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(234,179,8,0.15)); }
+
+  .insight-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* FOOTER */
+  /* ═══════════════════════════════════════════ */
+  .footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .footer-meta a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+
+  .footer-credits {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* RESPONSIVE */
+  /* ═══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .market-grid { grid-template-columns: 1fr 1fr; }
+    .territory-map { grid-template-columns: 1fr; }
+    .finance-grid { grid-template-columns: 1fr; }
+    .waic-stage { grid-template-columns: 1fr 1fr; }
+    .battle-grid { grid-template-columns: 1fr; }
+    .insights-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .market-grid { grid-template-columns: 1fr; }
+    .countdown-bar { flex-wrap: wrap; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .waic-stage { grid-template-columns: 1fr; }
+  }
+
+  /* ═══════════════════════════════════════════ */
+  /* ANIMATIONS - IntersectionObserver driven */
+  /* ═══════════════════════════════════════════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Particle canvas */
+  #particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .section { z-index: 1; position: relative; }
+  .hero { z-index: 1; position: relative; }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-07-11</span><span class="sb-sep">/</span><span class="sb-beat">厂商与算力权力</span><span class="sb-sep">/</span><span class="sb-cnt">9 件 / 2026-07</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">10 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ═══════════════════════════════════════════ */ /* ANIMATIONS - IntersectionObserver driven */ /* ═══════════════════════════════════════════ */ .reveal{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+section.hero::before{width:1px !important}
+section.hero > div.scroll-hint::before{width:1px !important}
+section.hero > div.scroll-hint::after{border-top-width:1px !important}
+div.section-inner > div.market-grid > div.market-card::before{width:1px !important}
+div.finance-grid > div.finance-main > div.deal-timeline::before{width:1px !important}
+div.finance-main > div.deal-timeline > div.deal-item::before{border-top-width:1px !important}
+div.finance-main > div.deal-timeline > div.deal-item::before{width:1px !important}
+div.section-inner > div.waic-stage > div.stage-card::after{width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<canvas id="particles"></canvas>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      倒计时 · WAIC 2026 世界人工智能大会
+    </div>
+
+    <h1 class="hero-title">
+      <span class="gradient-text">百团大战</span><br>
+      中国AI全景地图
+    </h1>
+
+    <p class="hero-subtitle">
+      1100+企业 · 10万㎡展览 · 300+全球首发 · 谁将定义下一个十年？
+    </p>
+
+    <div class="countdown-bar" id="countdown">
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-days">--</div>
+        <div class="countdown-label">天</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-hours">--</div>
+        <div class="countdown-label">时</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-mins">--</div>
+        <div class="countdown-label">分</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-secs">--</div>
+        <div class="countdown-label">秒</div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">1100+</div>
+        <div class="hero-stat-label">参展企业</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">3000+</div>
+        <div class="hero-stat-label">展品数量</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">300+</div>
+        <div class="hero-stat-label">全球首发</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">1400+</div>
+        <div class="hero-stat-label">中外嘉宾</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: MARKET OVERVIEW -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="overview">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">📊 市场全景</div>
+      <h2 class="section-title">万亿赛道，全面开火</h2>
+      <p class="section-desc">2026年Q1，中国AI一级市场融资763.8亿元，同比增长144%。从云基础设施到具身智能，每个赛道都在重写规则。</p>
+    </div>
+
+    <div class="market-grid">
+      <div class="market-card blue reveal reveal-delay-1">
+        <div class="market-card-icon">🦄</div>
+        <div class="market-card-value">310家</div>
+        <div class="market-card-title">中国独角兽企业</div>
+        <div class="market-card-desc">总估值达11.7万亿元，同比增长38.8%。芯片半导体独角兽估值首次进入全行业第三。</div>
+        <div class="market-card-trend trend-up">↑ 13家 净增</div>
+      </div>
+
+      <div class="market-card purple reveal reveal-delay-2">
+        <div class="market-card-icon">💰</div>
+        <div class="market-card-value">763.8亿</div>
+        <div class="market-card-title">Q1 AI融资总额</div>
+        <div class="market-card-desc">577笔融资事件，同比增长62%。Agentic AI与具身智能成核心投资主线。</div>
+        <div class="market-card-trend trend-hot">🔥 同比+144%</div>
+      </div>
+
+      <div class="market-card green reveal reveal-delay-3">
+        <div class="market-card-icon">🤖</div>
+        <div class="market-card-value">550亿+</div>
+        <div class="market-card-title">具身智能融资</div>
+        <div class="market-card-desc">上半年前4月超200笔融资。机器人独角兽数量增加20家，估值贡献5300亿元。</div>
+        <div class="market-card-trend trend-hot">🔥 同比+247%</div>
+      </div>
+
+      <div class="market-card blue reveal reveal-delay-1">
+        <div class="market-card-icon">📈</div>
+        <div class="market-card-value">1.2万亿</div>
+        <div class="market-card-title">智谱AI市值</div>
+        <div class="market-card-desc">6月22日，智谱AI港股盘中市值飙升至1.2万亿港元。全球十大最具影响力AI公司中国占三席。</div>
+        <div class="market-card-trend trend-up">↑ 港股上市</div>
+      </div>
+
+      <div class="market-card purple reveal reveal-delay-2">
+        <div class="market-card-icon">🎬</div>
+        <div class="market-card-value">200亿$</div>
+        <div class="market-card-title">可灵AI估值</div>
+        <div class="market-card-desc">快手旗下视频生成大模型分拆独立，以200亿美元估值启动Pre-IPO轮融资，目标全球最高估值。</div>
+        <div class="market-card-trend trend-hot">🔥 全球最高</div>
+      </div>
+
+      <div class="market-card green reveal reveal-delay-3">
+        <div class="market-card-icon">🚀</div>
+        <div class="market-card-value">500亿$</div>
+        <div class="market-card-title">DeepSeek估值</div>
+        <div class="market-card-desc">国家大基金领投、腾讯跟投。21天估值从100亿飙升至500亿美元，刷新中国AI单轮融资纪录。</div>
+        <div class="market-card-trend trend-hot">🔥 21天×5倍</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: TERRITORY MAP -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="territory">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">🗺️ 势力版图</div>
+      <h2 class="section-title">四大战场，逐鹿中原</h2>
+      <p class="section-desc">从AI云基础设施到具身智能，每个赛道都有一场"百团大战"。</p>
+    </div>
+
+    <div class="territory-map">
+      <!-- Cloud Infrastructure -->
+      <div class="territory-card reveal reveal-delay-1">
+        <div class="territory-header">
+          <div class="territory-icon cloud">☁️</div>
+          <div>
+            <div class="territory-title">AI云基础设施</div>
+            <div class="territory-subtitle">资本军备竞赛 · 算力即权力</div>
+          </div>
+        </div>
+        <div class="territory-companies">
+          <div class="company-row">
+            <div class="company-rank gold">1</div>
+            <div class="company-info">
+              <div class="company-name">阿里云</div>
+              <div class="company-detail">通义千问全家桶 · 云+模型+应用一体化</div>
+            </div>
+            <div class="company-tag tag-cloud">基础设施</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank silver">2</div>
+            <div class="company-info">
+              <div class="company-name">百度智能云</div>
+              <div class="company-detail">文心大模型 · 智能体生态</div>
+            </div>
+            <div class="company-tag tag-cloud">基础设施</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank bronze">3</div>
+            <div class="company-info">
+              <div class="company-name">华为云</div>
+              <div class="company-detail">昇腾+DeepSeek推理服务 · 国产算力底座</div>
+            </div>
+            <div class="company-tag tag-cloud">基础设施</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank">4</div>
+            <div class="company-info">
+              <div class="company-name">腾讯云</div>
+              <div class="company-detail">混元Hy3 · OpenRouter全球榜首</div>
+            </div>
+            <div class="company-tag tag-cloud">基础设施</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foundation Models -->
+      <div class="territory-card reveal reveal-delay-2">
+        <div class="territory-header">
+          <div class="territory-icon model">🧠</div>
+          <div>
+            <div class="territory-title">大模型赛道</div>
+            <div class="territory-subtitle">六强争霸 · 开源+闭源双线作战</div>
+          </div>
+        </div>
+        <div class="territory-companies">
+          <div class="company-row">
+            <div class="company-rank gold">1</div>
+            <div class="company-info">
+              <div class="company-name">DeepSeek</div>
+              <div class="company-detail">R1推理 · 500亿$估值 · 国运级成果</div>
+            </div>
+            <div class="company-tag tag-model">开源王者</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank silver">2</div>
+            <div class="company-info">
+              <div class="company-name">智谱AI</div>
+              <div class="company-detail">GLM-4 · 1.2万亿港元市值 · 港股上市</div>
+            </div>
+            <div class="company-tag tag-model">学院派</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank bronze">3</div>
+            <div class="company-info">
+              <div class="company-name">月之暗面 · MiniMax</div>
+              <div class="company-detail">Kimi · abab · C端流量争夺</div>
+            </div>
+            <div class="company-tag tag-model">青年派</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank">4</div>
+            <div class="company-info">
+              <div class="company-name">百川智能 · 零一万物</div>
+              <div class="company-detail">垂直场景 · 出海策略</div>
+            </div>
+            <div class="company-tag tag-model">创业派</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Embodied AI / Robots -->
+      <div class="territory-card reveal reveal-delay-3">
+        <div class="territory-header">
+          <div class="territory-icon robot">🦾</div>
+          <div>
+            <div class="territory-title">具身智能</div>
+            <div class="territory-subtitle">"物理AI"元年 · 融资最火赛道</div>
+          </div>
+        </div>
+        <div class="territory-companies">
+          <div class="company-row">
+            <div class="company-rank gold">1</div>
+            <div class="company-info">
+              <div class="company-name">宇树科技</div>
+              <div class="company-detail">科创板IPO获受理 · 拟募资42亿 · "人形机器人第一股"</div>
+            </div>
+            <div class="company-tag tag-robot">IPO</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank silver">2</div>
+            <div class="company-info">
+              <div class="company-name">智元机器人</div>
+              <div class="company-detail">投资布局生态 · 产业链整合</div>
+            </div>
+            <div class="company-tag tag-robot">生态</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank bronze">3</div>
+            <div class="company-info">
+              <div class="company-name">自变量机器人</div>
+              <div class="company-detail">A++轮10亿融资 · 字节+红杉+深创投</div>
+            </div>
+            <div class="company-tag tag-robot">10亿轮</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank">4</div>
+            <div class="company-info">
+              <div class="company-name">具微科技</div>
+              <div class="company-detail">特种具身龙头 · 估值40亿 · 五轮连融</div>
+            </div>
+            <div class="company-tag tag-robot">一月一轮</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Applications -->
+      <div class="territory-card reveal reveal-delay-4">
+        <div class="territory-header">
+          <div class="territory-icon app">📱</div>
+          <div>
+            <div class="territory-title">AI应用层</div>
+            <div class="territory-subtitle">流量入口争夺 · 出海+OPC新物种</div>
+          </div>
+        </div>
+        <div class="territory-companies">
+          <div class="company-row">
+            <div class="company-rank gold">1</div>
+            <div class="company-info">
+              <div class="company-name">字节跳动</div>
+              <div class="company-detail">豆包全球MAU第三 · 流量入口必争之地</div>
+            </div>
+            <div class="company-tag tag-app">流量王</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank silver">2</div>
+            <div class="company-info">
+              <div class="company-name">可灵AI (快手)</div>
+              <div class="company-detail">视频生成标杆 · 200亿$独立估值</div>
+            </div>
+            <div class="company-tag tag-app">视频</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank bronze">3</div>
+            <div class="company-info">
+              <div class="company-name">努比亚 · 中兴</div>
+              <div class="company-detail">全球首款AI智能体手机 · WAIC全球首秀</div>
+            </div>
+            <div class="company-tag tag-app">新物种</div>
+          </div>
+          <div class="company-row">
+            <div class="company-rank">4</div>
+            <div class="company-info">
+              <div class="company-name">OPC"一人公司"</div>
+              <div class="company-detail">WAIC首设专属展区 · 180家企业入驻</div>
+            </div>
+            <div class="company-tag tag-app">WAIC新</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: FINANCE TRACK -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="finance">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">💰 资本动向</div>
+      <h2 class="section-title">钱往哪里流？</h2>
+      <p class="section-desc">2026年AI融资创历史新高。从DeepSeek的500亿美元轮到具身智能的"一月一轮"，资本正以前所未有的速度涌入。</p>
+    </div>
+
+    <div class="finance-grid">
+      <div class="finance-main reveal">
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;">📈 标志性融资事件</h3>
+        <div class="deal-timeline">
+          <div class="deal-item">
+            <div class="deal-date">2026年5月</div>
+            <div class="deal-title">DeepSeek 首轮外部融资</div>
+            <div class="deal-amount">500亿美元估值</div>
+            <div class="deal-desc">国家大基金领投、腾讯跟投，计划募资最高500亿元。创始人梁文锋个人出资200亿元确保80%+控制权。21天估值从100亿→500亿美元。</div>
+          </div>
+
+          <div class="deal-item">
+            <div class="deal-date">2026年6月</div>
+            <div class="deal-title">智谱AI 港股上市</div>
+            <div class="deal-amount">1.2万亿港元市值</div>
+            <div class="deal-desc">6月22日盘中市值飙升至1.2万亿港元。入选全球十大最具影响力AI公司。</div>
+          </div>
+
+          <div class="deal-item">
+            <div class="deal-date">2026年5月</div>
+            <div class="deal-title">可灵AI 分拆独立</div>
+            <div class="deal-amount">200亿美元估值</div>
+            <div class="deal-desc">快手旗下视频生成大模型以200亿美元估值启动Pre-IPO轮融资，目标成为全球估值最高的视频生成大模型。</div>
+          </div>
+
+          <div class="deal-item">
+            <div class="deal-date">2026年1月</div>
+            <div class="deal-title">自变量机器人 A++轮</div>
+            <div class="deal-amount">10亿元融资</div>
+            <div class="deal-desc">字节跳动、红杉中国、北京信息产业发展基金、深创投等顶级机构联合投资。</div>
+          </div>
+
+          <div class="deal-item">
+            <div class="deal-date">2026年3月</div>
+            <div class="deal-title">宇树科技 科创板IPO</div>
+            <div class="deal-amount">拟募资42亿元</div>
+            <div class="deal-desc">冲刺A股"人形机器人第一股"，上交所已受理IPO申请。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="finance-sidebar">
+        <div class="finance-stat-card reveal reveal-delay-1">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">Q1 AI融资总额</div>
+          <div class="stat-mini">
+            <span class="stat-mini-value" style="color:var(--accent-cyan);">763.8亿</span>
+          </div>
+          <div class="stat-mini" style="margin-top:4px;">
+            <span class="stat-mini-label">577笔事件</span>
+            <span class="stat-mini-change fire">↑ 144%</span>
+          </div>
+        </div>
+
+        <div class="finance-stat-card reveal reveal-delay-2">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">中国AI占一级市场</div>
+          <div class="stat-mini">
+            <span class="stat-mini-value" style="color:var(--accent-purple);">41%</span>
+          </div>
+          <div class="stat-mini" style="margin-top:4px;">
+            <span class="stat-mini-label">全国一级市场占比</span>
+            <span class="stat-mini-change up">↑ 持续领先</span>
+          </div>
+        </div>
+
+        <div class="finance-stat-card reveal reveal-delay-3">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">独角兽总估值</div>
+          <div class="stat-mini">
+            <span class="stat-mini-value" style="color:var(--accent-green);">11.7万亿</span>
+          </div>
+          <div class="stat-mini" style="margin-top:4px;">
+            <span class="stat-mini-label">310家企业</span>
+            <span class="stat-mini-change up">↑ 38.8%</span>
+          </div>
+        </div>
+
+        <div class="finance-stat-card reveal reveal-delay-4">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">具身智能融资</div>
+          <div class="stat-mini">
+            <span class="stat-mini-value" style="color:var(--accent-orange);">550亿+</span>
+          </div>
+          <div class="stat-mini" style="margin-top:4px;">
+            <span class="stat-mini-label">前4月200+笔</span>
+            <span class="stat-mini-change fire">↑ 247%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: WAIC STAGE -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="waic">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">🏛️ WAIC 2026</div>
+      <h2 class="section-title">大会七大板块，三大片区</h2>
+      <p class="section-desc">7月17-20日，上海世博·张江·西岸"三地四馆"，140余场论坛，1400余位中外嘉宾，首次设立OPC专属展区。</p>
+    </div>
+
+    <div class="waic-stage">
+      <div class="stage-card reveal reveal-delay-1">
+        <div class="stage-emoji">🧠</div>
+        <div class="stage-title">智算赛道</div>
+        <div class="stage-desc">AI算力基础设施、芯片、服务器、数据中心全链路展示。国产算力替代加速推进。</div>
+        <div class="stage-highlight">200+ 参展企业</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-2">
+        <div class="stage-emoji">🦾</div>
+        <div class="stage-title">具身赛道</div>
+        <div class="stage-desc">人形机器人、工业机器人、服务机器人。"物理AI"元年，从概念走向量产落地。</div>
+        <div class="stage-highlight">200+ 参展企业</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-3">
+        <div class="stage-emoji">🏢</div>
+        <div class="stage-title">OPC展区</div>
+        <div class="stage-desc">One Person Company专属展区。AI赋能个人创业，180家企业展示"一人公司"新范式。</div>
+        <div class="stage-highlight">180 家企业</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-1">
+        <div class="stage-emoji">🌐</div>
+        <div class="stage-title">全球治理</div>
+        <div class="stage-desc">AI全球治理高级别会议。联动12个国家部委、10余个国际组织，共商AI伦理与安全。</div>
+        <div class="stage-highlight">12 国家部委</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-2">
+        <div class="stage-emoji">🏆</div>
+        <div class="stage-title">赛事矩阵</div>
+        <div class="stage-desc">OPC独立先锋挑战赛、青年投资领袖榜单、品牌赛事优化。覆盖顶尖成果到青少年科普。</div>
+        <div class="stage-highlight">多层次赛事</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-3">
+        <div class="stage-emoji">🌏</div>
+        <div class="stage-title">亚太场</div>
+        <div class="stage-desc">8月新加坡举办亚太场。WAIC从上海走向全球，构建亚太AI生态网络。</div>
+        <div class="stage-highlight">新加坡 · 8月</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-1">
+        <div class="stage-emoji">💬</div>
+        <div class="stage-title">140+场论坛</div>
+        <div class="stage-desc">七大板块内容策划。前沿议题、产业落地、投资趋势、技术突破全维度覆盖。</div>
+        <div class="stage-highlight">1400+ 嘉宾</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-2">
+        <div class="stage-emoji">📱</div>
+        <div class="stage-title">300+全球首发</div>
+        <div class="stage-desc">3000余项展品集中亮相，其中超300款产品实现全球首次公开发布。</div>
+        <div class="stage-highlight">3000+ 展品</div>
+      </div>
+
+      <div class="stage-card reveal reveal-delay-3">
+        <div class="stage-emoji">🔗</div>
+        <div class="stage-title">8大国家级实验室</div>
+        <div class="stage-desc">联动8个国家级重点实验室。顶尖学术力量与产业资本的深度对接。</div>
+        <div class="stage-highlight">国家级背书</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 5: BATTLE FIELDS -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="battles">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">⚔️ 核心战役</div>
+      <h2 class="section-title">五大必争之地</h2>
+      <p class="section-desc">2026年中国AI竞争围绕三大主题展开：AI云基础设施、AI聊天机器人、AI应用。以下是五大关键战役。</p>
+    </div>
+
+    <div class="battle-grid">
+      <div class="battle-card reveal reveal-delay-1">
+        <div class="battle-number">01</div>
+        <div class="battle-title">🔥 流量入口之战</div>
+        <div class="battle-desc">阿里、字节、腾讯争相通过AI聊天机器人抢占用户流量。字节豆包全球月活第三，腾讯混元登顶OpenRouter。AI聊天应用成为锁定未来生态商业化的关键入口。</div>
+        <div class="battle-players">
+          <span class="player-chip hot">字节·豆包</span>
+          <span class="player-chip hot">腾讯·混元</span>
+          <span class="player-chip">阿里·通义</span>
+          <span class="player-chip">百度·文心</span>
+        </div>
+      </div>
+
+      <div class="battle-card reveal reveal-delay-2">
+        <div class="battle-number">02</div>
+        <div class="battle-title">🧠 开源生态之争</div>
+        <div class="battle-desc">DeepSeek以开源策略"一统江湖"，华为云+昇腾提供国产算力底座。开源vs闭源、国产vs海外，双线并行的生态之争。</div>
+        <div class="battle-players">
+          <span class="player-chip hot">DeepSeek</span>
+          <span class="player-chip">阿里·Qwen</span>
+          <span class="player-chip">华为·昇腾</span>
+          <span class="player-chip">智谱·GLM</span>
+        </div>
+      </div>
+
+      <div class="battle-card reveal reveal-delay-3">
+        <div class="battle-number">03</div>
+        <div class="battle-title">🦾 具身智能军备赛</div>
+        <div class="battle-desc">宇树冲刺"人形机器人第一股"，自变量获10亿融资，具微科技"一月一轮"。从实验室到量产，2026年是具身智能的商业化元年。</div>
+        <div class="battle-players">
+          <span class="player-chip hot">宇树科技</span>
+          <span class="player-chip">智元机器人</span>
+          <span class="player-chip">自变量</span>
+          <span class="player-chip">具微科技</span>
+        </div>
+      </div>
+
+      <div class="battle-card reveal reveal-delay-4">
+        <div class="battle-number">04</div>
+        <div class="battle-title">🎬 视频生成对决</div>
+        <div class="battle-desc">可灵AI以200亿美元估值独立，对标OpenAI Sora。中国视频生成从概念走向商业化，从娱乐到广告到影视全面渗透。</div>
+        <div class="battle-players">
+          <span class="player-chip hot">可灵AI</span>
+          <span class="player-chip">通义万相</span>
+          <span class="player-chip">智谱·清影</span>
+          <span class="player-chip">字节·即梦</span>
+        </div>
+      </div>
+
+      <div class="battle-card reveal reveal-delay-1">
+        <div class="battle-number">05</div>
+        <div class="battle-title">🌍 AI出海争夺战</div>
+        <div class="battle-desc">字节AI应用全球扩张已成不可忽视的颠覆力量。月之暗面、MiniMax、百川智能等创业公司加速海外布局。WAIC 8月新加坡亚太场标志中国AI走向全球。</div>
+        <div class="battle-players">
+          <span class="player-chip hot">字节·海外</span>
+          <span class="player-chip">MiniMax</span>
+          <span class="player-chip">月之暗面</span>
+          <span class="player-chip">百川智能</span>
+        </div>
+      </div>
+
+      <div class="battle-card reveal reveal-delay-2">
+        <div class="battle-number">06</div>
+        <div class="battle-title">🏭 AI+产业落地</div>
+        <div class="battle-desc">企业级AI生成支出占市场74.3%。从制造到医疗到金融，AI不再是实验室的玩具，而是产业效率的核心引擎。</div>
+        <div class="battle-players">
+          <span class="player-chip">制造业</span>
+          <span class="player-chip">医疗</span>
+          <span class="player-chip">金融</span>
+          <span class="player-chip">教育</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 6: INSIGHTS -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="insights">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">💡 核心洞察</div>
+      <h2 class="section-title">三个不可逆趋势</h2>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card reveal reveal-delay-1">
+        <div class="insight-icon i1">🔄</div>
+        <div class="insight-title">开源即霸权</div>
+        <div class="insight-text">DeepSeek以开源打破垄断，华为云+昇腾构建国产算力闭环。开源不再是技术理想主义，而是商业战略——谁的生态最大，谁就赢。全球前十AI企业，中国占三席（字节、智谱、阿里）。</div>
+      </div>
+
+      <div class="insight-card reveal reveal-delay-2">
+        <div class="insight-icon i2">🦿</div>
+        <div class="insight-title">物理AI元年</div>
+        <div class="insight-text">具身智能融资同比增长247%，机器人独角兽数量增加20家。AI从"屏幕内回答世界"走向"进入真实场景改变世界"。宇树冲刺科创板，标志着具身智能进入资本化收割期。</div>
+      </div>
+
+      <div class="insight-card reveal reveal-delay-3">
+        <div class="insight-icon i3">🌏</div>
+        <div class="insight-title">中国速度 × 全球野心</div>
+        <div class="insight-text">从DeepSeek 21天估值5倍到可灵AI 200亿美元独立，中国AI公司展现惊人的融资效率。WAIC新加坡亚太场标志着中国AI从"追赶者"变为"规则制定者"。美国守技术高地，中国凭规模和速度快速扩张。</div>
+      </div>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="reveal" style="margin-top:3rem;padding:3rem;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));border-radius:20px;text-align:center;">
+      <p style="font-size:1.5rem;font-weight:300;line-height:1.8;color:var(--text-primary);max-width:800px;margin:0 auto;">
+        "下一代AI公司未必只诞生在拥有最大参数、最多论文和最强算力的地方，<br>
+        <span style="color:var(--accent-cyan);font-weight:600;">也可能诞生在真实场景最密集、产业反馈最频繁、工程迭代最快的地方。</span>"
+      </p>
+      <p style="margin-top:1.5rem;font-size:0.9rem;color:var(--text-muted);">—— OFweek · 2026年AI产业观察</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">WAIC 2026 · 百团大战全景地图</div>
+  <div class="footer-meta">
+    数据截止 2026年7月11日 · 信息来源：人民财讯、36氪、贝壳财经、OFweek、CSDN、澎湃等公开报道
+  </div>
+  <div class="footer-credits">
+    <span>✍️ 创艺 × 绘界</span>
+    <span>🤖 智囊团</span>
+    <span>📅 2026-07-11</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SCRIPTS -->
+<!-- ═══════════════════════════════════════════ -->
+<script>
+  // Countdown to WAIC 2026 opening: July 17, 2026
+  const targetDate = new Date('2026-07-17T09:00:00+08:00');
+  
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+    
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '0';
+      document.getElementById('cd-secs').textContent = '0';
+      return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('cd-days').textContent = days;
+    document.getElementById('cd-hours').textContent = hours;
+    document.getElementById('cd-mins').textContent = mins;
+    document.getElementById('cd-secs').textContent = secs;
+  }
+  
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Particle effect
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let animFrame;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createParticles() {
+    particles = [];
+    const count = Math.min(80, Math.floor(window.innerWidth / 15));
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.5 + 0.1,
+      });
+    }
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(99, 140, 255, ${p.alpha})`;
+      ctx.fill();
+      
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = p.x - particles[j].x;
+        const dy = p.y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(99, 140, 255, ${0.08 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    });
+    
+    animFrame = requestAnimationFrame(drawParticles);
+  }
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    createParticles();
+  });
+
+  resizeCanvas();
+  createParticles();
+  drawParticles();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value": "+144%", "label": "🔥 同比", "quote": "🔥 同比+144%"},
+  {"value": "+247%", "label": "🔥 同比", "quote": "🔥 同比+247%"},
+  {"value": "1.2万亿", "label": "港元市值", "quote": "1.2万亿港元市值"},
+  {"value": "10亿", "label": "元融资", "quote": "10亿元融资"},
+  {"value": "310家", "label": "中国独角兽企业", "quote": "310家 中国独角兽企业"},
+  {"value": "763.8亿", "label": "Q1 AI融资总额", "quote": "763.8亿 Q1 AI融资总额"},
+  {"value": "1.2万亿", "label": "智谱AI市值", "quote": "1.2万亿 智谱AI市值"},
+  {"value": "763.8亿", "label": "577笔事件", "quote": "763.8亿 577笔事件"},
+  {"value": "41%", "label": "全国一级市场占比", "quote": "41% 全国一级市场占比"},
+  {"value": "11.7万亿", "label": "310家企业", "quote": "11.7万亿 310家企业"}
+]
+</script>
+</body>
+</html>
+        

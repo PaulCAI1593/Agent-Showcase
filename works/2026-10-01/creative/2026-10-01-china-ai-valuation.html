@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国AI"估值核爆" | DeepSeek · 美团 · DensityAI — 2026交互叙事报告</title>
+<meta name="description" content="从DeepSeek的100亿美元到740亿，从美团1.6万亿人民币巅峰到AI重估，到DensityAI未量产即逼近100亿美元——中国AI估值核爆的交互式叙事。">
+<style>
+/* ============ ROOT / TOKENS ============ */
+:root{
+  --bg0:#050000;
+  --bg1:#120404;
+  --bg2:#1c0707;
+  --bg3:#2a0b0b;
+  --red-deep:#8B0000;
+  --red:#C44536;
+  --red-bright:#E85D4C;
+  --red-glow:#ff5a45;
+  --amber:#F5A623;
+  --gold:#FFB347;
+  --text:#FFF5F2;
+  --dim:rgba(255,238,232,.62);
+  --dim2:rgba(255,238,232,.38);
+  --line:rgba(232,93,76,.22);
+  --us:#7C8CA5;
+  --us-soft:rgba(124,140,165,.35);
+  --cn-grad:linear-gradient(135deg,#C44536 0%,#E85D4C 45%,#F5A623 100%);
+  --panel:linear-gradient(160deg,rgba(42,11,11,.82),rgba(18,4,4,.92));
+  --serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg0);
+  color:var(--text);
+  line-height:1.6;
+  letter-spacing:-.2px;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--red);color:#fff}
+
+/* scroll progress */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--cn-grad);z-index:999;box-shadow:0 0 12px rgba(245,166,35,.7)}
+
+/* ============ SHARED ============ */
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+.sec{position:relative;padding:120px 0}
+.sec-dark{background:var(--bg0)}
+.sec-mid{background:var(--bg1)}
+.sec-deep{background:linear-gradient(180deg,var(--bg1),var(--bg0))}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--red-bright);margin-bottom:20px;
+}
+.kicker::before{content:"";width:34px;height:1px;background:var(--red-bright);display:inline-block}
+h2.sec-title{
+  font-size:clamp(30px,4.6vw,52px);font-weight:700;line-height:1.14;letter-spacing:-1px;
+  margin-bottom:18px;
+}
+h2.sec-title .accent{
+  background:var(--cn-grad);-webkit-background-clip:text;background-clip:text;color:currentColor;
+}
+.sec-sub{font-size:18px;color:var(--dim);max-width:720px;line-height:1.75;margin-bottom:56px}
+.ch-num{
+  position:absolute;top:64px;right:40px;
+  font-family:var(--serif);font-size:clamp(80px,12vw,160px);font-weight:700;
+  color:transparent;-webkit-text-stroke:1px rgba(232,93,76,.16);
+  writing-mode:vertical-rl;letter-spacing:8px;pointer-events:none;user-select:none;
+}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.12s}
+.reveal[data-d="2"]{transition-delay:.24s}
+.reveal[data-d="3"]{transition-delay:.36s}
+.reveal[data-d="4"]{transition-delay:.48s}
+.grid-bg::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(232,93,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,93,76,.05) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);
+}
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;
+  backdrop-filter:blur(8px);
+}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:var(--bg0)}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-glow{
+  position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,69,54,.28) 0%,rgba(139,0,0,.14) 38%,transparent 68%);
+  pointer-events:none;animation:breathe 6s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:140px 32px 100px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 18px;border-radius:999px;border:1px solid rgba(232,93,76,.45);
+  background:rgba(196,69,54,.14);color:#ffb3a6;font-size:13px;font-weight:600;letter-spacing:1.5px;
+  margin-bottom:34px;
+}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--red-glow);box-shadow:0 0 10px var(--red-glow);animation:none;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{
+  font-size:clamp(44px,7.4vw,92px);font-weight:800;line-height:1.06;letter-spacing:-2.5px;
+  margin-bottom:26px;
+}
+.hero h1 .fire{
+  background:none;
+  -webkit-background-clip:text;background-clip:text;color:#ff3b2e;
+  filter:drop-shadow(0 0 28px rgba(255,90,60,.35));
+}
+.hero-lead{font-size:clamp(16px,1.9vw,21px);color:var(--dim);max-width:760px;margin:0 auto 52px;line-height:1.8}
+.hero-lead b{color:var(--gold);font-weight:600}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:56px}
+.hstat{
+  min-width:220px;padding:22px 26px;border-radius:16px;text-align:left;
+  background:linear-gradient(165deg,rgba(60,14,14,.75),rgba(16,3,3,.85));
+  border:1px solid rgba(232,93,76,.28);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .35s;
+}
+.hstat:hover{transform:translateY(-6px);border-color:rgba(245,166,35,.6);box-shadow:0 18px 44px rgba(196,69,54,.25)}
+.hstat .lab{font-size:12px;letter-spacing:2px;color:var(--dim2);text-transform:uppercase;margin-bottom:8px}
+.hstat .val{padding:10px;font-size:30px;font-weight:800;letter-spacing:-1px;background:var(--cn-grad);-webkit-background-clip:text;background-clip:text;color:currentColor}
+.hstat .val .unit{font-size:15px;font-weight:600}
+.hstat .sub{font-size:12.5px;color:var(--dim);margin-top:6px}
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--dim2);font-size:12px;letter-spacing:4px}
+.scroll-cue .mouse{width:26px;height:42px;border:1.5px solid rgba(232,93,76,.5);border-radius:14px;position:relative}
+.scroll-cue .mouse::after{content:"";position:absolute;left:50%;top:8px;width:1px;height:1px;border-radius:2px;background:var(--red-bright);transform:translateX(-50%);animation:wheel 1.8s infinite}
+@keyframes wheel{0%{opacity:1;top:8px}70%{opacity:0;top:22px}100%{opacity:0;top:8px}}
+
+/* seal stamp */
+.seal{
+  position:absolute;right:6%;top:20%;width:118px;height:118px;z-index:3;
+  border:3px solid rgba(232,93,76,.75);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:38px;font-weight:700;color:#ff8a76;letter-spacing:6px;
+  writing-mode:vertical-rl;background:rgba(139,0,0,.18);
+  transform:rotate(8deg);box-shadow:inset 0 0 24px rgba(196,69,54,.3);
+  animation:sealIn 1.2s .6s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes sealIn{from{opacity:0;transform:rotate(8deg) scale(1.6)}to{opacity:1;transform:rotate(8deg) scale(1)}}
+@media(max-width:900px){.seal{display:none}}
+
+/* ============ TICKER ============ */
+.ticker{padding:10px;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-block;animation:marq 46s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{display:inline-block;font-size:14px;color:var(--dim);letter-spacing:.5px;padding:0 26px}
+.ticker span b{color:var(--gold);font-weight:600}
+.ticker span i{color:var(--red-bright);font-style:normal;font-weight:600}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ ACT 0 CARDS ============ */
+.shock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:860px){.shock-grid{grid-template-columns:1fr}}
+.shock{
+  position:relative;padding:36px 30px 32px;border-radius:20px;overflow:hidden;
+  background:var(--panel);border:1px solid var(--line);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s;
+}
+.shock:hover{transform:translateY(-8px);border-color:rgba(245,166,35,.55)}
+.shock::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--cn-grad);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.shock:hover::before{transform:scaleX(1)}
+.shock .tag{font-size:11.5px;letter-spacing:2.5px;color:var(--red-bright);font-weight:700;margin-bottom:14px}
+.shock h3{font-size:23px;font-weight:700;letter-spacing:-.5px;margin-bottom:12px}
+.shock .big{padding:10px;font-size:38px;font-weight:800;letter-spacing:-1.5px;background:var(--cn-grad);-webkit-background-clip:text;background-clip:text;color:currentColor;margin-bottom:4px}
+.shock .big small{font-size:16px;font-weight:600}
+.shock p{font-size:14px;color:var(--dim);line-height:1.75}
+.shock .src{margin-top:16px;font-size:12px;color:var(--dim2)}
+
+/* ============ CHARTS ============ */
+.chart-card{padding:38px 34px;border-radius:22px;background:var(--panel);border:1px solid var(--line)}
+.chart-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:28px}
+.chart-head h3{font-size:21px;font-weight:700;letter-spacing:-.4px}
+.chart-head .hint{font-size:12.5px;color:var(--dim2)}
+.legend{display:flex;gap:20px;font-size:12.5px;color:var(--dim);margin-top:18px;flex-wrap:wrap}
+.legend i{display:inline-block;width:22px;height:3px;border-radius:2px;margin-right:8px;vertical-align:middle}
+
+/* deepseek curve */
+#dsChart{width:100%;height:auto;display:block}
+#dsChart .axis-line{stroke:rgba(232,93,76,.2);stroke-width:1}
+#dsChart .axis-txt{fill:rgba(255,238,232,.4);font-size:12px;font-family:var(--sans)}
+#dsChart .curve{fill:none;stroke:url(#dsGrad);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px rgba(232,93,76,.5))}
+#dsChart .area{fill:url(#dsArea);opacity:0}
+#dsChart .dot{fill:#120404;stroke:#F5A623;stroke-width:2.5;cursor:pointer;transition:r .25s}
+#dsChart .dot:hover{r:8}
+#dsChart .dlabel{fill:#FFB347;font-size:11.5px;font-weight:700;font-family:var(--sans)}
+#dsChart .dsub{fill:rgba(255,238,232,.45);font-size:12px;font-family:var(--sans)}
+.draw{stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.draw.in{stroke-dashoffset:0}
+.pop{opacity:0;transform:scale(.4);transform-origin:center;transition:opacity .5s,transform .5s cubic-bezier(.34,1.56,.64,1)}
+.pop.in{opacity:1;transform:scale(1)}
+
+/* ============ TIMELINE ============ */
+.tl{margin-top:34px}
+.tl-track{display:flex;gap:0;position:relative;overflow-x:auto;padding:10px 4px 18px;scrollbar-width:thin}
+.tl-track::before{content:"";position:absolute;left:20px;right:20px;top:34px;height:1px;background:linear-gradient(90deg,rgba(232,93,76,.15),rgba(245,166,35,.7),rgba(232,93,76,.15))}
+.tl-node{
+  flex:1;min-width:132px;position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;
+  cursor:pointer;padding:0 8px;background:none;border:none;color:inherit;font-family:inherit;
+}
+.tl-node .when{font-size:11.5px;color:var(--dim2);letter-spacing:1px;font-weight:600}
+.tl-node .bead{
+  width:16px;height:16px;border-radius:50%;background:var(--bg1);border:2.5px solid var(--red);
+  position:relative;z-index:1;transition:all .3s;
+}
+.tl-node .who{font-size:13px;font-weight:600;color:var(--dim);transition:color .3s;text-align:center;line-height:1.4}
+.tl-node:hover .bead,.tl-node.active .bead{background:var(--gold);border-color:var(--gold);box-shadow:0 0 18px rgba(245,166,35,.8);transform:scale(1.25)}
+.tl-node:hover .who,.tl-node.active .who{color:var(--text)}
+.tl-node.active .when{color:var(--gold)}
+.tl-detail{
+  margin-top:22px;padding:30px 32px;border-radius:18px;
+  background:linear-gradient(150deg,rgba(60,14,14,.7),rgba(14,3,3,.9));border:1px solid var(--line);
+  min-height:150px;
+}
+.tl-detail .d-date{font-size:13px;color:var(--gold);letter-spacing:2px;font-weight:700;margin-bottom:8px}
+.tl-detail h4{font-size:22px;font-weight:700;margin-bottom:12px;letter-spacing:-.4px}
+.tl-detail p{font-size:15px;color:var(--dim);line-height:1.85}
+.tl-detail .d-stat{display:flex;flex-wrap:wrap;gap:26px;margin-top:18px}
+.tl-detail .d-stat div{font-size:13px;color:var(--dim2)}
+.tl-detail .d-stat b{display:block;font-size:22px;color:var(--text);font-weight:800;letter-spacing:-.5px}
+
+/* ============ MEITUAN BARS ============ */
+.mt-bars{padding:10px;display:flex;align-items:flex-end;gap:clamp(6px,1.4vw,16px);height:300px;padding:20px 6px 0;border-bottom:1px solid var(--line)}
+.mt-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end;position:relative}
+.mt-col .bar{
+  width:100%;max-width:56px;border-radius:6px 6px 0 0;
+  background:linear-gradient(180deg,rgba(245,166,35,.95),rgba(196,69,54,.75));
+  height:0;transition:height 1.3s cubic-bezier(.16,1,.3,1);position:relative;
+}
+.mt-col.peak .bar{background:linear-gradient(180deg,#ff3b2e,#8B0000)}
+.mt-col.now .bar{background:linear-gradient(180deg,#FFB347,#E85D4C);box-shadow:0 0 22px rgba(245,166,35,.5)}
+.mt-col .v{font-size:12px;color:var(--dim);font-weight:600}
+.mt-col .y{font-size:11.5px;color:var(--dim2);margin-top:4px}
+.mt-note{margin-top:20px;font-size:14px;color:var(--dim);line-height:1.8}
+.mt-note b{color:var(--gold)}
+
+/* ai-cards */
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:36px}
+.ai-card{padding:24px 22px;border-radius:16px;background:rgba(28,7,7,.7);border:1px solid var(--line);transition:transform .35s,border-color .35s}
+.ai-card:hover{transform:translateY(-5px);border-color:rgba(245,166,35,.5)}
+.ai-card .ic{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border-radius:12px;margin-bottom:14px;
+  font-family:var(--serif);font-size:21px;font-weight:700;color:var(--gold);
+  background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.4);
+}
+.ai-card h4{font-size:16px;font-weight:700;margin-bottom:8px}
+.ai-card .n{font-size:26px;font-weight:800;color:var(--gold);letter-spacing:-.8px}
+.ai-card p{font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.7}
+
+/* ============ DENSITY / CHIP ============ */
+.chip-duel{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+@media(max-width:860px){.chip-duel{grid-template-columns:1fr}}
+.chip-list{display:flex;flex-direction:column;gap:14px}
+.chip-row{
+  display:grid;grid-template-columns:120px 1fr 96px;align-items:center;gap:16px;
+  padding:18px 20px;border-radius:14px;background:rgba(28,7,7,.7);border:1px solid var(--line);
+  transition:border-color .3s,transform .3s;
+}
+.chip-row:hover{border-color:rgba(245,166,35,.45);transform:translateX(4px)}
+.chip-row .nm{font-size:14.5px;font-weight:700}
+.chip-row .nm small{display:block;font-size:12px;color:var(--dim2);font-weight:500;margin-top:2px}
+.chip-row .track{height:14px;border-radius:7px;background:rgba(232,93,76,.1);overflow:hidden}
+.chip-row .fill{height:100%;width:0;border-radius:7px;background:linear-gradient(90deg,#8B0000,#E85D4C,#F5A623);transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.chip-row.us .fill{background:linear-gradient(90deg,#3d4a5c,#7C8CA5,#A9B8CC)}
+.chip-row .vv{text-align:right;font-size:18px;font-weight:800;color:var(--gold);letter-spacing:-.5px}
+.chip-row.us .vv{color:#A9B8CC}
+.chip-row .vv small{font-size:12px;font-weight:600;color:var(--dim2);display:block}
+.chip-note{padding:30px 28px;border-radius:18px;background:var(--panel);border:1px solid var(--line);font-size:14.5px;color:var(--dim);line-height:1.9}
+.chip-note h4{color:var(--text);font-size:18px;margin-bottom:14px}
+.chip-note b{color:var(--gold)}
+.chip-note .hi{color:var(--red-bright);font-weight:700}
+
+/* ============ COMPARATOR (CLIMAX) ============ */
+.cmp{padding:48px clamp(22px,4vw,52px);border-radius:26px;background:linear-gradient(165deg,rgba(66,15,15,.85),rgba(12,2,2,.95));border:1px solid rgba(232,93,76,.3);position:relative;overflow:hidden}
+.cmp::before{
+  content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:1px;height:1px;background:radial-gradient(ellipse,rgba(245,166,35,.18),transparent 70%);pointer-events:none;
+}
+.cmp-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;position:relative;z-index:1}
+.cmp-tab{
+  padding:12px 26px;border-radius:999px;border:1px solid var(--line);background:rgba(20,5,5,.6);
+  color:var(--dim);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:all .3s;
+}
+.cmp-tab:hover{color:var(--text);border-color:rgba(245,166,35,.5)}
+.cmp-tab.active{background:var(--cn-grad);color:#1a0505;border-color:transparent;box-shadow:0 6px 24px rgba(245,166,35,.35)}
+.cmp-meta{font-size:13px;color:var(--dim2);margin-bottom:30px;position:relative;z-index:1}
+.cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);position:relative;z-index:1}
+@media(max-width:800px){.cmp-cols{grid-template-columns:1fr}}
+.cmp-col h4{font-size:15px;letter-spacing:3px;font-weight:700;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.cmp-col.cn h4{color:var(--gold)}
+.cmp-col.us h4{color:#A9B8CC}
+.cmp-col h4 .flagdot{width:10px;height:10px;border-radius:50%}
+.cmp-col.cn .flagdot{background:var(--red-glow);box-shadow:0 0 10px var(--red-glow)}
+.cmp-col.us .flagdot{background:#7C8CA5;box-shadow: 0 2px 10px #8a8a8a}
+.cmp-item{margin-bottom:22px}
+.cmp-item .row1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.cmp-item .cname{font-size:14.5px;font-weight:700}
+.cmp-item .cval{font-size:19px;font-weight:800;letter-spacing:-.5px}
+.cmp-col.cn .cval{color:var(--gold)}
+.cmp-col.us .cval{color:#C6D2E2}
+.cmp-item .cbar{height:16px;border-radius:8px;background:rgba(255,255,255,.05);overflow:hidden}
+.cmp-item .cfill{height:100%;width:0;border-radius:8px;transition:width 1.1s cubic-bezier(.16,1,.3,1)}
+.cmp-col.cn .cfill{background:linear-gradient(90deg,#8B0000,#E85D4C 55%,#F5A623);box-shadow:0 0 14px rgba(232,93,76,.4)}
+.cmp-col.us .cfill{background:linear-gradient(90deg,#2f3a49,#7C8CA5 60%,#A9B8CC)}
+.cmp-item .cnote{font-size:11.5px;color:var(--dim2);margin-top:6px}
+.cmp-gap{
+  margin-top:34px;padding:22px 26px;border-radius:16px;position:relative;z-index:1;
+  background:rgba(196,69,54,.12);border:1px solid rgba(232,93,76,.35);
+  font-size:15px;line-height:1.85;color:var(--dim);
+}
+.cmp-gap b{color:var(--gold);font-size:17px}
+.cmp-scale{font-size:12px;color:var(--dim2);margin-top:14px;position:relative;z-index:1}
+
+/* ============ PS BARS ============ */
+.ps-list{display:flex;flex-direction:column;gap:18px}
+.ps-row{display:grid;grid-template-columns:130px 1fr 88px;align-items:center;gap:16px}
+@media(max-width:640px){.ps-row{grid-template-columns:96px 1fr 72px;gap:10px}}
+.ps-row .pn{font-size:14px;font-weight:700}
+.ps-row .pn small{display:block;font-size:10.5px;color:var(--dim2);font-weight:500}
+.ps-row .pt{height:18px;border-radius:9px;background:rgba(255,255,255,.05);overflow:hidden}
+.ps-row .pf{height:100%;width:0;border-radius:9px;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.ps-row.cn .pf{background:linear-gradient(90deg,#8B0000,#E85D4C,#F5A623)}
+.ps-row.us .pf{background:linear-gradient(90deg,#2f3a49,#7C8CA5)}
+.ps-row .pv{text-align:right;font-size:19px;font-weight:800;color:var(--gold);letter-spacing:-.6px}
+.ps-row.us .pv{color:#A9B8CC}
+.ps-row .pv small{font-size:12px;font-weight:600;color:var(--dim2)}
+.ps-punch{
+  margin-top:36px;padding:28px 32px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(139,0,0,.35),rgba(30,7,7,.8));border:1px solid rgba(245,166,35,.35);
+}
+.ps-punch p{font-size:clamp(17px,2.2vw,22px);font-weight:600;line-height:1.7;letter-spacing:-.3px}
+.ps-punch p em{font-style:normal;color:var(--gold)}
+
+/* ============ LENS ============ */
+.lens-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:860px){.lens-grid{grid-template-columns:1fr}}
+.lens{padding:38px 30px;border-radius:20px;background:var(--panel);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .4s,border-color .4s}
+.lens:hover{transform:translateY(-6px);border-color:rgba(245,166,35,.5)}
+.lens .lnum{font-family:var(--serif);font-size:60px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(245,166,35,.45);position:absolute;top:18px;right:24px;line-height:1}
+.lens .ic{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:54px;height:54px;border-radius:14px;margin-bottom:18px;
+  font-family:var(--serif);font-size:24px;font-weight:700;color:#ffb3a6;
+  background:rgba(196,69,54,.14);border:1px solid rgba(232,93,76,.45);
+}
+.lens h3{font-size:21px;font-weight:700;margin-bottom:14px}
+.lens p{font-size:14px;color:var(--dim);line-height:1.85}
+.lens ul{margin-top:16px;list-style:none}
+.lens li{font-size:13px;color:var(--dim);padding:7px 0 7px 18px;position:relative;border-top:1px solid rgba(232,93,76,.12)}
+.lens li::before{content:"";position:absolute;left:0;top:15px;width:1px;height:1px;border-radius:50%;background:var(--red-bright)}
+.lens li b{color:var(--gold)}
+
+/* ============ ENDING ============ */
+.end-hero{text-align:center;margin-bottom:60px}
+.end-hero h2{font-size:clamp(30px,5vw,56px);font-weight:800;letter-spacing:-1.5px;line-height:1.2}
+.end-hero h2 .q{background:var(--cn-grad);-webkit-background-clip:text;background-clip:text;color:currentColor}
+.end-hero p{margin-top:20px;font-size:17px;color:var(--dim);max-width:680px;margin-left:auto;margin-right:auto;line-height:1.85}
+.duel{display:grid;grid-template-columns:1fr 90px 1fr;gap:0;align-items:stretch}
+@media(max-width:860px){.duel{grid-template-columns:1fr;gap:20px}}
+.duel-side{padding:34px 30px;border-radius:20px;border:1px solid var(--line);background:var(--panel)}
+.duel-side.bear{border-color:rgba(232,93,76,.45)}
+.duel-side.bull{border-color:rgba(245,166,35,.45)}
+.duel-side h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.duel-side.bear h3{color:var(--red-bright)}
+.duel-side.bull h3{color:var(--gold)}
+.duel-side .cap{font-size:12.5px;color:var(--dim2);margin-bottom:22px;letter-spacing:1px}
+.duel-arg{
+  padding:15px 16px;border-radius:12px;margin-bottom:11px;cursor:pointer;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  font-size:13.5px;color:var(--dim);line-height:1.7;transition:all .3s;user-select:none;
+}
+.duel-arg:hover{background:rgba(232,93,76,.1);border-color:rgba(232,93,76,.4);color:var(--text)}
+.duel-arg.chosen{background:rgba(245,166,35,.14);border-color:rgba(245,166,35,.6);color:var(--text)}
+.duel-arg .x{color:var(--dim2);font-size:12px;display:block;margin-top:6px;letter-spacing:1px}
+.duel-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative}
+.scale-wrap{width:90px;height:200px;position:relative}
+.scale-wrap svg{width:100%;height:100%;overflow:visible}
+#scaleBeam{transition:transform 1s cubic-bezier(.34,1.56,.64,1);transform-origin:45px 40px}
+.scale-label{font-size:12px;color:var(--dim2);text-align:center;line-height:1.6}
+.scale-label b{display:block;font-size:22px;color:var(--text);font-weight:800}
+.final-word{
+  margin-top:64px;padding:48px 40px;border-radius:24px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,rgba(139,0,0,.5),rgba(24,5,5,.95) 60%);border:1px solid rgba(245,166,35,.4);
+}
+.final-word::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(245,166,35,.16),transparent 60%);pointer-events:none;
+}
+.final-word .fw-k{font-size:12px;letter-spacing:5px;color:var(--red-bright);font-weight:700;margin-bottom:18px}
+.final-word p{font-size:clamp(17px,2.4vw,24px);font-weight:600;line-height:1.8;max-width:760px;margin:0 auto;position:relative;z-index:1}
+.final-word p em{font-style:normal;background:var(--cn-grad);-webkit-background-clip:text;background-clip:text;color:currentColor}
+
+/* ============ FOOTER ============ */
+footer{background:var(--bg0);border-top:1px solid var(--line);padding:64px 0 48px}
+footer h4{font-size:14px;letter-spacing:3px;color:var(--red-bright);margin-bottom:20px;font-weight:700}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:36px}
+.src-grid p{font-size:12px;color:var(--dim2);line-height:1.9}
+.src-grid p b{color:var(--dim);font-weight:600}
+.disclaimer{font-size:11.5px;color:var(--dim2);line-height:1.9;padding-top:24px;border-top:1px solid rgba(232,93,76,.14);margin-bottom:28px}
+.sign{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}
+.sign .who{font-family:var(--serif);font-size:19px;color:var(--red-bright);letter-spacing:4px}
+.sign .meta{font-size:12px;color:var(--dim2);text-align:right;line-height:1.9}
+
+@media(max-width:640px){
+  .sec{padding:88px 0}
+  .wrap{padding:0 20px}
+  .hero-inner{padding:120px 20px 80px}
+  .ch-num{right:12px;top:40px}
+  .ps-row{grid-template-columns:88px 1fr 64px}
+  .chip-row{grid-template-columns:88px 1fr 76px;gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:12px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:12px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-01</span><span class="sb-sep">/</span><span class="sb-beat">厂商与算力权力</span><span class="sb-sep">/</span><span class="sb-cnt">29 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">3 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */#dsChart .area{opacity:1!important;visibility:visible!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}/* cramped-padding 修复 */
+.mt-bars{padding:10px !important}
+.ticker{padding:10px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div id="progress"></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero" id="top">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="seal">核爆</div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span>P0 创意交互叙事 · 数据截至 2026-09-30（Asia/Shanghai）</div>
+    <h1>中国AI企业<br>正在经历一场<span class="fire">估值核爆</span></h1>
+    <p class="hero-lead">
+      四个月，估值从 <b>100亿美元</b> 翻到 <b>740亿美元</b>；曾经逼近 <b>1.6万亿人民币</b> 市值的生活服务巨头，
+      正用无人机与大模型重建自己的估值坐标；一家芯片还没量产的初创公司，已经拿到 <b>100亿美元</b> 的价签。
+      这不是一条财经快讯——这是一场正在改变全球AI权力地图的链式反应。
+    </p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="lab">DeepSeek · 4个月</div>
+        <div class="val num">×<span data-count="7">0</span> <span class="unit">估值翻倍</span></div>
+        <div class="sub">$100亿 → $740亿（投前）</div>
+      </div>
+      <div class="hstat">
+        <div class="lab">美团 · 市值沉浮</div>
+        <div class="val num">¥<span data-count="1.6" data-dec="1">0</span><span class="unit">万亿 → 重建</span></div>
+        <div class="sub">峰值约1.6万亿人民币 → 现约4465亿港元</div>
+      </div>
+      <div class="hstat">
+        <div class="lab">DensityAI · 未量产</div>
+        <div class="val num">$<span data-count="100">0</span><span class="unit">亿估值</span></div>
+        <div class="sub">芯片未量产 · a16z洽谈领投</div>
+      </div>
+    </div>
+    <div class="scroll-cue"><div class="mouse"></div>向下探索</div>
+  </div>
+</header>
+
+<!-- ═══════════════ TICKER ═══════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><i>DeepSeek</i> 首轮外部融资 <b>¥500亿</b> · 投后估值 <b>$52B</b> · 第二轮投前 <b>¥5000亿</b></span>
+    <span><i>美团</i> 2020年市值峰值 <b>HK$1.73万亿</b> · 2026-09-28 市值 <b>HK$4465亿</b></span>
+    <span><i>DensityAI</i> 特斯拉Dojo前团队创立 · 融资后期估值 <b>$100亿</b> · AWS条件性采购协议</span>
+    <span><i>Anthropic</i> 估值 <b>$9650亿</b> · IPO目标 <b>约$2万亿</b> · ARR <b>$650亿</b></span>
+    <span><i>OpenAI</i> 3月融资 <b>$1220亿</b> @ <b>$8520亿</b> · 9月洽谈新估值 <b>$1.2万亿</b></span>
+    <span><i>寒武纪</i> 2026H1营收 <b>¥60亿(+108%)</b> · 净利 <b>¥23.1亿</b> · 市值 <b>¥6383亿</b></span>
+    <span><i>智谱</i> 港股市值峰值 <b>HK$1.3万亿</b> · 9月单月蒸发近 <b>万亿港元</b></span>
+    <span>DeepSeek估值PS <b>约614倍</b> · OpenAI约 <b>21倍</b> · Anthropic约 <b>15倍</b></span>
+    <!-- duplicate for seamless loop -->
+    <span><i>DeepSeek</i> 首轮外部融资 <b>¥500亿</b> · 投后估值 <b>$52B</b> · 第二轮投前 <b>¥5000亿</b></span>
+    <span><i>美团</i> 2020年市值峰值 <b>HK$1.73万亿</b> · 2026-09-28 市值 <b>HK$4465亿</b></span>
+    <span><i>DensityAI</i> 特斯拉Dojo前团队创立 · 融资后期估值 <b>$100亿</b> · AWS条件性采购协议</span>
+    <span><i>Anthropic</i> 估值 <b>$9650亿</b> · IPO目标 <b>约$2万亿</b> · ARR <b>$650亿</b></span>
+    <span><i>OpenAI</i> 3月融资 <b>$1220亿</b> @ <b>$8520亿</b> · 9月洽谈新估值 <b>$1.2万亿</b></span>
+    <span><i>寒武纪</i> 2026H1营收 <b>¥60亿(+108%)</b> · 净利 <b>¥23.1亿</b> · 市值 <b>¥6383亿</b></span>
+    <span><i>智谱</i> 港股市值峰值 <b>HK$1.3万亿</b> · 9月单月蒸发近 <b>万亿港元</b></span>
+    <span>DeepSeek估值PS <b>约614倍</b> · OpenAI约 <b>21倍</b> · Anthropic约 <b>15倍</b></span>
+  </div>
+</div>
+
+<!-- ═══════════════ ACT 0 · 核爆现场 ═══════════════ -->
+<section class="sec sec-mid grid-bg" id="blast">
+  <div class="ch-num">序</div>
+  <div class="wrap">
+    <div class="kicker reveal">THE BLAST ZONE · 核爆现场</div>
+    <h2 class="sec-title reveal" data-d="1">三枚估值"弹头"<br>在同一片天空<span class="accent">同时引爆</span></h2>
+    <p class="sec-sub reveal" data-d="2">
+      2026年的中国AI资本市场，罕见地同时出现三种完全不同形态的估值爆炸——
+      一级市场的融资神话、二级市场的市值沉浮、以及一级市场对"未来算力"的提前定价。
+      它们共同指向同一个问题：这些数字，究竟贵得有没有道理？
+    </p>
+    <div class="shock-grid">
+      <div class="shock reveal" data-d="1">
+        <div class="tag">第一枚 · 一级市场</div>
+        <h3>DeepSeek：从"不融资"到估值×7</h3>
+        <div class="big num">100→740 <small>亿美元</small></div>
+        <p>2026年4月市场首次传出它松口融资，估值约100亿美元；6月首轮500亿元交割，投后520亿美元；
+        8月第二轮投前估值抬到约5000亿元人民币（约740亿美元）。四个月，估值翻了七倍——而它2026年前7个月的营收是4.75亿元。</p>
+        <div class="src">来源：新浪财经/澎湃/21经济网/The Information，2026年5–9月</div>
+      </div>
+      <div class="shock reveal" data-d="2">
+        <div class="tag">第二枚 · 二级市场</div>
+        <h3>美团：1.6万亿巅峰后的AI重建</h3>
+        <div class="big num">1.6万亿→4465亿 <small>港元区间</small></div>
+        <p>美团曾在2020年底站上约1.73万亿港元市值（约合1.6万亿人民币量级）。外卖补贴大战让它2025年净亏233亿元、市值蒸发大半；
+        2026年Q2经营利润环比扭亏，无人配送累计超600万单——市场开始用"AI×即时零售"重新给它定价。</p>
+        <div class="src">来源：MarketCapWatch/雪球/36氪/搜狐科技，2026年6–9月</div>
+      </div>
+      <div class="shock reveal" data-d="3">
+        <div class="tag">第三枚 · 算力期权</div>
+        <h3>DensityAI：芯片未出生，估值已百亿美元</h3>
+        <div class="big num">$100 <small>亿 · 预估投后</small></div>
+        <p>特斯拉Dojo前核心团队2025年创立，芯片仍处研发早期、距量产可能还有数年，融资谈判后期估值已达100亿美元。
+        支撑它的是AWS的条件性采购协议与a16z的领投洽谈——市场在为"可能的算力"提前付款。</p>
+        <div class="src">来源：财联社/科创板日报/The Information，2026-09-25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 1 · DEEPSEEK ═══════════════ -->
+<section class="sec sec-dark grid-bg" id="deepseek">
+  <div class="ch-num">壹</div>
+  <div class="wrap">
+    <div class="kicker reveal">ACT I · 估值曲线</div>
+    <h2 class="sec-title reveal" data-d="1">最陡的一条曲线<br><span class="accent">四个月 × 7</span></h2>
+    <p class="sec-sub reveal" data-d="2">
+      DeepSeek曾是中国AI圈的"异类"：不融资、不商业化、不路演，研发全部由幻方量化的利润输血。
+      2026年春夏之交，这条铁律被打破，而且是以创投史上最陡峭的方式。
+    </p>
+
+    <div class="chart-card reveal" data-d="1">
+      <div class="chart-head">
+        <h3>DeepSeek 估值进化曲线（2026年4–8月，亿美元）</h3>
+        <div class="hint">悬停数据点查看详情</div>
+      </div>
+      <svg id="dsChart" viewBox="0 0 860 340" role="img" aria-label="DeepSeek估值从100亿美元涨至740亿美元的曲线图">
+        <defs>
+          <linearGradient id="dsGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8B0000"/><stop offset="55%" stop-color="#E85D4C"/><stop offset="100%" stop-color="#F5A623"/>
+          </linearGradient>
+          <linearGradient id="dsArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(232,93,76,.35)"/><stop offset="100%" stop-color="rgba(232,93,76,0)"/>
+          </linearGradient>
+        </defs>
+        <!-- gridlines -->
+        <line class="axis-line" x1="70" y1="40" x2="820" y2="40"/>
+        <line class="axis-line" x1="70" y1="110" x2="820" y2="110"/>
+        <line class="axis-line" x1="70" y1="180" x2="820" y2="180"/>
+        <line class="axis-line" x1="70" y1="250" x2="820" y2="250"/>
+        <line class="axis-line" x1="70" y1="290" x2="820" y2="290"/>
+        <text class="axis-txt" x="60" y="44" text-anchor="end">800</text>
+        <text class="axis-txt" x="60" y="114" text-anchor="end">600</text>
+        <text class="axis-txt" x="60" y="184" text-anchor="end">400</text>
+        <text class="axis-txt" x="60" y="254" text-anchor="end">200</text>
+        <text class="axis-txt" x="60" y="294" text-anchor="end">0</text>
+        <!-- area + curve: x: 90..800, y = 290 - val/800*250 -->
+        <path class="area" id="dsAreaPath" d="M110,258.8 L240,227.5 L360,148.8 L440,128.4 L560,126.9 L760,58.1 L760,290 L110,290 Z"/>
+        <path class="curve draw" id="dsCurve" d="M110,258.8 L240,227.5 L360,148.8 L440,128.4 L560,126.9 C640,120 700,90 760,58.1"/>
+        <!-- dots -->
+        <g class="pop" data-i="0"><circle class="dot" cx="110" cy="258.8" r="6" data-tip="2026年4月初：市场首次传DeepSeek松口融资，初始估值约100亿美元"/><text class="dlabel" x="110" y="282" text-anchor="middle">$100亿</text><text class="dsub" x="110" y="304" text-anchor="middle">4月初</text></g>
+        <g class="pop" data-i="1"><circle class="dot" cx="240" cy="227.5" r="6" data-tip="4月22日：腾讯、阿里入局洽谈，估值跳升至200亿美元以上"/><text class="dlabel" x="240" y="250" text-anchor="middle">$200亿+</text><text class="dsub" x="240" y="272" text-anchor="middle">4月22日</text></g>
+        <g class="pop" data-i="2"><circle class="dot" cx="360" cy="148.8" r="6" data-tip="5月6日：国家集成电路产业投资基金洽谈领投，估值推至450亿美元"/><text class="dlabel" x="360" y="132" text-anchor="middle">$450亿</text><text class="dsub" x="360" y="112" text-anchor="middle">5月6日</text></g>
+        <g class="pop" data-i="3"><circle class="dot" cx="440" cy="128.4" r="6" data-tip="5月9日：估值锁定约515亿美元——21天内翻了5倍"/><text class="dlabel" x="440" y="112" text-anchor="middle">$515亿</text><text class="dsub" x="440" y="92" text-anchor="middle">5月9日</text></g>
+        <g class="pop" data-i="4"><circle class="dot" cx="560" cy="126.9" r="6" data-tip="6月16日：首轮500亿元交割，投后估值520亿美元，梁文锋个人出资200亿元"/><text class="dlabel" x="560" y="110" text-anchor="middle">$520亿</text><text class="dsub" x="560" y="90" text-anchor="middle">6月·首轮交割</text></g>
+        <g class="pop" data-i="5"><circle class="dot" cx="760" cy="58.1" r="7" data-tip="8月：第二轮启动，投前估值约5000亿元人民币（约740亿美元）；9月确认筹备科创板IPO"/><text class="dlabel" x="760" y="40" text-anchor="middle">$740亿</text><text class="dsub" x="760" y="20" text-anchor="middle">8月·第二轮投前</text></g>
+        <text class="dsub" x="760" y="330" text-anchor="end">数据口径：一级市场估值/投前投后估值，来源为财联社、金融时报、澎湃等公开报道</text>
+      </svg>
+      <div id="dsTip" style="min-height:24px;font-size:13px;color:#FFB347;padding:8px 4px 0"></div>
+      <div class="legend">
+        <span><i style="background:linear-gradient(90deg,#8B0000,#F5A623)"></i>估值（亿美元）</span>
+        <span>· 21天内从$100亿涨到$515亿 · 4个月内 ×7</span>
+      </div>
+    </div>
+
+    <!-- interactive timeline -->
+    <div class="tl reveal" data-d="1">
+      <div class="chart-head" style="margin-bottom:8px">
+        <h3>探索式时间线 · 点击每个里程碑</h3>
+        <div class="hint">从"三不原则"到科创板——一条被资本改写的命运线</div>
+      </div>
+      <div class="tl-track" id="tlTrack">
+        <button class="tl-node active" data-k="0"><span class="when">2023.07</span><span class="bead"></span><span class="who">幻方孵化<br>杭州成立</span></button>
+        <button class="tl-node" data-k="1"><span class="when">2025.01</span><span class="bead"></span><span class="who">R1开源<br>成本$557.6万</span></button>
+        <button class="tl-node" data-k="2"><span class="when">2026.04</span><span class="bead"></span><span class="who">松口融资<br>$100亿传闻</span></button>
+        <button class="tl-node" data-k="3"><span class="when">2026.06</span><span class="bead"></span><span class="who">首轮交割<br>¥500亿/$520亿</span></button>
+        <button class="tl-node" data-k="4"><span class="when">2026.08</span><span class="bead"></span><span class="who">第二轮启动<br>投前¥5000亿</span></button>
+        <button class="tl-node" data-k="5"><span class="when">2026.09</span><span class="bead"></span><span class="who">筹备科创板<br>IPO</span></button>
+      </div>
+      <div class="tl-detail" id="tlDetail">
+        <div class="d-date">2023年7月</div>
+        <h4>量化巨头孵化的"AI异类"</h4>
+        <p>DeepSeek由幻方量化孵化成立，总部杭州。创始人梁文锋立下"三不原则"：不接受外部融资、不稀释股权、不被任何人的商业化时间表绑架。研发、算力、薪酬全部由幻方的量化利润输血——在"百模大战"的烧钱时代，它是一个格格不入的存在。</p>
+        <div class="d-stat">
+          <div>初始定位<b>研究驱动实验室</b></div>
+          <div>资金来源<b>幻方量化自有收益</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 2 · MEITUAN ═══════════════ -->
+<section class="sec sec-mid grid-bg" id="meituan">
+  <div class="ch-num">贰</div>
+  <div class="wrap">
+    <div class="kicker reveal">ACT II · 二级市场</div>
+    <h2 class="sec-title reveal" data-d="1">美团：从 <span class="accent">1.6万亿</span> 巅峰<br>跌落之后，用AI重建坐标</h2>
+    <p class="sec-sub reveal" data-d="2">
+      如果说DeepSeek是"从0到1的估值核爆"，美团就是"从高峰到谷底、再被AI重新定价"的另一条曲线。
+      它曾站上约1.73万亿港元市值（约合1.6万亿人民币量级，2020年底），又在补贴大战与亏损中蒸发大半——
+      而2026年，无人机、大模型与即时零售正在成为它重返牌桌的筹码。
+    </p>
+
+    <div class="chart-card reveal" data-d="1">
+      <div class="chart-head">
+        <h3>美团市值沉浮（年末市值，亿港元）</h3>
+        <div class="hint">2026年为9月28日收盘约数</div>
+      </div>
+      <div class="mt-bars" id="mtBars">
+        <div class="mt-col"><div class="v num">2,411</div><div class="bar" data-h="13.9"></div><div class="y">2018</div></div>
+        <div class="mt-col"><div class="v num">5,919</div><div class="bar" data-h="34.2"></div><div class="y">2019</div></div>
+        <div class="mt-col peak"><div class="v num">17,334</div><div class="bar" data-h="100"></div><div class="y">2020 峰值</div></div>
+        <div class="mt-col"><div class="v num">13,830</div><div class="bar" data-h="79.8"></div><div class="y">2021</div></div>
+        <div class="mt-col"><div class="v num">10,812</div><div class="bar" data-h="62.4"></div><div class="y">2022</div></div>
+        <div class="mt-col"><div class="v num">5,114</div><div class="bar" data-h="29.5"></div><div class="y">2023</div></div>
+        <div class="mt-col"><div class="v num">9,172</div><div class="bar" data-h="52.9"></div><div class="y">2024</div></div>
+        <div class="mt-col"><div class="v num">6,310</div><div class="bar" data-h="36.4"></div><div class="y">2025</div></div>
+        <div class="mt-col now"><div class="v num">4,465</div><div class="bar" data-h="25.8"></div><div class="y">2026.09</div></div>
+      </div>
+      <p class="mt-note">
+        从峰值到2026年9月，美团市值蒸发约 <b>74%</b>——从约1.73万亿港元跌至约4465亿港元（约570亿美元）。
+        但注意两个转折：2026年3月监管叫停外卖恶性竞争当日，美团市值单日激增677亿港元；
+        Q2营收1046亿元、经营利润环比扭亏。市场正在给"AI×本地生活"一个新的故事。
+      </p>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai-card reveal" data-d="1"><div class="ic">空</div><h4>低空物流常态化</h4><div class="n num">78万+</div><p>无人机累计配送78万单；2026年5月获全国首张城市低空物流许可证，从实验走向可复制商业网络。</p></div>
+      <div class="ai-card reveal" data-d="2"><div class="ic">无</div><h4>无人配送总单量</h4><div class="n num">600万+</div><p>自动配送车550万单+无人机78万单；投具身智能16家企业，其中10家成为独角兽。</p></div>
+      <div class="ai-card reveal" data-d="3"><div class="ic">智</div><h4>AI融入真实业务</h4><div class="n num">¥260亿</div><p>2025年研发投入260亿元(+23%)，占收入7.1%；自研大模型赋能调度，AI安全助手"团宝"服务骑手。</p></div>
+      <div class="ai-card reveal" data-d="4"><div class="ic">海</div><h4>Keeta出海</h4><div class="n num">6国+</div><p>香港实现稳定盈利并做到单量第一；已进入沙特、阿联酋、卡塔尔、科威特、巴林与巴西。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 3 · DENSITYAI / 算力 ═══════════════ -->
+<section class="sec sec-deep grid-bg" id="chip">
+  <div class="ch-num">叁</div>
+  <div class="wrap">
+    <div class="kicker reveal">ACT III · 算力期权</div>
+    <h2 class="sec-title reveal" data-d="1">DensityAI：为<span class="accent">尚未出生的芯片</span><br>支付100亿美元</h2>
+    <p class="sec-sub reveal" data-d="2">
+      2026年9月25日，财联社援引媒体报道：AI芯片初创DensityAI进入融资谈判后期，投后估值将达100亿美元。
+      它由特斯拉Dojo超级计算机项目前核心团队于2025年创立，芯片仍处研发早期、距量产可能还有数年。
+      这是本轮估值核爆中最纯粹的"算力期权"定价——买的是未来，不是现在。
+    </p>
+
+    <div class="chip-duel">
+      <div class="chip-list reveal" data-d="1" id="chipList">
+        <div class="chip-row"><div class="nm">Etched<small>成立4年 · 已交付芯片</small></div><div class="track"><div class="fill" data-w="100"></div></div><div class="vv num">$210亿<small>简街领投$7亿</small></div></div>
+        <div class="chip-row"><div class="nm">DensityAI<small>未量产 · Dojo系</small></div><div class="track"><div class="fill" data-w="47.6"></div></div><div class="vv num">$100亿<small>a16z洽谈领投</small></div></div>
+        <div class="chip-row"><div class="nm">d-Matrix<small>已出货 · 3D DRAM</small></div><div class="track"><div class="fill" data-w="9.5"></div></div><div class="vv num">$20亿<small>上轮$2.75亿</small></div></div>
+        <div class="chip-row"><div class="nm">a16z AI硬件基金<small>2026年8月设立</small></div><div class="track"><div class="fill" data-w="5.2"></div></div><div class="vv num">$11亿<small>芯片/内存/硬件</small></div></div>
+      </div>
+      <div class="chip-note reveal" data-d="2">
+        <h4>为什么"没产品"也能值100亿？</h4>
+        <p>关键不在芯片，在<b>协议</b>。DensityAI向潜在投资者表示，已拿到一份协议：如果芯片达到指定性能指标，
+        <b>亚马逊AWS将采购其芯片</b>。a16z正在洽谈领投——这家刚刚设立11亿美元AI硬件专项基金的顶级VC，正在为
+        "下一个英伟达的可能性"批量下注。</p>
+        <p style="margin-top:14px">更微妙的是对照组：<span class="hi">中国上市AI芯片公司寒武纪，2026年上半年营收59.96亿元（+108%）、
+        净利润23.11亿元（+123%）</span>，有真实收入和利润，市值约6383亿元人民币（约890亿美元）——
+        是DensityAI的8.9倍，但每一块钱收入都被真实计价。两种市场，两种疯狂。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CLIMAX · COMPARATOR ═══════════════ -->
+<section class="sec sec-dark grid-bg" id="compare">
+  <div class="ch-num">肆</div>
+  <div class="wrap">
+    <div class="kicker reveal">CLIMAX · 交互式估值对比器</div>
+    <h2 class="sec-title reveal" data-d="1">中国 AI vs 美国 AI<br><span class="accent">点击切换赛道</span>，直面差距</h2>
+    <p class="sec-sub reveal" data-d="2">
+      同一颗星球，两套定价体系。点击下方赛道按钮，看看在大模型、AI芯片、AI×产业三条战线上，
+      中美企业的估值坐标究竟差多少——以及这个差距背后，藏着什么。
+    </p>
+
+    <div class="cmp reveal" data-d="1">
+      <div class="cmp-tabs" id="cmpTabs">
+        <button class="cmp-tab active" data-t="model">◆ 大模型赛道</button>
+        <button class="cmp-tab" data-t="chip">▲ AI芯片赛道</button>
+        <button class="cmp-tab" data-t="industry">■ AI×产业巨头</button>
+      </div>
+      <div class="cmp-meta" id="cmpMeta">单位：亿美元 · 估值/市值口径 · 汇率约 1USD≈7.2CNY≈7.8HKD · 数据截至2026-09-30</div>
+      <div class="cmp-cols">
+        <div class="cmp-col cn">
+          <h4><span class="flagdot"></span>中国阵营</h4>
+          <div id="cmpCN"></div>
+        </div>
+        <div class="cmp-col us">
+          <h4><span class="flagdot"></span>美国阵营</h4>
+          <div id="cmpUS"></div>
+        </div>
+      </div>
+      <div class="cmp-gap" id="cmpGap"></div>
+      <div class="cmp-scale">※ 条形长度按估值平方根缩放（便于同屏显示）；数值以标签为准。智谱/MiniMax为2026年9月中旬港股收盘折算，DeepSeek/Kimi为一级市场投前估值。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DATA DEEP-DIVE · PS ═══════════════ -->
+<section class="sec sec-mid grid-bg" id="ps">
+  <div class="ch-num">伍</div>
+  <div class="wrap">
+    <div class="kicker reveal">数据深潜 · 估值与收入的鸿沟</div>
+    <h2 class="sec-title reveal" data-d="1">同样叫"AI估值"<br>量级<span class="accent">完全不同</span></h2>
+    <p class="sec-sub reveal" data-d="2">
+      估值高低可以讲故事，但市销率（P/S）不会撒谎：每一块钱收入，市场愿意付多少倍的价格？
+      把中美大模型公司放在同一把尺子上，核爆的"温度"立刻显形。
+    </p>
+
+    <div class="chart-card reveal" data-d="1">
+      <div class="chart-head">
+        <h3>市销率对比 · 估值 ÷ 年化/预计收入（倍）</h3>
+        <div class="hint">中国公司为一级/港股口径，美国为ARR口径</div>
+      </div>
+      <div class="ps-list" id="psList">
+        <div class="ps-row cn"><div class="pn">DeepSeek<small>¥5000亿÷预计¥8.1亿</small></div><div class="pt"><div class="pf" data-w="100"></div></div><div class="pv num">614<small>x</small></div></div>
+        <div class="ps-row cn"><div class="pn">智谱<small>港股3803亿港元÷¥19亿</small></div><div class="pt"><div class="pf" data-w="31.4"></div></div><div class="pv num">193<small>x</small></div></div>
+        <div class="ps-row cn"><div class="pn">Kimi<small>$500亿÷ARR $3亿</small></div><div class="pt"><div class="pf" data-w="27.2"></div></div><div class="pv num">167<small>x</small></div></div>
+        <div class="ps-row cn"><div class="pn">MiniMax<small>港股881亿港元÷¥16亿</small></div><div class="pt"><div class="pf" data-w="9.9"></div></div><div class="pv num">61<small>x</small></div></div>
+        <div class="ps-row us"><div class="pn">OpenAI<small>$8520亿÷ARR $400亿+</small></div><div class="pt"><div class="pf" data-w="3.4"></div></div><div class="pv num">21<small>x</small></div></div>
+        <div class="ps-row us"><div class="pn">Anthropic<small>$9650亿÷ARR $650亿</small></div><div class="pt"><div class="pf" data-w="2.4"></div></div><div class="pv num">15<small>x</small></div></div>
+      </div>
+      <div class="ps-punch">
+        <p>
+          DeepSeek的估值约是其预计全年营收的 <em>614倍</em>——是OpenAI（约21倍）的 <em>29倍</em>，Anthropic（约15倍）的 <em>41倍</em>。
+          一家员工不到200人、前7个月营收4.75亿元的公司，撑起了约5000亿元的投前估值。
+          <em>这是"全球最贵的AI实验室之一"</em>——市场买的不是收入，是"中国也能跑出前沿模型"的国家叙事与稀缺性溢价。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LENS · 三层叙事 ═══════════════ -->
+<section class="sec sec-dark grid-bg" id="lens">
+  <div class="ch-num">陆</div>
+  <div class="wrap">
+    <div class="kicker reveal">三重透镜 · 读懂核爆</div>
+    <h2 class="sec-title reveal" data-d="1">技术实力 → 资本逻辑 → <span class="accent">市场格局</span></h2>
+    <p class="sec-sub reveal" data-d="2">估值核爆从来不只是价格现象。用三层透镜逐层拆开，才看得见这场链式反应的完整路径。</p>
+    <div class="lens-grid">
+      <div class="lens reveal" data-d="1">
+        <div class="lnum">壹</div>
+        <div class="ic">技</div>
+        <h3>技术层 · 真实的能力跃迁</h3>
+        <p>核爆有燃料。DeepSeek-R1用557.6万美元训练成本比肩OpenAI o1；V4系列支持百万token上下文、对标GPT-5.5；
+        寒武纪营收翻倍且盈利；美团把大模型塞进调度系统。技术不是泡沫的前提，而是泡沫的底气。</p>
+        <ul>
+          <li><b>R1开源</b>：改写全球对中国AI能力的认知</li>
+          <li><b>V4/V4.1</b>：性能对标美国最前沿闭源模型</li>
+          <li><b>推理成本</b>：约为行业平均的十分之一</li>
+        </ul>
+      </div>
+      <div class="lens reveal" data-d="2">
+        <div class="lnum">贰</div>
+        <div class="ic">资</div>
+        <h3>资本层 · 稀缺性定价</h3>
+        <p>2026年全球AI投资预计超1万亿美元（高盛）。当OpenAI、Anthropic用全球资本把估值推到万亿级，
+        中国AI成为全球资本配置中"最后的稀缺标的"——国家产业基金、互联网巨头、中东资本排队入场，
+        智谱上市首日获1159倍认购，本质都是同一句话：<b>买不到的才最贵</b>。</p>
+        <ul>
+          <li><b>DeepSeek两轮</b>：拟募超1000亿元，刷新行业纪录</li>
+          <li><b>智谱50亿美元</b>：小股大债，投资者接受零息</li>
+          <li><b>Kimi估值</b>：半年从$43亿到$500亿，×11</li>
+        </ul>
+      </div>
+      <div class="lens reveal" data-d="3">
+        <div class="lnum">叁</div>
+        <div class="ic">局</div>
+        <h3>格局层 · 地缘与市场</h3>
+        <p>美国实验室享受全球资本红利与美元定价权；中国企业更多依赖国内市场与战略资本——
+        这解释了为何中国公司P/S更高（分母是尚未全球化的收入）、但绝对估值仍只有美国的零头。
+        另一半故事是产业落地：美团证明AI可以沉进真实经济，寒武纪证明算力自主可控可以赚钱。</p>
+        <ul>
+          <li><b>估值绝对值</b>：中国头部 ≈ 美国头部的 1/10–1/17</li>
+          <li><b>收入结构</b>：美国ARR全球化 vs 中国以国内为主</li>
+          <li><b>产业AI</b>：中国的真实场景密度是独特筹码</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ENDING · 泡沫 vs 价值 ═══════════════ -->
+<section class="sec sec-mid grid-bg" id="ending">
+  <div class="ch-num">终</div>
+  <div class="wrap">
+    <div class="end-hero reveal">
+      <h2>核爆已经发生。<br>这是<span class="q">泡沫的开始</span>，<br>还是<span class="q">价值的回归</span>？</h2>
+      <p>点击你认同的论据——每一票都会拨动中间的天平。这道题没有标准答案，但值得每个人认真投一次票。</p>
+    </div>
+
+    <div class="duel reveal" data-d="1">
+      <div class="duel-side bear">
+        <h3>▲ 泡沫方</h3>
+        <div class="cap">THE BUBBLE ARGUMENT</div>
+        <div class="duel-arg" data-side="bear">DeepSeek市销率614倍，是OpenAI的29倍——收入完全撑不住估值<div class="x">PS对比 · 2026-09</div></div>
+        <div class="duel-arg" data-side="bear">员工不到200人的公司，撑起约5000亿元估值<div class="x">新浪财经 · 2026-09-17</div></div>
+        <div class="duel-arg" data-side="bear">智谱上市8个月：1.3万亿港元峰值 → 蒸发近万亿<div class="x">中国经营报 · 2026-09-17</div></div>
+        <div class="duel-arg" data-side="bear">MiniMax较3月峰值回撤约78%——二级市场已在用脚投票<div class="x">网易 · 2026-09-11</div></div>
+        <div class="duel-arg" data-side="bear">全行业高增长、高投入、暂未盈利：DeepSeek前7个月仍净亏7.15亿<div class="x">澎湃新闻 · 2026-09-09</div></div>
+        <div class="duel-arg" data-side="bear">DensityAI芯片未量产即估值$100亿——连美国都在为"故事"付款<div class="x">财联社 · 2026-09-25</div></div>
+      </div>
+
+      <div class="duel-mid">
+        <div class="scale-wrap">
+          <svg viewBox="0 0 90 200" aria-hidden="true">
+            <line x1="45" y1="40" x2="45" y2="180" stroke="rgba(232,93,76,.5)" stroke-width="3"/>
+            <polygon points="45,180 30,196 60,196" fill="rgba(232,93,76,.6)"/>
+            <g id="scaleBeam">
+              <line x1="12" y1="40" x2="78" y2="40" stroke="#F5A623" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="12" y1="40" x2="12" y2="78" stroke="rgba(245,166,35,.7)" stroke-width="1.5"/>
+              <line x1="78" y1="40" x2="78" y2="78" stroke="rgba(245,166,35,.7)" stroke-width="1.5"/>
+              <path d="M-2,78 L26,78 L22,96 L-6,96 Z" fill="rgba(232,93,76,.85)" stroke="#E85D4C" stroke-width="1"/>
+              <path d="M64,78 L92,78 L88,96 L60,96 Z" fill="rgba(124,140,165,.85)" stroke="#A9B8CC" stroke-width="1"/>
+            </g>
+            <circle cx="45" cy="40" r="5" fill="#FFB347"/>
+          </svg>
+        </div>
+        <div class="scale-label">你的投票<b class="num" id="voteCount">0 : 0</b></div>
+      </div>
+
+      <div class="duel-side bull">
+        <h3>◆ 价值方</h3>
+        <div class="cap">THE VALUE ARGUMENT</div>
+        <div class="duel-arg" data-side="bull">R1证明：557.6万美元也能做出比肩o1的模型——效率革命是真的<div class="x">开源社区验证 · 2025-01</div></div>
+        <div class="duel-arg" data-side="bull">寒武纪上半年营收+108%、净利+123%——中国AI芯片在赚钱<div class="x">公司中报 · 2026H1</div></div>
+        <div class="duel-arg" data-side="bull">美团Q2经营利润环比扭亏，AI降本增效写进财报<div class="x">36氪 · 2026-08-28</div></div>
+        <div class="duel-arg" data-side="bull">智谱营收同比+400%、MiniMax收入+283%——分母在快速追赶<div class="x">中期业绩 · 2026H1</div></div>
+        <div class="duel-arg" data-side="bull">DeepSeek开源策略：用全球开发者生态换取事实标准<div class="x">V4系列 · 2026</div></div>
+        <div class="duel-arg" data-side="bull">算力自主可控是国家级命题——估值含战略期权，不能只用P/S衡量<div class="x">产业逻辑 · 2026</div></div>
+      </div>
+    </div>
+
+    <div class="final-word reveal" data-d="1">
+      <div class="fw-k">FINALE · 核爆之后</div>
+      <p>
+        也许真正的答案在两者之间：<em>核爆已经发生</em>——技术的跃迁、资本的狂热、地缘的重估，三股力量第一次在中国AI上空同时点燃。
+        泡沫会在分化中出清：智谱单月蒸发万亿港元、MiniMax回撤78%，市场已经开始惩罚没有收入支撑的故事。
+        而价值会在废墟里沉淀：<em>能赚钱的公司活下来，能开源的标准走出去，能落地的AI沉进真实经济</em>。
+        2026年的这场估值核爆，与其问"贵不贵"，不如问：当余波散去，谁还站在原地？
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="wrap">
+    <h4>数据来源与口径</h4>
+    <div class="src-grid">
+      <p><b>DeepSeek</b>：新浪财经（2026-07/09）、澎湃新闻（2026-09-09）、21经济网（2026-07-15）、正观新闻（2026-05-12）、The Information/彭博转引</p>
+      <p><b>美团</b>：MarketCapWatch、雪球/格隆汇行情（2026-09-28）、36氪（2026-08-28）、搜狐科技（2026-07-02）、东方财富（2026-08-28）</p>
+      <p><b>DensityAI / Etched</b>：财联社·科创板日报（2026-09-25）、新浪财经转载The Information（2026-09-25）、腾讯新闻（2026-09-26）</p>
+      <p><b>美国AI对照</b>：央视财经/路透（2026-09-12）、格隆汇（2026-09-16）、Tech Horizon Labs（2026-09-29更新）、网易/金融时报转引（2026-09-19）</p>
+      <p><b>智谱 / MiniMax / Kimi</b>：华盛通（2026-09-14）、中国经营报（2026-09-17）、BT财经（2026-09-03）、网易（2026-09-11）</p>
+      <p><b>寒武纪</b>：东方财富行情（2026-09-30）、21世纪经济报道（2026-09-10）、证券之星（2026-09-25）</p>
+    </div>
+    <p class="disclaimer">
+      ※ 本页面为创意类交互叙事作品（P0 #331，创意类内容标准 v6.4），数据均来自上列公开报道并标注时间口径（截至2026-09-30，Asia/Shanghai），汇率按约 1USD≈7.2CNY≈7.8HKD 折算。
+      一级市场估值（DeepSeek、Kimi、DensityAI）与二级市场市值（智谱、MiniMax、美团、寒武纪、美国上市公司）口径不同，不可直接互换比较；文中已分别标注。
+      "美团1.6万亿"指其历史峰值市值约1.73万亿港元（约合1.6万亿人民币量级，2020年底），非当前市值。
+      本页面不构成任何投资建议。
+    </p>
+    <div class="sign">
+      <div class="who">绘 界 · CREATIVE DESIGNER</div>
+      <div class="meta">
+        P0任务 #331 · 中国AI"估值核爆"<br>
+        创艺（叙事）× 绘界（视觉）× 数析（数据）× 察言（情报）<br>
+        生成日期：2026-10-01 · 单HTML自包含 · v1.0
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ scroll progress ============ */
+const prog = document.getElementById('progress');
+function onScroll(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (h>0 ? (window.scrollY/h*100) : 0) + '%';
+}
+window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+/* ============ reveal observer ============ */
+const revealIO = new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealIO.unobserve(e.target);} });
+},{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealIO.observe(el));
+
+/* ============ counters ============ */
+function animateCount(el){
+  const target = parseFloat(el.dataset.count);
+  const dec = parseInt(el.dataset.dec||'0',10);
+  const dur = 1600; const t0 = performance.now();
+  function tick(t){
+    const p = Math.min((t-t0)/dur,1);
+    const ease = 1 - Math.pow(1-p,3);
+    el.textContent = (target*ease).toFixed(dec);
+    if(p<1) requestAnimationFrame(tick); else el.textContent = target.toFixed(dec);
+  }
+  if(reduceMotion){ el.textContent = target.toFixed(dec); return; }
+  requestAnimationFrame(tick);
+}
+const countIO = new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); countIO.unobserve(e.target);} });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+/* ============ hero canvas: embers + shockwaves ============ */
+(function(){
+  const cv = document.getElementById('heroCanvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  let W,H,DPR, parts=[], rings=[], raf=null;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W*DPR; cv.height = H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function init(){
+    resize();
+    const n = reduceMotion ? 30 : Math.min(120, Math.floor(W*H/14000));
+    parts = [];
+    for(let i=0;i<n;i++){
+      parts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.8+.4,
+        vy:-(Math.random()*.45+.12),
+        vx:(Math.random()-.5)*.22,
+        a:Math.random()*.5+.12,
+        hue: Math.random()<.7 ? 12+Math.random()*18 : 35+Math.random()*12
+      });
+    }
+    rings = [];
+  }
+  function spawnRing(){
+    rings.push({x:W/2 + (Math.random()-.5)*W*.3, y:H*.42 + (Math.random()-.5)*H*.2, r:10, max:Math.max(W,H)*.42, a:.5});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // rings
+    for(let i=rings.length-1;i>=0;i--){
+      const g = rings[i];
+      g.r += (g.max-g.r)*.022 + .6; g.a *= .975;
+      if(g.a<.02 || g.r>=g.max-2){ rings.splice(i,1); continue; }
+      ctx.beginPath();
+      ctx.arc(g.x,g.y,g.r,0,Math.PI*2);
+      ctx.strokeStyle = 'rgba(232,93,76,'+g.a.toFixed(3)+')';
+      ctx.lineWidth = 1.4; ctx.stroke();
+    }
+    // embers
+    for(const p of parts){
+      p.x += p.vx; p.y += p.vy;
+      if(p.y < -12){ p.y = H+10; p.x = Math.random()*W; }
+      if(p.x < -12) p.x = W+10; if(p.x > W+12) p.x = -10;
+      const flick = .7 + Math.random()*.3;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = 'hsla('+p.hue+',90%,60%,'+(p.a*flick).toFixed(3)+')';
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(draw);
+  }
+  init();
+  if(reduceMotion){
+    // static single frame
+    ctx.clearRect(0,0,W,H);
+    for(const p of parts){ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle='hsla('+p.hue+',90%,60%,'+p.a+')'; ctx.fill(); }
+  } else {
+    draw();
+    setInterval(()=>{ if(document.visibilityState==='visible') spawnRing(); }, 2600);
+    setTimeout(spawnRing, 600);
+  }
+  window.addEventListener('resize', ()=>{ init(); }, {passive:true});
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){ if(raf) cancelAnimationFrame(raf); raf=null; }
+    else if(!raf && !reduceMotion){ draw(); }
+  });
+})();
+
+/* ============ deepseek chart interactions ============ */
+(function(){
+  const curve = document.getElementById('dsCurve');
+  const area = document.getElementById('dsAreaPath');
+  const pops = document.querySelectorAll('#dsChart .pop');
+  const tip = document.getElementById('dsTip');
+  if(curve){
+    const io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          curve.classList.add('in');
+          if(area){ area.style.transition='opacity 1.2s .6s'; area.style.opacity='1'; }
+          pops.forEach((g,i)=> setTimeout(()=>g.classList.add('in'), 500 + i*260));
+          io.disconnect();
+        }
+      });
+    },{threshold:.3});
+    io.observe(curve);
+  }
+  document.querySelectorAll('#dsChart .dot').forEach(dot=>{
+    dot.addEventListener('mouseenter', ()=>{ tip.textContent = '◆ ' + dot.dataset.tip; });
+    dot.addEventListener('mouseleave', ()=>{ tip.textContent=''; });
+  });
+})();
+
+/* ============ timeline ============ */
+(function(){
+  const data = [
+    {d:'2023年7月',h:'量化巨头孵化的"AI异类"',
+     p:'DeepSeek由幻方量化孵化成立，总部杭州。创始人梁文锋立下"三不原则"：不接受外部融资、不稀释股权、不被任何人的商业化时间表绑架。研发、算力、薪酬全部由幻方的量化利润输血——在"百模大战"的烧钱时代，它是一个格格不入的存在。',
+     s:[['初始定位','研究驱动实验室'],['资金来源','幻方量化自有收益']]},
+    {d:'2025年1月',h:'R1开源：557.6万美元震动世界',
+     p:'DeepSeek发布R1并开源模型权重，在数学、代码、自然语言推理等任务上性能比肩OpenAI o1，训练成本却仅为557.6万美元。模型登顶中美两国应用商店榜首，彻底重塑了全球对中国AI能力的认知——也为后来的估值核爆埋下了第一颗燃料。',
+     s:[['训练成本','$557.6万'],['开源策略','MIT协议开放权重']]},
+    {d:'2026年4月',h:'松口融资：21天估值×5',
+     p:'市场首次传出DeepSeek松口接受外部融资，初始估值约100亿美元。4月22日腾讯、阿里入局洽谈，估值跳至200亿美元以上；5月6日国家集成电路产业投资基金洽谈领投，推至450亿美元；5月9日最终锁定约515亿美元——21天内，估值在数字上狂奔了5倍。',
+     s:[['起步估值','$100亿'],['21天后','$515亿']]},
+    {d:'2026年6月',h:'首轮交割：¥500亿，创始人自己掏200亿',
+     p:'首轮外部融资完成交割：募资约500亿元人民币（约74亿美元），投后估值520亿美元，创中国AI大模型公司单轮融资纪录。出资阵容豪华——梁文锋个人出资200亿元为最大单一出资方，腾讯100亿、宁德时代50亿、京东/网易/IDG各30亿。外部投资者无投票权，股份锁定五年。',
+     s:[['融资额','¥500亿 / $74亿'],['投后估值','$520亿']]},
+    {d:'2026年8月',h:'第二轮：投前估值¥5000亿',
+     p:'首轮融资交割仅数周后，DeepSeek启动第二轮融资：计划募资500亿元，投前估值约5000亿元人民币（约740亿美元），较首轮投后再涨约40%。此轮条件放宽——投资者可直接注资、SPV放开，并开始考虑中东资本等海外资金。若两轮落地，累计募资将超1000亿元。',
+     s:[['投前估值','¥5000亿 ≈ $740亿'],['对应PS','约614倍']]},
+    {d:'2026年9月',h:'冲刺科创板：从实验室到资本战场',
+     p:'DeepSeek被证实已委托中信证券筹备A股科创板IPO，力争2026年底前完成财务报告编制，目标2027年挂牌。财务侧面：2026年前7个月营收约4.75亿元（约为2025年全年的10倍），净亏损收窄至7.15亿元，API业务毛利率高达82.9%；同期AI基础设施投入约110亿元。员工不到200人的公司，站在了5000亿估值的门口。',
+     s:[['前7个月营收','¥4.75亿'],['IPO目标','2027年科创板']]}
+  ];
+  const track = document.getElementById('tlTrack');
+  const detail = document.getElementById('tlDetail');
+  if(!track || !detail) return;
+  track.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.tl-node');
+    if(!btn) return;
+    track.querySelectorAll('.tl-node').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active');
+    const d = data[parseInt(btn.dataset.k,10)];
+    detail.style.opacity = '0';
+    detail.style.transform = 'translateY(10px)';
+    setTimeout(()=>{
+      detail.innerHTML = '<div class="d-date">'+d.d+'</div><h4>'+d.h+'</h4><p>'+d.p+'</p>'+
+        '<div class="d-stat">'+d.s.map(x=>'<div>'+x[0]+'<b>'+x[1]+'</b></div>').join('')+'</div>';
+      detail.style.transition='opacity .45s, transform .45s';
+      detail.style.opacity='1'; detail.style.transform='none';
+    }, reduceMotion?0:180);
+  });
+})();
+
+/* ============ meituan bars ============ */
+(function(){
+  const wrap = document.getElementById('mtBars');
+  if(!wrap) return;
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        wrap.querySelectorAll('.bar').forEach((b,i)=>{
+          setTimeout(()=>{ b.style.height = b.dataset.h + '%'; }, reduceMotion?0:i*110);
+        });
+        io.disconnect();
+      }
+    });
+  },{threshold:.35});
+  io.observe(wrap);
+})();
+
+/* ============ chip rows + ps bars ============ */
+function barFillOnView(selector, attr){
+  document.querySelectorAll(selector).forEach(root=>{
+    const io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          root.querySelectorAll('['+attr+']').forEach((f,i)=>{
+            setTimeout(()=>{ f.style.width = f.getAttribute(attr)+'%'; }, reduceMotion?0:i*140);
+          });
+          io.disconnect();
+        }
+      });
+    },{threshold:.25});
+    io.observe(root);
+  });
+}
+barFillOnView('#chipList','data-w');
+barFillOnView('#psList','data-w');
+
+/* ============ COMPARATOR ============ */
+(function(){
+  const tracks = {
+    model:{
+      meta:'单位：亿美元 · 一级市场估值与二级市场市值混合口径 · 数据截至2026-09-30',
+      cn:[
+        {n:'DeepSeek',v:740,note:'第二轮投前 · 约¥5000亿 · 前7个月营收¥4.75亿'},
+        {n:'Kimi 月之暗面',v:500,note:'投前估值 · ARR $3亿 · 已秘密递表港交所'},
+        {n:'智谱 Zhipu',v:488,note:'港股3803亿港元(9/18) · 上半年营收¥9.5亿(+400%)'},
+        {n:'MiniMax',v:113,note:'港股881亿港元(9/14) · 上半年收入$1.17亿(+283%)'}
+      ],
+      us:[
+        {n:'OpenAI',v:8520,note:'3月投后$8520亿 · 9月洽谈新估值$1.2万亿 · ARR $400亿+'},
+        {n:'Anthropic',v:9650,note:'Series H · IPO目标约$2万亿 · ARR $650亿'},
+        {n:'xAI',v:2500,note:'2026年2月并入SpaceX体系 · 估值口径$2500亿'}
+      ],
+      gap:'大模型赛道：美国头部（OpenAI+Anthropic ≈ <b>$1.8万亿</b>）是中国四强合计（≈ <b>$1840亿</b>）的 <b>约10倍</b>。但增速上中国更猛——DeepSeek四个月×7、Kimi半年×11。差距是体量，速度是变量；而P/S告诉你：中国每一块钱收入被定价了美国3–29倍的价格。'
+    },
+    chip:{
+      meta:'单位：亿美元 · DensityAI为融资谈判后期预估投后估值 · 数据截至2026-09-30',
+      cn:[
+        {n:'寒武纪',v:890,note:'A股市值约¥6383亿(9/30) · H1营收¥60亿(+108%)、净利¥23.1亿(+123%)'}
+      ],
+      us:[
+        {n:'Etched',v:210,note:'成立4年 · 芯片已开始交付 · 简街资本领投$7亿'},
+        {n:'DensityAI',v:100,note:'芯片未量产 · Dojo前团队 · AWS条件性采购协议 · a16z洽谈'},
+        {n:'d-Matrix',v:20,note:'已出货 · 3D DRAM堆叠 · 上轮$2.75亿'}
+      ],
+      gap:'AI芯片赛道是本轮核爆最魔幻的剖面：<b>美国给未量产的芯片开$100亿支票</b>（DensityAI），给已交付的开$210亿（Etched）；而中国唯一入榜的寒武纪，<b>有营收、有利润、有产品</b>，市值约890亿美元——是DensityAI的8.9倍，但每一块钱收入都被真实计价（PE约190倍 vs DensityAI无法计算）。两套疯狂，两种逻辑：美国买"下一个英伟达"，中国买"现在的英伟达替代"。'
+    },
+    industry:{
+      meta:'单位：亿美元 · 美国为母公司市值口径（含AI部门） · 数据截至2026-09-30',
+      cn:[
+        {n:'腾讯',v:7287,note:'2026年中市值 · 全面押注AI · 投资DeepSeek ¥100亿'},
+        {n:'阿里巴巴',v:3516,note:'2026年中市值 · Qwen开源系 + 云 + AI'},
+        {n:'百度',v:800,note:'2026年初口径 · 文心大模型 + 自动驾驶'},
+        {n:'美团',v:570,note:'HK$4465亿(9/28) · 无人配送600万单+ · AI重估进行时'}
+      ],
+      us:[
+        {n:'Alphabet(Google)',v:4200,note:'母公司市值口径 · 含DeepMind · Gemini 3.x'},
+        {n:'Meta',v:1900,note:'母公司市值口径 · 2026年AI CapEx指引$1300–1450亿'}
+      ],
+      gap:'AI×产业巨头赛道揭示另一层真相：中国AI的"含AI量"更多长在巨头体内——腾讯7287亿、阿里3516亿美元的市值里，AI是重估的杠杆而非全部。美团（约570亿美元）是本赛道最有戏剧性的样本：<b>从1.6万亿人民币量级的巅峰跌落七成后，正用无人机、大模型与即时零售重建估值坐标</b>。美国的对照组更极端：Alphabet与Meta的AI部门本身就值几千亿美元。'
+    }
+  };
+  const cnBox = document.getElementById('cmpCN');
+  const usBox = document.getElementById('cmpUS');
+  const gapBox = document.getElementById('cmpGap');
+  const metaBox = document.getElementById('cmpMeta');
+  const tabs = document.getElementById('cmpTabs');
+  if(!cnBox || !tabs) return;
+  function renderSide(box, arr, allMax){
+    box.innerHTML = arr.map(it=>{
+      const w = Math.sqrt(it.v/allMax)*100;
+      return '<div class="cmp-item">'+
+        '<div class="row1"><span class="cname">'+it.n+'</span><span class="cval num">$'+it.v.toLocaleString()+'亿</span></div>'+
+        '<div class="cbar"><div class="cfill" style="width:0"></div></div>'+
+        '<div class="cnote">'+it.note+'</div></div>';
+    }).join('');
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        box.querySelectorAll('.cfill').forEach((f,i)=>{
+          const w = Math.sqrt(arr[i].v/allMax)*100;
+          setTimeout(()=>{ f.style.width = w.toFixed(1)+'%'; }, reduceMotion?0:i*130);
+        });
+      });
+    });
+  }
+  function switchTrack(key){
+    const t = tracks[key];
+    const allMax = Math.max(...t.cn.map(x=>x.v), ...t.us.map(x=>x.v));
+    metaBox.textContent = t.meta;
+    renderSide(cnBox, t.cn, allMax);
+    renderSide(usBox, t.us, allMax);
+    gapBox.innerHTML = t.gap;
+  }
+  tabs.addEventListener('click',(e)=>{
+    const btn = e.target.closest('.cmp-tab'); if(!btn) return;
+    tabs.querySelectorAll('.cmp-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    switchTrack(btn.dataset.t);
+  });
+  // initial render when scrolled into view
+  let booted = false;
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting && !booted){ booted=true; switchTrack('model'); io.disconnect(); } });
+  },{threshold:.2});
+  io.observe(document.getElementById('compare'));
+})();
+
+/* ============ ending duel scale ============ */
+(function(){
+  const args = document.querySelectorAll('.duel-arg');
+  const beam = document.getElementById('scaleBeam');
+  const count = document.getElementById('voteCount');
+  if(!beam) return;
+  let bear=0, bull=0;
+  args.forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const side = el.dataset.side;
+      const was = el.classList.contains('chosen');
+      if(was){ el.classList.remove('chosen'); if(side==='bear') bear--; else bull--; }
+      else { el.classList.add('chosen'); if(side==='bear') bear++; else bull++; }
+      count.textContent = bear+' : '+bull;
+      const total = bear+bull;
+      let deg = 0;
+      if(total>0) deg = (bull-bear)/total * 16; // +deg tilts to bull(right)
+      beam.style.transform = 'rotate('+deg.toFixed(2)+'deg)';
+    });
+  });
+})();
+
+})();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "1.6万亿", "label": "人民币", "quote": "1.6万亿人民币"},
+  {"value": "5000亿", "label": "投前¥", "quote": "投前¥5000亿"},
+  {"value": "15倍", "label": "DeepSeek", "quote": "15倍 DeepSeek"}
+]
+</script>
+</body>
+</html>

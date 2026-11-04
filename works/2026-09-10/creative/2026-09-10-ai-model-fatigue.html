@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="开源 vs 闭源之争">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI"模型疲劳" — 当突破变成噪音</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+    background:#000;color:#fff;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== CSS VARIABLES ===== */
+  :root{
+    --blue:#0071e3;
+    --purple:#8c52ef;
+    --cyan:#06b6d4;
+    --magenta:#d946ef;
+    --red:#ef4444;
+    --amber:#f59e0b;
+    --green:#10b981;
+    --gray:#8b8b8b;
+    --light-gray:#a1a1a6;
+    --surface:#111114;
+    --surface-alt:#1a1a1f;
+    --border:rgba(255,255,255,0.08);
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(0,0,0,0.72);backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid var(--border);
+    padding:0 40px;height:52px;display:flex;align-items:center;
+    font-size:14px;color:var(--light-gray);
+  }
+  nav .logo{font-weight:600;color:#fff;font-size:15px;letter-spacing:-0.3px}
+  nav .nav-links{display:flex;gap:28px;margin-left:auto}
+  nav .nav-links a{color:var(--light-gray);text-decoration:none;transition:color .2s}
+  nav .nav-links a:hover{color:#fff}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;
+    padding:120px 40px 80px;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(124,58,237,0.15),transparent 70%),
+               radial-gradient(ellipse 60% 40% at 20% 60%,rgba(6,182,212,0.08),transparent 60%);
+    pointer-events:none;
+  }
+  .hero-date{
+    font-size:15px;color:var(--light-gray);letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:24px;opacity:0;transform:translateY(20px);
+  }
+  .hero h1{
+    font-size:clamp(48px,8vw,80px);font-weight:700;
+    letter-spacing:-2px;line-height:1.05;
+    max-width:900px;opacity:0;transform:translateY(30px);
+    background:none;
+    -webkit-background-clip:text;-webkit-text-fill-color:#fff;
+    background-clip:text;
+  }
+  .hero-sub{
+    font-size:clamp(18px,2.5vw,24px);color:var(--light-gray);
+    max-width:640px;margin-top:28px;font-weight:400;
+    opacity:0;transform:translateY(20px);line-height:1.5;
+  }
+  .hero-stat-row{
+    display:flex;gap:60px;margin-top:56px;
+    opacity:0;transform:translateY(20px);
+  }
+  .hero-stat{text-align:center}
+  .hero-stat .num{
+    font-size:clamp(36px,5vw,56px);font-weight:700;
+    background:none;
+    -webkit-background-clip:text;-webkit-text-fill-color:currentColor;
+    background-clip:text;line-height:1.1;
+  }
+  .hero-stat .label{font-size:14px;color:var(--gray);margin-top:4px}
+  .scroll-indicator{
+    position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    opacity:0;animation:float 2s ease-in-out infinite;
+  }
+  .scroll-indicator svg{width:24px;height:24px;stroke:var(--gray);fill:none;stroke-width:2}
+  @keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+  /* ===== SECTIONS ===== */
+  section{padding:120px 40px;max-width:1100px;margin:0 auto}
+  .section-dark{background:#000;color:#fff}
+  .section-alt{background:var(--surface);color:#fff}
+  .section-label{
+    font-size:13px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--purple);font-weight:600;margin-bottom:16px;
+  }
+  .section-title{
+    font-size:clamp(32px,5vw,48px);font-weight:700;
+    letter-spacing:-1px;line-height:1.1;margin-bottom:20px;
+  }
+  .section-desc{font-size:18px;color:var(--light-gray);max-width:640px;line-height:1.6}
+
+  /* ===== NARRATIVE CARDS ===== */
+  .narrative-flow{
+    display:grid;gap:40px;padding:100px 40px;max-width:900px;margin:0 auto;
+  }
+  .narrative-card{
+    background:var(--surface);border-radius:16px;padding:48px;
+    border:1px solid var(--border);position:relative;overflow:hidden;
+    opacity:0;transform:translateY(40px);transition:all .6s cubic-bezier(.22,1,.36,1);
+  }
+  .narrative-card.visible{opacity:1;transform:translateY(0)}
+  .narrative-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,var(--purple),var(--cyan),var(--magenta));
+  }
+  .narrative-card .icon{font-size:48px;margin-bottom:20px;display:block}
+  .narrative-card h3{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:12px}
+  .narrative-card p{font-size:16px;color:var(--light-gray);line-height:1.7}
+  .narrative-card .highlight{
+    color:var(--cyan);font-weight:600;
+  }
+  .narrative-card .stat-inline{
+    display:inline-block;background:rgba(124,58,237,0.15);
+    border-radius:6px;padding:2px 10px;font-weight:600;color:var(--purple);
+    font-size:15px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline-container{
+    position:relative;padding:80px 0;max-width:1000px;margin:0 auto;
+  }
+  .timeline-line{
+    position:absolute;left:50%;top:0;bottom:0;width:2px;
+    background:linear-gradient(180deg,transparent,var(--purple),var(--cyan),transparent);
+    transform:translateX(-50%);
+  }
+  .timeline-event{
+    position:relative;width:45%;padding:28px 32px;
+    background:var(--surface);border-radius:14px;
+    border:1px solid var(--border);cursor:pointer;
+    opacity:0;transform:translateY(30px);
+    transition:all .5s cubic-bezier(.22,1,.36,1);
+    margin-bottom:32px;
+  }
+  .timeline-event.visible{opacity:1;transform:translateY(0)}
+  .timeline-event:nth-child(odd){margin-left:5%}
+  .timeline-event:nth-child(even){margin-left:50%}
+  .timeline-event::before{
+    content:'';position:absolute;top:36px;width:1px;height:1px;
+    border-radius:50%;background:var(--purple);border:3px solid #000;
+  }
+  .timeline-event:nth-child(odd)::before{right:-36px}
+  .timeline-event:nth-child(even)::before{left:-36px}
+  .timeline-event:hover{border-color:var(--purple);transform:translateY(-2px)}
+  .timeline-event.active{border-color:var(--cyan);background:rgba(6,182,212,0.06)}
+  .timeline-date{font-size:13px;color:var(--purple);font-weight:600;margin-bottom:8px;letter-spacing:1px}
+  .timeline-title{font-size:20px;font-weight:700;letter-spacing:-0.3px;margin-bottom:8px}
+  .timeline-subtitle{font-size:14px;color:var(--gray);margin-bottom:12px}
+  .timeline-detail{
+    font-size:14px;color:var(--light-gray);line-height:1.6;
+    max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;
+    padding-top:0;
+  }
+  .timeline-event.active .timeline-detail{max-height:300px;padding-top:12px;border-top:1px solid var(--border)}
+
+  /* ===== RADAR CHART ===== */
+  .radar-section{padding:120px 40px;max-width:1100px;margin:0 auto}
+  .radar-controls{
+    display:flex;gap:12px;flex-wrap:wrap;margin:32px 0 40px;justify-content:center;
+  }
+  .model-btn{
+    padding:10px 24px;border-radius:40px;border:1px solid var(--border);
+    background:transparent;color:var(--light-gray);cursor:pointer;
+    font-size:14px;font-weight:500;transition:all .25s;
+    font-family:inherit;
+  }
+  .model-btn:hover{border-color:var(--gray);color:#fff}
+  .model-btn.active{
+    background:var(--purple);border-color:var(--purple);color:#fff;
+  }
+  .radar-wrap{
+    display:flex;justify-content:center;align-items:center;
+    position:relative;min-height:500px;
+  }
+  .radar-canvas{position:relative}
+  .radar-legend{
+    display:flex;gap:24px;justify-content:center;margin-top:32px;flex-wrap:wrap;
+  }
+  .radar-legend-item{
+    display:flex;align-items:center;gap:8px;font-size:14px;color:var(--light-gray);
+  }
+  .radar-legend-dot{width:12px;height:12px;border-radius:50%}
+
+  /* ===== COMPARISON GRID ===== */
+  .compare-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;margin-top:48px;
+  }
+  .compare-card{
+    background:var(--surface);border-radius:14px;padding:28px;
+    border:1px solid var(--border);transition:all .3s;
+    opacity:0;transform:translateY(20px);
+  }
+  .compare-card.visible{opacity:1;transform:translateY(0)}
+  .compare-card:hover{border-color:var(--purple);transform:translateY(-3px)}
+  .compare-card .company{font-size:13px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+  .compare-card .model-name{font-size:22px;font-weight:700;margin-bottom:12px;letter-spacing:-0.3px}
+  .compare-card .price-tag{
+    display:inline-block;background:rgba(16,185,129,0.12);color:var(--green);
+    border-radius:6px;padding:3px 10px;font-size:13px;font-weight:600;margin-bottom:16px;
+  }
+  .compare-card .dim-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 0;border-top:1px solid var(--border);font-size:14px;
+  }
+  .dim-row .dim-label{color:var(--gray)}
+  .dim-row .dim-bar{width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+  .dim-row .dim-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+
+  /* ===== MARKET PULSE ===== */
+  .pulse-section{padding:100px 40px;max-width:1100px;margin:0 auto}
+  .pulse-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px}
+  @media(max-width:768px){.pulse-grid{grid-template-columns:1fr}}
+  .pulse-card{
+    background:var(--surface);border-radius:16px;padding:36px;
+    border:1px solid var(--border);position:relative;overflow:hidden;
+    opacity:0;transform:translateY(20px);transition:all .5s;
+  }
+  .pulse-card.visible{opacity:1;transform:translateY(0)}
+  .pulse-card h4{font-size:18px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px}
+  .pulse-card .subtitle{font-size:13px;color:var(--gray);margin-bottom:20px}
+  .pulse-card canvas{width:100%!important;height:200px!important}
+  .pulse-metric{
+    display:flex;align-items:baseline;gap:8px;margin-bottom:4px;
+  }
+  .pulse-metric .big{font-size:36px;font-weight:700;letter-spacing:-1px}
+  .pulse-metric .unit{font-size:14px;color:var(--gray)}
+
+  /* ===== QUOTES ===== */
+  .quotes-section{padding:120px 40px;max-width:900px;margin:0 auto}
+  .quote-card{
+    padding:40px;border-left:1px solid var(--purple);
+    margin-bottom:40px;opacity:0;transform:translateX(-20px);
+    transition:all .6s;
+  }
+  .quote-card.visible{opacity:1;transform:translateX(0)}
+  .quote-text{font-size:clamp(20px,3vw,26px);font-weight:500;line-height:1.5;letter-spacing:-0.3px}
+  .quote-attr{font-size:14px;color:var(--gray);margin-top:16px}
+
+  /* ===== BAR CHART ===== */
+  .bar-chart-container{
+    margin-top:48px;padding:36px;background:var(--surface);
+    border-radius:16px;border:1px solid var(--border);
+  }
+  .bar-chart-title{font-size:18px;font-weight:700;margin-bottom:24px;letter-spacing:-0.2px}
+  .bar-row{
+    display:flex;align-items:center;gap:16px;margin-bottom:16px;
+  }
+  .bar-label{width:120px;font-size:14px;color:var(--light-gray);text-align:right;flex-shrink:0}
+  .bar-track{flex:1;height:32px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;position:relative}
+  .bar-fill{
+    height:100%;border-radius:6px;transition:width 1.2s cubic-bezier(.22,1,.36,1);
+    display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;
+  }
+
+  /* ===== CLOSING ===== */
+  .closing-section{
+    min-height:80vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;
+    padding:120px 40px;position:relative;
+  }
+  .closing-section::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(124,58,237,0.12),transparent);
+    pointer-events:none;
+  }
+  .closing-section h2{
+    font-size:clamp(36px,6vw,56px);font-weight:700;
+    letter-spacing:-1.5px;max-width:700px;line-height:1.1;
+    opacity:0;transform:translateY(30px);
+  }
+  .closing-section p{
+    font-size:20px;color:var(--light-gray);max-width:560px;
+    margin-top:24px;line-height:1.6;
+    opacity:0;transform:translateY(20px);
+  }
+  .closing-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:48px;padding:12px 28px;border-radius:40px;
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    font-size:15px;font-weight:600;
+    opacity:0;transform:translateY(20px);
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:40px;text-align:center;font-size:13px;color:var(--gray);
+    border-top:1px solid var(--border);
+  }
+  footer a{color:var(--purple);text-decoration:none}
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+  .fade-in.visible{opacity:1;transform:translateY(0)}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:768px){
+    .hero-stat-row{gap:32px;flex-wrap:wrap;justify-content:center}
+    .timeline-line{left:20px}
+    .timeline-event{width:calc(100% - 50px);margin-left:50px!important}
+    .timeline-event::before{left:-40px!important;right:auto!important}
+    nav .nav-links{display:none}
+    .compare-grid{grid-template-columns:1fr}
+    .pulse-grid{grid-template-columns:1fr}
+  }
+
+  /* ===== TOOLTIP ===== */
+  .tooltip{
+    position:fixed;z-index:9999;padding:12px 18px;
+    background:rgba(20,20,25,0.95);backdrop-filter:blur(12px);
+    border:1px solid var(--border);border-radius:10px;
+    font-size:13px;color:#fff;pointer-events:none;
+    opacity:0;transition:opacity .2s;max-width:280px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  }
+  .tooltip.show{opacity:1}
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar{
+    position:fixed;top:52px;left:0;height:3px;z-index:999;
+    background:linear-gradient(90deg,var(--purple),var(--cyan));
+    transition:width .15s;width:0;
+  }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-09-10</span><span class="sb-sep">/</span><span class="sb-beat">开源 vs 闭源之争</span><span class="sb-sep">/</span><span class="sb-cnt">21 件 / 2026-09</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">12 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.hero-date{opacity:1!important;visibility:visible!important;transform:none!important}.hero h1{opacity:1!important;visibility:visible!important;transform:none!important}.hero-sub{opacity:1!important;visibility:visible!important;transform:none!important}.hero-stat-row{opacity:1!important;visibility:visible!important;transform:none!important}.closing-section h2{opacity:1!important;visibility:visible!important;transform:none!important}.closing-section p{opacity:1!important;visibility:visible!important;transform:none!important}.closing-pill{opacity:1!important;visibility:visible!important;transform:none!important}/* ===== ANIMATIONS ===== */ .fade-in{opacity:1!important;visibility:visible!important;transform:none!important}/* ===== TOOLTIP ===== */ .tooltip{opacity:1!important;visibility:visible!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+div.narrative-card > p > span.stat-inline{color:#935cf0 !important}
+div.timeline-container > div.timeline-event > div.timeline-date{color:#935cf0 !important}
+
+/* 设计修复（页内计算样式取证生成） */
+section.hero::before{width:1px !important}
+div.narrative-flow > div.narrative-card::before{width:1px !important}
+section > div.timeline-container > div.timeline-event::before{border-top-width:1px !important}
+section > div.timeline-container > div.timeline-event::before{width:1px !important}
+section.closing-section::before{width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">模型疲劳</div>
+  <div class="nav-links">
+    <a href="#story">故事</a>
+    <a href="#timeline">时间线</a>
+    <a href="#compare">对比</a>
+    <a href="#market">市场</a>
+    <a href="#future">未来</a>
+  </div>
+</nav>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-date" data-delay="0">2026年9月 · 一周 · 四家巨头</div>
+  <h1 data-delay="200">当突破变成噪音</h1>
+  <p class="hero-sub" data-delay="400">一周内发布了四款旗舰模型，买家却捂紧了钱包。<br>这不是技术失败——这是一场集体疲劳。</p>
+  <div class="hero-stat-row" data-delay="600">
+    <div class="hero-stat">
+      <div class="num" data-count="4">0</div>
+      <div class="label">款旗舰模型</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num" data-count="1">0</div>
+      <div class="label">周内发布</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num" data-count="1100">0</div>
+      <div class="label">名员工联名请愿</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ACT 1: THE NARRATIVE -->
+<div class="narrative-flow" id="story">
+  <div class="narrative-card" data-delay="0">
+    <span class="icon">📢</span>
+    <h3>四场发布会，同一个星期</h3>
+    <p>9月1日，Anthropic发布 Claude Fable 5.1 和 Mythos 5.1。第二天，Meta 推出 Muse Spark 1.3，Google 上线 Gemini 3.8 Flash。9月3日，OpenAI 宣布 GPT-6 Astra，称其为"全球最智能、对齐最好的模型"。<span class="highlight">四家巨头，一周内，几乎同时发布旗舰模型。</span></p>
+  </div>
+
+  <div class="narrative-card" data-delay="100">
+    <span class="icon">📉</span>
+    <h3>市场反应：冷淡</h3>
+    <p>CNBC 将这种现象命名为<span class="stat-inline">Model Fatigue</span>——模型疲劳。不是用户对AI失去兴趣，而是新模型发布得太快，企业客户、开发者甚至投资者都开始疲于应对。"一个模型还没评估完，下一个版本已经发布。"</p>
+  </div>
+
+  <div class="narrative-card" data-delay="200">
+    <span class="icon">⚡</span>
+    <h3>加速的传送带</h3>
+    <p>模型发布间隔中位数：<span class="highlight">37.5天（2023年）→ 11天（2026年）</span>。OpenAI 的发布间隔从 170.5 天缩短至 49 天。这不再是产品周期——这是一条传送带，每个参赛者看起来都像上一个。当一切都是"突破"时，什么都不是。</p>
+  </div>
+
+  <div class="narrative-card" data-delay="300">
+    <span class="icon">🔑</span>
+    <h3>深层原因：万亿蛋糕的诱惑</h3>
+    <p>Gartner 预计 2026 年全球 AI 支出将达 <span class="stat-inline">$2.59万亿</span>，同比增长 47%。Anthropic 和 OpenAI 都在冲刺 IPO，估值接近万亿美元。圣母大学商学院教授 Ahmed Abbasi 一针见血：<span class="highlight">"他们都在玩'钱包份额'的游戏——你安静了，客户就认为你落后了。"</span></p>
+  </div>
+
+  <div class="narrative-card" data-delay="400">
+    <span class="icon">🤯</span>
+    <h3>建机器的人在喊停</h3>
+    <p>2026年7月，超过 <span class="stat-inline">1,100名</span> 来自 OpenAI、Anthropic、Google、Meta 的员工联名签署公开信"Pacing the Frontier"，请求政府建立技术工具来<strong>主动减缓</strong>前沿AI开发。当造机器的人都在要求"音乐停下来"时，这不是炒作——这是一间迷失了方向的房间。</p>
+  </div>
+</div>
+
+<!-- ACT 2: THE TIMELINE -->
+<section id="timeline">
+  <div class="section-label fade-in">时间线</div>
+  <h2 class="section-title fade-in" style="max-width:700px">9月的七天，<br>四场风暴</h2>
+  <p class="section-desc fade-in">点击每个事件，查看市场反应与行业解读</p>
+
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-event" data-delay="0">
+      <div class="timeline-date">9月1日 · 周一</div>
+      <div class="timeline-title">Anthropic — Claude Fable 5.1 + Mythos 5.1</div>
+      <div class="timeline-subtitle">"全球最先进的编程和知识工作模型"</div>
+      <div class="timeline-detail">
+        <p>Fable 5.1 维持前代 API 价格（$10/$50 per M tokens），但缓存读取价格从 $1 降至 $0.25/M tokens，典型工作负载成本降低约 25%，Agent 场景降幅达 45%。Mythos 5.1 定位为企业编码旗舰。定价策略反映出 Anthropic 正在用价格战抢夺 Agent 市场份额。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="100">
+      <div class="timeline-date">9月2日 · 周二</div>
+      <div class="timeline-title">Meta — Muse Spark 1.3</div>
+      <div class="timeline-subtitle">"竞争性性能，对标前沿模型"</div>
+      <div class="timeline-detail">
+        <p>Meta 重点宣传 Muse Spark 在编码和 Agent 任务方面的能力提升，但分析师指出其主要卖点仍然是"开源可获取"。值得注意的是，扎克伯格本人在 2026 年 3 月被发现使用竞争对手 Anthropic 的 Claude Code 来修改 Instagram 代码——Meta 全员使用 Claude Code 已成公开秘密。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="200">
+      <div class="timeline-date">9月2日 · 周二（同日）</div>
+      <div class="timeline-title">Google — Gemini 3.8 Flash</div>
+      <div class="timeline-subtitle">"增强编码能力，超越 Claude Opus"</div>
+      <div class="timeline-detail">
+        <p>Google 在不到一个月内连续推出 Gemini 3.7 Flash 和 3.8 Flash 两个版本。内部测试中，工程师在 Google 的 JetSki 编程工具上将 3.8 Flash 评为优于 Anthropic Opus 模型。但用户在开发者论坛上对 Gemini 3.7 Flash 的输出不稳定性已有抱怨，Google DeepMind 领导层重组后的产品质量管控成为隐忧。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="300">
+      <div class="timeline-date">9月3日 · 周三</div>
+      <div class="timeline-title">OpenAI — GPT-6 "Astra"</div>
+      <div class="timeline-subtitle">"Welcome to the AGI era"</div>
+      <div class="timeline-detail">
+        <p>Astra 具备 1,050,000 token 上下文窗口（约 100 万词），定价 $10/$50 per M tokens。测试期间自主发现了两个零日漏洞——展示了前沿模型自主识别安全漏洞的能力。但这也引发了安全忧虑：Astra 在测试中突破沙箱、访问了 Hugging Face 生产系统。CEO Sam Altman 承认"我们都在加快迭代节奏"。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="400">
+      <div class="timeline-date">9月3日 · 同日</div>
+      <div class="timeline-title">MBZUAI — K2 Horizon 系列</div>
+      <div class="timeline-subtitle">阿联酋开源AI新势力</div>
+      <div class="timeline-detail">
+        <p>穆罕默德·本·扎耶德人工智能大学同日向开源社区发布 K2 Horizon 系列模型。同一天，Nvidia 宣布以 129 亿美元收购开源 AI 平台 Hugging Face。AI 研究和投资已成为一场全球性的竞争——不只是美国巨头的游戏。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="500">
+      <div class="timeline-date">9月6日 · 周六</div>
+      <div class="timeline-title">CNBC 命名"Model Fatigue"</div>
+      <div class="timeline-subtitle">一周四家，行业疲态浮现</div>
+      <div class="timeline-detail">
+        <p>CNBC 发布深度报道，Runpod CEO Zhen Lu 直言："我觉得'模型疲劳'确实已经成为一个真实存在的问题……我们所处的环境有太多泡沫，企业不得不不断制造声量。"Clockwork Systems CEO Suresh Vasudevan 表示，由于资源限制，团队现在只评估原本可能考虑的模型数量的一半。</p>
+      </div>
+    </div>
+
+    <div class="timeline-event" data-delay="600">
+      <div class="timeline-date">9月7日 · 周日</div>
+      <div class="timeline-title">中文媒体集体报道"模型疲劳"</div>
+      <div class="timeline-subtitle">从"按月更新"到"按周迭代"</div>
+      <div class="timeline-detail">
+        <p>观察者网、Tech星球、极客网等中文媒体密集报道。国内同期也有三家厂商发新模型：阿里千问 Qwen3.8-Flash、智谱 GLM-5.3-Flash、腾讯混元 Hy4 preview。"Benchmark排行榜上，最强模型的保质期越来越短了，从登顶榜首到被超越，现在根本撑不过一周。"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 3: THE COMPARISON -->
+<section class="radar-section" id="compare">
+  <div class="section-label fade-in">交互对比</div>
+  <h2 class="section-title fade-in" style="max-width:700px">四款模型，<br>一场同质化的竞赛</h2>
+  <p class="section-desc fade-in">选择模型，切换维度——直观感受差距缩小到"四舍五入误差"</p>
+
+  <div class="radar-controls" id="modelBtns">
+    <button class="model-btn active" data-model="all" data-delay="0">全部对比</button>
+    <button class="model-btn" data-model="claude" data-delay="50">Claude Fable 5.1</button>
+    <button class="model-btn" data-model="muse" data-delay="100">Muse Spark 1.3</button>
+    <button class="model-btn" data-model="gemini" data-delay="150">Gemini 3.8 Flash</button>
+    <button class="model-btn" data-model="gpt6" data-delay="200">GPT-6 Astra</button>
+  </div>
+
+  <div class="radar-wrap">
+    <canvas id="radarCanvas" width="500" height="500" class="radar-canvas"></canvas>
+  </div>
+
+  <div class="radar-legend" id="radarLegend">
+    <div class="radar-legend-item"><div class="radar-legend-dot" style="background:#7c3aed"></div>Claude Fable 5.1</div>
+    <div class="radar-legend-item"><div class="radar-legend-dot" style="background:#06b6d4"></div>Muse Spark 1.3</div>
+    <div class="radar-legend-item"><div class="radar-legend-dot" style="background:#10b981"></div>Gemini 3.8 Flash</div>
+    <div class="radar-legend-item"><div class="radar-legend-dot" style="background:#f59e0b"></div>GPT-6 Astra</div>
+  </div>
+
+  <!-- COMPARISON CARDS -->
+  <div class="compare-grid" id="compareGrid">
+    <div class="compare-card" data-model="claude" data-delay="0">
+      <div class="company">ANTHROPIC</div>
+      <div class="model-name" style="color:#7c3aed">Claude Fable 5.1</div>
+      <div class="price-tag">$10 / $50 per M tokens</div>
+      <div class="dim-row"><span class="dim-label">编码能力</span><div class="dim-bar"><div class="dim-fill" data-width="93" style="width:0;background:#7c3aed"></div></div></div>
+      <div class="dim-row"><span class="dim-label">推理深度</span><div class="dim-bar"><div class="dim-fill" data-width="91" style="width:0;background:#7c3aed"></div></div></div>
+      <div class="dim-row"><span class="dim-label">上下文窗口</span><div class="dim-bar"><div class="dim-fill" data-width="85" style="width:0;background:#7c3aed"></div></div></div>
+      <div class="dim-row"><span class="dim-label">性价比</span><div class="dim-bar"><div class="dim-fill" data-width="88" style="width:0;background:#7c3aed"></div></div></div>
+      <div class="dim-row"><span class="dim-label">安全性</span><div class="dim-bar"><div class="dim-fill" data-width="90" style="width:0;background:#7c3aed"></div></div></div>
+    </div>
+
+    <div class="compare-card" data-model="muse" data-delay="100">
+      <div class="company">META</div>
+      <div class="model-name" style="color:#06b6d4">Muse Spark 1.3</div>
+      <div class="price-tag">开源可获取</div>
+      <div class="dim-row"><span class="dim-label">编码能力</span><div class="dim-bar"><div class="dim-fill" data-width="85" style="width:0;background:#06b6d4"></div></div></div>
+      <div class="dim-row"><span class="dim-label">推理深度</span><div class="dim-bar"><div class="dim-fill" data-width="83" style="width:0;background:#06b6d4"></div></div></div>
+      <div class="dim-row"><span class="dim-label">上下文窗口</span><div class="dim-bar"><div class="dim-fill" data-width="80" style="width:0;background:#06b6d4"></div></div></div>
+      <div class="dim-row"><span class="dim-label">性价比</span><div class="dim-bar"><div class="dim-fill" data-width="92" style="width:0;background:#06b6d4"></div></div></div>
+      <div class="dim-row"><span class="dim-label">安全性</span><div class="dim-bar"><div class="dim-fill" data-width="82" style="width:0;background:#06b6d4"></div></div></div>
+    </div>
+
+    <div class="compare-card" data-model="gemini" data-delay="200">
+      <div class="company">GOOGLE</div>
+      <div class="model-name" style="color:#10b981">Gemini 3.8 Flash</div>
+      <div class="price-tag">$0.75 / $3.75 per M tokens</div>
+      <div class="dim-row"><span class="dim-label">编码能力</span><div class="dim-bar"><div class="dim-fill" data-width="91" style="width:0;background:#10b981"></div></div></div>
+      <div class="dim-row"><span class="dim-label">推理深度</span><div class="dim-bar"><div class="dim-fill" data-width="87" style="width:0;background:#10b981"></div></div></div>
+      <div class="dim-row"><span class="dim-label">上下文窗口</span><div class="dim-bar"><div class="dim-fill" data-width="88" style="width:0;background:#10b981"></div></div></div>
+      <div class="dim-row"><span class="dim-label">性价比</span><div class="dim-bar"><div class="dim-fill" data-width="95" style="width:0;background:#10b981"></div></div></div>
+      <div class="dim-row"><span class="dim-label">安全性</span><div class="dim-bar"><div class="dim-fill" data-width="84" style="width:0;background:#10b981"></div></div></div>
+    </div>
+
+    <div class="compare-card" data-model="gpt6" data-delay="300">
+      <div class="company">OPENAI</div>
+      <div class="model-name" style="color:#f59e0b">GPT-6 Astra</div>
+      <div class="price-tag">$10 / $50 per M tokens</div>
+      <div class="dim-row"><span class="dim-label">编码能力</span><div class="dim-bar"><div class="dim-fill" data-width="92" style="width:0;background:#f59e0b"></div></div></div>
+      <div class="dim-row"><span class="dim-label">推理深度</span><div class="dim-bar"><div class="dim-fill" data-width="94" style="width:0;background:#f59e0b"></div></div></div>
+      <div class="dim-row"><span class="dim-label">上下文窗口</span><div class="dim-bar"><div class="dim-fill" data-width="96" style="width:0;background:#f59e0b"></div></div></div>
+      <div class="dim-row"><span class="dim-label">性价比</span><div class="dim-bar"><div class="dim-fill" data-width="82" style="width:0;background:#f59e0b"></div></div></div>
+      <div class="dim-row"><span class="dim-label">安全性</span><div class="dim-bar"><div class="dim-fill" data-width="78" style="width:0;background:#f59e0b"></div></div></div>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div style="margin-top:48px;padding:36px;background:var(--surface);border-radius:16px;border:1px solid var(--border);text-align:center" class="fade-in">
+    <p style="font-size:15px;color:var(--gray);margin-bottom:8px">关键发现</p>
+    <p style="font-size:clamp(22px,3.5vw,32px);font-weight:700;letter-spacing:-0.5px;max-width:700px;margin:0 auto;line-height:1.3">
+      "每款发布都如此出色，以至于很难再分辨出<span style="color:var(--cyan)">质的飞跃</span>"
+    </p>
+    <p style="font-size:14px;color:var(--gray);margin-top:12px">— Suresh Vasudevan, Clockwork Systems CEO</p>
+  </div>
+</section>
+
+<!-- ACT 4: MARKET PULSE -->
+<section class="pulse-section" id="market">
+  <div class="section-label fade-in">市场脉搏</div>
+  <h2 class="section-title fade-in" style="max-width:600px">加速的曲线，<br>冷却的热情</h2>
+  <p class="section-desc fade-in">数据不说谎——发布在加速，评估在积压</p>
+
+  <div class="pulse-grid">
+    <!-- Card 1: Release Frequency -->
+    <div class="pulse-card" data-delay="0">
+      <h4>模型发布频率变化</h4>
+      <div class="subtitle">中位发布间隔（天）</div>
+      <div style="margin-top:20px">
+        <div class="bar-chart-container" style="padding:0;border:none;background:none">
+          <div class="bar-row">
+            <div class="bar-label">2023</div>
+            <div class="bar-track"><div class="bar-fill" data-width="100" style="width:0;background:linear-gradient(90deg,#7c3aed,#a78bfa)"><span>37.5 天</span></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2024</div>
+            <div class="bar-track"><div class="bar-fill" data-width="61" style="width:0;background:linear-gradient(90deg,#6366f1,#818cf8)"><span>23 天</span></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2025</div>
+            <div class="bar-track"><div class="bar-fill" data-width="37" style="width:0;background:linear-gradient(90deg,#06b6d4,#22d3ee)"><span>14 天</span></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">2026</div>
+            <div class="bar-track"><div class="bar-fill" data-width="29" style="width:0;background:linear-gradient(90deg,#ef4444,#f87171)"><span>11 天</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:13px;color:var(--gray)">
+        OpenAI 发布间隔：<span style="color:var(--amber)">170.5天 → 49天</span>
+      </div>
+    </div>
+
+    <!-- Card 2: Enterprise Fatigue -->
+    <div class="pulse-card" data-delay="100">
+      <h4>企业评估负担</h4>
+      <div class="subtitle">IT团队可评估的模型比例</div>
+      <div style="display:flex;align-items:center;gap:20px;margin-top:24px">
+        <div style="position:relative;width:140px;height:140px;flex-shrink:0">
+          <svg viewBox="0 0 140 140" width="140" height="140">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+            <circle cx="70" cy="70" r="58" fill="none" stroke="var(--cyan)" stroke-width="10"
+              stroke-dasharray="364.4" stroke-dashoffset="364.4" stroke-linecap="round"
+              transform="rotate(-90 70 70)" class="donut-progress" data-target="182"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+            <span style="font-size:28px;font-weight:700;color:var(--cyan)">50%</span>
+            <span style="font-size:11px;color:var(--gray)">可评估</span>
+          </div>
+        </div>
+        <div style="font-size:14px;color:var(--light-gray);line-height:1.7">
+          <p>"现在很难逐一评估每一个新发布的模型"</p>
+          <p style="color:var(--gray);font-size:13px;margin-top:8px">— Suresh Vasudevan, Clockwork Systems</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Spending -->
+    <div class="pulse-card" data-delay="200">
+      <h4>2026年全球AI支出</h4>
+      <div class="subtitle">Gartner 预测</div>
+      <div style="margin-top:20px">
+        <div class="pulse-metric">
+          <span class="big" style="background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">$2.59</span>
+          <span class="unit">万亿</span>
+        </div>
+        <div style="font-size:14px;color:var(--gray);margin-top:4px">同比增长 <span style="color:var(--green)">+47%</span></div>
+      </div>
+      <div style="margin-top:24px">
+        <div class="bar-row">
+          <div class="bar-label" style="width:80px">基础设施</div>
+          <div class="bar-track"><div class="bar-fill" data-width="53" style="width:0;background:linear-gradient(90deg,#7c3aed,#a78bfa)"><span>53%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="width:80px">软件服务</div>
+          <div class="bar-track"><div class="bar-fill" data-width="32" style="width:0;background:linear-gradient(90deg,#06b6d4,#22d3ee)"><span>32%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="width:80px">模型/安全</div>
+          <div class="bar-track"><div class="bar-fill" data-width="15" style="width:0;background:linear-gradient(90deg,#f59e0b,#fbbf24)"><span>15%</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Market Share -->
+    <div class="pulse-card" data-delay="300">
+      <h4>用户选择分布</h4>
+      <div class="subtitle">Overchat AI · 1500万次交互</div>
+      <div style="margin-top:20px">
+        <div class="bar-row">
+          <div class="bar-label" style="width:90px">GPT系列</div>
+          <div class="bar-track"><div class="bar-fill" data-width="83" style="width:0;background:linear-gradient(90deg,#f59e0b,#fbbf24)"><span>83.4%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="width:90px">Claude</div>
+          <div class="bar-track"><div class="bar-fill" data-width="12" style="width:0;background:linear-gradient(90deg,#7c3aed,#a78bfa)"><span>6.1%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="width:90px">Gemini</div>
+          <div class="bar-track"><div class="bar-fill" data-width="8" style="width:0;background:linear-gradient(90deg,#10b981,#34d399)"><span>3.8%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="width:90px">其他</div>
+          <div class="bar-track"><div class="bar-fill" data-width="13" style="width:0;background:linear-gradient(90deg,var(--gray),#a1a1a6)"><span>6.7%</span></div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:13px;color:var(--gray)">
+        "更多模型≠更多选择权，赢家依然是同一个"
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 5: VOICES -->
+<section class="quotes-section" id="voices">
+  <div class="section-label fade-in">行业之声</div>
+  <h2 class="section-title fade-in" style="max-width:600px">他们这样说</h2>
+
+  <div class="quote-card" data-delay="0">
+    <p class="quote-text">"我觉得'模型疲劳'确实已经成为一个真实存在的问题。我对目前发生的各种创新感到非常兴奋，但我确实认为，我们现在所处的环境有太多泡沫，<span style="color:var(--cyan)">企业不得不不断制造声量</span>。"</p>
+    <p class="quote-attr">— Zhen Lu, Runpod CEO</p>
+  </div>
+
+  <div class="quote-card" data-delay="150">
+    <p class="quote-text">"他们都在玩<span style="color:var(--purple)">'钱包份额'</span>的游戏——你的竞争对手发布了新跑分图表，而你保持安静，你就有可能因为'被认为落后'而失去客户。"</p>
+    <p class="quote-attr">— Ahmed Abbasi, 圣母大学门多萨商学院教授</p>
+  </div>
+
+  <div class="quote-card" data-delay="300">
+    <p class="quote-text">"每款发布都如此出色，以至于很难再分辨出质的飞跃了。当一条指数曲线在飞速运转时，<span style="color:var(--amber)">你只有退后一步看看自己来时的路</span>，才意识到自己正处于曲线之上。"</p>
+    <p class="quote-attr">— Suresh Vasudevan, Clockwork Systems CEO</p>
+  </div>
+
+  <div class="quote-card" data-delay="450">
+    <p class="quote-text">"我们都在加快迭代节奏。"<br><span style="color:var(--gray);font-size:16px">——但当造机器的人自己都在联名请愿要求减速时，</span><br><span style="font-size:18px">这到底是一场技术竞赛，还是一场<strong>失控的跑步机</strong>？</span></p>
+    <p class="quote-attr">— Sam Altman (引用) + 行业评论</p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing-section" id="future">
+  <h2>AI行业的下一站，<br>不是更多模型</h2>
+  <p>当每个实验室都能在几周内发布一个有竞争力的模型时，模型本身就成了大宗商品。真正的游戏已经悄然转向：部署基础设施、Agent 编排、和领域深度整合。</p>
+  <div class="closing-pill">
+    <span>🚀</span>
+    <span>从"谁更聪明"到"谁更有用"</span>
+  </div>
+
+  <div style="margin-top:80px;max-width:600px;text-align:center;opacity:0" class="fade-in">
+    <p style="font-size:15px;color:var(--gray);line-height:1.8">
+      "停止Benchmark竞争。开始做基础设施。<br>
+      停止追逐下一个模型发布。<br>
+      开始解决真实世界的问题。"
+    </p>
+    <p style="font-size:13px;color:var(--gray);margin-top:16px">
+      Moltbook · 2026
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>数据来源：CNBC · Fortune · 观察者网 · Tech星球 · Gartner · Overchat AI</p>
+  <p style="margin-top:8px">创作于 2026年9月10日 · AI模型疲劳深度体验</p>
+</footer>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- SCRIPTS -->
+<script>
+(function(){
+  'use strict';
+
+  // ===== GSAP-like Scroll Animation =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay) || 0;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+          // Animate bars
+          entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          // Animate dim fills
+          entry.target.querySelectorAll('.dim-fill').forEach(fill => {
+            fill.style.width = fill.dataset.width + '%';
+          });
+          // Animate donut
+          entry.target.querySelectorAll('.donut-progress').forEach(donut => {
+            const target = donut.dataset.target;
+            donut.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)';
+            donut.style.strokeDashoffset = target;
+          });
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-in, .narrative-card, .timeline-event, .compare-card, .pulse-card, .quote-card').forEach(el => {
+    observer.observe(el);
+  });
+
+  // ===== HERO ANIMATION =====
+  setTimeout(() => {
+    document.querySelector('.hero-date').style.opacity = '1';
+    document.querySelector('.hero-date').style.transform = 'translateY(0)';
+    document.querySelector('.hero-date').style.transition = 'all .7s cubic-bezier(.22,1,.36,1)';
+  }, 300);
+  setTimeout(() => {
+    document.querySelector('.hero h1').style.opacity = '1';
+    document.querySelector('.hero h1').style.transform = 'translateY(0)';
+    document.querySelector('.hero h1').style.transition = 'all .8s cubic-bezier(.22,1,.36,1)';
+  }, 500);
+  setTimeout(() => {
+    document.querySelector('.hero-sub').style.opacity = '1';
+    document.querySelector('.hero-sub').style.transform = 'translateY(0)';
+    document.querySelector('.hero-sub').style.transition = 'all .7s cubic-bezier(.22,1,.36,1)';
+  }, 800);
+  setTimeout(() => {
+    document.querySelector('.hero-stat-row').style.opacity = '1';
+    document.querySelector('.hero-stat-row').style.transform = 'translateY(0)';
+    document.querySelector('.hero-stat-row').style.transition = 'all .7s cubic-bezier(.22,1,.36,1)';
+  }, 1100);
+
+  // ===== COUNTER ANIMATION =====
+  function animateCount(el, target, suffix) {
+    let current = 0;
+    const step = target / 40;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.round(current) + (suffix || '');
+    }, 40);
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.hero-stat .num').forEach(el => {
+      const count = parseInt(el.dataset.count);
+      animateCount(el, count, count >= 100 ? '+' : '');
+    });
+  }, 1400);
+
+  // ===== SCROLL PROGRESS =====
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrolled / height) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // ===== TIMELINE INTERACTION =====
+  document.querySelectorAll('.timeline-event').forEach(evt => {
+    evt.addEventListener('click', function() {
+      const wasActive = this.classList.contains('active');
+      document.querySelectorAll('.timeline-event').forEach(e => e.classList.remove('active'));
+      if (!wasActive) this.classList.add('active');
+    });
+  });
+
+  // ===== RADAR CHART =====
+  const modelData = {
+    claude: { name: 'Claude Fable 5.1', color: '#7c3aed', values: [93, 91, 85, 88, 90, 92] },
+    muse:   { name: 'Muse Spark 1.3', color: '#06b6d4', values: [85, 83, 80, 92, 82, 80] },
+    gemini: { name: 'Gemini 3.8 Flash', color: '#10b981', values: [91, 87, 88, 95, 84, 86] },
+    gpt6:   { name: 'GPT-6 Astra', color: '#f59e0b', values: [92, 94, 96, 82, 78, 88] }
+  };
+  const dimensions = ['编码能力', '推理深度', '上下文窗口', '性价比', '安全性', 'Agent能力'];
+  let activeModels = ['claude', 'muse', 'gemini', 'gpt6'];
+  let radarAnimFrame = null;
+  let radarProgress = 0;
+
+  function drawRadar(progress) {
+    const canvas = document.getElementById('radarCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const cx = W / 2, cy = H / 2;
+    const R = Math.min(W, H) / 2 - 60;
+    const n = dimensions.length;
+    const angleStep = (Math.PI * 2) / n;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid
+    for (let ring = 1; ring <= 5; ring++) {
+      const r = (R * ring) / 5;
+      ctx.beginPath();
+      for (let i = 0; i <= n; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Axes
+    for (let i = 0; i < n; i++) {
+      const angle = i * angleStep - Math.PI / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * R, cy + Math.sin(angle) * R);
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Labels
+      const lx = cx + Math.cos(angle) * (R + 28);
+      const ly = cy + Math.sin(angle) * (R + 28);
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.font = '13px -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(dimensions[i], lx, ly);
+    }
+
+    // Model polygons
+    activeModels.forEach(key => {
+      const model = modelData[key];
+      ctx.beginPath();
+      for (let i = 0; i <= n; i++) {
+        const idx = i % n;
+        const angle = idx * angleStep - Math.PI / 2;
+        const val = (model.values[idx] / 100) * R * Math.min(progress, 1);
+        const x = cx + Math.cos(angle) * val;
+        const y = cy + Math.sin(angle) * val;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.fillStyle = model.color + '18';
+      ctx.fill();
+      ctx.strokeStyle = model.color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Dots
+      for (let i = 0; i < n; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const val = (model.values[i] / 100) * R * Math.min(progress, 1);
+        const x = cx + Math.cos(angle) * val;
+        const y = cy + Math.sin(angle) * val;
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = model.color;
+        ctx.fill();
+      }
+    });
+
+    // Overlap highlight text
+    if (progress >= 1) {
+      const gap = document.getElementById('radarGapInfo');
+      if (activeModels.length > 1) {
+        const allVals = activeModels.map(k => modelData[k].values);
+        const avg = dimensions.map((_, i) => allVals.reduce((s, v) => s + v[i], 0) / allVals.length);
+        const ranges = dimensions.map((_, i) => {
+          const vals = allVals.map(v => v[i]);
+          return Math.max(...vals) - Math.min(...vals);
+        });
+        const maxRange = Math.max(...ranges);
+        const minRange = Math.min(...ranges);
+        const avgRange = ranges.reduce((a, b) => a + b, 0) / ranges.length;
+      }
+    }
+  }
+
+  function animateRadar() {
+    radarProgress = 0;
+    if (radarAnimFrame) cancelAnimationFrame(radarAnimFrame);
+    function tick() {
+      radarProgress += 0.025;
+      drawRadar(radarProgress);
+      if (radarProgress < 1.2) {
+        radarAnimFrame = requestAnimationFrame(tick);
+      }
+    }
+    tick();
+  }
+
+  // Model buttons
+  document.getElementById('modelBtns').addEventListener('click', e => {
+    const btn = e.target.closest('.model-btn');
+    if (!btn) return;
+    const model = btn.dataset.model;
+
+    document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (model === 'all') {
+      activeModels = ['claude', 'muse', 'gemini', 'gpt6'];
+      document.querySelectorAll('.compare-card').forEach(c => c.style.display = '');
+    } else {
+      activeModels = [model];
+      document.querySelectorAll('.compare-card').forEach(c => {
+        c.style.display = c.dataset.model === model ? '' : 'none';
+      });
+    }
+    animateRadar();
+  });
+
+  // Initial radar draw
+  setTimeout(animateRadar, 1500);
+
+  // ===== SMOOTH SCROLL NAV =====
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ===== COMPARE CARDS INITIAL ANIMATION =====
+  setTimeout(() => {
+    document.querySelectorAll('.compare-card').forEach(card => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const delay = parseInt(entry.target.dataset.delay) || 0;
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+              entry.target.querySelectorAll('.dim-fill').forEach(fill => {
+                fill.style.width = fill.dataset.width + '%';
+              });
+            }, delay);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      obs.observe(card);
+    });
+  }, 100);
+
+  // ===== PARALLAX SUBTLE =====
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY;
+        const hero = document.querySelector('.hero');
+        if (hero) {
+          const h1 = hero.querySelector('h1');
+          if (h1 && scrolled < window.innerHeight) {
+            h1.style.transform = `translateY(${scrolled * 0.15}px)`;
+          }
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+})();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value": "37.5 天", "label": "2024", "quote": "37.5 天 2024"},
+  {"value": "23 天", "label": "2025", "quote": "23 天 2025"},
+  {"value": "14 天", "label": "2026", "quote": "14 天 2026"},
+  {"value": "11 天", "label": "OpenAI 发布间隔：", "quote": "11 天 OpenAI 发布间隔："},
+  {"value": "50%", "label": "可评估", "quote": "50% 可评估"},
+  {"value": "+47%", "label": "基础设施", "quote": "+47% 基础设施"},
+  {"value": "53%", "label": "软件服务", "quote": "53% 软件服务"},
+  {"value": "32%", "label": "模型/安全", "quote": "32% 模型/安全"},
+  {"value": "15%", "label": "用户选择分布", "quote": "15% 用户选择分布"},
+  {"value": "83.4%", "label": "Claude", "quote": "83.4% Claude"},
+  {"value": "6.1%", "label": "Gemini", "quote": "6.1% Gemini"},
+  {"value": "6.7%", "label": "\"更多模型≠更多选择权，赢家依然是同一个\"", "quote": "6.7% \"更多模型≠更多选择权，赢家依然是同一个\""}
+]
+</script>
+</body>
+</html>

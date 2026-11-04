@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta name="showcase-beat" content="工具链与产业主权">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 编程工具产品矩阵 · 2026</title>
+<style>
+  /* ===== Apple-Inspired Design System ===== */
+  :root {
+    --bg: #fbfbfd;
+    --bg-alt: #f5f5f7;
+    --ink: #1d1d1f;
+    --ink-2: #424245;
+    --ink-3: #6e6e73;
+    --ink-4: #929297;
+    --line: #d2d2d7;
+    --line-soft: #e8e8ed;
+    --accent: #006bd5;
+    --accent-2: #2997ff;
+    --green: #007d53;
+    --orange: #ff9500;
+    --purple: #af52de;
+    --radius: 18px;
+    --radius-sm: 12px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 0 0 1px rgba(0,0,0,.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.04);
+    --shadow-lg: 0 24px 60px rgba(0,0,0,.10), 0 0 0 1px rgba(0,0,0,.04);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+            "Helvetica Neue", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== Nav ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(251, 251, 253, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 22px; height: 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    font-size: 17px; font-weight: 600; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-brand-dot {
+    width: 14px; height: 14px; border-radius: 4px;
+    background: linear-gradient(135deg, #006bd5, #af52de);
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 13px; color: var(--ink-2); text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 13px; padding: 6px 14px; border-radius: 980px;
+    background: var(--ink); color: #fff; text-decoration: none;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center; padding: 96px 24px 72px;
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    padding: 6px 14px; border-radius: 980px;
+    background: var(--bg-alt); border: 1px solid var(--line-soft);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6.4vw, 72px);
+    font-weight: 700; letter-spacing: -0.025em;
+    line-height: 1.05; margin-bottom: 16px;
+    background:none;
+    -webkit-background-clip: text; background-clip: text; color:#1d1d1f;
+  }
+  .hero h2 {
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 400; color: var(--ink-2);
+    max-width: 720px; margin: 0 auto 32px; letter-spacing: -0.01em;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; justify-content: center;
+    font-size: 13px; color: var(--ink-3); flex-wrap: wrap;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta strong { color: var(--ink-2); font-weight: 500; }
+
+  /* ===== Section ===== */
+  section { padding: 80px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 56px; }
+  .section-eyebrow {
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 18px; color: var(--ink-3);
+    max-width: 640px; margin: 0 auto;
+  }
+
+  /* ===== Product Cards ===== */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .product {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-md);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .product::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height:1px;
+    background: var(--brand-color, var(--accent));
+  }
+  .product:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .product-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--brand-bg, rgba(0,113,227,.08));
+    color: var(--brand-color, var(--accent));
+    font-size: 28px; font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .product-name {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .product-tag {
+    font-size: 13px; color: var(--brand-color, var(--accent));
+    font-weight: 600; margin-bottom: 16px;
+  }
+  .product-desc {
+    font-size: 15px; color: var(--ink-2);
+    line-height: 1.55; margin-bottom: 24px;
+  }
+  .product-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; padding: 18px 0; border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft); margin-bottom: 20px;
+  }
+  .stat-label {
+    font-size: 11px; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+  }
+  .stat-value {
+    font-size: 20px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .stat-value small { font-size: 13px; color: var(--ink-3); font-weight: 400; margin-left: 2px; }
+  .product-features { list-style: none; }
+  .product-features li {
+    font-size: 14px; color: var(--ink-2);
+    padding: 8px 0; display: flex; align-items: flex-start; gap: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .product-features li:last-child { border-bottom: none; }
+  .check {
+    flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--brand-color, var(--accent)); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; margin-top: 2px;
+  }
+  .product-price {
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--line-soft);
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .price-amount {
+    font-size: 28px; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .price-unit { font-size: 14px; color: var(--ink-3); }
+  .price-tag {
+    margin-left: auto; font-size: 12px; padding: 4px 10px;
+    border-radius: 980px; background: var(--bg-alt);
+    color: var(--ink-2); font-weight: 500;
+  }
+
+  /* Brand colors per product */
+  .product.cursor { --brand-color: #006bd5; --brand-bg: rgba(0,113,227,.08); }
+  .product.claude  { --brand-color: #a75c05; --brand-bg: rgba(217,119,6,.08); }
+  .product.codex   { --brand-color: #007d53; --brand-bg: rgba(0,135,90,.08); }
+
+  /* ===== Comparison Table ===== */
+  .compare-section { background: var(--bg-alt); }
+  .compare-table{padding:10px;
+    background: #fff; border-radius: var(--radius);
+    box-shadow: var(--shadow-md); overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th, td {
+    padding: 18px 24px; text-align: left;
+    font-size: 14px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  th {
+    font-size: 12px; font-weight: 600; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    background: var(--bg-alt);
+  }
+  th.col-cursor { color: #006bd5; }
+  th.col-claude { color: #a75c05; }
+  th.col-codex { color: #007d53; }
+  td:first-child, th:first-child { font-weight: 600; color: var(--ink); }
+  td.cell { text-align: center; }
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 500;
+    padding: 3px 10px; border-radius: 980px;
+  }
+  .badge-blue { background: rgba(0,113,227,.1); color: #006bd5; }
+  .badge-orange { background: rgba(217,119,6,.1); color: #a75c05; }
+  .badge-green { background: rgba(0,135,90,.1); color: #007d53; }
+  .badge-gray { background: var(--bg-alt); color: var(--ink-2); }
+
+  /* ===== Ecosystem Map ===== */
+  .eco-section { background: #fff; }
+  .eco-canvas {
+    position: relative; height: 640px;
+    background: linear-gradient(180deg, #fafafa 0%, #f5f5f7 100%);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+  .eco-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px; height: 160px; border-radius: 50%;
+    background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; color: #fff;
+    box-shadow: 0 16px 40px rgba(0,0,0,.25);
+    z-index: 5;
+  }
+  .eco-center-icon { font-size: 28px; margin-bottom: 4px; }
+  .eco-center-text { font-size: 14px; font-weight: 600; }
+  .eco-center-sub { font-size: 11px; opacity: .7; margin-top: 2px; }
+  .eco-ring {
+    position: absolute; top: 50%; left: 50%;
+    border: 1px dashed var(--line);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .eco-ring.r1 { width: 320px; height: 320px; }
+  .eco-ring.r2 { width: 480px; height: 480px; }
+  .eco-ring.r3 { width: 620px; height: 620px; }
+  .eco-node {
+    position: absolute;
+    background: #fff;
+    border: 1px solid var(--line-soft);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; gap: 8px;
+    z-index: 4;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .eco-node:hover { transform: scale(1.05); box-shadow: var(--shadow-md); }
+  .eco-node .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .eco-node .meta {
+    font-size: 11px; color: var(--ink-3);
+    font-weight: 400;
+  }
+
+  /* Position nodes around rings */
+  .n1 { top: 8%;  left: 14%; } /* Cursor top-left */
+  .n2 { top: 6%;  right: 14%; } /* Claude top-right */
+  .n3 { top: 38%; right: 4%; } /* Codex right */
+  .n4 { bottom: 10%; right: 18%; } /* Composer */
+  .n5 { bottom: 8%; left: 18%; } /* MCP */
+  .n6 { top: 38%; left: 4%; } /* CLI */
+  .n7 { bottom: 26%; left: 30%; } /* IDE */
+  .n8 { top: 22%; left: 30%; } /* API */
+
+  /* ===== Market 2026 ===== */
+  .market-section { background: var(--bg-alt); }
+  .market-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+  }
+  .market-card {
+    background: #fff; border-radius: var(--radius);
+    padding: 36px 32px; box-shadow: var(--shadow-md);
+  }
+  .market-card h3 {
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.01em; color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .market-card p.lead {
+    font-size: 15px; color: var(--ink-3);
+    margin-bottom: 28px;
+  }
+  /* Big number */
+  .big-number {
+    font-size: 80px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; color: var(--ink);
+    background:none;
+    -webkit-background-clip: text; background-clip: text; color:#006bd5;
+  }
+  .big-number-label {
+    font-size: 15px; color: var(--ink-2); margin-top: 8px;
+  }
+  .big-number-meta {
+    display: flex; gap: 24px; margin-top: 28px;
+    padding-top: 24px; border-top: 1px solid var(--line-soft);
+  }
+  .big-number-meta-item .v {
+    font-size: 22px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .big-number-meta-item .l {
+    font-size: 12px; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px;
+  }
+
+  /* Bar chart */
+  .bar-chart { margin-top: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .bar-label { width: 80px; font-size: 13px; color: var(--ink-2); font-weight: 500; }
+  .bar-track { flex: 1; height: 8px; background: var(--bg-alt); border-radius: 980px; overflow: visible; }
+  .bar-fill { height: 100%; border-radius: 980px; display: block; min-width: 1px; }
+  .bar-pct { width: 50px; text-align: right; font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  /* ===== Trends Timeline ===== */
+  .trends-section { background: #fff; }
+  .timeline {
+    position: relative; padding: 24px 0;
+  }
+  .timeline::before {
+    content: ""; position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width:1px; background: var(--line-soft);
+    transform: translateX(-50%);
+  }
+  .tl-item {
+    position: relative; width: 50%;
+    padding: 24px 40px; margin-bottom: 16px;
+  }
+  .tl-item.left { left: 0; text-align: right; }
+  .tl-item.right { left: 50%; text-align: left; }
+  .tl-item::before {
+    content: ""; position: absolute;
+    top: 36px; width:1px; height:1px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px #fff, 0 0 0 5px var(--accent);
+  }
+  .tl-item.left::before { right: -6px; }
+  .tl-item.right::before { left: -6px; }
+  .tl-year {
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .tl-title {
+    font-size: 18px; font-weight: 600; color: var(--ink);
+    margin: 6px 0 4px; letter-spacing: -0.01em;
+  }
+  .tl-desc { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
+
+  /* ===== Footer ===== */
+  footer {
+    background: #1d1d1f; color: #929297;
+    padding: 56px 24px 36px; text-align: center;
+  }
+  footer .ftitle {
+    color: #f5f5f7; font-size: 18px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  footer .fsub { font-size: 13px; margin-bottom: 28px; }
+  footer .fmeta {
+    font-size: 12px; padding-top: 28px;
+    border-top: 1px solid #424245;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 900px) {
+    .products { grid-template-columns: 1fr; }
+    .market-grid { grid-template-columns: 1fr; }
+    .eco-canvas { height: 520px; }
+    .eco-ring.r3 { display: none; }
+    .tl-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 32px; padding-right: 16px; }
+    .tl-item::before { left: 8px !important; right: auto !important; }
+    .timeline::before { left: 14px; }
+    .nav-links { display: none; }
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Content always visible — no opacity:0 */
+  .reveal { animation: fadeUp .8s cubic-bezier(.2,.8,.2,1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-11</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">5 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="nav-brand-dot"></span>
+      AI Coding Matrix
+    </div>
+    <div class="nav-links">
+      <a href="#products">产品</a>
+      <a href="#ecosystem">生态</a>
+      <a href="#market">市场</a>
+      <a href="#trends">趋势</a>
+    </div>
+    <a class="nav-cta" href="#products">查看对比</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero">
+  <div class="kicker">PRODUCT MATRIX · 2026</div>
+  <h1>AI 编程工具<br/>产品矩阵全景</h1>
+  <h2>从 IDE 到 Agent，从个人开发者到企业团队。<br/>三款主流 AI 编程工具的能力边界、生态位置与市场格局。</h2>
+  <div class="hero-meta">
+    <span>📅 <strong>2026-06-11</strong></span>
+    <span>🛠 <strong>3 款主流工具</strong></span>
+    <span>👥 <strong>4,200 万+ 开发者</strong></span>
+    <span>💰 <strong>$48 亿 市场</strong></span>
+  </div>
+</header>
+
+<!-- ===== Products ===== -->
+<section id="products">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">01 · 三款主流产品</div>
+      <h2 class="section-title">产品能力对比</h2>
+      <p class="section-sub">Cursor、Claude Code、Codex 三足鼎立，分别代表 IDE 增强、Agent 原生、企业级 API 三种产品哲学。</p>
+    </div>
+
+    <div class="products">
+      <!-- Cursor -->
+      <article class="product cursor reveal">
+        <div class="product-icon">⌘</div>
+        <div class="product-name">Cursor</div>
+        <div class="product-tag">IDE-Native AI Editor</div>
+        <p class="product-desc">基于 VS Code 分支的 AI 优先编辑器。主打"Tab 自动补全 + Composer 多文件编辑"，把 AI 深度嵌入 IDE 每一个交互缝隙。</p>
+        <div class="product-stats">
+          <div>
+            <div class="stat-label">月活用户</div>
+            <div class="stat-value">680<small>万</small></div>
+          </div>
+          <div>
+            <div class="stat-label">ARR</div>
+            <div class="stat-value">$500<small>M+</small></div>
+          </div>
+        </div>
+        <ul class="product-features">
+          <li><span class="check">✓</span>基于 VS Code 生态，迁移成本低</li>
+          <li><span class="check">✓</span>Composer 支持多文件协同编辑</li>
+          <li><span class="check">✓</span>Tab 补全采用自研模型，延迟 &lt;200ms</li>
+          <li><span class="check">✓</span>支持 Anthropic / OpenAI / 自托管</li>
+        </ul>
+        <div class="product-price">
+          <span class="price-amount">$20</span>
+          <span class="price-unit">/ 月（Pro）</span>
+          <span class="price-tag">最受欢迎</span>
+        </div>
+      </article>
+
+      <!-- Claude Code -->
+      <article class="product claude reveal">
+        <div class="product-icon">✱</div>
+        <div class="product-name">Claude Code</div>
+        <div class="product-tag">Agentic CLI · Anthropic</div>
+        <p class="product-desc">Anthropic 推出的终端 Agent 编程助手。以"长上下文 + 工具调用 + 安全对齐"为核心，定位生产级复杂任务自动化。</p>
+        <div class="product-stats">
+          <div>
+            <div class="stat-label">年化增长</div>
+            <div class="stat-value">410<small>%</small></div>
+          </div>
+          <div>
+            <div class="stat-label">企业渗透</div>
+            <div class="stat-value">38<small>%</small></div>
+          </div>
+        </div>
+        <ul class="product-features">
+          <li><span class="check">✓</span>200K 上下文窗口，跨文件理解能力强</li>
+          <li><span class="check">✓</span>原生 MCP 协议，可连接任意工具</li>
+          <li><span class="check">✓</span>Sub-agent 并行处理复杂工作流</li>
+          <li><span class="check">✓</span>Constitutional AI 对齐，输出更安全</li>
+        </ul>
+        <div class="product-price">
+          <span class="price-amount">$17</span>
+          <span class="price-unit">/ 月起</span>
+          <span class="price-tag">企业首选</span>
+        </div>
+      </article>
+
+      <!-- Codex -->
+      <article class="product codex reveal">
+        <div class="product-icon">◐</div>
+        <div class="product-name">Codex</div>
+        <div class="product-tag">Cloud Agent API · OpenAI</div>
+        <p class="product-desc">OpenAI 推出的云端 Agent 编程 API。提供 codex-1 / codex-mini 等多尺寸模型，定位"按需调度、批量任务、CI/CD 集成"。</p>
+        <div class="product-stats">
+          <div>
+            <div class="stat-label">API 调用</div>
+            <div class="stat-value">12<small>B / 月</small></div>
+          </div>
+          <div>
+            <div class="stat-label">SWE-bench</div>
+            <div class="stat-value">72.5<small>%</small></div>
+          </div>
+        </div>
+        <ul class="product-features">
+          <li><span class="check">✓</span>云端沙箱执行，隔离环境安全</li>
+          <li><span class="check">✓</span>多模型路由（o3 / codex-1 / mini）</li>
+          <li><span class="check">✓</span>PR 自动生成 + 单元测试覆盖</li>
+          <li><span class="check">✓</span>深度集成 GitHub Actions / CI</li>
+        </ul>
+        <div class="product-price">
+          <span class="price-amount">$0.04</span>
+          <span class="price-unit">/ 1K tokens</span>
+          <span class="price-tag">按需付费</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Compare Table ===== -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">02 · 详细对比</div>
+      <h2 class="section-title">核心维度横评</h2>
+      <p class="section-sub">从技术架构、用户体验到商业模式，三款工具的差异化定位一目了然。</p>
+    </div>
+
+    <div class="compare-table">
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th class="col-cursor">Cursor</th>
+            <th class="col-claude">Claude Code</th>
+            <th class="col-codex">Codex</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>产品形态</td>
+            <td class="cell"><span class="badge badge-blue">桌面 IDE</span></td>
+            <td class="cell"><span class="badge badge-orange">CLI Agent</span></td>
+            <td class="cell"><span class="badge badge-green">云端 API</span></td>
+          </tr>
+          <tr>
+            <td>核心模型</td>
+            <td class="cell">自研 + GPT/Claude</td>
+            <td class="cell">Claude Sonnet 4.5</td>
+            <td class="cell">codex-1 / o3</td>
+          </tr>
+          <tr>
+            <td>上下文窗口</td>
+            <td class="cell">200K</td>
+            <td class="cell">200K (1M beta)</td>
+            <td class="cell">128K</td>
+          </tr>
+          <tr>
+            <td>执行环境</td>
+            <td class="cell"><span class="badge badge-gray">本地</span></td>
+            <td class="cell"><span class="badge badge-gray">本地</span></td>
+            <td class="cell"><span class="badge badge-blue">云端沙箱</span></td>
+          </tr>
+          <tr>
+            <td>SWE-bench Verified</td>
+            <td class="cell">65.2%</td>
+            <td class="cell">77.2%</td>
+            <td class="cell">72.5%</td>
+          </tr>
+          <tr>
+            <td>多文件编辑</td>
+            <td class="cell"><span class="badge badge-blue">Composer</span></td>
+            <td class="cell"><span class="badge badge-orange">Agent Loop</span></td>
+            <td class="cell"><span class="badge badge-green">Cloud Workspace</span></td>
+          </tr>
+          <tr>
+            <td>开源策略</td>
+            <td class="cell">闭源</td>
+            <td class="cell">闭源 + MCP 开源</td>
+            <td class="cell">闭源 + CLI 开源</td>
+          </tr>
+          <tr>
+            <td>典型用户</td>
+            <td class="cell">前端 / 全栈</td>
+            <td class="cell">后端 / DevOps</td>
+            <td class="cell">企业 / 平台团队</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Ecosystem Map ===== -->
+<section id="ecosystem" class="eco-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">03 · 生态图谱</div>
+      <h2 class="section-title">AI 编程工具生态</h2>
+      <p class="section-sub">以"开发者"为中心，三款工具与上下游协议、平台、模型的连接关系。</p>
+    </div>
+
+    <div class="eco-canvas">
+      <div class="eco-ring r3"></div>
+      <div class="eco-ring r2"></div>
+      <div class="eco-ring r1"></div>
+
+      <div class="eco-center">
+        <div class="eco-center-icon">👨‍💻</div>
+        <div class="eco-center-text">开发者</div>
+        <div class="eco-center-sub">42M+</div>
+      </div>
+
+      <div class="eco-node n1">
+        <span class="dot" style="background:#0071e3"></span>
+        <div>
+          <div>Cursor</div>
+          <div class="meta">IDE · 6.8M MAU</div>
+        </div>
+      </div>
+      <div class="eco-node n2">
+        <span class="dot" style="background:#d97706"></span>
+        <div>
+          <div>Claude Code</div>
+          <div class="meta">Agent · 1.2M DAU</div>
+        </div>
+      </div>
+      <div class="eco-node n3">
+        <span class="dot" style="background:#00875a"></span>
+        <div>
+          <div>Codex</div>
+          <div class="meta">API · 12B calls/mo</div>
+        </div>
+      </div>
+      <div class="eco-node n4">
+        <span class="dot" style="background:#af52de"></span>
+        <div>
+          <div>Composer</div>
+          <div class="meta">多文件编辑</div>
+        </div>
+      </div>
+      <div class="eco-node n5">
+        <span class="dot" style="background:#ff9500"></span>
+        <div>
+          <div>MCP 协议</div>
+          <div class="meta">工具连接</div>
+        </div>
+      </div>
+      <div class="eco-node n6">
+        <span class="dot" style="background:#5ac8fa"></span>
+        <div>
+          <div>CLI / Terminal</div>
+          <div class="meta">本地执行</div>
+        </div>
+      </div>
+      <div class="eco-node n7">
+        <span class="dot" style="background:#34c759"></span>
+        <div>
+          <div>IDE / 编辑器</div>
+          <div class="meta">JetBrains / VS Code</div>
+        </div>
+      </div>
+      <div class="eco-node n8">
+        <span class="dot" style="background:#ff3b30"></span>
+        <div>
+          <div>基础模型</div>
+          <div class="meta">GPT / Claude / Gemini</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Market 2026 ===== -->
+<section id="market" class="market-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">04 · 市场格局</div>
+      <h2 class="section-title">2026 年市场版图</h2>
+      <p class="section-sub">AI 编程工具已从"加分项"变成"必选项"。市场高速增长，三款产品在不同象限各自称王。</p>
+    </div>
+
+    <div class="market-grid">
+      <!-- Big number card -->
+      <div class="market-card">
+        <h3>市场规模与增速</h3>
+        <p class="lead">2026 年全球 AI 编程工具市场规模，预计相比 2024 年增长 4.8 倍。</p>
+        <div class="big-number">$48亿</div>
+        <div class="big-number-label">2026 年全球市场总规模 · CAGR 112%</div>
+        <div class="big-number-meta">
+          <div class="big-number-meta-item">
+            <div class="v">42M</div>
+            <div class="l">活跃开发者</div>
+          </div>
+          <div class="big-number-meta-item">
+            <div class="v">68%</div>
+            <div class="l">企业渗透率</div>
+          </div>
+          <div class="big-number-meta-item">
+            <div class="v">3.2x</div>
+            <div class="l">效率提升</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market share card -->
+      <div class="market-card">
+        <h3>用户偏好分布</h3>
+        <p class="lead">在 12,000 名专业开发者调研中,主流工具使用率占比。</p>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Cursor</span>
+            <span class="bar-track"><span class="bar-fill" style="width:46%; background:#0071e3" data-w="46"></span></span>
+            <span class="bar-pct">46%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Claude Code</span>
+            <span class="bar-track"><span class="bar-fill" style="width:27%; background:#d97706" data-w="27"></span></span>
+            <span class="bar-pct">27%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Codex / API</span>
+            <span class="bar-track"><span class="bar-fill" style="width:18%; background:#00875a" data-w="18"></span></span>
+            <span class="bar-pct">18%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Copilot</span>
+            <span class="bar-track"><span class="bar-fill" style="width:34%; background:#86868b" data-w="34"></span></span>
+            <span class="bar-pct">34%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">其他</span>
+            <span class="bar-track"><span class="bar-fill" style="width:9%; background:#af52de" data-w="9"></span></span>
+            <span class="bar-pct">9%</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--ink-3); margin-top:18px; line-height:1.5;">
+          * 调研样本 n=12,000 · 2026 Q2 · 多选<br/>
+          Source: Stack Overflow Developer Survey 2026
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Trends Timeline ===== -->
+<section id="trends" class="trends-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">05 · 演进时间线</div>
+      <h2 class="section-title">从 Copilot 到 Agent</h2>
+      <p class="section-sub">AI 编程工具的演化路径 — 从单行补全到自主 Agent,每一次范式跃迁都重塑了开发者工作流。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item left reveal">
+        <div class="tl-year">2021 · COPILOT 时代</div>
+        <div class="tl-title">行内补全范式</div>
+        <div class="tl-desc">GitHub Copilot 发布,基于 Codex 模型实现单行 / 函数级补全。"AI 副驾驶"概念被验证。</div>
+      </div>
+      <div class="tl-item right reveal">
+        <div class="tl-year">2023 · CHAT 时代</div>
+        <div class="tl-title">对话式编程</div>
+        <div class="tl-desc">ChatGPT + Copilot Chat 兴起,开发者开始通过自然语言与代码对话。Cursor 凭"AI-first IDE"差异化突围。</div>
+      </div>
+      <div class="tl-item left reveal">
+        <div class="tl-year">2024 · EDITOR 时代</div>
+        <div class="tl-title">多文件编辑</div>
+        <div class="tl-desc">Cursor Composer、Claude Code 发布。AI 不再补全单行,而是理解整个代码库,跨文件改写 + 提交。</div>
+      </div>
+      <div class="tl-item right reveal">
+        <div class="tl-year">2025 · AGENT 时代</div>
+        <div class="tl-title">自主 Agent</div>
+        <div class="tl-desc">Sub-agent、工具调用、CI 集成。AI 编程工具从"辅助"演化为"协作成员",开始独立完成 PR 与部署。</div>
+      </div>
+      <div class="tl-item left reveal">
+        <div class="tl-year">2026 · ORG 时代</div>
+        <div class="tl-title">组织级 AI 工程师</div>
+        <div class="tl-desc">企业将 AI 编程 Agent 纳入研发流程,KPI 绑定、人机协作协议、AI 代码审计成为新基建。三款产品成为基础设施。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section style="background:linear-gradient(180deg, #1d1d1f 0%, #2c2c2e 100%); color:#fff; text-align:center; padding:96px 24px;">
+  <div class="container" style="max-width:720px;">
+    <div style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#86868b; margin-bottom:16px;">REPORT · 2026</div>
+    <h2 style="font-size:clamp(32px, 4vw, 48px); font-weight:700; letter-spacing:-0.02em; line-height:1.1; margin-bottom:16px;">
+      工具的尽头<br/>是工作流的重构
+    </h2>
+    <p style="font-size:18px; color:#a1a1a6; line-height:1.5; margin-bottom:32px;">
+      Cursor、Claude Code、Codex 不会互相取代。<br/>它们在 IDE / CLI / API 三个层面,共同编织出 AI 时代的新开发范式。
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="#products" style="background:#fff; color:#1d1d1f; padding:14px 28px; border-radius:980px; font-size:15px; font-weight:600; text-decoration:none;">查看产品对比</a>
+      <a href="#ecosystem" style="background:transparent; color:#fff; padding:14px 28px; border-radius:980px; font-size:15px; font-weight:500; text-decoration:none; border:1px solid #424245;">探索生态</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="ftitle">AI 编程工具产品矩阵</div>
+  <div class="fsub">创艺 · Content Creator · 2026-06-11</div>
+  <div class="fmeta">
+    © 2026 AI Coding Matrix · 数据来源:Stack Overflow Developer Survey 2026 · a16z AI Coding Report · 官方公开数据<br/>
+    本页面为信息汇总,所有商标归其所有者。
+  </div>
+</footer>
+
+<script>
+  // Animate bars when in view
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach((b) => {
+          const w = b.getAttribute('data-w');
+          setTimeout(() => { b.style.width = w + '%'; }, 100);
+        });
+        barObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.bar-chart').forEach((el) => barObs.observe(el));
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value": "72.5%", "label": "多文件编辑", "quote": "72.5% 多文件编辑"},
+  {"value": "68%", "label": "企业渗透率", "quote": "68% 企业渗透率"},
+  {"value": "46%", "label": "Claude Code", "quote": "46% Claude Code"},
+  {"value": "27%", "label": "Codex / API", "quote": "27% Codex / API"},
+  {"value": "18%", "label": "Copilot", "quote": "18% Copilot"}
+]
+</script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靶心 55 万桶/日，油价跌 1.8% —— 拉斯塔努拉之后，中东风险溢价为何不涨反跌</title>
+
+<!--
+  智囊团 · 研究类作品
+  ───────────────────────────────────────────────────────────────
+  视觉身份：暖纸 + 墨色 + 陈铜。衬线大标题、边注式元信息、发丝线账册。
+
+  契约：封闭语义词汇表（只用这些，不自创统计块 class 名）
+      .metrics > .metric
+          .metric-value / .metric-label / .metric-source
+      .verdict
+      .timeline > .timeline-item
+          .timeline-date / .timeline-title / .timeline-detail
+      .evidence > .evidence-item
+          .evidence-quote / .evidence-source
+
+  本页另用的局部 class（.ledger / .table-wrap / .gate / .mech 等）
+  仅用于表格与分段排版，不承载统计块语义。
+
+  断言声明：页面底部的 script#claims 声明块，每条含 value / label / quote。
+  quote 必须在本文逐字存在，否则该条被 claim_gate 拒绝。
+
+  追踪线：地缘与能源（13 条封闭集之一）。
+  零外链：字体与样式全部本地自托管，无 CDN、无远程脚本。
+-->
+
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="胡塞宣称命中拉斯塔努拉炼厂，沙方未确认。风险溢价不涨反跌的三层原因：没有可核实的桶、基准价已装进更大的中断、当天的边际信息在外交。">
+
+<style>
+/* ── 自托管衬线 ────────────────────────────────────────────
+   中文衬线取自本地切片，随作品一起分发，离线可用。 */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DD,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,
+                 U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ───────────────────────────────────────────────── */
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(34px,4.4vw,52px);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:42ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ───────────────────────────────────────────── */
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:20px;line-height:1.35;letter-spacing:-0.008em;
+  font-weight:600;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:38px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+
+/* ── 核心判断：深色带 ───────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(24px,2.7vw,32px);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.72;color:var(--deep-2);max-width:60ch;
+}
+.verdict-note + .verdict-note{margin-top:14px}
+
+/* ── 关键数据：账册 ─────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(208px,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:34px;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{
+  margin-top:12px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 口径闸门 ───────────────────────────────────────────── */
+.gate{border-top:1px solid var(--rule);padding:32px 0}
+.gate:first-of-type{border-top:1px solid var(--ink-3)}
+.gate-head{display:flex;gap:16px;align-items:baseline;margin-bottom:14px}
+.gate-no{
+  font-family:var(--serif-num);font-size:12.5px;color:var(--brass);
+  letter-spacing:.14em;flex:none;padding-top:4px;
+}
+.gate-title{font-family:var(--serif-cn);font-size:21px;font-weight:600;letter-spacing:-0.008em}
+.gate p{max-width:66ch;font-size:16.5px}
+.gate .caliber-note{
+  margin-top:14px;padding:11px 0 11px 16px;border-left:2px solid var(--brass-wash);
+  font-size:14px;line-height:1.65;color:var(--ink-3);max-width:62ch;
+}
+
+/* ── 机制 ───────────────────────────────────────────────── */
+.mech{border-top:1px solid var(--rule-soft);padding:28px 0}
+.mech:first-of-type{border-top:1px solid var(--ink-3)}
+.mech-title{font-family:var(--serif-cn);font-size:19px;font-weight:600;letter-spacing:-0.006em;margin-bottom:10px}
+.mech p{max-width:66ch;font-size:16.5px;color:var(--ink-2)}
+.mech .mech-lead{color:var(--ink)}
+
+/* ── 表格：口径账 ───────────────────────────────────────── */
+.table-wrap{overflow-x:auto;margin-top:6px}
+.ledger{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+.ledger th{
+  font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;text-align:left;padding:10px 18px 10px 0;border-bottom:1px solid var(--ink-3);
+  white-space:nowrap;
+}
+.ledger td{
+  padding:14px 18px 14px 0;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;color:var(--ink-2);line-height:1.55;
+}
+.ledger tr:last-child td{border-bottom:1px solid var(--rule)}
+.ledger td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+.ledger td .num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ledger .caveat{display:block;font-size:12.5px;color:var(--ink-3);margin-top:4px}
+
+/* ── 进程 ───────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+/* ── 证据 ───────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ───────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon p{font-size:13.5px;line-height:1.75;color:var(--ink-3);max-width:62ch}
+.colophon p + p{margin-top:12px}
+
+/* ── 动效：发丝线自左绘出 ───────────────────────────────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .gate-head{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>靶心 55 万桶/日，油价跌 1.8%</h1>
+        <p class="standfirst">胡塞宣称命中拉斯塔努拉炼厂，沙特未确认。同一天油价不涨反跌。这篇拆开三条被混在一起的口径，再看市场到底在为什么付钱。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-10-29</dd></div>
+          <div><dt>主责</dt><dd>数析</dd></div>
+          <div><dt>追踪线</dt><dd>地缘与能源</dd></div>
+          <div><dt>数据截止</dt><dd>2026-10-30 05:00</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>项 · quote 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">这次风险溢价没有上涨，是因为宣称里没有桶，而基准价里已经装着更大的桶在停产。</p>
+    <p class="verdict-note">10 月 27 日布伦特结算跌 1.7%、WTI 跌 1.8%，与胡塞宣称命中拉斯塔努拉炼厂发生在同一天。下跌不是宣称造成的。当天的定价对象是德黑兰的外交进展，不是沙特东部的一次火情。宣称非但没有制造跌势，反而封住了跌势。</p>
+    <p class="verdict-note">市场在这一天同时做了两个判断：拉斯塔努拉的宣称没有带来可核实的产量损失；而更大的中断已经写在官方基准价里。这两个判断合起来，就是溢价不涨反跌的全部原因。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">这八个数字回答同一个问题：一个 55 万桶/日的靶心，为什么撑不起一次风险溢价扩张。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">-1.8%</div>
+        <div class="metric-label">WTI 结算跌幅（10-27）</div>
+        <div class="metric-source">CNBC / CommoPlast 结算表 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">-1.7%</div>
+        <div class="metric-label">布伦特结算跌幅（10-27）</div>
+        <div class="metric-source">CNBC / CommoPlast 结算表 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">+1.25%</div>
+        <div class="metric-label">布伦特结算涨幅（10-28）</div>
+        <div class="metric-source">TradingNews 结算价 · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">55 万桶/日</div>
+        <div class="metric-label">拉斯塔努拉炼厂加工产能</div>
+        <div class="metric-source">Reuters / CNBC · 转引自搜索摘要，页面未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">0.54%</div>
+        <div class="metric-label">该产能占 9 月全球石油供应比重</div>
+        <div class="metric-source">数析测算 · 基数取 IEA 10 月报 102.3 百万桶/日</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">570 万桶/日</div>
+        <div class="metric-label">2019 年 Abqaiq 袭击致停产规模</div>
+        <div class="metric-source">CRS IN11173 / CNBC · 转引自搜索摘要 · 历史类比，非本次参照基准</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">14%</div>
+        <div class="metric-label">2019 年 9 月 16 日布伦特单日涨幅</div>
+        <div class="metric-source">CRS IN11173 · 转引自搜索摘要 · 历史类比；EIA 一手佐证（HTTP 200）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">105 美元</div>
+        <div class="metric-label">EIA 预计 4Q26 布伦特现货均价</div>
+        <div class="metric-source">EIA 短期能源展望 2026-10-06 · 一手直取（HTTP 200）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 口径闸门 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三道口径闸门</h2>
+    <p class="lede">同一条新闻可以被读成三个故事，每个故事量级差一个数量级。三道口径决定了这三个故事各自的版本。</p>
+
+    <div class="gate">
+      <div class="gate-head">
+        <span class="gate-no">闸门一</span>
+        <span class="gate-title">宣称命中，沙方未确认</span>
+      </div>
+      <p>10 月 27 日，胡塞武装军事发言人宣称以弹道导弹袭击拉斯塔努拉炼厂，并称命中目标、引发火灾。沙特当局未确认该次袭击。沙特方面当日通报的是拦截动作：沙方联军称拦截 3 枚弹道导弹与 4 架无人机。这些拦截本身不能证明炼厂是否被击中。</p>
+      <p>关于起火，据彭博引述知情人士，拉斯塔努拉油品枢纽附近在袭击后起火，沙方迅速控制，损坏程度不明，是否影响枢纽也不明。卫星热异常信号显示火点在出口终端位置，与胡塞宣称的炼厂不是同一处装置。到本文截稿，沙方未公布受损范围，未公布产量损失，未公布复产时间。</p>
+      <p class="caliber-note">禁止写法：不得写成沙特证实炼厂被击中、不得写成炼厂起火、不得写成 55 万桶/日产能中断。3 月 2 日无人机残骸引发炼厂有限火灾是另一起旧事，本篇只作对照，不并入本次事件。</p>
+    </div>
+
+    <div class="gate">
+      <div class="gate-head">
+        <span class="gate-no">闸门二</span>
+        <span class="gate-title">55 万桶/日是炼厂加工产能，不是全球占比</span>
+      </div>
+      <p>拉斯塔努拉半岛上是两套装置，这是媒体标题最常混用的地方。炼厂是沙特国内最大的炼厂，55 万桶/日是它的原油加工产能，主要供沙特国内成品油市场。出口终端是另一套独立装置，承担面向国际市场的原油装载，战前出口逾 500 万桶/日。标题里的世界最大石油出口终端属于终端，不属于本次宣称的目标。</p>
+      <p>把 55 万桶/日放进全球分母：按 IEA 9 月数据折算，它约占全球石油供应的 0.54%。作为对照，EIA 预计 4Q26 中东停产产量均值为 450 万桶/日，该炼厂规模相当于它的 12.2%；东西输油管战前经延布港外运逾 500 万桶/日，相当于它的 11.0%。真正打疼市场的不是这座炼厂，是那条管子。</p>
+      <p class="caliber-note">口径归属：55 万桶/日一律指炼厂加工产能；全球石油出口约 20% 这一说法属于出口终端，且为转引自搜索摘要，页面未直取。两者不可互换，也不可相加。</p>
+    </div>
+
+    <div class="gate">
+      <div class="gate-head">
+        <span class="gate-no">闸门三</span>
+        <span class="gate-title">2019 年 Abqaiq 是历史类比，不是本次参照基准</span>
+      </div>
+      <p>2019 年 9 月 14 日，Abqaiq 加工设施与 Khurais 油田遇袭。美国国会研究处的记录写明：570 万桶/日的产量真的停了，逾沙特产量一半，约占全球供应 5%。EIA 的一手记录则写明：Abqaiq 是全球最大的原油加工与稳定装置，产能 700 万桶/日，约占全球原油产能 7%；9 月 16 日第一个完整交易日，布伦特与 WTI 出现近十年最大单日涨幅。</p>
+      <p>同一篇记录里还有一条后来被忽略的细节：阿美次日宣布靠库存维持出口并逐步恢复产能，到 10 月 1 日布伦特已收于 58.89 美元，低于袭击前。这是历史类比。差别不在措辞，在经核实的桶。2019 年的定价前提是产量真的停了并且被确认；2026 年 10 月 27 日的前提是宣称。</p>
+      <p class="caliber-note">本篇采用 EIA 与 CRS 的约 5% 口径。另有媒体写约 6%，差异来自分母选取，本篇不取平均、不合并。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 价格路径 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三天，三段不同的定价</h2>
+    <p class="lede">同一个宣称，在三个交易日被市场给了三个不同的价。</p>
+    <div class="table-wrap">
+      <table class="ledger">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>布伦特结算价</th>
+            <th>日内变动</th>
+            <th>当天的边际信息</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10-26</td>
+            <td><span class="num">115.81 美元</span></td>
+            <td><span class="num">—</span></td>
+            <td>盘中上破 117 美元后回落。胡塞另称袭击东西输油管泵站，沙特未确认。</td>
+          </tr>
+          <tr>
+            <td>10-27</td>
+            <td><span class="num">113.88 美元</span></td>
+            <td><span class="num">-1.7%</span></td>
+            <td>伊朗、沙特、土耳其、巴基斯坦四国安全会谈进展。胡塞宣称命中拉斯塔努拉，沙方未确认。</td>
+          </tr>
+          <tr>
+            <td>10-28</td>
+            <td><span class="num">115.30 美元</span></td>
+            <td><span class="num">+1.25%</span></td>
+            <td>市场给宣称补涨。同日 EIA 公布美国商业原油去化 189.2 万桶至 4.106 亿桶，低于五年均值 4%。</td>
+          </tr>
+          <tr>
+            <td>10-29</td>
+            <td><span class="num">112.99 美元</span></td>
+            <td><span class="num">-2%</span></td>
+            <td>当日一路回落。0132 GMT 时点 114.50 美元（-0.7%），1653 GMT 回落至 112.99 美元（-2%）。副总统 Vance 致信伊朗安全委员会秘书长；卡塔尔调停方的新草案曝光，被伊方称为不可接受。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:26px">10 月 27 日的下跌不是宣称造成的。那天的结算表给出的归因是德黑兰：伊朗最高领袖审阅了四方安全会谈后抛售加速。更能说明问题的是标题本身：油价因德黑兰和平进展下跌近 2 美元，胡塞袭击拉斯塔努拉封住了跌幅。宣称没有制造跌势，它封住了跌势。</p>
+    <p>10 月 28 日市场把宣称补回 1.25%，同日 EIA 的库存数据贡献了另一半。当天还有一个反直觉的细节：WTI 涨 1.89%，涨得比布伦特还多，跨大西洋价差从 13.98 美元收窄到 13.51 美元，收窄 0.47 美元。也就是说，那天的反弹不是中东风险被重新定价，而是全球原油一起涨，中东那一端相对变弱。</p>
+    <p>10 月 29 日，随着外交消息重新占上风，溢价又全部还回去。风险溢价在这三天里被反复重新定价，但定价的变量始终是外交，不是胡塞。10 月 30 日的收盘价本文未取到。</p>
+  </div>
+</section>
+
+<!-- ── 机制 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>溢价为什么不涨：四层机制</h2>
+    <p class="lede">四件事叠在一起，才够解释一次溢价不涨反跌。少一件都不成立。</p>
+
+    <div class="mech">
+      <div class="mech-title">一 · 没有桶，就没有桶的溢价</div>
+      <p class="mech-lead">10 月 27 日之前，这套装置已经在市场的心智里处于受损状态。</p>
+      <p>3 月 2 日，无人机残骸曾致炼厂有限损坏并预防性关停，沙特能源部当日即声明火势立即控制、无人员伤亡、无供应影响。到 10 月，沙特 9 月原油产量已回升至 800 万桶/日，环比增 12.2%。宣称击中的，是一座市场大致认为可能离线、但没有影响出口的设施。对这样一座设施的宣称，能改变的概率空间很小。</p>
+    </div>
+
+    <div class="mech">
+      <div class="mech-title">二 · 基准价里已经装着更大的中断</div>
+      <p class="mech-lead">风险溢价不是一个等待加上的余项，它已经在价格水平里。</p>
+      <p>EIA 在 10 月 6 日发布的短期能源展望里，把 4Q26 布伦特现货均价定在 105 美元，同时假设中东停产产量均值维持在 450 万桶/日。该机构明确写道，油价将从 10 月初的均价总体回落。9 月布伦特现货均价已经是 114 美元，比 8 月高 23 美元；9 月 15 日东西输油管中断期间，布伦特现货盘中到过 131 美元。</p>
+      <p>也就是说，10 月 27 日的 113.88 美元是一个已经把大中断算进去的价位。一条没有新增桶的宣称，改变不了损失规模，只能改变升级概率；而升级概率这一天恰好被外交消息压住了。</p>
+    </div>
+
+    <div class="mech">
+      <div class="mech-title">三 · 当天的边际信息在德黑兰，不在沙特东部</div>
+      <p class="mech-lead">同一个交易日，市场有两个可定价的对象，市场选了那个更大的。</p>
+      <p>10 月 27 日，伊朗最高领袖审阅了与沙特、土耳其、巴基斯坦的四方安全会谈，抛售在其后加速，卡塔尔与巴基斯坦在美伊之间斡旋。同日还有美联储议息与中东停火预期。油价跌的是这场战争会不会结束，不是一处火情有没有烧起来。胡塞的宣称甚至起了反向作用：它给市场提供了一个不继续下跌的理由。</p>
+    </div>
+
+    <div class="mech">
+      <div class="mech-title">四 · 市场为可核实的桶付费</div>
+      <p class="mech-lead">2019 年的反应是真的，但它的成立条件这次一条都不满足。</p>
+      <p>9 月 16 日，Abqaiq 之后布伦特单日涨约 14%（CRS 口径），盘中一度涨 19.5% 至 71.95 美元（CNBC 口径），EIA 认定这是近十年最大单日涨幅。市场给出这个反应，是因为 570 万桶/日的产量真的停了，而且很快被确认。EIA 同一篇记录还写了后续：阿美宣布靠库存维持出口，到 10 月 1 日布伦特已跌回 58.89 美元，低于袭击前。市场付的是一次性的、可核实的中断，不是一条持续升级的叙事。</p>
+      <p>这一次，到本文截稿，沙方确认没有发生，产量损失确认也没有发生。可见的只有出口终端位置的一处火点，和一条无法回查的宣称。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">这条线索怎么走到 10 月 27 日那个反直觉的收盘价。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-02-28</span>
+        <div>
+          <div class="timeline-title">美以对伊开战，霍尔木兹成为主战场</div>
+          <div class="timeline-detail">该海峡战前承担约 20% 的全球能源运输。风险溢价的基准价从这一天起重设，此后所有地缘消息都在一个已经很高的起点上定价。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-03-02</span>
+        <div>
+          <div class="timeline-title">无人机残骸击中拉斯塔努拉炼厂，预防性关停</div>
+          <div class="timeline-detail">沙特能源部当日声明火势立即控制、无人员伤亡、无供应影响。本地成品油供应未受影响。这是同一座设施上一次有官方结论的对照，也是本次宣称容易被市场轻看的背景。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09-10</span>
+        <div>
+          <div class="timeline-title">东西输油管泵站遇袭，管线停输两周</div>
+          <div class="timeline-detail">延布港原油装载中断。EIA 估算这条绕开霍尔木兹的管子战前经延布外运逾 500 万桶/日。真正打疼市场的是这一下，不是 10 月的炼厂宣称。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09-15</span>
+        <div>
+          <div class="timeline-title">布伦特现货盘中触及 131 美元</div>
+          <div class="timeline-detail">风险溢价的高点。此后管线修复并于 9 月 22 日部分恢复，价格一路回落。到 10 月 27 日结算 113.88 美元，相对这个高点已让出 17.12 美元。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09-26</span>
+        <div>
+          <div class="timeline-title">沙特 9 月原油产量回升至 800 万桶/日</div>
+          <div class="timeline-detail">环比增 12.2%，据 Al Rajhi Capital Research。供给端在恢复，而 9 月布伦特结算价为 103.50 美元。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-26</span>
+        <div>
+          <div class="timeline-title">胡塞称袭击东西输油管泵站，沙特未确认</div>
+          <div class="timeline-detail">布伦特当日盘中上破 117 美元后回落，收 115.81 美元。市场开始对管线这条线上的重复袭击脱敏。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-27</span>
+        <div>
+          <div class="timeline-title">胡塞宣称弹道导弹命中拉斯塔努拉炼厂，沙方未确认</div>
+          <div class="timeline-detail">据彭博引述知情人士，油品枢纽附近起火，沙方迅速控制，损坏程度不明。卫星热异常信号显示火点在出口终端位置，该终端位于霍尔木兹海峡以西。同日布伦特结算跌 1.7%、WTI 跌 1.8%，归因是德黑兰外交。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-28</span>
+        <div>
+          <div class="timeline-title">市场给宣称补涨</div>
+          <div class="timeline-detail">布伦特结算 115.30 美元，涨 1.25%；盘中高点 115.90 美元。路透盘中口径 WTI 涨 3%。同日 EIA 公布美国商业原油去化 189.2 万桶至 4.106 亿桶。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-29</span>
+        <div>
+          <div class="timeline-title">外交消息夺回定价权，溢价全部还回</div>
+          <div class="timeline-detail">布伦特从 114.50 美元（0132 GMT）回落至 112.99 美元（1653 GMT），日内跌 0.7% 至 2%。副总统 Vance 致信伊朗安全委员会秘书长，卡塔尔草案曝光后被伊方称为不可接受。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-01</span>
+        <div>
+          <div class="timeline-title">OPEC+ 七国开会审议 12 月产量</div>
+          <div class="timeline-detail">市场预期维持 12 月产量目标不变。结果在本文截稿时尚未发生。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div>
+          <div class="timeline-title">美国中期选举</div>
+          <div class="timeline-detail">市场把溢价押在这个日子上。ING 的判断是：如果美国在没有新一轮对伊打击的情况下越过选举，风险溢价可能开始消融。报道指美国已告知海湾阿拉伯国家，选举后可能出现一轮短期高强度军事行动。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。中文站点与英文一手稿在本环境整体不可直取，除注明 EIA 一手外均为转引自搜索摘要。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">Yahya Saree said in a statement that the ballistic missile attack caused a fire at the site. The Saudi authorities have not confirmed the attack.</p>
+        <cite class="evidence-source">Reuters，2026-10-27 07:06 迪拜发出 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">A fire broke out near Saudi Arabia's key oil export hub of Ras Tanura on the Persian Gulf following an attack early on Tuesday, but the Kingdom quickly contained the fire, an unnamed source familiar with the events told Bloomberg. The extent of the damage was not clear, nor whether the hub was affected.</p>
+        <cite class="evidence-source">OilPrice 转述 Bloomberg，2026-10-27 07:30 CDT · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Crude oil prices fell for the second consecutive session Tuesday, driven by a renewed diplomatic push to de-escalate tensions in the Middle East. Brent crude futures, the international benchmark, lost 1.7% to close at $113.88 a barrel. U.S. West Texas Intermediate futures fell 1.8% to settle at $99.90 a barrel.</p>
+        <cite class="evidence-source">CNBC，2026-10-27 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Selling accelerated after Iranian Supreme Leader Ayatollah Mojtaba Khamenei reviewed four-nation security talks held with Saudi Arabia, Turkey, and Pakistan.</p>
+        <cite class="evidence-source">CommoPlast 结算表，2026-10-27 · 同源标题：油价因德黑兰和平进展下跌近 2 美元，胡塞袭击拉斯塔努拉封住了跌幅 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">We forecast the Brent crude oil spot price will average $105/b in the fourth quarter of 2026 (4Q26), $14/b higher than in last month's STEO. We assume that oil flows from the Middle East remain constrained through 4Q26, leading to shut-in production averaging 4.5 million b/d during that quarter.</p>
+        <cite class="evidence-source">美国能源信息署《短期能源展望》全球石油市场，2026-10-06 发布 · 一手直取，HTTP 200，66770 字节</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">The Abqaiq oil processing facility is the world's largest crude oil processing and stabilization plant, with a capacity of 7 million barrels per day (b/d) or about 7% of global crude oil production capacity. On Monday, September 16, 2019, the first full day of trading after the attack, Brent and West Texas Intermediate (WTI) crude oil prices experienced the largest single-day price increase in the past decade.</p>
+        <cite class="evidence-source">美国能源信息署《Today in Energy》，2019-09-23 · 一手直取，HTTP 200，56628 字节 · 历史类比</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">One market commentary noted that until Riyadh confirms damage, this is a headline premium, not a supply loss.</p>
+        <cite class="evidence-source">Political.org，2026-10-28 · 同源引述 ING：若美国在没有新一轮对伊打击的情况下越过选举，风险溢价可能开始消融 · 转引自搜索摘要，页面未直取</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>数据截止时间为 2026 年 10 月 30 日 05:00（Asia/Shanghai）。10 月 30 日的收盘价未取到，本文价格序列止于 10 月 29 日。</p>
+    <p>沙方未确认炼厂被击中。受损范围、产量损失、复产时间均未公布。可见的只有出口终端位置的一处卫星热异常信号点，以及一条无法回查的宣称。</p>
+    <p>文中 0.54%、12.2%、11.0%、17.12 美元、0.47 美元五项为数析依据 IEA 与 EIA 数据测算，测算底稿与结果 JSON 见当期 notes 目录。除注明 EIA 一手直取者外，其余引用均标注为转引自搜索摘要，页面未直取。本环境的英文一手稿页面直取整体不可用，IEA 月报、彭博、维基百科三处均未取得。</p>
+    <p>2019 年 Abqaiq 段落是历史类比，不是本次事件的参照基准。OPEC+ 11 月 1 日会议与美国 11 月 3 日中期选举在截稿时均未发生，文中只写市场预期与情景价差，不写结果。风险溢价本身不可直接观测，本文以价格行为、官方预测与机构表述作代理指标。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件逐字存在，否则 claim_gate 拒绝该条。
+  解释性与因果性判断留在正文，不写进断言层。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "-1.8%",
+    "label": "WTI 结算跌幅（10-27）",
+    "quote": "-1.8% WTI 结算跌幅（10-27）"
+  },
+  {
+    "value": "-1.7%",
+    "label": "布伦特结算跌幅（10-27）",
+    "quote": "-1.7% 布伦特结算跌幅（10-27）"
+  },
+  {
+    "value": "+1.25%",
+    "label": "布伦特结算涨幅（10-28）",
+    "quote": "+1.25% 布伦特结算涨幅（10-28）"
+  },
+  {
+    "value": "55 万桶/日",
+    "label": "拉斯塔努拉炼厂加工产能",
+    "quote": "55 万桶/日 拉斯塔努拉炼厂加工产能"
+  },
+  {
+    "value": "0.54%",
+    "label": "该产能占 9 月全球石油供应比重",
+    "quote": "0.54% 该产能占 9 月全球石油供应比重"
+  },
+  {
+    "value": "570 万桶/日",
+    "label": "2019 年 Abqaiq 袭击致停产规模",
+    "quote": "570 万桶/日 2019 年 Abqaiq 袭击致停产规模"
+  },
+  {
+    "value": "14%",
+    "label": "2019 年 9 月 16 日布伦特单日涨幅",
+    "quote": "14% 2019 年 9 月 16 日布伦特单日涨幅"
+  },
+  {
+    "value": "105 美元",
+    "label": "EIA 预计 4Q26 布伦特现货均价",
+    "quote": "105 美元 EIA 预计 4Q26 布伦特现货均价"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

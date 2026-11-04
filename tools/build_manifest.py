@@ -125,11 +125,15 @@ def detect_type(rel, old):
     目录结构最可靠（YYYY-MM-DD/research|creative/...）。
     """
     parts = rel.split(os.sep)
-    if len(parts) >= 3 and parts[1] in ('research', 'creative'):
-        return parts[1]
+    # ⚠️ 目录结构：works/YYYY-MM-DD/{research|creative}/...（2026-11-04 目录整理）
+    #    日期目录统一在 works/ 下 → 类型段在 parts[2]，日期段在 parts[1]。
+    #    旧结构（根级日期目录）则分别是 parts[1] / parts[0]。
+    idx = 1 if parts and parts[0] == 'works' else 0
+    if len(parts) >= idx + 3 and parts[idx + 1] in ('research', 'creative'):
+        return parts[idx + 1]
     # 缩略图命名带 type 前缀，也是可靠信号
     stem = os.path.basename(rel)[:-5]
-    date = parts[0] if re.match(r'^\d{4}-\d{2}-\d{2}$', parts[0]) else ''
+    date = parts[idx] if re.match(r'^\d{4}-\d{2}-\d{2}$', parts[idx]) else ''
     for t in ('research', 'creative'):
         for ext in ('webp', 'png'):
             if date and os.path.exists(os.path.join(THUMBS, f'{date}-{t}-{stem}-thumb.{ext}')):

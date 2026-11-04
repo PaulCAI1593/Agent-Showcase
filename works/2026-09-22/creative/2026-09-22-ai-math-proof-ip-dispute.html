@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="应用落地">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>当AI证明了数学定理 | 知识产权归属之争</title>
+<style>
+/* ═══════════════════════════════════════════════════════
+   DESIGN SYSTEM — Dark Academic × OpenAI Green × Scholar Blue
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --bg-deep: #0a0e17;
+  --bg-card: #111827;
+  --bg-elevated: #1a2235;
+  --bg-glass: rgba(17,24,39,0.72);
+  --text-primary: #e8ecf4;
+  --text-secondary: #8b95a8;
+  --text-muted: #8a919f;
+  --green-primary: #10a37f;
+  --green-glow: #10a37f40;
+  --green-bright: #34d399;
+  --blue-primary: #4387f6;
+  --blue-glow: #4387f640;
+  --blue-deep: #1e40af;
+  --accent-amber: #f59e0b;
+  --accent-red: #f05151;
+  --accent-purple: #9c74f7;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-glow: rgba(16,163,127,0.3);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --font-display: 'Georgia', 'Noto Serif SC', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--green-primary); border-radius: 3px; }
+
+/* ═══════ NAVIGATION ═══════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,14,23,0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.4s ease;
+}
+.nav.scrolled { background: rgba(10,14,23,0.96); }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--green-primary);
+}
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px; background: var(--green-primary);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--green-bright); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ═══════ HERO ═══════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 120px 48px 80px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,163,127,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(59,130,246,0.08) 0%, transparent 60%),
+    var(--bg-deep);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-particles { position: absolute; inset: 0; pointer-events: none; }
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  max-width: 900px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: 100px;
+  background: rgba(16,163,127,0.1);
+  border: 1px solid rgba(16,163,127,0.25);
+  font-size: 12px; font-weight: 600;
+  color: var(--green-bright);
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 40px;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green-primary);
+  animation:none;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--green-glow); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 8px transparent; }
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700; line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 28px;
+}
+.hero-title .green { color: var(--green-primary); }
+.hero-title .blue { color: var(--blue-primary); }
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 21px);
+  color: var(--text-secondary);
+  max-width: 640px; margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex; gap: 48px; justify-content: center;
+  margin-top: 20px;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-family: var(--font-mono);
+  font-size: 36px; font-weight: 700;
+  color: var(--green-primary);
+  letter-spacing: -1px;
+}
+.hero-stat-label {
+  font-size: 12px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-top: 4px;
+}
+.scroll-indicator {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-muted); font-size: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+.scroll-indicator svg { width: 20px; height: 20px; stroke: var(--text-muted); }
+
+/* ═══════ SECTIONS COMMON ═══════ */
+.section {
+  padding: 120px 48px;
+  position: relative;
+}
+.section-dark { background: var(--bg-deep); }
+.section-light { background: var(--bg-card); }
+.section-gradient {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-card) 50%, var(--bg-deep) 100%);
+}
+.container { max-width: 1100px; margin: 0 auto; }
+.section-header {
+  text-align: center; margin-bottom: 72px;
+}
+.section-label {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green-primary); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700; letter-spacing: -0.8px;
+  line-height: 1.15; margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 17px; color: var(--text-secondary);
+  max-width: 600px; margin: 0 auto; line-height: 1.7;
+}
+
+/* ═══════ NARRATIVE LAYERS ═══════ */
+.narrative-layers {
+  display: grid; gap: 0;
+}
+.layer {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 520px; position: relative;
+  overflow: hidden;
+}
+.layer:nth-child(even) .layer-visual { order: -1; }
+.layer-visual {
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px;
+  position: relative;
+}
+.layer-visual-bg {
+  position: absolute; inset: 0;
+  opacity: 0.15;
+}
+.layer-content {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 60px 72px;
+}
+.layer-number {
+  font-family: var(--font-mono);
+  font-size: 80px; font-weight: 800;
+  opacity: 0.06; position: absolute;
+  top: 24px; left: 32px;
+  line-height: 1;
+}
+.layer-tag {
+  display: inline-flex; align-self: flex-start;
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.layer-tag.tech { background: rgba(16,163,127,0.15); color: var(--green-bright); }
+.layer-tag.ethics { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+.layer-tag.law { background: rgba(139,92,246,0.15); color: var(--accent-purple); }
+.layer h3 {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -0.5px; margin-bottom: 16px;
+  line-height: 1.2;
+}
+.layer p {
+  color: var(--text-secondary); font-size: 15px;
+  line-height: 1.8; margin-bottom: 12px;
+}
+.layer-visual-icon {
+  font-size: 120px; opacity: 0.15;
+  position: relative; z-index: 1;
+}
+
+/* ═══════ TIMELINE ═══════ */
+.timeline-wrapper {
+  position: relative;
+  padding: 0 0 0 60px;
+}
+.timeline-line {
+  position: absolute; left: 28px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--green-primary) 10%,
+    var(--blue-primary) 50%,
+    var(--accent-purple) 90%,
+    transparent 100%
+  );
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 56px 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.timeline-item.visible {
+  opacity: 1; transform: translateY(0);
+}
+.timeline-dot {
+  position: absolute; left: -40px; top: 6px;
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 3px solid var(--bg-deep);
+  z-index: 2;
+}
+.timeline-dot.green { background: var(--green-primary); box-shadow: 0 0 16px var(--green-glow); }
+.timeline-dot.blue { background: var(--blue-primary); box-shadow: 0 0 16px var(--blue-glow); }
+.timeline-dot.amber { background: var(--accent-amber); box-shadow: 0 0 16px rgba(245,158,11,0.3); }
+.timeline-dot.red { background: var(--accent-red); box-shadow: 0 0 16px rgba(239,68,68,0.3); }
+.timeline-dot.purple { background: var(--accent-purple); box-shadow: 0 0 16px rgba(139,92,246,0.3); }
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--text-muted);
+  letter-spacing: 0.5px; margin-bottom: 8px;
+}
+.timeline-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 28px 32px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.timeline-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateX(4px);
+}
+.timeline-card h4 {
+  font-size: 18px; font-weight: 700;
+  margin-bottom: 8px; letter-spacing: -0.3px;
+}
+.timeline-card p {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.7;
+}
+.timeline-card .tag {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 14px; font-weight: 600;
+  margin-top: 12px;
+}
+.tag-discovery { background: rgba(16,163,127,0.15); color: var(--green-bright); }
+.tag-controversy { background: rgba(239,68,68,0.15); color: #f87171; }
+.tag-response { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.tag-legal { background: rgba(139,92,246,0.15); color: #a78bfa; }
+.timeline-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  margin-top: 0;
+}
+.timeline-card.expanded .timeline-detail {
+  max-height: 600px; margin-top: 16px;
+}
+.timeline-detail p {
+  font-size: 13px; line-height: 1.8;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ═══════ IP SIMULATOR ═══════ */
+.simulator {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.sim-header {
+  padding: 32px 40px;
+  background: linear-gradient(135deg, rgba(16,163,127,0.08), rgba(59,130,246,0.08));
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sim-header h3 {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700;
+}
+.sim-header .sim-status {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.sim-header .sim-status .live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-red);
+  animation:none;
+}
+.sim-body { display: grid; grid-template-columns: 320px 1fr; }
+.sim-controls {
+  padding: 32px;
+  border-right: 1px solid var(--border-subtle);
+}
+.sim-control-group { margin-bottom: 28px; }
+.sim-control-group label {
+  display: block;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 10px;
+}
+.sim-select {
+  width: 100%; padding: 10px 14px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px; font-family: var(--font-body);
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6478' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.3s;
+}
+.sim-select:focus {
+  outline: none;
+  border-color: var(--green-primary);
+}
+.sim-select option { background: var(--bg-deep); }
+.sim-slider-container { position: relative; }
+.sim-slider {
+  width: 100%; height: 4px; border-radius: 2px;
+  -webkit-appearance: none; appearance: none;
+  background: var(--bg-deep);
+  outline: none; cursor: pointer;
+}
+.sim-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--green-primary);
+  border: 3px solid var(--bg-elevated);
+  box-shadow: 0 0 12px var(--green-glow);
+  cursor: pointer;
+}
+.sim-slider-labels {
+  display: flex; justify-content: space-between;
+  font-size: 14px; color: var(--text-muted);
+  margin-top: 6px;
+}
+.sim-btn {
+  width: 100%; padding: 14px;
+  background: var(--green-primary);
+  color: #fff; border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+.sim-btn:hover {
+  background: var(--green-bright);
+  box-shadow: 0 4px 24px var(--green-glow);
+}
+.sim-result {
+  padding: 32px 40px;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+.sim-result-title {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.5px; color: var(--green-primary);
+  text-transform: uppercase;
+}
+.sim-ownership-bar {
+  height: 40px; border-radius: var(--radius-sm);
+  overflow: hidden; display: flex;
+  position: relative;
+  background: var(--bg-deep);
+}
+.sim-ownership-segment {
+  height: 100%; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  min-width: 0; overflow: hidden;
+  white-space: nowrap;
+}
+.sim-legend {
+  display: flex; gap: 20px; flex-wrap: wrap;
+}
+.sim-legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-secondary);
+}
+.sim-legend-dot {
+  width: 10px; height: 10px; border-radius: 3px;
+}
+.sim-narrative {
+  background: var(--bg-deep);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  border-left:1px solid var(--green-primary);
+}
+.sim-narrative h4 {
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.sim-narrative p {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.8;
+}
+.sim-actors {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.sim-actor {
+  background: var(--bg-deep);
+  border-radius: var(--radius-sm);
+  padding: 16px; text-align: center;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s;
+}
+.sim-actor.active {
+  border-color: var(--green-primary);
+  box-shadow: 0 0 20px var(--green-glow);
+}
+.sim-actor-icon { font-size: 28px; margin-bottom: 6px; }
+.sim-actor-name {
+  font-size: 12px; font-weight: 700;
+  margin-bottom: 2px;
+}
+.sim-actor-role {
+  font-size: 14px; color: var(--text-muted);
+}
+
+/* ═══════ DATA DASHBOARD ═══════ */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.dash-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.dash-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.dash-card.span-2 { grid-column: span 2; }
+.dash-card.span-3 { grid-column: span 3; }
+.dash-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.dash-card-title {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.5px; color: var(--text-secondary);
+}
+.dash-card-badge {
+  font-size: 14px; font-weight: 700;
+  padding: 3px 8px; border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+.badge-up { background: rgba(16,163,127,0.15); color: var(--green-bright); }
+.badge-alert { background: rgba(239,68,68,0.15); color: #f87171; }
+.badge-info { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.dash-big-num {
+  font-family: var(--font-mono);
+  font-size: 48px; font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.dash-big-num.green { color: var(--green-primary); }
+.dash-big-num.blue { color: var(--blue-primary); }
+.dash-big-num.amber { color: var(--accent-amber); }
+.dash-big-num.red { color: var(--accent-red); }
+.dash-big-num.purple { color: var(--accent-purple); }
+.dash-delta {
+  font-size: 13px; color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.dash-delta strong { color: var(--green-bright); }
+.dash-chart {
+  height: 140px; position: relative;
+}
+.dash-chart canvas { width: 100% !important; height: 100% !important; }
+
+/* Bar chart CSS */
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 100%; padding-top: 10px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar {
+  width: 100%; border-radius: 4px 4px 0 0;
+  transition: height 1s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative; cursor: pointer;
+  min-height: 2px;
+}
+.bar:hover { opacity: 0.85; filter: brightness(1.2); }
+.bar-label { font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+.bar-value {
+  font-size: 14px; font-weight: 700; color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Donut */
+.donut-container {
+  display: flex; align-items: center; gap: 24px;
+}
+.donut-svg { width: 120px; height: 120px; flex-shrink: 0; }
+.donut-legend { display: flex; flex-direction: column; gap: 8px; }
+.donut-legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-secondary);
+}
+.donut-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.donut-legend-val {
+  font-family: var(--font-mono); font-weight: 700;
+  color: var(--text-primary); margin-left: auto;
+}
+
+/* Sparkline */
+.sparkline-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sparkline-row:last-child { border-bottom: none; }
+.sparkline-label {
+  width: 100px; font-size: 12px;
+  color: var(--text-secondary); flex-shrink: 0;
+}
+.sparkline-bar-bg {
+  flex: 1; height: 8px; background: var(--bg-deep);
+  border-radius: 4px; overflow: hidden;
+}
+.sparkline-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.sparkline-val {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 700;
+  width: 48px; text-align: right;
+}
+
+/* ═══════ PARADIGM SECTION ═══════ */
+.paradigm-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.paradigm-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 36px 32px;
+  text-align: center;
+  transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.paradigm-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  transition: height 0.4s;
+}
+.paradigm-card:nth-child(1)::before { background: var(--green-primary); }
+.paradigm-card:nth-child(2)::before { background: var(--blue-primary); }
+.paradigm-card:nth-child(3)::before { background: var(--accent-purple); }
+.paradigm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.paradigm-card:hover::before { height: 4px; }
+.paradigm-icon {
+  font-size: 48px; margin-bottom: 20px;
+  display: block;
+}
+.paradigm-card h4 {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 700;
+  margin-bottom: 12px; letter-spacing: -0.3px;
+}
+.paradigm-card p {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* ═══════ CLOSING QUOTE ═══════ */
+.closing {
+  padding: 120px 48px;
+  text-align: center;
+  position: relative;
+}
+.closing-quote {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+  max-width: 800px; margin: 0 auto 28px;
+}
+.closing-quote .highlight {
+  background:none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color:currentColor;
+  background-clip: text;
+}
+.closing-attr {
+  font-size: 14px; color: var(--text-muted);
+  font-style: italic;
+}
+.closing-meta {
+  margin-top: 48px;
+  display: flex; justify-content: center; gap: 32px;
+  flex-wrap: wrap;
+}
+.closing-meta-item {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ═══════ FOOTER ═══════ */
+.footer {
+  padding: 40px 48px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex; justify-content: space-between;
+  align-items: center;
+}
+.footer-left { font-size: 12px; color: var(--text-muted); }
+.footer-right { font-size: 12px; color: var(--text-muted); }
+.footer-right a { color: var(--green-primary); text-decoration: none; }
+
+/* ═══════ ANIMATIONS ═══════ */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in-left {
+  opacity: 0; transform: translateX(-30px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in-left.visible { opacity: 1; transform: translateX(0); }
+.fade-in-right {
+  opacity: 0; transform: translateX(30px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in-right.visible { opacity: 1; transform: translateX(0); }
+.counter { font-variant-numeric: tabular-nums; }
+
+/* ═══════ RESPONSIVE ═══════ */
+@media (max-width: 900px) {
+  .layer { grid-template-columns: 1fr; }
+  .layer:nth-child(even) .layer-visual { order: 0; }
+  .layer-visual { min-height: 200px; padding: 40px; }
+  .layer-content { padding: 32px 24px; }
+  .sim-body { grid-template-columns: 1fr; }
+  .sim-controls { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+  .dashboard { grid-template-columns: 1fr; }
+  .dash-card.span-2, .dash-card.span-3 { grid-column: span 1; }
+  .paradigm-cards { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; gap: 24px; }
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .section { padding: 80px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .sim-actors { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-09-22</span><span class="sb-sep">/</span><span class="sb-beat">应用落地</span><span class="sb-sep">/</span><span class="sb-cnt">21 件 / 2026-09</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">8 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ═══════ ANIMATIONS ═══════ */ .fade-in{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+nav.nav > div.nav-links > a::after{width:1px !important}
+div.timeline-wrapper > div.timeline-item > div.timeline-dot{box-shadow:0 2px 10px rgba(0,0,0,0.25) !important}
+div.timeline-wrapper > div.timeline-item > div.timeline-dot{border-top-width:1px !important}
+div.container > div.paradigm-cards > div.paradigm-card::before{width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">AI × IP <span>/ 知识产权归属之争</span></div>
+  <div class="nav-links">
+    <a href="#narrative">叙事层次</a>
+    <a href="#timeline">事件时间线</a>
+    <a href="#simulator">归属模拟器</a>
+    <a href="#dashboard">数据全景</a>
+    <a href="#paradigm">新范式</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <canvas class="hero-particles" id="heroParticles"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span>2026 · 千禧年之问的新篇章</span>
+    </div>
+    <h1 class="hero-title">
+      当AI辅助证明了<span class="green">数学定理</span><br>
+      谁才是真正的<span class="blue">"发明者"</span>？
+    </h1>
+    <p class="hero-subtitle">
+      2026年9月，OpenAI宣布AI模型攻克Navier-Stokes千禧年难题。
+      25位菲尔兹奖得主联名抗议。一场关于数学证明归属的风暴席卷全球。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num counter" data-target="25">0</div>
+        <div class="hero-stat-label">菲尔兹奖得主联名</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num counter" data-target="550" data-suffix="+">0</div>
+        <div class="hero-stat-label">数学家签署莱顿宣言</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num counter" data-target="10000" data-suffix="+">0</div>
+        <div class="hero-stat-label">AI代理参与证明</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>向下探索</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════ NARRATIVE LAYERS ═══════ -->
+<section class="section section-gradient" id="narrative">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Narrative Layers · 叙事层次</div>
+      <h2 class="section-title">三层解构：从代码到法庭</h2>
+      <p class="section-desc">AI证明数学定理不只是技术突破，更是一场跨越学术、伦理与法律的范式革命</p>
+    </div>
+
+    <div class="narrative-layers">
+      <!-- Layer 1: Technical -->
+      <div class="layer fade-in">
+        <div class="layer-content">
+          <span class="layer-number">01</span>
+          <span class="layer-tag tech">🤖 技术实现</span>
+          <h3>10,000个AI代理<br>490万条消息<br>130小时运算</h3>
+          <p>
+            2026年9月1日，OpenAI启动内部多代理系统。10,000+ AI代理协作运转88小时，
+            产出166页论文和Lean形式化验证。Navier-Stokes方程被证明存在"爆破"——
+            这是千禧年七大数学难题中首个被AI攻克的。
+          </p>
+          <p>
+            但技术成就的背后，是数学家Tristan Buckmaster的指控：
+            他的方法在被泄露给OpenAI后，12小时后就被宣布"解决"。
+          </p>
+        </div>
+        <div class="layer-visual">
+          <div class="layer-visual-bg" style="background: radial-gradient(circle at center, rgba(16,163,127,0.2), transparent 70%);"></div>
+          <div class="layer-visual-icon">🧠</div>
+        </div>
+      </div>
+
+      <!-- Layer 2: Ethics -->
+      <div class="layer fade-in">
+        <div class="layer-content">
+          <span class="layer-number">02</span>
+          <span class="layer-tag ethics">⚖️ 学术伦理</span>
+          <h3>署名权消失<br>学术诚信崩塌<br>同行评审失效</h3>
+          <p>
+            AI可以批量生成"看似正确、实则错误"的伪证明，远超传统审稿能力。
+            550+数学家签署《莱顿宣言》，呼吁守护证明、署名、求真三大数学立身之本。
+          </p>
+          <p>
+            当机器能在数小时内完成人类数年的研究，"谁是发现者"这个问题
+            不再是哲学思辨，而是每天都在发生的现实困境。
+          </p>
+        </div>
+        <div class="layer-visual">
+          <div class="layer-visual-bg" style="background: radial-gradient(circle at center, rgba(245,158,11,0.2), transparent 70%);"></div>
+          <div class="layer-visual-icon">⚖️</div>
+        </div>
+      </div>
+
+      <!-- Layer 3: Legal -->
+      <div class="layer fade-in">
+        <div class="layer-content">
+          <span class="layer-number">03</span>
+          <span class="layer-tag law">📜 法律框架</span>
+          <h3>专利法过时<br>版权归属模糊<br>诉讼量激增22%</h3>
+          <p>
+            2026年全球AI专利诉讼同比增长18-22%。GenAI专利占比从2017年的4.2%飙升至2025年的8.7%。
+            但现有法律框架——版权法、专利法、商业秘密法——都无法干净地处理"AI发明"的归属问题。
+          </p>
+          <p>
+            USPTO开始承认AI辅助发明的专利适格性，但欧盟仍严格限制纯算法方案。
+            全球法律框架正在经历前所未有的分裂与重构。
+          </p>
+        </div>
+        <div class="layer-visual">
+          <div class="layer-visual-bg" style="background: radial-gradient(circle at center, rgba(139,92,246,0.2), transparent 70%);"></div>
+          <div class="layer-visual-icon">📜</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TIMELINE ═══════ -->
+<section class="section section-dark" id="timeline">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Case Timeline · 事件时间线</div>
+      <h2 class="section-title">风暴是如何形成的</h2>
+      <p class="section-desc">点击每个事件节点，深入了解AI科学发现的知识产权争议</p>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-line"></div>
+
+      <!-- Event 1 -->
+      <div class="timeline-item" data-delay="0">
+        <div class="timeline-dot green"></div>
+        <div class="timeline-date">2026年5月20日</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>🔬 OpenAI推翻Erdős单位距离猜想</h4>
+          <p>一个悬而未决80年的数学难题被AI模型攻克。菲尔兹奖得主Timothy Gowers验证了证明的有效性。</p>
+          <span class="tag tag-discovery">AI突破</span>
+          <div class="timeline-detail">
+            <p>
+              这是OpenAI在2026年的首个重大数学突破。Erdős单位距离猜想自1946年提出以来，
+              一直被认为是组合几何中最困难的问题之一。AI生成的证明虽然完整有效，
+              但后来被人类数学家改进。菲尔兹奖得主Gowers称之为"AI数学的里程碑"，
+              但也引发了关于"改进权"归属的初步讨论。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="timeline-item" data-delay="100">
+        <div class="timeline-dot amber"></div>
+        <div class="timeline-date">2026年6月2日</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>📜 《莱顿宣言》全球签署</h4>
+          <p>550+数学家联名签署，呼吁AI时代守护数学学术规范——署名、引用、同行评审。</p>
+          <span class="tag tag-response">学术响应</span>
+          <div class="timeline-detail">
+            <p>
+              康奈尔大学、牛津大学、约翰斯·霍普金斯大学等顶尖学府的数学家参与签署。
+              宣言核心主张：AI辅助工具必须明确标注，生成成果需遵守学术引用规范，
+              同行评审制度不可动摇。宣言指出AI正在从根基上瓦解千年学术体系，
+              数学首次面临被算法与资本异化、接管的生存危机。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="timeline-item" data-delay="200">
+        <div class="timeline-dot blue"></div>
+        <div class="timeline-date">2026年8月1日</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>📊 OpenAI发布10项数学突破</h4>
+          <p>一周内发布10项AI生成的数学成果。数学家Stephen Miller指控OpenAI抄袭其研究。</p>
+          <span class="tag tag-controversy">争议爆发</span>
+          <div class="timeline-detail">
+            <p>
+              Yeshiva大学数学家Stephen Miller公开指控OpenAI"系统性地掠夺前人工作"，
+              称其研究成果在未获得适当署名的情况下被AI学习和再利用。
+              Scientific American以"研究不端行为"为标题报道此事件。
+              OpenAI在声明中承认"AI生成的证明不应仅由人类署名"，
+              但坚持认为他们"对结果的正确性负责"。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 4 -->
+      <div class="timeline-item" data-delay="300">
+        <div class="timeline-dot red"></div>
+        <div class="timeline-date">2026年9月8日</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>🌊 OpenAI宣布攻克Navier-Stokes难题</h4>
+          <p>12小时前，数学家Buckmaster刚声称其方法被泄露。抄袭指控与突破公告同时引爆。</p>
+          <span class="tag tag-controversy">核心事件</span>
+          <div class="timeline-detail">
+            <p>
+              OpenAI宣布其内部模型证明了Navier-Stokes方程存在"爆破"——流体速度在某些点会趋于无限，
+              这在物理上不可能发生。证明使用Lean编程语言验证，几乎确保了正确性。
+              但NYU数学家Buckmaster和哈佛数学家Alpöge声称，他们使用OpenAI和Anthropic工具
+              研究Euler方程的方法被泄露给了OpenAI。OpenAI否认了所有指控。
+              这一事件成为AI时代知识产权争议的标志性案例。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 5 -->
+      <div class="timeline-item" data-delay="400">
+        <div class="timeline-dot purple"></div>
+        <div class="timeline-date">2026年9月11日</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>✋ 25位菲尔兹奖得主联名公开信</h4>
+          <p>横跨近50年获奖者的联合声明：AI公司与数学界的目标已严重分歧。</p>
+          <span class="tag tag-response">集体抗议</span>
+          <div class="timeline-detail">
+            <p>
+              从1978年Pierre Deligne到2026年余登，25位菲尔兹奖得主联名发布公开信。
+              他们指出AI公司"匆忙发布公告，没有时间做适当的写作"，
+              无法"区分新方法和新思想，也无法认可前人工作"。
+              公开信警告：如果不解决归属问题，数学的核心价值——
+              理解、证明、发现——将被商业竞争所取代。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 6 -->
+      <div class="timeline-item" data-delay="500">
+        <div class="timeline-dot green"></div>
+        <div class="timeline-date">2026年9月（持续中）</div>
+        <div class="timeline-card" onclick="toggleTimeline(this)">
+          <h4>🌍 全球法律框架重构进行时</h4>
+          <p>AI版权诉讼在2026年达到峰值。美国、欧盟、中国三大法域走向不同路径。</p>
+          <span class="tag tag-legal">法律演进</span>
+          <div class="timeline-detail">
+            <p>
+              美国：USPTO承认AI辅助发明的专利适格性，驳回撤销率从11%升至22.3%。
+              Morrison Foerster预测2026年AI版权诉讼将达历史峰值。
+              欧盟：启动版权框架现代化征集，严格限制纯算法专利。
+              中国：北京高院发布AI生成内容侵犯著作权罪案，探索"AI辅助创作"认定标准。
+              三大法域的分歧预示着全球知识产权体系的深刻重组。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ IP OWNERSHIP SIMULATOR ═══════ -->
+<section class="section section-gradient" id="simulator">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">IP Ownership Simulator · 归属模拟器</div>
+      <h2 class="section-title">知识产权归属推演</h2>
+      <p class="section-desc">选择不同场景参数，观察知识产权归属争议如何演变</p>
+    </div>
+
+    <div class="simulator fade-in">
+      <div class="sim-header">
+        <h3>🎯 交互式归属模拟</h3>
+        <div class="sim-status"><span class="live-dot"></span> 实时演算</div>
+      </div>
+      <div class="sim-body">
+        <div class="sim-controls">
+          <div class="sim-control-group">
+            <label>🔬 研究场景</label>
+            <select class="sim-select" id="simScenario" onchange="updateSimulation()">
+              <option value="openai-math">OpenAI攻克Navier-Stokes</option>
+              <option value="university-research">大学教授使用AI辅助论文</option>
+              <option value="corporate-patent">企业AI辅助专利发明</option>
+              <option value="independent">独立研究者AI合作</option>
+            </select>
+          </div>
+          <div class="sim-control-group">
+            <label>🤖 AI参与度</label>
+            <div class="sim-slider-container">
+              <input type="range" class="sim-slider" id="simAI" min="0" max="100" value="80" oninput="updateSimulation()">
+              <div class="sim-slider-labels">
+                <span>辅助工具</span>
+                <span>核心驱动</span>
+              </div>
+            </div>
+          </div>
+          <div class="sim-control-group">
+            <label>🧠 人类创造性贡献</label>
+            <div class="sim-slider-container">
+              <input type="range" class="sim-slider" id="simHuman" min="0" max="100" value="60" oninput="updateSimulation()">
+              <div class="sim-slider-labels">
+                <span>低</span>
+                <span>高</span>
+              </div>
+            </div>
+          </div>
+          <div class="sim-control-group">
+            <label>📐 法律框架</label>
+            <select class="sim-select" id="simJurisdiction" onchange="updateSimulation()">
+              <option value="us">美国（USPTO）</option>
+              <option value="eu">欧盟（EPO）</option>
+              <option value="cn">中国（CNIPA）</option>
+              <option value="intl">国际协调框架</option>
+            </select>
+          </div>
+          <button class="sim-btn" onclick="runSimulation()">▶ 运行模拟</button>
+        </div>
+        <div class="sim-result" id="simResult">
+          <div class="sim-actors" id="simActors">
+            <div class="sim-actor" id="actorHuman">
+              <div class="sim-actor-icon">👨‍🔬</div>
+              <div class="sim-actor-name">人类研究者</div>
+              <div class="sim-actor-role">提出问题 / 验证</div>
+            </div>
+            <div class="sim-actor" id="actorAI">
+              <div class="sim-actor-icon">🤖</div>
+              <div class="sim-actor-name">AI系统</div>
+              <div class="sim-actor-role">生成证明 / 优化</div>
+            </div>
+            <div class="sim-actor" id="actorCompany">
+              <div class="sim-actor-icon">🏢</div>
+              <div class="sim-actor-name">AI公司</div>
+              <div class="sim-actor-role">训练模型 / 投入资源</div>
+            </div>
+          </div>
+          <div class="sim-result-title">归属比例推演</div>
+          <div class="sim-ownership-bar" id="simBar">
+            <div class="sim-ownership-segment" id="barHuman" style="width:35%; background: var(--green-primary);">35%</div>
+            <div class="sim-ownership-segment" id="barAI" style="width:30%; background: var(--blue-primary);">30%</div>
+            <div class="sim-ownership-segment" id="barCompany" style="width:25%; background: var(--accent-purple);">25%</div>
+            <div class="sim-ownership-segment" id="barPublic" style="width:10%; background: var(--text-muted);">10%</div>
+          </div>
+          <div class="sim-legend">
+            <div class="sim-legend-item"><span class="sim-legend-dot" style="background:var(--green-primary)"></span> 人类研究者</div>
+            <div class="sim-legend-item"><span class="sim-legend-dot" style="background:var(--blue-primary)"></span> AI系统</div>
+            <div class="sim-legend-item"><span class="sim-legend-dot" style="background:var(--accent-purple)"></span> AI公司</div>
+            <div class="sim-legend-item"><span class="sim-legend-dot" style="background:var(--text-muted)"></span> 公共领域</div>
+          </div>
+          <div class="sim-narrative" id="simNarrative">
+            <h4>📋 当前分析</h4>
+            <p>在Navier-Stokes场景下，OpenAI投入10,000+代理和大量计算资源，
+            但Buckmaster等人类数学家的方法被疑似泄露并被AI学习。
+            现有法律框架难以界定这种"AI快速追赶人类研究"模式的归属。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ DATA DASHBOARD ═══════ -->
+<section class="section section-dark" id="dashboard">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Data Panorama · 数据全景</div>
+      <h2 class="section-title">AI科学发现的知识产权风暴</h2>
+      <p class="section-desc">数据来源：WIPO, Nature, Scientific American, USPTO, CNIPA</p>
+    </div>
+
+    <div class="dashboard">
+      <!-- Card 1: AI Papers Growth -->
+      <div class="dash-card span-2 fade-in">
+        <div class="dash-card-header">
+          <div class="dash-card-title">AI数学论文年增长量</div>
+          <div class="dash-card-badge badge-up">↑ 340%</div>
+        </div>
+        <div class="dash-chart">
+          <div class="bar-chart" id="paperChart">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: GenAI Patent Share -->
+      <div class="dash-card fade-in">
+        <div class="dash-card-header">
+          <div class="dash-card-title">GenAI专利占比</div>
+          <div class="dash-card-badge badge-alert">↑ 112%</div>
+        </div>
+        <div class="donut-container">
+          <svg class="donut-svg" viewBox="0 0 120 120" id="donutChart">
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#1a2235" stroke-width="14"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#10a37f" stroke-width="14"
+              stroke-dasharray="24.6 258.0" stroke-dashoffset="70.7" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#3b82f6" stroke-width="14"
+              stroke-dasharray="204.2 78.4" stroke-dashoffset="70.7" stroke-linecap="round"/>
+            <text x="60" y="56" text-anchor="middle" fill="#e8ecf4" font-size="18" font-weight="800" font-family="monospace">8.7%</text>
+            <text x="60" y="72" text-anchor="middle" fill="#5a6478" font-size="9">GenAI占比</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="donut-legend-item">
+              <span class="donut-legend-dot" style="background:#10a37f"></span>
+              GenAI专利
+              <span class="donut-legend-val">8.7%</span>
+            </div>
+            <div class="donut-legend-item">
+              <span class="donut-legend-dot" style="background:#3b82f6"></span>
+              其他AI专利
+              <span class="donut-legend-val">79.0%</span>
+            </div>
+            <div class="donut-legend-item">
+              <span class="donut-legend-dot" style="background:#1a2235"></span>
+              非AI专利
+              <span class="donut-legend-val">12.3%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Patent Litigation -->
+      <div class="dash-card fade-in">
+        <div class="dash-card-header">
+          <div class="dash-card-title">AI专利诉讼增长</div>
+          <div class="dash-card-badge badge-alert">↑ 22%</div>
+        </div>
+        <div class="dash-big-num red">+22%</div>
+        <div class="dash-delta">2026年全球专利诉讼同比增长预计</div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">美国</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:85%; background: var(--accent-red);"></div></div>
+          <span class="sparkline-val" style="color:var(--accent-red)">85%</span>
+        </div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">中国</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:72%; background: var(--accent-amber);"></div></div>
+          <span class="sparkline-val" style="color:var(--accent-amber)">72%</span>
+        </div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">欧盟</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:58%; background: var(--blue-primary);"></div></div>
+          <span class="sparkline-val" style="color:var(--blue-primary)">58%</span>
+        </div>
+      </div>
+
+      <!-- Card 4: AI Copyright Cases -->
+      <div class="dash-card fade-in">
+        <div class="dash-card-header">
+          <div class="dash-card-title">AI版权诉讼案数量</div>
+          <div class="dash-card-badge badge-info">峰值年</div>
+        </div>
+        <div class="dash-big-num purple">147</div>
+        <div class="dash-delta">2026年预计立案数（截至Q3已达<strong>112件</strong>）</div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">训练数据</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:60%; background: var(--accent-purple);"></div></div>
+          <span class="sparkline-val" style="color:var(--accent-purple)">60%</span>
+        </div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">AI输出</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:30%; background: var(--accent-amber);"></div></div>
+          <span class="sparkline-val" style="color:var(--accent-amber)">30%</span>
+        </div>
+        <div class="sparkline-row">
+          <span class="sparkline-label">其他</span>
+          <div class="sparkline-bar-bg"><div class="sparkline-bar-fill" style="width:10%; background: var(--text-muted);"></div></div>
+          <span class="sparkline-val" style="color:var(--text-muted)">10%</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Law Divergence -->
+      <div class="dash-card span-2 fade-in">
+        <div class="dash-card-header">
+          <div class="dash-card-title">全球三大法域AI专利适格性对比</div>
+          <div class="dash-card-badge badge-info">分裂中</div>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-top:8px;">
+          <div style="background:var(--bg-deep); border-radius:var(--radius-sm); padding:20px; border-left:1px solid var(--green-primary);">
+            <div style="font-size:12px; font-weight:700; color:var(--green-primary); margin-bottom:8px;">🇺🇸 美国 USPTO</div>
+            <div style="font-size:13px; color:var(--text-secondary); line-height:1.7;">
+              驳回撤销率从11%→22.3%<br>
+              强调"技术性改进"<br>
+              承认AI辅助发明适格性
+            </div>
+          </div>
+          <div style="background:var(--bg-deep); border-radius:var(--radius-sm); padding:20px; border-left:1px solid var(--blue-primary);">
+            <div style="font-size:12px; font-weight:700; color:var(--blue-primary); margin-bottom:8px;">🇪🇺 欧盟 EPO</div>
+            <div style="font-size:13px; color:var(--text-secondary); line-height:1.7;">
+              严格限制纯算法方案<br>
+              启动版权框架现代化<br>
+              要求人类发明者身份
+            </div>
+          </div>
+          <div style="background:var(--bg-deep); border-radius:var(--radius-sm); padding:20px; border-left:1px solid var(--accent-amber);">
+            <div style="font-size:12px; font-weight:700; color:var(--accent-amber); margin-bottom:8px;">🇨🇳 中国 CNIPA</div>
+            <div style="font-size:13px; color:var(--text-secondary); line-height:1.7;">
+              IPC G06占比超32%<br>
+              探索"AI辅助创作"标准<br>
+              发布AI侵权典型案例
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ NEW PARADIGM ═══════ -->
+<section class="section section-gradient" id="paradigm">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">New Paradigm · 新范式</div>
+      <h2 class="section-title">AI时代的知识产权不是零和游戏</h2>
+      <p class="section-desc">关键在于重新定义"创造"——从所有权之争走向协作式创新</p>
+    </div>
+
+    <div class="paradigm-cards">
+      <div class="paradigm-card fade-in">
+        <span class="paradigm-icon">🔗</span>
+        <h4>协作式署名</h4>
+        <p>不再问"谁是发明者"，而是"每个贡献者的角色是什么"。AI的计算贡献、
+        人类的直觉洞察、机构的资源投入——三层署名框架让每个参与者都获得公正认可。</p>
+      </div>
+      <div class="paradigm-card fade-in">
+        <span class="paradigm-icon">⚖️</span>
+        <h4>动态权利分配</h4>
+        <p>AI参与度越高，权利分配越需要动态调整。引入"贡献度量化"机制，
+        根据AI与人类在问题提出、方法设计、验证确认中的实际贡献实时计算归属比例。</p>
+      </div>
+      <div class="paradigm-card fade-in">
+        <span class="paradigm-icon">🌐</span>
+        <h4>全球协调框架</h4>
+        <p>美欧中三大法域的分裂不是终点。借鉴《莱顿宣言》的精神，
+        建立AI科学发现的国际共识——保护创新激励，同时守护学术诚信与公共利益。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CLOSING ═══════ -->
+<section class="closing section-dark">
+  <div class="container">
+    <div class="closing-quote fade-in">
+      "在AI时代，<span class="highlight">创造</span>不再是某个个体的专利，<br>
+      而是人类智慧与机器智能的<span class="highlight">交响</span>。<br>
+      知识产权的未来，在于重新定义<span class="highlight">协作</span>。"
+    </div>
+    <div class="closing-attr fade-in">—— 2026年9月，Navier-Stokes风暴之后</div>
+    <div class="closing-meta fade-in">
+      <span class="closing-meta-item">📅 2026-09-22</span>
+      <span class="closing-meta-item">🤖 技术 + ⚖️ 治理 + 🎨 文化 + 👥 社会</span>
+      <span class="closing-meta-item">📚 数据来源: WIPO · Nature · Scientific American · USPTO</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="footer-left">© 2026 AI × IP 知识产权归属之争 · 创意交互体验</div>
+  <div class="footer-right">Made with 🎨 by 绘界 · <a href="#hero">回到顶部 ↑</a></div>
+</footer>
+
+<!-- ═══════ JAVASCRIPT ═══════ -->
+<script>
+// ──────────────────────────────────────────────
+// HERO PARTICLES
+// ──────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('heroParticles');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 2 + 0.5,
+      color: Math.random() > 0.5 ? 'rgba(16,163,127,' : 'rgba(59,130,246,',
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + '0.4)';
+      ctx.fill();
+    });
+    // Connect nearby particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(16,163,127,${0.08 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ──────────────────────────────────────────────
+// SCROLL ANIMATIONS
+// ──────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .timeline-item').forEach(el => {
+  observer.observe(el);
+});
+
+// ──────────────────────────────────────────────
+// NAV SCROLL
+// ──────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ──────────────────────────────────────────────
+// COUNTER ANIMATION
+// ──────────────────────────────────────────────
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = current.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+// ──────────────────────────────────────────────
+// TIMELINE EXPAND
+// ──────────────────────────────────────────────
+function toggleTimeline(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.timeline-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!wasExpanded) card.classList.add('expanded');
+}
+
+// ──────────────────────────────────────────────
+// IP SIMULATOR
+// ──────────────────────────────────────────────
+const scenarios = {
+  'openai-math': {
+    human: 30, ai: 25, company: 35, public: 10,
+    narrative: '在Navier-Stokes场景下，OpenAI投入10,000+代理和大量计算资源，但Buckmaster等人类数学家的方法被疑似泄露并被AI学习。现有法律框架难以界定这种"AI快速追赶人类研究"模式的归属。',
+    actors: ['human', 'ai', 'company'],
+  },
+  'university-research': {
+    human: 55, ai: 15, company: 10, public: 20,
+    narrative: '大学教授使用AI工具辅助论文写作和定理证明。教授提出了问题、设计了研究方向、验证了结果。AI主要作为高效计算工具。当前学术规范倾向于将署名权归于人类研究者。',
+    actors: ['human'],
+  },
+  'corporate-patent': {
+    human: 20, ai: 20, company: 45, public: 15,
+    narrative: '企业使用AI辅助研发并申请专利。USPTO目前要求"人类发明者"身份，但AI的贡献不可忽视。企业通过商业秘密保护AI训练数据和模型权重，实际控制了大部分IP权益。',
+    actors: ['company', 'ai'],
+  },
+  'independent': {
+    human: 45, ai: 30, company: 5, public: 20,
+    narrative: '独立研究者使用开源AI模型进行研究。没有企业投入，AI的训练来自公共数据集。这种场景下归属最为模糊——研究者的创意贡献、AI的计算能力、公共数据的价值如何分配？',
+    actors: ['human', 'ai'],
+  },
+};
+
+const jurisdictions = {
+  'us': { humanMod: 1.1, companyMod: 1.1, label: '美国' },
+  'eu': { humanMod: 1.2, companyMod: 0.7, label: '欧盟' },
+  'cn': { humanMod: 1.0, companyMod: 1.0, label: '中国' },
+  'intl': { humanMod: 1.05, companyMod: 0.95, label: '国际' },
+};
+
+function updateSimulation() {
+  const scenario = scenarios[document.getElementById('simScenario').value];
+  const aiLevel = parseInt(document.getElementById('simAI').value);
+  const humanLevel = parseInt(document.getElementById('simHuman').value);
+  const jurisdiction = jurisdictions[document.getElementById('simJurisdiction').value];
+
+  // Calculate adjusted ownership
+  let human = scenario.human * (humanLevel / 60) * jurisdiction.humanMod;
+  let ai = scenario.ai * (aiLevel / 80);
+  let company = scenario.company * (1 + (aiLevel - 50) / 200) * jurisdiction.companyMod;
+  let pub = scenario.public;
+
+  // Normalize
+  const total = human + ai + company + pub;
+  human = Math.round(human / total * 100);
+  ai = Math.round(ai / total * 100);
+  company = Math.round(company / total * 100);
+  pub = 100 - human - ai - company;
+
+  // Update bars
+  document.getElementById('barHuman').style.width = human + '%';
+  document.getElementById('barHuman').textContent = human + '%';
+  document.getElementById('barAI').style.width = ai + '%';
+  document.getElementById('barAI').textContent = ai + '%';
+  document.getElementById('barCompany').style.width = company + '%';
+  document.getElementById('barCompany').textContent = company + '%';
+  document.getElementById('barPublic').style.width = pub + '%';
+  document.getElementById('barPublic').textContent = pub + '%';
+
+  // Update actors
+  const actors = scenario.actors;
+  document.getElementById('actorHuman').classList.toggle('active', actors.includes('human'));
+  document.getElementById('actorAI').classList.toggle('active', actors.includes('ai'));
+  document.getElementById('actorCompany').classList.toggle('active', actors.includes('company'));
+}
+
+function runSimulation() {
+  updateSimulation();
+  // Add a brief flash effect
+  const bar = document.getElementById('simBar');
+  bar.style.boxShadow = '0 0 20px var(--green-glow)';
+  setTimeout(() => bar.style.boxShadow = 'none', 800);
+}
+
+// ──────────────────────────────────────────────
+// BAR CHART (AI Papers)
+// ──────────────────────────────────────────────
+(function() {
+  const data = [
+    { year: '2018', value: 12, color: '#10a37f' },
+    { year: '2019', value: 18, color: '#10a37f' },
+    { year: '2020', value: 28, color: '#10a37f' },
+    { year: '2021', value: 42, color: '#10a37f' },
+    { year: '2022', value: 65, color: '#10a37f' },
+    { year: '2023', value: 95, color: '#34d399' },
+    { year: '2024', value: 148, color: '#34d399' },
+    { year: '2025', value: 210, color: '#3b82f6' },
+    { year: '2026', value: 320, color: '#3b82f6' },
+  ];
+  const maxVal = Math.max(...data.map(d => d.value));
+  const container = document.getElementById('paperChart');
+
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        container.innerHTML = '';
+        data.forEach((d, i) => {
+          const col = document.createElement('div');
+          col.className = 'bar-col';
+          const barH = (d.value / maxVal) * 120;
+          col.innerHTML = `
+            <div class="bar-value">${d.value}</div>
+            <div class="bar" style="height:0px; background:${d.color};" data-h="${barH}"></div>
+            <div class="bar-label">${d.year}</div>
+          `;
+          container.appendChild(col);
+        });
+        // Animate bars in
+        setTimeout(() => {
+          container.querySelectorAll('.bar').forEach((bar, i) => {
+            setTimeout(() => {
+              bar.style.height = bar.dataset.h + 'px';
+            }, i * 80);
+          });
+        }, 200);
+        chartObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  chartObserver.observe(container);
+})();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "10,000个", "label": "AI代理", "quote": "10,000个AI代理"},
+  {"value": "22%", "label": "诉讼量激增", "quote": "诉讼量激增22%"},
+  {"value": "8.7%", "label": "GenAI占比", "quote": "8.7% GenAI占比"},
+  {"value": "12.3%", "label": "AI专利诉讼增长", "quote": "12.3% AI专利诉讼增长"},
+  {"value": "+22%", "label": "2026年全球专利诉讼同比增长预计", "quote": "+22% 2026年全球专利诉讼同比增长预计"},
+  {"value": "58%", "label": "AI版权诉讼案数量", "quote": "58% AI版权诉讼案数量"},
+  {"value": "60%", "label": "AI输出", "quote": "60% AI输出"},
+  {"value": "10%", "label": "全球三大法域AI专利适格性对比", "quote": "10% 全球三大法域AI专利适格性对比"}
+]
+</script>
+</body>
+</html>

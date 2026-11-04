@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="showcase-beat" content="地缘与能源">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霍尔木兹海峡"禁区"——从油轮攻袭战到全球能源"断供悬崖" | 深度研究报告</title>
+    <style>
+        :root {
+            --black: #000000;
+            --near-black: #1d1d1f;
+            --light-gray: #f5f5f7;
+            --apple-blue: #0071e3;
+            --link-blue: #0066cc;
+            --white: #ffffff;
+            --forest-green: #2D5016;
+            --amber: #D4A574;
+            --vermillion: #C44536;
+            --graphite: #4A5568;
+            --mint-white: #F7F9F4;
+            --section-alt: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--near-black);
+            background: var(--white);
+            line-height: 1.47;
+            letter-spacing: -0.022em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--apple-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.07;
+            letter-spacing: -0.28px;
+            margin-bottom: 24px;
+            max-width: 820px;
+        }
+
+        .hero-subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 1.38;
+            color: rgba(255,255,255,0.72);
+            max-width: 640px;
+            margin-bottom: 32px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 32px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.56);
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-meta .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--apple-blue);
+        }
+
+        /* ===== CRISIS BANNER ===== */
+        .crisis-banner {
+            background: var(--vermillion);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .crisis-banner .pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            margin-right: 10px;
+            animation:none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ===== KEY METRICS ===== */
+        .metrics-strip {
+            background: var(--light-gray);
+            padding: 60px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 24px 16px;
+        }
+
+        .metric-value {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .metric-value.red { color: var(--vermillion); }
+        .metric-value.amber { color: #B8860B; }
+        .metric-value.green { color: var(--forest-green); }
+        .metric-value.blue { color: var(--apple-blue); }
+
+        .metric-unit {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--graphite);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #86868b;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-alt {
+            background: var(--light-gray);
+        }
+
+        .section-dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .section h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            margin-bottom: 48px;
+        }
+
+        .section-dark h2 {
+            color: var(--white);
+        }
+
+        .section h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 40px 0 20px;
+            color: var(--near-black);
+        }
+
+        .section-dark h3 {
+            color: var(--white);
+        }
+
+        .section p {
+            font-size: 17px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            color: var(--graphite);
+        }
+
+        .section-dark p {
+            color: rgba(255,255,255,0.72);
+        }
+
+        .section p.lead {
+            font-size: 21px;
+            line-height: 1.52;
+            color: var(--near-black);
+        }
+
+        .section-dark p.lead {
+            color: rgba(255,255,255,0.88);
+        }
+
+        /* ===== CALLOUT BOX ===== */
+        .callout {
+            background: var(--mint-white);
+            border-left:1px solid var(--forest-green);
+            padding: 24px 32px;
+            margin: 32px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .callout.warning {
+            background: #FFF8F0;
+            border-left-color: #B8860B;
+        }
+
+        .callout.danger {
+            background: #FFF5F5;
+            border-left-color: var(--vermillion);
+        }
+
+        .callout p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        .callout strong {
+            color: var(--near-black);
+        }
+
+        .callout-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            color: var(--forest-green);
+        }
+
+        .callout.warning .callout-label { color: #B8860B; }
+        .callout.danger .callout-label { color: var(--vermillion); }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--vermillion), #B8860B, var(--apple-blue), var(--forest-green));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 3px solid var(--vermillion);
+            background: white;
+        }
+
+        .timeline-item.phase2::before { border-color: #B8860B; }
+        .timeline-item.phase3::before { border-color: var(--apple-blue); }
+        .timeline-item.phase4::before { border-color: var(--forest-green); }
+
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--apple-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--near-black);
+        }
+
+        .timeline-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--graphite);
+        }
+
+        /* ===== DATA TABLE ===== */
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin: 32px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        thead th {
+            background: var(--near-black);
+            color: white;
+            padding: 14px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        thead th:first-child {
+            border-radius: 12px 0 0 0;
+        }
+
+        thead th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        tbody td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 12px;
+        }
+
+        tbody tr:last-child td:last-child {
+            border-radius: 0 0 12px 0;
+        }
+
+        .td-value {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .td-red { color: var(--vermillion); }
+        .td-amber { color: #B8860B; }
+        .td-green { color: var(--forest-green); }
+
+        /* ===== PRICE CHART (CSS-only) ===== */
+        .chart-section {
+            margin: 40px 0;
+            padding: 32px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--near-black);
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 240px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #E5E7EB;
+            position: relative;
+        }
+
+        .chart-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .chart-bar {
+            width: 100%;
+            max-width: 48px;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: opacity 0.2s;
+            min-height: 4px;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.85;
+        }
+
+        .chart-bar .tooltip {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            color: var(--near-black);
+        }
+
+        .chart-label {
+            font-size: 14px;
+            color: #86868b;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .chart-gridlines {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 30px;
+            pointer-events: none;
+        }
+
+        .chart-gridline {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px dashed rgba(0,0,0,0.06);
+            font-size: 14px;
+            color: #86868b;
+        }
+
+        .chart-gridline span {
+            position: absolute;
+            left: -40px;
+            top: -7px;
+            font-size: 14px;
+        }
+
+        /* ===== IMPACT GRID ===== */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .impact-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .impact-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .impact-card h4 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--near-black);
+        }
+
+        .impact-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--graphite);
+        }
+
+        .impact-stat {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--vermillion);
+            background: #FFF5F5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        /* ===== PLAYER ANALYSIS ===== */
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .player-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border-top:1px solid var(--apple-blue);
+        }
+
+        .player-card.iran { border-top-color: var(--vermillion); }
+        .player-card.us { border-top-color: #1E3A5F; }
+        .player-card.gulf { border-top-color: #B8860B; }
+        .player-card.china { border-top-color: var(--forest-green); }
+
+        .player-card h4 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .player-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--graphite);
+            margin-bottom: 12px;
+        }
+
+        .player-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .player-card li {
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 6px 0 6px 20px;
+            position: relative;
+            color: var(--graphite);
+        }
+
+        .player-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--apple-blue);
+            font-weight: 600;
+        }
+
+        /* ===== BLOCKQUOTE ===== */
+        .quote-block {
+            border-left:1px solid var(--apple-blue);
+            padding: 20px 32px;
+            margin: 32px 0;
+            background: rgba(0,113,227,0.03);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .quote-block p {
+            font-size: 19px;
+            font-style: italic;
+            line-height: 1.52;
+            color: var(--near-black);
+            margin-bottom: 8px;
+        }
+
+        .quote-source {
+            font-size: 14px;
+            font-style: normal;
+            color: #86868b;
+        }
+
+        /* ===== CONCLUSION SECTION ===== */
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .conclusion-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .conclusion-card .icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .conclusion-card h4 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .conclusion-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.64);
+        }
+
+        /* ===== SOURCE FOOTER ===== */
+        .sources {
+            padding: 60px 0;
+            background: var(--light-gray);
+        }
+
+        .sources h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--near-black);
+        }
+
+        .source-list {
+            columns: 2;
+            column-gap: 40px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--graphite);
+        }
+
+        .source-list p {
+            break-inside: avoid;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .source-list p::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--apple-blue);
+            font-size: 14px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--black);
+            color: rgba(255,255,255,0.56);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .metric-value { font-size: 36px; }
+            .impact-grid, .player-grid, .conclusion-grid { grid-template-columns: 1fr; }
+            .source-list { columns: 1; }
+            .container { padding: 0 20px; }
+            .hero { padding: 80px 0 60px; }
+        }
+
+        /* ===== ANNOTATION TAG ===== */
+        .tag {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+        }
+
+        .tag.verified { background: #E8F5E9; color: #2E7D32; }
+        .tag.unverified { background: #FFF3E0; color: #E65100; }
+        .tag.estimate { background: #E3F2FD; color: #1565C0; }
+
+        /* ===== SEPARATOR ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E5E7EB, transparent);
+            margin: 48px 0;
+        }
+
+        /* Confidence bar */
+        .confidence {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            font-size: 12px;
+            color: #86868b;
+        }
+
+        .confidence-bar {
+            flex: 1;
+            height: 4px;
+            background: #E5E7EB;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .confidence-fill.high { background: var(--forest-green); }
+        .confidence-fill.medium { background: #B8860B; }
+        .confidence-fill.low { background: var(--vermillion); }
+    </style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-09-10</span><span class="sb-sep">/</span><span class="sb-beat">地缘与能源</span><span class="sb-sep">/</span><span class="sb-cnt">21 件 / 2026-09</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">20 条已验证断言</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 设计修复（页内计算样式取证生成） */
+a.on-light-page > span{color:#767676 !important}
+section.hero > div.container > div.hero-label{color:#0372e3 !important}
+div.metrics-grid > div.metric-card > div.metric-label{color:#6f6f73 !important}
+div.metrics-grid > div.metric-card > div.metric-value{color:#b6850b !important}
+div.container > div.confidence > span{color:#6f6f73 !important}
+div.timeline > div.timeline-item > div.timeline-date{color:#006edc !important}
+div.player-card > ul > li::before{width:1px !important}
+div.player-card > div.confidence > span{color:#76767a !important}
+div.container > div.quote-block > div.quote-source{color:#6f6f73 !important}
+div.chart-gridlines > div.chart-gridline > span{color:#76767a !important}
+div.chart-bar-group > div.chart-bar > span.tooltip{color:#b7b7b7 !important}
+div.chart-bars > div.chart-bar-group > div.chart-label{color:#76767a !important}
+div.container > div.chart-section > p{color:#76767a !important}
+div.container > div.callout > div.callout-label{color:#936b09 !important}
+tbody > tr > td.td-value{color:#916a09 !important}
+tbody > tr > td.td-amber{color:#916a09 !important}
+div.container > div.callout > p{color:#727276 !important}
+strong > div.callout > p{color:#707070 !important}
+div.container > div.source-list > p::before{color:#006edc !important}
+div.container > div.source-list > p::before{width:1px !important}
+
+/* 设计修复（页内计算样式取证生成） */
+div.player-card > ul > li::before{width:1px !important}
+div.chart-bar-group > div.chart-bar > span.tooltip{color:#ffffff !important}
+div.container > div.source-list > p::before{width:1px !important}
+
+/* 设计修复（页内计算样式取证生成） */
+section.hero::after{width:1px !important}
+section.section > div.container > div.timeline::before{width:1px !important}
+div.container > div.timeline > div.timeline-item::before{border-top-width:1px !important}
+div.container > div.timeline > div.timeline-item::before{width:1px !important}
+div.player-card > ul > li::before{width:1px !important}
+div.container > div.source-list > p::before{width:1px !important}
+</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-label">深度研究报告 · V2026.09.10</div>
+        <h1>霍尔木兹海峡"禁区"</h1>
+        <p class="hero-subtitle">从油轮攻袭战到全球能源"断供悬崖"——1970年代石油危机以来最大的全球能源供应中断事件全景解析</p>
+        <div class="hero-meta">
+            <span><span class="dot"></span>研析 Research Analyst</span>
+            <span><span class="dot"></span>2026年9月10日</span>
+            <span><span class="dot"></span>🌍 地缘 · ⛽ 能源 · 💰 经济 · ⚔️ 安全</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CRISIS ALERT ===== -->
+<div class="crisis-banner">
+    <span class="pulse"></span>
+    截至2026年9月10日 —— 布伦特原油报99.24美元/桶 · 海峡日均通油约900万桶（仅为战前45%）· 危机持续第195天
+</div>
+
+<!-- ===== KEY METRICS ===== -->
+<section class="metrics-strip">
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value red">~20M</div>
+            <div class="metric-unit">桶/日</div>
+            <div class="metric-label">战前海峡日均石油流量</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value amber">~9M</div>
+            <div class="metric-unit">桶/日</div>
+            <div class="metric-label">当前海峡日均石油流量（9月）</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value red">$126</div>
+            <div class="metric-unit">/桶</div>
+            <div class="metric-label">布伦特原油峰值价格（3月）</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value blue">3-10%</div>
+            <div class="metric-unit">船体价值</div>
+            <div class="metric-label">战争风险保险费率（战前0.25%）</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SECTION 1: EXECUTIVE SUMMARY ===== -->
+<section class="section">
+    <div class="container">
+        <h2>执行摘要</h2>
+        <p class="lead">
+            2026年2月28日，美国与以色列联合军事打击伊朗导致最高领袖哈梅内伊身亡，伊朗随即以导弹、无人机及海上封锁作为反击，伊斯兰革命卫队宣布禁止船只通过霍尔木兹海峡。这场被国际能源署（IEA）称为"全球石油市场历史上最大规模供应中断"的危机，已持续近七个月，深刻重塑了全球能源格局。
+        </p>
+
+        <div class="callout danger">
+            <div class="callout-label">⚠ 核心判断</div>
+            <p><strong>霍尔木兹海峡危机是自1970年代石油危机以来全球能源供应面临的最大挑战。</strong>危机期间，海峡通行量一度下降超过95%，布伦特原油从年初约60美元/桶飙升至峰值126美元/桶，LNG船舶通行减少99%。尽管6月美伊签署谅解备忘录后出现短暂缓和，但7月协议崩溃、通航再次"基本停止"，至9月初仅恢复至战前约45%水平。全球能源供应链正处于"断供悬崖"边缘。</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>五项核心发现</h3>
+
+        <p><strong>1. 战略咽喉地位不可替代。</strong>霍尔木兹海峡承担全球约20%的石油运输和约20%的LNG贸易，日均石油流量约2000万桶，其中84%流向亚洲。全球没有第二条通道能在短时间内承接如此庞大的运输量。</p>
+
+        <p><strong>2. 油轮攻袭战已形成系统性威胁。</strong>从2月28日至今，伊朗革命卫队对通过海峡的商船实施导弹、无人机、水雷等多种手段攻击。中国油轮"JV Innovation"号（5月4日）、阿联酋超级油轮（8月13日）等重大袭击事件表明，没有任何国家的船只能获得安全通行保障。</p>
+
+        <p><strong>3. 能源价格剧烈震荡。</strong>布伦特原油经历了从60美元到126美元再回落至70美元又反弹至99美元的过山车行情。世界银行预测2026年布伦特均价86美元/桶，但若冲突持续，均价可能落在95-115美元区间。</p>
+
+        <p><strong>4. 亚洲经济体冲击最深。</strong>中国约33%石油进口经霍尔木兹海峡（占消费22%），日韩依赖度更高。但中国凭借提前囤油（储备>90天）、进口来源多元化和国内产能韧性，受冲击程度远低于日韩。</p>
+
+        <p><strong>5. 全球能源秩序面临结构性重塑。</strong>替代航线（好望角）增加10-14天航行时间及每趟100万美元额外成本；保险费率飙升12-40倍；石化、化肥、氦气等产业链受波及；这场危机正在催化全球能源供应链的根本性变革。</p>
+    </div>
+</section>
+
+<!-- ===== SECTION 2: GEOPOLITICAL ANALYSIS ===== -->
+<section class="section section-alt">
+    <div class="container">
+        <h2>一、地缘态势分析</h2>
+
+        <h3>1.1 霍尔木兹海峡：全球石油运输的"命门"</h3>
+        <p>霍尔木兹海峡位于伊朗与阿曼之间，最狭窄处约21英里（34公里），由进出两条单向航道组成。它是沙特阿拉伯、阿联酋、伊拉克、卡塔尔、科威特和伊朗等波斯湾产油国出口能源的唯一海上通道。</p>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>指标</th>
+                        <th>数值</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>日均石油流量（战前）</td>
+                        <td class="td-value">~2030万桶</td>
+                        <td>EIA 2025Q1数据，含原油和凝析油</td>
+                    </tr>
+                    <tr>
+                        <td>全球海运石油占比</td>
+                        <td class="td-value">~25%</td>
+                        <td>仅次于马六甲海峡的全球第二大石油咽喉</td>
+                    </tr>
+                    <tr>
+                        <td>全球LNG贸易占比</td>
+                        <td class="td-value">~20%</td>
+                        <td>主要来自卡塔尔，全球最大LNG出口国之一</td>
+                    </tr>
+                    <tr>
+                        <td>亚洲流向占比</td>
+                        <td class="td-value">84%</td>
+                        <td>中国（540万桶/日）、印度、日本、韩国为主</td>
+                    </tr>
+                    <tr>
+                        <td>月均通行船只（战前）</td>
+                        <td class="td-value">~3000艘</td>
+                        <td>包含油轮、LNG船、散货船、集装箱船等</td>
+                    </tr>
+                    <tr>
+                        <td>最窄航道宽度</td>
+                        <td class="td-value">21英里</td>
+                        <td>由进出两条单向航道组成</td>
+                    </tr>
+                    <tr>
+                        <td>全球尿素产能占比</td>
+                        <td class="td-value">~50%</td>
+                        <td>海湾地区，危机直接冲击全球农业</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="confidence">
+            <span>数据置信度：</span>
+            <div class="confidence-bar"><div class="confidence-fill high" style="width:92%"></div></div>
+            <span>高（EIA/Kpler官方数据）</span>
+        </div>
+
+        <h3>1.2 危机升级时间线</h3>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2026年2月28日 · 战争爆发</div>
+                <div class="timeline-title">美以联合军事打击伊朗，哈梅内伊身亡</div>
+                <div class="timeline-desc">美国和以色列发动代号未公开的联合军事行动，伊朗最高领袖哈梅内伊在空袭中身亡。伊朗随即宣布封锁霍尔木兹海峡，伊斯兰革命卫队（IRGC）禁止一切船只通过。</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2026年3月初 · 全面封锁</div>
+                <div class="timeline-title">海峡通行量骤降95%，油价突破100美元</div>
+                <div class="timeline-desc">往返波斯湾港口的原油船舶减少约95%，LNG船舶减少约99%。布伦特原油3月8日突破100美元/桶，为四年来首次。IEA宣布这是"全球石油市场历史上最大规模的供应中断"。</div>
+            </div>
+            <div class="timeline-item phase2">
+                <div class="timeline-date">2026年3月11日 · 储备释放</div>
+                <div class="timeline-title">IEA宣布释放4亿桶战略石油储备——史上最大规模</div>
+                <div class="timeline-desc">32个IEA成员国一致同意释放4亿桶应急储备。但分析师指出，这只相当于约20天的海峡日均流量缺口，远不足以填补每天约1400万桶的供应损失。</div>
+            </div>
+            <div class="timeline-item phase2">
+                <div class="timeline-date">2026年3月-4月 · 油价巅峰</div>
+                <div class="timeline-title">布伦特原油飙升至126美元/桶峰值</div>
+                <div class="timeline-desc">3月创下有记录以来最大月度油价涨幅。布伦特均价4月达117美元/桶，与2022年俄乌冲突后峰值相当。IEA警告4月供应冲击将比3月更严重。</div>
+            </div>
+            <div class="timeline-item phase2">
+                <div class="timeline-date">2026年4月8日 · 短暂停火</div>
+                <div class="timeline-title">美伊宣布停火，但海峡通行未恢复</div>
+                <div class="timeline-desc">双方达成临时停火，但船东信心崩溃，通行量并未实质性恢复。IEA署长比罗尔称"市场正逼近红色区域"。</div>
+            </div>
+            <div class="timeline-item phase3">
+                <div class="timeline-date">2026年5月4日 · 中国油轮遇袭</div>
+                <div class="timeline-title">中国油轮"JV Innovation"号在海峡入口遭袭</div>
+                <div class="timeline-desc">首艘中国船东油轮遭伊朗攻击，甲板起火。船身标注"CHINA OWNER & CREW"但未能免于攻击，标志"中立国保护"幻想破灭。</div>
+            </div>
+            <div class="timeline-item phase3">
+                <div class="timeline-date">2026年6月14-17日 · 谅解备忘录</div>
+                <div class="timeline-title">美伊签署MOU，海峡短暂重启</div>
+                <div class="timeline-desc">在巴基斯坦、卡塔尔斡旋下达成60天谅解备忘录。6月17-18日出现冲突以来最高18次单窗口船舶通行。MOU期间共流出约3.74亿桶原油（约610万桶/日），但仅为战前40%。</div>
+            </div>
+            <div class="timeline-item phase4">
+                <div class="timeline-date">2026年7月上旬 · MOU崩溃</div>
+                <div class="timeline-title">多艘商船再次遇袭，海峡通行"基本停止"</div>
+                <div class="timeline-desc">伊朗恢复攻击未按其规则通行的船只，美方撤销石油贸易豁免并恢复空袭。央视报道霍尔木兹海峡油轮通行"基本停止"。胡塞武装同期袭击红海方向沙特油轮，两条能源通道同时面临风险。</div>
+            </div>
+            <div class="timeline-item phase4">
+                <div class="timeline-date">2026年8月 · 持续对峙</div>
+                <div class="timeline-title">阿联酋超级油轮遇袭，保险费率再飙升</div>
+                <div class="timeline-desc">8月13日阿布扎比国家石油公司两艘油轮遇袭，1名水手死亡。战争风险保险费率回升至船体价值的7.5-10%。卡塔尔能源公司LNG不可抗力通知延长至11月。</div>
+            </div>
+            <div class="timeline-item phase4">
+                <div class="timeline-date">2026年9月 · 有限缓和</div>
+                <div class="timeline-title">3艘超级油轮通过海峡，美伊和谈进入"最后阶段"</div>
+                <div class="timeline-desc">9月1日，3艘向韩国和中国运送原油的超级油轮通过海峡，油价应声下跌至98.26美元。美国能源部长称7日均值回升至约900万桶/日。特朗普表示和平协议谈判进入最后阶段。但市场对持久和平仍持谨慎态度。</div>
+            </div>
+        </div>
+
+        <h3>1.3 各方立场与博弈</h3>
+
+        <div class="player-grid">
+            <div class="player-card iran">
+                <h4>🇮🇷 伊朗</h4>
+                <p><strong>核心策略：</strong>以海峡为筹码施压谈判，"选择性封锁"——禁止美以欧船只通行，允许友好国家船只通过。</p>
+                <ul>
+                    <li>革命卫队主张战时有权控制海峡通行，引用"国家主权"</li>
+                    <li>收取"安全通行费"，要求船只按伊朗指定航道行驶</li>
+                    <li>声称打击"敌对国家"油轮，但实际攻击范围不断扩大</li>
+                    <li>哈梅内伊继任者誓言"继续封锁"，将海峡作为谈判最大筹码</li>
+                </ul>
+                <div class="confidence">
+                    <span>信息来源：</span>
+                    <div class="confidence-bar"><div class="confidence-fill high" style="width:88%"></div></div>
+                    <span>多源交叉验证</span>
+                </div>
+            </div>
+            <div class="player-card us">
+                <h4>🇺🇸 美国</h4>
+                <p><strong>核心策略：</strong>"有限打击+海上封锁"双管齐下，同时推动谈判解决。CNN披露开战前低估了海峡封锁的经济冲击。</p>
+                <ul>
+                    <li>发动"自由投射行动"（Operation Project Freedom）护航油轮</li>
+                    <li>打击伊朗军事监控、通信、防空、无人机及布雷设施</li>
+                    <li>封锁伊朗港口，撤销石油贸易豁免</li>
+                    <li>2026年国会大选年，倾向"有限打击、快速收尾"</li>
+                </ul>
+            </div>
+            <div class="player-card gulf">
+                <h4>🛢️ 海湾国家</h4>
+                <p><strong>核心策略：</strong>加速替代出口路线建设，寻求美国安全保护。</p>
+                <ul>
+                    <li>沙特：通过红海延布港出口、东西输油管道分流</li>
+                    <li>阿联酋：启用哈布尚-富查伊拉管道绕过海峡</li>
+                    <li>科威特：战后产量一度从250万桶/日降至50万桶/日</li>
+                    <li>卡塔尔：LNG设施遭伊朗导弹袭击，出口几近瘫痪</li>
+                </ul>
+            </div>
+            <div class="player-card china">
+                <h4>🇨🇳 中国</h4>
+                <p><strong>核心策略：</strong>保持战略定力，呼吁停火，能源安全"稳如泰山"。</p>
+                <ul>
+                    <li>战前加速囤油：2026年1-2月进口同比增15.8%，几乎全部入战略储备</li>
+                    <li>储备覆盖90-190天消费（Kpler/哥伦比亚大学估算）</li>
+                    <li>中俄管道和非洲/美洲替代供应覆盖霍尔木兹缺口</li>
+                    <li>至今未释放战略石油储备，煤价涨幅&lt;1%（远低于国际20%）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            <p>"当前危机比此前所有三次石油危机加起来还要严重。此外，许多重要商品——石化产品、化肥、硫磺——对全球供应链至关重要。我们正走向一场史无前例的重大中断。"</p>
+            <div class="quote-source">—— 法提赫·比罗尔，IEA署长，2026年4月</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SECTION 3: ENERGY MARKET IMPACT ===== -->
+<section class="section">
+    <div class="container">
+        <h2>二、能源市场影响</h2>
+
+        <h3>2.1 油价走势：从60美元到126美元的过山车</h3>
+        <p>2026年堪称全球石油市场最具戏剧性的一年。布伦特原油从年初约60.75美元/桶开始，在2月底战争爆发后经历了一轮历史性的价格飙升。</p>
+
+        <div class="chart-section">
+            <div class="chart-title">布伦特原油月均价格走势（2026年，美元/桶）</div>
+            <div class="chart-bars">
+                <div class="chart-gridlines">
+                    <div class="chart-gridline" style="bottom:0"><span>$60</span></div>
+                    <div class="chart-gridline" style="bottom:25%"><span>$80</span></div>
+                    <div class="chart-gridline" style="bottom:50%"><span>$100</span></div>
+                    <div class="chart-gridline" style="bottom:75%"><span>$120</span></div>
+                    <div class="chart-gridline" style="bottom:100%"><span>$140</span></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:0%;background:var(--forest-green)">
+                        <span class="tooltip">$61</span>
+                    </div>
+                    <div class="chart-label">1月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:27%;background:#B8860B">
+                        <span class="tooltip">$82</span>
+                    </div>
+                    <div class="chart-label">2月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:80%;background:var(--vermillion)">
+                        <span class="tooltip">$117</span>
+                    </div>
+                    <div class="chart-label">3月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:90%;background:var(--vermillion)">
+                        <span class="tooltip">$117</span>
+                    </div>
+                    <div class="chart-label">4月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:75%;background:#B8860B">
+                        <span class="tooltip">$107</span>
+                    </div>
+                    <div class="chart-label">5月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:40%;background:var(--apple-blue)">
+                        <span class="tooltip">$85</span>
+                    </div>
+                    <div class="chart-label">6月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:33%;background:var(--apple-blue)">
+                        <span class="tooltip">$81</span>
+                    </div>
+                    <div class="chart-label">7月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:55%;background:#B8860B">
+                        <span class="tooltip">$92</span>
+                    </div>
+                    <div class="chart-label">8月</div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-bar" style="height:63%;background:#B8860B">
+                        <span class="tooltip">$99</span>
+                    </div>
+                    <div class="chart-label">9月*</div>
+                </div>
+            </div>
+            <p style="font-size:12px;color:#86868b;margin-top:12px;">*9月数据截至9月8日。来源：Trading Economics、Statista、Capital.com 综合数据</p>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-label">📊 关键价格节点</div>
+            <p><strong>峰值：</strong>$126/桶（3月8日）——自2008年以来最高</p>
+            <p><strong>MOU期间低点：</strong>$71.99/桶（6月26日，Brent期货结算价）</p>
+            <p><strong>当前水平：</strong>$99.24/桶（9月8日），较去年同期上涨49.48%</p>
+            <p><strong>世界银行预测：</strong>2026年均价$86/桶（基线），若冲突持续则$95-115/桶</p>
+        </div>
+
+        <h3>2.2 替代航线：好望角——昂贵的"备用血管"</h3>
+        <p>当霍尔木兹海峡不可通行时，好望角航线是亚洲至欧洲和中东至亚洲的唯一海运替代方案。然而这条"备用血管"代价极其高昂：</p>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>替代航线</th>
+                        <th>额外航行时间</th>
+                        <th>额外成本</th>
+                        <th>适用场景</th>
+                        <th>限制因素</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>好望角航线</strong></td>
+                        <td class="td-value td-red">+10~14天</td>
+                        <td class="td-value td-red">+100万美元/趟</td>
+                        <td>非紧急海运、散货、标准集装箱</td>
+                        <td>运力紧张，LNG蒸发损耗~2%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>沙特延布港（东-西管道）</strong></td>
+                        <td class="td-value">不定</td>
+                        <td class="td-value td-amber">高</td>
+                        <td>沙特境内货物、原油</td>
+                        <td>管道容量有限</td>
+                    </tr>
+                    <tr>
+                        <td><strong>哈布尚-富查伊拉管道</strong></td>
+                        <td class="td-value">省去海峡</td>
+                        <td class="td-value td-amber">中等</td>
+                        <td>阿联酋原油出口</td>
+                        <td>仅限阿联酋产能</td>
+                    </tr>
+                    <tr>
+                        <td><strong>空运</strong></td>
+                        <td class="td-value td-green">1~3天</td>
+                        <td class="td-value td-red">极高</td>
+                        <td>高价值、时间敏感、小重量货物</td>
+                        <td>运力极其有限</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>好望角航线增加3500-4000海里距离，使一个VLCC（超大型油轮）从波斯湾到新加坡的往返航程从35-45天延长至55-70天，相当于运力可用性减少三分之一。对LNG船来说，额外14天意味着约2%的货物因蒸发损耗而损失，加上每天3-3.5万美元的燃油成本，每趟额外运营成本约50万美元。</p>
+
+        <p>集装箱航运公司已征收战争风险附加费：赫伯罗特每标准箱1500美元、冷藏箱3500美元；达飞特种设备最高4000美元。亚洲到欧洲运费上涨30-50%，燃油附加费上涨15-25%。</p>
+
+        <h3>2.3 战略石油储备与应急响应</h3>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>国家/组织</th>
+                        <th>储备水平</th>
+                        <th>应急措施</th>
+                        <th>当前状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IEA成员国</strong></td>
+                        <td class="td-value">约15亿桶+</td>
+                        <td>释放4亿桶（3月）——史上最大规模</td>
+                        <td>80%储备尚未释放，可追加释放</td>
+                    </tr>
+                    <tr>
+                        <td><strong>美国（SPR）</strong></td>
+                        <td class="td-value">约3.7亿桶</td>
+                        <td>参与IEA协调释放</td>
+                        <td>创建于1975年，以应对类似危机</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中国</strong></td>
+                        <td class="td-value td-green">90~190天</td>
+                        <td>尚未释放战略储备</td>
+                        <td>战前加速囤油，2026年1-2月增15.8%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>日本</strong></td>
+                        <td class="td-value td-amber">~200天+</td>
+                        <td>部分释放</td>
+                        <td>中东依赖度96%，受冲击最大</td>
+                    </tr>
+                    <tr>
+                        <td><strong>韩国</strong></td>
+                        <td class="td-value">~100天+</td>
+                        <td>参与IEA释放</td>
+                        <td>高度依赖中东原油</td>
+                    </tr>
+                    <tr>
+                        <td><strong>全球库存</strong></td>
+                        <td class="td-value td-red">~98天需求覆盖</td>
+                        <td>5月创8年新低</td>
+                        <td>供应缓冲空间极为紧张</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="callout">
+            <div class="callout-label">💡 IEA评估</div>
+            <p>IEA署长比罗尔5月在查塔姆大厦表示：IEA成员仍可释放更多战略储备，80%的集体储备尚未动用。但他强调"最重要的解决方案是全面、无条件地重新开放霍尔木兹海峡"。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SECTION 4: INDUSTRY CHAIN IMPACT ===== -->
+<section class="section section-alt">
+    <div class="container">
+        <h2>三、产业链冲击波</h2>
+
+        <p class="lead">霍尔木兹海峡封锁的影响远超石油和天然气本身，其冲击波沿产业链传导，波及化工、航运、保险、农业、航空乃至半导体等众多行业。</p>
+
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon">🚢</div>
+                <h4>航运业</h4>
+                <p>油轮运费暴涨。好望角航线使每个VLCC往返增加100万美元成本。战争风险附加费使集装箱运费上涨30-50%。LNG船运费处于历史高位，因船只被长期滞留在波斯湾内。</p>
+                <span class="impact-stat">运费涨幅 30-50%</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🛡️</div>
+                <h4>保险业</h4>
+                <p>战争风险保险费从战前船体价值的0.25%飙升至3-10%。一艘1亿美元油轮的保费从25万美元暴涨至300-1000万美元。27万吨级油轮单次保险约2100万美元。</p>
+                <span class="impact-stat">保险费率飙升 12-40倍</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🧪</div>
+                <h4>石化行业</h4>
+                <p>波斯湾是全球石化原料重镇。40%的石脑油经海峡运输。陶氏化学警告成本上升和产能风险，杜邦报告伊朗战争驱动的成本增加。聚乙烯(PE)和聚丙烯(PP)价格显著上涨，亚洲裂解装置开工率从70%以下突然拉满。</p>
+                <span class="impact-stat">石脑油供应缺口 40%</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🌾</div>
+                <h4>农业与化肥</h4>
+                <p>海湾地区生产全球约50%的尿素和30%的氨。约1/3全球化肥经海峡运输。尿素价格自战争爆发以来上涨50%，磷酸二铵价格同步走高。正值北半球农业关键期，化肥短缺威胁粮食安全。</p>
+                <span class="impact-stat">尿素价格 +50%</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">⚡</div>
+                <h4>LNG与天然气</h4>
+                <p>卡塔尔是全球最大LNG出口国之一（产能7700万吨/年），其出口几乎完全依赖海峡。LNG船减少99%。卡塔尔能源公司不可抗力通知已延长至11月。欧洲天然气价格飙升。Gas Strategies预测2025-2026年全球LNG需求下降8%。</p>
+                <span class="impact-stat">LNG船舶通行 -99%</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">✈️</div>
+                <h4>航空业</h4>
+                <p>航空燃料供应受到严重影响。IATA警告即使海峡重开，航空燃料供应恢复也需要数月。欧洲机场面临运营挑战，包括航班取消和产能限制的风险。航空煤油与原油的价差扩大。</p>
+                <span class="impact-stat">航空燃料恢复需数月</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🔬</div>
+                <h4>氦气与半导体</h4>
+                <p>卡塔尔是全球主要氦气供应国。氦气对半导体制造、MRI等至关重要。氦气分销商自4月起实施定量配送。供应链中断波及芯片制造和医疗设备行业。</p>
+                <span class="impact-stat">氦气定量配送</span>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🔩</div>
+                <h4>铝与金属</h4>
+                <p>中东是全球主要铝冶炼基地（阿联酋EGA、沙特Ma'aden等）。危机波及铝、硫磺等大宗商品市场。能源成本上涨推高全球冶炼成本。金属供应链出现价格分化。</p>
+                <span class="impact-stat">大宗商品价格普涨</span>
+            </div>
+        </div>
+
+        <h3>3.1 中国能源进口依赖度与脆弱性分析</h3>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>数据</th>
+                        <th>评估</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>经霍尔木兹海峡进口占比</td>
+                        <td class="td-value">~33%（进口量）/ ~22%（消费量）</td>
+                        <td class="td-amber">中等依赖</td>
+                    </tr>
+                    <tr>
+                        <td>原油自给率</td>
+                        <td class="td-value">~27%（国内自产）</td>
+                        <td class="td-green">高于日韩</td>
+                    </tr>
+                    <tr>
+                        <td>战略+商业储备</td>
+                        <td class="td-value">90~190天</td>
+                        <td class="td-green">充裕</td>
+                    </tr>
+                    <tr>
+                        <td>2026年1-2月原油进口增速</td>
+                        <td class="td-value">同比+15.8%</td>
+                        <td class="td-green">提前囤油</td>
+                    </tr>
+                    <tr>
+                        <td>替代供应能力</td>
+                        <td class="td-value">~1.8亿吨/年（俄罗斯+美洲+非洲+中亚）</td>
+                        <td class="td-green">基本覆盖缺口</td>
+                    </tr>
+                    <tr>
+                        <td>非化石能源占比</td>
+                        <td class="td-value">已超石油成为第二大能源类型</td>
+                        <td class="td-green">结构优化中</td>
+                    </tr>
+                    <tr>
+                        <td>成品油价格</td>
+                        <td class="td-value">保持稳定，5500大卡动力煤现货涨幅&lt;1%</td>
+                        <td class="td-green">远低于国际20%</td>
+                    </tr>
+                    <tr>
+                        <td>是否释放战略储备</td>
+                        <td class="td-value">至今未释放</td>
+                        <td class="td-green">"稳如泰山"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="callout">
+            <div class="callout-label">🔑 清华大学战略与安全研究中心评估（2026.06）</div>
+            <p>"当韩国、日本及东盟国家的经济和能源安全受到直接冲击时，中国却稳如泰山……'中东一动荡，中国能源安全立刻被动承压'的逻辑被进一步改写。"中国面对外部能源冲击时，所依赖的已不是单一的进口冗余，而是一个更加厚实的国内能源家底——新能源装机超10亿千瓦，储能超1亿千瓦。</p>
+        </div>
+
+        <div class="callout warning">
+            <div class="callout-label">⚠ 中国替代供应能力估算</div>
+            <p><strong>俄罗斯：</strong>通过远东管道和海运额外增供5000万吨/年（覆盖27%缺口）</p>
+            <p><strong>美洲（巴西/加拿大/哥伦比亚）：</strong>增供2500万吨/年（覆盖14%）</p>
+            <p><strong>非洲（安哥拉/尼日利亚/刚果）：</strong>增供3500万吨/年（覆盖19%）</p>
+            <p><strong>中亚+东南亚+澳洲：</strong>增供2000万吨/年（覆盖11%）</p>
+            <p><strong>合计替代能力约1.8亿吨/年</strong>，基本覆盖每年1.85亿吨的霍尔木兹海峡进口量。</p>
+            <p style="margin-top:8px;font-size:13px;color:#86868b;">来源：国家能源局《2025年国内外油气行业发展报告》</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SECTION 5: QUANTITATIVE ANALYSIS ===== -->
+<section class="section">
+    <div class="container">
+        <h2>四、量化指标总览</h2>
+
+        <div class="data-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>指标类别</th>
+                        <th>指标名称</th>
+                        <th>战前基准</th>
+                        <th>危机峰值/当前</th>
+                        <th>变化幅度</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3"><strong>流量</strong></td>
+                        <td>日均石油流量</td>
+                        <td>~2030万桶/日</td>
+                        <td>最低<100万桶/日（3-4月）</td>
+                        <td class="td-value td-red">-95%</td>
+                    </tr>
+                    <tr>
+                        <td>LNG船舶通行</td>
+                        <td>正常水平</td>
+                        <td>减少99%</td>
+                        <td class="td-value td-red">-99%</td>
+                    </tr>
+                    <tr>
+                        <td>当前恢复水平（9月）</td>
+                        <td>—</td>
+                        <td>~900万桶/日</td>
+                        <td class="td-value td-amber">恢复至~45%</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4"><strong>价格</strong></td>
+                        <td>布伦特原油</td>
+                        <td>~$61/桶（1月）</td>
+                        <td>峰值$126/桶（3月8日）</td>
+                        <td class="td-value td-red">+107%</td>
+                    </tr>
+                    <tr>
+                        <td>布伦特当前</td>
+                        <td>—</td>
+                        <td>$99.24/桶（9月8日）</td>
+                        <td class="td-value td-red">+49.5% YoY</td>
+                    </tr>
+                    <tr>
+                        <td>尿素价格</td>
+                        <td>战前水平</td>
+                        <td>+50%</td>
+                        <td class="td-value td-red">+50%</td>
+                    </tr>
+                    <tr>
+                        <td>集装箱运费</td>
+                        <td>战前水平</td>
+                        <td>+30-50%</td>
+                        <td class="td-value td-red">+30-50%</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>成本</strong></td>
+                        <td>战争风险保险（船体%）</td>
+                        <td>0.25%</td>
+                        <td>3-10%（峰值）</td>
+                        <td class="td-value td-red">×12~40倍</td>
+                    </tr>
+                    <tr>
+                        <td>好望角替代航程</td>
+                        <td>—</td>
+                        <td>+10-14天，+$100万/趟</td>
+                        <td class="td-value td-red">显著增加</td>
+                    </tr>
+                    <tr>
+                        <td>集装箱战争附加费</td>
+                        <td>$0</td>
+                        <td>$1,500-4,000/TEU</td>
+                        <td class="td-value td-red">全新增项</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>储备</strong></td>
+                        <td>IEA释放量</td>
+                        <td>—</td>
+                        <td>4亿桶（3月）</td>
+                        <td class="td-value td-amber">史上最大</td>
+                    </tr>
+                    <tr>
+                        <td>中国储备覆盖</td>
+                        <td>—</td>
+                        <td>90-190天</td>
+                        <td class="td-value td-green">充裕</td>
+                    </tr>
+                    <tr>
+                        <td>全球库存天数</td>
+                        <td>~101天</td>
+                        <td>~98天（5月）</td>
+                        <td class="td-value td-amber">8年新低</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><strong>经济</strong></td>
+                        <td>全球通胀影响</td>
+                        <td>—</td>
+                        <td>+0.8%（分析师预测）</td>
+                        <td class="td-value td-amber">显著</td>
+                    </tr>
+                    <tr>
+                        <td>2026H2全球GDP增速</td>
+                        <td>此前预测>3%</td>
+                        <td><2%（Wood Mackenzie）</td>
+                        <td class="td-value td-red">浅衰退</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="confidence">
+            <span>数据来源与置信度：</span>
+            <div class="confidence-bar"><div class="confidence-fill high" style="width:85%"></div></div>
+            <span>综合EIA、IEA、Kpler、世界银行、Trading Economics、Statista等权威来源</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SECTION 6: CONCLUSION ===== -->
+<section class="section section-dark">
+    <div class="container">
+        <h2>五、结论：全球能源供应链的"咽喉困境"如何破解？</h2>
+
+        <p class="lead">霍尔木兹海峡危机揭示了一个残酷现实：全球能源安全在很大程度上仍然系于一条21英里宽的海峡。这场危机不是一次性的"黑天鹅"，而是一只反复出现的"灰犀牛"——它在1980年代两伊战争期间、1988年"油轮战争"中都曾亮出过獠牙，只是这一次规模史无前例。</p>
+
+        <div class="divider" style="background:linear-gradient(to right,transparent,rgba(255,255,255,0.15),transparent)"></div>
+
+        <h3 style="color:white;">短期：止血与恢复（2026年Q4）</h3>
+        <p>美伊和谈进入"最后阶段"是积极信号，但MOU的前车之鉴表明，纸面协议不等于航道安全。即使达成最终和平协议，航运信心的恢复可能需要数月。Kpler估计，118艘被困油轮可在15天内驶出，但30天内每天进入海湾的油轮也仅约12艘——远低于战前水平。科威特、沙特等国需要修复受损基础设施，恢复产能也需要数周到数月。</p>
+
+        <h3 style="color:white;">中期：多元化与冗余建设（2027-2030年）</h3>
+        <p>这场危机将加速三件事：</p>
+        <p><strong>第一，替代通道建设。</沙特东-西管道（延布港）、阿联酋哈布尚-富查伊拉管道的扩容将提速。卡塔尔正在评估LNG出口的替代路线。但物理管道的容量上限意味着它们只能部分替代海峡。</p>
+        <p><strong>第二，能源进口来源多元化。</strong>中国已在行动——俄罗斯管道油、巴西深海油、非洲原油的份额将持续上升。日本和韩国将被迫加速LNG来源分散和核能重启。</p>
+        <p><strong>第三，战略储备扩增。</strong>全球各国将加大战略石油储备建设力度。中国的"90-190天"模式将被更多国家效仿。</p>
+
+        <h3 style="color:white;">长期：结构性变革（2030年以后）</h3>
+
+        <div class="conclusion-grid">
+            <div class="conclusion-card">
+                <div class="icon">🔋</div>
+                <h4>能源转型加速</h4>
+                <p>这场危机是化石能源脆弱性的最有力"推销员"。中国非化石能源已超石油成为第二大能源类型，这一趋势将因危机而加速。电动汽车、光伏、储能的投资回报在"每桶100美元时代"更加诱人。</p>
+            </div>
+            <div class="conclusion-card">
+                <div class="icon">🌐</div>
+                <h4>供应链去中心化</h4>
+                <p>"不要把所有鸡蛋放在一个篮子里"不再只是投资格言。全球能源供应链将走向多节点、多路径、多冗余的网状结构，而非依赖单一咽喉。</p>
+            </div>
+            <div class="conclusion-card">
+                <div class="icon">⚖️</div>
+                <h4>地缘秩序重塑</h4>
+                <p>能源武器化将催生新的国际规则。国际航行海峡的通行权、战时海上封锁的合法性、能源供应中断的国际责任——这些议题将进入全球治理议程的核心。</p>
+            </div>
+        </div>
+
+        <div class="quote-block" style="background:rgba(255,255,255,0.04);border-left-color:var(--apple-blue);">
+            <p style="color:rgba(255,255,255,0.88);">"中国的能源安全从来不是建立在某一条海峡的畅通之上，而是建立在多元化的供应体系、充裕的战略储备和强大的国内生产能力基础之上。"</p>
+            <div class="quote-source" style="color:rgba(255,255,255,0.48);">—— 中国人民大学重阳金融研究院，2026年3月</div>
+        </div>
+
+        <div class="callout danger" style="margin-top:40px;">
+            <div class="callout-label">🎯 最终判断</div>
+            <p>霍尔木兹海峡的"咽喉困境"没有单点解法，只有系统性答案：多元供给+充足储备+能源转型+国际规则。这场危机正在以鲜血和金钱为代价，推动全球能源秩序从"单一咽喉依赖"向"分布式韧性"转型。问题不在于这个转型是否会发生，而在于它是否能在下一次危机到来之前完成。</p>
+            <p style="margin-top:12px;"><strong>风险提示：</strong>若美伊和谈最终失败、冲突进一步升级，布伦特原油可能突破$120/桶并触发全球性滞胀。Wood Mackenzie"持续中断"情景下，2026年下半年全球GDP增速将跌至2%以下。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SOURCES ===== -->
+<section class="sources">
+    <div class="container">
+        <h2>参考来源</h2>
+        <div class="source-list">
+            <p data-num="[1] ">U.S. Energy Information Administration (EIA), "Amid regional conflict, the Strait of Hormuz remains critical oil chokepoint," 2026</p>
+            <p data-num="[2] ">International Energy Agency (IEA), "How global oil supplies have readjusted to help fill the huge gap left by the Strait of Hormuz shock," 2026</p>
+            <p data-num="[3] ">IEA, "Member countries to carry out largest ever oil stock release," Press Release, 11 March 2026</p>
+            <p data-num="[4] ">World Bank, "Strait of Hormuz disruption sends oil prices surging," Open Data Blog, 2026</p>
+            <p data-num="[5] ">Wikipedia, "2026 Strait of Hormuz crisis" / "2026 Iran war fuel crisis"</p>
+            <p data-num="[6] ">CNBC, "U.S. attacks Iranian targets after tanker hit in the Strait of Hormuz," 27 June 2026</p>
+            <p data-num="[7] ">NPR/Associated Press, "U.S. launches new strikes against Iran after three ships hit in Strait of Hormuz," 7 July 2026</p>
+            <p data-num="[8] ">The Guardian, "US attacks oil tanker in strait of Hormuz as strikes reported in Tehran," 16 July 2026</p>
+            <p data-num="[9] ">Reuters, "US strikes Iran in response to attack on cargo ship in Strait of Hormuz," 26 June 2026</p>
+            <p data-num="[10] ">Al Jazeera, "Oil flows nearly tripled before US-Iran MoU expired," 20 August 2026</p>
+            <p data-num="[11] ">Statista, "Quarter of Maritime Oil Trade Flows Through Strait of Hormuz" / Brent crude price timeline</p>
+            <p data-num="[12] ">Trading Economics, Brent Crude Oil data, 8 September 2026</p>
+            <p data-num="[13] ">Capital.com, "Crude Oil Price Forecast: Strait of Hormuz Closure," 19 May 2026</p>
+            <p data-num="[14] ">Wood Mackenzie, "Strait of Hormuz closure risks greatest global energy supply shock in decades"</p>
+            <p data-num="[15] ">Wood Mackenzie, "Strait of Hormuz blockade bites global chemicals sector"</p>
+            <p data-num="[16] ">The National (UAE), "Shipping insurance surges again as attacks intensify over Strait of Hormuz," 17 July 2026</p>
+            <p data-num="[17] ">Lloyd's Market Association (LMA), "Safety concerns, not insurance availability, driving reduced vessel traffic," 23 March 2026</p>
+            <p data-num="[18] ">Al Jazeera, "How shipping insurance rates are rising as Hormuz, Bab al-Mandeb shut down," 23 July 2026</p>
+            <p data-num="[19] ">CSIS, "The Battle for Hormuz Will Reshape the Global LNG Market," 2026</p>
+            <p data-num="[20] ">QatarEnergy/Euronews, "LNG cancellations extended into November as Hormuz disruption drags on," 31 August 2026</p>
+            <p data-num="[21] ">C&EN (ACS), "Iran war will debilitate petrochemicals for the rest of 2026," April 2026</p>
+            <p data-num="[22] ">Prime Petrochem, "Polymer Markets Under Pressure: How the Iran War Reshaped Global PE/PP Supply," 26 March 2026</p>
+            <p data-num="[23] ">Kpler, "Hormuz Shutdown: Impact on Dry Bulk, LNG & Trade Risk," 5 March 2026</p>
+            <p data-num="[24] ">中国财新网, "一中国油轮在霍尔木兹海峡遇袭," 7 May 2026</p>
+            <p data-num="[25] ">新华网, "阿联酋称该国两艘油轮通过霍尔木兹海峡时遭袭," 14 August 2026</p>
+            <p data-num="[26] ">央视新闻, "霍尔木兹海峡油轮通行'基本停止'," 9 July 2026</p>
+            <p data-num="[27] ">财联社, "霍尔木兹重启进行时：美军宣布结束封锁 多艘油轮驶出海峡," 19 June 2026</p>
+            <p data-num="[28] ">华尔街日报中文版, "三艘油轮穿过霍尔木兹海峡，油价下跌," 1 September 2026</p>
+            <p data-num="[29] ">21经济网, "别被带偏，霍尔木兹海峡焦虑可以放下了" / "原油、航运大跳水！霍尔木兹海峡到底'通了没'？"，2026年3月</p>
+            <p data-num="[30] ">BBC中文, "霍尔木兹海峡'锁喉'影响：日韩面临危机、中国提前囤油、俄罗斯大赚一笔"</p>
+            <p data-num="[31] ">清华大学战略与安全研究中心, 余翔"中东乱局之下，中国能源安全韧性从何而来," 24 June 2026</p>
+            <p data-num="[32] ">RFI法广, "CNN：开战前美国低估伊朗封锁霍尔木兹海峡的冲击," 13 March 2026</p>
+            <p data-num="[33] ">The Guardian, "Oil markets nearing 'red zone' as Iran crisis continues," 21 May 2026</p>
+            <p data-num="[34] ">Britannica, "How Much Oil Passes Through the Strait of Hormuz?"</p>
+            <p data-num="[35] ">Carra Globe, "Strait of Hormuz Closure 2026: What It Means for Your Supply Chain"</p>
+            <p data-num="[36] ">Discovery Alert, "Hormuz Tensions Drive Oil Volatility in 2026"</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <p>研析 Research Analyst · 深度研究报告 V2026.09.10</p>
+        <p style="margin-top:8px;">报告生成时间：2026年9月10日 · 数据截止：2026年9月8日</p>
+        <p style="margin-top:8px;font-size:11px;">本报告基于公开信息来源编制，仅供研究参考。关键数据已标注来源与置信度。市场有风险，决策需谨慎。</p>
+    </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value": "~98天", "label": "需求覆盖", "quote": "~98天需求覆盖"},
+  {"value": "40%", "label": "石脑油供应缺口", "quote": "石脑油供应缺口 40%"},
+  {"value": "+50%", "label": "尿素价格", "quote": "尿素价格 +50%"},
+  {"value": "-99%", "label": "LNG船舶通行", "quote": "LNG船舶通行 -99%"},
+  {"value": "~27%", "label": "国内自产", "quote": "~27%（国内自产）"},
+  {"value": "~1.8亿", "label": "吨/年（俄罗斯+美洲+非洲+中亚", "quote": "~1.8亿吨/年（俄罗斯+美洲+非洲+中亚）"},
+  {"value": "20%", "label": "远低于国际", "quote": "远低于国际20%"},
+  {"value": "+49.5%", "label": "YoY", "quote": "+49.5% YoY"},
+  {"value": "+0.8%", "label": "分析师预测", "quote": "+0.8%（分析师预测）"},
+  {"value": "~2030万桶", "label": "EIA 2025Q1数据，含原油和凝析油", "quote": "~2030万桶 EIA 2025Q1数据，含原油和凝析油"},
+  {"value": "~25%", "label": "仅次于马六甲海峡的全球第二大石油咽喉", "quote": "~25% 仅次于马六甲海峡的全球第二大石油咽喉"},
+  {"value": "~20%", "label": "主要来自卡塔尔，全球最大LNG出口国之一", "quote": "~20% 主要来自卡塔尔，全球最大LNG出口国之一"},
+  {"value": "84%", "label": "中国（540万桶/日）、印度、日本、韩国为主", "quote": "84% 中国（540万桶/日）、印度、日本、韩国为主"},
+  {"value": "~3000艘", "label": "包含油轮、LNG船、散货船、集装箱船等", "quote": "~3000艘 包含油轮、LNG船、散货船、集装箱船等"},
+  {"value": "~50%", "label": "海湾地区，危机直接冲击全球农业", "quote": "~50% 海湾地区，危机直接冲击全球农业"},
+  {"value": "-95%", "label": "LNG船舶通行", "quote": "-95% LNG船舶通行"},
+  {"value": "-99%", "label": "当前恢复水平（9月）", "quote": "-99% 当前恢复水平（9月）"},
+  {"value": "+107%", "label": "布伦特当前", "quote": "+107% 布伦特当前"},
+  {"value": "+50%", "label": "集装箱运费", "quote": "+50% 集装箱运费"},
+  {"value": "0.25%", "label": "3-10%（峰值）", "quote": "0.25% 3-10%（峰值）"}
+]
+</script>
+</body>
+</html>

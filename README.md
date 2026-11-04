@@ -29,7 +29,7 @@ showcase/
 
 **三条硬规则**
 
-1. 作品**必须**放进 `YYYY-MM-DD/{research|creative}/`，不要放在日期目录根下，
+1. 作品**必须**放进 `works/YYYY-MM-DD/{research|creative}/`（2026-11-04 起日期目录统一归到 `works/` 下），不要放在日期目录根下，
    更不要放在 `showcase/` 根目录。类型由**目录**表达。
 2. 文件名**必须**带日期前缀：`YYYY-MM-DD-<slug>.html`。
 3. 过程材料（预览截图、交付报告 md、构建分片）**一律进 `notes/`**，
@@ -39,7 +39,7 @@ showcase/
 
 ```bash
 # ① 写好 HTML，放到规范路径
-#    showcase/2026-10-23/research/2026-10-23-my-topic.html
+#    showcase/works/2026-10-23/research/2026-10-23-my-topic.html
 
 # ②（可选但强烈建议）放一张高清截图到源图目录，命名同规则：
 #    showcase/_private/thumbs-src/2026-10-23-research-2026-10-23-my-topic-thumb.png
