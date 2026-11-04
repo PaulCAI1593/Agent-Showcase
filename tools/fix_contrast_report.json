@@ -1,30 +1,100 @@
 {
  "plans": {
-  "2026-05-26/research/2026-05-26-huawei-tau-law.html": [
+  "2026-05-23/research/2026-05-23-research-stainless-acquisition.html": [
    {
-    "from": "#d4a574",
-    "to": "#ecd6c0",
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#76767a",
     "mode": "global",
     "count": 1
    }
   ],
+  "2026-05-26/research/2026-05-26-huawei-tau-law.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-05-27/research/2026-05-27-turing-test-impact.html": [
+   {
+    "from": "#6b6b78",
+    "to": "#787884",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#e05252",
+    "to": "#e15555",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-05-28/creative/2026-05-28-creative-ai-war-map.html": [
+   {
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-05-31/research/2026-05-31-Anthropic-valuation.html": [
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 3
+   }
+  ],
   "2026-05-31/research/2026-05-31-DeepSeek-valuation.html": [
    {
-    "from": "#d4a574",
-    "to": "#90704f",
+    "from": "#6e6e73",
+    "to": "#6d6d72",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html": [
    {
-    "from": "#7c3aed",
-    "to": "#9b69f1",
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-06-06/research/2026-06-06-ai-agent-landscape.html": [
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#0071e3",
+    "to": "#006cda",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html": [
+   {
+    "from": "#0071e3",
+    "to": "#2686e7",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 1
+   },
    {
     "from": "#1d1d1f",
     "to": "#757576",
@@ -34,18 +104,86 @@
   ],
   "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html": [
    {
-    "from": "#d97706",
-    "to": "#a75c05",
+    "from": "#0071e3",
+    "to": "#006edc",
     "mode": "global",
-    "count": 3
+    "count": 6
+   },
+   {
+    "from": "#00875a",
+    "to": "#007e54",
+    "mode": "global",
+    "count": 4
+   },
+   {
+    "from": "#86868b",
+    "to": "#929297",
+    "mode": "global",
+    "count": 2
+   }
+  ],
+  "2026-06-11/creative/2026-06-11-model-routing-layer.html": [
+   {
+    "from": "#86868b",
+    "to": "#737378",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#1b6cf3",
+    "to": "#1a69ec",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#a8a8ad",
+    "to": "#c2c2c6",
+    "mode": "global",
+    "count": 2
+   }
+  ],
+  "2026-06-11/research/2026-06-11-domestic-llm-comparison.html": [
+   {
+    "from": "#86868b",
+    "to": "#6d6d71",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#e65100",
+    "to": "#c44500",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#0071e3",
+    "to": "#006ad5",
+    "mode": "global",
+    "count": 1
    }
   ],
   "2026-06-11/research/2026-06-11-moe-sparse-attention.html": [
+   {
+    "from": "#86868b",
+    "to": "#727276",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   },
    {
     "from": "#d4a574",
     "to": "#90704f",
     "mode": "global",
     "count": 2
+   }
+  ],
+  "2026-06-11/research/2026-06-11-wwdc-apple-ai.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "rule-scoped"
    }
   ],
   "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html": [
@@ -56,10 +194,28 @@
     "count": 1
    },
    {
-    "from": "#1d1d1f",
-    "to": "#d0d0d0",
+    "from": "#007aff",
+    "to": "#0069db",
     "mode": "global",
     "count": 2
+   },
+   {
+    "from": "#af52de",
+    "to": "#b560e1",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#1d1d1f",
+    "to": "#ffffff",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#cc2f26",
+    "mode": "global",
+    "count": 1
    },
    {
     "from": "#ff9500",
@@ -74,10 +230,42 @@
     "count": 1
    }
   ],
+  "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html": [
+   {
+    "from": "#cf0a2c",
+    "to": "#d83652",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#e8324a",
+    "to": "#eb4f63",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-06-15/research/2026-06-15-openai-ona-acquisition.html": [
    {
     "from": "#0071e3",
-    "to": "#529eec",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#cc2f26",
     "mode": "global",
     "count": 1
    },
@@ -90,50 +278,115 @@
   ],
   "2026-06-16/creative/2026-06-16-a-share-dashboard.html": [
    {
-    "from": "#64748b",
-    "to": "#8c98a9",
+    "from": "#ef4444",
+    "to": "#f15e5e",
     "mode": "global",
-    "count": 1
+    "count": 2
    }
   ],
   "2026-06-16/creative/2026-06-16-ai-passport-war.html": [
    {
-    "from": "#e67e22",
-    "to": "#965216",
+    "from": "#6b7280",
+    "to": "#8c919c",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#27ae60",
-    "to": "#19713e",
+    "from": "#d4a5e8",
+    "to": "#dcb5ec",
     "mode": "global",
     "count": 1
    },
+   {
+    "from": "#ad392d",
+    "to": "#c77870",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-06-16/creative/2026-06-16-ai-security-red-blue.html": [
    {
     "from": "#e74c3c",
-    "to": "#ad392d",
+    "to": "#e74e3e",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#3498db",
+    "to": "#46a1de",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-06-16/creative/2026-06-16-open-source-models-cards.html": [
+   {
+    "from": "#6e6e73",
+    "to": "#7f7f84",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6366f1",
+    "to": "#6e71f2",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ef4444",
+    "to": "#f15757",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-16/research/2026-06-16-fable5-global-ban.html": [
    {
-    "from": "#ff9500",
-    "to": "#a35f00",
+    "from": "#0071e3",
+    "to": "#006edc",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#34c759",
-    "to": "#22833b",
+    "from": "#86868b",
+    "to": "#737378",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#cc2f26",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-20/creative/2026-06-20-musk-trillion-path.html": [
    {
-    "from": "#555570",
-    "to": "#808094",
+    "from": "#808094",
+    "to": "#838396",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-06-20/creative/2026-06-20-spacex-cursor.html": [
+   {
+    "from": "#0071e3",
+    "to": "#2686e7",
+    "mode": "global",
+    "count": 12
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#ff544b",
+    "mode": "global",
+    "count": 7
+   },
+   {
+    "from": "#86868b",
+    "to": "#919195",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#af52de",
+    "to": "#bd71e4",
     "mode": "global",
     "count": 1
    }
@@ -146,32 +399,70 @@
     "count": 5
    },
    {
+    "from": "#718096",
+    "to": "#69778c",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#4a5568",
     "to": "#d7dade",
     "mode": "global",
     "count": 5
    }
   ],
+  "2026-06-23/research/2026-06-23-us-iran-ceasefire-energy-reshuffle.html": [
+   {
+    "from": "#0088ff",
+    "to": "#1c95ff",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html": [
    {
     "from": "#e0e0e0",
-    "to": "#4c4c4c",
+    "to": "#636363",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-27/creative/2026-06-27-ai-productivity-gap.html": [
    {
-    "from": "#555570",
-    "to": "#77778d",
+    "from": "#77778d",
+    "to": "#7b7b90",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html": [
    {
+    "from": "#0071e3",
+    "to": "#006ad5",
+    "mode": "global",
+    "count": 3
+   },
+   {
+    "from": "#86868b",
+    "to": "#737378",
+    "mode": "global",
+    "count": 2
+   },
+   {
     "from": "#ff9500",
     "to": "#a86200",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#2e7d32",
+    "to": "#2e7c32",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#1d1d1f",
+    "to": "#fafafb",
     "mode": "global",
     "count": 2
    },
@@ -188,74 +479,160 @@
     "count": 1
    }
   ],
+  "2026-07-02/creative/2026-07-02-ai-coding-agent-infrastructure.html": [
+   {
+    "from": "#0071e3",
+    "to": "#2686e7",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#a855f7",
+    "to": "#ab5cf7",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html": [
    {
+    "from": "#0071e3",
+    "to": "#0a77e4",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#d4a574",
-    "to": "#90704f",
+    "to": "#886a4a",
     "mode": "global",
     "count": 2
-   },
-   {
-    "from": "#2d5016",
-    "to": "#6a835a",
-    "mode": "global",
-    "count": 1
-   },
-   {
-    "from": "#1d1d1f",
-    "to": "#b7b7b7",
-    "mode": "global",
-    "count": 1
    },
    {
     "from": "#86868b",
     "to": "#ffffff",
     "mode": "global",
     "count": 1
+   },
+   {
+    "from": "#c44536",
+    "to": "#b84133",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#2d5016",
+    "to": "#667f55",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8b6914",
+    "to": "#9c7f37",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#1d1d1f",
+    "to": "#b7b7b7",
+    "mode": "global",
+    "count": 1
    }
   ],
   "2026-07-04/creative/2026-07-04-ai-faith-collapse.html": [
    {
-    "from": "#555570",
-    "to": "#77778d",
+    "from": "#77778d",
+    "to": "#7b7b90",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html": [
    {
-    "from": "#545454",
-    "to": "#ffffff",
+    "from": "#8a6b4b",
+    "to": "#997e62",
     "mode": "global",
-    "count": 1
-   }
-  ],
-  "2026-07-07/research/2026-07-07-opensource-model-explosion.html": [
+    "count": 2
+   },
    {
-    "from": "#d4a574",
-    "to": "#90704f",
+    "from": "#528238",
+    "to": "#638e4c",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#757576",
+    "to": "#717172",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#5a8f3d",
-    "to": "#9fbe8e",
+    "from": "#6c7585",
+    "to": "#697181",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#cd6356",
+    "to": "#b2564b",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#ffffff",
+    "to": "#545454",
+    "mode": "global",
+    "count": 2
+   }
+  ],
+  "2026-07-07/research/2026-07-07-opensource-model-explosion.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006ad5",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-07-09/research/2026-07-09-kling-ai-valuation.html": [
    {
-    "from": "#b8894a",
-    "to": "#886537",
+    "from": "#5a8f3d",
+    "to": "#4e7c35",
+    "mode": "global",
+    "count": 3
+   },
+   {
+    "from": "#0071e3",
+    "to": "#0068d1",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#c44536",
+    "to": "#ba4233",
     "mode": "global",
     "count": 2
    }
   ],
   "2026-07-11/creative/2026-07-11-waic-2026-battleground.html": [
    {
-    "from": "#64748b",
-    "to": "#8e9aaa",
+    "from": "#8b5cf6",
+    "to": "#9266f7",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#ef4444",
+    "to": "#f15c5c",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#3b82f6",
+    "to": "#5895f7",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#f97316",
+    "to": "#f97418",
     "mode": "global",
     "count": 1
    }
@@ -278,59 +655,97 @@
     "to": "#6c7585",
     "mode": "global",
     "count": 1
+   },
+   {
+    "from": "#5a8f3d",
+    "to": "#528238",
+    "mode": "global",
+    "count": 1
    }
   ],
   "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html": [
    {
-    "from": "#e74c3c",
-    "to": "#e85142",
+    "from": "#e85142",
+    "to": "#ed7468",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#9b4dca",
+    "to": "#a45dcf",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-08-11/creative/2026-08-11-capital-migration.html": [
    {
-    "from": "#555566",
-    "to": "#797986",
+    "from": "#797986",
+    "to": "#858591",
     "mode": "global",
     "count": 1
    }
   ],
-  "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html": [
+  "2026-08-11/research/2026-08-11-nonfarm-shock.html": [
    {
-    "from": "#555566",
-    "to": "#797986",
+    "from": "#5a8f3d",
+    "to": "#528238",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-08-13/research/2026-08-13-aisi-safety-assessment.html": [
    {
-    "from": "#0071e3",
-    "to": "#4597eb",
+    "from": "#4597eb",
+    "to": "#2d6299",
     "mode": "global",
     "count": 2
    },
    {
-    "from": "#c44536",
-    "to": "#d57b70",
+    "from": "#6b7280",
+    "to": "#6a717f",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#d57b70",
+    "to": "#8a5049",
     "mode": "global",
     "count": 8
    },
    {
-    "from": "#d4a574",
-    "to": "#90704f",
+    "from": "#6e865e",
+    "to": "#506245",
     "mode": "global",
     "count": 4
    },
    {
-    "from": "#2d5016",
-    "to": "#6e865e",
+    "from": "#8b6914",
+    "to": "#856513",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#90704f",
+    "to": "#947656",
     "mode": "global",
     "count": 4
    }
   ],
+  "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html": [
+   {
+    "from": "#e63946",
+    "to": "#e84753",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-08-15/research/2026-08-15-tencent-ai-bet.html": [
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 7
+   },
    {
     "from": "#34c759",
     "to": "#207936",
@@ -339,7 +754,13 @@
    },
    {
     "from": "#ff9500",
-    "to": "#ad6500",
+    "to": "#a35f00",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#d43128",
     "mode": "global",
     "count": 1
    },
@@ -348,17 +769,21 @@
     "to": "#7a7a7b",
     "mode": "global",
     "count": 3
-   }
-  ],
-  "2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html": [
+   },
    {
-    "from": "#48484a",
-    "to": "#767677",
+    "from": "#0071e3",
+    "to": "#006edc",
     "mode": "global",
-    "count": 1
+    "count": 2
    }
   ],
   "2026-08-18/research/2026-08-18-open-source-model-showdown.html": [
+   {
+    "from": "#86868b",
+    "to": "#6e6e72",
+    "mode": "global",
+    "count": 7
+   },
    {
     "from": "#34c759",
     "to": "#23873d",
@@ -372,13 +797,67 @@
     "count": 1
    },
    {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 2
+   },
+   {
     "from": "#1d1d1f",
     "to": "#757576",
     "mode": "global",
     "count": 3
    }
   ],
+  "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html": [
+   {
+    "from": "#e63946",
+    "to": "#e63b48",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8888aa",
+    "to": "#8989ab",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#4361ee",
+    "to": "#5d77f0",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-08-20/research/2026-08-20-nobel-ai-science.html": [
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 3
+   }
+  ],
+  "2026-08-22/creative/2026-08-22-hormuz-crisis-simulation.html": [
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html": [
+   {
+    "from": "#0071e3",
+    "to": "#2686e7",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6b7280",
+    "to": "#7e8491",
+    "mode": "global",
+    "count": 1
+   },
    {
     "from": "#d4a574",
     "to": "#90704f",
@@ -400,6 +879,39 @@
   ],
   "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html": [
    {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 3
+   },
+   {
+    "from": "#0071e3",
+    "to": "#006ad5",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#e65100",
+    "to": "#c44500",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#2e7d32",
+    "to": "#296f2c",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#c62828",
+    "to": "#b62525",
+    "mode": "rule-scoped"
+   },
+   {
     "from": "#ffffff",
     "to": "#737373",
     "mode": "global",
@@ -409,6 +921,12 @@
     "from": "#f57f17",
     "to": "#ae5a10",
     "mode": "rule-scoped"
+   },
+   {
+    "from": "#c44536",
+    "to": "#be4334",
+    "mode": "global",
+    "count": 1
    },
    {
     "from": "#1d1d1f",
@@ -431,13 +949,25 @@
   ],
   "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html": [
    {
-    "from": "#555560",
-    "to": "#74747d",
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#74747d",
+    "to": "#7c7c85",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html": [
+   {
+    "from": "#86868b",
+    "to": "#727276",
+    "mode": "global",
+    "count": 2
+   },
    {
     "from": "#d4a574",
     "to": "#90704f",
@@ -453,78 +983,151 @@
   ],
   "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html": [
    {
-    "from": "#484f58",
-    "to": "#747980",
+    "from": "#747980",
+    "to": "#7f848a",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-08-29/research/2026-08-29-ai-agent-security-battle.html": [
    {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 5
+   },
+   {
     "from": "#d97706",
-    "to": "#a95d05",
+    "to": "#ae5f05",
     "mode": "global",
     "count": 2
    },
    {
-    "from": "#0071e3",
-    "to": "#4597eb",
+    "from": "#6b7280",
+    "to": "#6a717f",
+    "mode": "rule-scoped"
+   }
+  ],
+  "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html": [
+   {
+    "from": "#64748b",
+    "to": "#728195",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ef4444",
+    "to": "#f05151",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html": [
    {
-    "from": "#48484a",
-    "to": "#767677",
+    "from": "#ff3b30",
+    "to": "#ff584f",
     "mode": "global",
-    "count": 1
+    "count": 9
+   },
+   {
+    "from": "#86868b",
+    "to": "#88888d",
+    "mode": "global",
+    "count": 9
    }
   ],
   "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html": [
    {
-    "from": "#2d5016",
-    "to": "#627c50",
+    "from": "#6e6e73",
+    "to": "#747479",
     "mode": "global",
-    "count": 3
+    "count": 2
    },
    {
-    "from": "#1d1d1f",
-    "to": "#757576",
+    "from": "#6b7280",
+    "to": "#6a717f",
     "mode": "global",
-    "count": 1
+    "count": 2
    },
    {
-    "from": "#d4a574",
-    "to": "#816547",
-    "mode": "global",
-    "count": 1
-   },
-   {
-    "from": "#0071e3",
-    "to": "#85bbf2",
-    "mode": "global",
-    "count": 1
-   },
-   {
-    "from": "#86868b",
-    "to": "#b5b5b8",
+    "from": "#b5b5b8",
+    "to": "#707072",
     "mode": "global",
     "count": 10
    },
    {
-    "from": "#10b981",
-    "to": "#0c875e",
+    "from": "#627c50",
+    "to": "#617b4f",
+    "mode": "global",
+    "count": 3
+   },
+   {
+    "from": "#757576",
+    "to": "#737374",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#a8e06c",
+    "to": "#f9fdf5",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#816547",
+    "to": "#806446",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#85bbf2",
+    "to": "#567a9d",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ef4444",
+    "to": "#d23c3c",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#6366f1",
+    "to": "#696cf2",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#34d399",
+    "to": "#5fdcae",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-09-05/research/2026-09-05-deepseek-pricing-war.html": [
    {
+    "from": "#0071e3",
+    "to": "#0063c8",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#ff9500",
     "to": "#ad6500",
     "mode": "global",
     "count": 3
+   },
+   {
+    "from": "#af52de",
+    "to": "#9647bf",
+    "mode": "global",
+    "count": 2
    },
    {
     "from": "#34c759",
@@ -533,10 +1136,28 @@
     "count": 2
    },
    {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#d43128",
+    "mode": "global",
+    "count": 2
+   },
+   {
     "from": "#ffffff",
     "to": "#4f4f4f",
     "mode": "global",
     "count": 1
+   },
+   {
+    "from": "#a1a1a6",
+    "to": "#aeaeb2",
+    "mode": "global",
+    "count": 3
    }
   ],
   "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html": [
@@ -547,16 +1168,48 @@
     "count": 1
    },
    {
+    "from": "#c44536",
+    "to": "#b43f32",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8b6914",
+    "to": "#856513",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#4a5568",
     "to": "#6c7585",
     "mode": "global",
     "count": 1
    }
   ],
+  "2026-09-10/creative/2026-09-10-ai-model-fatigue.html": [
+   {
+    "from": "#7c3aed",
+    "to": "#8c52ef",
+    "mode": "global",
+    "count": 2
+   }
+  ],
   "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html": [
    {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#727276",
+    "mode": "global",
+    "count": 5
+   },
+   {
     "from": "#b8860b",
-    "to": "#916a09",
+    "to": "#996f09",
     "mode": "rule-scoped"
    },
    {
@@ -568,68 +1221,107 @@
   ],
   "2026-09-12/creative/2026-09-12-ai-agent-wars.html": [
    {
-    "from": "#5a5a6e",
-    "to": "#787888",
+    "from": "#787888",
+    "to": "#7d7d8d",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-09-12/research/2026-09-12-iran-multi-front-war.html": [
    {
-    "from": "#d4a574",
-    "to": "#8c6d4d",
+    "from": "#5a8f3d",
+    "to": "#528238",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html": [
    {
-    "from": "#55556a",
-    "to": "#858594",
+    "from": "#ea384c",
+    "to": "#ec4a5c",
     "mode": "global",
-    "count": 1
+    "count": 3
    }
   ],
   "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html": [
    {
-    "from": "#ffffff",
-    "to": "#595959",
+    "from": "#ff3b30",
+    "to": "#c72e25",
+    "mode": "global",
+    "count": 4
+   },
+   {
+    "from": "#007aff",
+    "to": "#0071ed",
+    "mode": "global",
+    "count": 2
+   }
+  ],
+  "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html": [
+   {
+    "from": "#5a6577",
+    "to": "#737c8b",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-09-17/research/2026-09-17-openai-agents-api-open-source.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006ad5",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#ff9500",
-    "to": "#a35f00",
+    "from": "#86868b",
+    "to": "#6f6f73",
     "mode": "global",
-    "count": 3
-   },
-   {
-    "from": "#34c759",
-    "to": "#217d38",
-    "mode": "global",
-    "count": 3
-   },
-   {
-    "from": "#8e8e93",
-    "to": "#58585b",
-    "mode": "global",
-    "count": 1
+    "count": 6
    }
   ],
   "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html": [
    {
-    "from": "#5a6478",
-    "to": "#8a919f",
+    "from": "#8b5cf6",
+    "to": "#9c74f7",
     "mode": "global",
     "count": 1
+   },
+   {
+    "from": "#ef4444",
+    "to": "#f05151",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#3b82f6",
+    "to": "#4387f6",
+    "mode": "global",
+    "count": 2
    }
   ],
   "2026-09-22/research/2026-09-22-iran-four-front-conflict.html": [
    {
-    "from": "#10b981",
-    "to": "#0c875e",
+    "from": "#0071e3",
+    "to": "#006edc",
     "mode": "global",
     "count": 1
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 6
+   },
+   {
+    "from": "#10b981",
+    "to": "#0b8059",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#e65100",
+    "to": "#b33f00",
+    "mode": "rule-scoped"
    },
    {
     "from": "#4a5568",
@@ -640,22 +1332,46 @@
   ],
   "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html": [
    {
-    "from": "#555570",
-    "to": "#77778d",
+    "from": "#77778d",
+    "to": "#838397",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#e8e8ed",
+    "to": "#ffffff",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html": [
    {
+    "from": "#0071e3",
+    "to": "#006ad5",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#f59e0b",
-    "to": "#a46a07",
+    "to": "#9a6407",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#c44536",
+    "to": "#be4334",
     "mode": "global",
     "count": 1
    },
    {
     "from": "#10b981",
-    "to": "#0c875e",
+    "to": "#0b8059",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#059669",
+    "to": "#047653",
     "mode": "global",
     "count": 1
    },
@@ -680,27 +1396,63 @@
   ],
   "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html": [
    {
-    "from": "#ffffff",
-    "to": "#737373",
-    "mode": "global",
-    "count": 1
-   }
-  ],
-  "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html": [
-   {
-    "from": "#5a5a72",
-    "to": "#7b7b8e",
+    "from": "#036dda",
+    "to": "#0369d1",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#bcbccb",
-    "to": "#ffffff",
+    "from": "#757579",
+    "to": "#7b7b7e",
+    "mode": "global",
+    "count": 5
+   },
+   {
+    "from": "#ffffff",
+    "to": "#737373",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8b8b8f",
+    "to": "#8c8c90",
+    "mode": "global",
+    "count": 4
+   }
+  ],
+  "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html": [
+   {
+    "from": "#7a7a92",
+    "to": "#818197",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ffffff",
+    "to": "#4f4f4f",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-10-03/research/2026-10-03-ai-data-famine.html": [
+   {
+    "from": "#0071e3",
+    "to": "#54a0ec",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#ff6e66",
+    "mode": "global",
+    "count": 3
+   },
    {
     "from": "#ff9500",
     "to": "#995900",
@@ -718,18 +1470,30 @@
     "to": "#595959",
     "mode": "global",
     "count": 1
-   },
-   {
-    "from": "#0071e3",
-    "to": "#54a0ec",
-    "mode": "global",
-    "count": 2
    }
   ],
   "2026-10-06/research/2026-10-06-ai-carbon-footprint.html": [
    {
+    "from": "#0071e3",
+    "to": "#0d78e4",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#2d5016",
     "to": "#667f55",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8b6914",
+    "to": "#9c7f37",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6b7280",
+    "to": "#747a88",
     "mode": "global",
     "count": 1
    },
@@ -746,6 +1510,12 @@
     "count": 1
    },
    {
+    "from": "#c44536",
+    "to": "#c64c3e",
+    "mode": "global",
+    "count": 1
+   },
+   {
     "from": "#1d1d1f",
     "to": "#777779",
     "mode": "global",
@@ -758,16 +1528,54 @@
     "count": 1
    }
   ],
+  "2026-10-08/research/2026-10-08-ai-open-source-war.html": [
+   {
+    "from": "#0071e3",
+    "to": "#0069d3",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 1
+   }
+  ],
   "2026-10-10/creative/2026-10-10-ai-everywhere.html": [
    {
-    "from": "#c96f4a",
-    "to": "#975338",
+    "from": "#a55d1b",
+    "to": "#965519",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#d97b23",
-    "to": "#a55d1b",
+    "from": "#7a7263",
+    "to": "#6b6457",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#1d1a15",
+    "to": "#f4f4f3",
+    "mode": "global",
+    "count": 4
+   }
+  ],
+  "2026-10-10/research/2026-10-10-ai-energy-crisis.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006bd8",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#b25e09",
+    "to": "#a95909",
+    "mode": "rule-scoped"
+   },
+   {
+    "from": "#6e6e73",
+    "to": "#6b6b70",
     "mode": "global",
     "count": 1
    }
@@ -788,36 +1596,171 @@
   ],
   "2026-10-13/research/2026-10-13-ai-chip-capital-blackhole.html": [
    {
-    "from": "#a1a1a6",
-    "to": "#767679",
+    "from": "#86868b",
+    "to": "#6f6f73",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#34c759",
-    "to": "#217f39",
+    "from": "#0071e3",
+    "to": "#006edc",
     "mode": "global",
     "count": 1
    },
    {
-    "from": "#ff9500",
-    "to": "#a35f00",
+    "from": "#767679",
+    "to": "#858588",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-15/creative/2026-10-15-token-price-war.html": [
+   {
+    "from": "#5f8577",
+    "to": "#729487",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#059669",
+    "to": "#0a986c",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-15/research/2026-10-15-memory-price-tsunami.html": [
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#0071e3",
+    "to": "#2686e7",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#9a6400",
+    "to": "#986300",
+    "mode": "rule-scoped"
+   }
+  ],
+  "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html": [
+   {
+    "from": "#0071e3",
+    "to": "#006edc",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html": [
+   {
+    "from": "#5a6672",
+    "to": "#78828b",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6e7a87",
+    "to": "#717d89",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#5f6b78",
+    "to": "#6c7783",
     "mode": "global",
     "count": 1
    }
   ],
   "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html": [
    {
-    "from": "#1d1d1f",
-    "to": "#7c7c7d",
+    "from": "#c44536",
+    "to": "#ba4233",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#7c7c7d",
+    "to": "#6e6e6f",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#9a8578",
+    "to": "#7b6a60",
+    "mode": "global",
+    "count": 2
+   },
+   {
+    "from": "#ffe2dc",
+    "to": "#fff2ef",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#6e6e76",
+    "to": "#6d6d75",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#8a7365",
+    "to": "#897264",
+    "mode": "global",
+    "count": 1
+   },
+   {
+    "from": "#57626c",
+    "to": "#6f7881",
     "mode": "global",
     "count": 1
    }
   ],
+  "2026-10-20/research/2026-10-20-ai-rewired-first-workers.html": [
+   {
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-22/research/2026-10-22-ai-credit-contagion-chain.html": [
+   {
+    "from": "#86868b",
+    "to": "#6f6f73",
+    "mode": "global",
+    "count": 6
+   }
+  ],
   "2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html": [
    {
-    "from": "#8a8170",
-    "to": "#6a6356",
+    "from": "#8d815f",
+    "to": "#8f8462",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html": [
+   {
+    "from": "#5f6c7b",
+    "to": "#717c8a",
+    "mode": "global",
+    "count": 1
+   }
+  ],
+  "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html": [
+   {
+    "from": "#7c8c9d",
+    "to": "#8594a4",
     "mode": "global",
     "count": 1
    }
@@ -825,29 +1768,24 @@
  },
  "reverted": [
   [
-   "2026-06-08/research/2026-06-08-ai-coding-tools-comparison.html",
-   104,
-   118
-  ],
-  [
    "2026-06-11/research/2026-06-11-moe-sparse-attention.html",
    27,
-   57
+   32
   ],
   [
    "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html",
    34,
-   74
+   63
   ],
   [
-   "2026-06-15/research/2026-06-15-openai-ona-acquisition.html",
-   41,
-   45
+   "2026-06-16/research/2026-06-16-fable5-global-ban.html",
+   22,
+   39
   ],
   [
    "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
    30,
-   57
+   53
   ],
   [
    "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
@@ -857,94 +1795,116 @@
   [
    "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html",
    153,
-   229
+   217
   ],
   [
    "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
    52,
-   76
+   91
+  ],
+  [
+   "2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+   90,
+   182
   ],
   [
    "2026-07-16/research/2026-07-16-a-share-crash-analysis.html",
    10,
-   15
+   14
   ],
   [
    "2026-08-15/research/2026-08-15-tencent-ai-bet.html",
    41,
-   114
+   93
   ],
   [
    "2026-08-18/research/2026-08-18-open-source-model-showdown.html",
    41,
-   77
+   66
   ],
   [
    "2026-08-22/research/2026-08-22-humanoid-robot-industrialization.html",
    28,
-   119
+   214
   ],
   [
    "2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
    100,
-   467
+   430
   ],
   [
-   "2026-08-27/research/2026-08-27-hormuz-crisis-new-phase.html",
-   22,
-   31
-  ],
-  [
-   "2026-08-29/research/2026-08-29-ai-agent-security-battle.html",
-   40,
-   71
+   "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+   56,
+   70
   ],
   [
    "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
    48,
-   152
+   135
   ],
   [
    "2026-09-08/research/2026-09-08-ai-ultrasound-robot-surgery.html",
    8,
-   42
+   40
   ],
   [
    "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
    40,
-   129
+   109
   ],
   [
    "2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
    56,
-   197
+   171
   ],
   [
    "2026-09-29/research/2026-09-29-global-rates-nuclear-bomb.html",
    38,
-   97
+   83
   ],
   [
    "2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html",
    28,
-   116
+   110
+  ],
+  [
+   "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+   9,
+   22
   ],
   [
    "2026-10-03/research/2026-10-03-ai-data-famine.html",
    95,
-   154
+   108
   ],
   [
    "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
    46,
-   189
+   181
+  ],
+  [
+   "2026-10-10/creative/2026-10-10-ai-everywhere.html",
+   18,
+   65
   ],
   [
    "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
    10,
    19
+  ],
+  [
+   "2026-10-15/research/2026-10-15-memory-price-tsunami.html",
+   20,
+   26
+  ],
+  [
+   "2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
+   10,
+   28
   ]
  ],
- "unverifiable": [],
- "improved": 34
+ "unverifiable": [
+  "2026-05-26/research/2026-05-26-huawei-tau-law.html"
+ ],
+ "improved": 61
 }

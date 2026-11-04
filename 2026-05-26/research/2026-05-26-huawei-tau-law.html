@@ -208,6 +208,49 @@
             font-size: 14px;
             color: #6e6e73;
         }
+        /* Metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+            background: var(--tau-gold);
+            border-radius: 18px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+        .metric {
+            background: var(--light-gray);
+            padding: 28px 26px 24px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            column-gap: 26px;
+            align-items: baseline;
+        }
+        .metric-value {
+            grid-row: 1 / 3;
+            font-size: 44px;
+            line-height: 1.05;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--forest-green);
+            font-variant-numeric: tabular-nums;
+        }
+        .metric-label {
+            grid-column: 2;
+            font-size: 16px;
+            line-height: 1.45;
+            color: var(--near-black);
+            font-weight: 500;
+        }
+        .metric-source {
+            grid-column: 2;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #dcdcdc;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #6e6e73;
+        }
         @media (max-width: 768px) {
             .hero h1 { font-size: 36px; }
             h2 { font-size: 28px; }
@@ -247,6 +290,15 @@
         • 为<strong>Chiplet、先进封装</strong>公司打开新机会窗口<br>
         • <strong>国产替代</strong>逻辑强化，不依赖最先进光刻工艺的路径获验证<br>
         • 产业链上下游企业<strong>估值逻辑重塑</strong></p>
+    </div>
+</div>
+
+<!-- Key Figures -->
+<div class="metrics">
+    <div class="metric">
+        <div class="metric-value">100倍</div>
+        <div class="metric-label">AI 硬件集成度 2035 年预计增幅</div>
+        <div class="metric-source">第一财经 / 东方财富网 / 公开市场数据 · 研究截止 2026-05-26</div>
     </div>
 </div>
 
@@ -484,5 +536,10 @@
     <p style="margin-top: 16px;">© 2026 研析出品 | 研究分析师</p>
 </div>
 
+<script type="application/json" id="claims">
+[
+  {"value": "100倍", "label": "AI 硬件集成度 2035 年预计增幅", "quote": "100倍 AI 硬件集成度 2035 年预计增幅"}
+]
+</script>
 </body>
 </html>

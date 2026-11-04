@@ -10,9 +10,9 @@
 :root{
   --bg:#08090e;--bg-card:#12141c;--bg-elevated:#1a1d28;--bg-section:#0d0f16;
   --border:rgba(255,255,255,0.06);--border-hover:rgba(196,162,101,0.25);
-  --text-primary:#e8e8ed;--text-secondary:#a8a8b2;--text-muted:#6b6b78;
+  --text-primary:#e8e8ed;--text-secondary:#a8a8b2;--text-muted:#787884;
   --accent:#c4a265;--accent-dim:rgba(196,162,101,0.10);--accent-glow:rgba(196,162,101,0.06);
-  --red:#e05252;--red-dim:rgba(224,82,82,0.12);
+  --red:#e15555;--red-dim:rgba(224,82,82,0.12);
   --orange:#e09552;--orange-dim:rgba(224,149,82,0.12);
   --green:#52c48a;--green-dim:rgba(82,196,138,0.12);
   --max-w:960px;
@@ -91,6 +91,20 @@ body{
 .fc-urgency{margin-top:14px;font-size:11.5px;font-weight:600;letter-spacing:0.5px}
 .urgency-high{color:var(--red)}
 .urgency-mid{color:var(--orange)}
+
+/* ─── 关键数据：统计块 ─── */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:56px 0}
+.metric{
+  padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;
+  position:relative;overflow:hidden;
+}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.55}
+.metric-value{
+  font-family:Georgia,"Noto Serif SC","Songti SC",serif;font-size:32px;line-height:1.1;
+  font-weight:400;letter-spacing:-0.4px;color:#fff;font-variant-numeric:tabular-nums;
+}
+.metric-label{margin-top:10px;font-size:13.5px;line-height:1.5;color:var(--text-secondary)}
+.metric-source{margin-top:13px;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;line-height:1.5;color:var(--text-muted)}
 
 /* ─── SECTIONS ─── */
 .section{margin:0;padding:64px 0;border-top:1px solid var(--border)}
@@ -289,6 +303,40 @@ li strong{color:var(--text-primary)}
     </div>
   </div>
 </section>
+
+<!-- 关键数据 -->
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-value">80%</div>
+    <div class="metric-label">基础客服岗位替代风险下限</div>
+    <div class="metric-source">本报告 2.3 就业结构重塑表</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">70%</div>
+    <div class="metric-label">初级内容创作岗位替代风险下限</div>
+    <div class="metric-source">本报告 2.3 就业结构重塑表</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">50%</div>
+    <div class="metric-label">教育辅导岗位替代风险上限</div>
+    <div class="metric-source">本报告 2.3 就业结构重塑表</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">40%</div>
+    <div class="metric-label">创意设计岗位替代风险上限</div>
+    <div class="metric-source">本报告 2.3 就业结构重塑表</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">1年</div>
+    <div class="metric-label">教育机构课程体系改革时间窗口</div>
+    <div class="metric-source">本报告 3.2 责任与行动矩阵</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">2 年</div>
+    <div class="metric-label">客户服务岗位替代时间线上限</div>
+    <div class="metric-source">本报告 2.1 行业影响表</div>
+  </div>
+</div>
 
 <!-- ═══════════════ SECTION 1 ═══════════════ -->
 <section class="section reveal">
@@ -675,5 +723,15 @@ li strong{color:var(--text-primary)}
 })();
 </script>
 
+<script type="application/json" id="claims">
+[
+  {"value": "80%", "label": "基础客服岗位替代风险下限", "quote": "80% 基础客服岗位替代风险下限"},
+  {"value": "70%", "label": "初级内容创作岗位替代风险下限", "quote": "70% 初级内容创作岗位替代风险下限"},
+  {"value": "50%", "label": "教育辅导岗位替代风险上限", "quote": "50% 教育辅导岗位替代风险上限"},
+  {"value": "40%", "label": "创意设计岗位替代风险上限", "quote": "40% 创意设计岗位替代风险上限"},
+  {"value": "1年", "label": "教育机构课程体系改革时间窗口", "quote": "1年 教育机构课程体系改革时间窗口"},
+  {"value": "2 年", "label": "客户服务岗位替代时间线上限", "quote": "2 年 客户服务岗位替代时间线上限"}
+]
+</script>
 </body>
 </html>

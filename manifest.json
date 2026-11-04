@@ -4383,6 +4383,38 @@
         "AI通过图灵测试"
       ],
       "thumb": "thumbs/2026-05-27-research-2026-05-27-turing-test-impact-thumb.webp",
+      "claims": [
+        {
+          "value": "1年",
+          "label": "教育机构课程体系改革时间窗口",
+          "quote": "1年 教育机构课程体系改革时间窗口"
+        },
+        {
+          "value": "40%",
+          "label": "创意设计岗位替代风险上限",
+          "quote": "40% 创意设计岗位替代风险上限"
+        },
+        {
+          "value": "80%",
+          "label": "基础客服岗位替代风险下限",
+          "quote": "80% 基础客服岗位替代风险下限"
+        },
+        {
+          "value": "50%",
+          "label": "教育辅导岗位替代风险上限",
+          "quote": "50% 教育辅导岗位替代风险上限"
+        },
+        {
+          "value": "70%",
+          "label": "初级内容创作岗位替代风险下限",
+          "quote": "70% 初级内容创作岗位替代风险下限"
+        },
+        {
+          "value": "2 年",
+          "label": "客户服务岗位替代时间线上限",
+          "quote": "2 年 客户服务岗位替代时间线上限"
+        }
+      ],
       "beat_declared": true,
       "beat": "安全与治理"
     },
@@ -4399,6 +4431,13 @@
         "股市"
       ],
       "thumb": "thumbs/2026-05-26-research-2026-05-26-huawei-tau-law-thumb.webp",
+      "claims": [
+        {
+          "value": "100倍",
+          "label": "AI 硬件集成度 2035 年预计增幅",
+          "quote": "100倍 AI 硬件集成度 2035 年预计增幅"
+        }
+      ],
       "beat_declared": true,
       "beat": "宏观利率与股市"
     },
@@ -4436,6 +4475,13 @@
         "Anthropic"
       ],
       "thumb": "thumbs/2026-05-23-research-2026-05-23-research-stainless-acquisition-thumb.webp",
+      "claims": [
+        {
+          "value": "3亿美元",
+          "label": "Anthropic 收购 Stainless 金额",
+          "quote": "3亿美元 Anthropic 收购 Stainless 金额"
+        }
+      ],
       "beat_declared": true,
       "beat": "厂商与算力权力"
     }
@@ -7938,12 +7984,12 @@
     ],
     "unclassified_tags": [],
     "claims": {
-      "total": 1088,
-      "works_covered": 104,
+      "total": 1096,
+      "works_covered": 107,
       "works_total": 115,
-      "coverage": 90,
+      "coverage": 93,
       "pending": 503,
-      "no_structure": 9,
+      "no_structure": 7,
       "dossier": [
         {
           "beat": "地缘与能源",
@@ -8276,53 +8322,16 @@
           ]
         },
         {
-          "beat": "应用落地",
-          "works": 6,
-          "claims": 70,
-          "first": "2026-08-20",
-          "last": "2026-10-10",
-          "chapters": [
-            {
-              "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
-              "v": "+141%",
-              "l": "总引用量（连续10年研究者）"
-            },
-            {
-              "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
-              "v": "38%",
-              "l": "老年群体受害占比"
-            },
-            {
-              "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
-              "v": "58%",
-              "l": "AI版权诉讼案数量"
-            },
-            {
-              "file": "2026-10-03/research/2026-10-03-ai-data-famine.html",
-              "v": "34.5%",
-              "l": "合成数据市场"
-            },
-            {
-              "file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
-              "v": "14%",
-              "l": "🩺 医疗健康与人体孪生"
-            },
-            {
-              "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
-              "v": "32.5%",
-              "l": "生成式 AI 用户规模（半年度）"
-            }
-          ]
-        },
-        {
           "beat": "宏观利率与股市",
           "works": 8,
-          "claims": 69,
+          "claims": 70,
           "first": "2026-05-26",
           "last": "2026-11-03",
           "chapters": [
             {
-              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html"
+              "file": "2026-05-26/research/2026-05-26-huawei-tau-law.html",
+              "v": "100倍",
+              "l": "AI 硬件集成度 2035 年预计增幅"
             },
             {
               "file": "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
@@ -8362,9 +8371,48 @@
           ]
         },
         {
+          "beat": "应用落地",
+          "works": 6,
+          "claims": 70,
+          "first": "2026-08-20",
+          "last": "2026-10-10",
+          "chapters": [
+            {
+              "file": "2026-08-20/research/2026-08-20-nobel-ai-science.html",
+              "v": "+141%",
+              "l": "总引用量（连续10年研究者）"
+            },
+            {
+              "file": "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
+              "v": "38%",
+              "l": "老年群体受害占比"
+            },
+            {
+              "file": "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
+              "v": "58%",
+              "l": "AI版权诉讼案数量"
+            },
+            {
+              "file": "2026-10-03/research/2026-10-03-ai-data-famine.html",
+              "v": "34.5%",
+              "l": "合成数据市场"
+            },
+            {
+              "file": "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
+              "v": "14%",
+              "l": "🩺 医疗健康与人体孪生"
+            },
+            {
+              "file": "2026-10-10/creative/2026-10-10-ai-everywhere.html",
+              "v": "32.5%",
+              "l": "生成式 AI 用户规模（半年度）"
+            }
+          ]
+        },
+        {
           "beat": "厂商与算力权力",
           "works": 13,
-          "claims": 67,
+          "claims": 68,
           "first": "2026-05-23",
           "last": "2026-10-20",
           "chapters": [
@@ -8374,7 +8422,9 @@
               "l": "上下文窗口"
             },
             {
-              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html"
+              "file": "2026-05-23/research/2026-05-23-research-stainless-acquisition.html",
+              "v": "3亿美元",
+              "l": "Anthropic 收购 Stainless 金额"
             },
             {
               "file": "2026-05-31/research/2026-05-31-Anthropic-valuation.html",
@@ -8593,12 +8643,14 @@
         {
           "beat": "安全与治理",
           "works": 4,
-          "claims": 1,
+          "claims": 7,
           "first": "2026-05-27",
           "last": "2026-09-15",
           "chapters": [
             {
-              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html"
+              "file": "2026-05-27/research/2026-05-27-turing-test-impact.html",
+              "v": "1年",
+              "l": "教育机构课程体系改革时间窗口"
             },
             {
               "file": "2026-06-16/creative/2026-06-16-ai-passport-war.html",
@@ -8617,12 +8669,12 @@
     }
   },
   "claim_stats": {
-    "total": 1088,
-    "works_covered": 104,
+    "total": 1096,
+    "works_covered": 107,
     "works_total": 115,
-    "coverage": 90,
+    "coverage": 93,
     "pending": 503,
-    "no_structure": 9,
+    "no_structure": 7,
     "by_beat": [
       {
         "name": "地缘与能源",
@@ -8642,7 +8694,7 @@
       },
       {
         "name": "宏观利率与股市",
-        "claims": 75
+        "claims": 76
       },
       {
         "name": "应用落地",
@@ -8650,7 +8702,7 @@
       },
       {
         "name": "厂商与算力权力",
-        "claims": 67
+        "claims": 68
       },
       {
         "name": "就业与劳动",
@@ -8674,7 +8726,7 @@
       },
       {
         "name": "安全与治理",
-        "claims": 1
+        "claims": 7
       }
     ]
   }
