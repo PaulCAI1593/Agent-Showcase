@@ -11,11 +11,6 @@
    4
   ],
   [
-   "2026-05-31/research/2026-05-31-Anthropic-valuation.html",
-   1,
-   1
-  ],
-  [
    "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
    0,
    0
@@ -76,11 +71,6 @@
    0
   ],
   [
-   "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
-   40,
-   40
-  ],
-  [
    "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
    12,
    12
@@ -131,11 +121,6 @@
    0
   ],
   [
-   "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
-   0,
-   0
-  ],
-  [
    "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
    1,
    1
@@ -179,11 +164,6 @@
    "2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
    0,
    0
-  ],
-  [
-   "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
-   1,
-   1
   ],
   [
    "2026-09-05/creative/2026-09-05-us-iran-conflict-simulator.html",
@@ -242,7 +222,7 @@
   ],
   [
    "2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
-   21,
+   20,
    20
   ],
   [
@@ -524,10 +504,10 @@
   "index.html"
  ],
  "kinds": {
-  "contrast": 1466,
-  "accent-border": 543,
-  "stripe": 1298,
-  "glow": 373
+  "contrast": 1467,
+  "accent-border": 219,
+  "stripe": 1147,
+  "glow": 169
  },
- "items": 3680
+ "items": 3002
 }

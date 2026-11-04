@@ -1,5 +1,5 @@
 {
- "ts": "2026-11-04 13:37:01",
+ "ts": "2026-11-04 13:45:04",
  "scope": "all",
  "scanned": 116,
  "by_rule": {
@@ -32,8 +32,8 @@
   "radial-halo": 1
  },
  "by_severity": {
-  "warning": 1359,
-  "advisory": 404
+  "warning": 1358,
+  "advisory": 405
  },
  "by_file": {
   "2026-05-23-research-claude-codex-analysis.html": 1,

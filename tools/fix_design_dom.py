@@ -2,6 +2,13 @@
 """
 fix_design_dom.py — 用页内计算样式修剩余设计问题（伪元素 / 渐变文字 / 阴影 / 边框）
 
+⚠️ 状态：**渐变底修法实测无聚合收益，默认不启用**（2026-11-04）
+   试验：把「文字压在彩色/渐变底上」的参照物算对（含渐变端点），
+   再调暗渐变端点使文字达标。取证覆盖从 1917 升到 3002 项，
+   58 件「逐件改善」，但**全馆聚合 findings 纹丝不动（1763 → 1763）**，
+   却动了 61 个文件 —— 按「无可测收益 = 噪音」的标准整体回退。
+   取证口径的修正（渐变底进候选集）本身是对的，保留在代码里供后续参考。
+
 补齐 fix_contrast_dom.py 的盲点
 ------------------------------
 上一轮结论是「DOM 取证对剩余问题几乎无效」，原因很具体：页内取证只看
@@ -41,11 +48,29 @@ INSPECT_JS = r"""
   const lum = (c) => { const s = c.map(v => { v/=255; return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); });
     return 0.2126*s[0] + 0.7152*s[1] + 0.0722*s[2]; };
   const parse = (s) => { const m = (s||'').match(/[\d.]+/g); return m ? m.map(Number) : null; };
-  const bgOf = (el) => { let n = el;
+  // 有效背景**候选集**：渐变背景也要算进去 ——
+  // 之前只看 backgroundColor，遇到 background-image 渐变就一路走到白色底，
+  // 参照物算错 → 「白字压紫渐变」这类（检测器报 17 条）全被漏掉。
+  const bgCandidates = (el) => {
+    const out = [];
+    let n = el;
     while (n && n !== document.documentElement) {
-      const c = getComputedStyle(n).backgroundColor; const p = parse(c);
-      if (p && (p[3] === undefined || p[3] > 0.9)) return c; n = n.parentElement; }
-    return 'rgb(255,255,255)'; };
+      const cs = getComputedStyle(n);
+      const bi = cs.backgroundImage || '';
+      if (bi && bi !== 'none' && /gradient/.test(bi)) {
+        const g = bi.match(/linear-gradient\(([^)]*)\)/);
+        if (g) {
+          const stops = g[1].match(/#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)/g) || [];
+          for (const s of stops) out.push({kind:'gradient', value:s, grad:bi, path:path(n,null)});
+        }
+      }
+      const c = cs.backgroundColor; const p = parse(c);
+      if (p && (p[3] === undefined || p[3] > 0.9)) { out.push({kind:'color', value:c, path:path(n,null)}); break; }
+      n = n.parentElement;
+    }
+    if (!out.length) out.push({kind:'color', value:'rgb(255,255,255)', path:''});
+    return out;
+  };
   const path = (el, pseudo) => {
     const parts = []; let n = el;
     for (let i = 0; i < 3 && n && n.nodeType === 1 && n !== document.body; i++) {
@@ -98,16 +123,28 @@ INSPECT_JS = r"""
       if (g) { const c = g[1].match(/#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)/);
                if (c) fg = c[0]; }
     }
-    const f = parse(fg), bg = bgOf(el);
-    const b = parse(bg);
-    if (f && b) {
-      const L1 = lum(f.slice(0,3)), L2 = lum(b.slice(0,3));
-      const cr = (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);
-      const fs = parseFloat(cs.fontSize);
-      const big = fs >= 24 || (fs >= 18.66 && +cs.fontWeight >= 700);
-      const need = big ? 3 : 4.5;
-      if (cr < need) out.push({kind:'contrast', sel:path(el,pseudo), fg, bg, cr:+cr.toFixed(2),
-                               need, fs: cs.fontSize, txt:(txt||'').slice(0,22)});
+    const f = parse(fg);
+    if (f) {
+      const cands = bgCandidates(el);
+      let worst = null;
+      for (const cd of cands) {
+        const b = parse(cd.value);
+        if (!b) continue;
+        const L1 = lum(f.slice(0,3)), L2 = lum(b.slice(0,3));
+        const cr = (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);
+        if (!worst || cr < worst.cr) worst = {cr, cd};
+      }
+      if (worst) {
+        const fs = parseFloat(cs.fontSize);
+        const big = fs >= 24 || (fs >= 18.66 && +cs.fontWeight >= 700);
+        const need = big ? 3 : 4.5;
+        if (worst.cr < need)
+          out.push({kind:'contrast', sel:path(el,pseudo), fg, bg:worst.cd.value,
+                    cr:+worst.cr.toFixed(2), need, fs: cs.fontSize,
+                    txt:(txt||'').slice(0,22),
+                    bgKind: worst.cd.kind, bgPath: worst.cd.path,
+                    grad: worst.cd.grad || ''});
+      }
     }
   };
   document.querySelectorAll('body *').forEach(el => {
@@ -252,6 +289,32 @@ def build_rules(items):
             fg = str_to_rgb(it['fg'])
             bg = str_to_rgb(it['bg'])
             if not fg or not bg:
+                continue
+            if it.get('bgKind') == 'gradient' and it.get('grad'):
+                # 文字压在彩色/渐变底上 → 白字已是上限，只能**调暗渐变端点**。
+                # 保色相降亮度，直到文字达标。
+                grad = it['grad']
+                new_grad = grad
+                for stop in set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', grad)):
+                    s_rgb = str_to_rgb(stop)
+                    if not s_rgb:
+                        continue
+                    # 把该端点调暗到「文字色对它达标」
+                    target = it['need']
+                    cur = contrast(fg, s_rgb)
+                    if cur >= target:
+                        continue
+                    k = 100
+                    while k > 0:
+                        cand = tuple(c * (k / 100.0) for c in s_rgb)
+                        if contrast(fg, cand) >= target:
+                            break
+                        k -= 1
+                    if k <= 0:
+                        continue
+                    new_grad = new_grad.replace(stop, rgb_to_hex(cand))
+                if new_grad != grad and it.get('bgPath'):
+                    rules.setdefault((it['bgPath'], 'background-image'), new_grad)
                 continue
             new = adjust_toward(fg, bg, it['need'])
             if not new:
