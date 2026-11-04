@@ -36,7 +36,9 @@ jobs:
         run: python3 tools/claim_gate.py --verify
 
       - name: ③ 十项硬校验
-        run: ./tools/autopublish.sh --dry-run
+        # CI 里 checkout 刚落盘，所有文件 mtime 都是「几秒前」——
+        # 静默门禁（防半成品上架）在此无意义，故置 0 跳过。
+        run: ./tools/autopublish.sh --dry-run --quiet-seconds 0
 
       - name: ④ 工作树必须干净（生成物不得手改）
         run: |
