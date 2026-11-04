@@ -56,7 +56,7 @@ BACKUP_ROOT = os.path.join(ROOT, '_archive', 'backups')
 # 档案条三段文本 + 计数器色值。全部带上下文锚点，避免误伤正文。
 RE_CNT_MONTH = re.compile(r'(<span class="sb-cnt">)(\d+)( 件 / )(\d{4}-\d{2})(</span>)')
 RE_CNT_CLAIM = re.compile(r'(<span class="sb-cnt sb-claims">)(\d+)( 条已验证断言</span>)')
-RE_DATE = re.compile(r'(<span class="sb-date">)(\d{4}-\d{2})(</span>)')
+RE_DATE = re.compile(r'(<span class="sb-date">)(\d{4}-\d{2}-\d{2})(</span>)')
 RE_COLOR = re.compile(r'(#showcase-bar \.sb-cnt\{color:rgba\(255,255,255,)(\.\d+)(\)\})')
 
 # 4.5:1 底线：.44 = 4.36:1 不达标；.48 = 5.01:1 达标。

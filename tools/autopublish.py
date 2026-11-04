@@ -86,12 +86,11 @@ THUMB_STATE = os.path.join(ROOT, '_private', 'thumb_state.json')
 
 BACKLINK_RE = re.compile(r'<!--\s*showcase-backlink.*?-->', re.S)
 CLAIMS_BLOCK_RE = re.compile(r'<script[^>]+id=["\']claims["\'][^>]*>.*?</script>', re.S)
-# 档案条（#showcase-bar）同样是流水线注入物：件数、断言数、日期、色值都随全馆变化。
-# 它进了指纹 → 每加一件作品或断言数一变，全部作品的指纹都变 → 114~115 次无意义重截（约 10 分钟）。
-# 指纹只该认「作者写的正文」，注入物一律剔除。
-ARCHIVE_BAR_RE = re.compile(
-    r'<style>\s*#showcase-bar\{.*?</style>\s*'
-    r'|<div\s+id="showcase-bar">.*?</div>\s*', re.S)
+# ⚠️ 档案条（#showcase-bar）**不能**从指纹里剔除：
+# 它的「N 件 / N 条已验证断言 / 日期」就印在缩略图顶部条上（每张首图可见），
+# 剔除 → 档案条变了但缩略图仍显示旧数字 → 首图与正文分叉（与 mtime 判据同一类缺陷）。
+# 成本可控：refresh_archive_bar.py 稳态下 0 文件改动 → 0 次重截；
+# 只有全馆级变动（色值、月份总数）才触发一次 ~29~114 张重截。
 
 
 def content_fingerprint(rel):
@@ -105,7 +104,6 @@ def content_fingerprint(rel):
         return ''
     html = BACKLINK_RE.sub('', html)
     html = CLAIMS_BLOCK_RE.sub('', html)
-    html = ARCHIVE_BAR_RE.sub('', html)
     html = re.sub(r'\s+', ' ', html)
     return hashlib.sha1(html.encode('utf-8', 'ignore')).hexdigest()[:16]
 
