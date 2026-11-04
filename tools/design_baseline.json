@@ -1,8 +1,8 @@
 {
- "ts": "2026-11-04 09:43:45",
+ "ts": "2026-11-04 10:08:36",
  "by_rule": {
   "kicker-above-heading": 65,
-  "low-contrast": 1572,
+  "low-contrast": 1251,
   "cramped-padding": 99,
   "bounce-easing": 16,
   "overused-font": 10,
@@ -32,8 +32,8 @@
   "radial-halo": 1
  },
  "by_severity": {
-  "warning": 2013,
-  "advisory": 557
+  "warning": 1784,
+  "advisory": 465
  },
  "by_file": {
   "2026-05-23-research-claude-codex-analysis.html": 1,
@@ -68,11 +68,11 @@
   "2026-06-25-ai-hardware-arms-race.html": 63,
   "2026-06-27-ai-productivity-gap.html": 14,
   "2026-06-30-ai-valuation-cosmic-inflation.html": 9,
-  "2026-06-30-hormuz-60-days-energy-reshape.html": 156,
+  "2026-06-30-hormuz-60-days-energy-reshape.html": 3,
   "2026-07-02-ai-coding-agent-infrastructure.html": 30,
   "2026-07-02-middle-east-powder-keg-2.html": 53,
   "2026-07-04-ai-faith-collapse.html": 37,
-  "2026-07-04-欧洲爆单与制冷供应链重构.html": 102,
+  "2026-07-04-欧洲爆单与制冷供应链重构.html": 33,
   "2026-07-07-opensource-model-explosion.html": 8,
   "2026-07-09-kling-ai-valuation.html": 30,
   "2026-07-11-waic-2026-battleground.html": 9,
@@ -91,7 +91,7 @@
   "2026-08-22-hormuz-crisis-simulation.html": 11,
   "2026-08-22-humanoid-robot-industrialization.html": 37,
   "2026-08-25-safe-haven-asset-dual-rise.html": 13,
-  "2026-08-25-ai-agent-orchestration-wars.html": 106,
+  "2026-08-25-ai-agent-orchestration-wars.html": 7,
   "2026-08-27-humanoid-robot-startup-boom.html": 6,
   "2026-08-27-hormuz-crisis-new-phase.html": 7,
   "2026-08-29-agent-orchestration-visual.html": 51,
@@ -145,11 +145,11 @@
   "2026-11-03-ai-accelerator-crown-shift.html": 3
  },
  "contrast_bands": {
-  "3-4.5:1 正文不达标": 1060,
-  "2-3:1 大字号不达标": 320,
-  "<2:1 几乎不可读": 150
+  "3-4.5:1 正文不达标": 831,
+  "2-3:1 大字号不达标": 283,
+  "<2:1 几乎不可读": 134
  },
- "total": 2570,
+ "total": 2249,
  "files_with_findings": 107,
- "note": "基线收紧 2026-11-03：findings 4907 → 2570（-48%）。残余 gray-on-color 46 → 52（+6，为过对比度而加深的灰度在新背景上被另一条规则捕获，属外观项非可读性缺陷，与 low-contrast 的净减相比可接受，下轮处理）。"
+ "note": "基线收紧 2026-11-04：DOM 取证精修（绘界 Agent + fix_contrast_dom.py），findings 4907 → 2249（-54%）。剩余主要是 low-contrast（同色异底，需逐元素精修）、kicker/numbered-section（要动文案结构=内容决策）、cramped-padding/skipped-heading（版面重排）。"
 }
