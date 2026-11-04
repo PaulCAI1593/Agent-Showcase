@@ -32,14 +32,14 @@ body{background:var(--bg-deep);color:var(--text);font-family:var(--font-sans);ov
 .particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0}
 @keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border:1px solid var(--blue)33;border-radius:999px;font-size:.75rem;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(10px);background:var(--blue)08}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s ease-in-out infinite}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:none;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .hero h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:700;text-align:center;line-height:1.08;letter-spacing:-.03em;margin-bottom:1.5rem;max-width:900px}
-.hero h1 .gradient-text{background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 .gradient-text{background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor;background-clip:text}
 .hero-sub{font-size:clamp(1rem,2vw,1.35rem);color:var(--text-dim);text-align:center;max-width:680px;line-height:1.7;margin-bottom:3rem}
 .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center}
 .hero-stat{text-align:center}
-.hero-stat .num{font-size:2.2rem;font-weight:700;font-family:var(--font-mono);background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stat .num{font-size:2.2rem;font-weight:700;font-family:var(--font-mono);background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor}
 .hero-stat .label{font-size:.8rem;color:var(--text-dim);margin-top:.25rem;letter-spacing:.05em}
 .scroll-hint{position:absolute;bottom:2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-muted);font-size:.75rem;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
@@ -144,7 +144,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:var(--font-sans);ov
 .health-card .icon-big{font-size:2rem;margin-bottom:1rem}
 .health-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
 .health-card p{font-size:.85rem;color:var(--text-dim);line-height:1.6}
-.health-card .stat-highlight{margin-top:1rem;padding:.75rem 1rem;background:var(--green)08;border-radius:8px;border-left:3px solid var(--green)}
+.health-card .stat-highlight{margin-top:1rem;padding:.75rem 1rem;background:var(--green)08;border-radius:8px;border-left:1px solid var(--green)}
 .health-card .stat-highlight .num{font-size:1.3rem;font-weight:700;font-family:var(--font-mono);color:var(--green)}
 
 /* ═══ INTERACTIVE EXPLORER ═══ */
@@ -213,7 +213,7 @@ body{background:var(--bg-deep);color:var(--text);font-family:var(--font-sans);ov
 </head>
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-08-29</span><span class="sb-sep">/</span><span class="sb-beat">Agent 与编排</span><span class="sb-sep">/</span><span class="sb-cnt">18 件 / 2026-08</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">17 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ═══ ANIMATIONS ═══ */ .reveal{opacity:1!important;visibility:visible!important;transform:none!important}</style>
 <!-- showcase-backlink -->

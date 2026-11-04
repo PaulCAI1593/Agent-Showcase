@@ -155,7 +155,7 @@ body::before {
   height: 6px;
   background: var(--green-down);
   border-radius: 50%;
-  animation: pulse-dot 2s infinite;
+  animation:none;
 }
 
 @keyframes pulse-dot {
@@ -218,7 +218,7 @@ body::before {
   height: 6px;
   background: var(--gold);
   border-radius: 50%;
-  animation: pulse-dot 2s infinite;
+  animation:none;
 }
 
 .hero h1 {
@@ -231,9 +231,9 @@ body::before {
 }
 
 .hero h1 .gold {
-  background: linear-gradient(135deg, var(--gold), #f97316, var(--gold-bright));
+  background:none;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color:currentColor;
   background-clip: text;
 }
 

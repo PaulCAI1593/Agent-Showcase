@@ -32,15 +32,15 @@ body{font-family:'Inter','SF Pro Display',-apple-system,BlinkMacSystemFont,sans-
 .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#0d0d1a 0%,#0a0a0f 70%)}
 .hero-particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
 .hero-content{text-align:center;z-index:2;max-width:900px;padding:0 40px}
-.hero-year{font-size:clamp(100px,15vw,200px);font-weight:800;line-height:0.9;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:fadeUp 1.2s ease forwards}
+.hero-year{font-size:clamp(100px,15vw,200px);font-weight:800;line-height:0.9;background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor;opacity:0;animation:fadeUp 1.2s ease forwards}
 .hero-sub{font-size:clamp(16px,2.5vw,24px);color:var(--text2);margin-top:16px;opacity:0;animation:fadeUp 1.2s ease 0.3s forwards}
 .hero-title{font-size:clamp(28px,5vw,56px);font-weight:700;margin-top:30px;letter-spacing:-1px;line-height:1.15;opacity:0;animation:fadeUp 1.2s ease 0.6s forwards}
-.hero-title .highlight{background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-title .highlight{background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor}
 .hero-cta{margin-top:40px;opacity:0;animation:fadeUp 1.2s ease 0.9s forwards}
 .hero-cta a{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:transparent;border:1.5px solid var(--blue);color:var(--blue);border-radius:50px;font-size:15px;font-weight:500;text-decoration:none;transition:all 0.3s;cursor:pointer}
 .hero-cta a:hover{background:var(--blue);color:var(--dark);box-shadow:var(--glow-blue)}
 .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);opacity:0;animation:fadeUp 1.2s ease 1.2s forwards}
-.scroll-arrow{width:24px;height:24px;border-right:2px solid var(--blue);border-bottom:2px solid var(--blue);transform:rotate(45deg);animation:bounce 2s infinite}
+.scroll-arrow{width:24px;height:24px;border-right:1px solid var(--blue);border-bottom:2px solid var(--blue);transform:rotate(45deg);animation:bounce 2s infinite}
 
 /* SECTIONS */
 section{padding:120px 40px;position:relative}
@@ -65,7 +65,7 @@ section{padding:120px 40px;position:relative}
 .timeline-dot:hover{transform:translateX(-50%) scale(1.3)}
 .timeline-year-label{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:2px;margin-bottom:8px}
 .timeline-title{font-size:22px;font-weight:700;margin-bottom:8px;color:#fff}
-.timeline-stat{font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:12px 0}
+.timeline-stat{font-size:36px;font-weight:800;background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor;margin:12px 0}
 .timeline-detail{font-size:14px;color:var(--text2);line-height:1.6}
 .timeline-detail-hidden{max-height:0;overflow:hidden;transition:max-height 0.5s ease;margin-top:0}
 .timeline-detail-hidden.show{max-height:300px;margin-top:12px}
@@ -77,7 +77,7 @@ section{padding:120px 40px;position:relative}
 .counter-card:hover::before{opacity:1}
 .counter-card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,0.2)}
 .counter-icon{font-size:32px;margin-bottom:16px}
-.counter-value{font-size:clamp(32px,5vw,48px);font-weight:800;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.counter-value{font-size:clamp(32px,5vw,48px);font-weight:800;background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor}
 .counter-label{font-size:13px;color:var(--text2);margin-top:4px;font-weight:500;letter-spacing:0.5px}
 .counter-sub{font-size:12px;color:var(--green);margin-top:8px;font-weight:600}
 
@@ -152,7 +152,7 @@ section{padding:120px 40px;position:relative}
 .story-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin:48px 0}
 .story-card{background:var(--card);border-radius:16px;padding:36px;border:1px solid rgba(255,255,255,0.05);transition:all 0.4s}
 .story-card:hover{border-color:rgba(0,212,255,0.2);transform:translateY(-4px)}
-.story-card .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
+.story-card .tag{display:inline-block;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
 .story-card .tag.tech{background:rgba(0,212,255,0.15);color:var(--blue)}
 .story-card .tag.econ{background:rgba(255,165,0,0.15);color:#ffa500}
 .story-card .tag.env{background:rgba(0,255,136,0.15);color:var(--green)}
@@ -165,10 +165,10 @@ section{padding:120px 40px;position:relative}
 .growth-bar-wrapper{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1;max-width:120px}
 .growth-bar{width:100%;border-radius:12px 12px 4px 4px;transition:height 1.5s cubic-bezier(0.16,1,0.3,1);position:relative;min-height:4px;cursor:pointer}
 .growth-bar:hover{filter:brightness(1.2)}
-.growth-bar-value{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;white-space:nowrap;opacity:0;transition:opacity 0.3s}
+.growth-bar-value{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:700;white-space:nowrap;opacity:0;transition:opacity 0.3s}
 .growth-bar:hover .growth-bar-value{opacity:1}
 .growth-bar-label{font-size:12px;font-weight:600;color:var(--text2)}
-.growth-bar-sublabel{font-size:10px;color:var(--text2);opacity:0.6}
+.growth-bar-sublabel{font-size:14px;color:var(--text2);opacity:0.6}
 
 /* CTA SECTION */
 .cta-section{padding:160px 40px;text-align:center;background:radial-gradient(ellipse at center,#0d0d1a 0%,#0a0a0f 70%)}
@@ -176,13 +176,13 @@ section{padding:120px 40px;position:relative}
 .cta-section .section-desc{margin:0 auto 48px;text-align:center}
 .cta-stat{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;margin:60px 0}
 .cta-stat-item{text-align:center}
-.cta-stat-value{font-size:clamp(40px,6vw,72px);font-weight:800;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cta-stat-value{font-size:clamp(40px,6vw,72px);font-weight:800;background:none;-webkit-background-clip:text;-webkit-text-fill-color:currentColor}
 .cta-stat-label{font-size:14px;color:var(--text2);margin-top:4px}
 
 /* FOOTER */
 footer{padding:40px;text-align:center;border-top:1px solid rgba(255,255,255,0.05);background:var(--dark)}
 footer p{font-size:13px;color:var(--text2)}
-footer .sources{margin-top:12px;font-size:11px;color:rgba(255,255,255,0.3)}
+footer .sources{margin-top:12px;font-size:14px;color:rgba(255,255,255,0.3)}
 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
@@ -219,7 +219,7 @@ footer .sources{margin-top:12px;font-size:11px;color:rgba(255,255,255,0.3)}
 
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-09-03</span><span class="sb-sep">/</span><span class="sb-beat">地缘与能源</span><span class="sb-sep">/</span><span class="sb-cnt">21 件 / 2026-09</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">17 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <!-- showcase-backlink -->
 <style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>

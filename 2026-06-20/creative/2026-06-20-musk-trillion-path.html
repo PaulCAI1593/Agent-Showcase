@@ -103,9 +103,9 @@ body {
 }
 
 .hero-title h1 .highlight {
-  background: linear-gradient(135deg, var(--green), var(--blue));
+  background:none;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color:currentColor;
   background-clip: text;
 }
 
@@ -400,7 +400,7 @@ body {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
   margin-top: 8px;
@@ -493,7 +493,7 @@ body {
 
 .chart-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -668,7 +668,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  border-left: 4px solid var(--green);
+  border-left:1px solid var(--green);
 }
 
 .quote-text {
@@ -777,7 +777,7 @@ body {
   }
 
   .chapter-nav { overflow-x: auto; }
-  .chapter-nav a { padding: 12px 16px; font-size: 11px; }
+  .chapter-nav a { padding: 12px 16px; font-size: 12px; }
 
   .compare-visual { gap: 20px; flex-wrap: wrap; }
   .compare-avatar { width: 48px; height: 48px; font-size: 22px; }
@@ -876,7 +876,7 @@ body {
 
 /* data source label */
 .data-source {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   text-align: right;
   margin-top: 8px;
@@ -886,7 +886,7 @@ body {
 </head>
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:12px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:12px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-20</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">6 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.chart-bar .tooltip{opacity:1!important;visibility:visible!important;transform:none!important}</style>
 <!-- showcase-backlink -->

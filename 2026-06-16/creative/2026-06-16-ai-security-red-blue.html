@@ -8,8 +8,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --red-team: #e74e3e;
-            --blue-team: #46a1de;
+            --red-team: #ea6355;
+            --blue-team: #48a2de;
             --dark-bg: #0a0a0a;
             --card-bg: #1a1a2e;
             --text-primary: #f0f0f0;
@@ -17,7 +17,7 @@
             --accent: #00d4ff;
             --warning: #f39c12;
             --success: #2ecc71;
-            --danger: #e74e3e;
+            --danger: #ea6355;
         }
         body {
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
@@ -77,9 +77,9 @@
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--red-team), var(--blue-team));
+            background:none;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-text-fill-color:currentColor;
             background-clip: text;
             animation: fadeInUp 0.8s ease 0.2s both;
         }
@@ -151,7 +151,7 @@
             padding: 15px;
             background: rgba(0, 212, 255, 0.05);
             border-radius: 8px;
-            border-left: 3px solid var(--accent);
+            border-left:1px solid var(--accent);
             animation: revealIn 0.3s ease;
         }
         .hover-reveal:hover .reveal-content { display: block; }
@@ -396,7 +396,7 @@
             padding: 12px;
             background: rgba(231, 76, 60, 0.1);
             border-radius: 8px;
-            border-left: 3px solid var(--danger);
+            border-left:1px solid var(--danger);
         }
         .event-card .event-details .impact h4 { color: var(--danger); font-size: 14px; margin-bottom: 6px; }
         .event-card .event-details .impact p { color: var(--text-secondary); font-size: 13px; }
@@ -411,9 +411,9 @@
         .conclusion h2 {
             font-size: 32px;
             margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--red-team), var(--blue-team));
+            background:none;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-text-fill-color:currentColor;
             background-clip: text;
         }
         .conclusion p { color: var(--text-secondary); font-size: 18px; line-height: 1.8; max-width: 800px; margin: 0 auto 30px; }

@@ -86,6 +86,12 @@ THUMB_STATE = os.path.join(ROOT, '_private', 'thumb_state.json')
 
 BACKLINK_RE = re.compile(r'<!--\s*showcase-backlink.*?-->', re.S)
 CLAIMS_BLOCK_RE = re.compile(r'<script[^>]+id=["\']claims["\'][^>]*>.*?</script>', re.S)
+# 档案条（#showcase-bar）同样是流水线注入物：件数、断言数、日期、色值都随全馆变化。
+# 它进了指纹 → 每加一件作品或断言数一变，全部作品的指纹都变 → 114~115 次无意义重截（约 10 分钟）。
+# 指纹只该认「作者写的正文」，注入物一律剔除。
+ARCHIVE_BAR_RE = re.compile(
+    r'<style>\s*#showcase-bar\{.*?</style>\s*'
+    r'|<div\s+id="showcase-bar">.*?</div>\s*', re.S)
 
 
 def content_fingerprint(rel):
@@ -99,6 +105,7 @@ def content_fingerprint(rel):
         return ''
     html = BACKLINK_RE.sub('', html)
     html = CLAIMS_BLOCK_RE.sub('', html)
+    html = ARCHIVE_BAR_RE.sub('', html)
     html = re.sub(r'\s+', ' ', html)
     return hashlib.sha1(html.encode('utf-8', 'ignore')).hexdigest()[:16]
 
@@ -803,6 +810,20 @@ def phase_claims(disk_works, dry):
         log('  ' + line)
     if r.returncode != 0:
         log(f'  ! claim_gate 退出码 {r.returncode}')
+
+    # ③ 档案条同步（件数 / 断言数 / 日期 / 色值）。
+    # 为什么必须在断言回填**之后**：条数取自 manifest 的 claims 长度，
+    # 回填会改 claims → 先同步就会把旧数字写进档案条。
+    # 为什么不能靠 add_backlink：它的契约是「已有 marker 就跳过」，
+    # 注入后再也不刷新 —— 档案条会永远停在注入那一刻的数字（实测 92 件作品
+    # 的「条已验证断言」写着已被 G4 规则清掉的伪断言数）。
+    r = subprocess.run([sys.executable, os.path.join(TOOLS, 'refresh_archive_bar.py')],
+                       cwd=ROOT, capture_output=True, text=True)
+    out = (r.stdout or '').strip().splitlines()
+    for line in out[-2:]:
+        log(f'  {line}')
+    if r.returncode != 0:
+        log(f'  ! refresh_archive_bar 退出码 {r.returncode}')
     if r.stderr:
         for line in r.stderr.strip().splitlines():
             log('  ! ' + line)

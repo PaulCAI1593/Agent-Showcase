@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>英国AISI安全评估：AI智能体越权与欺骗行为深度分析</title>
 <style>
-:root{--black:#000;--light-gray:#f5f5f7;--near-black:#1d1d1f;--apple-blue:#2d6299;--link-blue:#0066cc;--white:#fff;--green:#506245;--amber:#947656;--red:#8a5049}
+:root{--black:#000;--light-gray:#f5f5f7;--near-black:#1d1d1f;--apple-blue:#7497bc;--link-blue:#0066cc;--white:#fff;--green:#57684c;--amber:#947656;--red:#9c6a64}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:var(--near-black);background:var(--white);line-height:1.47;letter-spacing:-0.374px;font-size:17px}
 .section-dark{background:var(--black);color:var(--white)}
@@ -17,7 +17,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue"
 .hero h1{font-size:56px;font-weight:600;line-height:1.07;letter-spacing:-0.28px;margin-bottom:20px}
 .hero .subtitle{font-size:24px;font-weight:400;color:rgba(255,255,255,0.7);line-height:1.14;max-width:700px;margin:0 auto 30px}
 .hero .meta{font-size:15px;color:rgba(255,255,255,0.5)}
-.hero .badge{display:inline-block;background:#8a5049;color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:24px}
+.hero .badge{display:inline-block;background:#9c6a64;color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:24px}
 section{padding:80px 0}
 .section-label{font-size:13px;font-weight:600;color:var(--apple-blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
 h2{font-size:40px;font-weight:600;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px}
@@ -29,9 +29,9 @@ p{margin-bottom:16px}
 .card:hover{transform:translateY(-2px)}
 .section-light .card{background:var(--white);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 .card-number{font-size:48px;font-weight:700;color:var(--apple-blue);line-height:1;margin-bottom:8px}
-.card-red .card-number{color:#8a5049}
+.card-red .card-number{color:#9c6a64}
 .card-amber .card-number{color:#947656}
-.card-green .card-number{color:#506245}
+.card-green .card-number{color:#57684c}
 .card h4{margin-bottom:8px;font-size:18px}
 .card p{font-size:15px;opacity:0.85;margin-bottom:0}
 table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
@@ -39,25 +39,25 @@ thead th{background:var(--near-black);color:var(--white);padding:14px 16px;text-
 tbody td{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.08);vertical-align:top}
 tbody tr:nth-child(even){background:rgba(0,0,0,0.02)}
 .tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600}
-.tag-red{background:rgba(196,69,54,0.15);color:#8a5049}
-.tag-amber{background:rgba(212,165,116,0.15);color:#856513}
-.tag-green{background:rgba(45,80,22,0.15);color:#506245}
-.tag-blue{background:rgba(0,113,227,0.15);color:#2d6299}
-.insight-box{border-left:4px solid var(--apple-blue);padding:20px 24px;background:rgba(0,113,227,0.05);border-radius:0 12px 12px 0;margin:24px 0}
-.insight-box.warning{border-left-color:#8a5049;background:rgba(196,69,54,0.05)}
-.insight-box.success{border-left-color:#506245;background:rgba(45,80,22,0.05)}
+.tag-red{background:rgba(196,69,54,0.15);color:#9c6a64}
+.tag-amber{background:rgba(212,165,116,0.15);color:#816212}
+.tag-green{background:rgba(45,80,22,0.15);color:#57684c}
+.tag-blue{background:rgba(0,113,227,0.15);color:#7497bc}
+.insight-box{border-left:1px solid var(--apple-blue);padding:20px 24px;background:rgba(0,113,227,0.05);border-radius:0 12px 12px 0;margin:24px 0}
+.insight-box.warning{border-left-color:#9c6a64;background:rgba(196,69,54,0.05)}
+.insight-box.success{border-left-color:#57684c;background:rgba(45,80,22,0.05)}
 .insight-box strong{display:block;margin-bottom:6px}
 .risk-matrix{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 .risk-item{padding:20px;border-radius:14px;background:rgba(255,255,255,0.06)}
 .section-light .risk-item{background:var(--white);box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .risk-level{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
-.risk-critical{color:#8a5049}
+.risk-critical{color:#9c6a64}
 .risk-high{color:#947656}
 .risk-medium{color:var(--apple-blue)}
 .stat-row{display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;margin:30px 0}
 .stat-item{text-align:center}
 .stat-value{font-size:56px;font-weight:700;color:var(--apple-blue);line-height:1}
-.stat-value.red{color:#8a5049}
+.stat-value.red{color:#9c6a64}
 .stat-value.amber{color:#947656}
 .stat-label{font-size:14px;color:rgba(255,255,255,0.6);margin-top:6px}
 .footer{background:var(--black);color:rgba(255,255,255,0.5);padding:40px 24px;text-align:center;font-size:13px}
@@ -70,7 +70,7 @@ tbody tr:nth-child(even){background:rgba(0,0,0,0.02)}
 .section-light .timeline::before{background:rgba(0,0,0,0.15)}
 .timeline-item{position:relative;margin-bottom:30px}
 .timeline-item::before{content:"";position:absolute;left:-32px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--apple-blue)}
-.timeline-item.critical::before{background:#8a5049}
+.timeline-item.critical::before{background:#9c6a64}
 .timeline-item .date{font-size:13px;color:rgba(255,255,255,0.5);font-weight:600;margin-bottom:4px}
 .section-light .timeline-item .date{color:#6a717f}
 .executive-summary{background:linear-gradient(135deg,#1d1d1f 0%,#2d2d30 100%);color:var(--white);padding:60px 0}

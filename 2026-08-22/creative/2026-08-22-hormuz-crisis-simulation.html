@@ -12,7 +12,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Ne
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:#1a1a1a}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
-:root{--oil-black:#0a0a0a;--deep-black:#111111;--panel:#1a1a1a;--warning-red:#ff3b30;--crude-amber:#ff9500;--navy-blue:#0a84ff;--ice-white:#f5f5f7;--mid-gray:#86868b;--text-secondary:#a1a1a6;--text-dim:#747479;--card-bg:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08)}
+:root{--oil-black:#0a0a0a;--deep-black:#111111;--panel:#1a1a1a;--warning-red:#ff3b30;--crude-amber:#ff9500;--navy-blue:#0a84ff;--ice-white:#f5f5f7;--mid-gray:#86868b;--text-secondary:#a1a1a6;--text-dim:#828286;--card-bg:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08)}
 .nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transform:translateY(-100%);transition:transform .3s}
 .nav-bar.show{transform:translateY(0)}
 .nav-bar .logo{font-size:14px;font-weight:600;color:var(--warning-red);letter-spacing:.5px}
@@ -26,7 +26,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Ne
 .hero-particles span{position:absolute;width:2px;height:2px;background:var(--warning-red);border-radius:50%;opacity:.3;animation:float-up linear infinite}
 @keyframes float-up{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.4}90%{opacity:.4}100%{transform:translateY(-10vh) scale(1);opacity:0}}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:980px;border:1px solid rgba(255,59,48,0.3);background:rgba(255,59,48,0.08);color:var(--warning-red);font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:32px;animation:fadeInUp .8s ease-out}
-.hero-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--warning-red);animation:pulse 2s ease-in-out infinite}
+.hero-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--warning-red);animation:none;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
 .hero-title{font-size:clamp(36px,6vw,72px);font-weight:700;text-align:center;line-height:1.05;letter-spacing:-0.03em;max-width:900px;padding:0 24px;margin-bottom:24px;animation:fadeInUp .8s ease-out .2s both}
 .hero-title .red{color:var(--warning-red)}.hero-title .amber{color:var(--crude-amber)}

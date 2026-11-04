@@ -22,8 +22,8 @@
   --bg-card-hover:#1a2332;
   --text-primary:#f0f4f8;
   --text-secondary:#94a3b8;
-  --text-dim:#728195;
-  --accent-red:#f05151;
+  --text-dim:#758497;
+  --accent-red:#f05353;
   --accent-gold:#f59e0b;
   --border:rgba(255,255,255,0.06);
 }
@@ -58,7 +58,7 @@ body{
 }
 .hero-badge .pulse{
   width:8px;height:8px;border-radius:50%;background:var(--nvidia-green);
-  animation:pulse 2s infinite;
+  animation:none;
 }
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
 .hero h1{
@@ -80,8 +80,8 @@ body{
 .hero-stat{text-align:center}
 .hero-stat .num{
   font-size:clamp(28px,3.5vw,48px);font-weight:700;
-  background:linear-gradient(135deg,var(--nvidia-green),var(--tech-blue));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background:none;
+  -webkit-background-clip:text;-webkit-text-fill-color:currentColor;
 }
 .hero-stat .label{font-size:13px;color:var(--text-dim);margin-top:4px}
 .scroll-hint{
@@ -91,7 +91,7 @@ body{
   opacity:0;animation:fadeInUp 1s 2s forwards;
 }
 .scroll-hint .arrow{
-  width:20px;height:20px;border-right:2px solid var(--nvidia-green);
+  width:20px;height:20px;border-right:1px solid var(--nvidia-green);
   border-bottom:2px solid var(--nvidia-green);transform:rotate(45deg);
   animation:bounce 2s infinite;
 }
@@ -224,8 +224,8 @@ body{
 .card-title{font-size:18px;font-weight:600;margin-bottom:8px}
 .card-value{
   font-size:clamp(28px,3vw,36px);font-weight:700;
-  background:linear-gradient(135deg,var(--nvidia-green),var(--tech-blue));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background:none;
+  -webkit-background-clip:text;-webkit-text-fill-color:currentColor;
 }
 .card-desc{font-size:13px;color:var(--text-dim);margin-top:8px}
 .card-compare{

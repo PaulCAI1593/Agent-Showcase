@@ -79,9 +79,9 @@
         .hero h1 {
             font-size: 42px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--apple-dark), #333);
+            background:none;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-text-fill-color:currentColor;
             background-clip: text;
             margin-bottom: 15px;
             line-height: 1.2;
@@ -172,15 +172,15 @@
         }
 
         .stat-card.crisis {
-            border-left: 4px solid var(--apple-red);
+            border-left:1px solid var(--apple-red);
         }
 
         .stat-card.warning {
-            border-left: 4px solid var(--apple-orange);
+            border-left:1px solid var(--apple-orange);
         }
 
         .stat-card.info {
-            border-left: 4px solid var(--apple-blue);
+            border-left:1px solid var(--apple-blue);
         }
 
         .stat-label {
@@ -583,7 +583,7 @@
         /* Callout Box */
         .callout {
             background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-            border-left: 4px solid var(--apple-blue);
+            border-left:1px solid var(--apple-blue);
             border-radius: 0 12px 12px 0;
             padding: 20px 25px;
             margin: 20px 0;

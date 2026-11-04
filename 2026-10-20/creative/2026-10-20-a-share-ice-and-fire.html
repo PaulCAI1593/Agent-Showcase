@@ -133,7 +133,7 @@
   }
   .haxlabel > span{
     display:block;white-space:nowrap;transform:rotate(90deg);
-    font-size:11px;font-weight:500;letter-spacing:.34em;line-height:1;color:var(--muted);
+    font-size:14px;font-weight:500;letter-spacing:.34em;line-height:1;color:var(--muted);
   }
 
   .sub > span,.meta > span{white-space:nowrap}
@@ -149,7 +149,7 @@
   .scrollhint{
     position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;gap:10px;
-    font-size:10.5px;letter-spacing:.34em;color:var(--muted);opacity:.75;
+    font-size:14px;letter-spacing:.34em;color:var(--muted);opacity:.75;
   }
   .scrollhint i{width:1px;height:44px;background:linear-gradient(180deg, rgba(255,255,255,.30), rgba(255,255,255,0))}
 
@@ -237,7 +237,7 @@
     padding:clamp(14px,2vw,20px) clamp(16px,2.4vw,26px) clamp(10px,1.6vw,14px);
   }
   .mixer-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-  .mixer-lab{font-size:11px;font-weight:500;letter-spacing:.22em;color:var(--dim)}
+  .mixer-lab{font-size:14px;font-weight:500;letter-spacing:.22em;color:var(--dim)}
   .readout{
     display:inline-flex;align-items:center;gap:9px;
     padding:7px 14px;border-radius:980px;
@@ -354,14 +354,14 @@
     display:inline-flex;align-items:center;justify-content:center;
     width:22px;height:22px;flex:0 0 auto;border-radius:6px;
     background:rgba(255,255,255,.06);
-    font-size:11px;font-weight:600;letter-spacing:0;color:var(--muted);
+    font-size:14px;font-weight:600;letter-spacing:0;color:var(--muted);
   }
   .ghead h3{
     font-size:clamp(18px,2vw,22px);font-weight:600;letter-spacing:-.2px;line-height:1.25;
     white-space:nowrap;
   }
   .focus-badge{
-    flex:0 0 auto;font-size:10.5px;font-weight:600;letter-spacing:.14em;
+    flex:0 0 auto;font-size:14px;font-weight:600;letter-spacing:.14em;
     padding:3px 8px;border-radius:980px;
     color:var(--accent);
     background:color-mix(in srgb, var(--accent) 14%, transparent);
@@ -370,7 +370,7 @@
   }
   .is-near .focus-badge{opacity:1;transform:none}
   .gh-r{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:0 0 auto;text-align:right}
-  .gunit,.gscale{font-size:11px;font-weight:500;letter-spacing:.04em;color:#7C8894;white-space:nowrap}
+  .gunit,.gscale{font-size:14px;font-weight:500;letter-spacing:.04em;color:#7C8894;white-space:nowrap}
 
   .bar-row + .bar-row{margin-top:22px}
   .bar-row:last-of-type{margin-bottom:22px}
@@ -394,7 +394,7 @@
   .bgroup[data-side="ice"] .bar-fill{background:linear-gradient(90deg, rgba(78,168,224,.40), var(--ice-400) 88%)}
   .bgroup[data-side="fire"] .bar-fill{background:linear-gradient(90deg, rgba(255,122,69,.38), var(--fire-400) 88%)}
   .bgroup.in .bar-fill{transform:scaleX(1)}
-  .bar-note{margin-top:7px;font-size:11.5px;color:#717d89;line-height:1.45}
+  .bar-note{margin-top:7px;font-size:12px;color:#717d89;line-height:1.45}
 
   .gfoot{
     margin-top:auto;padding-top:16px;
@@ -495,7 +495,7 @@
     .haxis .ln.t{background:linear-gradient(90deg, rgba(78,168,224,0), var(--ice-400))}
     .haxis .ln.b{background:linear-gradient(90deg, var(--fire-400), rgba(255,122,69,0))}
     .haxlabel{width:auto;height:auto;animation:none;opacity:1}
-    .haxlabel > span{transform:none;font-size:10px;letter-spacing:.2em}
+    .haxlabel > span{transform:none;font-size:14px;letter-spacing:.2em}
     .scrollhint{bottom:18px}
 
     .db-row{grid-template-columns:1fr}
@@ -503,7 +503,7 @@
     .db-side.ice .db-meta{justify-content:flex-start}
     .db-side.fire .db-meta{justify-content:flex-start}
     .duelbar{padding:20px}
-    .db-note{font-size:11.5px}
+    .db-note{font-size:12px}
 
     .callouts{grid-template-columns:1fr;gap:10px;margin-top:26px}
     .co.fire{justify-content:flex-start;text-align:left}
@@ -511,9 +511,9 @@
     .mixer-wrap{padding:0}
     .mixer{border-radius:14px;padding:12px 14px 8px}
     .mixer-top{margin-bottom:2px}
-    .mixer-lab{font-size:10px;letter-spacing:.16em}
-    .readout{font-size:11.5px;padding:6px 11px;gap:7px}
-    .tick{font-size:10.5px;letter-spacing:0;padding:8px 0}
+    .mixer-lab{font-size:14px;letter-spacing:.16em}
+    .readout{font-size:12px;padding:6px 11px;gap:7px}
+    .tick{font-size:14px;letter-spacing:0;padding:8px 0}
     .ticks{gap:6px}
 
     .rows::before{display:none}
@@ -522,8 +522,8 @@
       display:block;height:1px;width:100%;
       background:var(--duo);opacity:.6;border-radius:2px;
     }
-    .side.ice{text-align:left;border-left:2px solid rgba(78,168,224,.45);padding-left:14px}
-    .side.fire{text-align:left;border-left:2px solid rgba(255,122,69,.45);padding-left:14px}
+    .side.ice{text-align:left;border-left:1px solid rgba(78,168,224,.45);padding-left:14px}
+    .side.fire{text-align:left;border-left:1px solid rgba(255,122,69,.45);padding-left:14px}
     .side.ice .rv{justify-content:flex-start}
     .rv{font-size:28px;margin:6px 0 4px}
 
@@ -536,7 +536,7 @@
     .quote{padding:26px 22px}
     .quote blockquote{font-size:22px;line-height:1.5}
     .cards{margin-top:14px}
-    footer p{font-size:11.5px}
+    footer p{font-size:12px}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -547,7 +547,7 @@
 </head>
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:12px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-20</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">29 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">1 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ============ 入场动效 ============ */ html.js .rev{opacity:1!important;visibility:visible!important;transform:none!important}</style>
 <!-- showcase-backlink -->

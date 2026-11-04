@@ -12,7 +12,7 @@
 --gold:#D4A843;--gold-bright:#FFD700;--gold-dark:#B8860B;
 --dollar-green:#00E676;--dollar-dark:#00C853;
 --bg:#0A0A0F;--bg2:#12121A;--bg3:#1A1A25;
---t1:#F0F0F5;--t2:#9999AA;--t3:#858591;
+--t1:#F0F0F5;--t2:#9999AA;--t3:#8b8b96;
 --red:#FF4757;--blue:#4FC3F7;
 }
 html{scroll-behavior:smooth}
@@ -36,15 +36,15 @@ canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-e
 .hs{text-align:center}
 .hs-v{font-size:clamp(28px,4vw,52px);font-weight:900;font-family:Georgia,serif}
 .hs-v.up{color:var(--gold-bright)}.hs-v.dn{color:var(--red)}
-.hs-l{font-size:11px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.hs-l{font-size:12px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
 .scroll-h{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);text-align:center;opacity:0;animation:fu 1s 2s forwards}
-.scroll-h span{font-size:10px;color:var(--t3);letter-spacing:2px}
+.scroll-h span{font-size:14px;color:var(--t3);letter-spacing:2px}
 .scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent);margin:8px auto 0;animation:sp 2s infinite}
 @keyframes fu{to{opacity:1;transform:translateY(0)}}
 @keyframes sp{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 .sec{padding:100px 40px;position:relative;z-index:1}
 .sec-card{background:var(--bg2);border-radius:16px;padding:48px;max-width:1100px;margin:0 auto;border:1px solid rgba(255,255,255,.04)}
-.sec-lb{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500}
+.sec-lb{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500}
 .sec-t{font-size:clamp(26px,4vw,44px);font-weight:700;margin-bottom:14px;line-height:1.15}
 .sec-d{font-size:16px;color:var(--t2);max-width:680px;line-height:1.7;margin-bottom:36px}
 .tl{position:relative;max-width:1100px;margin:0 auto;padding:40px 0}
@@ -74,7 +74,7 @@ canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-e
 .bk-f{font-size:36px;margin-bottom:10px}
 .bk-n{font-size:13px;font-weight:600;margin-bottom:2px}
 .bk-v{font-size:20px;font-weight:900;color:var(--gold-bright);font-family:Georgia,serif}
-.bk-c{font-size:11px;color:var(--dollar-green);margin-top:3px}
+.bk-c{font-size:12px;color:var(--dollar-green);margin-top:3px}
 .bk-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:10px;overflow:hidden}
 .bk-bf{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-bright));border-radius:2px;width:0;transition:width 1.5s ease}
 .rb{max-width:760px;margin:36px auto}
@@ -89,7 +89,7 @@ canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-e
 .ap{background:var(--bg2);padding:36px;transition:all .4s;cursor:pointer}
 .ap:hover{background:var(--bg3)}
 .ap-l{border-right:1px solid rgba(255,255,255,.04)}
-.al{font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+.al{font-size:14px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;font-weight:600}
 .al.hk{color:var(--red)}.al.dv{color:var(--dollar-green)}
 .ai{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .ai:last-child{border-bottom:none}
@@ -128,20 +128,20 @@ canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-e
 .ld.hide{opacity:0;visibility:hidden}
 .ld-bar{width:200px;height:2px;background:rgba(255,255,255,.1);border-radius:1px;overflow:hidden;margin-top:20px}
 .ld-bf{height:100%;background:var(--gold);width:0;transition:width .3s}
-.ld-t{font-size:11px;color:var(--t3);letter-spacing:3px;margin-top:12px}
+.ld-t{font-size:12px;color:var(--t3);letter-spacing:3px;margin-top:12px}
 /* Sankey-like flow */
 .fl{position:relative;min-height:420px;margin:36px 0}
 .fn{position:absolute;background:var(--bg2);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:18px 22px;text-align:center;transition:all .4s;cursor:pointer;z-index:2}
 .fn:hover{border-color:var(--gold);box-shadow:0 0 30px rgba(212,168,67,.15);transform:scale(1.05)}
 .fn-t{font-size:13px;font-weight:600;margin-bottom:3px}
 .fn-v{font-size:18px;font-weight:900;color:var(--gold-bright);font-family:Georgia,serif}
-.fn-d{font-size:10px;color:var(--t3);margin-top:2px}
+.fn-d{font-size:14px;color:var(--t3);margin-top:2px}
 .fsvg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 </style>
 </head>
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:12px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:12px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-08-11</span><span class="sb-sep">/</span><span class="sb-beat">估值与资本</span><span class="sb-sep">/</span><span class="sb-cnt">18 件 / 2026-08</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">7 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.ld.hide{opacity:1!important;visibility:visible!important}</style>
 <!-- showcase-backlink -->

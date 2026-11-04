@@ -8,8 +8,8 @@
 <style>
   :root {
     --bg:#000; --surface:#111113; --card-front:#161618; --card-back:#1a1a1e;
-    --text-1:#f5f5f7; --text-2:#a1a1a6; --text-3:#7f7f84; --border:rgba(255,255,255,0.08);
-    --glow-0:#6e71f2; --glow-1:#06b6d4; --glow-2:#f97316; --glow-3:#f15757;
+    --text-1:#f5f5f7; --text-2:#a1a1a6; --text-3:#828286; --border:rgba(255,255,255,0.08);
+    --glow-0:#7e81f3; --glow-1:#06b6d4; --glow-2:#f97316; --glow-3:#f15959;
     --radius:20px; --ease-out:cubic-bezier(0.16,1,0.3,1);
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -21,7 +21,7 @@
   /* HEADER */
   .hero{position:relative;z-index:1;text-align:center;padding:80px 24px 20px}
   .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:500;color:#a5b4fc;letter-spacing:0.04em;margin-bottom:24px;animation:fadeUp .8s var(--ease-out) both}
-  .hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;background:linear-gradient(135deg,#f5f5f7,#a1a1a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeUp .8s var(--ease-out) .1s both}
+  .hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;background:none;-webkit-background-clip:text;-webkit-text-fill-color:#f5f5f7;background-clip:text;animation:fadeUp .8s var(--ease-out) .1s both}
   .hero p{font-size:clamp(16px,2.5vw,20px);color:var(--text-2);margin-top:16px;font-weight:400;animation:fadeUp .8s var(--ease-out) .2s both}
   .hero .date-tag{display:inline-block;margin-top:12px;font-size:13px;color:var(--text-3);letter-spacing:.06em;animation:fadeUp .8s var(--ease-out) .25s both}
 
@@ -53,27 +53,27 @@
   .card-company{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--card-accent);margin-bottom:8px;position:relative;z-index:1}
   .card-name{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;position:relative;z-index:1}
   .card-tagline{font-size:14px;color:var(--text-2);line-height:1.5;max-width:220px;position:relative;z-index:1}
-  .card-status{position:absolute;bottom:20px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--text-3);z-index:1}
-  .card-status .dot{width:6px;height:6px;border-radius:50%;background:var(--card-accent);box-shadow:0 0 6px var(--card-accent);animation:pulse 2s ease-in-out infinite}
+  .card-status{position:absolute;bottom:20px;display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:500;color:var(--text-3);z-index:1}
+  .card-status .dot{width:6px;height:6px;border-radius:50%;background:var(--card-accent);box-shadow:0 0 6px var(--card-accent);animation:none;}
 
   /* BACK */
   .card-back{background:var(--card-back);border:1px solid var(--border);transform:rotateY(180deg);padding:28px 22px;display:flex;flex-direction:column}
   .card-back-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
   .card-back-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:linear-gradient(135deg,color-mix(in srgb,var(--card-accent) 20%,transparent),color-mix(in srgb,var(--card-accent) 8%,transparent))}
   .card-back-title{font-size:15px;font-weight:600;letter-spacing:-0.01em}
-  .card-back-org{font-size:11px;color:var(--text-3)}
+  .card-back-org{font-size:14px;color:var(--text-3)}
   .card-back-body{flex:1;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
   .detail-row{display:flex;align-items:flex-start;gap:8px}
-  .detail-label{font-size:11px;font-weight:600;color:var(--text-3);min-width:48px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;padding-top:1px}
+  .detail-label{font-size:14px;font-weight:600;color:var(--text-3);min-width:48px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;padding-top:1px}
   .detail-value{font-size:13px;color:var(--text-2);line-height:1.5}
   .detail-value strong{color:var(--text-1);font-weight:600}
   .stat-bar{margin-top:4px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
   .stat-fill{height:100%;border-radius:2px;background:var(--card-accent);box-shadow:0 0 8px color-mix(in srgb,var(--card-accent) 50%,transparent);transition:width 1s var(--ease-out) .4s}
   .tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
-  .tag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px;background:color-mix(in srgb,var(--card-accent) 12%,transparent);color:var(--card-accent);border:1px solid color-mix(in srgb,var(--card-accent) 20%,transparent)}
+  .tag{font-size:14px;font-weight:500;padding:2px 8px;border-radius:100px;background:color-mix(in srgb,var(--card-accent) 12%,transparent);color:var(--card-accent);border:1px solid color-mix(in srgb,var(--card-accent) 20%,transparent)}
   .card-back-footer{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .license-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)}
-  .back-hint{font-size:10px;color:var(--text-3)}
+  .license-badge{font-size:14px;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2)}
+  .back-hint{font-size:14px;color:var(--text-3)}
 
   /* CARD COLOR THEMES */
   .card-wrapper:nth-child(1){--card-accent:var(--glow-0)}
@@ -100,7 +100,7 @@
 </head>
 <body>
 <!-- showcase-backlink -->
-<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:14px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:14px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-16</span><span class="sb-sep">/</span><span class="sb-beat">开源 vs 闭源之争</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">1 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <!-- showcase-backlink -->
 <style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>

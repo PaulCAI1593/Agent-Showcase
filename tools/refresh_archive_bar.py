@@ -26,6 +26,13 @@ diff 覆盖 <body> 起始处的结构，115 件全量重写风险偏高。
 本工具只做**定向字符串替换**：档案条里那三段文本 + 那一条色值。
 稳态下（数字没变）一个字节都不写 —— 这就是它可以挂在 autopublish 流水线里的原因。
 
+为什么自己扫盘、不读 manifest
+-----------------------------
+断言条数取**作品自身的声明块**（权威来源，与原文同文件，不可能漂移），
+件/月件数从**磁盘实际作品列表**算 —— 两者都不依赖 manifest.json 的重建时机，
+因此挂在流水线的任意阶段都成立（manifest 在阶段 6 才重建，
+若从 manifest 读条数，阶段 5.5 同步到的还是上一轮的旧数）。
+
 用法
 ----
   python3 tools/refresh_archive_bar.py --dry-run    # 只报差异，不写
@@ -44,7 +51,6 @@ import shutil
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MANIFEST = os.path.join(ROOT, 'manifest.json')
 BACKUP_ROOT = os.path.join(ROOT, '_archive', 'backups')
 
 # 档案条三段文本 + 计数器色值。全部带上下文锚点，避免误伤正文。
@@ -56,25 +62,93 @@ RE_COLOR = re.compile(r'(#showcase-bar \.sb-cnt\{color:rgba\(255,255,255,)(\.\d+
 # 4.5:1 底线：.44 = 4.36:1 不达标；.48 = 5.01:1 达标。
 TARGET_ALPHA = '.48'
 
+# 与 build_manifest 一致的作品扫描口径（排除工具/归档/缩略图/过程材料）。
+EXCLUDE_DIRS = {'_archive', 'thumbs', '.git', '__pycache__', 'notes', 'templates', 'tools', 'assets'}
+RE_CLAIMS_BLOCK = re.compile(
+    r'<script[^>]*id=["\']claims["\'][^>]*>(.*?)</script>', re.S)
 
-def load_manifest():
-    with open(MANIFEST, encoding='utf-8') as f:
-        m = json.load(f)
-    items = list(m.get('research', [])) + list(m.get('creative', []))
-    months = {}
-    for it in items:
-        k = (it.get('date') or '')[:7]
-        months[k] = months.get(k, 0) + 1
+
+def scan_works():
+    """扫盘列出作品页相对路径（与 build_manifest.scan_works 同口径）。"""
+    out = []
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS and not d.startswith('.')]
+        for fn in filenames:
+            if not fn.endswith('.html') or fn.startswith('.'):
+                continue
+            if fn == 'index.html':
+                continue
+            rel = os.path.relpath(os.path.join(dirpath, fn), ROOT)
+            if rel.endswith('.html.bak') or '.bak.' in rel:
+                continue
+            out.append(rel)
+    return sorted(out)
+
+
+def declared_claim_count(html: str) -> int | None:
+    """作品自身声明的断言条数。取不到返回 None（调用方回落 enrich.json）。"""
+    m = RE_CLAIMS_BLOCK.search(html)
+    if not m:
+        return None
+    try:
+        arr = json.loads(m.group(1))
+    except Exception:
+        return None
+    return len(arr) if isinstance(arr, list) else None
+
+
+def enrich_claim_counts():
+    """enrich.json 里的断言条数（作品没有自带声明块时的回落来源）。"""
+    p = os.path.join(ROOT, 'enrich.json')
+    if not os.path.exists(p):
+        return {}
+    try:
+        with open(p, encoding='utf-8') as f:
+            e = json.load(f)
+    except Exception:
+        return {}
     out = {}
-    for it in items:
-        rel = it.get('file') or it.get('path')
-        if not rel:
+    for it in (e.get('works') or []):
+        rel = it.get('file')
+        if rel:
+            out[rel] = len(it.get('claims') or [])
+    return out
+
+
+def collect():
+    """返回 {相对路径: {date, month, month_count, claim_count}}。"""
+    rels = scan_works()
+    dates = {}
+    for rel in rels:
+        parts = rel.split(os.sep)
+        d = parts[0] if re.match(r'^\d{4}-\d{2}-\d{2}$', parts[0]) else ''
+        if not d:
+            m = re.match(r'^(\d{4}-\d{2}-\d{2})', os.path.basename(rel))
+            d = m.group(1) if m else ''
+        dates[rel] = d
+    months = {}
+    for d in dates.values():
+        if d:
+            k = d[:7]
+            months[k] = months.get(k, 0) + 1
+
+    enrich = enrich_claim_counts()
+    out = {}
+    for rel in rels:
+        d = dates[rel]
+        path = os.path.join(ROOT, rel)
+        try:
+            html = open(path, encoding='utf-8', errors='ignore').read()
+        except OSError:
             continue
+        n = declared_claim_count(html)
+        if n is None:
+            n = enrich.get(rel, 0)
         out[rel] = {
-            'date': it.get('date') or '',
-            'month': (it.get('date') or '')[:7],
-            'month_count': months.get((it.get('date') or '')[:7], 0),
-            'claim_count': len(it.get('claims') or []),
+            'date': d,
+            'month': d[:7],
+            'month_count': months.get(d[:7], 0),
+            'claim_count': n,
         }
     return out
 
@@ -122,12 +196,9 @@ def main() -> int:
     ap.add_argument('--dry-run', action='store_true', help='只报差异，不写盘')
     args = ap.parse_args()
 
-    if not os.path.exists(MANIFEST):
-        print('找不到 manifest.json：%s' % MANIFEST, file=sys.stderr)
-        return 2
-    metas = load_manifest()
+    metas = collect()
     if not metas:
-        print('manifest 里没有作品条目', file=sys.stderr)
+        print('扫不到作品页（ROOT=%s）' % ROOT, file=sys.stderr)
         return 2
 
     stamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')

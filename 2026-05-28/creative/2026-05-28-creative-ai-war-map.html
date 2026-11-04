@@ -12,7 +12,7 @@
     <script src="../../assets/vendor/ajax_libs_gsap_3.12.5/ScrollTrigger.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg-primary:#000;--bg-secondary:#0a0a0a;--bg-card:#111;--accent-blue:#0372e3;--accent-red:#ff3b30;--accent-green:#30d158;--accent-orange:#ff9500;--text-primary:#fff;--text-secondary:#86868b;--border-color:#2a2a2a}
+        :root{--bg-primary:#000;--bg-secondary:#0a0a0a;--bg-card:#111;--accent-blue:#0d78e4;--accent-red:#ff3b30;--accent-green:#30d158;--accent-orange:#ff9500;--text-primary:#fff;--text-secondary:#86868b;--border-color:#2a2a2a}
         html{scroll-behavior:smooth}
         body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.47;overflow-x:hidden}
         .container{max-width:1920px;margin:0 auto;padding:0 80px}
@@ -24,9 +24,9 @@
         #particles-canvas{position:absolute;inset:0;pointer-events:none}
         .hero-content{position:relative;z-index:10;text-align:center}
         .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(0,113,227,0.15);border:1px solid rgba(0,113,227,0.3);border-radius:100px;font-size:14px;font-weight:500;color:var(--accent-blue);margin-bottom:32px;opacity:0}
-        .hero-badge .dot{width:8px;height:8px;background:var(--accent-blue);border-radius:50%;animation:pulse 2s infinite}
+        .hero-badge .dot{width:8px;height:8px;background:var(--accent-blue);border-radius:50%;animation:none;}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-        .hero-title{font-size:clamp(48px,8vw,96px);font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:24px;opacity:0;background:linear-gradient(135deg,#fff 0%,#fff 50%,#86868b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero-title{font-size:clamp(48px,8vw,96px);font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:24px;opacity:0;background:none;-webkit-background-clip:text;-webkit-text-fill-color:#fff;background-clip:text}
         .hero-subtitle{font-size:clamp(18px,2vw,24px);font-weight:400;color:var(--text-secondary);margin-bottom:48px;opacity:0}
         .hero-meta{display:flex;justify-content:center;gap:48px;opacity:0}
         .hero-meta-item{text-align:center}
@@ -34,7 +34,7 @@
         .hero-meta-label{font-size:14px;color:var(--text-secondary);margin-top:4px}
         .scroll-indicator{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;cursor:pointer}
         .scroll-indicator span{font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em}
-        .scroll-arrow{width:24px;height:24px;border-right:2px solid var(--text-secondary);border-bottom:2px solid var(--text-secondary);transform:rotate(45deg);animation:bounce 2s infinite}
+        .scroll-arrow{width:24px;height:24px;border-right:1px solid var(--text-secondary);border-bottom:2px solid var(--text-secondary);transform:rotate(45deg);animation:bounce 2s infinite}
         @keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(10px)}}
         .market-section{padding:120px 0;background:var(--bg-secondary)}
         .section-header{text-align:center;margin-bottom:64px}

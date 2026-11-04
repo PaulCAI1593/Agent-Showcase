@@ -150,8 +150,10 @@ def lc_of(findings):
         r = RATIO_RE.match(sn)
         if not m:
             continue
+        need = re.search(r'need\s+([\d.]+):1', sn)
         out.append({'text': m.group(1).lower(), 'bg': m.group(2).lower(),
-                    'ratio': float(r.group(1)) if r else 0.0})
+                    'ratio': float(r.group(1)) if r else 0.0,
+                    'need': float(need.group(1)) if need else 4.5})
     return out
 
 
@@ -193,12 +195,18 @@ def plan_for(lcs, target):
     by_color = {}
     for x in lcs:
         by_color.setdefault(x['text'], []).append(x['bg'])
+    # 每个 (文字色, 背景色) 对有自己的目标：检测器已经算好「这条需要 4.5:1 还是 3:1」
+    # （正文 4.5 / 大字号 3）。一刀切 4.5 会把只需 3:1 的大字号也过度调整 → 连带伤害。
+    need_of = {}
+    for x in lcs:
+        k = (x['text'], x['bg'])
+        need_of[k] = max(need_of.get(k, 0), x.get('need', target))
     mapping = {}
     for color, bgs in by_color.items():
         cand, darker, lighter = {}, 0, 0
         fg = hex_to_rgb(color)
         for bg in set(bgs):
-            newc = adjust_toward(color, bg, target)
+            newc = adjust_toward(color, bg, need_of.get((color, bg), target))
             if not newc:
                 continue
             cand[bg] = newc
