@@ -223,7 +223,21 @@ def fix_side_tab(html, findings, rule):
 
 
 def _desat(color_hex):
-    """把彩色转为同亮度的中性灰（保留 alpha）。"""
+    """把彩色转为同亮度的中性灰（保留 alpha）。
+
+    ⚠️ 阴影多数写作 rgba(...) 而不是 hex —— 只认 hex 会让整类修法静默失效
+    （实测 dark-glow 166 条一条没动就是这个原因）。
+    """
+    if color_hex.lower().startswith('rgba'):
+        nums = re.findall(r'[\d.]+', color_hex)
+        if len(nums) < 3:
+            return None
+        r, g, b = (int(float(x)) for x in nums[:3])
+        a = nums[3] if len(nums) > 3 else '1'
+        if max(r, g, b) - min(r, g, b) < 30:
+            return None
+        y = round(0.2126 * r + 0.7152 * g + 0.0722 * b)
+        return f'rgba({y},{y},{y},{a})'
     h = color_hex.lstrip('#')
     if len(h) == 3:
         h = ''.join(c * 2 for c in h)
@@ -249,13 +263,16 @@ def fix_dark_glow(html, findings, rule):
             # 只处理「0 偏移」的阴影（0 0 blur color）
             if not re.match(r'\s*0(?:px)?\s+0(?:px)?\s+', body):
                 return m.group(0)
+            # ⚠️ 73/90 处零偏移阴影的颜色是 var(--xxx) 间接引用 —— 静态脱不了色。
+            #    但「零偏移彩色光晕」这条规则的**核心是零偏移**：
+            #    给一个真实偏移（0 2px）就解掉了，保留原有色彩与设计意图。
             def col(mc):
                 d = _desat(mc.group(1))
                 return mc.group(0) if not d else d
-            nb = re.sub(r'(#[0-9a-fA-F]{3,8})', col, body)
+            nb = re.sub(r'(#[0-9a-fA-F]{3,8}|rgba?\([^)]*\))', col, body, flags=re.I)
+            nb = re.sub(r'^(\s*)0(?:px)?\s+0(?:px)?\s+', r'\g<1>0 2px ', nb)
             if nb == body:
                 return m.group(0)
-            nb = re.sub(r'^(\s*)0(?:px)?\s+0(?:px)?\s+', r'\g<1>0 2px ', nb)
             return f'{prop}: {nb}'
 
         out = re.sub(r'((?:box|text)-shadow)\s*:\s*([^;{}]+)', repl_shadow, out, flags=re.I)

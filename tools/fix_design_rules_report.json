@@ -2,352 +2,242 @@
  "applied": {
   "2026-05-28/creative/2026-05-28-creative-ai-war-map.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-06-20/creative/2026-06-20-musk-trillion-path.html": [
+  "2026-06-16/creative/2026-06-16-a-share-dashboard.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html": [
+  "2026-06-16/creative/2026-06-16-open-source-models-cards.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html": [
+  "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-06-27/creative/2026-06-27-ai-productivity-gap.html": [
+  "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html": [
+  "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-08-11/creative/2026-08-11-capital-migration.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-09-03/creative/2026-09-03-ai-compute-explosion.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-09-10/creative/2026-09-10-ai-model-fatigue.html": [
+  "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html": [
+  "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html": [
    {
-    "rule": "border-accent-on-rounded",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "border-accent-on-rounded",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html": [
+  "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   },
-   {
-    "rule": "border-accent-on-rounded",
-    "changes": [
-     {
-      "rule": "border-accent-on-rounded",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-10-01/creative/2026-10-01-china-ai-valuation.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
+     }
+    ]
+   }
+  ],
+  "2026-10-06/creative/2026-10-06-ai-employment-migration.html": [
+   {
+    "rule": "dark-glow",
+    "changes": [
+     {
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-10-08/creative/2026-10-08-ai-digital-twin.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
-     }
-    ]
-   }
-  ],
-  "2026-10-10/creative/2026-10-10-ai-everywhere.html": [
-   {
-    "rule": "side-tab",
-    "changes": [
-     {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-10-13/creative/2026-10-13-ai-overreach-governance.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
   "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html": [
    {
-    "rule": "side-tab",
+    "rule": "dark-glow",
     "changes": [
      {
-      "rule": "side-tab",
-      "to": "1px"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
   ],
-  "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html": [
+  "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html": [
    {
-    "rule": "tiny-text",
+    "rule": "dark-glow",
     "changes": [
      {
-      "from": "11.5px",
-      "to": "12px",
-      "count": 2,
-      "via": "font 简写"
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
+     }
+    ]
+   }
+  ],
+  "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html": [
+   {
+    "rule": "dark-glow",
+    "changes": [
+     {
+      "rule": "dark-glow",
+      "to": "中性化 + 偏移"
      }
     ]
    }
@@ -356,158 +246,113 @@
  "improved": [
   [
    "2026-05-28/creative/2026-05-28-creative-ai-war-map.html",
-   9,
+   8,
    8
   ],
   [
    "2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
-   5,
+   4,
    4
-  ],
-  [
-   "2026-06-11/creative/2026-06-11-ai-coding-tools-matrix.html",
-   17,
-   16
   ],
   [
    "2026-06-12/creative/2026-06-12-ai-model-wars-48h.html",
-   8,
+   6,
    6
-  ],
-  [
-   "2026-06-13/creative/2026-06-13-ai-ipo-trinity.html",
-   52,
-   51
   ],
   [
    "2026-06-13/creative/2026-06-13-harmonyos7-agent-os.html",
-   7,
-   5
-  ],
-  [
-   "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
-   10,
-   9
-  ],
-  [
-   "2026-06-23/creative/2026-06-23-ai-agent-workplace-evolution.html",
-   31,
-   30
-  ],
-  [
-   "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
-   63,
-   62
-  ],
-  [
-   "2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
-   14,
-   13
-  ],
-  [
-   "2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
-   9,
-   8
-  ],
-  [
-   "2026-06-30/research/2026-06-30-hormuz-60-days-energy-reshape.html",
-   3,
-   2
-  ],
-  [
-   "2026-07-21/creative/2026-07-21-ai-tool-sovereignty-v2.html",
-   37,
-   36
-  ],
-  [
-   "2026-08-11/creative/2026-08-11-capital-migration.html",
-   5,
+   4,
    4
   ],
   [
-   "2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
-   15,
-   14
-  ],
-  [
-   "2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
-   6,
+   "2026-06-16/creative/2026-06-16-a-share-dashboard.html",
+   5,
    5
   ],
   [
-   "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
-   50,
-   49
+   "2026-06-16/creative/2026-06-16-open-source-models-cards.html",
+   11,
+   11
   ],
   [
-   "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
+   "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+   15,
+   15
+  ],
+  [
+   "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
    13,
-   12
+   13
   ],
   [
-   "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
-   15,
-   14
-  ],
-  [
-   "2026-09-10/creative/2026-09-10-ai-model-fatigue.html",
+   "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html",
    6,
-   5
-  ],
-  [
-   "2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html",
-   45,
-   41
-  ],
-  [
-   "2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
-   43,
-   39
-  ],
-  [
-   "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html",
-   20,
-   19
-  ],
-  [
-   "2026-09-29/creative/2026-09-29-ai-safety-growth-paradox.html",
-   7,
    6
   ],
   [
+   "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
+   49,
+   49
+  ],
+  [
+   "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
+   14,
+   14
+  ],
+  [
+   "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
+   7,
+   7
+  ],
+  [
+   "2026-09-17/creative/2026-09-17-wechat-ai-social-network.html",
+   18,
+   18
+  ],
+  [
+   "2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html",
+   18,
+   18
+  ],
+  [
    "2026-10-01/creative/2026-10-01-china-ai-valuation.html",
-   27,
-   26
-  ],
-  [
-   "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
-   13,
-   12
-  ],
-  [
-   "2026-10-10/creative/2026-10-10-ai-everywhere.html",
    23,
    22
   ],
   [
-   "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
-   21,
-   20
+   "2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+   36,
+   36
   ],
   [
-   "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
-   10,
+   "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
+   9,
    9
   ],
   [
-   "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
-   48,
-   47
+   "2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
+   18,
+   18
   ],
   [
-   "2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+   "2026-10-20/creative/2026-10-20-a-share-ice-and-fire.html",
    7,
-   4
+   7
+  ],
+  [
+   "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
+   45,
+   45
+  ],
+  [
+   "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
+   11,
+   11
+  ],
+  [
+   "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+   30,
+   29
   ]
  ],
  "reverted": [],
