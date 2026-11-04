@@ -24,3 +24,13 @@ tools/.js_blocked.json
 # 崩溃产生的 core dump（2026-11-04 实测 334MB）
 core
 core.*
+
+# ── 发布到 GitHub 时不公开的目录（2026-11-04）────────────────
+# _archive/：废弃脚本与旧版作品快照（git 历史里仍有，本地保留即可）
+_archive/
+# logs/：守护进程运行日志
+logs/
+# workspaces/：运行时状态（state/auto_maintain.json 等）
+workspaces/
+# 工具的本地备份与缓存
+tools/.autopublish_backups/
