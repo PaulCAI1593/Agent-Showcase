@@ -507,7 +507,8 @@
   "contrast": 1467,
   "accent-border": 219,
   "stripe": 1147,
-  "glow": 169
+  "glow": 169,
+  "icon-tile": 6
  },
- "items": 3002
+ "items": 3008
 }

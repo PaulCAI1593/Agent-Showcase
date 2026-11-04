@@ -2,7 +2,12 @@
 """
 fix_design_dom.py — 用页内计算样式修剩余设计问题（伪元素 / 渐变文字 / 阴影 / 边框）
 
-⚠️ 状态：**渐变底修法实测无聚合收益，默认不启用**（2026-11-04）
+⚠️ 状态：**永久默认不启用**（2026-11-04）
+   反复试验的结论：逐件都说「改善」，但**全馆聚合 findings 纹丝不动**
+   （1665 → 1665），且移除「调暗渐变端点」分支后结果依旧 —— 说明本工具能修的
+   部分在前几轮已修完，剩下的（背景图上的文字、跨背景同色异底）它看不到。
+   保留代码作为取证与修法参考，**不再用于自动修复**。
+   （早前它确实有真实收益：2152 → 1987、1864 → 1763 那两轮就是它做的。）
    试验：把「文字压在彩色/渐变底上」的参照物算对（含渐变端点），
    再调暗渐变端点使文字达标。取证覆盖从 1917 升到 3002 项，
    58 件「逐件改善」，但**全馆聚合 findings 纹丝不动（1763 → 1763）**，
@@ -107,6 +112,14 @@ INSPECT_JS = r"""
     // 圆角元素上的粗边框
     const bw = parseFloat(cs.borderTopWidth), br = parseFloat(cs.borderTopLeftRadius);
     if (bw >= 2 && br >= 8) out.push({kind:'accent-border', sel:path(el,pseudo), w: cs.borderTopWidth});
+    // 图标瓦片：40~72px 的方块且内含 svg/img → 卡片外壳（craft-floor：卡片是懒惰的容器）
+    if (!pseudo) {
+      const w = parseFloat(cs.width), h = parseFloat(cs.height);
+      const hasIcon = el.querySelector && el.querySelector('svg,img');
+      const hasBorder = cs.borderTopWidth !== '0px' || cs.backgroundColor !== 'rgba(0, 0, 0, 0)';
+      if (hasIcon && w >= 40 && w <= 72 && h >= 40 && h <= 72 && hasBorder)
+        out.push({kind:'icon-tile', sel:path(el,null), w:cs.width, h:cs.height});
+    }
     // 伪元素画的绝对定位条纹
     if (pseudo) {
       const w = parseFloat(cs.width), h = parseFloat(cs.height);
@@ -290,32 +303,9 @@ def build_rules(items):
             bg = str_to_rgb(it['bg'])
             if not fg or not bg:
                 continue
-            if it.get('bgKind') == 'gradient' and it.get('grad'):
-                # 文字压在彩色/渐变底上 → 白字已是上限，只能**调暗渐变端点**。
-                # 保色相降亮度，直到文字达标。
-                grad = it['grad']
-                new_grad = grad
-                for stop in set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', grad)):
-                    s_rgb = str_to_rgb(stop)
-                    if not s_rgb:
-                        continue
-                    # 把该端点调暗到「文字色对它达标」
-                    target = it['need']
-                    cur = contrast(fg, s_rgb)
-                    if cur >= target:
-                        continue
-                    k = 100
-                    while k > 0:
-                        cand = tuple(c * (k / 100.0) for c in s_rgb)
-                        if contrast(fg, cand) >= target:
-                            break
-                        k -= 1
-                    if k <= 0:
-                        continue
-                    new_grad = new_grad.replace(stop, rgb_to_hex(cand))
-                if new_grad != grad and it.get('bgPath'):
-                    rules.setdefault((it['bgPath'], 'background-image'), new_grad)
-                continue
+            # ⚠️ 「调暗渐变端点」分支已移除（2026-11-04）：
+            #    实测它让全馆聚合 findings 纹丝不动（1665 → 1665，逐件却都说变好），
+            #    并抵消了其他策略的收益 —— 逐件改善互相抵消，净收益为零。
             new = adjust_toward(fg, bg, it['need'])
             if not new:
                 continue
@@ -339,6 +329,11 @@ def build_rules(items):
                                  f'0 2px 10px rgba({y},{y},{y},{a})')
         elif it['kind'] == 'accent-border':
             rules.setdefault((it['sel'], 'border-top-width'), '1px')
+        elif it['kind'] == 'icon-tile':
+            # 去卡片外壳：只留图标本身（craft-floor：卡片是懒惰的容器）
+            rules.setdefault((it['sel'], 'border'), 'none')
+            rules.setdefault((it['sel'], 'background'), 'transparent')
+            rules.setdefault((it['sel'], 'box-shadow'), 'none')
         elif it['kind'] == 'stripe':
             rules.setdefault((it['sel'], 'width'), '1px')
     return rules
