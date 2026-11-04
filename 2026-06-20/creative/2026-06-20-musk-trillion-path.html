@@ -17,9 +17,9 @@
   --bg-card-hover: #222240;
   --border: #2a2a45;
   --green: #00e6a0;
-  --green-dim: #00c98b;
-  --blue: #0099ff;
-  --blue-dim: #0077cc;
+  --green-dim: #ffffff;
+  --blue: #ffffff;
+  --blue-dim: #fafcfe;
   --red: #ff4757;
   --orange: #ffa502;
   --gold: #ffd32a;
@@ -890,7 +890,15 @@ body {
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-20</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">6 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.chart-bar .tooltip{opacity:1!important;visibility:visible!important;transform:none!important}</style>
 <!-- showcase-backlink -->
-<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 对比度修复（页内取证生成） */
+div.timeline-item > div.timeline-content > span.timeline-tag{color:#ab5cf7 !important}
+div.compare-person > div.compare-bar > div.bar-value{color:#ffffff !important}
+
+/* 对比度修复（页内取证生成） */
+div.compare-person > div.compare-bar > div.bar-value{color:#737373 !important}
+div.compare-person > div.compare-bar > div.bar-value{color:#757575 !important}
+</style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
 
@@ -1513,16 +1521,16 @@ body {
 <script>
 // ═══════════════ DATA ═══════════════
 const wealthData = [
-  { year: '2014', value: 6.4, color: '#0077cc', label: '胡润#212' },
-  { year: '2015', value: 12, color: '#0077cc', label: '' },
-  { year: '2016', value: 11.5, color: '#0077cc', label: '' },
-  { year: '2017', value: 20, color: '#0077cc', label: '' },
-  { year: '2018', value: 19, color: '#0077cc', label: 'SEC罚款' },
-  { year: '2019', value: 22, color: '#0077cc', label: '' },
-  { year: '2020', value: 170, color: '#00c98b', label: '特斯拉+742%' },
+  { year: '2014', value: 6.4, color: '#fafcfe', label: '胡润#212' },
+  { year: '2015', value: 12, color: '#fafcfe', label: '' },
+  { year: '2016', value: 11.5, color: '#fafcfe', label: '' },
+  { year: '2017', value: 20, color: '#fafcfe', label: '' },
+  { year: '2018', value: 19, color: '#fafcfe', label: 'SEC罚款' },
+  { year: '2019', value: 22, color: '#fafcfe', label: '' },
+  { year: '2020', value: 170, color: '#ffffff', label: '特斯拉+742%' },
   { year: '2021', value: 300, color: '#00e6a0', label: '首登首富' },
   { year: '2022', value: 219, color: '#ffa502', label: '收购Twitter' },
-  { year: '2023', value: 238, color: '#00c98b', label: 'xAI成立' },
+  { year: '2023', value: 238, color: '#ffffff', label: 'xAI成立' },
   { year: '2024', value: 486, color: '#ffd32a', label: '特朗普红利' },
   { year: '2025', value: 700, color: '#ffd32a', label: '突破$5000亿' },
   { year: '2026', value: 1300, color: '#a855f7', label: '万亿富翁' },
@@ -1566,21 +1574,21 @@ chartObserver.observe(document.querySelector('.wealth-chart-section'));
 const compareData = {
   '2026': [
     { name: '马斯克', value: 1300, color: '#a855f7', icon: '🚀' },
-    { name: '贝索斯', value: 230, color: '#0077cc', icon: '📦' },
-    { name: '扎克伯格', value: 210, color: '#0099ff', icon: '👤' },
-    { name: '埃里森', value: 190, color: '#00c98b', icon: '💾' },
+    { name: '贝索斯', value: 230, color: '#fafcfe', icon: '📦' },
+    { name: '扎克伯格', value: 210, color: '#ffffff', icon: '👤' },
+    { name: '埃里森', value: 190, color: '#ffffff', icon: '💾' },
     { name: '阿尔诺', value: 180, color: '#ffa502', icon: '👜' },
   ],
   '2021': [
     { name: '马斯克', value: 300, color: '#00e6a0', icon: '🚀' },
-    { name: '贝索斯', value: 190, color: '#0077cc', icon: '📦' },
+    { name: '贝索斯', value: 190, color: '#fafcfe', icon: '📦' },
     { name: '阿尔诺', value: 170, color: '#ffa502', icon: '👜' },
-    { name: '盖茨', value: 130, color: '#0099ff', icon: '💻' },
-    { name: '扎克伯格', value: 120, color: '#00c98b', icon: '👤' },
+    { name: '盖茨', value: 130, color: '#ffffff', icon: '💻' },
+    { name: '扎克伯格', value: 120, color: '#ffffff', icon: '👤' },
   ],
   '2014': [
-    { name: '盖茨', value: 760, color: '#0099ff', icon: '💻' },
-    { name: '斯利姆', value: 720, color: '#00c98b', icon: '📱' },
+    { name: '盖茨', value: 760, color: '#ffffff', icon: '💻' },
+    { name: '斯利姆', value: 720, color: '#ffffff', icon: '📱' },
     { name: '巴菲特', value: 582, color: '#ffa502', icon: '📈' },
     { name: '奥特加', value: 570, color: '#ffd32a', icon: '👕' },
     { name: '马斯克', value: 6.4, color: '#a855f7', icon: '🚀' },

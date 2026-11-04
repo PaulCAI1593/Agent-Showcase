@@ -210,6 +210,41 @@ def apply_plan(html, plan_out):
     return html, notes
 
 
+
+def detect_many(files, timeout=2400):
+    """一次扫描多件 → {相对路径: findings}。检测器是权威判据。"""
+    launcher = (os.environ.get('IMPECCABLE_BIN', '')
+                or '/app/working/workspaces/default/skills/impeccable/scripts/impeccable')
+    if not os.path.exists(launcher) or not files:
+        return {}
+    try:
+        p = subprocess.run([launcher, 'detect'] + list(files) + ['--json'],
+                           cwd=ROOT, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return {}
+    raw = p.stdout.strip()
+    if not raw:
+        return {}
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return {}
+    if isinstance(data, dict):
+        data = data.get('findings', [])
+    out = {}
+    for f in data:
+        rel = f.get('file', '')
+        if rel.startswith('file://'):
+            rel = rel[len('file://'):]
+        rel = rel.replace(ROOT + '/', '').replace(ROOT, '')
+        out.setdefault(rel, []).append(f)
+    return out
+
+
+def lc_count(findings):
+    return [f for f in findings or [] if f.get('antipattern') == 'low-contrast']
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--files', nargs='*', default=[])
@@ -233,6 +268,9 @@ def main():
         print('没有目标文件')
         return 2
 
+    # 检测器「前」基线必须先测（改动前的权威状态），否则闸门无参照
+    print(f'第 0 遍 detect（权威基线）：{len(paths)} 件 …', flush=True)
+    det_before = detect_many(paths)
     print(f'第 1 遍取证：{len(paths)} 件 …', flush=True)
     before = inspect_files(paths)
     todo = {r: items for r, items in before.items() if items}
@@ -254,15 +292,19 @@ def main():
         for rel, (orig, html, notes) in changed.items():
             open(os.path.join(ROOT, rel), 'w', encoding='utf-8').write(html)
 
-    print(f'第 2 遍取证：复验 {len(changed)} 件 …', flush=True)
-    after = inspect_files(list(changed.keys()))
+    # ⚠️ 终局判据必须是**检测器**，不是页内取证。
+    #    实测教训：页内取证说「变好」、检测器说「变坏」（棘轮抓到 low-contrast +161）——
+    #    页内取证只看叶元素的 computed style，检测器还看伪元素/渐变文字/背景图，
+    #    两者口径不同。棘轮用检测器，工具就必须用同一个判据，否则闸门形同虚设。
+    print(f'第 2 遍 detect（权威判据）：复验 {len(changed)} 件 …', flush=True)
+    det_after = detect_many(list(changed.keys()))
     improved, reverted, unver = [], [], []
     for rel, (orig, html, notes) in changed.items():
-        if rel not in after:
+        nb = len(lc_count(det_before.get(rel, [])))
+        na = len(lc_count(det_after.get(rel, [])))
+        if rel not in det_before:          # 前基线缺失 → 没参照，不动
             unver.append(rel)
             continue
-        nb = len(before.get(rel, []))
-        na = len(after.get(rel, []))
         if na > nb:
             reverted.append((rel, nb, na))
             if not args.dry_run:

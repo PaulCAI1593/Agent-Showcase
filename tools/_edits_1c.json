@@ -1,5 +1,0 @@
-[
-  {"old": ".data-table {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--white);\n  color: var(--near-black);",
-   "new": ".data-table {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--white);\n  color: var(--near-black);\n  --mid-gray: #6e6e73;",
-   "count": 1}
-]

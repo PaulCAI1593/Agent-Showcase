@@ -735,7 +735,7 @@ section { padding: 120px 40px; position: relative; }
 
       <!-- Feature 4 -->
       <div class="feature-card reveal reveal-delay-1" onclick="toggleFeature(this)">
-        <div class="feature-icon" style="background: rgba(155,89,182,0.1); color: #9B59B6;">🎯</div>
+        <div class="feature-icon" style="background: rgba(155,89,182,0.1); color: #a56abd;">🎯</div>
         <h4>意图解析</h4>
         <p class="brief">将模糊的用户指令转化为可执行的社交任务</p>
         <div class="feature-detail">
@@ -1047,7 +1047,7 @@ window.addEventListener('scroll', () => {
 
   const names = ['小明','小红','小华','小李','小张','小王','小赵','小陈','小周','小吴',
                   '小刘','小杨','小黄','小林','小何','小郑'];
-  const colors = ['#07C160','#1E90FF','#E67E22','#9B59B6','#E74C3C','#1ABC9C','#F39C12','#3498DB'];
+  const colors = ['#07C160','#1E90FF','#E67E22','#a56abd','#E74C3C','#1ABC9C','#F39C12','#3498DB'];
 
   function initNodes() {
     nodes = []; edges = [];
@@ -1344,7 +1344,7 @@ drawChart('chartUsage', (ctx, c) => {
     { label: '约饭/聚会协调', value: 35, color: '#07C160' },
     { label: '日程/行程确认', value: 25, color: '#1E90FF' },
     { label: '工作事务沟通', value: 20, color: '#E67E22' },
-    { label: '购物/拼单', value: 12, color: '#9B59B6' },
+    { label: '购物/拼单', value: 12, color: '#a56abd' },
     { label: '其他', value: 8, color: '#5A6577' },
   ];
   const padL = 110, padR = 50, padT = 10, padB = 10;
@@ -1431,7 +1431,7 @@ drawChart('chartEvolution', (ctx, c) => {
     { label: '工具阶段', desc: 'AI回答问题', pct: 100, color: '#5A6577' },
     { label: '助手阶段', desc: 'AI执行指令', pct: 85, color: '#1E90FF' },
     { label: '代理阶段', desc: 'AI代表协商', pct: 40, color: '#07C160' },
-    { label: '网络阶段', desc: 'Agent互联', pct: 10, color: '#9B59B6' },
+    { label: '网络阶段', desc: 'Agent互联', pct: 10, color: '#a56abd' },
   ];
   const padL = 20, padR = 20, padT = 30, padB = 60;
   const stageW = (W - padL - padR) / stages.length;

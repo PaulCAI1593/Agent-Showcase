@@ -12,7 +12,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Ne
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:#1a1a1a}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
-:root{--oil-black:#0a0a0a;--deep-black:#111111;--panel:#1a1a1a;--warning-red:#ff3b30;--crude-amber:#ff9500;--navy-blue:#0a84ff;--ice-white:#f5f5f7;--mid-gray:#86868b;--text-secondary:#a1a1a6;--text-dim:#828286;--card-bg:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08)}
+:root{--oil-black:#0a0a0a;--deep-black:#111111;--panel:#1a1a1a;--warning-red:#ff3b30;--crude-amber:#757575;--navy-blue:#0a84ff;--ice-white:#f5f5f7;--mid-gray:#86868b;--text-secondary:#a1a1a6;--text-dim:#828286;--card-bg:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08)}
 .nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);transform:translateY(-100%);transition:transform .3s}
 .nav-bar.show{transform:translateY(0)}
 .nav-bar .logo{font-size:14px;font-weight:600;color:var(--warning-red);letter-spacing:.5px}
@@ -250,11 +250,11 @@ section{position:relative;padding:120px 24px}
           <circle cx="480" cy="310" r="20" fill="none" stroke="#ff3b30" stroke-width="1" opacity="0.3"><animate attributeName="r" values="20;35;20" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/></circle>
         </g>
         <g class="map-dot" data-tip="saudi" onclick="showMapTip('saudi',event)">
-          <circle cx="200" cy="350" r="5" fill="#ff9500"><animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/></circle>
+          <circle cx="200" cy="350" r="5" fill="#757575"><animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/></circle>
           <text x="200" y="375" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="system-ui">延布港</text>
         </g>
         <g class="map-dot" data-tip="uae" onclick="showMapTip('uae',event)">
-          <circle cx="600" cy="355" r="5" fill="#ff9500"><animate attributeName="r" values="5;7;5" dur="2.5s" repeatCount="indefinite"/></circle>
+          <circle cx="600" cy="355" r="5" fill="#757575"><animate attributeName="r" values="5;7;5" dur="2.5s" repeatCount="indefinite"/></circle>
           <text x="600" y="375" text-anchor="middle" fill="#6e6e73" font-size="10" font-family="system-ui">富查伊拉</text>
         </g>
         <g class="map-dot" data-tip="tankers" onclick="showMapTip('tankers',event)">
@@ -263,7 +263,7 @@ section{position:relative;padding:120px 24px}
         </g>
         <!-- Animated tanker icon -->
         <g id="tanker1" opacity="0.6">
-          <rect x="0" y="305" width="12" height="5" rx="2" fill="#ff9500"/>
+          <rect x="0" y="305" width="12" height="5" rx="2" fill="#757575"/>
           <animateMotion dur="8s" repeatCount="indefinite" path="M100,310 C300,320 450,310 800,300"/>
         </g>
       </svg>
@@ -434,9 +434,9 @@ section{position:relative;padding:120px 24px}
           <!-- Key dots -->
           <circle cx="30" cy="165" r="4" class="price-dot"/>
           <circle cx="130" cy="158" r="4" class="price-dot"/>
-          <circle cx="260" cy="45" r="5" class="price-dot" stroke="#ff9500" stroke-width="2"/>
+          <circle cx="260" cy="45" r="5" class="price-dot" stroke="#757575" stroke-width="2"/>
           <circle cx="480" cy="145" r="4" class="price-dot"/>
-          <circle cx="560" cy="30" r="5" class="price-dot" stroke="#ff9500" stroke-width="2"/>
+          <circle cx="560" cy="30" r="5" class="price-dot" stroke="#757575" stroke-width="2"/>
           <circle cx="780" cy="85" r="4" class="price-dot"/>
           <!-- Labels -->
           <text x="30" y="180" class="price-label">2月27日</text>

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ob:#0a0a0a;--do:#111;--wr:#e84753;--gd:#f0a500;--oc:#0077b6;--tp:#f1faee;--ts:#a8dadc;--gl:rgba(255,255,255,.04);--gb:rgba(255,255,255,.08)}
+:root{--ob:#0a0a0a;--do:#111;--wr:#e84753;--gd:#f0a500;--oc:#1180bb;--tp:#f1faee;--ts:#a8dadc;--gl:rgba(255,255,255,.04);--gb:rgba(255,255,255,.08)}
 html{scroll-behavior:smooth}
 body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--ob);color:var(--tp);overflow-x:hidden;line-height:1.7}
 ::selection{background:var(--wr);color:#fff}
@@ -39,13 +39,13 @@ section{position:relative;z-index:1;padding:100px 0}
 .tc{text-align:center}.hl{color:var(--wr)}
 
 .tl{position:relative;padding-left:40px;max-width:800px;margin:0 auto}
-.tl::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--wr),var(--gd),var(--oc),#2d6a4f)}
+.tl::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--wr),var(--gd),var(--oc),#51836d)}
 .tli{position:relative;margin-bottom:56px;opacity:0;transform:translateX(-20px);transition:all .6s}
 .tli.vis{opacity:1;transform:translateX(0)}
 .tli::before{content:'';position:absolute;left:-33px;top:8px;width:14px;height:14px;border-radius:50%;border:3px solid var(--ob);z-index:2}
-.tli:nth-child(1)::before{background:var(--wr)}.tli:nth-child(2)::before{background:var(--gd)}.tli:nth-child(3)::before{background:var(--oc)}.tli:nth-child(4)::before{background:#2d6a4f}
+.tli:nth-child(1)::before{background:var(--wr)}.tli:nth-child(2)::before{background:var(--gd)}.tli:nth-child(3)::before{background:var(--oc)}.tli:nth-child(4)::before{background:#51836d}
 .tdt{font-size:.8rem;letter-spacing:1px;font-weight:700;margin-bottom:6px}
-.tli:nth-child(1) .tdt{color:var(--wr)}.tli:nth-child(2) .tdt{color:var(--gd)}.tli:nth-child(3) .tdt{color:var(--oc)}.tli:nth-child(4) .tdt{color:#2d6a4f}
+.tli:nth-child(1) .tdt{color:var(--wr)}.tli:nth-child(2) .tdt{color:var(--gd)}.tli:nth-child(3) .tdt{color:var(--oc)}.tli:nth-child(4) .tdt{color:#51836d}
 .tt{font-size:1.3rem;font-weight:700;margin-bottom:8px}
 .tdc{color:var(--ts);font-size:.95rem;line-height:1.8}
 
@@ -269,8 +269,8 @@ section{padding:60px 0}.ct{padding:0 20px}.chc{padding:20px}
         </g>
         <!-- Panama Canal -->
         <g class="cp" data-cp="panama" onclick="showChokepoint('panama',this)">
-          <circle cx="180" cy="230" r="5" fill="#2d6a4f" stroke="var(--ob)" stroke-width="2"/>
-          <text x="180" y="248" text-anchor="middle" fill="#2d6a4f" font-size="9" font-weight="500">巴拿马</text>
+          <circle cx="180" cy="230" r="5" fill="#51836d" stroke="var(--ob)" stroke-width="2"/>
+          <text x="180" y="248" text-anchor="middle" fill="#51836d" font-size="9" font-weight="500">巴拿马</text>
         </g>
       </g>
 
@@ -297,7 +297,7 @@ section{padding:60px 0}.ct{padding:0 20px}.chc{padding:20px}
     <div class="cplb" onclick="showChokepoint('suez')"><span class="ds" style="background:var(--gd)"></span>苏伊士运河</div>
     <div class="cplb" onclick="showChokepoint('malacca')"><span class="ds" style="background:var(--oc)"></span>马六甲海峡</div>
     <div class="cplb" onclick="showChokepoint('bab')"><span class="ds" style="background:#8e44ad"></span>曼德海峡</div>
-    <div class="cplb" onclick="showChokepoint('panama')"><span class="ds" style="background:#2d6a4f"></span>巴拿马运河</div>
+    <div class="cplb" onclick="showChokepoint('panama')"><span class="ds" style="background:#51836d"></span>巴拿马运河</div>
   </div>
 </div>
 </section>
@@ -320,7 +320,7 @@ section{padding:60px 0}.ct{padding:0 20px}.chc{padding:20px}
     <div class="dpr"><span class="dpf">🇨🇳</span><span class="dpn">中国</span><div class="dpbw"><div class="dpb" style="width:0;background:linear-gradient(90deg,var(--gd),#f7c948)" data-w="45%">45%</div></div><span class="dpt" style="color:var(--gd)">45%</span></div>
     <div class="dpr"><span class="dpf">🇮🇳</span><span class="dpn">印度</span><div class="dpbw"><div class="dpb" style="width:0;background:linear-gradient(90deg,#e76f51,#f4a261)" data-w="40%">40%</div></div><span class="dpt" style="color:#f4a261">40%</span></div>
     <div class="dpr"><span class="dpf">🇪🇺</span><span class="dpn">欧盟</span><div class="dpbw"><div class="dpb" style="width:0;background:linear-gradient(90deg,var(--oc),#48cae4)" data-w="35%">35%</div></div><span class="dpt" style="color:#48cae4">35%</span></div>
-    <div class="dpr"><span class="dpf">🇺🇸</span><span class="dpn">美国</span><div class="dpbw"><div class="dpb" style="width:0;background:linear-gradient(90deg,#2d6a4f,#52b788)" data-w="14%">14%</div></div><span class="dpt" style="color:#52b788">14%</span></div>
+    <div class="dpr"><span class="dpf">🇺🇸</span><span class="dpn">美国</span><div class="dpbw"><div class="dpb" style="width:0;background:linear-gradient(90deg,#51836d,#52b788)" data-w="14%">14%</div></div><span class="dpt" style="color:#52b788">14%</span></div>
   </div>
   <p style="text-align:center;color:var(--ts);font-size:.85rem;margin-top:20px">*数据来源：各国能源部门及国际能源署（IEA）2026年报告</p>
 </div>
@@ -650,7 +650,7 @@ function toggleBlockage(){
       const x=pad.l+(data.length-1)/(data.length-1)*cw;
       const y=pad.t+ch-(v-minP)/range*ch;
       ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);
-      ctx.fillStyle=di===0?'#e63946':'#0077b6';ctx.fill();
+      ctx.fillStyle=di===0?'#e63946':'#1180bb';ctx.fill();
       ctx.fillStyle='#fff';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
       ctx.fillText('$'+v,x+8,y+4);
     });

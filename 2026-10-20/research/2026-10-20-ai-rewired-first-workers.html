@@ -9,7 +9,7 @@
 :root{
   --black:#000000; --near-black:#1d1d1f; --light-gray:#f5f5f7; --apple-blue:#0372e3;
   --link-blue:#0066cc; --white:#ffffff; --gray:#6e6e73; --divider:rgba(0,0,0,.12);
-  --divider-dark:rgba(255,255,255,.16); --amber:#b25000; --green:#1d7a3e; --red:#b3261e;
+  --divider-dark:rgba(255,255,255,.16); --amber:#c17130; --green:#1d7a3e; --red:#b45c57;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
@@ -162,7 +162,15 @@ footer .lvl{font-weight:600;color:var(--near-black)}
 <style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-20</span><span class="sb-sep">/</span><span class="sb-beat">厂商与算力权力</span><span class="sb-sep">/</span><span class="sb-cnt">29 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">18 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <!-- showcase-backlink -->
-<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#767676;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 对比度修复（页内取证生成） */
+section.alt > div.narrow > div.kicker{color:#036dda !important}
+div.svgcap > div.c > div.v{color:#2686e7 !important}
+
+/* 对比度修复（页内取证生成） */
+div.svgcap > div.c > div.k{color:#848488 !important}
+div.wrap > small > strong{color:#6f6f74 !important}
+</style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
 
@@ -246,7 +254,7 @@ footer .lvl{font-weight:600;color:var(--near-black)}
 <svg viewBox="0 0 880 320" role="img" aria-label="Anthropic 技术部门初级员工占比由 21% 降至 14%，初级岗位招聘占比由 27% 降至 9%，技术岗占全员比重由 61% 降至 56%">
   <g font-family="-apple-system, PingFang SC, Helvetica Neue, sans-serif">
     <rect x="520" y="8" width="12" height="12" rx="3" fill="#c7c7cc"/><text x="538" y="18" font-size="12" fill="#6e6e73">2025 年初</text>
-    <rect x="640" y="8" width="12" height="12" rx="3" fill="#0071e3"/><text x="658" y="18" font-size="12" fill="#6e6e73">2026 年（报告时点）</text>
+    <rect x="640" y="8" width="12" height="12" rx="3" fill="#2686e7"/><text x="658" y="18" font-size="12" fill="#6e6e73">2026 年（报告时点）</text>
 
     <g stroke="#e5e7eb" stroke-width="1">
       <line x1="260" y1="32" x2="260" y2="286"/><line x1="425.7" y1="32" x2="425.7" y2="286"/>
@@ -267,22 +275,22 @@ footer .lvl{font-weight:600;color:var(--near-black)}
     </g>
 
     <rect x="260" y="44" width="174" height="24" rx="3" fill="#c7c7cc"/>
-    <rect x="260" y="72" width="116" height="24" rx="3" fill="#0071e3"/>
+    <rect x="260" y="72" width="116" height="24" rx="3" fill="#2686e7"/>
     <text x="442" y="61" font-size="13" fill="#6e6e73">21%</text>
-    <text x="384" y="89" font-size="13" fill="#0071e3" font-weight="600">14%</text>
+    <text x="384" y="89" font-size="13" fill="#2686e7" font-weight="600">14%</text>
 
     <rect x="260" y="132" width="223.7" height="24" rx="3" fill="#c7c7cc"/>
-    <rect x="260" y="160" width="74.6" height="24" rx="3" fill="#b3261e"/>
+    <rect x="260" y="160" width="74.6" height="24" rx="3" fill="#b45c57"/>
     <text x="491.7" y="149" font-size="13" fill="#6e6e73">27%</text>
-    <text x="342.6" y="177" font-size="13" fill="#b3261e" font-weight="600">9%</text>
+    <text x="342.6" y="177" font-size="13" fill="#b45c57" font-weight="600">9%</text>
 
     <rect x="260" y="220" width="505.4" height="24" rx="3" fill="#c7c7cc"/>
-    <rect x="260" y="248" width="464" height="24" rx="3" fill="#0071e3"/>
+    <rect x="260" y="248" width="464" height="24" rx="3" fill="#2686e7"/>
     <text x="773.4" y="237" font-size="13" fill="#6e6e73">61%</text>
-    <text x="732" y="265" font-size="13" fill="#0071e3" font-weight="600">56%</text>
+    <text x="732" y="265" font-size="13" fill="#2686e7" font-weight="600">56%</text>
 
-    <text x="596" y="120" font-size="12" fill="#b3261e">流量降速 = 存量的 2.6 倍</text>
-    <line x1="592" y1="126" x2="592" y2="158" stroke="#b3261e" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="596" y="120" font-size="12" fill="#b45c57">流量降速 = 存量的 2.6 倍</text>
+    <line x1="592" y1="126" x2="592" y2="158" stroke="#b45c57" stroke-width="1" stroke-dasharray="3 3"/>
   </g>
 </svg>
 </div>
@@ -482,12 +490,12 @@ footer .lvl{font-weight:600;color:var(--near-black)}
 <h3>3.1 第一道本该挡住它们、但实际上没挡住的东西：钱</h3>
 <div class="chartbox">
 <div class="ct">价格塌了，但账单涨了</div>
-<div class="cs">两条线画的不是同一个量：<strong style="color:#0071e3">蓝线</strong>是每百万 token 的单价（对数刻度，示意），<strong style="color:#b3261e">红线</strong>是企业实际 AI 支出的方向（指数，示意）。两者方向相反，是本报告第三章的核心判断。</div>
+<div class="cs">两条线画的不是同一个量：<strong style="color:#2686e7">蓝线</strong>是每百万 token 的单价（对数刻度，示意），<strong style="color:#b45c57">红线</strong>是企业实际 AI 支出的方向（指数，示意）。两者方向相反，是本报告第三章的核心判断。</div>
 <svg viewBox="0 0 880 300" role="img" aria-label="每百万 token 单价从 2023 年 3 月的 30 美元降至 2026 年 4 月的 0.10 至 2.50 美元，同期企业实际 AI 支出上升 40% 至 100%">
   <g font-family="-apple-system, PingFang SC, Helvetica Neue, sans-serif">
-    <line x1="430" y1="14" x2="452" y2="14" stroke="#0071e3" stroke-width="3" stroke-linecap="round"/>
+    <line x1="430" y1="14" x2="452" y2="14" stroke="#2686e7" stroke-width="3" stroke-linecap="round"/>
     <text x="460" y="18" font-size="12" fill="#6e6e73">每百万 token 单价（对数刻度）</text>
-    <line x1="672" y1="14" x2="694" y2="14" stroke="#b3261e" stroke-width="3" stroke-linecap="round"/>
+    <line x1="672" y1="14" x2="694" y2="14" stroke="#b45c57" stroke-width="3" stroke-linecap="round"/>
     <text x="702" y="18" font-size="12" fill="#6e6e73">企业实际 AI 支出（指数）</text>
 
     <line x1="80" y1="250" x2="830" y2="250" stroke="#c7c7cc" stroke-width="1.5"/>
@@ -498,18 +506,18 @@ footer .lvl{font-weight:600;color:var(--near-black)}
     </g>
     <text x="34" y="150" font-size="11" fill="#9ca3af" text-anchor="middle" transform="rotate(-90 34 150)">相对变化（示意）</text>
 
-    <polyline points="110,58 340,150 565,192 810,216" fill="none" stroke="#0071e3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <polyline points="110,238 340,226 565,202 810,105" fill="none" stroke="#b3261e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <g fill="#ffffff" stroke="#0071e3" stroke-width="3">
+    <polyline points="110,58 340,150 565,192 810,216" fill="none" stroke="#2686e7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="110,238 340,226 565,202 810,105" fill="none" stroke="#b45c57" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#ffffff" stroke="#2686e7" stroke-width="3">
       <circle cx="110" cy="58" r="5"/><circle cx="340" cy="150" r="5"/><circle cx="565" cy="192" r="5"/><circle cx="810" cy="216" r="5"/>
     </g>
-    <g fill="#ffffff" stroke="#b3261e" stroke-width="3">
+    <g fill="#ffffff" stroke="#b45c57" stroke-width="3">
       <circle cx="110" cy="238" r="5"/><circle cx="340" cy="226" r="5"/><circle cx="565" cy="202" r="5"/><circle cx="810" cy="105" r="5"/>
     </g>
-    <text x="122" y="48" font-size="13" font-weight="600" fill="#0071e3">$30</text>
-    <text x="806" y="238" font-size="13" font-weight="600" fill="#0071e3" text-anchor="end">$0.10–2.50</text>
-    <text x="806" y="92" font-size="13" font-weight="600" fill="#b3261e" text-anchor="end">+40% ~ +100%</text>
-    <text x="122" y="256" font-size="12" fill="#b3261e">100</text>
+    <text x="122" y="48" font-size="13" font-weight="600" fill="#2686e7">$30</text>
+    <text x="806" y="238" font-size="13" font-weight="600" fill="#2686e7" text-anchor="end">$0.10–2.50</text>
+    <text x="806" y="92" font-size="13" font-weight="600" fill="#b45c57" text-anchor="end">+40% ~ +100%</text>
+    <text x="122" y="256" font-size="12" fill="#b45c57">100</text>
   </g>
 </svg>
 <div class="svgcap">
