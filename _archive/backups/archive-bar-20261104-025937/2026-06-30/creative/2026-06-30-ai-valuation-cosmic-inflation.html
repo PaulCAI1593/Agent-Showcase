@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="showcase-beat" content="估值与资本">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI估值的"宇宙膨胀"——万亿泡沫还是新范式？</title>
+    <style>
+        /* ====== 设计系统 ====== */
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #12122a;
+            --bg-card: #1a1a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --accent-green: #00d4aa;
+            --accent-blue: #0088ff;
+            --accent-purple: #8b5cf6;
+            --accent-red: #ff6b6b;
+            --accent-orange: #ff9500;
+            --accent-yellow: #ffd700;
+            --gradient-cosmic: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-bubble: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ====== 宇宙背景 ====== */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+                var(--bg-primary);
+            z-index: -1;
+        }
+
+        /* ====== 星星粒子 ====== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* ====== 导航 ====== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: var(--gradient-cosmic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-green);
+        }
+
+        /* ====== 主容器 ====== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 2rem 4rem;
+        }
+
+        /* ====== 英雄区 ====== */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--accent-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a0a0c0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            min-width: 200px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+
+        .metric-company {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-cosmic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-top: 0.5rem;
+        }
+
+        /* ====== 时间滑块区 ====== */
+        .timeline-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .year-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-green);
+        }
+
+        .timeline-slider {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 212, 170, 0.5);
+        }
+
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .valuation-bars {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            height: 300px;
+            align-items: flex-end;
+        }
+
+        .bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 80px;
+            background: var(--gradient-cosmic);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.5s ease;
+            position: relative;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .bar-label {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ====== 估值指标切换 ====== */
+        .metrics-section {
+            padding: 4rem 0;
+        }
+
+        .metrics-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .metric-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .metric-tab:hover, .metric-tab.active {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metric-detail-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .metric-detail-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .metric-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-detail-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .metric-detail-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-high {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--accent-red);
+        }
+
+        .badge-medium {
+            background: rgba(255, 149, 0, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .badge-low {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent-green);
+        }
+
+        .metric-chart {
+            height: 150px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 1rem;
+        }
+
+        .chart-bar {
+            width: 30px;
+            background: var(--gradient-cosmic);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        .metric-insight {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ====== 情景模拟 ====== */
+        .scenarios-section {
+            padding: 4rem 0;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-cosmic);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .scenario-card:hover::before, .scenario-card.active::before {
+            opacity: 1;
+        }
+
+        .scenario-card:hover, .scenario-card.active {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+
+        .scenario-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-probability {
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .scenario-impact {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .scenario-details {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .scenario-card.active .scenario-details {
+            display: block;
+        }
+
+        .scenario-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .scenario-metric {
+            text-align: center;
+        }
+
+        .scenario-metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .scenario-metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* ====== 历史对比 ====== */
+        .history-section {
+            padding: 4rem 0;
+        }
+
+        .bubble-comparison {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .bubble-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .bubble-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .bubble-year {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .bubble-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .bubble-metric {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .bubble-outcome {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .bubble-outcome.crash {
+            color: var(--accent-red);
+        }
+
+        .bubble-outcome.growth {
+            color: var(--accent-green);
+        }
+
+        /* ====== 思考区 ====== */
+        .reflection-section {
+            padding: 4rem 0;
+        }
+
+        .reflection-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .reflection-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reflection-author {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .reflection-questions {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .reflection-question {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .question-number {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* ====== 页脚 ====== */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-sources {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .source-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ====== 动画 ====== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ====== 响应式 ====== */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-metrics {
+                gap: 1.5rem;
+            }
+
+            .metric-card {
+                min-width: 150px;
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 1.8rem;
+            }
+
+            .year-display {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .reflection-quote {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ====== 隐藏滚动条 ====== */
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-30</span><span class="sb-sep">/</span><span class="sb-beat">估值与资本</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">7 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- 宇宙背景 -->
+    <div class="cosmic-bg"></div>
+    <div class="stars" id="stars"></div>
+
+    <!-- 导航 -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-logo">AI估值宇宙</div>
+            <div class="nav-links">
+                <a href="#timeline" class="nav-link active">时间线</a>
+                <a href="#metrics" class="nav-link">估值指标</a>
+                <a href="#scenarios" class="nav-link">情景模拟</a>
+                <a href="#history" class="nav-link">历史对比</a>
+                <a href="#reflection" class="nav-link">深度思考</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 英雄区 -->
+        <section class="hero">
+            <div class="hero-badge">📊 数据驱动洞察 · 2026年6月30日</div>
+            <h1 class="hero-title">AI估值的"宇宙膨胀"<br>万亿泡沫还是新范式？</h1>
+            <p class="hero-subtitle">
+                SpaceX 2.1万亿，Anthropic 9650亿，OpenAI万亿级——当数字开始失真，我们该如何衡量AI时代的价值？
+            </p>
+            <div class="hero-metrics">
+                <div class="metric-card float-animation">
+                    <div class="metric-company">SpaceX</div>
+                    <div class="metric-value">$2.1万亿</div>
+                    <div class="metric-change">📈 2026年6月12日上市</div>
+                </div>
+                <div class="metric-card float-animation" style="animation-delay: 0.2s;">
+                    <div class="metric-company">Anthropic</div>
+                    <div class="metric-value">$9650亿</div>
+                    <div class="metric-change">📈 H轮融资650亿美元</div>
+                </div>
+                <div class="metric-card float-animation" style="animation-delay: 0.4s;">
+                    <div class="metric-company">OpenAI</div>
+                    <div class="metric-value">$8520亿</div>
+                    <div class="metric-change">📈 2026年3月估值</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 时间滑块区 -->
+        <section class="timeline-section" id="timeline">
+            <div class="section-header">
+                <h2 class="section-title">估值的宇宙膨胀</h2>
+                <p class="section-desc">拖动时间滑块，见证AI公司估值如何突破传统认知边界</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-header">
+                    <div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">当前年份</div>
+                        <div class="year-display" id="yearDisplay">2026</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">AI行业总估值</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);" id="totalValuation">$4.2万亿</div>
+                    </div>
+                </div>
+                <input type="range" class="timeline-slider" id="timelineSlider" min="2020" max="2026" value="2026" step="1">
+                <div class="timeline-labels">
+                    <span>2020</span>
+                    <span>2021</span>
+                    <span>2022</span>
+                    <span>2023</span>
+                    <span>2024</span>
+                    <span>2025</span>
+                    <span>2026</span>
+                </div>
+                <div class="valuation-bars" id="valuationBars">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 估值指标切换 -->
+        <section class="metrics-section" id="metrics">
+            <div class="section-header">
+                <h2 class="section-title">多维度估值视角</h2>
+                <p class="section-desc">切换不同估值指标，发现AI公司估值的多重真相</p>
+            </div>
+            <div class="metrics-tabs">
+                <div class="metric-tab active" data-metric="pe">P/E 市盈率</div>
+                <div class="metric-tab" data-metric="ps">P/S 市销率</div>
+                <div class="metric-tab" data-metric="pflops">P/FLOPS 算力估值</div>
+                <div class="metric-tab" data-metric="ev">EV/Revenue 企业倍数</div>
+            </div>
+            <div class="metrics-grid" id="metricsGrid">
+                <!-- 动态生成 -->
+            </div>
+        </section>
+
+        <!-- 情景模拟 -->
+        <section class="scenarios-section" id="scenarios">
+            <div class="section-header">
+                <h2 class="section-title">未来情景模拟</h2>
+                <p class="section-desc">点击不同情景，探索AI估值的可能走向</p>
+            </div>
+            <div class="scenarios-grid">
+                <div class="scenario-card" data-scenario="bubble">
+                    <div class="scenario-icon">💥</div>
+                    <div class="scenario-title">泡沫破裂</div>
+                    <div class="scenario-probability">概率：25%</div>
+                    <div class="scenario-impact">
+                        类似2000年互联网泡沫，AI估值回归理性，市场重新洗牌。
+                    </div>
+                    <div class="scenario-details">
+                        <div class="scenario-metrics">
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">估值跌幅</div>
+                                <div class="scenario-metric-value">-60%</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">恢复周期</div>
+                                <div class="scenario-metric-value">3-5年</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">幸存者</div>
+                                <div class="scenario-metric-value">20%</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">新机会</div>
+                                <div class="scenario-metric-value">巨大</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scenario-card" data-scenario="growth">
+                    <div class="scenario-icon">📈</div>
+                    <div class="scenario-title">持续增长</div>
+                    <div class="scenario-probability">概率：45%</div>
+                    <div class="scenario-impact">
+                        AI持续渗透各行业，估值逐步被业绩支撑，形成良性循环。
+                    </div>
+                    <div class="scenario-details">
+                        <div class="scenario-metrics">
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">年化增长</div>
+                                <div class="scenario-metric-value">+25%</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">渗透率</div>
+                                <div class="scenario-metric-value">40%</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">盈利拐点</div>
+                                <div class="scenario-metric-value">2028</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">市场规模</div>
+                                <div class="scenario-metric-value">$10万亿</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scenario-card" data-scenario="paradigm">
+                    <div class="scenario-icon">🔄</div>
+                    <div class="scenario-title">范式转移</div>
+                    <div class="scenario-probability">概率：30%</div>
+                    <div class="scenario-impact">
+                        AI成为新的"操作系统"，重新定义所有行业，估值逻辑彻底改变。
+                    </div>
+                    <div class="scenario-details">
+                        <div class="scenario-metrics">
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">新估值模型</div>
+                                <div class="scenario-metric-value">诞生</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">传统指标</div>
+                                <div class="scenario-metric-value">失效</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">赢家通吃</div>
+                                <div class="scenario-metric-value">3-5家</div>
+                            </div>
+                            <div class="scenario-metric">
+                                <div class="scenario-metric-label">GDP占比</div>
+                                <div class="scenario-metric-value">15%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 历史对比 -->
+        <section class="history-section" id="history">
+            <div class="section-header">
+                <h2 class="section-title">历史泡沫对比</h2>
+                <p class="section-desc">这是郁金香狂热，还是工业革命？</p>
+            </div>
+            <div class="bubble-comparison">
+                <div class="bubble-grid">
+                    <div class="bubble-card">
+                        <div class="bubble-year">1637年</div>
+                        <div class="bubble-name">荷兰郁金香泡沫</div>
+                        <div class="bubble-metric">$10M</div>
+                        <div class="bubble-outcome crash">💥 泡沫破裂</div>
+                    </div>
+                    <div class="bubble-card">
+                        <div class="bubble-year">2000年</div>
+                        <div class="bubble-name">互联网泡沫</div>
+                        <div class="bubble-metric">$5万亿</div>
+                        <div class="bubble-outcome crash">💥 泡沫破裂</div>
+                    </div>
+                    <div class="bubble-card">
+                        <div class="bubble-year">2026年</div>
+                        <div class="bubble-name">AI估值泡沫？</div>
+                        <div class="bubble-metric">$4.2万亿</div>
+                        <div class="bubble-outcome">❓ 进行中</div>
+                    </div>
+                    <div class="bubble-card">
+                        <div class="bubble-year">1870年</div>
+                        <div class="bubble-name">铁路狂热</div>
+                        <div class="bubble-metric">$3万亿</div>
+                        <div class="bubble-outcome growth">✅ 长期增长</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 深度思考 -->
+        <section class="reflection-section" id="reflection">
+            <div class="section-header">
+                <h2 class="section-title">深度思考</h2>
+                <p class="section-desc">当估值脱离基本面，我们用什么衡量"价值"？</p>
+            </div>
+            <div class="reflection-card">
+                <div class="reflection-quote">
+                    "每一次技术革命都会带来估值的'宇宙膨胀'，<br>
+                    问题不是泡沫是否存在，<br>
+                    而是我们能否在泡沫中找到真正的价值。"
+                </div>
+                <div class="reflection-author">— AI估值研究</div>
+                <div class="reflection-questions">
+                    <div class="reflection-question">
+                        <div class="question-number">1</div>
+                        <div class="question-text">
+                            <strong>AI公司的价值究竟来自哪里？</strong><br>
+                            是技术壁垒、数据资产、用户规模，还是对未来的想象空间？
+                        </div>
+                    </div>
+                    <div class="reflection-question">
+                        <div class="question-number">2</div>
+                        <div class="question-text">
+                            <strong>传统估值方法是否还适用？</strong><br>
+                            当P/E、P/S等指标失效时，我们应该用什么新的估值框架？
+                        </div>
+                    </div>
+                    <div class="reflection-question">
+                        <div class="question-number">3</div>
+                        <div class="question-text">
+                            <strong>这是郁金香狂热，还是工业革命？</strong><br>
+                            历史会重复，但不会简单重复。AI时代的泡沫与以往有何不同？
+                        </div>
+                    </div>
+                    <div class="reflection-question">
+                        <div class="question-number">4</div>
+                        <div class="question-text">
+                            <strong>投资者应该如何应对？</strong><br>
+                            在估值的"宇宙膨胀"中，是追逐泡沫，还是寻找真正的价值锚点？
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-title">AI估值宇宙 · 数据洞察</div>
+                <div class="footer-desc">
+                    本报告基于公开数据整理，旨在提供多维度的估值分析视角。<br>
+                    数据截至2026年6月30日，仅供参考，不构成投资建议。
+                </div>
+                <div class="footer-sources">
+                    <span>数据来源：</span>
+                    <a href="#" class="source-link">TechCrunch</a>
+                    <a href="#" class="source-link">快科技</a>
+                    <a href="#" class="source-link">199IT</a>
+                    <a href="#" class="source-link">网易</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ====== 星星粒子 ======
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // ====== 时间滑块数据 ======
+        const timelineData = {
+            2020: { spacex: 0.05, anthropic: 0, openai: 0.01, total: 0.06 },
+            2021: { spacex: 0.1, anthropic: 0.01, openai: 0.02, total: 0.13 },
+            2022: { spacex: 0.15, anthropic: 0.05, openai: 0.1, total: 0.3 },
+            2023: { spacex: 0.3, anthropic: 0.2, openai: 0.3, total: 0.8 },
+            2024: { spacex: 0.5, anthropic: 0.5, openai: 0.8, total: 1.8 },
+            2025: { spacex: 1.2, anthropic: 0.8, openai: 1.5, total: 3.5 },
+            2026: { spacex: 2.1, anthropic: 0.965, openai: 0.852, total: 3.917 }
+        };
+
+        // ====== 更新时间线 ======
+        function updateTimeline(year) {
+            document.getElementById('yearDisplay').textContent = year;
+            const data = timelineData[year];
+            document.getElementById('totalValuation').textContent = '$' + data.total.toFixed(1) + '万亿';
+            
+            const barsContainer = document.getElementById('valuationBars');
+            barsContainer.innerHTML = '';
+            
+            const companies = [
+                { name: 'SpaceX', value: data.spacex, color: 'var(--accent-blue)' },
+                { name: 'Anthropic', value: data.anthropic, color: 'var(--accent-purple)' },
+                { name: 'OpenAI', value: data.openai, color: 'var(--accent-green)' }
+            ];
+            
+            const maxValue = 2.5;
+            
+            companies.forEach(company => {
+                const barGroup = document.createElement('div');
+                barGroup.className = 'bar-group';
+                
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                const height = (company.value / maxValue) * 250;
+                bar.style.height = height + 'px';
+                bar.style.background = company.color;
+                
+                const value = document.createElement('div');
+                value.className = 'bar-value';
+                value.textContent = '$' + company.value.toFixed(2) + '万亿';
+                value.style.color = company.color;
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                label.textContent = company.name;
+                
+                bar.appendChild(value);
+                barGroup.appendChild(bar);
+                barGroup.appendChild(label);
+                barsContainer.appendChild(barGroup);
+            });
+        }
+
+        // ====== 估值指标数据 ======
+        const metricsData = {
+            pe: {
+                title: 'P/E 市盈率',
+                description: '股价与每股收益的比率',
+                companies: [
+                    { name: 'SpaceX', value: 'N/A', note: '尚未盈利', status: 'high' },
+                    { name: 'Anthropic', value: 'N/A', note: '尚未盈利', status: 'high' },
+                    { name: 'OpenAI', value: 'N/A', note: '尚未盈利', status: 'high' },
+                    { name: 'Google', value: '25.3', note: '传统科技巨头', status: 'low' },
+                    { name: 'Microsoft', value: '35.2', note: 'AI转型成功', status: 'medium' }
+                ],
+                insight: 'AI公司普遍尚未盈利，传统P/E指标失效。市场正在为未来买单。'
+            },
+            ps: {
+                title: 'P/S 市销率',
+                description: '股价与每股销售额的比率',
+                companies: [
+                    { name: 'SpaceX', value: '150x', note: '收入约140亿', status: 'high' },
+                    { name: 'Anthropic', value: '200x', note: '收入约47亿', status: 'high' },
+                    { name: 'OpenAI', value: '100x', note: '收入约85亿', status: 'high' },
+                    { name: 'Google', value: '7.5x', note: '传统科技巨头', status: 'low' },
+                    { name: 'Microsoft', value: '12.8x', note: 'AI转型成功', status: 'medium' }
+                ],
+                insight: 'AI公司P/S倍数远超传统科技公司，市场预期其收入将爆发式增长。'
+            },
+            pflops: {
+                title: 'P/FLOPS 算力估值',
+                description: '每单位算力的估值',
+                companies: [
+                    { name: 'SpaceX', value: '$2.5/FLOPS', note: '22万颗GPU', status: 'medium' },
+                    { name: 'Anthropic', value: '$1.8/FLOPS', note: '依赖外部算力', status: 'high' },
+                    { name: 'OpenAI', value: '$3.2/FLOPS', note: '微软算力支持', status: 'medium' },
+                    { name: 'Google', value: '$0.8/FLOPS', note: '自研TPU', status: 'low' },
+                    { name: 'Microsoft', value: '$1.2/FLOPS', note: 'Azure算力', status: 'low' }
+                ],
+                insight: '算力成为AI公司的核心资产，估值与算力规模高度相关。'
+            },
+            ev: {
+                title: 'EV/Revenue 企业倍数',
+                description: '企业价值与收入的比率',
+                companies: [
+                    { name: 'SpaceX', value: '160x', note: '高增长预期', status: 'high' },
+                    { name: 'Anthropic', value: '210x', note: '技术领先', status: 'high' },
+                    { name: 'OpenAI', value: '110x', note: '生态优势', status: 'high' },
+                    { name: 'Google', value: '8.2x', note: '成熟业务', status: 'low' },
+                    { name: 'Microsoft', value: '14.5x', note: 'AI转型', status: 'medium' }
+                ],
+                insight: 'EV/Revenue倍数揭示了市场对AI公司增长潜力的极致预期。'
+            }
+        };
+
+        // ====== 更新估值指标 ======
+        function updateMetrics(metric) {
+            const data = metricsData[metric];
+            const grid = document.getElementById('metricsGrid');
+            grid.innerHTML = '';
+            
+            data.companies.forEach(company => {
+                const card = document.createElement('div');
+                card.className = 'metric-detail-card';
+                
+                const badgeClass = company.status === 'high' ? 'badge-high' : 
+                                   company.status === 'medium' ? 'badge-medium' : 'badge-low';
+                const badgeText = company.status === 'high' ? '高估' : 
+                                  company.status === 'medium' ? '中等' : '合理';
+                
+                card.innerHTML = `
+                    <div class="metric-detail-header">
+                        <div class="metric-detail-title">${company.name}</div>
+                        <div class="metric-detail-badge ${badgeClass}">${badgeText}</div>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0; color: var(--accent-green);">
+                        ${company.value}
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        ${company.note}
+                    </div>
+                    <div class="metric-insight">${data.insight}</div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // ====== 情景模拟 ======
+        function initScenarios() {
+            const cards = document.querySelectorAll('.scenario-card');
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    cards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+            });
+        }
+
+        // ====== 导航高亮 ======
+        function initNavigation() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // ====== 初始化 ======
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            updateTimeline(2026);
+            updateMetrics('pe');
+            initScenarios();
+            initNavigation();
+            
+            // 时间滑块事件
+            document.getElementById('timelineSlider').addEventListener('input', (e) => {
+                updateTimeline(parseInt(e.target.value));
+            });
+            
+            // 估值指标切换
+            document.querySelectorAll('.metric-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.metric-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    updateMetrics(tab.dataset.metric);
+                });
+            });
+        });
+    </script>
+<script type="application/json" id="claims">
+[
+  {"value": "650亿美元", "label": "📈 H轮融资", "quote": "📈 H轮融资650亿美元"},
+  {"value": "-60%", "label": "恢复周期", "quote": "-60% 恢复周期"},
+  {"value": "20%", "label": "新机会", "quote": "20% 新机会"},
+  {"value": "+25%", "label": "渗透率", "quote": "+25% 渗透率"},
+  {"value": "40%", "label": "盈利拐点", "quote": "40% 盈利拐点"},
+  {"value": "15%", "label": "历史泡沫对比", "quote": "15% 历史泡沫对比"}
+]
+</script>
+</body>
+</html>

@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="showcase-beat" content="估值与资本">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 AI IPO三体降临 | 估值-募资-流动性超级周期</title>
+    <style>
+        :root {
+            --primary-dark: #0a0a0f;
+            --primary-light: #ffffff;
+            --accent-blue: #007aff;
+            --accent-purple: #af52de;
+            --accent-green: #34c759;
+            --accent-orange: #ff9500;
+            --accent-red: #ff3b30;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-light: #f5f5f7;
+            --surface-dark: #1d1d1f;
+            --surface-light: #f5f5f7;
+            --gradient-hero: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'PingFang SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--primary-light);
+            overflow-x: hidden;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            background: var(--gradient-hero);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(175, 82, 222, 0.15) 0%, transparent 50%);
+            animation: heroGlow 15s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(5%, -5%) rotate(2deg); }
+            66% { transform: translate(-5%, 5%) rotate(-2deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 122, 255, 0.2);
+            border: 1px solid rgba(0, 122, 255, 0.4);
+            color: var(--accent-blue);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 96px);
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #007aff 0%, #af52de 50%, #ff9500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 3vw, 28px);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .hero-stat {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .hero-stat-value.blue { color: var(--accent-blue); }
+        .hero-stat-value.purple { color: var(--accent-purple); }
+        .hero-stat-value.orange { color: var(--accent-orange); }
+
+        .hero-stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Section Styles ===== */
+        .section {
+            padding: 100px 20px;
+        }
+
+        .section-dark {
+            background: var(--primary-dark);
+            color: var(--text-light);
+        }
+
+        .section-light {
+            background: var(--primary-light);
+            color: var(--text-primary);
+        }
+
+        .section-alt {
+            background: var(--surface-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-dark .section-desc {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== Company Cards ===== */
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .company-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .company-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .company-card:hover::before {
+            opacity: 1;
+        }
+
+        .company-card.light-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .company-card.light-card:hover {
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .company-logo.anthropic { background: linear-gradient(135deg, #d4a574 0%, #c9a06c 100%); }
+        .company-logo.openai { background: linear-gradient(135deg, #10a37f 0%, #1a7f64 100%); }
+        .company-logo.databricks { background: linear-gradient(135deg, #ff3621 0%, #e62e1a 100%); }
+        .company-logo.stripe { background: linear-gradient(135deg, #635bff 0%, #4b44c9 100%); }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .company-tagline {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .section-dark .company-tagline {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .company-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .light-card .metric {
+            background: var(--surface-light);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .metric-value.highlight {
+            color: var(--accent-blue);
+        }
+
+        /* ===== Three Column Comparison ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-column {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .comparison-column.col-valuation { border-top: 4px solid var(--accent-blue); }
+        .comparison-column.col-fundraising { border-top: 4px solid var(--accent-purple); }
+        .comparison-column.col-liquidity { border-top: 4px solid var(--accent-orange); }
+
+        .column-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .col-valuation .column-icon { background: rgba(0, 122, 255, 0.15); }
+        .col-fundraising .column-icon { background: rgba(175, 82, 222, 0.15); }
+        .col-liquidity .column-icon { background: rgba(255, 149, 0, 0.15); }
+
+        .column-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .column-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .column-items {
+            list-style: none;
+        }
+
+        .column-items li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .column-items li:last-child {
+            border-bottom: none;
+        }
+
+        .item-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .item-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* ===== PS Ratio Chart ===== */
+        .ps-chart-container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .ps-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 300px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--surface-light);
+            position: relative;
+        }
+
+        .ps-bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .ps-bar {
+            width: 60px;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            min-height: 20px;
+        }
+
+        .ps-bar.anthropic { 
+            background: linear-gradient(180deg, #d4a574 0%, #b8956a 100%);
+            height: 200px;
+        }
+        .ps-bar.openai { 
+            background: linear-gradient(180deg, #10a37f 0%, #0d8a6a 100%);
+            height: 160px;
+        }
+        .ps-bar.databricks { 
+            background: linear-gradient(180deg, #ff3621 0%, #cc2b1a 100%);
+            height: 100px;
+        }
+        .ps-bar.stripe { 
+            background: linear-gradient(180deg, #635bff 0%, #4b44c9 100%);
+            height: 40px;
+        }
+
+        .ps-value {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .ps-label {
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .ps-sublabel {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple), var(--accent-orange));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: row;
+                padding-left: 50px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        /* ===== Risk Section ===== */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .risk-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .risk-card.high { border-left-color: var(--accent-red); }
+        .risk-card.medium { border-left-color: var(--accent-orange); }
+        .risk-card.low { border-left-color: var(--accent-green); }
+
+        .risk-level {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .risk-card.high .risk-level { background: rgba(255, 59, 48, 0.1); color: var(--accent-red); }
+        .risk-card.medium .risk-level { background: rgba(255, 149, 0, 0.1); color: var(--accent-orange); }
+        .risk-card.low .risk-level { background: rgba(52, 199, 89, 0.1); color: var(--accent-green); }
+
+        .risk-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .risk-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== Data Source ===== */
+        .source-section {
+            background: var(--surface-light);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+        }
+
+        .source-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .source-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .source-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .source-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 122, 255, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--primary-dark);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .footer-disclaimer {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .footer-meta {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            .hero {
+                min-height: auto;
+                padding: 40px 20px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .fade-in,
+            .fade-in-left,
+            .fade-in-right {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-06-13</span><span class="sb-sep">/</span><span class="sb-beat">估值与资本</span><span class="sb-sep">/</span><span class="sb-cnt">26 件 / 2026-06</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ===== Animations ===== */ .fade-in{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">P0 · 创意传播信息图 · 2026年6月</div>
+            <h1>
+                <span class="gradient-text">2026 AI IPO</span><br>
+                三体降临
+            </h1>
+            <p class="hero-subtitle">一张图看懂估值-募资-流动性超级周期</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value blue">$1.8万亿</div>
+                    <div class="hero-stat-label">四巨头总估值</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value purple">1200亿+</div>
+                    <div class="hero-stat-label">2026年AI IPO规模</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value orange">32x</div>
+                    <div class="hero-stat-label">平均PS倍数</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 16l-6-6h12z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Company Overview Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">四巨头概览</div>
+                <h2 class="section-title">谁在排队敲钟？</h2>
+                <p class="section-desc">从亏损到万亿估值，AI公司正在改写资本市场的估值逻辑</p>
+            </div>
+
+            <div class="company-grid">
+                <!-- Anthropic -->
+                <div class="company-card fade-in" style="transition-delay: 0.1s;">
+                    <div class="company-logo anthropic">A</div>
+                    <h3 class="company-name">Anthropic</h3>
+                    <p class="company-tagline">安全AI的旗手，估值王座新主</p>
+                    <div class="company-metrics">
+                        <div class="metric">
+                            <div class="metric-label">估值</div>
+                            <div class="metric-value highlight">$965B</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">年化收入</div>
+                            <div class="metric-value">$300亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">PS倍数</div>
+                            <div class="metric-value">32x</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">IPO进度</div>
+                            <div class="metric-value">已提交S-1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OpenAI -->
+                <div class="company-card fade-in" style="transition-delay: 0.2s;">
+                    <div class="company-logo openai">O</div>
+                    <h3 class="company-name">OpenAI</h3>
+                    <p class="company-tagline">大模型开创者，IPO竞赛领跑</p>
+                    <div class="company-metrics">
+                        <div class="metric">
+                            <div class="metric-label">估值</div>
+                            <div class="metric-value highlight">$852B</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">年化收入</div>
+                            <div class="metric-value">$130亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">PS倍数</div>
+                            <div class="metric-value">66x</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">IPO进度</div>
+                            <div class="metric-value">Q4提交申请</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Databricks -->
+                <div class="company-card fade-in" style="transition-delay: 0.3s;">
+                    <div class="company-logo databricks">D</div>
+                    <h3 class="company-name">Databricks</h3>
+                    <p class="company-tagline">数据基础设施之王，实用主义典范</p>
+                    <div class="company-metrics">
+                        <div class="metric">
+                            <div class="metric-label">估值</div>
+                            <div class="metric-value highlight">$620亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">年化收入</div>
+                            <div class="metric-value">$30亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">PS倍数</div>
+                            <div class="metric-value">21x</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">IPO进度</div>
+                            <div class="metric-value">筹备中</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stripe -->
+                <div class="company-card fade-in" style="transition-delay: 0.4s;">
+                    <div class="company-logo stripe">S</div>
+                    <h3 class="company-name">Stripe</h3>
+                    <p class="company-tagline">支付基础设施，现金奶牛</p>
+                    <div class="company-metrics">
+                        <div class="metric">
+                            <div class="metric-label">估值</div>
+                            <div class="metric-value highlight">$1590亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">年化收入</div>
+                            <div class="metric-value">$250亿</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">PS倍数</div>
+                            <div class="metric-value">6.4x</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">IPO进度</div>
+                            <div class="metric-value">暂无计划</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Column Comparison -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">三体分析</div>
+                <h2 class="section-title">估值 × 募资 × 流动性</h2>
+                <p class="section-desc">拆解AI IPO超级周期的三大核心维度</p>
+            </div>
+
+            <div class="comparison-grid">
+                <!-- Valuation Column -->
+                <div class="comparison-column col-valuation fade-in-left" style="transition-delay: 0.1s;">
+                    <div class="column-icon">💎</div>
+                    <h3 class="column-title">估值体</h3>
+                    <p class="column-subtitle">市场愿意为未来买单</p>
+                    <ul class="column-items">
+                        <li>
+                            <span class="item-label">Anthropic PS倍数</span>
+                            <span class="item-value">32x</span>
+                        </li>
+                        <li>
+                            <span class="item-label">OpenAI PS倍数</span>
+                            <span class="item-value">66x</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Databricks PS倍数</span>
+                            <span class="item-value">21x</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Stripe PS倍数</span>
+                            <span class="item-value">6.4x</span>
+                        </li>
+                        <li>
+                            <span class="item-label">平均PS倍数</span>
+                            <span class="item-value" style="color: var(--accent-blue);">32x</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fundraising Column -->
+                <div class="comparison-column col-fundraising fade-in" style="transition-delay: 0.2s;">
+                    <div class="column-icon">🚀</div>
+                    <h3 class="column-title">募资体</h3>
+                    <p class="column-subtitle">资本洪流涌入AI赛道</p>
+                    <ul class="column-items">
+                        <li>
+                            <span class="item-label">Anthropic H轮</span>
+                            <span class="item-value">$650亿</span>
+                        </li>
+                        <li>
+                            <span class="item-label">OpenAI目标募资</span>
+                            <span class="item-value">$600亿+</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Databricks累计融资</span>
+                            <span class="item-value">$140亿</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Stripe累计融资</span>
+                            <span class="item-value">$87亿</span>
+                        </li>
+                        <li>
+                            <span class="item-label">2026 AI IPO总规模</span>
+                            <span class="item-value" style="color: var(--accent-purple);">$1200亿+</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Liquidity Column -->
+                <div class="comparison-column col-liquidity fade-in-right" style="transition-delay: 0.3s;">
+                    <div class="column-icon">💧</div>
+                    <h3 class="column-title">流动性体</h3>
+                    <p class="column-subtitle">退出窗口正在打开</p>
+                    <ul class="column-items">
+                        <li>
+                            <span class="item-label">Anthropic</span>
+                            <span class="item-value">2026 Q4</span>
+                        </li>
+                        <li>
+                            <span class="item-label">OpenAI</span>
+                            <span class="item-value">2027 H1</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Databricks</span>
+                            <span class="item-value">2026 H2</span>
+                        </li>
+                        <li>
+                            <span class="item-label">Stripe</span>
+                            <span class="item-value">待定</span>
+                        </li>
+                        <li>
+                            <span class="item-label">IPO窗口期</span>
+                            <span class="item-value" style="color: var(--accent-orange);">6-12个月</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PS Ratio Chart Section -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">数据可视化</div>
+                <h2 class="section-title">PS倍数对比</h2>
+                <p class="section-desc">市销率（PS）是衡量高增长科技公司估值的关键指标</p>
+            </div>
+
+            <div class="ps-chart-container fade-in">
+                <div class="ps-chart">
+                    <div class="ps-bar-group">
+                        <div class="ps-bar anthropic">
+                            <span class="ps-value">32x</span>
+                        </div>
+                        <div class="ps-label">Anthropic</div>
+                        <div class="ps-sublabel">$965B / $300亿</div>
+                    </div>
+                    <div class="ps-bar-group">
+                        <div class="ps-bar openai">
+                            <span class="ps-value">66x</span>
+                        </div>
+                        <div class="ps-label">OpenAI</div>
+                        <div class="ps-sublabel">$852B / $130亿</div>
+                    </div>
+                    <div class="ps-bar-group">
+                        <div class="ps-bar databricks">
+                            <span class="ps-value">21x</span>
+                        </div>
+                        <div class="ps-label">Databricks</div>
+                        <div class="ps-sublabel">$620亿 / $30亿</div>
+                    </div>
+                    <div class="ps-bar-group">
+                        <div class="ps-bar stripe">
+                            <span class="ps-value">6.4x</span>
+                        </div>
+                        <div class="ps-label">Stripe</div>
+                        <div class="ps-sublabel">$1590亿 / $250亿</div>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-red);"></div>
+                        <span>高风险高回报（>30x PS）</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-orange);"></div>
+                        <span>成长型估值（10-30x PS）</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--accent-green);"></div>
+                        <span>合理估值（<10x PS）</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">时间轴</div>
+                <h2 class="section-title">IPO窗口期</h2>
+                <p class="section-desc">从秘密提交到正式挂牌，AI公司的上市之路</p>
+            </div>
+
+            <div class="timeline">
+                <!-- Anthropic -->
+                <div class="timeline-item fade-in-left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年5月</div>
+                        <h4 class="timeline-title">Anthropic 完成H轮融资</h4>
+                        <p class="timeline-desc">完成650亿美元融资，估值飙升至9650亿美元，正式超越OpenAI成为全球估值最高的AI初创企业。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <!-- Anthropic S-1 -->
+                <div class="timeline-item fade-in-right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年6月</div>
+                        <h4 class="timeline-title">Anthropic 秘密提交S-1</h4>
+                        <p class="timeline-desc">已向SEC秘密提交上市文件，目标2026年Q4挂牌，目标市值1.2万亿美元。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <!-- OpenAI -->
+                <div class="timeline-item fade-in-left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年Q4</div>
+                        <h4 class="timeline-title">OpenAI 提交IPO申请</h4>
+                        <p class="timeline-desc">计划向监管机构提交上市申请，目标募资600亿美元以上，估值目标1.2万亿美元。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <!-- Databricks -->
+                <div class="timeline-item fade-in-right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年H2</div>
+                        <h4 class="timeline-title">Databricks IPO窗口</h4>
+                        <p class="timeline-desc">估值620亿美元，年化收入30亿美元，PS倍数21x，被视为更"理性"的AI IPO标的。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <!-- OpenAI 2027 -->
+                <div class="timeline-item fade-in-left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2027年H1</div>
+                        <h4 class="timeline-title">OpenAI 正式挂牌</h4>
+                        <p class="timeline-desc">若成功上市，将成为全球历史上最大规模IPO，彻底改写科技公司估值天花板。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Section -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">风险警示</div>
+                <h2 class="section-title">三体风险图谱</h2>
+                <p class="section-desc">高估值背后隐藏的结构性风险</p>
+            </div>
+
+            <div class="risk-grid">
+                <div class="risk-card high fade-in" style="transition-delay: 0.1s;">
+                    <span class="risk-level">高风险</span>
+                    <h4 class="risk-title">估值泡沫风险</h4>
+                    <p class="risk-desc">OpenAI 66x PS、Anthropic 32x PS远超历史科技IPO均值（15-25x）。若增长不及预期，上市后可能面临50%+回调。</p>
+                </div>
+
+                <div class="risk-card high fade-in" style="transition-delay: 0.2s;">
+                    <span class="risk-level">高风险</span>
+                    <h4 class="risk-title">盈利时间表不确定</h4>
+                    <p class="risk-desc">OpenAI 3年亏损65亿美元，Anthropic持续烧钱。AI公司何时盈利？市场耐心能持续多久？</p>
+                </div>
+
+                <div class="risk-card medium fade-in" style="transition-delay: 0.3s;">
+                    <span class="risk-level">中风险</span>
+                    <h4 class="risk-title">监管政策变化</h4>
+                    <p class="risk-desc">全球AI监管趋严，欧盟AI法案、美国行政令可能影响AI公司的商业模式和估值逻辑。</p>
+                </div>
+
+                <div class="risk-card medium fade-in" style="transition-delay: 0.4s;">
+                    <span class="risk-level">中风险</span>
+                    <h4 class="risk-title">技术护城河存疑</h4>
+                    <p class="risk-desc">开源模型追赶迅速，闭源模型的领先优势能维持多久？技术壁垒是否足以支撑万亿估值？</p>
+                </div>
+
+                <div class="risk-card low fade-in" style="transition-delay: 0.5s;">
+                    <span class="risk-level">低风险</span>
+                    <h4 class="risk-title">宏观环境影响</h4>
+                    <p class="risk-desc">美联储利率政策、地缘政治风险可能影响科技股整体估值水平和IPO窗口期。</p>
+                </div>
+
+                <div class="risk-card low fade-in" style="transition-delay: 0.6s;">
+                    <span class="risk-level">低风险</span>
+                    <h4 class="risk-title">流动性挤兑</h4>
+                    <p class="risk-desc">多家AI公司同时上市可能分流市场资金，导致估值承压或上市后表现分化。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Source Section -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="source-section fade-in">
+                <h4 class="source-title">📋 数据来源与核查</h4>
+                <div class="source-grid">
+                    <div class="source-item">
+                        <div class="source-icon">📰</div>
+                        <div>
+                            <strong>新闻来源</strong><br>
+                            CSDN、腾讯新闻、新浪财经、SegmentFault等科技媒体报道（2026年1-6月）
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">📊</div>
+                        <div>
+                            <strong>数据口径</strong><br>
+                            估值数据基于最新一轮融资投后估值；收入为年化收入（ARR）；PS倍数=估值/年化收入
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">⏰</div>
+                        <div>
+                            <strong>时效性</strong><br>
+                            数据截至2026年6月13日，所有估值和IPO计划基于最新公开报道
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-icon">⚠️</div>
+                        <div>
+                            <strong>传播风险</strong><br>
+                            中等。涉及未上市公司估值和IPO计划，部分数据基于知情人士透露，存在不确定性
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div style="margin-top: 40px; padding: 32px; background: linear-gradient(135deg, rgba(0, 122, 255, 0.05) 0%, rgba(175, 82, 222, 0.05) 100%); border-radius: 20px; border: 1px solid rgba(0, 122, 255, 0.1);">
+                <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">💡 核心洞察</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 8px 0; font-size: 15px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="color: var(--accent-blue); font-size: 20px;">→</span>
+                        <span><strong>估值分化明显</strong>：OpenAI（66x PS）与Stripe（6.4x PS）相差10倍，反映市场对"AI故事"vs"现金流"的不同定价</span>
+                    </li>
+                    <li style="padding: 8px 0; font-size: 15px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="color: var(--accent-purple); font-size: 20px;">→</span>
+                        <span><strong>窗口期紧迫</strong>：Anthropic和OpenAI争相上市，Databricks紧随其后，2026 Q4-2027 H1将是AI IPO密集期</span>
+                    </li>
+                    <li style="padding: 8px 0; font-size: 15px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="color: var(--accent-orange); font-size: 20px;">→</span>
+                        <span><strong>历史不会简单重复</strong>：2021年SaaS泡沫破裂后，存活下来的公司最终证明了价值。AI公司能否复刻这一路径？</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">2026 AI IPO三体降临</div>
+            <p class="footer-disclaimer">
+                本信息图仅供参考，不构成投资建议。所有数据基于公开报道和知情人士透露，实际IPO计划和估值可能存在重大变化。投资有风险，入市需谨慎。
+            </p>
+            <p class="footer-meta">
+                制作：创艺 | 数据来源：CSDN、腾讯新闻、新浪财经、SegmentFault | 日期：2026年6月13日
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for hero indicator
+        document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+            document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Animate counters on hero stats
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                element.textContent = element.dataset.prefix + current.toLocaleString() + element.dataset.suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger counter animations when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statValues = entry.target.querySelectorAll('.hero-stat-value');
+                    statValues.forEach(el => {
+                        const text = el.textContent;
+                        // Simple animation - just add a subtle scale effect
+                        el.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            el.style.transform = 'scale(1)';
+                        }, 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) {
+            heroObserver.observe(heroStats);
+        }
+    </script>
+</body>
+</html>

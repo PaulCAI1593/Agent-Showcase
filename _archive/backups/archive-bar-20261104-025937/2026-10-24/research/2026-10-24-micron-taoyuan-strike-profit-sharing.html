@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="就业与劳动">
+<title>11个人的24小时——美光桃园罢工，和AI存储超级周期里被漏掉的那份工资单</title>
+<script src="../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'"></script>
+<style>
+:root{
+  /* 次级文字按底色分两个令牌：浅底 --text-secondary（#ffffff 5.07:1 / #f5f5f7 4.66:1），深底 --mid-gray（#000000 5.80:1） */
+  --black:#000000; --near-black:#1d1d1f; --light-gray:#f5f5f7; --mid-gray:#86868b;
+  --text-secondary:#6e6e73;
+  --dark-gray:#4a4a4f; --rule:#d2d2d7; --apple-blue:#0071e3; --link-blue:#0066cc;
+  --white:#ffffff; --maxw:980px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--white); color:var(--near-black); font-size:17px; line-height:1.47;
+  letter-spacing:-0.374px; font-weight:400; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:88px 0}
+section.alt{background:var(--light-gray)}
+section.dark{background:var(--black);color:var(--white)}
+section.dark .lede{color:#a1a1a6}
+section.dark h2,section.dark h3{color:var(--white)}
+section.dark .tag{border-color:#48484a;color:#a1a1a6;background:transparent}
+section.dark .tag.solid{background:#f5f5f7;color:#000;border-color:#f5f5f7}
+section.dark table td{border-color:#2a2a2c}
+section.dark table th{color:#86868b}
+section.dark .rule{background:#2a2a2c}
+section.dark .note{color:#86868b}
+section.dark sup{color:#a1a1a6}
+section.dark .metrics .l{color:#a1a1a6}
+section.dark .metrics .d{color:#a1a1a6}
+section.dark .chartbox .cs{color:#a1a1a6}
+.hero{background:var(--black);color:var(--white);padding:120px 0 104px;text-align:left}
+.hero .eyebrow{font-size:14px;letter-spacing:0.4px;color:#86868b;margin-bottom:26px}
+.hero h1{font-size:56px;line-height:1.07;letter-spacing:-0.28px;font-weight:600;max-width:16ch}
+.hero h1 em{font-style:normal;color:#a1a1a6}
+.hero .sub{margin-top:30px;font-size:21px;line-height:1.43;letter-spacing:-0.26px;color:#a1a1a6;max-width:36ch}
+.hero .meta{margin-top:44px;padding-top:26px;border-top:1px solid #2a2a2c;font-size:14px;line-height:1.6;color:#86868b;letter-spacing:-0.08px}
+.hero .meta b{color:#d2d2d7;font-weight:400}
+h2{font-size:40px;line-height:1.10;letter-spacing:-0.28px;font-weight:600;margin-bottom:22px}
+h3{font-size:26px;line-height:1.15;letter-spacing:-0.24px;font-weight:600;margin:52px 0 16px}
+h4{font-size:19px;line-height:1.3;letter-spacing:-0.2px;font-weight:600;margin:32px 0 10px}
+.lede{font-size:19px;line-height:1.5;letter-spacing:-0.26px;color:var(--dark-gray);margin-bottom:34px;max-width:66ch}
+p{margin-bottom:19px;max-width:68ch}
+p.tight{margin-bottom:11px}
+strong{font-weight:600}
+a{color:var(--link-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.small{font-size:14px;line-height:1.5;color:var(--dark-gray);letter-spacing:-0.08px}
+.note{font-size:14px;line-height:1.5;color:var(--text-secondary);letter-spacing:-0.08px;max-width:70ch}
+sup{font-size:11px;color:var(--text-secondary);font-weight:400}
+hr.rule{border:0;height:1px;background:var(--rule);margin:44px 0}
+.verdict{background:var(--light-gray);border-radius:28px;padding:44px 40px;margin:36px 0}
+.verdict.dark-verdict{background:#1d1d1f;color:#f5f5f7}
+.verdict .q{font-size:13px;letter-spacing:0.6px;color:var(--text-secondary);margin-bottom:14px}
+.verdict .a{font-size:34px;line-height:1.2;letter-spacing:-0.3px;font-weight:600;margin-bottom:18px}
+.verdict p{color:var(--dark-gray);margin-bottom:14px}
+.verdict.dark-verdict p{color:#a1a1a6}
+.verdict.dark-verdict .q{color:#a1a1a6}
+.tag{display:inline-block;font-size:11px;line-height:1;letter-spacing:0.3px;padding:5px 9px;border-radius:980px;border:1px solid var(--rule);color:var(--dark-gray);background:#fff;margin-right:6px;white-space:nowrap;vertical-align:2px}
+.tag.solid{background:var(--near-black);color:#fff;border-color:var(--near-black)}
+.tag.ghost{border-style:dashed;color:var(--text-secondary)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:2px;background:var(--rule);border-radius:20px;overflow:hidden;margin:32px 0}
+.metrics .cell{background:#fff;padding:26px 22px}
+section.dark .metrics{background:#2a2a2c}
+section.dark .metrics .cell{background:#000}
+.metrics .v{font-size:33px;line-height:1.12;letter-spacing:-0.4px;font-weight:600;margin-bottom:7px}
+.metrics .l{font-size:13px;line-height:1.35;color:var(--text-secondary);letter-spacing:-0.05px}
+.metrics .d{font-size:12px;line-height:1.4;color:var(--text-secondary);margin-top:7px;letter-spacing:-0.03px}
+table{width:100%;border-collapse:collapse;margin:26px 0;font-size:15px;letter-spacing:-0.1px}
+th{text-align:left;font-weight:600;font-size:12px;letter-spacing:0.3px;color:var(--text-secondary);padding:0 14px 11px 0;border-bottom:1px solid var(--rule)}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums}
+.chartbox{background:var(--white);border-radius:18px;padding:28px 24px;margin:32px 0}
+section.dark .chartbox{background:#1d1d1f}
+section.alt .chartbox{background:#fff}
+.chartbox .ct{font-size:17px;font-weight:600;margin-bottom:4px}
+.chartbox .cs{font-size:13px;color:var(--text-secondary);margin-bottom:18px}
+.chartwrap{position:relative;height:340px}
+.correction{border-left:3px solid var(--apple-blue);padding:6px 0 6px 20px;margin:26px 0;max-width:64ch}
+.correction .big{font-size:22px;font-weight:600;letter-spacing:-0.2px;line-height:1.3;margin-bottom:8px}
+ol.steps{margin:20px 0 20px 22px;max-width:64ch}
+ol.steps li{margin-bottom:12px}
+ul.plain{margin:14px 0 20px 20px;max-width:64ch}
+ul.plain li{margin-bottom:10px}
+footer{padding:60px 0 80px;background:var(--black);color:#86868b;font-size:13px;line-height:1.7}
+footer b{color:#d2d2d7;font-weight:400}
+:focus-visible{outline:2px solid var(--apple-blue);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-24</span><span class="sb-sep">/</span><span class="sb-beat">就业与劳动</span><span class="sb-sep">/</span><span class="sb-cnt">27 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">8 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div class="hero">
+ <div class="wrap">
+  <div class="eyebrow">选题 390 · P0 #353 · 研究类深度报告 · 👥社会/劳工 × 💰经济金融 × 🌍地缘 × 🤖AI技术</div>
+  <h1>11个人的24小时<em>，与6万人的奖金规则</em></h1>
+  <div class="sub">美光桃园罢工——AI存储超级周期狂奔了十二个月，第一次有人堵在晶圆厂门口问：利润里，我那份在哪？</div>
+  <div class="meta">
+   <b>核验时点</b>：2026-10-26 03:20（北京时间）　｜　<b>事件截至</b>：10-23罢工到期，台风"蔷琵"（Champì）后下一轮协商定于 <b>10-27</b><br>
+   <b>一手主信源</b>：中央社（2026-10-07/20/21/22/23）、财联社（10-22 16:20）、法新社（经 Gate/地面报道转述，10-23）、经济日报（10-07/23）、联合报（10-22）、中时新闻网（10-22）<br>
+   <b>口径声明</b>：本报告不采用"1994人罢工""全员罢工"等失实表述（详见第一章事实核定）；4.4%、12% 等比例数字均标注估算方与口径
+  </div>
+ </div>
+</div>
+
+<section class="dark">
+ <div class="wrap">
+  <div class="eyebrow" style="font-size:14px;letter-spacing:0.4px;color:#86868b;margin-bottom:26px">〇 · 核心判断</div>
+  <h2>这不是一份"劳资双赢"的报道<br>这三件事正在被写进合同</h2>
+  <div class="verdict dark-verdict">
+   <div class="q">24小时的罢工，到底改变了什么？</div>
+   <div class="a">它没有关掉一座厂，没有逼出一个分润比例，也没有换来协议的签订。<br>但它改变了三件更贵的事。</div>
+   <p><b>第一， taboo 被打破了。</b>台湾半导体史上"不会发生罢工"这条行业信念，在 2026 年 10 月 22 日上午 9 点被 11 名工会干部用一条横幅、一根纠察线打破。此前，SK 海力士与三星的罢工危机都在启动前以"史上最高分红"化解——化解的前提，正是罢工从未真的发生。</p>
+   <p><b>第二，"利润分享"被写成了全球制度，但"比例"被拒绝了。</b>罢工当天 16:20，美光宣布推出与利润挂钩、50% 现金＋50% 股票的全球员工季度奖金——覆盖 6 万余名员工，由一家台湾工厂的 11 个人触发。然而这套公式没有披露任何分润比例，奖金池还额外扣除下一季度资本开支。工会拿到的是"制度性在场"，没拿到"数字权利"。10-23 开票：1,637 名会员参与投票，1,633 人反对公司方案——99% 的反对，反对的正是这个"不给比例"的结构。</p>
+   <p><b>第三，也是最深的一层：最大的反转不来自资方，而来自会员对代表的程序性否决。</b>抢先在前一天签署协议的台中工会，随即被自家基层发起"紧急撤销授权与暂缓签署连署"，主张"越权签署无效"，要求协议送全体 1.1 万名会员公开表决。签约的赢了字据、可能输掉正当性；罢工的反倒在程序上无懈可击。AI 时代劳资博弈的关键变量，不是谁更狠，而是谁的程序合法。</p>
+  </div>
+  <p class="note">以下四层框架依次回答：11个人凭什么撬动6万人；4.4% 与 12% 的差距从何而来；"50%现金+50%股票"是让步还是绑定；以及台中连署反转意味着什么。</p>
+ </div>
+</section>
+
+<section class="alt">
+ <div class="wrap">
+  <h2>一 · 事实核定：三组投票，一个被普遍写错的数字</h2>
+  <p class="lede">过去一周，关于这场罢工流传最广的句子——"1994名成员、99%同意罢工"——是把三件事压扁成了一件事。拆开之后，故事反而更有力量。</p>
+
+  <div class="correction">
+   <div class="big">⚠ 口径纠错（必须澄清的误传）</div>
+   <p class="tight"><strong>"1994 人罢工"不成立。</strong>1,994 是 <strong>10 月 1–6 日罢工授权投票</strong>的同意票数（名册 2,258 人、投票 2,012 人、同意 1,994、不同意 14、废票 4；投票率 89.1%，同意占全体 88.3%、占投票人 99.1%）。10 月 22 日实际走上纠察线的，是 <strong>11 名工会干部</strong>，时长 24 小时。把授权票数当成上街人数，是对这场罢工最常见的两种误读之一——另一种是"2,335 名会员全员停工"，同样没有发生。</p>
+  </div>
+
+  <table>
+   <thead><tr><th style="width:24%">投票事件</th><th>数字</th><th>口径性质</th><th>信源与时点</th></tr></thead>
+   <tbody>
+    <tr>
+     <td><b>罢工授权投票</b></td>
+     <td class="num">名册 2,258 → 投票 2,012<br>同意 <b>1,994</b> / 不同意 14 / 废票 4<br>投票率 89.1%；同意占投票人 99.1%</td>
+     <td>依《劳资争议处理法》取得的<strong>合法罢工权与设置纠察线授权</strong>，10-07 国际记者会宣布</td>
+     <td>经济日报、中央社，2026-10-07</td>
+    </tr>
+    <tr>
+     <td><b>否决公司方案投票</b></td>
+     <td class="num">参与 1,637 / 反对 <b>1,633</b><br>反对占投票人 99%、占全体会员近 70%<br>另有 7 成会员签署意向书</td>
+     <td>罢工期间针对美光 10-22 方案的<strong>会员意向调查</strong>，10-23 上午开票公布</td>
+     <td>中央社、经济日报，2026-10-23</td>
+    </tr>
+    <tr>
+     <td><b>实际罢工行动</b></td>
+     <td class="num"><b>11</b> 名工会干部 × 24 小时<br>10-22 09:00 – 10-23 09:00</td>
+     <td>象征性／警告性罢工，工会明确"目的并非扰乱生产"，且放弃突袭、事前宣告</td>
+     <td>中央社 10-22；Focus Taiwan（经 Gate 转述）</td>
+    </tr>
+   </tbody>
+  </table>
+
+  <div class="chartbox">
+   <div class="ct">授权 1,994 · 反对 1,633 · 上街 11</div>
+   <div class="cs">三个数字属于三个不同事件——正是"11个人改写6万人规则"这个标题的全部张力。横轴为人数，对数刻度。</div>
+   <div class="chartwrap"><canvas id="c_votes"></canvas></div>
+  </div>
+
+  <p>两个"99%"还必须分辨：10-07 的 99.1% 是<strong>投票人中的同意率</strong>（1,994/2,012）；10-23 的 99% 是<strong>投票人中的反对率</strong>（1,633/1,637），且反对者占全体会员近七成——这意味着否决不是少数激进派的动作，而是多数人的、可复核的立场。</p>
+  <p>工会规模一并核定：桃园工会自述 2,335 名会员（10-22），罢工名册 2,258 人；台中工会约 11,000 名会员、覆盖约 12,300 名厂员；美光在台员工约 15,000 人，两工会合计代表约 1.2 万人、超过八成<sup>①</sup>。<strong>"2,335 名会员"是工会总人数，不是罢工人数。</strong></p>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <h2>二 · 时间线：从"9月11日的突袭"到"10月27日的下一桌"</h2>
+  <p class="lede">这场争议里至少有三次"突袭"：美光 9 月单方面公布奖金、台中工会 10 月 21 日抢先签约、以及 10 月 22 日 16:20 的全球奖金计划。每一次突袭，都在为下一次反噬埋线。</p>
+  <table>
+   <thead><tr><th style="width:17%">时间（2026）</th><th>事件</th></tr></thead>
+   <tbody>
+    <tr><td>09-04</td><td>桃园工会与美光第一次劳资调解；公司口头承诺将提分润方案（工会后指控其未兑现）。</td></tr>
+    <tr><td><b>09-11</b></td><td>美光<b>未经与两工会协商</b>，单方面公布 FY26 一次性"感谢金"：台湾符合资格员工每人 100 万元新台币（约合 21 万元人民币）。工会定性为"突袭式动作"，怒气的直接来源。</td></tr>
+    <tr><td>09-18 / 09-21</td><td>台中工会第 1 次调解（同意 10-22 第 2 次）；桃园工会第 2 次调解破局——公司仍无分润具体数字，桃园宣布启动罢工投票。</td></tr>
+    <tr><td>10-01~06</td><td>桃园罢工投票、晚间开票。</td></tr>
+    <tr><td><b>10-07</b></td><td>桃园工会召开国际记者会：<b>取得合法罢工权</b>（1,994/2,012）。劳动部同日表态"尊重投票结果，吁资方提出具体可行方案"。工会瞄准 10-08~09 美光董事会作为下一节点。</td></tr>
+    <tr><td>10-15</td><td>台中先进封装测试二厂（AATT2）启用，赖清德出席，公开呼吁劳资"诚意协商"；营运长 Bhatia 证实该厂相关产能已被客户预订至 2027 年。</td></tr>
+    <tr><td>10-19</td><td>桃园、台中两工会号召员工"建议休假"上凯道集结——尚未罢工，先演动员力。</td></tr>
+    <tr><td>10-20</td><td>桃园工会宣布 10-22 发起 24 小时声援式罢工，配合台中第 2 次调解，呼吁美光提出具体分润制方案。</td></tr>
+    <tr><td><b>10-21</b></td><td>桃园：美光董事长卢东晖、CEO 幕僚长下场，与桃园工会在桃园市政府协商（市长张善政到场、市劳动局长协调），<b>破局</b>；台中：美光与台中工会<b>当日签署劳资协议</b>、撤回 10-22 调解——协议内容以保密条款暂不公开。桃园理事长林哲瑞称多次联系台中理事长未获回应、"错愕"。</td></tr>
+    <tr><td><b>10-22</b></td><td>09:00 桃园厂门口纠察线拉起，11 名干部开始 24 小时罢工；10:00 美光召开全员会议公布调整方案，工会同步发起会员投票；<b>16:20 财联社电：美光宣布推出与公司利润挂钩的全球员工季度奖金计划，50% 现金＋50% 股票，明确"以回应台湾地区工会提出的利润分享要求"</b>；17:24 卢东晖记者会细案：季度分润奖金、第二轮结构性调薪、白班津贴 1,500→4,500 元、+3 天有薪假、劳退提拨 8%→10%。当晚，台中基层"撤销授权连署"网络发酵，后里说明会开讲。</td></tr>
+    <tr><td><b>10-23</b></td><td>09:00 罢工期满结束；工会开票：<b>1,633 票反对公司方案（占投票 99%、占全体会员近 7 成）</b>；原定 13:00 桃园市政府协商因台风<b>"蔷琵"（Champì）</b>全台停摆，<b>延至 10-27</b>。工会："斗争远未结束"，罢工授权持续有效、不再预告日期。当日 MU 收 884.30 美元（+3.25%），法新社注明涨势与谈判无关。</td></tr>
+    <tr><td>10-24 ~ 10-26</td><td>截至本报告核验时点（10-26 03:20），未见新一波罢工行动、未见双方正式声明；争议进入 10-27 谈判窗口。<b>故事未完结——本报告以"三个可跟踪指标"收尾，不做终局判断。</b></td></tr>
+   </tbody>
+  </table>
+  <p class="note">台风译名说明：法新社英文为 Typhoon Champì，台媒与转译有"蔷琵／昌比"两种汉字写法，本报告统一用"蔷琵（Champì）"并保留异译注记。</p>
+ </div>
+</section>
+<section class="alt">
+ <div class="wrap">
+  <h2>三 · 第一层：11 个人凭什么改写 6 万人的规则</h2>
+  <p class="lede">答案不是"勇气折现"，而是三重杠杆的乘积：一纸合法授权、一个物理瓶颈、一个集中度结构。拆掉任何一重，11 个人都只是 11 个人。</p>
+
+  <div class="metrics">
+   <div class="cell"><div class="v">23.3%</div><div class="l">美光全球 DRAM 营收市占</div><div class="d">TrendForce，2026 Q2；三强合计 87.6%</div></div>
+   <div class="cell"><div class="v">50–60%</div><div class="l">美光总产量出自台湾</div><div class="d">法新社口径（经 Gate 转述，10-23）</div></div>
+   <div class="cell"><div class="v">3 家</div><div class="l">全球 HBM 制造商数量</div><div class="d">三星 / SK 海力士 / 美光，今年产能均售罄</div></div>
+   <div class="cell"><div class="v">~1 个月</div><div class="l">DRAM 原厂库存水位</div><div class="d">TrendForce 低档库存判断；三星罢工先例仅 0.5–1 个月</div></div>
+  </div>
+
+  <h3>杠杆一：法律——授权在手，时点自选</h3>
+  <p>10-07 取得的罢工权让工会获得两件东西：合法停工的资格，以及<strong>不预告日期的威慑</strong>。10-23 工会明确"罢工授权仍然有效、不会提前宣布罢工日期"——对连续运转的晶圆厂而言，"随时可能"比"已经发生"更接近成本。工会还展示了克制作为筹码的一部分：放弃突袭、事前宣告、只罢 24 小时、干部而非全员——每一步都在向监管与舆论证明这是"最后手段"，而《就业服务法》对罢工期间人力银行不得推介求职者的约束，反过来确认了行动的合法性边界<sup>②</sup>。</p>
+
+  <h3>杠杆二：物理——桃园停工的不是产出，是"人肉监控层"</h3>
+  <p>TrendForce 分析师王豫琪的判断链很短：桃园主产前段 DRAM 晶圆，制程高度自动化，但<strong>设备维护与制程监控依赖工程师在场</strong>；罢工若影响这一层，良率与稳定性先于产量受损。三星 18 天罢工的 precedented 评估是良率波动 1–2%、服务器级高规颗粒降档甚至报废——在 HBM 把全行业库存压到 0.5–1 个月的 2026 年，这 1–2% 直接打到 AI 服务器的交付表上。更关键的错位是：<strong>台中 AATT2 的 HBM 相关产能已被客户预订至 2027 年，而新加坡封测要到 2027 年初、苗栗铜锣到 2027 年中才有产出</strong>——罢工窗口内，全球没有备用产能可顶。</p>
+
+  <h3>杠杆三：结构——87.6% 的寡头，让每一次停工都是定价事件</h3>
+  <p>DRAM 三强合计握有 87.6% 的市场，这个结构双向成立：对下游，美光减产预期会推涨内存现货、利好其余两家，所以罢工新闻本身成了 memory 板块的波动源；对美光，客户"怕断供"的心理溢价恰恰是工会的隐性杠杆——它不需要真的停产，只需要让市场相信可能。但必须诚实记录反方向的事实：10-22 MU 单日 -6.26% 的下跌，归因是 CXMT 竞争担忧与 AI 支出疑虑引发的板块性抛售（闪迪 -8.5%、西数 -6.4%），10-23 的 +3.25% 反弹亦与谈判无关<sup>③</sup>；至核验时点，<strong>尚无公开证据表明这次象征性罢工已造成实质产量损失</strong>。杠杆是"预期中的"，这正是它比真停产更耐用的原因。</p>
+
+  <p>三重杠杆的乘积解释了一个反差：为什么触发"全球 6 万人奖金规则改写"的，不是 11,000 人的台中工会，而是 11 个人的桃园行动——台中没有罢工授权这张牌，桃园把它在 10 月 22 日兑现成了头条。</p>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <h2>四 · 第二层：4.4% 对 12%——差距不在慷慨度，在制度传统</h2>
+  <p class="lede">工会的数字对比是：三星半导体 12%、SK 海力士 10%、美光约 4.4%。这组数字在比例上可以争论，在指向上无法反驳——前两家把比例写进了长期劳资协议，美光给员工的是一次性感谢金与不透明公式。</p>
+
+  <div class="chartbox">
+   <div class="ct">分润比例对照（营业利益口径，注意各家含义不同）</div>
+   <div class="cs">三星≈12%（10.5% 股票＋约1.5% 现金的合成口径）；SK 海力士 10%（写进十年协议、废上限）；台积电实际约 10.6%（员工酬劳÷营业利益的转述测算，章程仅保底 1%）；美光 4.4% 为工会单方估算（100万元感谢金折合营业利益比例，公司未认可）。虚线为工会诉求 15%。</div>
+   <div class="chartwrap"><canvas id="c_share"></canvas></div>
+  </div>
+
+  <table>
+   <thead><tr><th>公司</th><th>财源与比例</th><th>形式与上限</th><th>期限与条件</th><th>批准程序</th></tr></thead>
+   <tbody>
+    <tr><td><b>SK 海力士</b></td><td>营业利益 <b>10%</b> 全员奖金池</td><td>2025-09 协议：80% 即时＋20% 递延两年；2026-08 新结构 40% 现金＋60% 股票；废除奖金上限</td><td>十年劳资协议（2025-09 签）</td><td>劳资协议</td></tr>
+    <tr><td><b>三星 DS</b></td><td>营业利益 <b>10.5%</b>（股票）＋年薪 50%（现金，约折 1.5%）</td><td>特别绩效奖金不设上限；三分之一可即时变现，其余锁定 1–2 年</td><td>十年期；前提 DS 营业利益 2026–28 年均 ≥200 兆韩元、2029–35 ≥100 兆</td><td>工会会员复决：62,616/65,593 投票，46,142 同意（73.7%），2026-05-27</td></tr>
+    <tr><td><b>台积电</b></td><td>章程"全年获利<b>至少 1%</b>进员工酬劳"，实际规模董事会裁量；2025 年发 2,061.46 亿余元新台币（约当营业利益 10.6%）</td><td>现金为主，按季预发、次年结算；2026-02 董事会通过人均约 264.28 万元新台币</td><td>年度裁量——魏哲家 5 月被问长期政策坦言"无法做出承诺"</td><td>董事会</td></tr>
+    <tr><td><b>美光（旧制 IPP）</b></td><td>无固定比例；盈利目标:战略目标 = <b>6:4</b>，年度发放</td><td>上限 200% 目标奖金；2025 年台湾员工实际约 2.6 个月月薪（工会口径）——而 CEO 同年现金绩效奖励约 32.4 个月</td><td>RSU 过去仅约四成台湾员工取得；2026 年起宣布全员覆盖、最低 6,000 美元分 4 年归属</td><td>总部董事会</td></tr>
+    <tr><td><b>美光（10-22 新制）</b></td><td><b>未披露比例</b>；奖金池 = 税后净利 − 下季预计 capex，以 FY26 为基准</td><td>50% 现金（财季后发）＋50% 股票（一年后归属）；不挪用 IPP 预算，双轨并行</td><td>2027 财年起，全球 6 万＋员工</td><td>董事会授权、单方宣布</td></tr>
+   </tbody>
+  </table>
+
+  <p>横向看，比例的落差其实收敛得很快：<strong>台韩头部企业最终都落在"营业利益的 10% 上下"</strong>。差异发生在第四栏——程序和形式。韩国是法定集体协商传统，比例由工会复决写进十年协议；台积电是"章程保底＋董事会裁量"，用足够的现金把问题融化在每年 2 月的董事会决议里；美光是在美上市公司，薪酬委员会对奖金保有完全裁量权，"把利润的百分之几给员工"这件事<strong>在美国公司治理里从来不是劳资协议的条款</strong>。工会要的 15% 季度分润，本质是要求美光台湾把一套不属于其上市地治理传统的制度内嵌进劳动合同——这才是协商真正卡住的地方，而不是 4.4% 与 15% 的算术差。</p>
+
+  <p>两句必须并列的平衡性事实：其一，"4.4%"是工会把一次性感谢金折算成营业利益比例的估算，美光从未认可，且 IPP 本无固定比例、严格说"分母都不一致"<sup>④</sup>；其二，工会自己也承认——即便按 15% 平均分配，人均到手未必超过三星/海力士员工的水位（CTWANT）<sup>⑤</sup>。也就是说，<strong>工会争的不是本季金额，而是"分润权"的制度归属：钱是公司"给"的恩惠，还是员工凭利润"应得"的份额。</strong>10-23 的 99% 反对票，否掉的正是"新奖金在 IPP 之外并行、公式保留公司裁量"这个结构。</p>
+ </div>
+</section>
+<section class="dark">
+ <div class="wrap">
+  <h2>五 · 第三层：50% 现金 + 50% 股票——让步，还是新的绑定？</h2>
+  <p class="lede">把员工变成股东，听起来是分配革命；但拆开这份奖金的公式，它同时是三样东西：一份对赌周期的期权、一台扩张期的自我抑制器、一个保留裁量权的黑箱。</p>
+
+  <h3>公式里埋着三处结构性克制</h3>
+  <ol class="steps">
+   <li><b>基数不是营业利益，而是"税后净利 − 下一季度预计资本开支"。</b>这正是工会指出的要害（法新社/Gate 转述）：美光 FY27 共识 capex 约 550 亿美元，对比 FY26 的 307 亿美元<sup>⑥</sup>——扩产越猛的季度，被扣除的越多，奖金池越缩。员工在为 AI 需求加班、为下一轮周期盖厂的这几年，恰恰是分润公式里"被投资吃掉"的几年。总裁 DeBoer 10-21 刚说完"AI 路线图需要每 bit 更多晶圆（HBM → vertical HBM）"。</li>
+   <li><b>没有比例。</b>华尔街见闻点破了对照：与三星、SK 海力士的安排不同，美光<strong>未披露任何固定分成比例或预留总额</strong>。没有比例的公式，裁量权仍然完整留在公司手里——改一个基准年、调一项扣除项，数字就变。</li>
+   <li><b>一半是锁一年的股票。</b>美光股价 52 周区间 192.40–1,255 美元，10-22 收于 856.49 美元、距峰值约 -25%<sup>⑦</sup>。FY26 净利 8.5 倍增长把股价推上云端的，是市场对这个周期持续性的信仰；而员工奖金的一半，将以"一年后归属"的方式绑定在这个信仰的兑现上。周期性行业利润的顶部区域，把浮动报酬换成自家股票，等于让员工在现金与股权之间替公司分担了周期风险。</li>
+  </ol>
+
+  <div class="chartbox">
+   <div class="ct">利润十倍，公式扣什么？</div>
+   <div class="cs">美光 FY25 → FY26 营收与 GAAP 净利（亿美元），叠加 FY27 共识 capex 对比 FY26：季度奖金池 = 税后净利 − 下季预计 capex，扩张越猛、扣除越大。数据：公司 FY26Q4 财报（2026-09-30 发布）；capex 为 TIKR 共识（经 Respect Investment 转述）。</div>
+   <div class="chartwrap"><canvas id="c_profit"></canvas></div>
+  </div>
+
+  <h3>但也不能把新制读成纯粹的文字游戏</h3>
+  <p>对照 9 月 11 日那种"一次性感谢金突袭"，10-22 方案的实质变化有三：从<strong>单次</strong>变<strong>常态</strong>（季度化）、从<strong>台湾个案</strong>变<strong>全球制度</strong>（6 万员工同规则，美国/日本/新加坡美光员工此前已声援桃园诉求）、从<strong>完全裁量</strong>变<strong>公式挂钩</strong>（至少写明与财报盈利联动、FY26 为基准、不挤占 IPP 预算）。对 6 万名从没拥有过"利润份额"这个概念的美光员工，这是一次真实的规则改写——11 个人的 24 小时是它的导火索。对桃园工会而言，接受它等于承认"4.4% vs 12%"的比较从一开始就够不到核心诉求：<strong>可审计的比例与员工对公式的否决权</strong>。所以 1,633 张反对票并不意外：双方在回答两个不同的问题。</p>
+  <p class="note">一个值得记住的数字对比：2025 年台湾员工经调整的绩效奖金约 2.6 个月，而同一公司 CEO 当年现金绩效奖励约 32.4 个月（工会引用公司公开资料）。工会要求"说明分配依据"，比要求加钱的杀伤力大得多——前者指向透明度，后者只是议价。</p>
+ </div>
+</section>
+
+<section class="alt">
+ <div class="wrap">
+  <h2>六 · 第四层：真正的反转不在厂门口，在会员群里</h2>
+  <p class="lede">台中工会抢先签字，换来的不是稳定，而是一场针对"代表资格"的内部诉讼。AI 时代的劳资博弈里，最难对付的新变量不是资方，而是会员对代表的程序性否决。</p>
+
+  <h3>连署书说了什么</h3>
+  <p>10-21 台中协议签署当晚，署名"台湾美光記憶體企業工会会员"的网络连署《紧急撤銷簽約授權暨要求暫緩簽署連署書》开始扩散（中时新闻网、Yahoo 新闻；《民报》先行披露协议细节），指控与诉求共五条<sup>⑧</sup>：</p>
+  <ul class="plain">
+   <li>协议草案"严重背离会员期待并损害劳工权益"；干部在正式调解日前一晚<strong>私下与资方签署保密协议并撤回调解</strong>，未经会员大会表决，"严重违反工会民主程序"；</li>
+   <li>要求即刻撤销／冻结授权代表签署任何协议之权限；最终文本须向全体会员完整公开、送会员大会或代表大会重新审议；</li>
+   <li>向资方喊话：若与"已失去多数会员实质授权"的代表强行签约，会员不予认可，将依法发起<strong>"越权签署无效"的法律救济</strong>与劳资争议行为；</li>
+   <li>10-22 18:00 后里区说明会，口号"不退会、不买单、要程序、挺桃园"——明确拒绝用退会表达不满，因为"退会就失去监督干部与参与决策的合法权利，工会的主人是全体会员"；</li>
+   <li>要求干部承诺两周内召开临时会员大会、协议全文送 1.1 万名会员公开表决。</li>
+  </ul>
+
+  <h3>三方回应，三种立场</h3>
+  <p><b>美光</b>：卢东晖 10-22 记者会答问——工会内部事务由工会自行说明，公司不便评论；但强调协商有主管机关见证、双方律师已确认法定程序，协议"合法合规"。这是资方能做的最优表态：程序上无懈可击，内容上拒绝对话。<br>
+  <b>桃园工会</b>：林哲瑞称 21 日多次联系台中理事长未果、事后才知签约，"错愕"；批评资方单方面先与台中达成共识是对桃园的"不尊重"与分化手法。<br>
+  <b>台中工会</b>：反驳称桃园"一直逼公司"，若真罢工将影响营收与已经谈好的条件，"没必要把事情做到这么绝"——两个工会的路线分裂就此公开化（中评社 10-22）。</p>
+
+  <h3>为什么说这是全场最深的一层</h3>
+  <p>把三个时间点连起来：5-27 三星工会以 73.7% 会员复决<strong>批准</strong>了 12% 协议；10-21 台中工会<strong>未经授权投票</strong>签署了协议；10-22 基层以连署<strong>追认否决</strong>。同一种程序武器——会员复决——既能给协议发牌照，也能把协议从手里夺走。台积电 5 月因"分红调幅预期落差"爆发员工不满、魏哲家取消出差紧急开全员会安抚，是同一件事的预演版。<strong>对跨国资本而言，比"罢工"更贵的风险是"签了的字不算数"</strong>：前者损失一个季度的产出，后者损失一纸协议的确定性。美光 10-23 对法新社承认，仍持续收到台中一线员工的不满反馈——已经"解决"的争议，是全案中最不尘埃落定的部分。连署的实际规模至今未证实（无公开人数、是否达会员多数未知），这限制了它的现实效力，但没有限制它的信号价值：<strong>台湾半导体工会运动的下一个战场，可能不在劳资之间，而在工会内部。</strong></p>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <h2>七 · 结论：三个可跟踪指标（含阈值与观察窗口）</h2>
+  <p class="lede">罢工到期了，协商延期了，故事没有结束。与其给一个"劳资如何如何"的收尾，不如留下三条可证伪的追踪线——每条都有阈值、窗口和数据源。</p>
+  <table>
+   <thead><tr><th style="width:22%">指标</th><th>判据与阈值</th><th>观察窗口</th><th>数据源</th></tr></thead>
+   <tbody>
+    <tr>
+     <td><b>① 分润是否被写成"数字权利"</b></td>
+     <td>10-27 协商及后续协议文本中：出现<strong>写入合同的固定比例</strong>（哪怕低于诉求 15%、落在台韩先例 10% 区间）或"比例经会员大会表决"条款 = 工会核心目标达成；若复制台中模式（保密条款＋无比例）= 争议只会换形式延续。辅助判据：美光 FY27Q1 财报电话会是否首次披露季度奖金池的实际计提额/公式参数。</td>
+     <td>10-27 起 72 小时（协议消息）＋ 2026 年 12 月美光 FY27Q1 财报电话会</td>
+     <td>中央社/经济日报劳资线；美光 IR 电话会记录；工会记者会</td>
+    </tr>
+    <tr>
+     <td><b>② HBM/DRAM 产线是否真实受扰</b></td>
+     <td>基线：截至 10-26，尚无公开证据显示象征性罢工造成实质产量损失。触发阈值：TrendForce/集邦或客户口径出现<strong>美光台湾良率波动 &gt;1–2%（三星罢工先例区间）、交期顺延、或客户启动晶圆审计/转单评估</strong>任一项。若 10-27 谈判破裂后工会转为"滚动式 48 小时罢工或禁加班"，对连续制程的冲击将非线性放大——禁加班对晶圆厂设备维护交接的杀伤接近半罢工。</td>
+     <td>10-27 后 4–6 周（一个 DRAM 生产与验证周期）</td>
+     <td>TrendForce 月度内存报告；美光 FY27Q1 法人说明会"supply/lead time"表述；韩国经济日报/电子时报供应链线</td>
+    </tr>
+    <tr>
+     <td><b>③ 组织化与模仿效应</b></td>
+     <td>劳方扩散阈值：两大工会合计会员<strong>净增 &gt;1,000 人/月</strong>（任务已核口径：1 个月曾增逾 2,700 人）持续两月，或台积电／南亚科／华邦电／力积电任一出现<strong>新的罢工授权投票或凯道式集结</strong>。管理层扩散阈值：台韩其他外资半导体（含台积电海外厂）跟进"季度利润分享奖金"且<strong>披露固定比例</strong>。反向信号：台中撤销授权连署若在两周内召开临时会员大会并否决协议，程序武器将被制度化复制。</td>
+     <td>至 2027 年 3 月（美光结构性调薪落地窗口＋台积电年度分红公布窗口）</td>
+     <td>工会声明与记者会；劳动部调解统计；台媒科技线；中时/Yahoo 工会内政报道</td>
+    </tr>
+   </tbody>
+  </table>
+  <div class="verdict">
+   <div class="q">最后，回到那份"被漏掉的工资单"</div>
+   <div class="a">AI 存储超级周期的分配公式，在 2026 年 10 月第一次被人用手写了出来。</div>
+   <p>FY26 美光营收 1,332 亿美元、净利 850 亿美元、毛利率 87%——连续多个季度高于英伟达；同一周期里，台湾产线员工以"作二休二、12 小时轮班"兑现了这场暴利，而他们经调整的 2025 年绩效奖金约为 2.6 个月。这不是"该分多少"的道德题，而是一道治理题：<strong>当利润 10 倍增长发生在寡头结构＋自动化产线＋工程师监控层这三个条件同时成立的地方，劳动的议价点就从"人数"移到了"节点"。</strong>11 个人的行动大于 1,994 个人的授权、大于 2,335 人的名册，因为现代晶圆厂真正的软肋从来不是人海，而是那几个必须站在对的班次、对的机台旁的岗位。这条规律不会因为 10-27 谈成或谈崩而消失——它已经被写进台湾半导体 30 万从业者的参考案例库，和所有正在规划 HBM 产能的公司的风险清单。</p>
+  </div>
+ </div>
+</section>
+
+<section class="alt">
+ <div class="wrap">
+  <h2>八 · 未能查证 / 存疑清单</h2>
+  <p class="lede">按四类口径纪律汇总。正文凡引用下列条目处均已加脚注，未列入者均已在取证文件中双源核验。</p>
+  <h3>A · 未找到权威来源</h3>
+  <ul class="plain">
+   <li>台中"10-27 前是否召开临时会员大会、连署实际人数"——截至 10-26 03:20 无任何后续权威报道；连署发起者身份不明，正文仅按"部分会员"处理。</li>
+   <li>台中协议的具体条款（除 DigiTimes/民报转述"季度利润奖金、覆盖处长级及以下"外）：公司确认签有保密条款，全文未公开。</li>
+   <li>三星 5-20 协议中"1.5% 现金"的精确折算：多源表述为"股票 10.5%＋年薪 50% 现金（约折 1.5% 营业利益）"，合成口径 12% 沿用任务已核表述，比例换算依赖二手测算。</li>
+  </ul>
+  <h3>B · 口径冲突（正文取高置信源、冲突保留）</h3>
+  <ul class="plain">
+   <li>台湾员工 2025 绩效月数：任务材料"平均绩效 93 分、奖金约 2.3 个月" vs 经济日报（工会口径）"调整后约 2.6 个月"——疑为调整前后/含不含感谢金之别，正文采 2.6 个月并注明工会口径。</li>
+   <li>新版 IPP 上限：中央社（卢东晖记者会实录）"策略目标 200%→250%、整体最高 2 倍" vs 同花顺"最高等级可达 500%（5 倍）"——采中央社，疑后者混入职级/目标叠加口径。</li>
+   <li>桃园工会规模：罢工名册 2,258（10-07 开票）vs 工会自述 2,335（10-22）vs 港中通社"约 2,400"——三者时点不同，正文以"名册 2,258、自述 2,335"并列，不取第三方约数。</li>
+   <li>SK 海力士人均奖金测算跨 1.36 亿～7.79 亿韩元（不同预测年与口径）——正文不引具体人均值，仅用"制度比例"层对比。</li>
+   <li>BigGo（2026-08-03）"美光某工会会员约 500 人一年内增至约 4,000 人"与名册/自述口径均不符，统计范围不明，<b>不采用</b>；会员增速仅采任务已核"两大工会 1 个月增逾 2,700 人"。</li>
+  </ul>
+  <h3>C · 来源质量偏低（仅作背景，不入论据）</h3>
+  <ul class="plain">
+   <li>"产线人员总薪酬约 63 万→200 余万新台币、初阶工程师 145 万→400 万"仅见东方财富号自媒体解读（10-24）；"35–68 个月总薪酬、现金 170 万起"仅见 Statementdog 转述——均未核到原始披露文件，正文一律不引具体数。</li>
+   <li>"50–60% 产量在台"为法新社口径经中文转述（Gate），未见美光 IR 文件直接佐证。</li>
+  </ul>
+  <h3>D · 口径提醒</h3>
+  <ul class="plain">
+   <li>"4.4%"= 工会将 9-11 一次性感谢金折算为营业利益比例的<strong>单方估算</strong>，美光未认可；引用时必须带"工会估算"定语。</li>
+   <li>三组投票数字（1,994 / 1,633 / 11）分属授权、意向、行动三个事件——任何两两混用都会造成事实错误，这是本选题的第一红线。</li>
+   <li>台风汉字名"蔷琵/昌比"（Champì）译写不一；本报告统一"蔷琵（Champì）"。</li>
+   <li>美光 10-22 全球季度奖金与台中协议是<strong>两个动作</strong>：官方记者会把季度分润表述为对"工会利润分享诉求"的回应（财联社 16:20 电、中央社 17:24 实录），台中协议文本因保密条款未公开——"新制=履约文本"不成立，正文区分"宣布"与"签约"。</li>
+  </ul>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <h2>九 · 信源与方法</h2>
+  <table>
+   <thead><tr><th style="width:14%">等级</th><th>来源（代表条目）</th></tr></thead>
+   <tbody>
+    <tr><td><b>A 级</b>（官方/一手）</td><td>中央社 202610070228 / 202610200191 / 202610210036 / 202610220037 / 202610220264 / 202610230158（罢工授权、协商、记者会实录、开票结果、延期公告）；财联社 2026-10-22 16:20 电（全球季度奖金宣布）；美光 FY26Q4 财报（2026-09-30，经新浪财经/澎湃/金融界转述）</td></tr>
+    <tr><td><b>B 级</b>（权威媒体）</td><td>经济日报（10-07 开票细节、10-23 延期）；联合报 udn（10-21 台中签约、10-22 奖酬改革）；中时新闻网（10-22 连署书全文、劳动部参与）；Reuters 经 The Standard（10-21 台中协议）；法新社经 Gate（10-23 否决投票与延期）；Korea Times/매일경제/界面（三星-SK-台积电对照）；TrendForce 经 PChome/Yahoo/经理人（市占与良率评估）</td></tr>
+    <tr><td><b>C 级</b>（转述/行业）</td><td>华尔街见闻、DigiTimes 经 NuAxi、CMoney、BigGo、CTWANT、电子工程专辑经深圳电子商会、GuruFocus、Respect Investment/Ground News（MU 价格与板块归因）、腾讯/网易/同花顺转载线</td></tr>
+   </tbody>
+  </table>
+  <p class="note">方法说明：本报告事实链以任务书 10-23 外部核验版本为骨架，10-26 03:00–03:20 经 2 路新增检索补充 10-23 之后的增量事实（否决开票、台风延期至 10-27、台中连署后续检索为零结果），并对全部关键数字做了来源行级回注；取证明细与 URL 见同日 <b>notes/2026-10-24-micron-evidence.md</b>。冲突数字均按"带时点与口径、不取单点"规则处理。写作时点 10-27 协商尚未发生，本报告按纪律不做终局判断。</p>
+  <p class="note">脚注索引：①港中通社 10-20／法新社经 Gate 10-23　②中时 10-22（就业服务法线）　③Ground News / Respect Investment 10-23、Gate 10-23　④深圳电子商会转电子工程专辑 10-23　⑤CTWANT　⑥TIKR 共识经 Respect Investment　⑦StockAnalysis/TIKR 同上　⑧中时 20261022001578 全文</p>
+ </div>
+</section>
+
+<section class="alt">
+ <div class="wrap">
+  <h2>十 · 测算：员工分润 vs 股东回报（FY26 口径）</h2>
+  <p class="lede">数析 2026-10-26 09:15 交付，本章自取证据文件 §10 吸收（测算数字一律照录，未重新估算）。<strong>统一基数</strong>：FY26＝2025-10～2026-09（美光财年），分母默认 FY26 GAAP 净利 <strong>$849.69亿</strong>（取证 §5）；前三季净利＝全年 849.69 − Q4 377.01＝<strong>$472.68亿</strong>（推导，B级）。本章及下一章中"取证 §N"指同日取证据文件 notes/2026-10-24-micron-evidence.md 章节，"正文 N"指本报告章节。</p>
+
+  <h3>10.1 · 股东侧（实绩）</h3>
+  <table>
+   <thead><tr><th style="width:23%">项</th><th style="width:24%">数字</th><th style="width:27%">推导</th><th>来源/级别</th></tr></thead>
+   <tbody>
+    <tr><td>FY26 前三季回购＋派息</td><td class="num"><b>$10.9亿</b></td><td>—</td><td>Zacks 经 TradingView dc762dfaa094b <span class="tag">B级</span></td></tr>
+    <tr><td>季配息</td><td class="num"><b>$0.15/股</b>（FY26Q2 起 +30%；此前 $0.115）</td><td>FY25→FY26：0.115×1.30＝0.1495≈0.15 ✓</td><td>同上 <span class="tag">B级</span></td></tr>
+    <tr><td>年化股息估算</td><td class="num"><b>≈$6.6–6.8亿</b></td><td>0.15×4×稀释股数 1.10–1.13B</td><td>股数 FY25 口径≈1.10B（Yahoo Micron FQ4'25 稿）；FY26 股数数据不足→§10.5 第10项 <span class="tag ghost">C级</span></td></tr>
+    <tr><td>全年股东回报外推</td><td class="num"><b>≈$14–15亿</b></td><td>前三季节奏 10.9÷3×4≈14.5</td><td>假设外推 <span class="tag ghost">C级</span></td></tr>
+    <tr><td>前三季回报/同期净利</td><td class="num"><b>2.31%</b></td><td>10.9 ÷ 472.68</td><td>推导</td></tr>
+    <tr><td>回报收益率</td><td class="num"><b>≈0.12%</b></td><td>14.5 ÷ 市值 $1.24T（10-02，取证 §5）</td><td>推导</td></tr>
+    <tr><td>股东回报主体＝资本利得</td><td class="num">YTD <b>+273~280%</b>、12月约 +500%、52周 $192.40–$1,255</td><td>—</td><td>取证 §5 <span class="tag">B级</span></td></tr>
+   </tbody>
+  </table>
+
+  <h3>10.2 · 员工侧（各口径代入）</h3>
+  <table>
+   <thead><tr><th style="width:15%">口径</th><th style="width:25%">公式</th><th style="width:27%">代入</th><th style="width:21%">结果</th><th>级别</th></tr></thead>
+   <tbody>
+    <tr><td>旧 IPP 实绩（2025 台湾）</td><td>绩效经调整</td><td>≈<b>2.6 个月</b>薪资/人</td><td class="num">≈0.217×年薪</td><td><span class="tag">B</span>（工会口径，取证 §3；另见正文八·B 双口径 2.3/2.6）</td></tr>
+    <tr><td>感谢金占比</td><td>100 万新台币 ÷ 营业利益</td><td>工会估算</td><td class="num"><b>≈4.4%</b></td><td><span class="tag ghost">C</span>（工会单方，取证 §3；见正文八·D）</td></tr>
+    <tr><td>工会诉求①</td><td>FY26 一次性</td><td><b>83 个月</b>薪资奖金</td><td class="num">≈<b>6.9 年</b>薪资/人</td><td><span class="tag">B</span>（hkcna，取证 §3）</td></tr>
+    <tr><td>工会诉求②</td><td>FY27 起营业利益×<b>15%</b> 季度</td><td>FY26 营业利益未披露；毛利口径粗估 133.19B×80.7%≈107.5B − 营业费用（无数据）→ 约 $85–95B</td><td class="num">池≈<b>$128–143亿</b> ≈ 15–17%×FY26 净利</td><td><span class="tag ghost">C</span>（假设，§10.5 第9项）</td></tr>
+    <tr><td>公司新方案（10-22）</td><td>池＝季税后净利−下季预计 capex；50% 现金＋50% 股票</td><td>以 FY26 实绩粗代：849.69B − FY27 共识 capex $55B（取证 §5，TIKR）</td><td class="num">池≈<b>$300亿/年 ≈ 35.3%×净利</b>；÷ 全球 6 万+ 员工等分 ≈ <b>$49.95万/人</b>（理论上限，未按职级/递延折扣）</td><td><span class="tag">公式 B</span><span class="tag ghost">代入 C</span></td></tr>
+    <tr><td>同公式下行弹性</td><td>净利 − capex</td><td>FY27 净利若较 FY26 −50%（≈$425亿）：425−550</td><td class="num"><b>池≈0（负值归零）</b></td><td><span class="tag ghost">C</span>（情景）</td></tr>
+    <tr><td>同业锚</td><td>三星营业利益×<b>12%</b>（10.5% 股＋1.5% 现金）、SK 海力士×<b>10%</b>、台积电 2025 实发≈<b>10.6%×营业利益</b>（2,061.5 亿台币/9 万人、人均 264.28 万台币≈$8.3 万）</td><td>—</td><td class="num">量级对照</td><td><span class="tag">B</span>（取证 §3）</td></tr>
+   </tbody>
+  </table>
+  <p class="note">会计口径注：台湾「營業利益」＝此处"营业利益"，≈大陆口径"营业利润"；美光财报未分区域披露该科目，代入行均按上表标注级别处理。</p>
+
+  <div class="verdict">
+   <div class="q">10.3 · 一行对照（分母＝FY26 GAAP 净利 $849.69亿）</div>
+   <p><strong>股东现金回报 $10.9亿</strong>（前三季，2.3%×同期净利）｜<strong>capex 再投资 $307亿</strong>（36.1%）｜<strong>美光新方案池 ≈$300亿</strong>（35.3%）｜<strong>工会诉求池 ≈$128–143亿</strong>（15–17%）｜<strong>三星/海力士/台积电实绩 10–12%</strong>（营业利益口径）</p>
+  </div>
+
+  <h3>10.4 · 三条核心洞察</h3>
+  <p><strong>一、超级周期里股东回报的主体是资本利得而非现金。</strong>FY26 现金回报仅占净利 2.3%、收益率 ≈0.12%，股东"回报"主要由股价 +273~500% 兑现；而美光 RSU 历史上仅覆盖约四成台湾员工（取证 §3）——工会争的不是"奖金数额"而是<strong>把员工接入资本利得分配链</strong>；公司新方案 50% 股票正是对这一逻辑的回应。</p>
+  <p><strong>二、分润池与 capex 竞争同一笔钱。</strong>FY26 capex 占净利 36.1%，FY27 共识 capex $55B 达 FY26 净利 65%；"税后净利−下季 capex"公式使池随周期剧烈胀缩、<strong>下行年可为 0</strong>（见 10.2 情景行），员工拿到的是无保底高弹性池，股东拿的是刚性小额现金＋股价弹性。</p>
+  <p class="tight"><strong>三、量级差可写作对照。</strong>公司新方案池理论上限人均 ≈$50 万 vs 旧 IPP ≈2.6 个月薪；工会 83 个月诉求 ≈6.9 年薪；同池对比下，股东全年人均现金回报仅 ≈$0.96/股（14.5 亿÷1.13B 股，C级粗算）——但股东资本利得体量远超任何分润口径，这正是"4.4% vs 12%"情绪张力的算术背景。</p>
+
+  <h3>10.5 · 数据不足与验证路径（承接取证 §9 存疑编号，第 9–11 项）</h3>
+  <ol class="steps" start="9">
+   <li><strong>FY26 全年营业利益（GAAP/non-GAAP）与税率</strong>——"营业利益 15%"口径代入必需；路径：美光 FY2026 10-K（预计 2026-10 底/11 初提交），暂以 Q4 单季口径（取证 §5）近似。</li>
+   <li><strong>FY26 稀释股数与 FQ4 回购额</strong>——精确化年化股息与全年股东回报外推；路径：10-K 现金流量表（回购）＋财报股本表。</li>
+   <li><strong>美光台湾员工薪酬总额基数</strong>——把池换算为"×薪酬总额"倍数必需；财报不分区域披露，仅能以工会自述人数（桃园 2,335＋台中约 11,000，取证 §1）与薪资区间（正文八·C，低置信）估范围，不做点估计。</li>
+  </ol>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <h2>十一 · 繁简术语归一表（用字口径锁定）</h2>
+  <p class="lede">察言 2026-10-26 09:15 交付（"10-26 05:00 承诺项一"），本章自取证据文件 §11 吸收。用途：作品正文为简体中文，原始材料多为繁体（中央社/经济日报/中时/钜亨/Focus Taiwan）与日文转述用字（会員）。本表定义「原文 → 作品统一写法」的唯一口径，<strong>禁止同一稿内两制并存</strong>。全部条目由取证 §1–§10 已核材料＋正文现文用字统计（50 处"美光"、36 处"会员"、13 处"分润"、"卢东晖"4 处、"蔷琵"6 处/"昌比"2 处）归纳，未新增外部事实。</p>
+
+  <h3>11.1 · 输出总则</h3>
+  <table>
+   <thead><tr><th style="width:16%">规则</th><th>口径</th></tr></thead>
+   <tbody>
+    <tr><td><b>正文</b></td><td>一律简体；机构/媒体名用简体转写＋通用简称（中央社、经济日报、钜亨网、中时新闻网、联合新闻网；CTWANT 原名不译）</td></tr>
+    <tr><td><b>引文</b></td><td>直接引语若需保留原貌，用繁体＋简体对照；书名号内的文件/连署标题按简体转写（视为名称而非引文）</td></tr>
+    <tr><td><b>人名</b></td><td>首次出现「简体姓名（职衔）」；职衔未经原始披露核实者照录来源，不推测（如 Manish Bhatia 职衔待取证 §12 核实）</td></tr>
+    <tr><td><b>币种与单位</b></td><td>金额必带币种（美元／新台币／韩元）；"兆"（韩制）一律换算为"万亿"；"×个月"必须注明是月薪倍数</td></tr>
+    <tr><td><b>会计用语</b></td><td>台湾「營業利益」→ 作品用「营业利益」，测算表加注「≈大陆口径营业利润」；「稅後淨利」→「税后净利」</td></tr>
+    <tr><td><b>语感中性化</b></td><td>「廢上限」→「取消上限」；「抗爭/鬥爭」按原文引用，正文用「集体行动」</td></tr>
+   </tbody>
+  </table>
+
+  <h3>11.2 · 专名与术语对照（原文 → 作品统一写法）</h3>
+  <table>
+   <thead><tr><th style="width:34%">繁体/外文原文</th><th style="width:26%">作品统一写法</th><th>备注</th></tr></thead>
+   <tbody>
+    <tr><td>美光／美光科技／Micron Technology, Inc.（NASDAQ: MU）</td><td><b>美光</b></td><td>大陆俗称"镁光"不采用</td></tr>
+    <tr><td>桃園／臺中／苗栗銅鑼／後里區</td><td>桃园／台中／苗栗铜锣／后里区</td><td>见 11.3 陷阱 2</td></tr>
+    <tr><td>盧東暉</td><td><b>卢东晖</b></td><td>「暉」转「晖」，不作「卢东辉」（现文 4 处一致，勿改）</td></tr>
+    <tr><td>林哲瑞／王豫琪／魏哲家</td><td>林哲瑞／王豫琪／魏哲家</td><td>简繁同形</td></tr>
+    <tr><td>張善政／賴清德</td><td>张善政／赖清德</td><td>首次出现给职衔</td></tr>
+    <tr><td>台積電（官方繁体即作「台積電」）</td><td><b>台积电</b></td><td>反向转繁勿写「臺積電」</td></tr>
+    <tr><td>SK海力士（SK하이닉스系）／三星電子</td><td>SK海力士／三星电子</td><td>韩名统一"海力士"；DS 部門→DS 部门</td></tr>
+    <tr><td>集邦諮詢（TrendForce）</td><td>TrendForce 集邦咨询</td><td>首次出现中英并给</td></tr>
+    <tr><td>中央通訊社（CNA）／法新社（AFP）／路透社（Reuters）</td><td>中央社／法新社／路透社</td><td>Focus Taiwan＝中央社英文网，引其内容须回标中央社</td></tr>
+    <tr><td>經濟日報（udn）／鉅亨網／中時新聞網／CTWANT／財聯社／同花順／東方財富</td><td>经济日报／钜亨网／中时新闻网／CTWANT／财联社／同花顺／东方财富</td><td>同花顺、东方财富财富号＝C 级来源，正文仅标观点/口径冲突</td></tr>
+    <tr><td>勞動部／勞動關係司司長／專委</td><td>劳动部／劳动关系司司长／专委</td><td>姓名「王厚伟」照录</td></tr>
+    <tr><td>罷工／罷工權／罷工授權／糾察線</td><td>罢工／罢工权／罢工授权／纠察线</td><td>"罢工授权"＝合法授权投票，勿写成"罢工同意人数"（取证 §2 口径）</td></tr>
+    <tr><td>會員／會員大會／代表大會／理事長／連署書／意向書</td><td>会员／会员大会／代表大会／理事长／连署书／意向书</td><td>日文稿作「会員」，引日文原貌保留</td></tr>
+    <tr><td>分潤／分潤制／季度分潤獎金／獎金池</td><td>分润／分润制／季度分润奖金／奖金池</td><td>⚠️ 与「分红」严格区分：<b>分润</b>＝从营业利益/净利提拨给员工；<b>分红</b>＝股东盈余分派（正文十股东侧用"派息/回报"）</td></tr>
+    <tr><td>員工酬勞</td><td>员工酬劳</td><td>台积电章程用语，勿改"员工分红"</td></tr>
+    <tr><td>IPP（美光旧制，英文全称待取证 §12 核实）</td><td>IPP（旧绩效制）</td><td>中英对照待原始稿；正文暂用"旧 IPP 制度"</td></tr>
+    <tr><td>RSU</td><td>限制性股票单位（RSU）</td><td>首次出现给中英</td></tr>
+    <tr><td>輪班津貼／白班津貼／勞退提撥／有薪假</td><td>轮班津贴／白班津贴／劳退提拨／有薪假</td><td>「撥」→「拨」，勿作「提拔」</td></tr>
+    <tr><td>作二休二／12小時輪班</td><td>作二休二／12 小时轮班</td><td>同形</td></tr>
+    <tr><td>資本支出（capex）／自由現金流（FCF）／毛利率／稀釋股數／回購／配息</td><td>资本支出／自由现金流／毛利率／稀释股数／回购／配息</td><td>「淨」→「净」（勿作"静"）</td></tr>
+    <tr><td>新臺幣（NT$）／兆韓元</td><td>新台币／万亿韩元</td><td>1 兆（韩）＝1 万亿，必换算标注</td></tr>
+    <tr><td>強琵/薔琵／昌比（Champì）</td><td><b>蔷琵</b>（Champi）</td><td>现文「蔷琵」6 处、「昌比」2 处 → 统一主用"蔷琵"，异译一处注明；官方定名待核（取证 §9 第 7 项）</td></tr>
+    <tr><td>「財會後發」（取证 §4 现文）</td><td>财报公布后发放</td><td>⚠️ 疑为缩略误录，语义待核；作品改写为完整表述</td></tr>
+   </tbody>
+  </table>
+
+  <h3>11.3 · 繁↔简机械转换陷阱清单（本主题必查）</h3>
+  <table>
+   <thead><tr><th style="width:6%">#</th><th style="width:48%">陷阱</th><th>正确处置</th></tr></thead>
+   <tbody>
+    <tr><td class="num">1</td><td>台／臺：地名「臺中」→「台中」；但「台灣」（一般）与「臺灣」（正式文书、法规/工会文件抬头）在简体里合流</td><td>繁→简可合流；<b>简→繁回写禁止</b>，引原文按原文用字</td></tr>
+    <tr><td class="num">2</td><td>后／後：「后里区」是地名，回写繁体若机械转「後里」即错</td><td>地名"后里"锁定，不参与 后↔後 转换</td></tr>
+    <tr><td class="num">3</td><td>里／裡：「這裡」→「这里」，与行政"里"（后里区）不同字</td><td>分词处理</td></tr>
+    <tr><td class="num">4</td><td>干／幹：「幹部」→「干部」；反向勿留「干」（取证 §1「11 名干部」）</td><td>词表锁定</td></tr>
+    <tr><td class="num">5</td><td>制／製：「分潤制/制度」用"制"，「製造/製程」用"製"</td><td>简体合流后回写必错</td></tr>
+    <tr><td class="num">6</td><td>於／于：介词「於」→「于」；人名"于"不回写</td><td>词表锁定</td></tr>
+    <tr><td class="num">7</td><td>週／周：「兩週」→「两周」，作品时间跨度统一"周"</td><td>全文一致</td></tr>
+    <tr><td class="num">8</td><td>著／着：「顯著」→「显著」，不回写「著」</td><td>词表锁定</td></tr>
+    <tr><td class="num">9</td><td>撥／拔：「提撥」→「提拨」，易误"提拔"</td><td>人工校对</td></tr>
+    <tr><td class="num">10</td><td>暉／輝：人名「盧東暉」→「卢东晖」，机器易出"卢东辉"</td><td>人名白名单</td></tr>
+    <tr><td class="num">11</td><td>會／会 与日式「会員」</td><td>日文来源保留原字，简体正文用"会员"</td></tr>
+    <tr><td class="num">12</td><td>乾／干、髮／发、麵／面</td><td>本主题低风险，但"营业<b>利益</b> vs <b>利润</b>"须按 11.1 口径</td></tr>
+   </tbody>
+  </table>
+  <p class="note">执行状态：正文现文已按本表复核——"美光/卢东晖/蔷琵/会员/分润"等主用字与统计口径一致；本表吸收不改动正文既有用字，仅锁定后续回补（10-27 协商结果、取证 §12 IR 英文稿核对）时的统一口径。</p>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <b>选题 390｜P0 #353</b>　11个人的24小时——美光桃园罢工，和AI存储超级周期里被漏掉的那份工资单<br>
+  研析（research-analyst）主笔　｜　落盘 2026-10-26 03:40（Asia/Shanghai）　｜　核验时点 2026-10-26 03:20　｜　v2 落盘 2026-10-26 19:09（Asia/Shanghai）：吸收取证文件 §10（数析测算表）与 §11（察言归一表）为正文十/十一章<br>
+  正文约 10,374 汉字 ＋ 约 160 英文词　｜　内嵌 3 张 Chart.js 图表　｜　状态：<b>接近完成稿</b>——10-27 协商结果与台中连署后续为唯二待补节点，按约定窗口回补后即可终审
+ </div>
+</footer>
+
+<script>
+const AX = {grid:{color:'rgba(128,128,135,.18)'},ticks:{font:{size:12}}};
+if (window.Chart){
+ if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) Chart.defaults.animation = false;
+ Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+ Chart.defaults.color = '#6e6e73';
+
+ // Chart 1: 三组投票数字（log scale）
+ new Chart(document.getElementById('c_votes'), {
+  type:'bar',
+  data:{labels:['罢工授权同意票（10-07 开票）','否决公司方案反对票（10-23 开票）','实际罢工人数（10-22~23）'],
+   datasets:[{data:[1994,1633,11],
+    backgroundColor:['#1d1d1f','#0071e3','#c44536'],borderRadius:6,barThickness:42}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x.toLocaleString()+' 人'}}},
+   scales:{x:{type:'logarithmic',grid:{color:'rgba(128,128,135,.18)'},title:{display:true,text:'人数（对数刻度）'}},y:{grid:{display:false},ticks:{font:{size:13}}}}}
+ });
+
+ // Chart 2: 分润比例对照
+ new Chart(document.getElementById('c_share'), {
+  type:'bar',
+  data:{labels:['三星 DS ≈12%*','SK 海力士 10%','台积电 ~10.6%','美光 4.4%（工会估算）','工会诉求 15%'],
+   datasets:[{data:[12,10,10.6,4.4,15],
+    backgroundColor:['#1d1d1f','#3a3a3c','#6e6e73','#c44536','#0071e3'],borderRadius:6,barThickness:40}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'营业利益口径 ≈ '+c.parsed.y+'%'}}},
+   scales:{y:{grid:{color:'rgba(128,128,135,.18)'},title:{display:true,text:'占营业利益比例（%）'},max:17},x:{grid:{display:false},ticks:{font:{size:12}}}}}
+ });
+
+ // Chart 3: 利润十倍 vs capex 扣除
+ new Chart(document.getElementById('c_profit'), {
+  type:'bar',
+  data:{labels:['FY2025','FY2026','FY2027E（共识）'],
+   datasets:[
+    {label:'营收（亿美元）',data:[373.8,1331.9,null],backgroundColor:'#1d1d1f',borderRadius:6,yAxisID:'y'},
+    {label:'GAAP 净利（亿美元）',data:[85.4,849.7,null],backgroundColor:'#0071e3',borderRadius:6,yAxisID:'y'},
+    {label:'资本开支（亿美元）',data:[null,307,550],backgroundColor:'#c44536',borderRadius:6,yAxisID:'y'}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{labels:{boxWidth:12,font:{size:12}}}},
+   scales:{y:{grid:{color:'rgba(128,128,135,.18)'},title:{display:true,text:'亿美元'}},x:{grid:{display:false}}}}
+ });
+}
+</script>
+<script>
+(function(){var a=document.getElementById("showcase-backlink");
+var r=a.getBoundingClientRect();
+var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];
+a.setAttribute("data-dbg", "rect="+JSON.stringify({l:r.left,t:r.top,w:r.width,h:r.height})+
+ " | stack="+st.slice(0,4).map(function(e){return e.tagName+"."+(e.className||"").toString().split(" ")[0]+" bg="+getComputedStyle(e).backgroundColor;}).join(" || "));
+})();
+</script>
+<!-- 作品契约 · 断言声明：quote 均为正文逐字片段（数值+指标名），过 claim_gate G1/G2；
+     因果与解释性判断留在正文，不写成断言。三组投票数字（授权1,994/否决1,633/上街11）各自独立，禁止两两混用。 -->
+<script type="application/json" id="claims">
+[
+  {"value":"1,994票","label":"罢工授权投票同意票数","quote":"1,994是10月1–6日罢工授权投票的同意票数"},
+  {"value":"2,335名","label":"桃园工会会员数（自述）","quote":"桃园工会自述2,335名会员"},
+  {"value":"11人","label":"实际走上纠察线人数","quote":"10月22日实际走上纠察线的是11名工会干部时长24小时"},
+  {"value":"1,633人","label":"否决公司方案的会员票数","quote":"1,633人反对公司方案"},
+  {"value":"99.1%","label":"罢工授权投票同意占投票人比例","quote":"同意占投票人99.1%"},
+  {"value":"1,500→4,500元","label":"白班津贴调升幅度","quote":"白班津贴1,500→4,500元"},
+  {"value":"8%→10%","label":"劳退提拨比例","quote":"劳退提拨8%→10%"},
+  {"value":"约15,000人","label":"美光在台员工总数","quote":"美光在台员工约15,000人"}
+]
+</script></body>
+</html>

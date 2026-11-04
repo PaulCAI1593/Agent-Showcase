@@ -96,7 +96,7 @@ def bar_html(rel, meta):
         f'letter-spacing:.16em;text-transform:uppercase;font-size:11px}}'
         f'#{B} .sb-sep{{color:rgba(255,255,255,.2)}}'
         f'#{B} .sb-beat{{color:#a78bfa}}'
-        f'#{B} .sb-cnt{{color:rgba(255,255,255,.44)}}'
+        f'#{B} .sb-cnt{{color:rgba(255,255,255,.48)}}'  # 4.36:1(.44) 不达 WCAG AA 4.5:1 → .48 = 5.01:1
         f'#{B} .sb-back{{margin-left:auto;color:#f5e6c8;text-decoration:none;'
         f'border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;'
         f'font-size:11.5px;transition:background .2s,border-color .2s}}'

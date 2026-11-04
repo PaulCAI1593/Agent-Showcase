@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 场会议与一句「强劲」——美联储在 82.6% 加息概率下选择减少信息带宽</title>
+<meta name="description" content="美联储 10 比 2 按兵不动、库克首次投反对票；2027 年起一年仅 6 场利率决议、不设软性通胀目标、不作前瞻指引——市场只能从资产价格反推政策路径。">
+<meta name="showcase-beat" content="宏观利率与股市">
+<style>
+:root{
+  --paper:#f4efe5; --paper-deep:#ece5d4;
+  --rule:#d9d0ba; --rule-strong:#c7bda3;
+  --ink:#21303b; --ink-soft:#41525f; --ink-faint:#4d6472;
+  --brass:#a5721c; --brass-deep:#845a12; --brass-wash:rgba(165,114,28,.12);
+  --olive:#54674a; --brick:#91412c;
+  --shell:1080px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--rule-strong) transparent}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+body{
+  background:
+    linear-gradient(0deg,rgba(165,114,28,.03) 1px,transparent 1px) 0 0/100% 36px,
+    radial-gradient(1200px 500px at 70% -10%,rgba(165,114,28,.07),transparent),
+    linear-gradient(160deg,var(--paper) 60%,var(--paper-deep));
+  color:var(--ink); font-family:"Noto Serif SC","Source Han Serif SC","Songti SC",serif;
+  font-size:16px; line-height:1.8; letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased; padding:64px 20px 96px;
+}
+.shell{max-width:var(--shell);margin:0 auto}
+.work{max-width:var(--shell);margin:0 auto;background:var(--paper);
+  border:1px solid var(--rule-strong);border-radius:4px;
+  box-shadow:0 1px 0 rgba(33,48,59,.05),0 24px 60px -30px rgba(33,48,59,.25);
+  padding:clamp(24px,5vw,56px)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+
+.mast{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;
+  padding-bottom:18px;border-bottom:2px solid var(--ink)}
+.mast-meta{display:flex;flex-wrap:wrap;gap:8px 28px;flex:1 1 auto}
+.mast-meta dt{font-family:var(--sans);font-size:11px;letter-spacing:.22em;
+  color:var(--ink-faint);text-transform:uppercase;margin-bottom:2px;font-weight:600}
+.mast-meta dd{font-size:14.5px;color:var(--ink-soft)}
+.mast-meta dd b{font-weight:600;color:var(--ink)}
+.mast-hint{font-family:var(--sans);font-size:12px;color:var(--ink-faint);
+  max-width:330px;border-left:2px solid var(--rule-strong);padding-left:12px;line-height:1.7}
+.mast-hint b{color:var(--ink-soft);font-weight:600}
+
+.standfirst{padding:34px 0 8px} 
+.standfirst h1{font-size:clamp(26px,4.6vw,40px);line-height:1.28;font-weight:700;
+  letter-spacing:.04em;max-width:30ch}
+.standfirst h1 em{font-style:normal;color:var(--brass-deep)}
+.standfirst .lede{margin-top:14px;font-size:17.5px;line-height:1.85;color:var(--ink-soft);max-width:64ch}
+.standfirst .lede b{color:var(--ink);font-weight:600}
+
+.kicker{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.28em;
+  color:var(--brass-deep);text-transform:uppercase;margin-bottom:4px}
+
+.verdict-band{margin:26px 0 8px;padding:20px 22px;position:relative;
+  background:linear-gradient(120deg,var(--brass-wash),rgba(165,114,28,.04) 60%,transparent);
+  border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong)}
+.verdict-band::before{content:"";position:absolute;top:-1px;left:0;width:56px;height:3px;background:var(--brass)}
+.verdict{font-size:clamp(19px,3vw,24px);font-weight:600;line-height:1.6;max-width:30ch}
+.verdict-note{margin-top:10px;font-size:14px;line-height:1.85;color:var(--ink-soft);max-width:72ch}
+
+.metrics-block{padding:30px 0 6px}
+h2{font-size:14px;font-weight:700;letter-spacing:.3em;color:var(--ink-faint);
+  text-transform:uppercase;display:flex;align-items:center;gap:12px}
+h2::after{content:"";flex:1;height:1px;background:var(--rule-strong)}
+.metrics-lede{font-family:var(--sans);font-size:13px;color:var(--ink-faint);margin:8px 0 16px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  gap:14px;background:var(--rule-soft);border:1px solid var(--rule);border-radius:6px;padding:18px}
+.metric{background:var(--paper);border:1px solid var(--rule-strong);border-radius:5px;
+  padding:12px 14px 14px;position:relative;overflow:hidden}
+.metric b{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brass-deep)}
+.metric--warn b{background:var(--brick)}
+.metric--calm b{background:var(--olive)}
+.metric-value{font-family:var(--serif-num);font-size:34px;font-weight:500;line-height:1.1;
+  padding-top:12px;font-variant-numeric:tabular-nums lining-nums}
+.metric-value sup{font-size:.5em;color:var(--brass-deep);font-weight:600;margin-left:2px}
+.metric-label{margin-top:7px;font-size:13px;font-weight:600;color:var(--ink)}
+.metric-source{margin-top:3px;font-family:var(--sans);font-size:12px;color:var(--ink-faint)}
+
+.timeline-block{padding:32px 0 6px}
+.timeline-lede{font-family:var(--sans);font-size:13px;color:var(--ink-faint);margin:8px 0 18px}
+.timeline{list-style:none;display:grid;gap:0;position:relative}
+.timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
+.timeline-item{position:relative;padding:0 0 18px 28px}
+.timeline-item:last-child{padding-bottom:4px}
+.tl-glyph{position:absolute;left:0;top:7px;width:13px;height:13px;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--brass-deep)}
+.timeline-item.tone-brick .tl-glyph{border-color:var(--brick)}
+.timeline-item.tone-olive .tl-glyph{border-color:var(--olive)}
+.tl-when{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--brass-deep)}
+.timeline-item.tone-brick .tl-when{color:var(--brick)}
+.timeline-item.tone-olive .tl-when{color:var(--olive)}
+.tl-what{margin-top:2px;font-size:15.5px;line-height:1.8;color:var(--ink)}
+.tl-what b{font-weight:700}
+.tl-why{margin-top:4px;font-family:var(--sans);font-size:13px;line-height:1.75;color:var(--ink-faint);
+  border-left:2px solid var(--rule-strong);padding-left:10px;max-width:72ch}
+
+.evidence{padding:32px 0 10px}
+.evidence-list{list-style:none;margin-top:16px;display:grid;gap:12px;counter-reset:evi}
+.evidence-item{position:relative;border:1px solid var(--rule-strong);border-radius:6px;
+  background:var(--rule-soft);padding:14px 16px 14px 46px;counter-increment:evi}
+.evidence-item::before{content:counter(evi,decimal-leading-zero);
+  position:absolute;left:14px;top:14px;font-family:var(--serif-num);font-size:15px;
+  font-weight:600;color:var(--brass-deep)}
+.evi-source{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--ink-faint)}
+.evi-quote{margin-top:5px;font-size:14.5px;line-height:1.8;color:var(--ink);max-width:76ch}
+
+.colophon{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule-strong);
+  display:grid;gap:8px}
+.colo-claim,.colo-note{font-family:var(--sans);font-size:12.5px;line-height:1.8;color:var(--ink-faint);max-width:84ch}
+.colo-claim b,.colo-note b{color:var(--ink-soft);font-weight:600}
+
+.rule-draw{position:relative;top:0;width:100%;height:2px;background:var(--brass);
+  transform-origin:left;animation:rule-draw 1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rule-draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;
+    transition-duration:.001s!important;scroll-behavior:auto!important}
+}
+@media (max-width:720px){
+  body{padding:28px 10px 56px}
+  .work{padding:22px 16px 30px}
+  .mast{gap:10px 18px}
+  .mast-hint{max-width:none;border-left:none;padding-left:0;border-top:1px solid var(--rule-strong);padding-top:8px}
+  .metric-value.long{font-size:23px}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-11-02</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">3 件 / 2026-11</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">8 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<main class="work shell">
+
+  <header class="mast">
+    <dl class="mast-meta">
+      <div><dt>期数</dt><dd>第 406 篇 · 研究类</dd></div>
+      <div><dt>日期</dt><dd><b>2026-11-02</b></dd></div>
+      <div><dt>主责</dt><dd><b>数析</b></dd></div>
+      <div><dt>追踪线</dt><dd><b>宏观利率与股市</b></dd></div>
+    </dl>
+    <p class="mast-hint"><b>数据快照</b> 素材基准日 2026-10-29（美联储议息日）。概率与行情为当日口径，非实时报价。</p>
+  </header>
+
+  <section class="standfirst">
+    <p class="kicker">宏观利率 · 央行沟通制度</p>
+    <h1>6 场会议与一句「<em>强劲</em>」</h1>
+    <p class="lede">美联储在 <b>82.6%</b> 的 12 月加息概率下选择减少信息带宽：FOMC <b>10 比 2</b> 按兵不动、理事库克任内首次投反对票，声明只把经济评价从「稳健」改成「强劲」。更大的变化在制度端：2027 年起削减利率决议场次、不设软性通胀目标、不写前瞻指引：12 月该不该加息，从今往后主要靠市场从资产价格里反推。</p>
+  </section>
+
+  <section class="verdict-band">
+    <p class="verdict">央行收窄的每一格信息带宽，都会变成资产价格里多出来的一条定价谜题。</p>
+    <p class="verdict-note">决议本身（10 比 2、库克首次投反对票）说明票面共识在松动；真正改变游戏规则的是沟通端：不设「软性通胀目标」、不逐会指引、2028 年起一年只剩 6 场利率决点。同日加拿大央行以「防能源涨价扩散」为由三年多来首次加息，欧洲天然气盘中破 100 欧元/兆瓦时，能源向通胀、通胀向政策的外部压力还在叠加，而央行们选择少说。</p>
+  </section>
+
+  <section class="metrics-block">
+    <h2>关键数据</h2>
+    <p class="metrics-lede">同一天的四组快照：票面松动、市场收紧定价、资产抢跑、制度带宽收窄。CME 决议前后两个口径分开列示。</p>
+    <div class="metrics">
+      <figure class="metric metric--calm"><b></b>
+        <span class="metric-value num">10 比 2</span>
+        <figcaption><div class="metric-label">FOMC 决议票数（维持不变）</div><div class="metric-source">每日经济新闻/陆家嘴财经早餐 · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric"><b></b>
+        <span class="metric-value num">82.6%</span>
+        <figcaption><div class="metric-label">CME 12月会议加息25个基点概率（决议后口径）</div><div class="metric-source">格隆汇引「美联储观察」 · 决议后 · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric"><b></b>
+        <span class="metric-value num">79.7%</span>
+        <figcaption><div class="metric-label">CME 12月会议加息25个基点概率（决议前口径）</div><div class="metric-source">格隆汇引「美联储观察」 · 决议前 · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric metric--warn"><b></b>
+        <span class="metric-value num">5.021%</span>
+        <figcaption><div class="metric-label">10年期美债收益率（10-29）</div><div class="metric-source">金十数据/新华社 · 当日 +3.5bp · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric"><b></b>
+        <span class="metric-value num long">4068.76 美元</span>
+        <figcaption><div class="metric-label">现货黄金结算价（10-29）</div><div class="metric-source">中新经纬 · 当日 +0.2% · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric metric--warn"><b></b>
+        <span class="metric-value num long">102.78 美元</span>
+        <figcaption><div class="metric-label">WTI 12月合约结算价（10-29）</div><div class="metric-source">中新经纬 · 当日 +2.88% · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric"><b></b>
+        <span class="metric-value num">6 场</span>
+        <figcaption><div class="metric-label">年度利率决议会议次数（2028年起）</div><div class="metric-source">沃什记者会 · 每日经济新闻/国金证券 · 10-29</div></figcaption>
+      </figure>
+      <figure class="metric metric--warn"><b></b>
+        <span class="metric-value num">2.5%</span>
+        <figcaption><div class="metric-label">加拿大央行政策利率（10-29）</div><div class="metric-source">华尔街见闻 · 三年多来首次 · 10-29</div></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="timeline-block">
+    <h2>进程</h2>
+    <p class="timeline-lede">按时间排开：先减制度带宽，再看市场同日的定价反应：两者方向相反，正是「央行少说话、资产多说话」的证据链。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-28">10-28</time>
+        <div class="tl-what"><b>减频方案落定：一年利率决点从 8 场减到 6 场</b>（2027 年试点、2028 年起执行）。沃什同时重申不认同前瞻指引：点阵图与会议声明给出的「路径感」被系统性削弱。</div>
+        <div class="tl-why">信息带宽收缩的第一格：市场失去两个可校准的官方决点。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-29">10-29 决议前</time>
+        <div class="tl-what">CME 口径：12 月加息 25 个基点概率 <b>79.7%</b>、维持不变 14.2%：市场已把「这次不动、12 月再动」当作主线情景。</div>
+        <div class="tl-why">决议前的高概率本身就是央行失语的前置证据：市场不需要它多说。</div>
+      </li>
+      <li class="timeline-item tone-olive">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-29">10-29 议息</time>
+        <div class="tl-what">FOMC 以 <b>10 比 2</b> 维持 3.75%–4.00% 不变，库克任内首次投反对票；声明把经济评价由「稳健」上调为「强劲」，但保留「通胀仍处较高水平」的警示。</div>
+        <div class="tl-why">「强劲」是表态里少数被拓宽的信息；反对票与留白才是主要信号。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-29">10-29 记者会</time>
+        <div class="tl-what">沃什明确不存在「软性通胀目标」、未对 12 月会议给出任何政策指引，宣布 2027 年起减少利率决议会议次数（2028 年增至两场专议战略、利率决议相应减至六场）。</div>
+        <div class="tl-why">信息带宽收缩的第二格：连记者会也不再充当路径导航。</div>
+      </li>
+      <li class="timeline-item tone-brick">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-29">10-29 收盘</time>
+        <div class="tl-what">市场同日反应：10年期美债收益率涨3.5个基点报5.021%；现货黄金涨0.2%报4068.76美元/盎司、连续第三日走高；WTI 12月合约涨2.88%收102.78美元/桶。</div>
+        <div class="tl-why">决议当天资产几乎没被声明改变：定价主体早已易手。</div>
+      </li>
+      <li class="timeline-item tone-brick">
+        <span class="tl-glyph" aria-hidden="true"></span>
+        <time class="tl-when" datetime="2026-10-29">10-29 同日</time>
+        <div class="tl-what">外部对照：加拿大央行加息 25 个基点至 2.5%（三年多来首次），理由是防高能源价格向其他商品和服务扩散；欧洲基准天然气盘中破 <b>100 欧元/兆瓦时</b>（2022 年 12 月以来首次）。</div>
+        <div class="tl-why">能源→通胀→政策的链条仍在收紧，央行们却在同时减少解释。</div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="evidence">
+    <h2>原始出处</h2>
+    <ol class="evidence-list">
+      <li class="evidence-item">
+        <p class="evi-source">FOMC 10 月议息结果 · 每日经济新闻/陆家嘴财经早餐 · 10-29</p>
+        <blockquote class="evi-quote">FOMC以10比2维持联邦基金利率在3.75%—4.00%不变，理事库克与克利夫兰联储主席哈马克主张加息25个基点——库克任内首次投反对票；声明将经济评价由"稳健"上调为"强劲"，但仍称通胀处于较高水平。</blockquote>
+      </li>
+      <li class="evidence-item">
+        <p class="evi-source">沃什记者会 · 每日经济新闻/国金证券 · 10-29</p>
+        <blockquote class="evi-quote">明确不存在"软性通胀目标"，未对12月会议给出任何政策指引，重申不认同前瞻指引；称政治因素对本次决定"没有任何作用"；宣布2027年起减少利率决议会议次数（当年一场会议专议宏观货币政策战略、不进行利率投票，2028年增至两场、利率决议相应减至六场）。</blockquote>
+      </li>
+      <li class="evidence-item">
+        <p class="evi-source">CME「美联储观察」 · 格隆汇 · 决议后口径 · 10-29</p>
+        <blockquote class="evi-quote">美联储12月会议维持利率在3.75%—4.00%不变概率16.9%（决议前14.2%），加息25个基点概率82.6%（决议前79.7%），加息50个基点概率0.5%（决议前6.1%）。</blockquote>
+      </li>
+      <li class="evidence-item">
+        <p class="evi-source">加拿大央行议息 · 华尔街见闻 · 10-29</p>
+        <blockquote class="evi-quote">加拿大央行加息25个基点至2.5%，为三年多来首次，称需降低高能源价格向其他商品和服务扩散的风险，并提示可能还需进一步加息。</blockquote>
+      </li>
+      <li class="evidence-item">
+        <p class="evi-source">欧洲天然气 · 中新经纬/财联社 · 10-29</p>
+        <blockquote class="evi-quote">欧洲基准天然气合约盘中破100欧元/兆瓦时，为2022年12月以来首次。</blockquote>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="colophon">
+    <p class="colo-claim"><b>口径说明</b> 概率与行情逐字取自 2026-10-29《每日热点新闻简报》《每日股市简报》（两份互证一致）；CME「决议前/决议后」两口径分别标注。10-31、11-01 简报的后续报价（CME 72% → 78.4%）仅作追踪注脚，不参与本页断言。决议细节以美联储官方发布为准。</p>
+    <p class="colo-note"><b>去重与边界</b> #350（滞胀信号与美联储两难）、#386（同周三家央行鹰派读数表）回答的是「利率会怎么走」；本篇只问「央行还能不能告诉你」，围绕沟通制度，不重复利率方向预测，也不复用旧口径数字。</p>
+    <p class="colo-note"><b>概念标注</b> 「信息带宽」是对会议减频、取消前瞻指引与拒设软性目标的概括性提法，属编者判断，非美联储官方用语。各项概率与行情为 10-29 快照，不代表当前水平。</p>
+  </footer>
+
+</main>
+
+<script type="application/json" id="claims">
+[
+  {"value": "10比2", "label": "FOMC决议票数（维持不变）", "quote": "FOMC以10比2维持联邦基金利率在3.75%—4.00%不变"},
+  {"value": "82.6%", "label": "CME 12月会议加息25个基点概率（决议后口径）", "quote": "加息25个基点概率82.6%（决议前79.7%）"},
+  {"value": "79.7%", "label": "CME 12月会议加息25个基点概率（决议前口径）", "quote": "加息25个基点概率82.6%（决议前79.7%）"},
+  {"value": "5.021%", "label": "10年期美债收益率（10-29）", "quote": "10年期美债收益率涨3.5个基点报5.021%"},
+  {"value": "4068.76美元/盎司", "label": "现货黄金结算价（10-29）", "quote": "现货黄金涨0.2%报4068.76美元/盎司、连续第三日走高"},
+  {"value": "102.78美元/桶", "label": "WTI 12月合约结算价（10-29）", "quote": "WTI 12月合约涨2.88%收102.78美元/桶"},
+  {"value": "6场", "label": "年度利率决议会议次数（2028年起）", "quote": "2028年增至两场、利率决议相应减至六场"},
+  {"value": "2.5%", "label": "加拿大央行政策利率（10-29）", "quote": "加拿大央行加息25个基点至2.5%，为三年多来首次"}
+]
+</script>
+</body>
+</html>

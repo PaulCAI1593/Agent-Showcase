@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>466比5060 — A股年内新低日的冰与火 与 AI漫剧5连板</title>
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ink:#000000;
+    --panel:#0B0F14;
+    --panel-2:#111820;
+    --line:rgba(255,255,255,.10);
+
+    --ice-900:#071722;
+    --ice-600:#1B5A8C;
+    --ice-400:#4EA8E0;
+    --ice-200:#A9D9F5;
+
+    --fire-900:#1E0A05;
+    --fire-600:#C4391A;
+    --fire-400:#FF7A45;
+    --fire-200:#FFC7A3;
+
+    --text:#FFFFFF;
+    --muted:#98A2AE;
+    --dim:#5A6672;
+
+    --mix:0.5;
+    --accent: color-mix(in srgb, var(--ice-400) calc((1 - var(--mix)) * 100%), var(--fire-400));
+    --duo: linear-gradient(90deg, var(--ice-400) 0%, #9FB6C9 50%, var(--fire-400) 100%);
+    --duo-v: linear-gradient(180deg, var(--ice-400) 0%, #9FB6C9 50%, var(--fire-400) 100%);
+
+    --maxw:1180px;
+    --r:14px;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    font-size:16.5px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,p,blockquote,figure{margin:0}
+  ::selection{background:color-mix(in srgb, var(--accent) 40%, transparent);color:#fff}
+
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+
+  /* ============ 顶部氛围条 ============ */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:2px;
+    background:var(--duo);z-index:120;
+  }
+
+  /* ============ 页面光晕（随 mix 强弱互换） ============ */
+  .pageglow{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .pageglow i{position:absolute;display:block;border-radius:50%}
+  .pageglow .gi{
+    width:min(92vw,1100px);height:min(92vw,1100px);left:-26vw;top:-30vw;
+    background:radial-gradient(circle at 50% 50%, rgba(78,168,224,.20) 0%, rgba(78,168,224,.07) 38%, rgba(78,168,224,0) 66%);
+    opacity:calc(1 - var(--mix) * .80);
+  }
+  .pageglow .gf{
+    width:min(92vw,1100px);height:min(92vw,1100px);right:-26vw;bottom:-34vw;
+    background:radial-gradient(circle at 50% 50%, rgba(255,122,69,.19) 0%, rgba(255,122,69,.06) 38%, rgba(255,122,69,0) 66%);
+    opacity:calc(.20 + var(--mix) * .80);
+  }
+
+  main{position:relative;z-index:1}
+  .wrap{width:min(calc(100% - 48px), var(--maxw));margin-inline:auto}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(96px,14vh,150px) 0 clamp(78px,12vh,120px);
+    position:relative;
+  }
+  .eyebrow{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    font-size:12px;font-weight:500;letter-spacing:.22em;color:var(--muted);
+  }
+  .eyebrow::before{
+    content:"";width:5px;height:5px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 12px var(--accent);
+  }
+
+  .hero-duel{
+    display:grid;grid-template-columns:1fr 1px 1fr;
+    align-items:stretch;
+    margin:clamp(26px,4.4vh,44px) 0 clamp(26px,4.2vh,40px);
+    position:relative;
+  }
+  .hs{display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .hs.ice{text-align:right;padding-right:clamp(16px,3.4vw,42px)}
+  .hs.fire{text-align:left;padding-left:clamp(16px,3.4vw,42px)}
+
+  .hlabel{
+    font-size:12px;font-weight:500;letter-spacing:.2em;color:var(--muted);
+    margin-bottom:clamp(6px,1.2vh,12px);
+    display:flex;align-items:center;gap:8px;
+  }
+  .hs.ice .hlabel{justify-content:flex-end}
+  .hs.fire .hlabel{justify-content:flex-start}
+  .hlabel::before{content:"";width:16px;height:1px;background:currentColor;opacity:.5}
+  .hs.ice .hlabel::before{order:2}
+
+  .hnum{
+    font-size:clamp(52px, 11.5vw, 132px);
+    font-weight:600;line-height:1;letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+  }
+  .hs.ice .hnum{text-shadow:0 0 90px rgba(78,168,224,.28)}
+  .hs.fire .hnum{text-shadow:0 0 90px rgba(255,122,69,.24)}
+
+  .haxis{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:1px;justify-self:center}
+  .haxis .ln{width:1px;flex:1 1 0;min-height:14px}
+  .haxis .ln.t{background:linear-gradient(180deg, rgba(78,168,224,0) 0%, var(--ice-400) 55%, #9FB6C9 100%)}
+  .haxis .ln.b{background:linear-gradient(180deg, #9FB6C9 0%, var(--fire-400) 55%, rgba(255,122,69,0) 100%)}
+  .haxlabel{
+    flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    width:11px;height:104px;
+  }
+  .haxlabel > span{
+    display:block;white-space:nowrap;transform:rotate(90deg);
+    font-size:11px;font-weight:500;letter-spacing:.34em;line-height:1;color:var(--muted);
+  }
+
+  .sub > span,.meta > span{white-space:nowrap}
+  .sub{
+    font-size:clamp(16px,1.6vw,20px);font-weight:400;line-height:1.5;letter-spacing:-.2px;
+    color:rgba(255,255,255,.9);max-width:min(100%,980px);margin-inline:auto;text-align:center;text-wrap:balance;
+  }
+  .meta{
+    margin-top:20px;text-align:center;
+    font-size:12px;font-weight:500;letter-spacing:.04em;color:#78838F;
+  }
+
+  .scrollhint{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-size:10.5px;letter-spacing:.34em;color:var(--muted);opacity:.75;
+  }
+  .scrollhint i{width:1px;height:44px;background:linear-gradient(180deg, rgba(255,255,255,.30), rgba(255,255,255,0))}
+
+  /* ============ SECTION 通用 ============ */
+  section{padding:clamp(72px, 9vw, 120px) 0}
+  .kicker{
+    display:flex;align-items:center;gap:12px;
+    font-size:13px;font-weight:500;letter-spacing:.2em;color:var(--muted);
+    margin-bottom:18px;
+  }
+  .kicker::before{content:"";width:30px;height:1px;background:var(--duo)}
+
+  h2{
+    font-size:clamp(32px, 4.6vw, 46px);
+    font-weight:600;line-height:1.12;letter-spacing:-.02em;
+    text-wrap:balance;
+  }
+
+  /* ============ 01 开场 ============ */
+  .s1-head{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(28px,5vw,72px);align-items:start}
+  .s1-body p{font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.84);max-width:60ch}
+  .s1-body p + p{margin-top:18px}
+  .s1-body p:first-child{
+    font-size:clamp(19px,2.1vw,22px);line-height:1.6;color:#fff;letter-spacing:-.01em;
+    max-width:34em;
+  }
+
+  /* Duel bar */
+  .duelbar{
+    margin-top:clamp(44px,6vw,76px);
+    background:var(--panel);border-radius:var(--r);
+    padding:clamp(22px,3.2vw,40px);
+  }
+  .db-row{display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(18px,3vw,40px);align-items:end}
+  .db-axis{width:1px;align-self:stretch;background:var(--duo-v);opacity:.85;min-height:52px}
+  .db-meta{
+    display:flex;align-items:baseline;gap:10px;
+    font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--muted);
+    margin-bottom:14px;white-space:nowrap;
+  }
+  .db-side.ice .db-meta{justify-content:flex-end}
+  .db-side .db-n{
+    font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+    font-size:clamp(24px,2.6vw,32px);font-weight:600;letter-spacing:-.02em;color:#fff;
+  }
+  .db-side .db-u{font-size:12px;letter-spacing:.1em;color:var(--muted)}
+  .db-track{height:12px;background:rgba(255,255,255,.05);border-radius:980px;overflow:hidden}
+  .db-fill{
+    display:block;height:100%;width:100%;border-radius:980px;
+    transform:scaleX(0);transition:transform 900ms var(--ease);
+  }
+  .db-side.ice .db-fill{transform-origin:right center;background:linear-gradient(270deg, var(--ice-400), rgba(78,168,224,.35))}
+  .db-side.fire .db-fill{transform-origin:left center;width:9.2095%;background:linear-gradient(90deg, var(--fire-400), rgba(255,122,69,.35))}
+  .duelbar.in .db-fill{transform:scaleX(1)}
+  .duelbar.in .db-side.fire .db-fill{transition-delay:140ms}
+  .db-note{
+    margin-top:22px;font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--muted);
+    padding-top:16px;background:linear-gradient(180deg, var(--line), var(--line)) top left / 100% 1px no-repeat;
+  }
+
+  .callouts{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,32px);
+    margin-top:clamp(28px,3.6vw,44px);
+  }
+  .co{display:flex;align-items:center;gap:14px;font-size:clamp(20px,2.4vw,26px);font-weight:600;letter-spacing:-.01em}
+  .co.fire{justify-content:flex-end;text-align:right}
+  .co i{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+  .co.ice{color:var(--ice-200)}
+  .co.ice i{background:var(--ice-400);box-shadow:0 0 16px var(--ice-400)}
+  .co.fire{color:var(--fire-200)}
+  .co.fire i{background:var(--fire-400);box-shadow:0 0 16px var(--fire-400)}
+
+  /* ============ 02 对撞 ============ */
+  .s2-head{max-width:840px}
+  .lead{margin-top:20px;font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.72);max-width:56ch}
+
+  .mixer-wrap{
+    position:relative;z-index:40;
+    margin:clamp(30px,4vw,44px) 0 clamp(34px,5vw,56px);
+    padding:14px 0;
+    background:rgba(0,0,0,.86);
+  }
+  .mixer{
+    background:var(--panel);border-radius:18px;
+    padding:clamp(14px,2vw,20px) clamp(16px,2.4vw,26px) clamp(10px,1.6vw,14px);
+  }
+  .mixer-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .mixer-lab{font-size:11px;font-weight:500;letter-spacing:.22em;color:var(--dim)}
+  .readout{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:7px 14px;border-radius:980px;
+    background:color-mix(in srgb, var(--accent) 13%, transparent);
+    font-size:12.5px;font-weight:600;letter-spacing:.06em;color:#fff;white-space:nowrap;
+    transition:background .3s var(--ease);
+  }
+  .readout::before{
+    content:"";width:6px;height:6px;border-radius:50%;flex:0 0 auto;
+    background:var(--accent);box-shadow:0 0 10px var(--accent);
+  }
+
+  .track{
+    position:relative;height:44px;margin:0 13px;
+    cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;
+    border-radius:980px;
+    --p:50;
+  }
+  .track:focus{outline:none}
+  .track:focus-visible{outline:none}
+  .track:focus-visible .thumb{
+    box-shadow:
+      0 0 0 3px var(--ink),
+      0 0 0 5px var(--accent),
+      0 10px 30px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+  .track-base{
+    position:absolute;left:0;right:0;top:50%;height:4px;transform:translateY(-50%);
+    border-radius:980px;
+    background:linear-gradient(90deg, rgba(78,168,224,.30) 0%, rgba(159,182,201,.22) 50%, rgba(255,122,69,.30) 100%);
+  }
+  .track-duo{
+    position:absolute;left:0;right:0;top:50%;height:4px;transform:translateY(-50%);
+    border-radius:980px;background:var(--duo);
+    clip-path:inset(0 calc(100% - var(--p) * 1%) 0 0);
+  }
+  .thumb{
+    position:absolute;top:50%;left:calc(var(--p) * 1%);
+    width:26px;height:26px;border-radius:50%;
+    transform:translate(-50%,-50%);
+    background:var(--accent);
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--accent) 15%, transparent),
+      0 8px 26px color-mix(in srgb, var(--accent) 45%, transparent);
+    transition:box-shadow .2s var(--ease);
+    pointer-events:none;
+  }
+  .track:active .thumb{box-shadow:
+      0 0 0 9px color-mix(in srgb, var(--accent) 18%, transparent),
+      0 8px 30px color-mix(in srgb, var(--accent) 55%, transparent);}
+
+  .ticks{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
+  .tick{
+    appearance:none;border:0;background:none;padding:8px 2px;margin:0;
+    font-family:inherit;font-size:12px;font-weight:500;letter-spacing:.08em;
+    color:var(--muted);cursor:pointer;border-radius:6px;
+    transition:color .2s var(--ease),opacity .2s var(--ease);
+  }
+  .tick:hover{color:#fff}
+  .tick:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .tick.ice{color:var(--ice-200);opacity:calc(.55 + (1 - var(--mix)) * .45)}
+  .tick.fire{color:var(--fire-200);opacity:calc(.55 + var(--mix) * .45)}
+  .tick.mid{color:var(--dim);cursor:default;text-align:center}
+
+  /* 对撞行 */
+  .rows{position:relative;margin-top:clamp(14px,2vw,26px)}
+  .rows::before{
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;
+    transform:translateX(-50%);
+    background:var(--duo-v);opacity:.55;border-radius:2px;
+  }
+  .row{
+    display:grid;grid-template-columns:1fr 3px 1fr;
+    column-gap:clamp(26px,4.4vw,64px);
+    padding:clamp(16px,2vw,22px) 0;
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+  .row:first-child{border-top:0}
+  .row .axis{background:none}
+  .side{min-width:0}
+  .side.ice{text-align:right}
+  .side.fire{text-align:left}
+  .rl{font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--muted);line-height:1.5}
+  .rv{
+    display:flex;align-items:baseline;gap:7px;margin:7px 0 5px;
+    font-size:clamp(26px,2.9vw,34px);font-weight:600;line-height:1.08;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+    color:#fff;
+  }
+  .side.ice .rv{justify-content:flex-end}
+  .rv .u{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+  .rn{font-size:12.5px;line-height:1.5;color:#7E8A97}
+
+  /* 强调联动：data-side��--mix */
+  .side[data-side]{transition:opacity .18s linear,transform .18s linear}
+  .side[data-side="ice"]{opacity:calc(1 - var(--mix) * .58);transform:scale(calc(1 - var(--mix) * .03))}
+  .side[data-side="fire"]{opacity:calc(.42 + var(--mix) * .58);transform:scale(calc(.97 + var(--mix) * .03))}
+  .is-near .rv{text-shadow:0 0 30px color-mix(in srgb, var(--accent) 55%, transparent)}
+
+  /* 条形组 */
+  .groups{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:clamp(36px,5vw,60px)}
+  .bgroup{
+    display:flex;flex-direction:column;
+    background:var(--panel);border-radius:var(--r);
+    padding:clamp(20px,2.6vw,28px);
+    transition:opacity .18s linear,transform .18s linear;
+  }
+  .bgroup[data-side="ice"]{opacity:calc(1 - var(--mix) * .58);transform:scale(calc(1 - var(--mix) * .03))}
+  .bgroup[data-side="fire"]{opacity:calc(.42 + var(--mix) * .58);transform:scale(calc(.97 + var(--mix) * .03))}
+
+  .ghead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:26px}
+  .gh-l{display:flex;align-items:center;gap:10px;min-width:0}
+  .gtag{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;flex:0 0 auto;border-radius:6px;
+    background:rgba(255,255,255,.06);
+    font-size:11px;font-weight:600;letter-spacing:0;color:var(--muted);
+  }
+  .ghead h3{
+    font-size:clamp(18px,2vw,22px);font-weight:600;letter-spacing:-.2px;line-height:1.25;
+    white-space:nowrap;
+  }
+  .focus-badge{
+    flex:0 0 auto;font-size:10.5px;font-weight:600;letter-spacing:.14em;
+    padding:3px 8px;border-radius:980px;
+    color:var(--accent);
+    background:color-mix(in srgb, var(--accent) 14%, transparent);
+    opacity:0;transform:translateY(-3px);
+    transition:opacity .25s var(--ease),transform .25s var(--ease);
+  }
+  .is-near .focus-badge{opacity:1;transform:none}
+  .gh-r{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:0 0 auto;text-align:right}
+  .gunit,.gscale{font-size:11px;font-weight:500;letter-spacing:.04em;color:#7C8894;white-space:nowrap}
+
+  .bar-row + .bar-row{margin-top:22px}
+  .bar-row:last-of-type{margin-bottom:22px}
+  .bar-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:9px}
+  .bl{font-size:13px;font-weight:500;color:rgba(255,255,255,.86);letter-spacing:.02em;line-height:1.45}
+  .bv{
+    font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:#fff;white-space:nowrap;
+    font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+  }
+  .bv .bn{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.04em;margin-left:4px}
+  .bar-line{
+    position:relative;height:9px;border-radius:980px;overflow:hidden;
+    background:rgba(255,255,255,.05);
+    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 25%);
+  }
+  .bar-fill{
+    display:block;height:100%;width:var(--w,0%);min-width:5px;border-radius:980px;
+    transform:scaleX(0);transform-origin:left center;
+    transition:transform 900ms var(--ease);transition-delay:var(--d,0ms);
+  }
+  .bgroup[data-side="ice"] .bar-fill{background:linear-gradient(90deg, rgba(78,168,224,.40), var(--ice-400) 88%)}
+  .bgroup[data-side="fire"] .bar-fill{background:linear-gradient(90deg, rgba(255,122,69,.38), var(--fire-400) 88%)}
+  .bgroup.in .bar-fill{transform:scaleX(1)}
+  .bar-note{margin-top:7px;font-size:11.5px;color:#6E7A87;line-height:1.45}
+
+  .gfoot{
+    margin-top:auto;padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.07);
+    font-size:12.5px;line-height:1.6;color:var(--muted);
+  }
+
+  .caliber{
+    margin-top:clamp(28px,4vw,44px);
+    padding-top:20px;border-top:1px solid rgba(255,255,255,.08);
+    font-size:12px;line-height:1.7;color:var(--muted);letter-spacing:.01em;max-width:96ch;
+  }
+
+  /* ============ 03 结论 ============ */
+  .quote{
+    position:relative;
+    background:var(--panel);border-radius:var(--r);
+    padding:clamp(28px,4.4vw,56px) clamp(24px,4vw,56px);
+    overflow:hidden;
+  }
+  .quote::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--duo-v);
+  }
+  .quote blockquote{
+    font-size:clamp(24px,3.2vw,38px);font-weight:600;line-height:1.45;letter-spacing:-.01em;
+    color:#fff;text-wrap:pretty;max-width:24em;
+  }
+  .qsign{margin-top:26px;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .card{
+    background:var(--panel-2);border-radius:var(--r);
+    padding:clamp(22px,2.6vw,30px);
+    display:flex;flex-direction:column;
+  }
+  .cnum{font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--dim);margin-bottom:14px}
+  .card h3{font-size:clamp(18px,1.9vw,20px);font-weight:600;line-height:1.35;letter-spacing:-.2px;margin-bottom:12px}
+  .card p{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.72)}
+
+  /* ============ FOOTER ============ */
+  footer{
+    position:relative;z-index:1;
+    margin-top:clamp(48px,7vw,96px);
+    padding:clamp(34px,4vw,52px) 0 64px;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  footer p{font-size:12px;line-height:1.8;color:#6E7A87;letter-spacing:.02em;max-width:88ch}
+  footer p + p{margin-top:8px;color:#5F6B78}
+
+  /* ============ 入场动效 ============ */
+  html.js .rev{opacity:0;transform:translateY(16px)}
+  html.js .rev.in{opacity:1;transform:none;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+
+  @keyframes slideFromLeft{from{opacity:0;transform:translate3d(-38px,0,0)}to{opacity:1;transform:none}}
+  @keyframes slideFromRight{from{opacity:0;transform:translate3d(38px,0,0)}to{opacity:1;transform:none}}
+  @keyframes axisGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes fadeUp{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+
+  .hs.ice{animation:slideFromLeft .58s var(--ease) both .06s}
+  .hs.fire{animation:slideFromRight .58s var(--ease) both .06s}
+  .haxis .ln{animation:axisGrow .55s var(--ease) both .12s;transform-origin:center}
+  .haxlabel{animation:fadeUp .5s var(--ease) both .42s}
+  .hlabel,.sub,.meta,.eyebrow,.scrollhint{animation:fadeUp .55s var(--ease) both}
+  .eyebrow{animation-delay:.02s}
+  .sub{animation-delay:.34s}
+  .meta{animation-delay:.44s}
+  .scrollhint{animation-delay:.6s}
+
+  /* ============ 响应式 ============ */
+  @media (min-width:900px){
+    .mixer-wrap{
+      position:sticky;top:0;
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      background:linear-gradient(180deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.97) 84%, rgba(0,0,0,0) 100%);
+      padding-top:12px;padding-bottom:18px;
+    }
+  }
+  @media (max-width:899px){
+    .s1-head{grid-template-columns:1fr;gap:26px}
+    .groups{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .db-row{grid-template-columns:1fr 1px 1fr;gap:20px}
+    .card{padding:24px}
+  }
+  @media (max-width:599px){
+    body{font-size:16px}
+    .wrap{width:min(calc(100% - 40px), var(--maxw))}
+    section{padding:72px 0}
+    .hero{padding:88px 0 96px}
+
+    .hero-duel{grid-template-columns:1fr;margin:26px 0 30px}
+    .hs.ice,.hs.fire{text-align:center;padding:0}
+    .hs.ice .hlabel,.hs.fire .hlabel{justify-content:center}
+    .hs.ice .hlabel::before{order:0}
+    .hnum{font-size:clamp(52px,17vw,96px)}
+    .haxis{width:100%;flex-direction:row;gap:12px;margin:18px 0}
+    .haxis .ln{width:auto;height:1px;flex:1 1 auto;min-height:0;transform-origin:center}
+    .haxis .ln.t{background:linear-gradient(90deg, rgba(78,168,224,0), var(--ice-400))}
+    .haxis .ln.b{background:linear-gradient(90deg, var(--fire-400), rgba(255,122,69,0))}
+    .haxlabel{width:auto;height:auto;animation:none;opacity:1}
+    .haxlabel > span{transform:none;font-size:10px;letter-spacing:.2em}
+    .scrollhint{bottom:18px}
+
+    .db-row{grid-template-columns:1fr}
+    .db-axis{width:100%;height:1px;min-height:0;background:var(--duo)}
+    .db-side.ice .db-meta{justify-content:flex-start}
+    .db-side.fire .db-meta{justify-content:flex-start}
+    .duelbar{padding:20px}
+    .db-note{font-size:11.5px}
+
+    .callouts{grid-template-columns:1fr;gap:10px;margin-top:26px}
+    .co.fire{justify-content:flex-start;text-align:left}
+
+    .mixer-wrap{padding:0}
+    .mixer{border-radius:14px;padding:12px 14px 8px}
+    .mixer-top{margin-bottom:2px}
+    .mixer-lab{font-size:10px;letter-spacing:.16em}
+    .readout{font-size:11.5px;padding:6px 11px;gap:7px}
+    .tick{font-size:10.5px;letter-spacing:0;padding:8px 0}
+    .ticks{gap:6px}
+
+    .rows::before{display:none}
+    .row{grid-template-columns:1fr;column-gap:0;row-gap:20px;padding:20px 0}
+    .row .axis{
+      display:block;height:1px;width:100%;
+      background:var(--duo);opacity:.6;border-radius:2px;
+    }
+    .side.ice{text-align:left;border-left:2px solid rgba(78,168,224,.45);padding-left:14px}
+    .side.fire{text-align:left;border-left:2px solid rgba(255,122,69,.45);padding-left:14px}
+    .side.ice .rv{justify-content:flex-start}
+    .rv{font-size:28px;margin:6px 0 4px}
+
+    .bgroup{padding:20px 18px}
+    .ghead{margin-bottom:22px;flex-wrap:wrap;gap:10px}
+    .ghead h3{font-size:17px}
+    .focus-badge{order:3}
+    .gh-r{width:100%;flex-direction:row;justify-content:space-between;align-items:center;margin-top:-6px}
+
+    .quote{padding:26px 22px}
+    .quote blockquote{font-size:22px;line-height:1.5}
+    .cards{margin-top:14px}
+    footer p{font-size:11.5px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-delay:0ms !important;transition-duration:.001ms !important}
+    html.js .rev{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-20</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">27 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">2 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* ============ 入场动效 ============ */ html.js .rev{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<script>document.documentElement.classList.add("js");</script>
+<div class="topbar" aria-hidden="true"></div>
+<div class="pageglow" aria-hidden="true"><i class="gi"></i><i class="gf"></i></div>
+
+<main>
+
+  <!-- ============ SECTION 0 · HERO ============ -->
+  <header class="hero wrap">
+    <p class="eyebrow">2026-10-15 · A股盘中快照</p>
+
+    <div class="hero-duel">
+      <div class="hs ice">
+        <div class="hlabel">上涨家数</div>
+        <div class="hnum num" data-count="466" data-dec="0">466</div>
+      </div>
+
+      <div class="haxis" aria-hidden="true">
+        <span class="ln t"></span>
+        <span class="haxlabel"><span>半日涨跌家数比</span></span>
+        <span class="ln b"></span>
+      </div>
+
+      <div class="hs fire">
+        <div class="hlabel">下跌家数</div>
+        <div class="hnum num" data-count="5060" data-dec="0">5060</div>
+      </div>
+    </div>
+
+    <h1 class="sub"><span>同一天，同一张行情截图 ——</span> <span>指数创年内新低，AI漫剧逆势5连板</span></h1>
+    <p class="meta"><span>数据来源：股市简报 2026-10-15 ｜</span> <span>本页为叙事演示，不构成投资建议</span></p>
+
+    <div class="scrollhint" aria-hidden="true"><span>向下</span><i></i></div>
+  </header>
+
+  <!-- ============ SECTION 1 · 开场 ============ -->
+  <section id="s1">
+    <div class="wrap">
+      <div class="s1-head rev">
+        <div>
+          <p class="kicker">01 · 开场</p>
+          <h2>同一张截图，两个世界</h2>
+        </div>
+        <div class="s1-body">
+          <p>10月15日盘中，沪指跌1.98%至3692.65点，刷新年内新低；创业板指跌3.42%，成长股杀跌更重。</p>
+          <p>同一时段，半日行情里466只个股上涨，5060只下跌。涨停33只。</p>
+          <p>另一组数字却在往上走：AI漫剧方向的慈文传媒走出5连板，欢瑞世纪5天3板，读者传媒涨停。两组数字都真实，都属于这一天。</p>
+        </div>
+      </div>
+
+      <div class="duelbar" id="duelbar">
+        <div class="db-row">
+          <div class="db-side ice" data-side="ice">
+            <div class="db-meta">下跌 <span class="db-n num" data-count="5060" data-dec="0">5060</span> <span class="db-u">只</span></div>
+            <div class="db-track"><i class="db-fill"></i></div>
+          </div>
+          <div class="db-axis" aria-hidden="true"></div>
+          <div class="db-side fire" data-side="fire">
+            <div class="db-meta">上涨 <span class="db-n num" data-count="466" data-dec="0">466</span> <span class="db-u">只</span></div>
+            <div class="db-track"><i class="db-fill"></i></div>
+          </div>
+        </div>
+        <p class="db-note">同一刻度（单位：只），下跌家数约为上涨家数的 10.9 倍</p>
+      </div>
+
+      <div class="callouts rev">
+        <div class="co ice" data-side="ice"><i aria-hidden="true"></i>平均数的跌</div>
+        <div class="co fire" data-side="fire"><i aria-hidden="true"></i>选矿的涨</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 2 · 对撞 ============ -->
+  <section id="s2">
+    <div class="wrap">
+      <div class="s2-head rev">
+        <p class="kicker">02 · 对撞</p>
+        <h2>冰与火的正面相遇</h2>
+        <p class="lead">拖动下面的滑块，把"市场视角"在指数与题材之间移动。数据不动，变的是你看见哪一侧。</p>
+      </div>
+
+      <div class="mixer-wrap">
+        <div class="mixer">
+          <div class="mixer-top">
+            <span class="mixer-lab">市场视角</span>
+            <span class="readout" id="readout">对撞｜冰火同时在场</span>
+          </div>
+
+          <div class="track" id="track" role="slider" tabindex="0"
+               aria-label="市场视角：冰到火"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+               aria-valuetext="对撞｜冰火同时在场">
+            <span class="track-base" aria-hidden="true"></span>
+            <span class="track-duo" aria-hidden="true"></span>
+            <span class="thumb" aria-hidden="true"></span>
+          </div>
+
+          <div class="ticks">
+            <button type="button" class="tick ice" data-jump="0">冰 · 指数与资金</button>
+            <span class="tick mid" aria-hidden="true">对撞</span>
+            <button type="button" class="tick fire" data-jump="100">火 · 题材与抱团</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 对撞行 -->
+      <div class="rows">
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">沪指收盘</div>
+            <div class="rv"><span class="num" data-count="3692.65" data-dec="2">3692.65</span><span class="u">点</span></div>
+            <div class="rn">跌1.98%，年内新低</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">慈文传媒</div>
+            <div class="rv"><span class="num" data-count="5" data-dec="0">5</span><span class="u">连板</span></div>
+            <div class="rn">AI漫剧</div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">创业板指</div>
+            <div class="rv"><span class="num" data-count="3.42" data-dec="2" data-pre="−" data-post="%">−3.42%</span></div>
+            <div class="rn">成长股跌幅更深</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">欢瑞世纪</div>
+            <div class="rv">5天3板</div>
+            <div class="rn">AI漫剧</div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">下跌家数</div>
+            <div class="rv"><span class="num" data-count="5060" data-dec="0">5060</span><span class="u">只</span></div>
+            <div class="rn">半日</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">上涨家数</div>
+            <div class="rv"><span class="num" data-count="466" data-dec="0">466</span><span class="u">只</span></div>
+            <div class="rn">半日</div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">电子板块主力净流出</div>
+            <div class="rv"><span class="num" data-count="91" data-dec="0" data-pre="超">超91</span><span class="u">亿</span></div>
+            <div class="rn">资金撤离</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">涨停家数</div>
+            <div class="rv"><span class="num" data-count="33" data-dec="0">33</span><span class="u">只</span></div>
+            <div class="rn">半日</div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">两融余额</div>
+            <div class="rv"><span class="num" data-count="107.54" data-dec="2" data-pre="−">−107.54</span><span class="u">亿</span></div>
+            <div class="rn">降至 25350.92 亿</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">银行板块北向持仓</div>
+            <div class="rv"><span class="num" data-count="47" data-dec="0" data-pre="+" data-post="%">+47%</span></div>
+            <div class="rn">单季持股市值增幅居首</div>
+          </div>
+        </div>
+
+        <div class="row rev">
+          <div class="side ice" data-side="ice">
+            <div class="rl">北向持仓</div>
+            <div class="rv"><span class="num" data-count="5500" data-dec="0" data-pre="回落超">回落超5500</span><span class="u">亿</span></div>
+            <div class="rn">较二季度末，三季度末</div>
+          </div>
+          <div class="axis" aria-hidden="true"></div>
+          <div class="side fire" data-side="fire">
+            <div class="rl">读者传媒</div>
+            <div class="rv">涨停</div>
+            <div class="rn">AI漫剧</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 关键数据条形对比 -->
+      <div class="groups">
+
+        <!-- A -->
+        <figure class="bgroup" data-side="ice">
+          <div class="ghead">
+            <div class="gh-l"><span class="gtag">A</span><h3>冰 · 资金抽离</h3></div>
+            <div class="gh-r"><span class="gunit">单位：亿元</span><span class="gscale">刻度 0–5500</span></div>
+            <span class="focus-badge">焦点</span>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">北向持仓回落</span><span class="bv num" data-count="5500" data-dec="0" data-post="+">5500+</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:100%;--d:0ms"></i></div>
+            <div class="bar-note">较二季度末→三季度末</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">两融余额净减少</span><span class="bv num" data-count="107.54" data-dec="2">107.54</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:1.955%;--d:80ms"></i></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">电子板块主力净流出</span><span class="bv num" data-count="91" data-dec="0" data-post="+">91+</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:1.655%;--d:160ms"></i></div>
+          </div>
+
+          <figcaption class="gfoot">资金在离开：北向撤退的量级是电子板块单日流出的 60 倍以上</figcaption>
+        </figure>
+
+        <!-- B -->
+        <figure class="bgroup" data-side="fire">
+          <div class="ghead">
+            <div class="gh-l"><span class="gtag">B</span><h3>火 · 市场情绪</h3></div>
+            <div class="gh-r"><span class="gunit">单位：只</span><span class="gscale">刻度 0–466</span></div>
+            <span class="focus-badge">焦点</span>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">上涨家数（半日）</span><span class="bv num" data-count="466" data-dec="0">466</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:100%;--d:0ms"></i></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">涨停家数（半日）</span><span class="bv num" data-count="33" data-dec="0">33</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:7.082%;--d:80ms"></i></div>
+          </div>
+
+          <figcaption class="gfoot">火的那一侧，同样是少数：33只涨停，只是466只上涨里的零头</figcaption>
+        </figure>
+
+        <!-- C -->
+        <figure class="bgroup" data-side="fire">
+          <div class="ghead">
+            <div class="gh-l"><span class="gtag">C</span><h3>火 · 连板梯队</h3></div>
+            <div class="gh-r"><span class="gunit">单位：板</span><span class="gscale">刻度 0–5</span></div>
+            <span class="focus-badge">焦点</span>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">慈文传媒 <span class="bn">（5连板）</span></span><span class="bv"><span class="num" data-count="5" data-dec="0">5</span>板</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:100%;--d:0ms"></i></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">欢瑞世纪 <span class="bn">（5天3板）</span></span><span class="bv"><span class="num" data-count="3" data-dec="0">3</span>板</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:60%;--d:80ms"></i></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">读者传媒 <span class="bn">（涨停）</span></span><span class="bv"><span class="num" data-count="1" data-dec="0">1</span>板</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:20%;--d:160ms"></i></div>
+          </div>
+
+          <figcaption class="gfoot">题材内部有清晰梯队，不是随机脉冲</figcaption>
+        </figure>
+
+        <!-- D -->
+        <figure class="bgroup" data-side="ice">
+          <div class="ghead">
+            <div class="gh-l"><span class="gtag">D</span><h3>冰 · 指数跌幅</h3></div>
+            <div class="gh-r"><span class="gunit">单位：%</span><span class="gscale">刻度 0–3.5</span></div>
+            <span class="focus-badge">焦点</span>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">创业板指</span><span class="bv num" data-count="3.42" data-dec="2" data-pre="−" data-post="%">−3.42%</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:97.715%;--d:0ms"></i></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bl">沪指</span><span class="bv num" data-count="1.98" data-dec="2" data-pre="−" data-post="%">−1.98%</span></div>
+            <div class="bar-line"><i class="bar-fill" style="--w:56.571%;--d:80ms"></i></div>
+          </div>
+
+          <figcaption class="gfoot">成长端杀跌更重，创业板跌幅接近沪指的 1.7 倍</figcaption>
+        </figure>
+
+      </div>
+
+      <p class="caliber">口径：所有数据取自股市简报2026-10-15；"半日"为当日盘中数据。条形以各组自身刻度绘制，不同组之间量纲不同、不可横向比较。</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3 · 结论 ============ -->
+  <section id="s3">
+    <div class="wrap">
+      <p class="kicker rev">03 · 结论</p>
+
+      <figure class="quote rev">
+        <blockquote>"指数的跌是平均数的跌，题材的涨是选矿的涨——这不是牛熊切换，是资金在AI叙事上的结构性抱团。"</blockquote>
+        <figcaption class="qsign">—— 10月15日A股盘面速写</figcaption>
+      </figure>
+
+      <div class="cards">
+        <article class="card rev">
+          <div class="cnum">01</div>
+          <h3>跌的不是"市场"，是"平均数"</h3>
+          <p>5060只下跌的同时，仍有466只上涨、33只涨停。普跌不会留下33个涨停位子，这是分化，不是崩塌。</p>
+        </article>
+        <article class="card rev">
+          <div class="cnum">02</div>
+          <h3>抱团有高度，也有梯队</h3>
+          <p>AI漫剧方向里，慈文传媒5连板、欢瑞世纪5天3板、读者传媒涨停。叙事内部有承接，不是孤立的一根阳线。</p>
+        </article>
+        <article class="card rev">
+          <div class="cnum">03</div>
+          <h3>钱在离场，也在选矿</h3>
+          <p>两融余额单日减107.54亿至25350.92亿，北向持仓较二季度末回落超5500亿，电子板块主力净流出超91亿；资金撤出的是"面"，留下的是"点"。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>数据来源：股市简报 2026-10-15（半日数据截至当日盘中）｜ 视觉：绘界 ｜ 交互：码匠</p>
+    <p>免责声明：本文为基于公开行情简报的叙事性信息图，不构成任何投资建议。股市有风险，决策需谨慎。</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var track = document.getElementById("track");
+  var readout = document.getElementById("readout");
+  var ticks = document.querySelectorAll("[data-jump]");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 状态 ---------- */
+  var pos = 50;                       // 0..100
+  var TIERS = [
+    { max: 0.25, text: "冰｜指数与资金" },
+    { max: 0.75, text: "对撞｜冰火同时在场" },
+    { max: 1.01, text: "火｜题材与抱团" }
+  ];
+
+  var sided = Array.prototype.slice.call(document.querySelectorAll("[data-side]"));
+  var sidedInfo = sided.map(function (el) {
+    return { el: el, v: el.getAttribute("data-side") === "ice" ? 0 : 1, near: null };
+  });
+
+  function tierText(mix) {
+    for (var i = 0; i < TIERS.length; i++) {
+      if (mix <= TIERS[i].max) return TIERS[i].text;
+    }
+    return TIERS[TIERS.length - 1].text;
+  }
+
+  /* ---------- 渲染 ---------- */
+  function paint(next, silent) {
+    pos = Math.max(0, Math.min(100, next));
+    var mix = pos / 100;
+
+    root.style.setProperty("--mix", mix.toFixed(4));
+    track.style.setProperty("--p", pos.toFixed(2));
+
+    var t = tierText(mix);
+    if (readout.textContent !== t) readout.textContent = t;
+
+    if (!silent) {
+      track.setAttribute("aria-valuenow", String(Math.round(pos)));
+      track.setAttribute("aria-valuetext", t);
+    }
+
+    // 强调联动：|side - mix| 越小越靠前
+    for (var i = 0; i < sidedInfo.length; i++) {
+      var it = sidedInfo[i];
+      var d = Math.abs(it.v - mix);
+      var near = d <= 0.25;
+      if (near !== it.near) {
+        it.near = near;
+        it.el.classList.toggle("is-near", near);
+      }
+    }
+  }
+
+  /* ---------- 指针 ---------- */
+  var dragging = false;
+
+  function posFromX(clientX) {
+    var r = track.getBoundingClientRect();
+    if (!r.width) return pos;
+    return ((clientX - r.left) / r.width) * 100;
+  }
+
+  track.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    dragging = true;
+    if (track.setPointerCapture) {
+      try { track.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+    track.focus({ preventScroll: true });
+    paint(posFromX(e.clientX));
+    e.preventDefault();
+  });
+
+  track.addEventListener("pointermove", function (e) {
+    if (!dragging) return;
+    paint(posFromX(e.clientX), true);
+    e.preventDefault();
+  });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    if (track.releasePointerCapture && e && e.pointerId != null) {
+      try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
+    paint(pos); // 收尾同步一次 aria
+  }
+  track.addEventListener("pointerup", endDrag);
+  track.addEventListener("pointercancel", endDrag);
+  track.addEventListener("lostpointercapture", endDrag);
+
+  /* ---------- 键盘 ---------- */
+  track.addEventListener("keydown", function (e) {
+    var k = e.key, p = pos, handled = true;
+    switch (k) {
+      case "ArrowLeft": case "ArrowDown": p = pos - 2; break;
+      case "ArrowRight": case "ArrowUp": p = pos + 2; break;
+      case "Home": p = 0; break;
+      case "End": p = 100; break;
+      case "PageDown": p = pos - 10; break;
+      case "PageUp": p = pos + 10; break;
+      default: handled = false;
+    }
+    if (!handled) return;
+    e.preventDefault();
+    paint(p);
+  });
+
+  /* ---------- 两端标签 ---------- */
+  Array.prototype.forEach.call(ticks, function (b) {
+    b.addEventListener("click", function () {
+      paint(parseFloat(b.getAttribute("data-jump")));
+    });
+  });
+
+  /* ---------- 数字 count-up ---------- */
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+  function fmt(v, dec) {
+    return v.toFixed(dec);
+  }
+  function countUp(el) {
+    if (el.dataset.done === "1") return;
+    el.dataset.done = "1";
+
+    var target = parseFloat(el.getAttribute("data-count"));
+    var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
+    var pre = el.getAttribute("data-pre") || "";
+    var post = el.getAttribute("data-post") || "";
+
+    if (isNaN(target)) return;
+    if (reduced) { el.textContent = pre + fmt(target, dec) + post; return; }
+
+    var dur = 1200, t0 = 0;
+    function step(now) {
+      if (!t0) t0 = now;
+      var p = Math.min(1, (now - t0) / dur);
+      el.textContent = pre + fmt(target * easeOutExpo(p), dec) + post;
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = pre + fmt(target, dec) + post; // 写回最终值
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- 视口触发 ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      var el = en.target;
+
+      if (el.hasAttribute("data-count")) {
+        countUp(el);
+      } else if (el.classList.contains("bgroup")) {
+        el.classList.add("in");
+      } else if (el.classList.contains("duelbar")) {
+        el.classList.add("in");
+      } else {
+        el.classList.add("in"); // .rev 入场
+      }
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+
+  document.querySelectorAll(".num[data-count], .bgroup, .duelbar, .rev").forEach(function (el) {
+    io.observe(el);
+  });
+
+  /* ---------- 初始化 ---------- */
+  paint(50);
+})();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "+47%", "label": "单季持股市值增幅居首", "quote": "+47% 单季持股市值增幅居首"}
+]
+</script>
+</body>
+</html>

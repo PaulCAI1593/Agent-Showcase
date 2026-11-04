@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="估值与资本">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐私的单价 — 一条569美元 · 选题#391</title>
+<meta name="description" content="4,390万次故意违反 × 法定每次$5,000 = 法定上限约2,195亿美元。法官Francis Mathew裁定250亿美元——每条违规约569美元。拖动滑块，亲手给隐私定价。">
+<style>
+:root{
+  --paper:#efe8da; --paper2:#e8e0cd; --card:#f6f2e8;
+  --ink:#23201a; --ink2:#5c5548; --ink3:#8a8170; --line:#c8bda6; --line2:#a89c82;
+  --red:#b23a2b; --red-d:#8e2d21; --green:#2e6b4d; --amber:#d99a2b;
+  --led-bg:#221c12; --led-fg:#f3e3ba;
+  --num:"Courier New","DejaVu Sans Mono",ui-monospace,Menlo,monospace;
+  --head:Georgia,"Songti SC","Noto Serif CJK SC","SimSun",serif;
+  --body:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--red);color:#fff}
+/* ---------- 纸纹 + 暗角 ---------- */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.32;mix-blend-mode:multiply;
+  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>')}
+.vignette{position:fixed;inset:0;pointer-events:none;z-index:199;background:radial-gradient(ellipse at 50% 40%, transparent 60%, rgba(35,28,15,.10) 100%)}
+/* ---------- 通用 ---------- */
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+section{position:relative;z-index:1}
+.mono{font-family:var(--num)}
+.stamp{position:absolute;top:58px;right:0;font:700 15px/1 var(--head);color:var(--red);border:3px solid var(--red);
+  padding:10px 14px;border-radius:4px;letter-spacing:.28em;transform:rotate(6deg);opacity:.86;user-select:none;pointer-events:none;
+  box-shadow:inset 0 0 0 1px var(--red)}
+.kicker{font:700 11px/1 var(--num);letter-spacing:.35em;color:var(--red);text-transform:uppercase;margin-bottom:14px}
+h2{font-family:var(--head);font-weight:800;font-size:clamp(30px,5vw,44px);line-height:1.2;letter-spacing:.02em;margin-bottom:10px}
+.sub{color:var(--ink2);font-size:16.5px;max-width:640px;margin-bottom:34px}
+.note{font-size:13px;color:var(--ink3);line-height:1.7}
+[data-rv]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-rv]{opacity:1;transform:none}}
+/* ---------- 卷宗头 ---------- */
+.masthead{padding:70px 0 90px;border-bottom:3px solid var(--ink);background:
+  linear-gradient(var(--paper),var(--paper)) padding-box}
+.dossier-top{display:flex;flex-wrap:wrap;gap:10px 26px;font:400 12.5px/1.9 var(--num);color:var(--ink2);
+  border-bottom:1px dashed var(--line2);padding-bottom:14px;margin-bottom:44px}
+.dossier-top b{color:var(--ink)}
+.masthead h1{font-family:var(--head);font-weight:800;font-size:clamp(52px,10vw,104px);line-height:1.04;letter-spacing:.03em}
+.masthead .en{font:700 clamp(15px,2.4vw,20px)/1.4 var(--num);letter-spacing:.42em;color:var(--ink3);margin-top:14px;text-transform:uppercase}
+.masthead .lede{margin-top:30px;max-width:640px;font-size:18.5px;color:var(--ink2)}
+.masthead .lede em{font-style:normal;color:var(--red);font-weight:700}
+.scroll-cue{display:inline-block;margin-top:40px;font:700 13px/1 var(--num);letter-spacing:.3em;color:var(--ink);
+  border-bottom:2px solid var(--red);padding-bottom:6px;text-decoration:none}
+.scroll-cue:hover{color:var(--red)}
+/* ---------- 第一幕 算术 ---------- */
+.act{padding:96px 0}
+#act1{padding-top:110px}
+.eq{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 22px;font-family:var(--num);font-weight:700;margin-top:8px}
+.eq .num{font-size:clamp(32px,6vw,70px);letter-spacing:-.01em}
+.eq .op{font-size:clamp(22px,3.8vw,42px);color:var(--ink3)}
+.eq .num.cap{color:var(--red)}
+.written{margin-top:44px;padding-top:30px;border-top:1px dashed var(--line2)}
+.written .lab{font:400 13px/1 var(--num);letter-spacing:.28em;color:var(--ink2);text-transform:uppercase}
+.written .big{font:700 clamp(46px,9vw,96px)/1.15 var(--num);letter-spacing:-.02em;margin-top:12px;display:inline-block;position:relative}
+.pct-chip{display:inline-block;margin-left:18px;font:700 15px/1 var(--num);color:var(--red);border:2px solid var(--red);
+  border-radius:999px;padding:9px 16px;vertical-align:middle;transform:translateY(-10px)}
+.fact-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px 30px;margin-top:34px}
+.fact{border-left:3px solid var(--ink);padding:4px 0 4px 16px;font-size:14.5px;color:var(--ink2)}
+.fact b{color:var(--ink)}
+/* ---------- 第二幕 时间轴 ---------- */
+#act2{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tl-yr{font:700 clamp(34px,6vw,58px)/1 var(--num);color:var(--red);letter-spacing:-.01em}
+.rail{position:relative;margin:66px 0 8px;height:6px;background:var(--line2);border-radius:3px}
+.rail .fill{position:absolute;left:0;top:0;height:100%;background:var(--ink);border-radius:3px;transition:width .25s ease}
+.nodes{position:absolute;inset:-14px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.node{position:relative;width:34px;height:34px;border:none;background:none;cursor:pointer;padding:0}
+.node i{display:block;width:16px;height:16px;margin:8px auto 0;border-radius:50%;background:var(--paper2);border:3px solid var(--line2);transition:all .25s}
+.node.on i{background:var(--red);border-color:var(--red);transform:scale(1.35);box-shadow:0 0 0 6px rgba(178,58,43,.15)}
+.node.past i{border-color:var(--ink)}
+.node em{position:absolute;top:38px;left:50%;transform:translateX(-50%);font:400 11px/1.5 var(--num);font-style:normal;color:var(--ink3);white-space:nowrap}
+.node.on em{color:var(--ink);font-weight:700}
+#tlRange{position:absolute;left:0;bottom:-16px;width:100%;opacity:0;height:40px;cursor:ew-resize}
+.tl-stage{position:relative;min-height:250px;margin-top:86px}
+.tl-card{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s;pointer-events:none}
+.tl-card.on{opacity:1;transform:none;pointer-events:auto}
+.tl-card h3{font-family:var(--head);font-size:clamp(21px,3vw,28px);font-weight:800;margin:6px 0 12px}
+.tl-card p{font-size:16px;color:var(--ink2);max-width:680px}
+.tl-card .tag{display:inline-block;font:700 12px/1 var(--num);letter-spacing:.18em;color:#fff;background:var(--ink);padding:7px 12px;border-radius:3px}
+.tl-card .tag.red{background:var(--red)}
+.tl-card .sub-tag{display:inline-block;margin-left:8px;font:400 12px/1 var(--num);color:var(--ink3);border:1px dashed var(--line2);padding:6px 10px;border-radius:3px}
+.tl-hint{margin-top:20px;font:400 12.5px/1 var(--num);letter-spacing:.2em;color:var(--ink3)}
+/* ---------- 第三幕 定价器 ---------- */
+#act3{border-bottom:1px solid var(--line)}
+.pricer{display:grid;gap:34px;margin-top:12px}
+.led-panel{background:var(--led-bg);border-radius:10px;padding:34px 34px 30px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 18px 40px -22px rgba(30,20,5,.55);position:relative;overflow:hidden}
+.led-panel::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 3px)}
+.led-lab{font:400 11.5px/1 var(--num);letter-spacing:.34em;color:#a99a72;text-transform:uppercase}
+.unit-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin:14px 0 4px}
+.unit-num{font:700 clamp(38px,7.5vw,76px)/1 var(--num);color:var(--led-fg);letter-spacing:-.01em}
+.unit-suf{font:400 13.5px/1 var(--num);color:#a99a72}
+.total-num{font:700 clamp(30px,5.6vw,58px)/1.2 var(--num);color:var(--led-fg);margin-top:16px;display:block;min-height:1.2em}
+.total-num .ch{display:inline-block;min-width:.62em}
+.ch.roll{animation:chRoll .16s ease}
+@keyframes chRoll{from{transform:translateY(-52%);opacity:.15}to{transform:none;opacity:1}}
+.pct-line{display:flex;align-items:center;gap:14px;margin-top:22px}
+.pct-track{flex:1;height:8px;background:rgba(255,255,255,.09);border-radius:4px;overflow:hidden}
+.pct-fill{height:100%;width:11.4%;background:linear-gradient(90deg,var(--amber),var(--red));border-radius:4px;transition:width .12s linear}
+.pct-val{font:700 17px/1 var(--num);color:var(--amber);min-width:74px;text-align:right}
+.pct-cap{font:400 11px/1.5 var(--num);color:#8d815f;letter-spacing:.12em}
+/* 滑杆 */
+.slider-zone{padding:8px 6px 0}
+.slider-shell{position:relative;padding-top:118px}
+.ticks{position:absolute;left:0;right:0;top:0;height:118px;pointer-events:none}
+.ticks .stem{position:absolute;bottom:0;width:2px;height:16px;background:var(--line2);transform:translateX(-1px);transition:background .3s;cursor:pointer;pointer-events:auto}
+.ticks .stem.lit{background:var(--red)}
+.tlabel{position:absolute;display:flex;flex-direction:column;align-items:flex-start;gap:3px;pointer-events:auto;cursor:pointer}
+.tlabel .amt{font:700 13px/1 var(--num);color:var(--ink3);white-space:nowrap;transition:color .3s}
+.tlabel .who{font-size:11.5px;line-height:1.2;color:var(--ink3);white-space:nowrap;opacity:0;transition:opacity .3s}
+.tlabel.lit .amt{color:var(--red)}
+.tlabel.lit .who{opacity:1;color:var(--ink2)}
+.tlabel:hover .who{opacity:1}
+.tleads{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.tleads polyline{fill:none;stroke:var(--line2);stroke-width:1;transition:stroke .3s}
+.tleads polyline.lit{stroke:var(--red)}
+input[type=range].price{position:relative;z-index:5;-webkit-appearance:none;appearance:none;width:100%;height:10px;background:transparent;cursor:ew-resize;touch-action:none}
+input[type=range].price::-webkit-slider-runnable-track{height:3px;background:linear-gradient(to right,var(--ink) 0 var(--fillpct,11.4%),var(--line2) var(--fillpct,11.4%) 100%);border-radius:2px}
+input[type=range].price::-moz-range-track{height:3px;background:var(--line2);border-radius:2px}
+input[type=range].price::-moz-range-progress{height:3px;background:var(--ink);border-radius:2px}
+input[type=range].price::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:42px;margin-top:-19.5px;background:var(--ink);border-radius:5px;border:3px solid var(--ink);box-shadow:inset 0 0 0 2px var(--paper),0 4px 10px -2px rgba(0,0,0,.4)}
+input[type=range].price::-moz-range-thumb{width:20px;height:38px;background:var(--ink);border-radius:5px;border:3px solid var(--paper);box-shadow:0 4px 10px -2px rgba(0,0,0,.4)}
+input[type=range].price:focus-visible{outline:2px solid var(--red);outline-offset:6px}
+.scale-cap{display:flex;justify-content:space-between;font:400 12px/1 var(--num);color:var(--ink3);margin-top:10px;letter-spacing:.08em}
+.hint-line{margin-top:22px;min-height:52px;font-size:15.5px;color:var(--ink);border-left:3px solid var(--red);padding:6px 0 6px 16px;transition:opacity .3s}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font:700 12.5px/1 var(--num);letter-spacing:.04em;color:var(--ink);background:transparent;border:1.5px solid var(--line2);
+  border-radius:999px;padding:10px 15px;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--ink);transform:translateY(-1px)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.redchip.on{background:var(--red);border-color:var(--red)}
+/* 小票 */
+.receipt-zone{display:grid;grid-template-columns:1fr;gap:28px}
+.receipt{position:relative;background:#fbf8f1;padding:40px 36px 54px;font-family:var(--num);box-shadow:0 1px 0 rgba(0,0,0,.04),0 26px 46px -32px rgba(45,32,10,.5);border-radius:2px;max-width:560px}
+.receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:11px;background-size:12px 12px}
+.receipt::before{top:-5px;transform:rotate(180deg);background-image:radial-gradient(circle at 50% 9px, var(--paper) 5.4px, transparent 5.6px)}
+.receipt::after{bottom:-5px;background-image:radial-gradient(circle at 50% 9px, var(--paper) 5.4px, transparent 5.6px)}
+.receipt .r-head{text-align:center;font:700 15px/1.5 var(--num);letter-spacing:.24em;color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:14px}
+.receipt .r-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);letter-spacing:.06em;padding:12px 0 4px}
+.r-line{display:flex;justify-content:space-between;gap:16px;font-size:14.5px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+.r-line .k{color:var(--ink2);letter-spacing:.06em;white-space:nowrap}
+.r-line .v{font-weight:700;text-align:right;word-break:break-all}
+.r-line.total-line{border-bottom:none;margin-top:6px}
+.r-line.total-line .v{font-size:clamp(20px,3.4vw,28px);color:var(--red)}
+.r-stamp{position:absolute;right:26px;bottom:58px;font:800 14px/1.35 var(--head);letter-spacing:.2em;color:var(--red);
+  border:3px solid var(--red);border-radius:4px;padding:9px 11px;transform:rotate(-11deg);opacity:.88;pointer-events:none;background:rgba(251,248,241,.6)}
+.barcode{height:44px;margin-top:22px;background-image:repeating-linear-gradient(90deg,#1d1910 0 3px,#fbf8f1 3px 6px,#1d1910 6px 8px,#fbf8f1 8px 12px,#1d1910 12px 13px,#fbf8f1 13px 17px,#1d1910 17px 21px,#fbf8f1 21px 23px)}
+.r-foot{text-align:center;font-size:11px;letter-spacing:.22em;color:var(--ink3);margin-top:10px}
+.receipt-aside{align-self:start}
+.receipt-aside h3{font-family:var(--head);font-weight:800;font-size:24px;margin-bottom:12px}
+.receipt-aside p{font-size:15.5px;color:var(--ink2);margin-bottom:14px}
+@media(min-width:940px){.receipt-zone{grid-template-columns:560px 1fr;gap:44px}}
+/* ---------- 第四幕 两条路 ---------- */
+#act4{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cmp-switch{display:inline-flex;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:34px}
+.cmp-switch button{font:700 14px/1 var(--body);letter-spacing:.06em;padding:14px 22px;background:transparent;border:none;cursor:pointer;color:var(--ink);transition:all .2s}
+.cmp-switch button+button{border-left:2px solid var(--ink)}
+.cmp-switch button.on{background:var(--ink);color:var(--paper)}
+.cmp-switch button.b.on{background:var(--red);border-color:var(--red)}
+.cmp-panel{display:none;grid-template-columns:1fr;gap:30px}
+.cmp-panel.on{display:grid;animation:fadeUp .45s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cmp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px}
+.cmp-amt{font:800 clamp(34px,6vw,60px)/1 var(--num);letter-spacing:-.01em}
+.cmp-panelA .cmp-amt{color:var(--green)}
+.cmp-panelB .cmp-amt{color:var(--red)}
+.cmp-meta{font:400 13px/1 var(--num);color:var(--ink2);letter-spacing:.1em}
+.cmp-body{font-size:16px;color:var(--ink2);max-width:660px}
+.cmp-body ul{list-style:none;margin-top:14px}
+.cmp-body li{padding:9px 0 9px 22px;position:relative;border-bottom:1px dashed var(--line)}
+.cmp-body li::before{content:"—";position:absolute;left:0;color:var(--ink3);font-family:var(--num)}
+.mini-bars{margin-top:26px}
+.bar-row{display:grid;grid-template-columns:170px 1fr 90px;gap:12px;align-items:center;font:700 12.5px/1 var(--num);padding:7px 0}
+.bar-row .bl{color:var(--ink2);font-weight:400;font-family:var(--body);font-size:13px;white-space:nowrap}
+.bar-row .bt{height:16px;background:rgba(35,32,26,.08);border-radius:2px;overflow:hidden}
+.bar-row .b{height:100%;width:0;display:block;background:var(--ink);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.bar-row.hot .b{background:var(--red)}
+.bar-row.calm .b{background:var(--green)}
+.bar-row .bv{color:var(--ink);text-align:right;white-space:nowrap}
+.cmp-panel.on .bar-row .b{width:var(--w)}
+/* ---------- 收尾 ---------- */
+#finale{padding:120px 0 100px;text-align:center}
+.quote{font-family:var(--head);font-weight:800;font-size:clamp(26px,4.6vw,46px);line-height:1.5;max-width:820px;margin:0 auto;letter-spacing:.02em}
+.quote .r{color:var(--red)}
+.quote-rule{width:64px;height:3px;background:var(--ink);margin:44px auto 0}
+.ledger{margin-top:88px;text-align:left;border-top:3px solid var(--ink)}
+.ledger h3{font:700 12px/1 var(--num);letter-spacing:.34em;color:var(--red);text-transform:uppercase;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 44px}
+.lg-item{display:flex;gap:16px;align-items:baseline;padding:15px 0;border-bottom:1px dashed var(--line);font-size:14.5px;color:var(--ink2)}
+.lg-item .n{font:700 13px/1.6 var(--num);color:var(--ink);min-width:34px}
+.lg-item b{color:var(--ink)}
+.ledger .src{font-size:12.5px;color:var(--ink3);padding:14px 0 0;line-height:1.8}
+/* 口径说明 */
+.corrections{margin-top:84px;text-align:left;border:2.5px solid var(--red);border-radius:8px;padding:36px 34px 30px;position:relative;background:#f9efe9}
+.corrections .stamp{top:-16px;right:24px;background:#f9efe9}
+.corrections h3{font-family:var(--head);font-weight:800;font-size:21px;color:var(--red);margin-bottom:18px;letter-spacing:.1em}
+.corrections li{margin:12px 0 12px 4px;list-style:none;font-size:15px;color:var(--ink2);padding-left:34px;position:relative;line-height:1.75}
+.corrections li .no{position:absolute;left:0;top:1px;font:800 14px/1.5 var(--num);color:var(--red)}
+.corrections li b{color:var(--ink)}
+/* 证言 */
+.testimony{margin-top:84px;text-align:left;border-left:4px solid var(--ink);padding:6px 0 6px 26px}
+.testimony h3{font:700 12px/1 var(--num);letter-spacing:.34em;color:var(--ink3);text-transform:uppercase;margin-bottom:18px}
+.testimony blockquote{font-family:var(--head);font-size:clamp(18px,2.6vw,23px);line-height:1.7;margin:0 0 14px;color:var(--ink)}
+.testimony .find{margin-top:18px;font-size:14.5px;color:var(--red);font-weight:700}
+footer{border-top:3px solid var(--ink);padding:34px 0 60px;text-align:center;font:400 12.5px/2 var(--num);color:var(--ink3);letter-spacing:.08em}
+@media(max-width:720px){
+  .tlabel .who{display:none}
+  .tlabel .amt{font-size:11px}
+  .node em{font-size:9.5px}
+  .bar-row{grid-template-columns:110px 1fr 76px}
+  .act{padding:72px 0}
+  .masthead{padding:52px 0 66px}
+  .tl-stage{min-height:400px}
+  .receipt{padding:30px 22px 44px}
+  .led-panel{padding:26px 20px 22px}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-24</span><span class="sb-sep">/</span><span class="sb-beat">估值与资本</span><span class="sb-sep">/</span><span class="sb-cnt">27 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">13 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */#tlRange{opacity:1!important;visibility:visible!important}.tlabel .who{opacity:1!important;visibility:visible!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div class="grain"></div><div class="vignette"></div>
+
+<!-- ============ 卷宗头 ============ -->
+<header class="masthead">
+  <div class="wrap" style="position:relative">
+    <div class="dossier-top">
+      <span>档案 <b>EXHIBIT&nbsp;#391</b></span>
+      <span>新墨西哥州第一司法区 · <b>STATE v. META PLATFORMS,&nbsp;INC.</b></span>
+      <span>裁定日 <b>2026.10.21</b></span>
+      <span>案由 <b>隐私 / 消费者保护法</b>（非AI监管案）</span>
+    </div>
+    <div class="stamp">已核实</div>
+    <h1>隐私的单价</h1>
+    <div class="en">THE PRICE OF PRIVACY</div>
+    <p class="lede">一条谎言值多少钱，<em>由谁定</em>。这是一份可以自己动手的卷宗：
+      陪审团认定的每一次"故意违反"，都可以被标上一个价格——法律早就写好了上限，
+      法官划下了成交价，而<em>被标价的东西，是每个用户的信任</em>。</p>
+    <a class="scroll-cue" href="#act3">↓ 跳到定价器，亲手拖一次</a>
+  </div>
+</header>
+
+<!-- ============ 第一幕：一道算术题 ============ -->
+<section id="act1" class="act">
+  <div class="wrap">
+    <div data-rv>
+      <div class="kicker">第一幕 · 一道算术题</div>
+      <h2>法律出的题目，法官改的答案</h2>
+      <div class="eq" id="eq">
+        <span class="num" id="nViol">0</span>
+        <span class="op">×</span>
+        <span class="num" id="nPer">$0</span>
+        <span class="op">=</span>
+        <span class="num cap" id="nCap">$0</span>
+      </div>
+      <p class="fact-row">
+        <span class="fact"><b>43,900,000 次</b> —— 9月25日，陪审团认定 Meta「故意违反」新墨西哥州《不公平行为法》的次数：按29份声明中26份具误导性声明所影响的用户数累计，而非数据泄露人数。</span>
+        <span class="fact"><b>每次最高 $5,000</b> —— 新墨西哥州法定的单次民事罚款上限。两者相乘，法定上限接近 <b>2,195 亿美元</b>。</span>
+      </p>
+    </div>
+    <div class="written" data-rv>
+      <div class="lab">而判决书上最终写下的数字是 ——</div>
+      <div class="big mono" id="nVerdict">$0</div>
+      <span class="pct-chip">法定上限的 11.4%</span>
+      <p class="note">10月21日，法官 <b style="color:var(--ink)">Francis Mathew</b> 将罚金裁减至 250 亿美元，折合<b style="color:var(--ink)">每条违规约 569 美元</b>。
+        注意两件事：认定违规的是陪审团（9.25），写下金额的是法官（10.21）；2,195 亿是算术上限，不是任何人的判决。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第二幕：八年账单 ============ -->
+<section id="act2" class="act">
+  <div class="wrap">
+    <div data-rv>
+      <div class="kicker">第二幕 · 时间轴</div>
+      <h2>这条账单，走了八年</h2>
+      <p class="sub">从大选数据丑闻到州法院判决，Meta 的隐私责任史有七个刻度。左右拖动滑块，或点击任意节点。</p>
+    </div>
+    <div data-rv>
+      <div class="tl-yr mono" id="tlYear">2016</div>
+      <div class="rail">
+        <div class="fill" id="tlFill"></div>
+        <div class="nodes" id="tlNodes"></div>
+        <input type="range" id="tlRange" min="0" max="6" step="1" value="0" aria-label="时间轴">
+      </div>
+      <div class="tl-stage" id="tlCards">
+        <div class="tl-card on">
+          <span class="tag">2016.11</span><span class="sub-tag">案件的原点</span>
+          <h3>美国大选：数据政治化的一年</h3>
+          <p>英国政治咨询公司剑桥分析深度参与竞选选民剖析与定向投放。这颗雷，两年后才炸。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag">2018.03</span><span class="sub-tag">丑闻曝光</span>
+          <h3>剑桥分析被曝：约 8,700 万用户数据</h3>
+          <p>一款第三方应用在未经充分同意的情况下，大规模采集多达 8,700 万 Facebook 用户个人数据，流向剑桥分析。新墨西哥州检方的指控由此而起——该州超过 35 万居民的个人信息在本人不知情时被转卖。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag">2019.07</span><span class="sub-tag">第一张"大"罚单</span>
+          <h3>FTC 罚单：50 亿美元</h3>
+          <p>美国联邦贸易委员会就隐私问题开出 50 亿美元罚单。当时所有人都觉得，这是天价。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag red">2021</span><span class="sub-tag">单独开战</span>
+          <h3>新墨西哥州起诉 Meta</h3>
+          <p>州检察长 Raúl Torrez 代表本州起诉：Meta 就「谁能访问你的数据」「如何处理仇恨言论与虚假信息」长期对州内用户撒谎。此后的路，它决定不走和解。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag">2026.08</span><span class="sub-tag">多数州的选择</span>
+          <h3>48 州庭外和解：180 亿美元</h3>
+          <p>阿克西奥斯报道：其他 40 余州均选择庭外和解。这 180 亿是含"儿童安全"条款的合计口径，其中隐私轨道仅约 4.59 亿。同月（8 月 6 日），Meta 另在新墨西哥州未成年人保护案中被判赔 9.42 亿美元。签字，翻页，没有庭审。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag red">2026.09.25</span><span class="sub-tag">两周庭审之后</span>
+          <h3>陪审团认定：26/29 份声明具误导性</h3>
+          <p>圣菲地区法院陪审团认定 Meta「故意违反」州《不公平行为法》近 4,390 万次。按每次最高 5,000 美元，法定上限逼近 2,195 亿美元。检方此前主张 350—400 亿美元。</p>
+        </div>
+        <div class="tl-card">
+          <span class="tag red">2026.10.21</span><span class="sub-tag">成交价</span>
+          <h3>法官裁定：250 亿美元 · 每条 $569</h3>
+          <p>Francis Mathew 法官将金额裁减至 250 亿美元——法定上限的 11.4%，折合每条违规约 569 美元，缴清前按年利率 15% 计息。Torrez 称这是美国历史上最大或最大的州级对公司判决之一。Meta 计划上诉。</p>
+        </div>
+      </div>
+      <div class="tl-hint">← 拖动 / 点击节点 · 键盘 ← → 可切换 →</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第三幕：定价器（主交互） ============ -->
+<section id="act3" class="act">
+  <div class="wrap">
+    <div data-rv>
+      <div class="kicker">第三幕 · 你来定价</div>
+      <h2>把每条违规的价格，从 $0 拖到 $5,000</h2>
+      <p class="sub">数量固定：陪审团认定的 43,900,000 次。你拖的是单价，收银机吐出的是总额。
+        五个刻度是真实世界已经发生或存在的价格——看它们依次亮起，再想想 250 亿停在哪一格。</p>
+    </div>
+
+    <div class="pricer">
+      <!-- 收银机 LED -->
+      <div class="led-panel" data-rv>
+        <div class="led-lab">TOTAL PENALTY · 按 43,900,000 次计算</div>
+        <div class="unit-row">
+          <span class="led-lab" style="letter-spacing:.2em">单价 PER VIOLATION</span>
+          <span class="unit-num mono" id="priceNow">$569</span>
+          <span class="unit-suf">→ ×43,900,000</span>
+        </div>
+        <span class="total-num mono" id="totalOdo" aria-live="polite"></span>
+        <div class="pct-line">
+          <span class="pct-cap">占法定上限<br>2,195亿</span>
+          <div class="pct-track"><div class="pct-fill" id="pctFill"></div></div>
+          <span class="pct-val mono" id="pctVal">0%</span>
+        </div>
+      </div>
+
+      <!-- 滑杆 + 刻度 -->
+      <div class="slider-zone" data-rv>
+        <div class="slider-shell">
+          <div class="ticks" id="tickLayer"></div>
+          <input type="range" class="price" id="priceRange" min="0" max="5000" step="1" value="569"
+                 aria-label="每条违规单价（美元）">
+          <div class="scale-cap"><span>$0</span><span>$5,000 · 法定单次上限</span></div>
+        </div>
+        <div class="hint-line" id="hintLine"></div>
+        <div class="chips" id="chipRow">
+          <button class="chip" data-v="0">回到 $0</button>
+          <button class="chip" data-v="77">$77 · Meta主张上限</button>
+          <button class="chip" data-v="114">$114 · FTC 50亿</button>
+          <button class="chip" data-v="410">$410 · 48州 180亿</button>
+          <button class="chip redchip" data-v="569">$569 · 本案判决</button>
+          <button class="chip" data-v="5000">$5,000 · 法定上限</button>
+        </div>
+        <p class="note" style="margin-top:18px">刻度单价取整展示（$77 / $114 / $410 / $569 / $5,000），对应总额与实际金额存在 ≤$2,100 万的取整差；$5,000 与 2,195 亿为法定精确值。判决精确折算为每条 $569.48。</p>
+      </div>
+
+      <!-- 小票 + 旁注 -->
+      <div class="receipt-zone" data-rv>
+        <div class="receipt">
+          <div class="r-head">新墨西哥州 · 隐私违规计价单</div>
+          <div class="r-meta mono"><span>NO.391</span><span id="rTime">2026-10-24</span><span>SELF-CHECKOUT</span></div>
+          <div class="r-line"><span class="k">故意违反 QUANTITY</span><span class="v" id="rQty">43,900,000</span></div>
+          <div class="r-line"><span class="k">单价 UNIT PRICE</span><span class="v" id="rUnit">$569</span></div>
+          <div class="r-line"><span class="k">占法定上限 OF CAP</span><span class="v" id="rPct">11.4%</span></div>
+          <div class="r-line total-line"><span class="k">应付 TOTAL DUE</span><span class="v" id="rTotal">$24,979,100,000</span></div>
+          <div class="r-stamp" id="rStamp">≈ 250亿<br>已裁定</div>
+          <div class="barcode"></div>
+          <div class="r-foot">请携带本小票离开 · 利息年利率 15% 计至缴清</div>
+        </div>
+        <div class="receipt-aside">
+          <h3>为什么默认停在 $569</h3>
+          <p>因为那就是成交价：250 亿 ÷ 4,390 万次 ≈ 每条 <b class="mono">569</b> 美元。
+            它只有法定上限的 <b class="mono">11.4%</b>——滑条上不到七分之一的路程。</p>
+          <p>BBC 算了另一笔账：250 亿约等于 Meta <b>一个季度的利润</b>。Q3 营收 646 亿美元、同比 +26%，判决公布当日盘后股价涨超 6.5%。</p>
+          <p class="note">把滑条拖到底试试：法定上限 2,195 亿，法官可以用、但没有用完。他写下的数字是它的十一分之一。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第四幕：两条路 ============ -->
+<section id="act4" class="act">
+  <div class="wrap">
+    <div data-rv>
+      <div class="kicker">第四幕 · 同一批行为，两条路径</div>
+      <h2>签一张支票，或者上一次法庭</h2>
+      <p class="sub">2026年8月，48个州用一纸和解翻篇；只有新墨西哥州把同一批行为，拖到了证人席上。</p>
+    </div>
+    <div class="cmp-switch" role="tablist" data-rv>
+      <button id="cmpA" class="on" role="tab" aria-selected="true">路径 A · 48州庭外和解</button>
+      <button id="cmpB" class="b" role="tab" aria-selected="false">路径 B · 新墨西哥庭审</button>
+    </div>
+
+    <div class="cmp-panel cmp-panelA on" id="panelA" data-rv>
+      <div class="cmp-head">
+        <span class="cmp-amt mono">$18,000,000,000</span>
+        <span class="cmp-meta">180亿美元（合计口径） · 2026.08 · 48州 / 其他40余州同款选择</span>
+      </div>
+      <div class="cmp-body">
+        <ul>
+          <li>谈判、签字、结案——没有两周庭审，没有证词被逐条朗读。</li>
+          <li>没有陪审团去数"到底撒了几次谎"，于是也没有 4,390 万这个数。</li>
+          <li>阿克西奥斯：新墨西哥州是截至目前唯一把隐私案推进到庭审判决的美国州。</li>
+          <li>180 亿是含"儿童安全"条款的合计口径——其中<b>隐私这条轨道只和解了约 4.59 亿美元</b>。同一件事，不庭审的价格与庭审的价格，差的不是零头。</li>
+          <li>同月另案：未成年人保护诉讼判赔 9.42 亿美元（3 月陪审团 3.75 亿 + 8 月 6 日法官追加 5.67 亿）——和解的账单之外，还有一张。</li>
+        </ul>
+        <div class="mini-bars">
+          <div class="bar-row calm"><span class="bl">Meta主张封顶</span><span class="bt"><span class="b" style="--w:1.55%"></span></span><span class="bv">34亿</span></div>
+          <div class="bar-row calm"><span class="bl">48州和解</span><span class="bt"><span class="b" style="--w:8.2%"></span></span><span class="bv">180亿</span></div>
+          <div class="bar-row"><span class="bl">本案判决</span><span class="bt"><span class="b" style="--w:11.4%"></span></span><span class="bv">250亿</span></div>
+          <div class="bar-row hot"><span class="bl">法定上限</span><span class="bt"><span class="b" style="--w:100%"></span></span><span class="bv">2,195亿</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cmp-panel cmp-panelB" id="panelB">
+      <div class="cmp-head">
+        <span class="cmp-amt mono">$25,000,000,000</span>
+        <span class="cmp-meta">250亿美元 · 2026.10.21 · 每条违规 $569</span>
+      </div>
+      <div class="cmp-body">
+        <ul>
+          <li>两周公开庭审：29 份公司声明被逐份审视，26 份被认定具误导性。</li>
+          <li>CEO 扎克伯格出庭作证，隐私设置的原话留在庭审记录里（见文末）。</li>
+          <li>陪审团量化了谎言：近 4,390 万次「故意违反」，每次法定最高 5,000 美元。</li>
+          <li>检方主张 350—400 亿，Meta 主张不超过 34 亿——法官写下中间偏低的 250 亿。</li>
+          <li>于是有了这份可以被拖动的卷宗：法律给了 $5,000 的定价权，成交价是 $569。</li>
+        </ul>
+        <div class="mini-bars">
+          <div class="bar-row calm"><span class="bl">Meta主张封顶</span><span class="bt"><span class="b" style="--w:1.55%"></span></span><span class="bv">34亿</span></div>
+          <div class="bar-row calm"><span class="bl">48州和解</span><span class="bt"><span class="b" style="--w:8.2%"></span></span><span class="bv">180亿</span></div>
+          <div class="bar-row hot"><span class="bl">本案判决</span><span class="bt"><span class="b" style="--w:11.4%"></span></span><span class="bv">250亿</span></div>
+          <div class="bar-row hot"><span class="bl">法定上限</span><span class="bt"><span class="b" style="--w:100%"></span></span><span class="bv">2,195亿</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 收尾 ============ -->
+<section id="finale">
+  <div class="wrap">
+    <p class="quote" data-rv>隐私不是没有价格，<br>是<span class="r">定价权</span>从来不在被收集的人手里。<br>一条 569 美元，是这场交易的<span class="r">成交价</span>。</p>
+    <div class="quote-rule" data-rv></div>
+
+    <!-- 证言 -->
+    <div class="testimony" data-rv>
+      <h3>庭审记录 · MARK ZUCKERBERG 证词（法官认定其明知）</h3>
+      <blockquote>“用户可能不理解当前隐私设置。”</blockquote>
+      <blockquote>“应让其有机会更改，但显然不鼓励这样做。”</blockquote>
+      <p class="find">法官认定：扎克伯格明知用户不清楚数据隐私漏洞，仍加以利用。Mathew 在命令中写道——「脸书的失当行为持续多年、系统性地传播，触及了脸书核心商业运作的本质。」（路透社）</p>
+    </div>
+
+    <!-- 附录账目 -->
+    <div class="ledger" data-rv>
+      <h3>附卷 · 已核实数据台账</h3>
+      <div class="lg-grid">
+        <div class="lg-item"><span class="n mono">01</span><span>Q3 营收 <b>646亿美元</b>，同比 <b>+26%</b>，判决公布当日盘后涨超 <b>6.5%</b>。</span></div>
+        <div class="lg-item"><span class="n mono">02</span><span>BBC：250 亿约等于 Meta <b>一个季度的利润</b>。</span></div>
+        <div class="lg-item"><span class="n mono">03</span><span>Q3 净收入因一笔 <b>99亿美元和解金</b> 显著低于华尔街预期（《卫报》）。</span></div>
+        <div class="lg-item"><span class="n mono">04</span><span>2026 年资本开支指引上调至 <b>1,350—1,450亿美元</b>。</span></div>
+        <div class="lg-item"><span class="n mono">05</span><span>罚金缴清前，按 <b>年利率 15%</b> 持续计息。</span></div>
+        <div class="lg-item"><span class="n mono">06</span><span>新墨西哥州未成年人保护案判赔 <b>9.42亿美元</b>（3 月陪审团 3.75 亿 + 8 月 6 日法官追加 5.67 亿）；8 月多州和解中的隐私轨道约 <b>4.59亿美元</b>。</span></div>
+        <div class="lg-item"><span class="n mono">07</span><span>Meta 主张判决封顶 <b>34亿美元</b>；首席法务官马奥尼称裁决「使在该州经商几乎不可能」，确信上诉胜诉，<b>已计划上诉</b>。</span></div>
+        <div class="lg-item"><span class="n mono">08</span><span>原告方律师 Randi McGinn：这是一群<b>「自以为刀枪不入的科技巨头」</b>。</span></div>
+        <div class="lg-item"><span class="n mono">09</span><span>州检察长 Raúl Torrez：美国历史上<b>最大或最大的州级对公司判决之一</b>。</span></div>
+        <div class="lg-item"><span class="n mono">10</span><span>案件源头：2018 年曝光的剑桥分析事件，约 <b>8,700万</b> 用户数据被采集。</span></div>
+      </div>
+      <p class="src">台账与刻度数据综合自新华社、央视新闻、中央社（路透）、中国日报、环球时报、Axios、BBC、《卫报》等公开报道，核验截止 2026-10-24。金额均为美元。</p>
+    </div>
+
+    <!-- 口径说明 -->
+    <div class="corrections" data-rv>
+      <div class="stamp">口径</div>
+      <h3>转发前，请先读这三条纠错</h3>
+      <ul>
+        <li><span class="no mono">①</span><b>「陪审团判赔250亿」不准确。</b>9月25日，陪审团认定的是<b>违规性质与次数</b>（26/29 份声明具误导性、近 4,390 万次故意违反）；<b>250 亿美元是法官 Francis Mathew 于 10 月 21 日的裁定</b>；2,195 亿美元仅是 4,390万 × $5,000 的<b>法定算术上限</b>，不是任何人的判决。</li>
+        <li><span class="no mono">②</span><b>别写成「AI 监管罚单」。</b>这是一起<b>隐私 / 消费者保护法</b>州级诉讼——新墨西哥州《不公平行为法》，与 AI 监管无关。罚单的每一次"涨价"或"降价"，都发生在人的行为与法律的算术之间。</li>
+        <li><span class="no mono">③</span><b>180 亿 ≠ 隐私和解金。</b>8 月那笔多州和解，新华社、央视写作「最高 170 亿」，美联社与多州检察长公告为 <b>171 亿</b>（47 州 + 特区 + 领地，得州单独和解）；把剑桥分析相关的<b>隐私索赔约 4.59 亿</b>与得州和解计入后，合计口径才是 <b>180 亿</b>。换句话说：<b>40 余州就隐私问题只和解了约 4.59 亿美元</b>，180 亿主要买的是"儿童安全"这条轨道的免责。本作品刻度沿用被引用最广的 180 亿合计口径，未混用 171/170 亿。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    选题 #391 · 任务 #354 · 2026-10-24 · 绘界（视觉+文案）× 创艺（叙事结构）<br>
+    交互数据体验，非法律意见 · 所有数字来自已核实公开报道，未做修改
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var VIOL = 43900000;
+var CAP_PER = 5000;
+var CAP = VIOL * CAP_PER; /* 219,500,000,000 */
+function $(s){return document.querySelector(s);}
+function fmt(n){return Math.round(n).toLocaleString('en-US');}
+
+/* ---------- 数字滚轮（LED 总额） ---------- */
+function odoTotal(nStr){
+  var el=totalOdo; /* children[0] 是固定 $ 前缀 */
+  var s=nStr;
+  if(el.dataset.s===s) return;
+  while(el.children.length-1>s.length){ el.removeChild(el.lastChild); }
+  while(el.children.length-1<s.length){ var sp=document.createElement('span'); sp.className='ch'; el.appendChild(sp); }
+  for(var i=0;i<s.length;i++){
+    var sp2=el.children[i+1], c=s[i];
+    if(sp2.textContent!==c){ sp2.textContent=c; sp2.classList.remove('roll'); void sp2.offsetWidth; sp2.classList.add('roll'); }
+  }
+  el.dataset.s=s;
+}
+
+/* ---------- 第三幕：定价器 ---------- */
+var TICKS=[
+  {v:77,   amt:'$34亿',  who:'Meta 主张封顶', odd:false},
+  {v:114,  amt:'$50亿',  who:'2019 FTC 罚单',  odd:true},
+  {v:410,  amt:'$180亿', who:'2026.08 48州和解', odd:false},
+  {v:569,  amt:'$250亿', who:'2026.10.21 本案判决', odd:true},
+  {v:5000, amt:'$2,195亿', who:'法定上限 4390万×$5,000', odd:false}
+];
+var tickLayer=$('#tickLayer');
+var leadSvg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+leadSvg.setAttribute('class','tleads');
+TICKS.forEach(function(t){
+  t.st=document.createElement('span'); t.st.className='stem';
+  t.st.style.left=(t.v/CAP_PER*100)+'%';
+  t.lb=document.createElement('div'); t.lb.className='tlabel';
+  t.lb.innerHTML='<span class="amt mono">'+t.amt+'</span><span class="who">'+t.who+'</span>';
+  t.pl=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  t.st.addEventListener('click', function(){ jumpTo(t.v); });
+  t.lb.addEventListener('click', function(){ jumpTo(t.v); });
+  tickLayer.appendChild(t.st); tickLayer.appendChild(t.lb);
+});
+tickLayer.appendChild(leadSvg);
+TICKS.forEach(function(t){ leadSvg.appendChild(t.pl); });
+
+/* 碰撞避让：两行阶梯 + 引线，标签从刻度处向右排开 */
+var ROWS=[84,46];
+function layoutTicks(){
+  var W=tickLayer.clientWidth; if(!W) return;
+  leadSvg.setAttribute('viewBox','0 0 '+W+' 118');
+  var prev=[-1e9,-1e9];
+  TICKS.forEach(function(t,i){
+    var stemX=t.v/CAP_PER*W;
+    var lw=t.lb.offsetWidth, lh=t.lb.offsetHeight;
+    var first=(i%2), second=1-first, row=first, left=0;
+    for(var k=0;k<2;k++){
+      var r=(k===0)?first:second;
+      left=Math.max(stemX+8, prev[r]+14);
+      if(left+lw<=W+2){ row=r; break; }
+      if(k===1){ row=r; left=Math.max(2, W-lw); }
+    }
+    if(left+lw>W){ left=Math.max(2, W-lw); }
+    prev[row]=left+lw;
+    t.lb.style.left=left+'px'; t.lb.style.bottom=ROWS[row]+'px';
+    var y0=118-16, y1=118-ROWS[row]+4;
+    t.pl.setAttribute('points', stemX+','+y0+' '+(left+6)+','+y1);
+  });
+}
+layoutTicks();
+var _rz; window.addEventListener('resize', function(){ clearTimeout(_rz); _rz=setTimeout(layoutTicks,150); });
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ layoutTicks(); }); }
+setTimeout(layoutTicks, 400);
+
+var priceRange=$('#priceRange'), priceNow=$('#priceNow'), totalOdo=$('#totalOdo'),
+    pctFill=$('#pctFill'), pctVal=$('#pctVal'), hintLine=$('#hintLine'),
+    rUnit=$('#rUnit'), rTotal=$('#rTotal'), rPct=$('#rPct'), rStamp=$('#rStamp'),
+    rQty=$('#rQty');
+var chipBtns=[].slice.call(document.querySelectorAll('.chip'));
+
+function hintFor(v){
+  if(v===0) return '单价 $0，总罚金 $0。在"和解逻辑"里，隐私常常就是这个价——不定价，就不结账。';
+  if(v<77) return '还在 Meta 主张的封顶线之下：$77/条 × 4,390万 ≈ 34 亿美元——这是被告方愿意承认的全部。';
+  if(v<114) return '已过第一格：Meta 主张的 34 亿封顶（$77/条）。接下来是 2019 年让全美倒吸凉气的 FTC 罚单。';
+  if(v<410) return '已过 2019 FTC 罚单 50 亿（$114/条）。当年它是"史上最大隐私罚单"，现在只是刻度上的第二格。';
+  if(v<569) return '已过 48 州 8 月和解 180 亿（$410/条）。和解路径的价格，到这里为止。';
+  if(v===569) return '★ 你就停在判决上：10月21日法官 Francis Mathew 裁定 250 亿美元，每条约 $569——法定上限的 11.4%，滑条不到 1/8 的路程。';
+  if(v<5000) return '越过了本案判决。法律其实允许更贵：法官没有用完他的定价权，最高可以用到 $5,000/条。';
+  return '法定上限满额：4,390 万 × $5,000 = $219,500,000,000。这个法官本可以写下、但没有写下的数字。';
+}
+
+/* LED 区固定 $ 前缀 */
+(function(){
+  var pre=document.createElement('span'); pre.className='ch'; pre.textContent='$';
+  totalOdo.appendChild(pre);
+})();
+
+function updateAll(v){
+  var total=v*VIOL, pct=total/CAP*100;
+  var vTxt='$'+fmt(v), tTxt=fmt(total);
+  priceNow.textContent=vTxt;
+  odoTotal(tTxt);
+  pctFill.style.width=Math.max(pct,0)+'%';
+  pctVal.textContent=pct.toFixed(1)+'%';
+  priceRange.style.setProperty('--fillpct',(v/CAP_PER*100)+'%');
+  hintLine.textContent=hintFor(v);
+  rUnit.textContent=vTxt;
+  rTotal.textContent='$'+tTxt;
+  rPct.textContent=pct.toFixed(1)+'%';
+  rQty.textContent=fmt(VIOL)+' 次';
+  var stampText=v===569?'≈ 250亿<br>已裁定':(v===5000?'法 定<br>上 限':(v===0?'未 定<br>价':'手 动<br>计价'));
+  rStamp.innerHTML=stampText;
+  TICKS.forEach(function(t){
+    var on=v>=t.v;
+    t.st.classList.toggle('lit',on); t.lb.classList.toggle('lit',on); t.pl.classList.toggle('lit',on);
+  });
+  chipBtns.forEach(function(b){ b.classList.toggle('on', +b.dataset.v===v && v>0); });
+}
+
+priceRange.addEventListener('input', function(){ updateAll(+priceRange.value); });
+
+/* 预设跳转：缓动 */
+var animating=false;
+function jumpTo(to){
+  var from=+priceRange.value;
+  if(from===to) return;
+  animating=true;
+  var t0=performance.now(), dur=Math.min(700, 260+Math.abs(to-from)*0.14);
+  function frame(t){
+    var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    var v=Math.round(from+(to-from)*e);
+    priceRange.value=v; updateAll(v);
+    if(p<1) requestAnimationFrame(frame); else { priceRange.value=to; updateAll(to); animating=false; }
+  }
+  requestAnimationFrame(frame);
+}
+chipBtns.forEach(function(b){ b.addEventListener('click', function(){ jumpTo(+b.dataset.v); }); });
+updateAll(+priceRange.value);
+
+/* ---------- 第二幕：时间轴 ---------- */
+var TL=[
+  {yr:'2016', lab:'2016'},
+  {yr:'2018', lab:'2018'},
+  {yr:'2019', lab:'2019'},
+  {yr:'2021', lab:'2021'},
+  {yr:'2026.08', lab:'26.08'},
+  {yr:'2026.09', lab:'26.09'},
+  {yr:'2026.10', lab:'26.10'}
+];
+var nodesEl=$('#tlNodes'), tlRange=$('#tlRange'), tlYear=$('#tlYear'), tlFill=$('#tlFill'),
+    cards=[].slice.call(document.querySelectorAll('.tl-card'));
+TL.forEach(function(d,i){
+  var b=document.createElement('button');
+  b.className='node'+(i===0?' on':''); b.setAttribute('aria-label',d.yr);
+  b.innerHTML='<i></i><em>'+d.lab+'</em>';
+  b.addEventListener('click', function(){ tlRange.value=i; showTl(i); });
+  nodesEl.appendChild(b);
+});
+function showTl(i){
+  tlYear.textContent=TL[i].yr;
+  tlFill.style.width=(i/(TL.length-1)*100)+'%';
+  [].slice.call(nodesEl.children).forEach(function(n,j){
+    n.classList.toggle('on', j===i);
+    n.classList.toggle('past', j<i);
+  });
+  cards.forEach(function(c,j){ c.classList.toggle('on', j===i); });
+}
+tlRange.addEventListener('input', function(){ showTl(+tlRange.value); });
+showTl(0);
+
+/* ---------- 第四幕：对比切换 ---------- */
+var cmpA=$('#cmpA'), cmpB=$('#cmpB'), panelA=$('#panelA'), panelB=$('#panelB');
+function setCmp(b){
+  var useB=!!b;
+  cmpA.classList.toggle('on', !useB); cmpB.classList.toggle('on', useB);
+  cmpA.setAttribute('aria-selected', String(!useB)); cmpB.setAttribute('aria-selected', String(useB));
+  panelA.classList.toggle('on', !useB); panelB.classList.toggle('on', useB);
+}
+cmpA.addEventListener('click', function(){ setCmp(false); });
+cmpB.addEventListener('click', function(){ setCmp(true); });
+
+/* ---------- 入场：reveal + 数字滚动 ---------- */
+function countUp(el, target, dur, prefix, suffix){
+  var t0=null, suffix_=suffix||'';
+  function frame(t){
+    if(!t0) t0=t;
+    var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    var val=Math.round(target*e);
+    el.textContent=(prefix||'')+fmt(val)+suffix_;
+    if(p<1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+var seen={};
+function act1Numbers(){
+  if(seen.act1) return; seen.act1=true;
+  var nViol=$('#nViol'), nPer=$('#nPer'), nCap=$('#nCap'), nVerdict=$('#nVerdict');
+  countUp(nViol, VIOL, 1300, '', ' 次');
+  countUp(nPer, CAP_PER, 1300, '$', '');
+  setTimeout(function(){ countUp(nCap, CAP, 1500, '$', ''); }, 500);
+  setTimeout(function(){ countUp(nVerdict, 25000000000, 1200, '$', ''); }, 1800);
+}
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      en.target.classList.add('in');
+      if(en.target.closest && en.target.closest('#act1')) act1Numbers();
+      io.unobserve(en.target);
+    }
+  });
+},{threshold:0.18});
+[].slice.call(document.querySelectorAll('[data-rv]')).forEach(function(el){ io.observe(el); });
+
+/* 键盘支持：滑杆已在原生 input 上具备；时间轴同 */
+})();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "569 美元", "label": "每条违规约", "quote": "每条违规约 569 美元"},
+  {"value": "50 亿美元", "label": "FTC 罚单", "quote": "FTC 罚单：50 亿美元"},
+  {"value": "180亿美元", "label": "合计口径） · 2026.08 · 48州 / 其他40", "quote": "180亿美元（合计口径） · 2026.08 · 48州 / 其他40余州同款选择"},
+  {"value": "4.59 亿美元", "label": "隐私这条轨道只和解了约", "quote": "隐私这条轨道只和解了约 4.59 亿美元"},
+  {"value": "15%", "label": "年利率", "quote": "年利率 15%"},
+  {"value": "180 亿", "label": "≠ 隐私和解金", "quote": "180 亿 ≠ 隐私和解金。"},
+  {"value": "4.59 亿", "label": "隐私索赔约", "quote": "隐私索赔约 4.59 亿"},
+  {"value": "11.4%", "label": "应付 TOTAL DUE", "quote": "11.4% 应付 TOTAL DUE"},
+  {"value": "34亿", "label": "48州和解", "quote": "34亿 48州和解"},
+  {"value": "180亿", "label": "本案判决", "quote": "180亿 本案判决"},
+  {"value": "250亿", "label": "法定上限", "quote": "250亿 法定上限"},
+  {"value": "2,195亿", "label": "隐私不是没有价格，", "quote": "2,195亿 隐私不是没有价格，"}
+]
+</script>
+</body>
+</html>

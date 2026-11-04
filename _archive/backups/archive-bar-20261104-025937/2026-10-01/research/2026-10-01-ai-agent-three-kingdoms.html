@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="Agent 与编排">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 三国杀 — OpenAI vs Anthropic vs Google 的 Agent 平台大战</title>
+<style>
+  :root {
+    --black: #000000;
+    --near-black: #1d1d1f;
+    --light-gray: #f5f5f7;
+    --apple-blue: #0071e3;
+    --link-blue: #0066cc;
+    --white: #ffffff;
+    --gray-medium: #86868b;
+    --green: #34c759;
+    --orange: #ff9500;
+    --red: #ff3b30;
+    --purple: #af52de;
+    --teal: #5ac8fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--near-black);
+    background: var(--white);
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--black);
+    color: var(--white);
+    padding: 120px 40px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(0,113,227,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(175,82,222,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.07;
+    letter-spacing: -0.28px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--apple-blue); }
+  .hero-sub {
+    font-size: 21px;
+    font-weight: 400;
+    color: #a1a1a6;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    line-height: 1.38;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    font-size: 14px;
+    color: #86868b;
+    position: relative;
+  }
+  .hero-meta strong { color: var(--white); font-weight: 600; }
+
+  /* Section containers */
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  /* Dark section */
+  .dark {
+    background: var(--black);
+    color: var(--white);
+    padding: 100px 0;
+  }
+  .dark h2 { color: var(--white); }
+  .dark p { color: #a1a1a6; }
+
+  /* Light section */
+  .light {
+    background: var(--light-gray);
+    padding: 100px 0;
+  }
+
+  /* White section */
+  .white { padding: 100px 0; }
+
+  /* Section headers */
+  .section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.2px;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    font-size: 19px;
+    line-height: 1.42;
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  /* Stat cards */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 48px 0;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 32px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .light .stat-card, .white .stat-card {
+    background: var(--white);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .stat-number {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+  .stat-label {
+    font-size: 15px;
+    color: #86868b;
+    line-height: 1.3;
+  }
+  .blue { color: var(--apple-blue); }
+  .green-c { color: var(--green); }
+  .orange-c { color: var(--orange); }
+  .purple-c { color: var(--purple); }
+  .red-c { color: var(--red); }
+
+  /* Player cards */
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0;
+  }
+  .player-card {
+    border-radius: 18px;
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .player-card.openai {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: var(--white);
+  }
+  .player-card.anthropic {
+    background: linear-gradient(135deg, #1a0f2e 0%, #2d1b4e 100%);
+    color: var(--white);
+  }
+  .player-card.google {
+    background: linear-gradient(135deg, #0a1628 0%, #0d2137 100%);
+    color: var(--white);
+  }
+  .player-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .player-card.openai .player-icon { background: linear-gradient(135deg, #10a37f, #1a7f5a); }
+  .player-card.anthropic .player-icon { background: linear-gradient(135deg, #d4a574, #c4956a); }
+  .player-card.google .player-icon { background: linear-gradient(135deg, #4285f4, #34a853); }
+  .player-card h3 { font-size: 24px; margin-bottom: 8px; }
+  .player-card .subtitle {
+    font-size: 15px;
+    color: #a1a1a6;
+    margin-bottom: 20px;
+  }
+  .player-card ul {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .player-card li::before {
+    content: '→';
+    margin-right: 8px;
+    color: var(--apple-blue);
+  }
+
+  /* Comparison table */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 48px 0;
+    font-size: 15px;
+  }
+  .comparison-table th {
+    background: var(--near-black);
+    color: var(--white);
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .comparison-table th:first-child { border-radius: 12px 0 0 0; }
+  .comparison-table th:last-child { border-radius: 0 12px 0 0; }
+  .comparison-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table tr:nth-child(even) td { background: #fafafa; }
+  .comparison-table .metric { font-weight: 600; color: var(--near-black); }
+
+  /* Bar chart */
+  .bar-chart { margin: 48px 0; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .bar-label {
+    width: 140px;
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .light .bar-track, .white .bar-track { background: #e5e7eb; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    transition: width 0.8s ease;
+  }
+  .bar-value {
+    margin-left: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: right;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; margin: 48px 0; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e5e7eb;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    padding-left: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--apple-blue);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--apple-blue);
+  }
+  .timeline-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  /* Verdict card */
+  .verdict {
+    background: var(--near-black);
+    border-radius: 24px;
+    padding: 48px;
+    color: var(--white);
+    margin: 48px 0;
+  }
+  .verdict h3 {
+    color: var(--apple-blue);
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .verdict p {
+    color: #a1a1a6;
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .verdict strong { color: var(--white); }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+  .tag-tech { background: rgba(0,113,227,0.15); color: var(--apple-blue); }
+  .tag-money { background: rgba(52,199,89,0.15); color: var(--green); }
+  .tag-industry { background: rgba(255,149,0,0.15); color: var(--orange); }
+  .tag-geo { background: rgba(175,82,222,0.15); color: var(--purple); }
+
+  /* Callout */
+  .callout {
+    background: rgba(0,113,227,0.06);
+    border-left: 4px solid var(--apple-blue);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .callout p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--near-black);
+  }
+  .callout strong { color: var(--apple-blue); }
+
+  /* Sources */
+  .sources {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid #e5e7eb;
+  }
+  .sources h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--gray-medium);
+  }
+  .sources ul {
+    list-style: none;
+    font-size: 13px;
+    line-height: 2;
+    color: #6b7280;
+  }
+  .sources li::before { content: '· '; }
+
+  /* Dimension badges */
+  .dims { margin-bottom: 16px; }
+  .dim-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  .light .dim-badge, .white .dim-badge { background: #f0f0f2; }
+
+  /* Footer */
+  .footer {
+    background: var(--black);
+    color: #86868b;
+    text-align: center;
+    padding: 40px;
+    font-size: 13px;
+  }
+
+  /* Revenue bars */
+  .revenue-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .revenue-label {
+    width: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .revenue-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .revenue-bar-track {
+    height: 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .revenue-bar-track .fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+  }
+  .revenue-bar-track .year-label {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: #86868b;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+    .stat-grid, .player-grid { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; gap: 8px; }
+  }
+
+  /* Confidence */
+  .confidence {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+  .conf-high { background: rgba(52,199,89,0.15); color: var(--green); }
+  .conf-mid { background: rgba(255,149,0,0.15); color: var(--orange); }
+  .conf-low { background: rgba(255,59,48,0.15); color: var(--red); }
+
+  /* Protocol cards */
+  .proto-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .proto-card {
+    border-radius: 14px;
+    padding: 28px;
+    border: 1px solid #e5e7eb;
+    background: var(--white);
+  }
+  .proto-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .proto-card p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.55;
+  }
+  .proto-card .origin {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-01</span><span class="sb-sep">/</span><span class="sb-beat">Agent 与编排</span><span class="sb-sep">/</span><span class="sb-cnt">27 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">25 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-eyebrow">深度研究报告 · 2026年10月</div>
+  <h1>AI Agent <span>三国杀</span></h1>
+  <p class="hero-sub">OpenAI、Anthropic、Google 三大巨头的 Agent 平台战略全面解析——技术路线、商业模式、生态博弈与终局推演</p>
+  <div class="hero-meta">
+    <span>类型 <strong>深度研究报告</strong></span>
+    <span>字数 <strong>8,000+</strong></span>
+    <span>截止 <strong>2026-10-01</strong></span>
+    <span>置信度 <strong>A/B级为主</strong></span>
+  </div>
+</section>
+
+<!-- ===================== 0. EXECUTIVE SUMMARY ===================== -->
+<section class="dark">
+  <div class="container">
+    <div class="section-label">执行摘要</div>
+    <h2>三国鼎立，各据山河</h2>
+    <p class="section-desc">2026年，AI Agent从实验品变成了企业基础设施。三巨头的分化路径已经清晰：<strong>OpenAI要当操作系统</strong>，<strong>Anthropic要当企业中枢</strong>，<strong>Google要当天花板到收件箱的全栈</strong>。谁赢？取决于你问的是什么战场。</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number blue">46.4%</div>
+        <div class="stat-label">ChatGPT 全球市场份额<br>（2026年5月·Sensor Tower）<br><span style="color:#ff3b30">首次跌破50%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number purple-c">40%</div>
+        <div class="stat-label">Anthropic 企业 LLM API 支出占比<br>（2025·Menlo Ventures）<br><span style="color:#34c759">超越OpenAI</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number green-c">$240B</div>
+        <div class="stat-label">Google Cloud 合同积压<br>（2026·Cloud Next）<br><span style="color:#5ac8fa">全栈押注</span></div>
+      </div>
+    </div>
+
+    <div class="dims">
+      <span class="dim-badge">🤖 技术</span>
+      <span class="dim-badge">💰 经济</span>
+      <span class="dim-badge">🏭 产业</span>
+      <span class="dim-badge">🌍 地缘</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 1. MARKET LANDSCAPE ===================== -->
+<section class="light">
+  <div class="container">
+    <div class="section-label">第一章 · 市场全景</div>
+    <h2>从一家独大到三国鼎立</h2>
+    <p class="section-desc">2026年AI助手市场发生了结构性转变：ChatGPT市占率首次跌破50%，Gemini凭分发优势逼近30%，Claude以企业市场为支点撬动格局。</p>
+
+    <h3>AI助手全球市场份额（2026年5月）</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">ChatGPT</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:46.4%;background:var(--apple-blue)">46.4%</div>
+        </div>
+        <div class="bar-value blue">11亿MAU</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Gemini</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:27.7%;background:var(--green)">27.7%</div>
+        </div>
+        <div class="bar-value green-c">6.6亿MAU</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Claude</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:10.3%;background:var(--purple)">10.3%</div>
+        </div>
+        <div class="bar-value purple-c">2.45亿MAU</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">其他</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:15.6%;background:#86868b">15.6%</div>
+        </div>
+        <div class="bar-value">Grok/Perplexity/…</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>关键发现：</strong>三大数据源（Sensor Tower用户份额 / First Page Sage美国MAU / Comscore提示词量）得出一致结构：ChatGPT约一半、Gemini约四分之一到三分之一、Claude约十分之一。当不同衡量方法指向相同结论时，数据可以高置信引用。</p>
+    </div>
+
+    <h3>但企业市场完全不同——Anthropic反超OpenAI</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Anthropic</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:40%;background:var(--purple)">40%</div>
+        </div>
+        <div class="bar-value purple-c">↑从12%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">OpenAI</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:27%;background:var(--apple-blue)">27%</div>
+        </div>
+        <div class="bar-value blue">↓从50%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Google</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:21%;background:var(--green)">21%</div>
+        </div>
+        <div class="bar-value green-c">↑从7%</div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:#86868b;margin-top:-24px;">企业LLM API支出份额 · 来源：Menlo Ventures 2025年12月 · ⚠️ Menlo Ventures是Anthropic投资方，数据方向一致但精确数字需谨慎引用</p>
+
+    <div class="stat-grid" style="margin-top:48px;">
+      <div class="stat-card">
+        <div class="stat-number blue">$40B+</div>
+        <div class="stat-label">OpenAI 年化收入<br>（2026年8月·Bloomberg）</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number purple-c">$65B+</div>
+        <div class="stat-label">Anthropic 年化收入<br>（2026年7月·Bloomberg）</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number green-c">$40B+</div>
+        <div class="stat-label">Google Cloud 年化收入<br>（含AI基础设施）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. THREE PLAYERS ===================== -->
+<section class="white">
+  <div class="container">
+    <div class="section-label">第二章 · 三大玩家</div>
+    <h2>三种Agent哲学，三条商业路径</h2>
+    <p class="section-desc">OpenAI、Anthropic、Google各自走出了差异化路线。我们拆解每一家的平台策略、核心产品和护城河。</p>
+
+    <div class="player-grid">
+      <!-- OpenAI -->
+      <div class="player-card openai">
+        <div class="player-icon">O</div>
+        <h3>OpenAI</h3>
+        <div class="subtitle">从聊天机器人到AI超级应用</div>
+        <ul>
+          <li><strong>Agents API</strong>：将Codex执行框架开放给开发者</li>
+          <li><strong>Frontier平台</strong>：企业级Agent管理中枢</li>
+          <li><strong>Codex</strong>：400万+周活开发者的编程Agent</li>
+          <li><strong>AgentKit</strong>：可视化Agent构建+评估</li>
+          <li><strong>MCP支持</strong>：已采纳Anthropic协议标准</li>
+          <li><strong>战略</strong>：统一AI超级应用</li>
+        </ul>
+      </div>
+      <!-- Anthropic -->
+      <div class="player-card anthropic">
+        <div class="player-icon">A</div>
+        <h3>Anthropic</h3>
+        <div class="subtitle">从模型公司到企业Agent平台</div>
+        <ul>
+          <li><strong>Managed Agents</strong>：全托管Agent运行时</li>
+          <li><strong>MCP协议</strong>：AI工具集成的事实标准</li>
+          <li><strong>Claude Code</strong>：$25亿+ ARR的编程Agent</li>
+          <li><strong>Cowork + 插件</strong>：企业操作系统层</li>
+          <li><strong>多云策略</strong>：AWS + Google + Azure全覆盖</li>
+          <li><strong>战略</strong>：企业AI操作层</li>
+        </ul>
+      </div>
+      <!-- Google -->
+      <div class="player-card google">
+        <div class="player-icon">G</div>
+        <h3>Google</h3>
+        <div class="subtitle">从Vertex AI到全栈Agent平台</div>
+        <ul>
+          <li><strong>GEAP</strong>：Vertex AI重组为Agent统一平台</li>
+          <li><strong>A2A协议</strong>：Agent间通信开放标准</li>
+          <li><strong>ADK v1.0</strong>：四语言SDK的Agent开发框架</li>
+          <li><strong>Workspace Studio</strong>：无代码Agent构建器</li>
+          <li><strong>Project Mariner</strong>：浏览器自主Agent</li>
+          <li><strong>战略</strong>：芯片到收件箱的全栈</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. TECHNICAL COMPARISON ===================== -->
+<section class="light">
+  <div class="container">
+    <div class="section-label">第三章 · 技术路线对比</div>
+    <h2>两条协议，三种实现</h2>
+    <p class="section-desc">2026年Agent技术栈的核心竞争围绕<strong>两大开放协议</strong>和<strong>三种平台实现</strong>展开。</p>
+
+    <div class="proto-grid">
+      <div class="proto-card">
+        <div class="origin">Anthropic 创建 · Linux基金会托管</div>
+        <h4>MCP — 模型上下文协议</h4>
+        <p>AI连接工具和数据的"USB-C"。SDK月下载量从1亿飙升至3亿+。2026年7月修订版实现无状态化。OpenAI、Google、Microsoft均已采纳。</p>
+        <p style="margin-top:8px;font-weight:600;color:var(--near-black);">定位：Agent ↔ 工具/数据</p>
+      </div>
+      <div class="proto-card">
+        <div class="origin">Google 创建 · Linux基金会Agentic AI Foundation</div>
+        <h4>A2A — Agent间通信协议</h4>
+        <p>让不同框架的Agent互相发现和委托任务。v1.2已在150+企业生产环境运行。Microsoft、AWS、Salesforce、SAP均已支持。</p>
+        <p style="margin-top:8px;font-weight:600;color:var(--near-black);">定位：Agent ↔ Agent</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>关键洞察：</strong>MCP和A2A不是竞争关系——MCP解决"Agent怎么用工具"，A2A解决"Agent怎么跟其他Agent对话"。Google在Cloud Next明确表态：A2A与MCP互补而非竞争。两者共同构成Agentic基础设施的双协议层。</p>
+    </div>
+
+    <h3>技术能力全面对比</h3>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>OpenAI</th>
+          <th>Anthropic</th>
+          <th>Google</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">核心Agent API</td>
+          <td>Agents API（Codex harness）</td>
+          <td>Claude Managed Agents</td>
+          <td>Gemini Enterprise Agent Platform</td>
+        </tr>
+        <tr>
+          <td class="metric">执行框架</td>
+          <td>Codex执行框架（开源）<br>支持自动上下文压缩</td>
+          <td>会话即事件日志架构<br>沙箱隔离 + 持久化文件系统</td>
+          <td>ADK v1.0（Python/Go/Java/TS）<br>图编排 + 确定性护栏</td>
+        </tr>
+        <tr>
+          <td class="metric">工具集成协议</td>
+          <td>MCP + 自定义Function + 内置工具</td>
+          <td>MCP（原生创建者）+ 50+内置连接器</td>
+          <td>MCP + A2A + Apigee桥接</td>
+        </tr>
+        <tr>
+          <td class="metric">沙箱/运行时</td>
+          <td>OpenAI托管 + 9家生态合作伙伴</td>
+          <td>Anthropic全托管（$0.08/会话小时）</td>
+          <td>Agent Runtime（亚秒冷启动）</td>
+        </tr>
+        <tr>
+          <td class="metric">Agent间通信</td>
+          <td>多Agent编排（SDK内置）</td>
+          <td>通过MCP + 子Agent</td>
+          <td>A2A协议（150+企业生产）</td>
+        </tr>
+        <tr>
+          <td class="metric">企业安全</td>
+          <td>Guardrails开源模块 + Frontier权限</td>
+          <td>加密身份 + 审计API + 合规控制</td>
+          <td>Agent Identity（加密ID）+ Agent Gateway</td>
+        </tr>
+        <tr>
+          <td class="metric">Agent记忆</td>
+          <td>自动上下文压缩 + 持久会话</td>
+          <td>会话事件日志 + 状态外化</td>
+          <td>Memory Bank（长期持久记忆）</td>
+        </tr>
+        <tr>
+          <td class="metric">无代码方案</td>
+          <td>Agent Builder（已宣布关闭）</td>
+          <td>Claude Cowork + 插件市场</td>
+          <td>Workspace Studio + Agent Designer</td>
+        </tr>
+        <tr>
+          <td class="metric">编程Agent</td>
+          <td>Codex（400万+周活）</td>
+          <td>Claude Code（$25亿+ ARR）</td>
+          <td>Gemini Code Assist</td>
+        </tr>
+        <tr>
+          <td class="metric">浏览器Agent</td>
+          <td>Operator（CUA模型）</td>
+          <td>Computer Use 2.0（MCP工具）</td>
+          <td>Project Mariner</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 4. BUSINESS MODEL ===================== -->
+<section class="dark">
+  <div class="container">
+    <div class="section-label">第四章 · 商业模式博弈</div>
+    <h2>钱从哪来，往哪去</h2>
+    <p class="section-desc">三家的赚钱方式截然不同：OpenAI靠消费者+API，Anthropic靠企业合同，Google靠云+分发。</p>
+
+    <h3 style="color:var(--white);">年化收入增长轨迹</h3>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label" style="color:var(--white)">Anthropic</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:92%;background:linear-gradient(90deg,#7c3aed,#a855f7)">$65B+ ARR (Jul'26)</div>
+        </div>
+        <div class="bar-value" style="color:#a855f7">1400% YoY</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label" style="color:var(--white)">OpenAI</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#10a37f,#34d399)">$40B+ ARR (Aug'26)</div>
+        </div>
+        <div class="bar-value" style="color:#34d399">100%+ YoY</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label" style="color:var(--white)">Google Cloud</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#4285f4,#60a5fa)">$40B+ ARR (含AI)</div>
+        </div>
+        <div class="bar-value" style="color:#60a5fa">30%+ YoY</div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--apple-blue);">40%+</div>
+        <div class="stat-label" style="color:#a1a1a6;">OpenAI 企业收入占比<br>预计2026年底与消费者持平</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--purple);">80%</div>
+        <div class="stat-label" style="color:#a1a1a6;">Anthropic 企业收入占比<br>Fortune 10中8家是客户</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--green);">150+</div>
+        <div class="stat-label" style="color:#a1a1a6;">Google A2A生产环境企业<br>$7.5亿合作伙伴基金</div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--white);margin-top:48px;">收入结构拆解</h3>
+    <table class="comparison-table" style="background:transparent;">
+      <thead>
+        <tr>
+          <th style="background:rgba(255,255,255,0.1);">收入来源</th>
+          <th style="background:rgba(255,255,255,0.1);">OpenAI</th>
+          <th style="background:rgba(255,255,255,0.1);">Anthropic</th>
+          <th style="background:rgba(255,255,255,0.1);">Google</th>
+        </tr>
+      </thead>
+      <tbody style="color:#a1a1a6;">
+        <tr>
+          <td class="metric" style="color:var(--white);">消费者订阅</td>
+          <td>ChatGPT Plus/Pro $8.5B+<br>5000万+付费用户</td>
+          <td>Claude Pro/Max ~$58M<br>12万+Pro用户</td>
+          <td>嵌入Android/Workspace<br>不单独计费</td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">企业平台</td>
+          <td>Frontier + Enterprise $7B+<br>100万+企业客户</td>
+          <td>Enterprise + Managed Agents<br>500+百万级客户</td>
+          <td>Gemini for Workspace<br>30亿+企业用户</td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">API/开发者</td>
+          <td>$15B+ tokens/min处理<br>占收入约25%</td>
+          <td>占收入约25%<br>3200+活跃集成</td>
+          <td>Vertex AI + Model Garden<br>200+模型</td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">编程Agent</td>
+          <td>Codex $1B+ ARR（1个月内达成）</td>
+          <td>Claude Code $2.5B+ ARR<br>SWE-bench 93.9%</td>
+          <td>Gemini Code Assist<br>份额11%</td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">广告/新业务</td>
+          <td>广告试点 $100M ARR（6周）<br>17% DAU看到广告</td>
+          <td>无广告 · 纯合同+订阅</td>
+          <td>AI Overviews搜索广告<br>云基础设施间接变现</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 5. DEVELOPER ECOSYSTEM ===================== -->
+<section class="white">
+  <div class="container">
+    <div class="section-label">第五章 · 开发者生态</div>
+    <h2>谁赢得了开发者，谁就赢得了未来</h2>
+    <p class="section-desc">开发者是Agent平台的生命线。2026年的开发者争夺战在三个层面展开：编程Agent、Agent框架、协议标准。</p>
+
+    <h3>编程Agent大战</h3>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number blue">400万+</div>
+        <div class="stat-label">Codex 周活用户<br>2026年增长10倍<br><span class="conf-mid">来源：OpenAI官方</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number purple-c">54%</div>
+        <div class="stat-label">Claude 企业编程市场份额<br>GitHub开源代码4%由Claude生成<br><span class="conf-high">来源：Menlo Ventures</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number green-c">3亿+</div>
+        <div class="stat-label">MCP SDK月下载量<br>（2026年·从1亿增长）<br><span class="conf-high">来源：Anthropic官方</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px;">协议生态对比</h3>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>MCP（Anthropic主导）</th>
+          <th>A2A（Google主导）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">定位</td>
+          <td>Agent ↔ 工具/数据连接</td>
+          <td>Agent ↔ Agent 通信</td>
+        </tr>
+        <tr>
+          <td class="metric">治理</td>
+          <td>Linux基金会Agentic AI Foundation</td>
+          <td>Linux基金会Agentic AI Foundation</td>
+        </tr>
+        <tr>
+          <td class="metric">采纳方</td>
+          <td>OpenAI、Google、Microsoft、Cursor、JetBrains…</td>
+          <td>Microsoft、AWS、Salesforce、SAP、ServiceNow…</td>
+        </tr>
+        <tr>
+          <td class="metric">生产环境</td>
+          <td>数百万Claude日活用户<br>200+官方MCP服务器</td>
+          <td>150+企业组织<br>v1.2稳定版</td>
+        </tr>
+        <tr>
+          <td class="metric">最新进展</td>
+          <td>2026-07-28修订：无状态化<br>MCP 2.0 SDK发布</td>
+          <td>v1.2：签名Agent Card<br>加密身份验证</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>开发者生态关键洞察：</strong>Anthropic通过MCP建立了"协议层"的影响力——即使开发者用的是OpenAI或Google的模型，他们仍然在使用Anthropic创建的协议。这是微软Windows级别的生态控制力。而Google的A2A则在Agent间通信领域开辟了另一条战线，目前150+企业的生产采纳速度超出预期。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6. COMPETITIVE TIMELINE ===================== -->
+<section class="light">
+  <div class="container">
+    <div class="section-label">第六章 · 竞争时间线</div>
+    <h2>2026年关键事件年表</h2>
+    <p class="section-desc">从1月到10月，三大巨头在Agent战场密集出招。</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2026年1月</div>
+        <div class="timeline-title">Anthropic 发布 Claude Cowork + 交互式应用</div>
+        <div class="timeline-desc">11个开源插件覆盖销售、法律、金融等部门，Claude从聊天工具升级为企业操作系统层。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年2月</div>
+        <div class="timeline-title">三巨头同月爆发</div>
+        <div class="timeline-desc">OpenAI发布Frontier企业Agent平台；Anthropic企业插件市场+SaaSpocalypse（SaaS市值蒸发$2万亿）；Claude Code ARR突破$25亿。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年3月</div>
+        <div class="timeline-title">OpenAI Agents SDK更新 + $1220亿融资</div>
+        <div class="timeline-desc">估值$8520亿。Agents SDK增加原生沙箱、Manifest抽象、跨云可移植性。Anthropic推出Claude Partner Network（$1亿）。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年4月</div>
+        <div class="timeline-title">Google Cloud Next 2026：Vertex AI → GEAP</div>
+        <div class="timeline-desc">Google将Vertex AI重组为Gemini Enterprise Agent Platform。A2A v1.0投产，150+企业。Merck $10亿大单。8代TPU发布。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年4月8日</div>
+        <div class="timeline-title">Anthropic 发布 Managed Agents 公测</div>
+        <div class="timeline-desc">从卖模型到卖平台。$0.08/会话小时+token费用。Notion、Rakuten、Sentry率先采用。Anthropic不再是模型公司。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年4月15日</div>
+        <div class="timeline-title">OpenAI 发布 Agents SDK 重大更新</div>
+        <div class="timeline-desc">原生沙箱执行、Harness与计算分离、跨云Manifest、快照/恢复。支持Blaxel/Cloudflare/E2B等9家合作伙伴。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年4月15日</div>
+        <div class="timeline-title">Anthropic 估值达 $8000亿</div>
+        <div class="timeline-desc">年化收入突破$300亿。发布Managed Agents后估值从$3800亿翻倍。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年5月</div>
+        <div class="timeline-title">ChatGPT 市占率首次跌破50%</div>
+        <div class="timeline-desc">Sensor Tower报告ChatGPT全球份额降至46.4%。Claude在企业采用率上首次超越ChatGPT（Ramp AI Index: 34.4% vs 32.3%）。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年6月</div>
+        <div class="timeline-title">OpenAI AgentKit 发布又关闭</div>
+        <div class="timeline-desc">Agent Builder和Evals产品宣布2026年11月30日关闭。OpenAI承认代码路径（Agents SDK）优于可视化路径。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026年9月</div>
+        <div class="timeline-title">OpenAI Agents API 进入公测</div>
+        <div class="timeline-desc">将Codex执行框架开放给所有开发者。一次API调用创建生产级Agent。SafetyKit报告单案例成本降低60%。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. GEO & INDUSTRY ===================== -->
+<section class="dark">
+  <div class="container">
+    <div class="section-label">第七章 · 地缘与产业</div>
+    <h2>不只是技术竞争</h2>
+    <p class="section-desc">Agent平台大战背后是地缘政治、产业格局和监管环境的深层博弈。</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--teal);">$700B</div>
+        <div class="stat-label" style="color:#a1a1a6;">2026年超级AI资本支出<br>微软+Google+亚马逊+Oracle</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--orange);">67%</div>
+        <div class="stat-label" style="color:#a1a1a6;">Fortune 500 企业<br>已部署AI Agent</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--red);">40%+</div>
+        <div class="stat-label" style="color:#a1a1a6;">Gartner预测2027年<br>Agent项目将被取消</div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--white);margin-top:48px;">产业格局关键判断</h3>
+    <table class="comparison-table" style="background:transparent;">
+      <thead>
+        <tr>
+          <th style="background:rgba(255,255,255,0.1);">维度</th>
+          <th style="background:rgba(255,255,255,0.1);">判断</th>
+          <th style="background:rgba(255,255,255,0.1);">置信度</th>
+        </tr>
+      </thead>
+      <tbody style="color:#a1a1a6;">
+        <tr>
+          <td class="metric" style="color:var(--white);">🌍 美国主导</td>
+          <td>三家均为美国公司，控制90%+企业AI支出。中国Agent生态（字节扣子、阿里通义）主要在国内竞争。</td>
+          <td><span class="confidence conf-high">高</span></td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">🇪🇺 欧洲监管</td>
+          <td>EU AI Act对自主Agent提出审计要求。Mistral凭开放权重+数据主权获得欧洲企业青睐。</td>
+          <td><span class="confidence conf-high">高</span></td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">🔒 信任因素</td>
+          <td>OpenAI与美国国防部合作后卸载量暴涨295%。品牌信任成为用户选择Agent的重要因素。</td>
+          <td><span class="confidence conf-high">高</span></td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">💰 基础设施军备</td>
+          <td>Anthropic承诺$2000亿Google Cloud支出；OpenAI Stargate $3000亿Oracle采购。算力成为核心壁垒。</td>
+          <td><span class="confidence conf-mid">中</span></td>
+        </tr>
+        <tr>
+          <td class="metric" style="color:var(--white);">📉 SaaS颠覆</td>
+          <td>Agent导致SaaS市值蒸发$2万亿。传统按席位收费模式面临AI Agent的根本性挑战。</td>
+          <td><span class="confidence conf-mid">中</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 8. VERDICT ===================== -->
+<section class="white">
+  <div class="container">
+    <div class="section-label">第八章 · 终局推演</div>
+    <h2>谁最可能胜出？</h2>
+    <p class="section-desc">答案取决于你定义的"胜出"是什么。三家在不同战场上各有胜算。</p>
+
+    <div class="verdict">
+      <h3>🏆 消费者市场：OpenAI 仍是王者，但城墙在塌</h3>
+      <p>ChatGPT 11亿MAU的护城河依然宽阔，但50%的市占率关口已破。Gemini凭借Android + Workspace的分发优势正以每月1-2个百分点蚕食份额。OpenAI的"AI超级应用"战略（ChatGPT + Codex + 浏览 + 广告）是对的，但执行窗口在缩小。<strong>预计2027年ChatGPT份额降至35-40%区间。</strong></p>
+    </div>
+
+    <div class="verdict">
+      <h3>🏆 企业市场：Anthropic 已经赢了第一回合</h3>
+      <p>40%的企业LLM API支出、$65B+ ARR、Claude Code $25亿+ ARR、企业采用率首次超越ChatGPT——Anthropic在企业市场的领先幅度正在扩大而非缩小。Managed Agents从"卖推理"到"卖平台"的跃迁是2026年最重要的战略转变。<strong>但风险在于客户集中度和云厂商的反攻。</strong></p>
+    </div>
+
+    <div class="verdict">
+      <h3>🏆 基础设施/平台：Google 的全栈赌注</h3>
+      <p>$240B云合同积压、200+模型的Model Garden、A2A协议150+企业投产、从TPU到Workspace的全栈控制——Google在"谁来管理成百上千个Agent"这个问题上拥有最完整的答案。Vertex AI → GEAP的重组不是改名，而是战略定位的根本转变。<strong>Google的目标不是赢任何单一战场，而是成为所有战场的基础设施。</strong></p>
+    </div>
+
+    <div class="verdict" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a1a3e 100%);">
+      <h3>🔮 最终判断：没有统一赢家，但有结构性变化</h3>
+      <p><strong>单一模型时代结束了。</strong>78%的企业生产环境已使用2+模型。未来的赢家不是"谁的模型最好"，而是<strong>谁的平台能最好地编排多个模型、工具和Agent</strong>。</p>
+      <p>按当前轨迹推演：</p>
+      <p>• <strong>Anthropic</strong> 在企业Agent和编程Agent领域将保持领先到2027年中<br>
+         • <strong>OpenAI</strong> 凭超级应用+消费者基数在开发者和消费者市场保持优势<br>
+         • <strong>Google</strong> 凭全栈+分发+协议在企业基础设施市场稳步增长<br>
+         • <strong>真正输家</strong> 是传统SaaS厂商和试图单一锁定某家模型的企业</p>
+      <p style="margin-top:16px;font-size:15px;color:#86868b;">⚠️ Agent市场变化极快，以上推演基于2026年10月数据。重大模型突破、监管变化或经济环境转变均可能显著改变格局。</p>
+    </div>
+
+    <div class="sources">
+      <h4>主要参考来源（按可靠性分级）</h4>
+      <ul>
+        <li><strong>A级·权威</strong>：Sensor Tower State of AI 2026 / Menlo Ventures Enterprise AI Spending 2025 / Gartner AI Agent Forecast</li>
+        <li><strong>A级·官方</strong>：OpenAI Agents API文档 / Anthropic MCP规范 / Google Cloud Next 2026公告 / Anthropic Managed Agents产品文档</li>
+        <li><strong>B级·一手</strong>：Ramp AI Index（5万+企业支付数据）/ Bloomberg收入报道 / The Wall Street Journal内部财务预测</li>
+        <li><strong>C级·分析</strong>：TechCrunch / AI Insiders / The Agent Times / Klover.ai行业分析 / ChatMaxima市场报告</li>
+        <li><strong>C级·技术</strong>：ChatForest MCP集成指南 / Digitura MCP 2026 / Subagentic GEAP分析 / DEV Community OpenAI Enterprise分析</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <p>研析 · Research Analyst · 深度研究报告</p>
+  <p style="margin-top:8px;">生成时间：2026-10-01 · 数据截止：2026年9月 · Token消耗约70K</p>
+  <p style="margin-top:4px;">本报告基于公开信息编制，不构成投资建议</p>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value": "50%", "label": "首次跌破", "quote": "首次跌破50%"},
+  {"value": "11亿", "label": "MAU", "quote": "11亿MAU"},
+  {"value": "6.6亿", "label": "MAU", "quote": "6.6亿MAU"},
+  {"value": "2.45亿", "label": "MAU", "quote": "2.45亿MAU"},
+  {"value": "1400%", "label": "YoY", "quote": "1400% YoY"},
+  {"value": "100%", "label": "+ YoY", "quote": "100%+ YoY"},
+  {"value": "30%", "label": "+ YoY", "quote": "30%+ YoY"},
+  {"value": "30亿", "label": "+企业用户", "quote": "30亿+企业用户"},
+  {"value": "25%", "label": "占收入约", "quote": "占收入约25%"},
+  {"value": "93.9%", "label": "SWE-bench", "quote": "SWE-bench 93.9%"},
+  {"value": "17%", "label": "DAU看到广告", "quote": "17% DAU看到广告"},
+  {"value": "50%", "label": "ChatGPT 市占率首次跌破", "quote": "ChatGPT 市占率首次跌破50%"},
+  {"value": "46.4%", "label": "ChatGPT 全球市场份额", "quote": "46.4% ChatGPT 全球市场份额"},
+  {"value": "40%", "label": "Anthropic 企业 LLM API 支出占比", "quote": "40% Anthropic 企业 LLM API 支出占比"},
+  {"value": "46.4%", "label": "11亿MAU", "quote": "46.4% 11亿MAU"},
+  {"value": "27.7%", "label": "6.6亿MAU", "quote": "27.7% 6.6亿MAU"},
+  {"value": "10.3%", "label": "2.45亿MAU", "quote": "10.3% 2.45亿MAU"},
+  {"value": "15.6%", "label": "Grok/Perplexity/…", "quote": "15.6% Grok/Perplexity/…"},
+  {"value": "40%", "label": "↑从12%", "quote": "40% ↑从12%"},
+  {"value": "27%", "label": "↓从50%", "quote": "27% ↓从50%"},
+  {"value": "21%", "label": "↑从7%", "quote": "21% ↑从7%"},
+  {"value": "80%", "label": "Anthropic 企业收入占比", "quote": "80% Anthropic 企业收入占比"},
+  {"value": "54%", "label": "Claude 企业编程市场份额", "quote": "54% Claude 企业编程市场份额"},
+  {"value": "67%", "label": "Fortune 500 企业", "quote": "67% Fortune 500 企业"}
+]
+</script>
+</body>
+</html>

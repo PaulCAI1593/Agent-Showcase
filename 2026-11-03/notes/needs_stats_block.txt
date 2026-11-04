@@ -1,0 +1,13 @@
+# 仍缺 claims 声明的作品（11 件）—— 需要补「数值+标签」统计块
+# 格式：相对路径	类型	现有断言数	正文字节
+2026-08-13/research/2026-08-13-aisi-safety-assessment.html	research	0	41380
+2026-06-15/research/2026-06-15-openai-ona-acquisition.html	research	0	34834
+2026-05-27/research/2026-05-27-turing-test-impact.html	research	0	31221
+2026-05-26/research/2026-05-26-huawei-tau-law.html	research	0	17711
+2026-05-23/research/2026-05-23-research-stainless-acquisition.html	research	0	15180
+2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html	creative	0	48038
+2026-09-17/creative/2026-09-17-wechat-ai-social-network.html	creative	0	63635
+2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html	creative	0	63955
+2026-08-18/creative/2026-08-18-fcc-china-robot-ban.html	creative	0	31501
+2026-06-16/creative/2026-06-16-ai-security-red-blue.html	creative	0	46467
+2026-06-13/creative/2026-06-13-ai-ipo-trinity.html	creative	0	51798

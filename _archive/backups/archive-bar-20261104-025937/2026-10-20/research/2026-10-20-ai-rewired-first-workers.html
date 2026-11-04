@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21%到14%与90% — AI重塑的第一批人，和把他们挡在门外的第一批公司</title>
+<style>
+:root{
+  --black:#000000; --near-black:#1d1d1f; --light-gray:#f5f5f7; --apple-blue:#0071e3;
+  --link-blue:#0066cc; --white:#ffffff; --gray:#6e6e73; --divider:rgba(0,0,0,.12);
+  --divider-dark:rgba(255,255,255,.16); --amber:#b25000; --green:#1d7a3e; --red:#b3261e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+ background:var(--white);color:var(--near-black);line-height:1.47;font-size:17px;letter-spacing:-.374px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+.narrow{max-width:720px;margin:0 auto;padding:0 22px}
+
+.hero{background:var(--black);color:var(--white);padding:110px 0 96px;position:relative;overflow:hidden}
+.hero .eyebrow{font-size:14px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--apple-blue);margin-bottom:22px}
+.hero h1{font-size:56px;line-height:1.07;font-weight:600;letter-spacing:-.028em;max-width:920px}
+.hero h1 em{font-style:normal;color:#2997ff}
+.hero .lede{font-size:21px;line-height:1.43;color:#c8c8cd;margin-top:26px;max-width:800px;letter-spacing:-.26px}
+.hero .meta{margin-top:34px;font-size:14px;color:#86868b;display:flex;flex-wrap:wrap;gap:18px 28px}
+.hero .meta span{white-space:nowrap}
+.hero .rule{width:64px;height:4px;background:#2997ff;margin:34px 0 0;border-radius:2px}
+
+.count{display:flex;gap:30px;flex-wrap:wrap;margin-top:46px}
+.count .cell{min-width:84px}
+.count .num{font-size:42px;font-weight:600;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.count .lab{font-size:13px;color:#86868b;margin-top:6px;line-height:1.35}
+
+section{padding:92px 0}
+section.alt{background:var(--light-gray)}
+section.dark{background:var(--black);color:var(--white)}
+section.dark .kicker{color:#2997ff}
+.kicker{font-size:14px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--apple-blue);margin-bottom:16px}
+h2{font-size:40px;line-height:1.10;font-weight:600;letter-spacing:-.02em;margin-bottom:22px}
+h3{font-size:24px;line-height:1.2;font-weight:600;letter-spacing:-.018em;margin:44px 0 14px}
+h4{font-size:19px;line-height:1.3;font-weight:600;margin:28px 0 10px;letter-spacing:-.012px}
+p{margin-bottom:18px}
+.lead{font-size:21px;line-height:1.43;color:#3a3a3c;letter-spacing:-.26px}
+section.dark .lead{color:#c8c8cd}
+.thesis{font-size:20px;line-height:1.45;font-weight:600;letter-spacing:-.2px;margin-bottom:26px;padding-left:18px;border-left:3px solid var(--apple-blue)}
+section.dark .thesis{border-left-color:#2997ff}
+a{color:var(--link-blue);text-decoration:none}
+section.dark a{color:#2997ff}
+a:hover{text-decoration:underline}
+strong{font-weight:600}
+small{font-size:14px;color:var(--gray)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:rgba(127,127,127,.14);padding:2px 6px;border-radius:5px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin:40px 0}
+.stat{background:var(--white);padding:26px 24px;border-radius:18px}
+.stat .v{font-size:44px;font-weight:600;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat .l{font-size:14px;color:var(--gray);margin-top:8px;line-height:1.45}
+.stat.acc .v{color:var(--apple-blue)}
+.stat.warn .v{color:var(--amber)}
+.stat.bad .v{color:var(--red)}
+section.dark .stat{background:#1d1d1f}
+section.dark .stat .l{color:#86868b}
+section.alt .stat{background:var(--white)}
+
+.corr{background:var(--white);border-radius:18px;padding:26px 28px;margin:18px 0}
+.corr .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.4px;padding:4px 12px;border-radius:980px;margin-bottom:12px}
+.tag.wrong{background:rgba(179,38,30,.1);color:var(--red)}
+.tag.right{background:rgba(29,122,62,.1);color:var(--green)}
+.tag.judge{background:rgba(178,80,0,.1);color:var(--amber)}
+.tag.confirm{background:rgba(0,113,227,.1);color:var(--apple-blue)}
+.corr .q{font-size:14px;color:var(--gray);margin-bottom:6px}
+.corr .claim{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:10px}
+.corr .fix{font-size:16px;line-height:1.55}
+.corr .src{font-size:13px;color:var(--gray);margin-top:12px;padding-top:11px;border-top:1px solid var(--divider);line-height:1.5}
+section.dark .corr{background:#1d1d1f}
+section.dark .corr .src{color:#86868b;border-top-color:rgba(255,255,255,.16)}
+section.dark .corr .q{color:#86868b}
+
+.note{background:rgba(0,113,227,.07);border-radius:14px;padding:22px 24px;margin:26px 0;font-size:16px;line-height:1.55}
+.note.warn{background:rgba(179,38,30,.07)}
+.note.amber{background:rgba(178,80,0,.08)}
+.note.ok{background:rgba(29,122,62,.07)}
+section.dark .note{background:rgba(41,151,255,.1)}
+.src-inline{font-size:13px;color:var(--gray);display:block;margin-top:8px}
+section.dark .src-inline{color:#86868b}
+
+.chartbox{background:var(--white);border-radius:20px;padding:26px 28px;margin:32px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+section.dark .chartbox{background:#1d1d1f;box-shadow:none}
+.chartbox .ct{font-size:18px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
+.chartbox .cs{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:18px}
+.cwrap{position:relative;height:320px}
+.cwrap.tall{height:430px}
+.chartbox svg{width:100%;height:auto;display:block;overflow:visible}
+.svgcap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:20px;padding-top:18px;border-top:1px solid var(--divider)}
+.svgcap .c .k{font-size:12px;color:var(--gray);letter-spacing:.03em;margin-bottom:5px}
+.svgcap .c .v{font-size:19px;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.svgcap .c .v.b{color:var(--apple-blue)}
+.svgcap .c .v.r{color:var(--red)}
+.svgcap .c .v.a{color:var(--amber)}
+
+.tscroll{overflow-x:auto;margin:26px 0;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+th{text-align:left;font-weight:600;font-size:13px;color:var(--gray);padding:12px 14px;border-bottom:1px solid var(--divider);vertical-align:bottom;letter-spacing:.02em}
+td{padding:13px 14px;border-bottom:1px solid var(--divider);vertical-align:top;line-height:1.5}
+td small{display:block;margin-top:3px;line-height:1.45}
+.num-c{text-align:right;font-variant-numeric:tabular-nums}
+tr.hl td{background:rgba(0,113,227,.05)}
+section.dark th{color:#86868b;border-bottom-color:var(--divider-dark)}
+section.dark td{border-bottom-color:var(--divider-dark)}
+section.dark tr.hl td{background:rgba(41,151,255,.08)}
+
+ul.bl{list-style:none;margin:0 0 20px}
+ul.bl li{position:relative;padding-left:24px;margin-bottom:11px;line-height:1.55}
+ul.bl li::before{content:"";position:absolute;left:2px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--apple-blue)}
+section.dark ul.bl li::before{background:#2997ff}
+
+ol.steps{list-style:none;counter-reset:s;margin:26px 0}
+ol.steps li{position:relative;padding-left:52px;margin-bottom:26px;line-height:1.55;counter-increment:s}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;
+ background:var(--apple-blue);color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center}
+ol.steps li b{display:block;margin-bottom:4px;font-size:17px}
+
+blockquote{font-size:23px;line-height:1.42;letter-spacing:-.02em;margin:34px 0;padding:0 0 0 22px;border-left:3px solid var(--divider);font-weight:500}
+blockquote cite{display:block;font-size:14px;color:var(--gray);font-style:normal;margin-top:12px;line-height:1.5;font-weight:400}
+section.dark blockquote{border-left-color:var(--divider-dark)}
+section.dark blockquote cite{color:#86868b}
+
+.acts{counter-reset:a;margin:26px 0}
+.act{background:var(--white);border-radius:18px;padding:28px;margin:16px 0;counter-increment:a;position:relative}
+.act::before{content:counter(a);position:absolute;top:24px;right:28px;font-size:42px;font-weight:600;color:rgba(0,0,0,.07);line-height:1}
+.act h4{margin-top:0}
+section.dark .act{background:#1d1d1f}
+section.dark .act::before{color:rgba(255,255,255,.09)}
+
+.kpi{border-left:2px solid var(--divider);padding:4px 0 4px 20px;margin:22px 0}
+.kpi .h{font-size:13px;color:var(--gray);letter-spacing:.04em;margin-bottom:6px}
+.kpi .b{font-size:16px;line-height:1.55}
+.kpi .t{font-size:15px;line-height:1.5;color:var(--gray);margin-top:8px}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+footer{background:var(--light-gray);padding:64px 0;font-size:14px;color:var(--gray);line-height:1.65}
+footer h3{margin-top:0;font-size:19px;color:var(--near-black)}
+footer h4{font-size:15px;color:var(--near-black);margin:22px 0 8px}
+footer ul{list-style:none;margin:0 0 24px}
+footer li{margin-bottom:9px}
+footer .lvl{font-weight:600;color:var(--near-black)}
+.pill{display:inline-block;background:var(--apple-blue);color:#fff;font-size:14px;font-weight:500;
+ padding:9px 20px;border-radius:980px;margin-top:8px}
+.pill.ghost{background:transparent;color:var(--link-blue);border:1px solid var(--divider)}
+@media(max-width:734px){
+ .hero{padding:72px 0 64px} .hero h1{font-size:36px} .hero .lede{font-size:19px}
+ h2{font-size:30px} section{padding:62px 0} .stat .v{font-size:36px} .count .num{font-size:32px}
+ blockquote{font-size:20px} .chartbox{padding:20px 16px} .thesis{font-size:18px}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-20</span><span class="sb-sep">/</span><span class="sb-beat">厂商与算力权力</span><span class="sb-sep">/</span><span class="sb-cnt">27 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">19 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<section class="hero">
+<div class="wrap">
+<div class="eyebrow">社会分配研究 · 选题 380</div>
+<h1>21% 到 14%：被抽掉的<em>第一级台阶</em>，和门外第一批被劝退的公司</h1>
+<p class="lede">2026 年 10 月 16 日，Anthropic 罕见地公开了自己公司的用工数据：技术部门初级员工占比从 21% 跌到 14%，初级岗位招聘占比从 27% 崩到 9%。这不是"AI 替代白领"——它是一台专门拆掉职业阶梯第一级的机器。本报告用六组独立数据交叉验证，并指出被普遍误判的两处口径。</p>
+<div class="rule"></div>
+
+<div class="count">
+<div class="cell"><div class="num">21→14</div><div class="lab">初级员工占技术部门比重</div></div>
+<div class="cell"><div class="num">27→9</div><div class="lab">初级岗位在新招中占比</div></div>
+<div class="cell"><div class="num">6 : 1</div><div class="lab">智能体工时 : 人工工时</div></div>
+<div class="cell"><div class="num">19%</div><div class="lab">22–25 岁 AI 暴露职业就业缺口</div></div>
+<div class="cell"><div class="num">−11%</div><div class="lab">全球入门级岗位发布同比</div></div>
+</div>
+
+<div class="meta">
+<span>数据截至 2026-10-20 (UTC+8)</span>
+<span>主责 研析 · 政策与商业策略 策士</span>
+<span>一级来源 3 份 · 交叉验证 6 组</span>
+</div>
+</div>
+</section>
+
+<!-- ============ 执行摘要 ============ -->
+<section>
+<div class="narrow rv">
+<div class="kicker">执行摘要</div>
+<h2>结论先行：六条可验证的判断</h2>
+<p class="lead">这份报告的核心结论是：<strong>AI 造成的不是岗位消失，而是职业阶梯第一级台阶被拆除。</strong>这个区分决定了所有后续判断——包括政策是否用错了工具。</p>
+</div>
+
+<div class="wrap rv">
+<div class="stats">
+<div class="stat acc"><div class="v">①</div><div class="l"><strong>先拆的是"流量"不是"存量"。</strong>存量（21%→14%）与流量（27%→9%）的降幅差达 2.6 倍。存量是过去几年招聘的慢变量，流量是当下的主动决策——<strong>这是关闸，不是消化期</strong>。</div></div>
+<div class="stat"><div class="v">②</div><div class="l"><strong>不是裁员，是不招。</strong>哈佛/SSRN 研究显示 AI 采用企业初级招聘下降约 22%，而离职率几乎不变。失业统计只记"分离"不记"未雇佣"，<strong>因此这部分位移在官方数据里几乎不可见</strong>。</div></div>
+<div class="stat"><div class="v">③</div><div class="l"><strong>门槛不是企业设的，是被"上一轮招聘的存量"锁死的。</strong>企业自己两年没招进新人，手上没有可培养的人，于是把"我要判断力"翻译成"我要 5–10 年经验"——<strong>这是代理变量，不是能力测量</strong>。</div></div>
+<div class="stat warn"><div class="v">④</div><div class="l"><strong>第一批被挡在门外的公司，不是被钱挡的。</strong>token 单价三年跌了 280 倍；挡住它们的是 <strong>①每任务耗 token 暴增 5–50 倍导致总账单反升 40–100%，②"5–10 年经验"的人被全行业竞价，③资本高度集中</strong>。</div></div>
+<div class="stat bad"><div class="v">⑤</div><div class="l"><strong>AI 原生初创平均只有 13 人</strong>（YC 样本，非 AI 初创 42 人），初级员工占比低 15%、层级浅半级，但人均融资多 12–33%、人均估值高 30–76%。<strong>它们不是被成本挡住的，是被人挡住的。</strong></div></div>
+<div class="stat"><div class="v">⑥</div><div class="l"><strong>中国的问题不是"岗位没了"，是"岗位在，但升不上去"。</strong>第一级台阶消失后，第二级（3–5 年经验）成为唯一入口——<strong>而它要求你在没有第一级台阶的三年里积累出三年经验</strong>。</div></div>
+</div>
+
+<div class="corr">
+<div class="tag wrong">口径纠正一</div>
+<div class="q">常见表述：「入门级岗位增速从 7% 放缓至 4%」</div>
+<div class="claim">这个数字未能查证，且它描述的方向系统性低估了实际断裂幅度。</div>
+<div class="fix">在可检索的一手来源中，未找到任何支持"7% → 4%"这一表述的原始口径。可核验的事实是<strong>剪刀差</strong>：2026 年 5 月美国入门级岗位发布同比 <strong>−7.5%</strong>，同期资深级 <strong>+14.7%</strong>（Indeed Hiring Lab）；2026 年 Q2 全球入门级岗位发布 <strong>−11%</strong>（Q1 为 −6%，在恶化），同期 AI 相关岗位发布 <strong>+60%</strong>（Bain，10 市场）。用"增速放缓"描述，会把一个"同一季度分裂成两个互不相通的价格体系"的市场，说成一条平缓下行的曲线。</div>
+<div class="src">来源：Indeed Hiring Lab（数据截至 2026-05）；Bain &amp; Company《Global Job Market Trends》Q2 2026（2026-10-12 发布，经 BFSI Updates 与 India Today 转述）。<strong>【本报告研判】</strong>——原始表述标注为未能查证，替代数据均为一手机构口径。</div>
+</div>
+
+<div class="corr">
+<div class="tag wrong">口径纠正二</div>
+<div class="q">常见表述：「90% 的新员工岗位需要过去 5–10 年经验」</div>
+<div class="claim">"90%"这个具体比例未能查证，但方向成立、且可被更严格的数据替换。</div>
+<div class="fix">可核验的三组数字：<strong>①</strong> 中国 AI 高薪岗位中 <strong>60% 要求 5–10 年垂直行业经验</strong>（前程无忧《2026 人工智能人才洞察》）；<strong>②</strong> Anthropic 现有 1,680 名工程师的入职前经验中位数为 <strong>12.2 年</strong>，四分位区间 8.8–16.5 年，<strong>44% 拥有 13 年以上经验，仅 50 人（3%）不足 3 年</strong>——即 <strong>97% 至少 3 年</strong>；<strong>③</strong> 中国 2026 春招中要求 3 年以上经验的岗位占比<strong>超七成</strong>，而面向 1 年以内应届生的岗位缩减约 20%（脉脉）。真正的判断不在 90% 这个数，而在于：<strong>门槛是被设在"唯一还在增长的那批人"身上的。</strong></div>
+<div class="src">来源：①前程无忧《2026 人工智能人才洞察》（2026-07 WAIC 期间发布，经腾讯新闻/今日头条转述）；②LinkedIn 全量画像分析（Anthropic 1,680 名工程师，2026-06 转述）；③脉脉《2026 春招求职行为洞察》（2026-07 转述）。<strong>【媒体披露】</strong>——90% 一项标注为未能查证。</div>
+</div>
+
+<div class="note amber">
+<strong>本报告与任务书的分歧，集中在两处口径，而非结论方向。</strong>任务书的"90%"与"7%→4%"在可核验来源中找不到对应的一手数据；本报告选择用更严格、来源更硬的替代指标重述同一判断，并明确标注哪些是未能查证。这比把无法追溯的数字写成事实更接近决策者需要的东西。
+</div>
+</div>
+</section>
+
+<!-- ============ 第一章 ============ -->
+<section class="alt">
+<div class="narrow rv">
+<div class="kicker">第一章 · 21% 到 14%</div>
+<h2>一份"自己人"的自白，以及它为什么比裁员数据更重要</h2>
+<p class="lead">Anthropic 的这份报告是罕见的：它不是研究别人公司的问卷，而是自己公司的 HR 记录、AI 使用遥测、员工日历、产出计量、招聘决策评分卡，加上 17 场员工访谈。它同时是最有价值的和最危险的——最有价值，因为"自己人"数据极稀缺；最危险，因为一家前沿实验室在给自己的作业打分。</p>
+</div>
+
+<div class="wrap rv">
+<p class="thesis">论点：21%→14% 的意义不在于"少了 7 个百分点"，而在于它揭示了 AI 对劳动力市场的攻击面——不是最高薪的判断工作，也不是最底层的体力劳动，而是<strong>规则清晰、执行性强、最适合被大模型接走的那一层任务</strong>。而这一层任务，恰恰是职业阶梯的第一级台阶。</p>
+
+<div class="chartbox">
+<div class="ct">Anthropic 初级技术岗的存量与流量双降</div>
+<div class="cs">存量＝初级员工占技术部门全体比重；流量＝初级岗位占全部技术新招比重。流量降速是存量的 2.6 倍，说明这是<strong>当期的主动关闸</strong>，不是过去几年招聘积累的自然消化。数据来源：Anthropic《How employment is changing at Anthropic》，2026-10-16。</div>
+<svg viewBox="0 0 880 320" role="img" aria-label="Anthropic 技术部门初级员工占比由 21% 降至 14%，初级岗位招聘占比由 27% 降至 9%，技术岗占全员比重由 61% 降至 56%">
+  <g font-family="-apple-system, PingFang SC, Helvetica Neue, sans-serif">
+    <rect x="520" y="8" width="12" height="12" rx="3" fill="#c7c7cc"/><text x="538" y="18" font-size="12" fill="#6e6e73">2025 年初</text>
+    <rect x="640" y="8" width="12" height="12" rx="3" fill="#0071e3"/><text x="658" y="18" font-size="12" fill="#6e6e73">2026 年（报告时点）</text>
+
+    <g stroke="#e5e7eb" stroke-width="1">
+      <line x1="260" y1="32" x2="260" y2="286"/><line x1="425.7" y1="32" x2="425.7" y2="286"/>
+      <line x1="591.4" y1="32" x2="591.4" y2="286"/><line x1="757.1" y1="32" x2="757.1" y2="286"/>
+    </g>
+    <g font-size="12" fill="#6e6e73" text-anchor="middle">
+      <text x="260" y="304">0%</text><text x="425.7" y="304">20%</text>
+      <text x="591.4" y="304">40%</text><text x="757.1" y="304">60%</text>
+    </g>
+    <line x1="260" y1="32" x2="260" y2="286" stroke="#c7c7cc" stroke-width="1.5"/>
+
+    <g text-anchor="end">
+      <text x="244" y="66" font-size="13" fill="#1d1d1f">初级员工占技术部门比重</text>
+      <text x="244" y="84" font-size="11" fill="#8e8e93">存量</text>
+      <text x="244" y="154" font-size="13" fill="#1d1d1f">初级岗位占全部技术新招</text>
+      <text x="244" y="172" font-size="11" fill="#8e8e93">流量</text>
+      <text x="244" y="248" font-size="13" fill="#1d1d1f">技术岗占全员比重</text>
+    </g>
+
+    <rect x="260" y="44" width="174" height="24" rx="3" fill="#c7c7cc"/>
+    <rect x="260" y="72" width="116" height="24" rx="3" fill="#0071e3"/>
+    <text x="442" y="61" font-size="13" fill="#6e6e73">21%</text>
+    <text x="384" y="89" font-size="13" fill="#0071e3" font-weight="600">14%</text>
+
+    <rect x="260" y="132" width="223.7" height="24" rx="3" fill="#c7c7cc"/>
+    <rect x="260" y="160" width="74.6" height="24" rx="3" fill="#b3261e"/>
+    <text x="491.7" y="149" font-size="13" fill="#6e6e73">27%</text>
+    <text x="342.6" y="177" font-size="13" fill="#b3261e" font-weight="600">9%</text>
+
+    <rect x="260" y="220" width="505.4" height="24" rx="3" fill="#c7c7cc"/>
+    <rect x="260" y="248" width="464" height="24" rx="3" fill="#0071e3"/>
+    <text x="773.4" y="237" font-size="13" fill="#6e6e73">61%</text>
+    <text x="732" y="265" font-size="13" fill="#0071e3" font-weight="600">56%</text>
+
+    <text x="596" y="120" font-size="12" fill="#b3261e">流量降速 = 存量的 2.6 倍</text>
+    <line x1="592" y1="126" x2="592" y2="158" stroke="#b3261e" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+</svg>
+</div>
+
+<h3>1.1 时间线：崩塌有明确的先后顺序</h3>
+<p>Anthropic 的报告给出了一条可验证的时间链，这条链本身就是证据：</p>
+<ol class="steps">
+<li><b>2025 年 12 月</b>面向初级技术岗的招聘启事数量开始<strong>急剧下降</strong>（报告未给出具体百分比，只给定性表述）。</li>
+<li><b>2026 年 1 月</b>核心技术部门首次出现"初级需求下降"的内部讨论。触发点是"重度使用 Claude 的团队发现写代码和找 bug 可以越来越多地外包给 Claude"。一位招聘负责人原话：<em>"真正让人挑眉的是性能工程师的产能提升，它几乎一夜之间改变了我们在找什么样的人。"</em></li>
+<li><b>2026 年 4 月</b>工程与研究团队正式<strong>降低低职级技术岗的招聘权重</strong>。同月调研显示：约 <strong>1/3 的 ML 经理</strong>和 <strong>1/5 的软件工程经理</strong>表示因 AI 减少了招聘。</li>
+<li><b>2026 年 8 月</b>员工直接指导的交互式智能体工时达到人类工时的 <strong>6 倍</strong>；全员智能体总工时早在 <strong>3 月</strong>就已首次超过人工工时。</li>
+</ol>
+
+<div class="note">
+<strong>这个顺序不能被忽略：入口先关，产能后涨。</strong>如果先裁掉初级员工、再上 AI，得到的解释是"AI 让我们不需要那么多人了"。但 Anthropic 的顺序是相反的——<strong>先是 AI 让初级的活儿变得没必要做，然后入口才被关上</strong>。这与哈佛/SSRN 研究的发现完全一致：AI 采用企业的初级就业下降，主要由<strong>招聘放缓</strong>驱动，而非离职增加。
+<span class="src-inline">【已确认】Anthropic 技术报告（2026-10-16）+ Hosseini Maasoum &amp; Lichtinger, SSRN 5425555（2025-08-31，2026-06 修订）：初级就业在采用企业相对未采用企业下降约 7.7%（DiD）至 12%（三重差分），其中初级招聘下降约 22%；批发零售业初级招聘降幅最大，约 −40%。</span>
+</div>
+
+<h3>1.2 存量与流量的差额，是这份报告最硬的一个数字</h3>
+<p>报告把两组数字并排放：</p>
+<div class="stats">
+<div class="stat"><div class="v">21% → 14%</div><div class="l"><strong>存量</strong>：初级员工占技术部门全体比重，2025 年初至今。降 7 个百分点。</div></div>
+<div class="stat bad"><div class="v">27% → 9%</div><div class="l"><strong>流量</strong>：初级岗位占全部技术新招比重。降 18 个百分点，降幅是存量的 2.6 倍。</div></div>
+<div class="stat"><div class="v">61% → 56%</div><div class="l">技术岗占全员比重同步下降——但技术岗<strong>绝对人数仍在增长</strong>（公司规模一年扩大约 3 倍）。</div></div>
+</div>
+<p><strong>为什么这个差额重要。</strong>如果初级比例下降只是因为公司在扩张、稀释了初级占比，那么流量降幅应该与存量降幅接近。实际差了 2.6 倍。这意味着：存量那 7 个百分点是过去几年招聘决策的<strong>滞后回声</strong>，而流量那 18 个百分点是<strong>当下的真实决策</strong>。企业在扩大招聘的同时，正在系统性地、主动地<strong>只招中高级</strong>。</p>
+
+<p>Anthropic 自己给的解释是双重的：一是规模扩张带来的业务职能自然扩充（销售、财务、招聘增长更快）；二是"代码工具让非技术员工可以自己写软件"。后者有一个可量化的证据——<strong>非技术员工的编码智能体会话从 2025 年 8 月的每月 2 次激增到 2026 年 5 月的每月 90 次</strong>（基线定义为无代码提交记录、排除新员工）。一位销售代表自建了定制看板与管道：<em>"这种构建超出我的能力范围，尤其是 UI 部分，还要连上所有工具和 MCP。但我大概花了三到四个小时，边迭代边做出来的。"</em></p>
+
+<h3>1.3 这不是"AI 抢走工作"，是"岗位被重新定义成不需要人"</h3>
+<p>报告里最沉的一句证词，来自一位行政助理：</p>
+<blockquote>
+"我觉得我们已经越过了那个点——Claude 把真正入门级的行政岗位增强掉了。"
+<cite>— Anthropic 行政助理，报告访谈记录。原文：<em>"I think we've already moved past the point of Claude augmenting away the really entry-level admin type role."</em> 同一岗位随后转向更高阶的"幕僚长"工作。<strong>【已确认】</strong></cite>
+</blockquote>
+<p>同一现象在财务线上重复出现：一位财务经理自建了采购申请审核智能体，并向同事解释<em>"它就是去找那些很花时间的事情，这样他们就能去做别的"</em>。整个公司被描述为"clerical-light（几乎没有文员）"，而公司本身正以每年 3 倍的速度扩张。</p>
+<p>产品文案团队则展示了另一种坍塌形态。团队原本负责撰写 Claude.ai 上的问候语（"Hello night owl"；"Coffee and Claude time?"）。2026 年春，他们开发了一套上下文图谱来指导智能体写产品文案——<strong>"这把这个团队规模化出去了"</strong>，经理说。但紧接着出现了那个无法回避的问题：<em>那还剩下什么给人类写手？</em> 团队随后整组轮转为智能体提示与模型评测写作。</p>
+<blockquote>
+曾经用语言驱动人的写手，现在用语言驱动 Claude。
+<cite>— Anthropic 产品设计团队经理，报告原文：<em>"Writers who used language to drive human behavior are now using it to drive Claude behavior."</em><strong>【已确认】</strong></cite>
+</blockquote>
+
+<h3>1.4 交叉验证：这不只是一家公司的自说自话</h3>
+<p>一家公司的自述不足以支撑结构性判断。但把六组方法论完全不同的数据并排放，方向高度一致：</p>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>数据源</th><th>方法与样本</th><th class="num-c">关键读数</th><th>口径时点</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>Stanford Digital Economy Lab × ADP</strong><br>（"Canaries"）</td><td>数百万级月度薪资行政面板，按年龄×AI 暴露度分组</td><td class="num-c"><strong>−19%</strong></td><td>2026-08 更新（2026-06 数据）</td></tr>
+<tr><td><strong>Hosseini Maasoum &amp; Lichtinger</strong><br>SSRN 5425555</td><td>6,200 万工人履历 / 285,000 家企业 / 2.46 亿条岗位发布，DiD + 三重差分</td><td class="num-c"><strong>−15%</strong> 岗位发布<br><strong>−22%</strong> 招聘</td><td>2025-08（2026-06 修订）</td></tr>
+<tr><td><strong>Indeed Hiring Lab</strong></td><td>平台自有岗位发布数据</td><td class="num-c"><strong>−7.5%</strong> 入门级<br><strong>+14.7%</strong> 资深</td><td>2026-05</td></tr>
+<tr><td><strong>Bain &amp; Company</strong><br>Global Job Market Trends</td><td>10 个主要市场岗位发布追踪</td><td class="num-c"><strong>−11%</strong> 入门级<br><strong>+60%</strong> AI 岗</td><td>2026 Q2</td></tr>
+<tr><td><strong>SignalFire</strong><br>State of Talent</td><td>LinkedIn 上 6 亿人 / 8,000 万家公司岗位数据，2019–2024</td><td class="num-c"><strong>−65%</strong> 大厂校招<br><strong>−76%</strong> 初创</td><td>2026 版</td></tr>
+<tr><td><strong>哈佛 41 国研究</strong></td><td>多国薪资登记数据</td><td class="num-c">31 国中 <strong>23 国</strong>初级占比下降，7 国统计显著</td><td>2026</td></tr>
+</tbody>
+</table>
+</div>
+<small>口径说明：Stanford 的 −19% 是"22–25 岁 AI 暴露职业相对低暴露职业的就业差距"，由初级就业 11% 下降与对照组 10% 增长相减得到；Hosseini Maasoum 的不同版本给出 7.7%–15% 不等，<strong>方向比幅度更稳固</strong>。Anthropic 自述为单公司数据，其报告明确声明"其中很多做法无法复制到全经济"。<strong>【已确认 · 多源交叉】</strong></small>
+
+<div class="note ok">
+<strong>一条尤其值得注意的细节：损失的不是最底层，而是"中间那一段"。</strong>哈佛研究按教育层次拆分后发现一个 <strong>U 形</strong>分布——常春藤级（T1/T2）毕业生因创造力与复杂问题解决能力而相对安全，底层院校（T5）毕业生因薪资期望低、性价比高而相对安全，<strong>受冲击最重的是 T3/T4"中段院校"毕业生</strong>：他们的入门技能与 AI 高度重叠，同时又背着体面的起薪期望。这是一类既不够稀缺、又不够便宜的人。
+<span class="src-inline">【媒体披露】Hosseini Maasoum &amp; Lichtinger, SSRN 5425555（2025-10 报道版本）。该发现与"AI 优先冲击低技能"的直觉相反，是本报告认为最值得单独立项跟踪的分支。</span>
+</div>
+
+<h3>1.5 必须交代的反方证据</h3>
+<p>一份研究如果不呈现与自己结论相左的数据，就没有价值。以下是当前最有力的几组反证：</p>
+<ul class="bl">
+<li><strong>OECD《Employment Outlook 2026》（2026 年 7 月）</strong>：生成式 AI "可能已开始自动化某些岗位，但迄今数据几乎不显示证据"。对年轻人更直接——大语言模型在解释其困境上的作用"有限"，毕业生失业差距在企业采用技术之前就已经在扩大，高暴露职业的岗位发布在 2023 年底没有出现断点。OECD 自称结论"初步"。</li>
+<li><strong>Humlum &amp; Vestergaard《Still Waters, Rapid Currents》</strong>（丹麦，2026-03-13）：把两轮采用调查（约 25,000 名工人、约 7,000 个工作场所）与国家行政记录链接，<strong>排除了对收入与工时超过 2% 的影响</strong>；对入门级故事的界值为 0.14 个百分点（基线早期职业占比约 8%），这已是其置信区间的边缘而非点估计。</li>
+<li><strong>纽约联储</strong>（2026-05）：高暴露职业中初级与资深岗位发布大体平行移动；且<strong>高暴露职业的岗位发布下滑在 ChatGPT 发布（2022 年底）之前就已开始</strong>。美国劳动人口中，AI 暴露度 ≥0.4 的职业只占不到 10% 的工人和职位空缺，40% 的工人处于零暴露职业。</li>
+<li><strong>经济创新集团《AI and Jobs》</strong>（2025-08）：失业率上升最多的是<strong>低暴露</strong>劳动者（+0.94pp），高暴露群体仅 +0.30pp。</li>
+<li><strong>伦敦政治经济学院 2026 年研究</strong>：远程办公对入门级招聘下降的解释力可能强于 AI——远程团队更难带教新人。</li>
+</ul>
+
+<div class="note warn">
+<strong>这些反证指向什么？</strong>它们并不推翻"入门级岗位在结构性收缩"，而是把归因从"AI 单一原因"改写为"<strong>AI + 远程化 + 2022 年后宏观与行业周期</strong>的叠加"。本报告因此坚持两条纪律：<strong>①</strong> 讨论"结构"时，只用多源同向的数据；<strong>②</strong> 讨论"AI 归因"时，必须标注反方。Anthropic 自己的表述是诚实的——"这些是描述性的，不是因果证明"，其报告也明确说明单公司数据不能外推。
+</div>
+
+<h3>1.6 中国市场的一个反直觉事实：官方口径与二手口径正在打架</h3>
+<p>本报告在核验中国市场数据时遇到一处必须公开处理的冲突，而不是替任何一方选边：</p>
+<div class="tscroll">
+<table>
+<thead><tr><th>口径</th><th>读数</th><th>来源与等级</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>国家统计局（官方）</strong></td><td>16–24 岁（不含在校生）失业率：2025-06 <strong>14.5%</strong> → 2025-12 16.5% → 2026-03 <strong>16.9%</strong> → 2026-05 15.6% → 2026-08 <strong>18.9%</strong>（2024 年新口径以来最高）。<strong>但统计局把 8 月高点归因于"新毕业学生集中进入劳动力市场带来的季节性影响"</strong>，并特别指出"制造业、信息技术、住宿餐饮行业助力就业稳定"——<strong>官方没有把它归因于 AI 替代。</strong></td><td>国家统计局月度发布（一手）；2026-08 数值经财新 2026-09-18 转述。<strong>【已确认】</strong></td></tr>
+<tr><td><strong>智联招聘（平台官方报告）</strong></td><td>集团副总裁李强：<strong>"目前并没有出现岗位大规模消失的情况，真正发生的是岗位结构和能力要求的重构。"</strong>2026 上半年 AI 行业职位数同比 +10.6%、招聘企业数 +24.8%；AI 产品经理 <strong>+87.7%</strong>、数据标注与 AI 训练师 +30.3%。</td><td>智联《AI 如何重构就业——基于招聘数据观察劳动力市场的挑战与变革》，2026-07 转述。<strong>【媒体披露】</strong></td></tr>
+<tr><td><strong>二手流传（须谨慎）</strong></td><td>"客服岗位下降超 90%、初级会计下降超 90%、数据录入下降超 90%"；"2026 Q1 普通后端/前端开发需求 −52%，初级前端 −65%"。</td><td>经今日头条/腾讯云社区转述智联与 BOSS 研究院数据。<strong>【二手转述·本报告不采信为事实】</strong></td></tr>
+<tr><td><strong>BOSS 直聘（平台官方报告）</strong></td><td>2026 年 AI 相关岗位 <strong>+74.1%</strong>，软件工程师岗位 <strong>+10.9%</strong>——<strong>与"程序员坍塌"叙事方向相反。</strong></td><td>BOSS《2026 人才趋势报告》，2026 Q2 数据。<strong>【媒体披露】</strong></td></tr>
+</tbody>
+</table>
+</div>
+<div class="note amber">
+<strong>本报告的处置：两者不可同时为真，除非"岗位消失"指的是招聘需求结构而非岗位存量。</strong>更可能的调和方式是：<strong>平台官方的"总量没消失、结构和能力要求在重构"，与二手流传的"入门级岗位需求崩塌"，说的是同一件事的两面</strong>——总量守恒而入门级被抽走，缺位由 AI 相关岗位补上。这也解释了为什么官方失业率口径对 AI 替代不敏感：<strong>被挤出的那一层从未进入过失业统计（因为他们从没被雇佣过），而新岗位又吸收了部分被挤出的劳动供给</strong>。
+<br><br>
+<strong>因此本报告的立场是：</strong>不以"客服 −90%"这类数字作为论据（无法回溯原始报告），但完全接受"入门级招聘需求结构性收缩"这一由多组一手方法论支撑的判断。<strong>并且明确记录：中国官方统计从未把 2026-08 的 18.9% 归因于 AI。</strong>把季节性的毕业季冲击写成 AI 替代，是这类研究最常见、也最需要避免的错误。
+</div>
+</div>
+</section>
+
+<!-- ============ 第二章 ============ -->
+<section>
+<div class="narrow rv">
+<div class="kicker">第二章 · "90%" 与门槛</div>
+<h2>门槛由谁设定：招聘标准，还是被锁死的存量？</h2>
+<p class="lead">任务书提出的追问是"90% 的新员工岗位需要过去 5–10 年经验，这个门槛由谁设定"。本报告的答案是：<strong>门槛是被三方共同锁死的，而其中最关键的一方是求职者自己——这正是它最难破解的原因。</strong></p>
+</div>
+
+<div class="wrap rv">
+<p class="thesis">论点："要求 5–10 年经验"表面上是招聘方的偏好，实际上是<strong>企业自身招聘断档的代理变量</strong>。一家两年没招进新人的公司，声称"我要判断力"时，实际可用的筛选器只有"你做过几年"——因为它手上没有任何新人的绩效数据可用于评估"判断力"。</p>
+
+<h3>2.1 三方共谋：门槛是怎么长出来的</h3>
+<div class="acts">
+<div class="act">
+<h4>第一方 · 企业：想省下培训成本，且认为培训已经无用</h4>
+<p>Anthropic 的招聘标准变化是这条链上最清晰的样本。报告用自动化编码器处理了自 2024 年以来数千名候选人的面试评分卡，发现：</p>
+<ul class="bl">
+<li>面试官提到"候选人使用 AI 工具的记录"的比重，技术岗从 <strong>2024 年约 5% 升至 2026 年约 15%</strong>（三倍），非技术岗从 <strong>约 7% 升至约 28%</strong>（四倍）。</li>
+<li>技术岗评分卡中<strong>增长最大的单项是"自主性"与"判断力"</strong>，而"领域专业度"作为整体占比<strong>萎缩</strong>。</li>
+<li>非技术岗则是"客户导向与使命导向"上升，"执行能力"下降。</li>
+</ul>
+<p>管理者给出的理由极具信息量：<em>"我预期模型会继续参差不齐，所以我要我的团队能跨领域复用。"</em>——<strong>当模型输出不可靠时，"在某个领域记得最牢"这项人力资产就贬值了，而"能判断模型何时在胡说八道并把它扭回来"这项资产就升值了。</strong></p>
+</div>
+<div class="act">
+<h4>第二方 · 市场：经验是唯一便宜可验证的信号</h4>
+<p>在入门级岗位市场萎缩的同时，"经验"成了幸存信号。纽约联储 2026 年 5 月的直接测量是最能说明问题的一组数据：<strong>入门级岗位的申请者中，30% 来自拥有 10 年以上经验的工人</strong>；而 <strong>6–9 年经验者中有 62% 去投了入门级岗位</strong>（他们去投资深岗的只有 12%）。</p>
+<p>这组数字有两层含义。第一，<strong>下沉的竞争正在发生</strong>——有经验的人在往下够、初级人在往不存在的岗位上够。第二，它也说明"要求 5 年经验"这条 JD 门槛，在市场实际运行中<strong>已经不再是真实的筛选门槛</strong>：真正在抢入门级岗位的，恰恰是有 10 年经验的人。如果一个岗位的要求真的卡在经验上，它就不会收到 10 年经验者的申请——<strong>要求会向下移动，因为门槛是竞标出来的，不是规定出来的。</strong></p>
+</div>
+<div class="act">
+<h4>第三方 · 求职者：把经验当作安全垫</h4>
+<p>当"无经验"的入口被收窄到极低概率时，理性反应是向下兼容——接受更低的岗位层级以获得履历。脉脉《2026 春招求职行为洞察》的数据显示：<strong>要求 3 年以上经验的岗位占比超七成，而面向 1 年以内应届生/新人的岗位缩减约 20%；同时 3–5 年经验岗位同比增长 19%</strong>。这组数字既可读作"岗位在升级"，也可读作"<strong>竞争者在向下压价</strong>"。</p>
+<p>第三方势力的存在，使得招聘方几乎无需主动抬高门槛也能收到"够格"的候选人——而这反过来又让企业更加确信"初级生没用"。<strong>这是一个自我实现的循环，而不是一次外部冲击。</strong></p>
+</div>
+</div>
+
+<h3>2.2 那么，真正的门槛到底落在谁手里</h3>
+<p>把上面的三方合起来看，结论比"企业设了高门槛"要尖锐得多：</p>
+<blockquote>
+门槛不在"要求 5–10 年经验"这句话上，而在于<strong>它是唯一还能用的信号</strong>。
+当企业两年没有招进过新人，它就没有新人的绩效数据来评估"判断力"；
+当市场不再生产初级岗位，它就没有初级劳动力的表现记录来校准"能力与职级"的对应关系。
+于是所有人退回到"干过几年"——一个陈旧的、但仍可验证的代理指标。
+<cite>本报告研判，基于 Anthropic 技术报告的招聘标准变化、HBS《AI-Native Firms》的人才池结构，以及纽约联储 2026-05 的申请者构成数据。<span class="src-inline">【研判】</span></cite>
+</blockquote>
+
+<h3>2.2.1 门槛高到什么程度：Anthropic 自己的员工画像</h3>
+<p>如果要找一个"门槛被设在稀缺存量上"的最硬样本，不需要推算——<strong>Anthropic 自己的员工名单就是一个公开的实测</strong>。对 LinkedIn 上标注现任 Anthropic 的 5,306 人做筛选，取出其中 1,680 名工程岗位人员，并回溯其 7,986 段历史职位描述中的技能要求，结果是：</p>
+<div class="stats">
+<div class="stat bad"><div class="v">12.2 年</div><div class="l">新员工<strong>入职前</strong>工作经验的中位数；四分位区间 8.8–16.5 年。<strong>典型新员工＝有 12 年经验、但在 Anthropic 只待了 10 个月</strong></div></div>
+<div class="stat bad"><div class="v">44%</div><div class="l">拥有 13 年或更长行业履历</div></div>
+<div class="stat"><div class="v">50 人</div><div class="l">工作经验不足 3 年的工程师——占 1,680 人的 <strong>3%</strong>，即 <strong>97% 至少 3 年</strong></div></div>
+<div class="stat"><div class="v">172 人</div><div class="l">工作经验不足 6 年的工程师；当前团队中位在职时长仅 10 个月，53% 的人在过去 12 个月内加入</div></div>
+</div>
+<p>把这两组数字对起来看，才是完整的画面：<strong>门被设在 12 年经验上，而门内的人平均只待了 10 个月。</strong>这意味着 Anthropic 自己也必须持续从"12 年经验"这个池子里捞人——而这个池子，正是被全行业竞价的那一个。<strong>这不是某个 CEO 的偏好问题，是一条已经结构化的供应链：门外的年轻人凑不出经验，门内的公司留不住经验。</strong></p>
+<p>一个补充细节：Anthropic 当前的岗位发布中，即便是<strong>非技术岗</strong>（如面向 GTM 的招聘官）也普遍要求"5 年以上全周期招聘经验"。也就是说，<strong>连入门级的非技术职位都已经把门槛抬到了 5 年</strong>——这是"入门级"这个词在 2026 年正在失去含义的直接证据。</p>
+<span style="display:block;font-size:13px;color:var(--gray);margin-top:-6px">数据来源：基于 LinkedIn 公开履历的全量画像分析（Anthropic 5,306 名在职人员中筛出 1,680 名工程岗，回溯 7,986 段历史职位描述），2026-06 经多篇中文科技媒体转述；岗位发布要求引自 Anthropic 官方招聘页当期文本。<strong>【媒体披露 · 原始方法可复核，非机构发布】</strong></span>
+
+<div class="note amber">
+<strong>一个必须交代的张力：门槛抬高，但"跨领域可复用"被写进了标准。</strong>管理者说不招聘"只在某个领域记得最牢"的人（<em>"我预期模型会继续参差不齐，所以我要我的团队能跨领域复用"</em>），招聘标准也确认"领域专业度"占比在萎缩。那么为什么经验要求反而更高？合理解释是：<strong>当模型可以补上"领域知识"时，企业唯一稀缺的东西变成了"在不确定信息下做判断并承担后果"——而这种能力无法通过标准化培训获得，只能通过长期在真实约束下工作来积累。</strong>门槛因此不是资格壁垒，而是<strong>对稀缺能力的诚实定价</strong>。问题在于：这个定价的受益者是已经在门内的人，而买单的是被关在门外的整个 cohort。
+<span class="src-inline">【本报告研判】</span>
+</div>
+
+<div class="note">
+<strong>一个可以证伪的推论。</strong>如果门槛真是被"存量惯性"锁死的，那么<strong>凡是仍在持续招新人的企业，其门槛应当显著低于停止招新人的企业</strong>。目前可用的检验样本有两个，且方向一致：<strong>IBM</strong> 宣布 2026 年将美国入门级招聘<strong>三倍</strong>化，并把初级开发者从"每周 34 小时写代码"改为"与客户共事、做产品"；其 CHRO Nickle LaMoreaux 的原话是：<em>"没有管道，这口井就是干掉的。"</em> <strong>PwC 英国</strong>则刻意保留了一部分手工任务，"以便初级员工发展专业判断力"。<strong>两家仍在招新人的公司，都在做同一件事：把入门级从"执行岗"改造成"训练位"。</strong>
+<span class="src-inline">【媒体披露】IBM 与 PwC 英国动作，经 CXM 汇总（2026-09-22）及 World Economic Forum 报告转述。IBM 三倍计划为已公开宣布的意图，<strong>实际兑现数据尚未披露</strong>。</span>
+</div>
+
+<h3>2.3 中国：门槛是"年龄"问题，不是"经验"问题</h3>
+<p>中国的 AI 岗位门槛数据比美国更陡，因为它是以年龄和学历形式表达的：</p>
+<div class="stats">
+<div class="stat bad"><div class="v">60%</div><div class="l">中国 AI 高薪岗位要求 5–10 年垂直行业深耕经验（超四成要求硕士及以上）</div></div>
+<div class="stat warn"><div class="v">71%</div><div class="l">AI 岗位为中高级岗；<strong>仅 13% 为校招初级岗</strong>；上半年招聘量 +87%，涨的都是中高端</div></div>
+<div class="stat"><div class="v">80%</div><div class="l">投递 AI 岗位的求职者中，35 岁以上群体占比；硕博学历占比近四成</div></div>
+<div class="stat"><div class="v">25,340 元</div><div class="l">中国 AI 相关岗位月薪中位值（前程无忧调研）</div></div>
+</div>
+<p>这四个数字放在一起，指向一个被职场上很少说出口的事实：<strong>中国 AI 招聘市场的供需两端，在年龄上是错配的</strong>——需求侧是"要 5–10 年行业深耕的复合型人才"，供给侧却是"近四成硕博、八成 35 岁以上"。<strong>应届生不是被 AI 挤出 AI 行业，而是被 AI 行业自己设定的高门槛挡在了门外，而门外还有 1,270 万毕业生在排队。</strong></p>
+<p>猎聘集团董事会主席戴科彬 2026 年 6 月的公开演讲给出了中国市场的具体受灾区：<strong>销售、商务、品牌、法务，以及部分互联网初级技术岗位需求下降</strong>，本质源于 AI 工具对基础劳动的效率替代与结构性重构。这个名单与"入门级任务的三大特征"（规则清晰、执行性强、跨行业可迁移）高度重合。</p>
+
+<div class="note">
+<strong>一个反直觉的缓冲：中国企业自己的调查说"需求没减少"。</strong>前程无忧调研显示，<strong>68.3% 的受访企业认为 AI 对应届生用工需求的影响是"总体需求保持稳定、对部分岗位进行结构化调整"，仅 7.3% 认为需求减少</strong>。同时国家层面的数据显示我国 AI 人才缺口超过 500 万、AI 技术岗位需供比达 3.5:1。这两个数字与"岗位坍塌"并不矛盾——它们共同说明：<strong>中国的问题不是岗位总量不够，而是岗位的分布和门槛与应届生的位置对不上。</strong>
+<span class="src-inline">【媒体披露】前程无忧调研与相关报道（2026-07 至 2026-09 转述）；人社部体系口径的 AI 人才缺口数据（2026-09 转述）。</span>
+</div>
+</div>
+</section>
+
+<!-- ============ 第三章 ============ -->
+<section class="dark">
+<div class="narrow rv">
+<div class="kicker">第三章 · 门外</div>
+<h2>被挡在门外的第一批公司：不是被钱挡的，是被人挡的</h2>
+<p class="lead">"AI 对中小企业是成本门槛"这个判断需要修正。前沿模型的调用单价在三年里跌了 280 倍，自托管的盈亏平衡点从每月约 500 美元降到约 80 美元。真正挡住第一批公司的，是三样完全不同的东西。</p>
+</div>
+
+<div class="wrap rv">
+<p class="thesis">论点：<strong>token 已经不是门槛，人才才是。</strong>当"入门级"被重新定义为"5–10 年经验"，而全行业都在竞价同一批人时，中小公司的真实壁垒从"预算"变成了"能不能雇到已经有判断力的资深者"——这是一道资本门槛伪装成资格门槛的题。</p>
+
+<h3>3.1 第一道本该挡住它们、但实际上没挡住的东西：钱</h3>
+<div class="chartbox">
+<div class="ct">价格塌了，但账单涨了</div>
+<div class="cs">两条线画的不是同一个量：<strong style="color:#0071e3">蓝线</strong>是每百万 token 的单价（对数刻度，示意），<strong style="color:#b3261e">红线</strong>是企业实际 AI 支出的方向（指数，示意）。两者方向相反，是本报告第三章的核心判断。</div>
+<svg viewBox="0 0 880 300" role="img" aria-label="每百万 token 单价从 2023 年 3 月的 30 美元降至 2026 年 4 月的 0.10 至 2.50 美元，同期企业实际 AI 支出上升 40% 至 100%">
+  <g font-family="-apple-system, PingFang SC, Helvetica Neue, sans-serif">
+    <line x1="430" y1="14" x2="452" y2="14" stroke="#0071e3" stroke-width="3" stroke-linecap="round"/>
+    <text x="460" y="18" font-size="12" fill="#6e6e73">每百万 token 单价（对数刻度）</text>
+    <line x1="672" y1="14" x2="694" y2="14" stroke="#b3261e" stroke-width="3" stroke-linecap="round"/>
+    <text x="702" y="18" font-size="12" fill="#6e6e73">企业实际 AI 支出（指数）</text>
+
+    <line x1="80" y1="250" x2="830" y2="250" stroke="#c7c7cc" stroke-width="1.5"/>
+    <line x1="80" y1="50" x2="80" y2="250" stroke="#c7c7cc" stroke-width="1.5"/>
+    <g font-size="12" fill="#6e6e73" text-anchor="middle">
+      <text x="110" y="268">2023-03</text><text x="340" y="268">2024-07</text>
+      <text x="565" y="268">2025-01</text><text x="810" y="268">2026-04</text>
+    </g>
+    <text x="34" y="150" font-size="11" fill="#9ca3af" text-anchor="middle" transform="rotate(-90 34 150)">相对变化（示意）</text>
+
+    <polyline points="110,58 340,150 565,192 810,216" fill="none" stroke="#0071e3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="110,238 340,226 565,202 810,105" fill="none" stroke="#b3261e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#ffffff" stroke="#0071e3" stroke-width="3">
+      <circle cx="110" cy="58" r="5"/><circle cx="340" cy="150" r="5"/><circle cx="565" cy="192" r="5"/><circle cx="810" cy="216" r="5"/>
+    </g>
+    <g fill="#ffffff" stroke="#b3261e" stroke-width="3">
+      <circle cx="110" cy="238" r="5"/><circle cx="340" cy="226" r="5"/><circle cx="565" cy="202" r="5"/><circle cx="810" cy="105" r="5"/>
+    </g>
+    <text x="122" y="48" font-size="13" font-weight="600" fill="#0071e3">$30</text>
+    <text x="806" y="238" font-size="13" font-weight="600" fill="#0071e3" text-anchor="end">$0.10–2.50</text>
+    <text x="806" y="92" font-size="13" font-weight="600" fill="#b3261e" text-anchor="end">+40% ~ +100%</text>
+    <text x="122" y="256" font-size="12" fill="#b3261e">100</text>
+  </g>
+</svg>
+<div class="svgcap">
+  <div class="c"><div class="k">单位价格 · 2023-03 → 2026-04</div><div class="v b">$30 → $0.10–2.50 / 百万 token</div></div>
+  <div class="c"><div class="k">企业实际 AI 支出 · 2024 → 2026</div><div class="v r">+40% ~ +100%</div></div>
+  <div class="c"><div class="k">超出自身成本预测的企业</div><div class="v a">73%</div></div>
+  <div class="c"><div class="k">Agent 工作流相对单轮的 token 消耗</div><div class="v a">5–50 倍</div></div>
+</div>
+</div>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>成本侧事实</th><th class="num-c">读数</th><th>来源与时点</th></tr></thead>
+<tbody>
+<tr><td>GPT-4 级能力的 token 单价：2023 年 3 月 → 2026 年 4 月</td><td class="num-c"><strong>$30 → $1.25–2.50</strong></td><td>BetOnAI 汇总公开定价，2026-04</td></tr>
+<tr><td>Stanford AI Index 记录的推理成本降幅（2022-11 → 2024-10）</td><td class="num-c"><strong>−280 倍</strong></td><td>Stanford AI Index 2025</td></tr>
+<tr><td>混合 AI token 均价：2025 Q1 → 2026 Q1</td><td class="num-c">$18.40 → $6.07（<strong>−67%</strong>）</td><td>行业价格追踪，2026 Q1</td></tr>
+<tr class="hl"><td><strong>企业实际 AI 支出：2025 → 2026</strong></td><td class="num-c"><strong>+40% ~ +100%</strong></td><td>多份企业调研汇总，2025–2026</td></tr>
+<tr class="hl"><td><strong>超出自身 AI 成本预测的企业比例</strong></td><td class="num-c"><strong>73%</strong></td><td>企业成本管控调研，2026</td></tr>
+<tr><td>Agent 工作流相对单轮交互的 token 消耗倍数</td><td class="num-c"><strong>5–50 倍</strong></td><td>FinOps 汇总，2026-07</td></tr>
+<tr><td>推理模型相对非推理模型的单任务成本</td><td class="num-c"><strong>5–30 倍</strong></td><td>FinOps 汇总，2026-07</td></tr>
+<tr><td>一个编码智能体修一个 bug 的 token 消耗</td><td class="num-c">10 万–50 万</td><td>FinOps 汇总，2026-07</td></tr>
+<tr><td>自托管盈亏平衡点（1,000 万 token/月）</td><td class="num-c">~$500/月 → <strong>~$80/月</strong></td><td>TopClanker 自托管测算，2026-02</td></tr>
+<tr><td>全球 AI token 消耗量：2024 → 2025 年中</td><td class="num-c">10 万亿 → <strong>100 万亿</strong></td><td>OpenRouter 平台数据</td></tr>
+</tbody>
+</table>
+</div>
+<small>口径说明：以上多为行业汇总与平台数据，非一手企业财报，故整体标注为【媒体披露】；方向性结论（单位价格降、总支出升）在多个独立来源中一致。Jevons 效应是这里的解释框架：效率提升带来的是消耗量的更大幅增长，而非总账单的下降。<strong>【媒体披露】</strong></small>
+
+<div class="note warn">
+<strong>一个必须做的一手口径校正：单价降 X% ≠ 账单降 X%。</strong>Anthropic 官方定价页明确写出：<strong>Claude Opus 4.7 及以后、Claude Fable 5、Claude Mythos 5、Claude Sonnet 5 使用新分词器，同一段文本产生的 token 数约多 30%</strong>（官方原文："This tokenizer produces approximately 30% more tokens for the same text"）。最典型的一例是 2026-10-07 发布的 Claude Haiku 5.5：名义降价 90%（≤100K 提示 $0.10 输入 / $0.50 输出，缓存读降至 $0.01），但 <strong>Anthropic 自己的口径是"平均运行成本降低约 75%"</strong>——差额就吃在新分词器上。
+<span class="src-inline">【已确认 · 一手官方定价页】anthropic.com/pricing 与 anthropic.com/claude/haiku，2026-10-20 抓取。"下降 280 倍""98%""93%"等倍数均为第三方测算，<strong>无任何机构官方口径</strong>，引用时须标注为测算值。</span>
+</div>
+
+<div class="note">
+<strong>但对"第一批被挡在门外的公司"而言，token 价格其实不是门槛。</strong>一个年营收 5000 万美元、按行业惯例拿 10% 做技术投入的服务商，年度 token 预算不过数十万美元量级——而它真正的困境在下一节。<strong>把中小企业的 AI 困境归因于"API 太贵"，会让人把注意力放错地方，从而错过真正可干预的杠杆。</strong>
+</div>
+
+<div class="note amber">
+<strong>不过必须承认：成本门槛对<em>小微</em>依然真实存在，只是量级与方向和"token 贵"的说法不同。</strong>三个独立测算对"万级 MAU 的 AI 产品月成本"给出的答案互相矛盾，本报告并列而不合并：<strong>$450–1,300/月</strong>（Cipher，混合多模型与缓存优化）、<strong>$200–3,000/月</strong>（APIpulse，低成本路由 + 小模型为主）、<strong>$15,000/月</strong>（PromptUnit，含重推理与长上下文的重度用法）。更有说服力的是行为数据：<strong>58.5% 的小微经营者曾因价格原因弃用 AI</strong>；而面向 C 端的 Agent 类产品，<strong>单个活跃用户月成本已达 $3,000–6,000，而消费者的付费意愿上限通常低于 $100</strong>。
+<br><br>
+<strong>这才是"劝退"的确切机制：不是起步时付不起 token，而是规模上来之后，<em>每一个新增用户都在扩大一个结构性亏损的缺口</em>。</strong>因此被劝退的第一批公司，是<strong>那些商业模式必须依赖高单价 AI 调用、但客单价撑不住的中小玩家</strong>——而这恰恰是最容易出"超级个体"的一类。
+<span class="src-inline">【媒体披露】成本测算三口径冲突；58.5% 数据引自《近七成小微经营者无法持续使用 AI，"一人公司"成本与能力鸿沟受关注》（2026-06-29）；Agent 单用户成本引自虎嗅/硅星人 2026-04-16。<strong>三个成本数字口径不同、样本不同，本报告并列呈现，不做加权平均。</strong></span>
+</div>
+
+<h3>3.2 第二道，也是真正的门槛：AI 原生公司需要的，正是被全行业竞价的那批人</h3>
+<p>哈佛商学院与 INSEAD 的工作论文《AI-Native Firms》（2026 年 6 月 9 日）提供了这一节最硬的证据。它以 Y Combinator W20–F24 批次和 2020–2024 年首轮融资的美国风投初创为样本，用 Revelio Labs 的劳动力微观数据（团队规模、职能、职级、层级）做匹配，先把每家公司按"AI 原生"程度分类，再与同行业同队列的非 AI 初创比较。</p>
+
+<div class="stats">
+<div class="stat acc"><div class="v">−25%</div><div class="l">AI 原生初创的<strong>团队规模</strong>比同行业同队列的非 AI 初创小四分之一</div></div>
+<div class="stat"><div class="v">−15%</div><div class="l">初级员工占比（PitchBook 样本口径为 <strong>−6 个百分点</strong>，β=−0.060, p&lt;0.01）</div></div>
+<div class="stat"><div class="v">+20%</div><div class="l">资深员工占比；管理者占比低约 15%，层级深度<strong>浅半个职级</strong></div></div>
+<div class="stat acc"><div class="v">13 人</div><div class="l">YC 样本中 AI 初创平均员工数，对照组为 <strong>42 人</strong>——差距近 70%</div></div>
+</div>
+
+<p>但这不是"AI 公司更差"的证据，恰恰相反——<strong>它们的单位资本效率高得惊人</strong>：</p>
+<ul class="bl">
+<li>AI 初创<strong>人均融资多 12%（YC，β=0.109, p&lt;0.10）至 33%（PitchBook，β=0.285, p&lt;0.01）</strong>；</li>
+<li><strong>人均估值高 30%（YC，β=0.260, p&lt;0.05）至 76%（PitchBook，β=0.564, p&lt;0.01）</strong>；</li>
+<li>按绝对值看，AI 初创融资总额与估值均与可比公司持平——它们不是低质量入场者，只是<strong>更小</strong>。</li>
+<li>服务业初创的分化最极端：<strong>AI 服务型初创比非 AI 同业小约 70%，层级近乎浅一整级</strong>。论文的解释是，治疗、辅导、远程医疗这类业务在没有 AI 时本该靠雇人扩张，现在"小团队 + 内嵌 AI 能力"就能交付。</li>
+</ul>
+
+<div class="note warn">
+<strong>关键在这里：论文同时发现，这些更小的团队<strong>"从更窄的劳动力池中取人"</strong>——地理上集中在硅谷，员工更多是男性、更多拥有高等学位、来自更精英的雇主与院校。</strong>这句话把整章串了起来：<strong>AI 原生公司需要的是"有 5–10 年经验、能跨领域复用、能判断模型对错"的人，而这恰恰是全行业最稀缺、也被大厂出价最高争抢的那批人。</strong>论文本身就点破了矛盾：<strong>在任务层面 AI 往往更偏向帮助经验较少的工人，但到了公司层面，方向恰恰相反。</strong>
+<span class="src-inline">【已确认 · 一手论文】Hyunjin Kim（INSEAD）&amp; Rembrand Koning（Harvard Business School），《AI-Native Firms》，HBS Working Paper 26-090，2026-06-09。该文亦被 Anthropic 2026-10-16 技术报告直接引用为"AI 原生初创与 AI 采用者更扁平、初级员工更少"的依据。</span>
+</div>
+
+<h3>3.3 第三道：资本高度集中，于是"没被抢到人"变成"没有产品"</h3>
+<p>2025 年，全球 AI 公司从风险投资市场筹集约 <strong>1,100 亿美元，同比增长 62%</strong>，而同期整体科技 VC 收缩 12%；<strong>美国占全球 AI VC 的 74%</strong>。资本不是消失了，是集中到了少数几类玩家手里。这直接产生了"被挡在门外"的第三种形态：</p>
+<ul class="bl">
+<li><strong>能拿到钱、但拿不到人的那一类。</strong>融资到位，但要在 3 个月内组出一支"懂工艺 + 懂 AI"的团队，而市场上这类人一年只产出有限个——并且已经被大厂与已融资的同行锁住。</li>
+<li><strong>拿不到钱的第二类。</strong>AI 原生初创在 2020–2024 融资窗口中已吸走 74% 的全球 AI 资本，留给"想做 AI 化的传统公司"和"想做 AI 但不打算做 AI 原生的公司"的资金池明显收窄。</li>
+</ul>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>资本门槛的三个量化刻度</th><th class="num-c">读数</th><th>口径与时点</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>AI 标签的 Series A 溢价</strong></td><td class="num-c"><strong>$300M vs $55M</strong></td><td>AI 初创 Series A 中位估值约为非 AI 初创的 5 倍。Carta Q1 2026 数据（2026-08 转述）。2026 Q1 美国约 3,000 家初创获 pre-seed，合计超 $2.3B——<strong>溢价集中在很窄的一段</strong>。</td></tr>
+<tr><td>中位种子轮（美国）</td><td class="num-c">$3.2M → <strong>$4.1M</strong><br>post-money $18M → <strong>$24M</strong></td><td>Carta。2025 全年 → 2026 年中基准，创纪录，创始人让渡约 18%。</td></tr>
+<tr><td>阶段落差</td><td class="num-c">$16M → $49.3M</td><td>种子 pre-money 中位 $16M 与 Series A pre-money 中位 $49.3M（2025 Q3，历史新高）之间已差 3 倍。</td></tr>
+<tr><td><strong>人力占烧钱比重</strong></td><td class="num-c"><strong>60–75%</strong></td><td>薪资支出占 burn 率比重。AI 公司的 burn 结构中<strong>真正的成本大头仍然是"人"，不是算力或 token</strong>。</td></tr>
+<tr><td>AI 初创独立创始人创办公司占比</td><td class="num-c">23.7% → <strong>36.3%</strong></td><td>2019 → 2025 上半年（引 Carta 2025，2026-08 中国税务报转述）。</td></tr>
+</tbody>
+</table>
+</div>
+<small>本报告采用其中经原始报告核对的口径；"AI 标签 5 倍溢价"系对 Carta 原始报告的二手转述，引用前应回溯。<strong>【已确认 · 二手转述】</strong></small>
+
+<div class="note">
+<strong>第一批被挡在门外的公司的画像由此清晰：不是缺钱的初创，而是有订单、有客户、但无法把"人"换成"agent"的中小服务商。</strong>咨询、IT 外包、内容代运营、教育培训、客服外包，以及想在自己行业做 AI 化的传统中小企业——它们的困境不是"买不起 token"，而是：<strong>AI 原生化需要重写一次交付方式（少雇人、多用智能体），但重写交付方式本身需要先有一支"懂工艺 + 懂 AI"的复合型团队，而这正是被大厂买断的那批人。</strong>它们卡在门槛与楼梯之间：上一级台阶没了，下一级台阶他们又买不起。
+</div>
+
+<h3>3.4 与选题 #374（企业成本配给制）的边界</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th></th><th>选题 #374 · 企业成本配给制</th><th>本篇 · 谁压根进不了门</th></tr></thead>
+<tbody>
+<tr><td><strong>研究对象</strong></td><td>已具备 AI 采购能力的企业内部</td><td>尚不具备该能力、无法进入采购流程的中小主体</td></tr>
+<tr><td><strong>核心矛盾</strong></td><td>有限的额度如何在部门间分配</td><td>门槛在"人"而非"钱"，无法用内部再分配解决</td></tr>
+<tr><td><strong>关键变量</strong></td><td>预算额度、成本中心</td><td>人才供给（5–10 年经验者的存量）、经验门槛信号</td></tr>
+<tr><td><strong>治理工具</strong></td><td>内部配额、审批流、优先级规则</td><td>学徒制/实习制度、再培训与转移支付、股权公共基金</td></tr>
+<tr><td><strong>谁被排除</strong></td><td>企业内部排在队列末尾的部门</td><td>从未进入队列的主体（无门票者）</td></tr>
+</tbody>
+</table>
+</div>
+<p>一句话区分：<strong>#374 问的是"额度怎么分"，本篇问的是"谁连门都进不去"。</strong>把两者混为一谈，会得出"加强企业内部 AI 成本治理"的建议——而这对门外者完全无效。</p>
+</div>
+</section>
+
+<!-- ============ 第四章 ============ -->
+<section class="alt">
+<div class="narrow rv">
+<div class="kicker">第四章 · 结构性后果</div>
+<h2>人才金字塔倒挂的三种结局，以及中国的落地顺序</h2>
+<p class="lead">如果 AI 真的取消了职业阶梯的第一级，那么接下来 36 个月里只有三种可能：效率提升换来劳动力市场萎缩；岗位形态被重构成"一人多岗"；或者 AI 原生企业用新型雇佣与分成关系替代传统雇佣。三个不是并列的选项，而是会依次叠加。</p>
+</div>
+
+<div class="wrap rv">
+<h3>4.1 结局一：效率提升，劳动力市场萎缩（最确定的一条）</h3>
+<p>Anthropic 的数据给出了这个结局的量化形态：<strong>成立约 5 年时，人均创收达到 Meta 和 Google 各自高速增长期的 2–4 倍</strong>（基于截至 2026 年 4 月的内部财务与员工规模记录，与两家公司成立 5 年时的 10-K 财报数据经通胀调整后比较）。同时，工程师人均代码提交量达到 6 个月前的 <strong>5 倍</strong>；追踪 192 名工程师的纵向分析显示，采用编码智能体后其产出显著上升，且代码被删除或回滚的比例<strong>没有恶化</strong>。</p>
+<p>但这份"效率红利"的分配方式决定了结局二与三的走向。PwC《2026 AI Jobs Barometer》提供了关键的结构数据：<strong>在 AI 暴露最高的职业中，入门级岗位新出现的技能中有 52% 是传统上属于资深者的技能</strong>（最低暴露职业仅 7%）；这类"资深化入门岗"的职位自 2019 年以来增长 35%，而其他入门级岗位<strong>萎缩 10%</strong>。入门级岗位本身没有消失，它只是被<strong>升格成了要求资深技能、支付资深价格的岗位</strong>。</p>
+<p>这带来一个必须正视的时间差：<strong>今天不招初级的人，三年后招不到中级的人。</strong>IBM 的 CHRO 把这句话说到了底：<em>"没有管道，这口井就是干掉的。"</em> SignalFire 同样警告，靠砍掉新人管道优化短期财报，可能在 5–10 年后造成结构性的领导层断层。</p>
+
+<h3>4.2 结局二：岗位形态重构——但"超级个体"是误称</h3>
+<p>市场热议的"超级个体"（Super IC / 一人公司）在数据上存在，但形态与流行叙事不同：</p>
+<ul class="bl">
+<li>Anthropic 的<strong>工程师与产品经理之比约为 17:1，且自 2025 年以来持续上升</strong>；技术部门内"不写代码"（近 30 天无提交）的员工占比一年内近乎减半；管理者的代码提交量翻倍。</li>
+<li>非技术员工的编码智能体会话从每月 2 次升至 90 次；书面常驻指令从 2025 年 7 月的数百条增至一年后的 <strong>8,500 条</strong>。</li>
+<li>人均会议时长增加 20%（技术岗 +16%）——<strong>人并没有被解放出来，而是从"执行"改成了"看管 + 协调 + 问责"。</strong>交互式会话中约 <strong>80% 的时间在等待人类输入</strong>；把 Claude 全部输出读完，技术岗的阅读量已超过半个工作周，非技术岗同样如此。</li>
+</ul>
+
+<div class="stats">
+<div class="stat acc"><div class="v">1,600 万家</div><div class="l">中国"一人公司"（OPC）存量，约占存续企业主体的<strong>四分之一</strong>，年增速超 40%</div></div>
+<div class="stat"><div class="v">286 万户</div><div class="l">2025 上半年新注册 OPC，同比 <strong>+47%</strong>，占全部新设企业的 23.8%</div></div>
+<div class="stat"><div class="v">36.3%</div><div class="l">独立创始人创办公司占比（2019 年为 23.7%），六年增长 53%</div></div>
+<div class="stat bad"><div class="v">58.5%</div><div class="l">小微经营者<strong>曾因价格原因弃用 AI</strong>——"一人公司"总量在涨，但用不起的那部分正在被劝退</div></div>
+</div>
+<p>中国的"超级个体"现象是真实的，而且规模不小——但上述第四个数字必须与前三个一起读：<strong>OPC 总量在快速膨胀，与此同时有近六成小微经营者因为成本而放弃使用 AI</strong>。这说明"一人公司"这条路上同时存在两股力量：<strong>能以极低成本搭起最小可运营单元的一端在扩张，无法承担持续推理成本的一端在被劝退</strong>。第三章 3.1 节的"Agent 单用户月成本 $3,000–6,000 vs 消费者付费上限 &lt;$100"，就是这两股力量的分界线。</p>
+<span style="display:block;font-size:13px;color:var(--gray);margin-top:-6px">OPC 总量与新注册数据经中国税务报（国家税务总局深圳市税务局转载，2026-08-12）与正北方网（2026-09-28）转述；58.5% 引自《近七成小微经营者无法持续使用 AI》（2026-06-29）。OPC 社区数量存在 426 / 618 / 85 三个互相冲突的口径，本报告不予采用。<strong>【媒体披露】</strong></span>
+<div class="note amber">
+<strong>结论：所谓"超级个体"，在组织内部是"造工具的人"与"用工具的人"的重新划分，在组织外部是"更小但单位资本效率更高的小团队"——它没有削弱对资本的依赖，反而加深了。</strong>HBS 数据显示 AI 原生初创人均融资多 12–33%、人均估值高 30–76%：<strong>能靠一人公司成立的公司，本来就拿到了比对手多一截的资本</strong>。因此把"超级个体"当作对 AI 的乐观回应是危险的——它准确描述了顶层的组织形态，却掩盖了<strong>进入这个形态的门票价格正在上涨</strong>。
+<span class="src-inline">【已确认 · 一手论文】Kim &amp; Koning, HBS WP 26-090, 2026-06-09。<strong>【研判】</strong>——关于"超级个体"命名与资本依赖关系的推论为本报告判断。</span>
+</div>
+
+<h3>4.3 结局三：AI 原生企业用新型雇佣与分成替代传统雇佣</h3>
+<p>这是本轮最被低估的一条线，而且已经落地为具体动作。Anthropic 在 10 月 16 日发布就业报告后仅两天，宣布成立<strong>公共利益基金</strong>：</p>
+<ul class="bl">
+<li>拟将 <strong>5% 的股份</strong>划入新设基金（LLC 形式而非 501(c)(3)），按最新估值 9,650 亿美元计约合 <strong>480 亿美元（约合人民币 3,207 亿元）</strong>；董事会可酌情追加——估值较未披露基准每上涨 50% 再追加 2%。</li>
+<li>资金用途被明确写为：AI 安全、生物医学研究，以及<strong>"AI 造成的岗位扰动与人员失业"</strong>。基金股权不得用于美国或海外的游说与政治献金。</li>
+<li>公司此前已承诺 <strong>2 亿美元</strong>用于 AI 劳动力市场影响研究；创始人承诺捐赠 80% 股权，员工配捐计划覆盖约半数员工——<strong>加上新基金，Anthropic 估计约 20% 的股份将用于公共利益目的</strong>。</li>
+<li>马斯克在 X 上回应："我建议直接把股份分给公众。"OpenAI 今年 7 月亦讨论过类似提案（5% 股份）。</li>
+</ul>
+<div class="note">
+<strong>这条线的政策含义比它的新闻价值大得多。</strong>如果"AI 红利全民分享"持续以<strong>公司股权结构</strong>而非税收转移的方式落地，那么政策抓手就要从"AI 专项税 + 转移支付"转向"<strong>AI 上市公司股权公共基金的强制条款</strong>"。可参照的历史样本是阿拉斯加永久基金（1982 年起按人头分红，已持续 44 年）。Sam Altman 早在五年前就算过：若把 AI 收益按同样方式分给每个人，十年后每个美国成年人每年约可分得 13,500 美元。民意基础也在形成：<strong>皮尤研究中心 2026 年 8 月报告显示 71% 的美国成年人认为未来两年 AI 会造成美国岗位数量减少</strong>；2026 年 1 月的一项民调中 65% 的美国人认为每个人都该从 AI 公司的收益中分得一份。
+<span class="src-inline">【媒体披露】基金公告经 Reuters / FT / 中新经纬 / 新浪财经 / TechTimes 转述（2026-10-19）；民调数据引自皮尤研究中心 2026-08 及 2026-01 报道。Anthropic 公告本身为一手来源，具体条款以公司后续披露为准。</span>
+</div>
+
+<h3>4.4 中国的落地顺序：制造业先于白领，服务业更晚</h3>
+<p>中国的坍塌顺序与美国不同，原因是三个结构性差异叠加。值得注意的是，<strong>中国自己的产业媒体给出了与本报告一致的官方口径排序</strong>：《中国工业报》刊文明确指出——<em>"人工智能的技术优势在于对标准化、重复性、规则化任务的高效执行，这使其率先冲击制造业一线的低技能岗位"</em>；并给出量化：焊接、喷涂、装配环节工业机械臂 ±0.02mm 精度、24 小时不间断，<strong>相关岗位替代率超过 80%</strong>；AI 视觉检测 99.5% 缺陷识别准确率大幅减少人工质检岗需求。同一报告也点出了创造侧的新岗位：AI 训练师、算法工程师、大模型调优师、工业数据标注师、智能系统运维工程师，以及"AI+制造"复合岗（智能产线调度员、数字孪生工程师、人机协作督导员）。</p>
+<div class="tscroll">
+<table>
+<thead><tr><th>时间窗</th><th>首先受影响的环节</th><th>为什么是中国先在这里</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>T+0～12 个月</strong></td><td>通用制造业的<strong>质检判读、工艺文档、产线排产、售后服务记录</strong></td><td>这些岗位的"行业 know-how"是 LLM 最难补的边界，但<strong>重复性文档生成与图像初筛</strong>可被多模态 + 规则引擎吃掉。且中国制造业岗位基数远大于白领，"机器换人"与"AI 化"叠加会放大效应。CEISD 测算（65,200 条岗位任务、1,267 个细分职业）显示，AI 收缩效应集中在<strong>月薪 5k–8k、1–3 年经验的入门中端岗位</strong>。</td></tr>
+<tr><td><strong>T+12～24 个月</strong></td><td><strong>纯线上通用服务</strong>：客服、票务、基础审核、初级文案、翻译、基础法务与合规初稿</td><td>猎聘戴科彬 2026-06 明确点名销售、商务、品牌、法务与部分互联网初级技术岗需求下降。这类任务的规则清晰度最高，AI 替代直接。</td></tr>
+<tr><td><strong>T+24～36 个月</strong></td><td><strong>半结构化的金融与公共服务后台</strong>：理赔初审、柜面后台审核、招投标文件、财报初稿</td><td>需要"可信 + 可审计 + 责任归属"，因此替代慢于前台；但一旦审计与合规框架成型，替代会集中发生。官方失业数据会滞后于实际收缩（外包链条吸收了冲击）。</td></tr>
+<tr style="background:rgba(29,122,62,.06)"><td><strong>不会塌（反向增长）</strong></td><td>照护、家政、维修、餐饮现场、医疗辅助、物流最后一公里、面对面教学</td><td>Indeed 经济学家调研的共识：未来一年增长最快的部门是个人护理与居家健康、护理——"上手的、长期短缺的、且基本在 AI 触及范围之外"。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>4.4.1 中国顺序判断的第一个检验：制造业案例已经跑在前面</h3>
+<p>上表的时间窗排序不是推测。以下是已经发生的、可核验的制造业案例，它们<strong>直接验证了"制造业先于白领"这一判断</strong>——而且注意，几乎所有案例的削减对象都是<strong>一线低技能岗</strong>，不是白领职能：</p>
+<div class="tscroll">
+<table>
+<thead><tr><th>企业 / 车间</th><th>技术介入</th><th>量化结果</th><th>来源</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>广西玉柴机器</strong><br>第五发动机车间</td><td>上料到成品入库全部无人 AGV / 机器人 / 桁架机械手；关键工序自动拧紧、涂胶、压装；人工岗位嵌入 AI 形迹防错</td><td><strong>国六发动机加工线人员从 100 多人缩减到接近"黑灯工厂"</strong>，仅保留少量员工负责维保与监控；生产效率 +40% 以上，生产周期缩短 80%，加工精度 1 微米</td><td>中国青年报《一线调查：被 AI 重塑的工厂》2026-09-08</td></tr>
+<tr class="hl"><td><strong>温州洲一铝业</strong></td><td>六条产线 AI 全天候质检</td><td><strong>原需 36 名质检员轮班 → AI 值守，检出率超 90%</strong>；工人从"盯屏幕"变为"管机器"</td><td>中国工信新闻网 2026-09-10</td></tr>
+<tr><td><strong>临汾华翔集团</strong><br>（精密铸造）</td><td>普通摄像头 + 智算一体机 + AI 算法的边缘推理行为检测；铁水取样模型</td><td>全厂质检人工占比一度高达<strong>六成</strong>；七大场景行为识别准确率 94%+，铁水取样模型 98.25%；<strong>废品率降低三成，年节省质检成本 200 万元</strong></td><td>央广网 2026-08-12</td></tr>
+<tr><td><strong>宁波公牛集团</strong><br>插座车间（5G 黑灯工厂）</td><td>AI 工艺大模型自主调优注塑参数；570 路摄像头识别 15 类违规行为</td><td><strong>人均产值 +51%，一年新增效益 3,000 万元</strong>；安全事故直降八成</td><td>中国工信新闻网 2026-09-10</td></tr>
+<tr><td><strong>浙江诸暨大唐袜业</strong></td><td>AI 设计大脑</td><td>老师傅画 1 张花型图纸 1–2 小时 → <strong>3 分钟出 20 款原创方案</strong>；设计周期 7 天 → 4 小时，成本降七成，新品命中率翻倍</td><td>中国工信新闻网 2026-09-10</td></tr>
+<tr><td><strong>宝钢 / 轧钢</strong><br>（"玄铁"大模型 + 5G 热轧智能工厂）</td><td>智能表检仪 + 云边端协同</td><td>无人行车单车 21 块板坯/小时；高温"烤验"岗位转移到地面控制室，<strong>工作从"操作"变"监控"</strong></td><td>中国经济网 2026-09-08</td></tr>
+<tr><td><strong>北京长安汽车</strong></td><td>把 AI 培训搬进生产车间：智能体搭建、数据接口对接、报表处理、设备维保跟踪，按岗位分层培训</td><td>涂装车间工程师：<em>"AI 是把重复的活儿接走了，工人更像'把关的'。"</em>人力资源处经理：<em>"智造不是不要工人，而是不要'只会重复'的工人。"</em></td><td>央广网 2026-09-23</td></tr>
+<tr><td>广西大海粮油包装车间</td><td>注塑吹瓶到灌装全流程无人化；无人叉车视觉定位</td><td>后端原需 12 名有力气的工人，现在基本 1 人在现场看着</td><td>广西东兴试验区管委会 2026-10-16</td></tr>
+<tr><td>徐州多家骨干制造企业</td><td>徐工弗迪电池毫秒级工业相机检测；联超光电 AOI 360° 成像；宁欣汽车零部件螺栓三维成像；美驰车桥质量溯源</td><td>批量质量问题<strong>溯源时长从数天压缩到 10 分钟以内</strong></td><td>徐州市人民政府 2026-08-09（一手政府）</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note ok">
+<strong>这组案例的三个共同特征，正好对应 Anthropic 报告里的三个机制。</strong><strong>①</strong> 被削减的是"规则清晰、执行性强"的任务（质检判读、注塑参数巡检、搬运、报表）——与 Anthropic 的"初级岗位最先被替代，因为规则清晰、执行性强"完全同构；<strong>②</strong> 留下来的人从"操作"变"监控"、从"盯屏幕"变"管机器"——与 Anthropic 的"元工作"（从执行到管理与监控，占交互式会话 10%→22%）完全同构；<strong>③</strong> 长安汽车那句"<strong>智造不是不要工人，而是不要'只会重复'的工人</strong>"，与 Anthropic 执行助理那句"<strong>我们越过了 Claude 增强掉真正入门级行政岗的那个点</strong>"，是同一句话的两种说法。<strong>技术转移路径不同，但机制是同一台机器。</strong>
+</div>
+<p>这也为第一章 1.6 节的冲突提供了一个可能的调和方向：<strong>中国白领岗位的"没有大规模消失"，与制造业一线岗位的"正在大规模消失"，可以同时为真</strong>——因为两者的岗位基数、替代技术栈与统计口径完全不同。这也解释了为什么中国官方失业率对 AI 替代不敏感：<strong>被挤出的是制造业的一线岗位（往往不在城镇调查失业率的统计范围内），而不是白领失业人口</strong>。</p>
+
+<h3>4.5 中国特有的三重放大器与三重缓冲</h3>
+<div class="stats">
+<div class="stat bad"><div class="v">放大 ①</div><div class="l">毕业生供给未来五年持续维持 <strong>1,200 万人以上</strong>：2026 届 1,270 万人（教育部 2025-11-20），2027 届预计突破 <strong>1,300 万人</strong>。城镇调查失业率 5.5% 左右是政策刚性底线。</div></div>
+<div class="stat bad"><div class="v">放大 ②</div><div class="l">门槛比美国更陡更早：要求 3 年以上经验的岗位占比<strong>超七成</strong>，1 年以内新人岗位缩减约 20%，3–5 年岗位同比 +19%。</div></div>
+<div class="stat bad"><div class="v">放大 ③</div><div class="l">2025 年部分企业暂停基础文职类校招，当年应届生招聘需求缺口一度扩大至 <strong>30.1%</strong>，2026 年才回落至 <strong>16.9%</strong>——说明这一层是<strong>可开关的</strong>，而非不可逆。</div></div>
+<div class="stat"><div class="v">缓冲 ①</div><div class="l">AI 人才缺口超 <strong>500 万人</strong>（供需比口径存在 3.5:1 与 1:10 两个冲突版本，本报告不采用）。需求侧本身在创造岗位。</div></div>
+<div class="stat"><div class="v">缓冲 ②</div><div class="l">中国 AI 岗已覆盖 <strong>22 个实体行业</strong>；智联 2026 春招面向应届生的 AI 工程师职位数同比 <strong>+39.2%</strong>，平均起薪 17,038 元。</div></div>
+<div class="stat"><div class="v">缓冲 ③</div><div class="l">头部企业已在主动重建入口：百度 2026 届校招 AI 岗占比超 90%、发放 4,000 份 offer，宣布五年培养 1,000 万 AI 人才；中国平安计划 3–5 年将应届生招聘总量提升至 1 万人以上，并把 AI 工具使用能力列为应届生核心评估项。</div></div>
+</div>
+
+<div class="note warn">
+<strong>中国真正的问题不是"岗位没了"，而是"岗位在，但升不上去"。</strong>第一级台阶消失之后，第二级（3–5 年经验）成为唯一入口——<strong>而它要求你在没有第一级台阶的三年里，积累出三年经验</strong>。这是一个结构性悖论，美国同样存在（纽约联储 2026-05：入门级岗位申请中 30% 来自 10 年以上经验者，6–9 年经验者中 62% 去投入门级岗）。中国的额外风险在于：这个悖论发生在一个<strong>每年新增 1,200 万以上毕业生、且白领岗位本已饱和</strong>的劳动力市场上——入口的绝对容量不足，会被转化为青年失业率、延迟就业和"向蓝领/技工/个体经营回流"三种社会压力。新加坡的公开数据已经演示了回流的样子：<strong>42% 的 Z 世代劳动者已在从事或准备从事蓝领与技工岗位</strong>，20–24 岁人群的蓝领就业份额自 2019 年以来上升约 2.3 个百分点。
+<span class="src-inline">【媒体披露】中国数据经多方转述（2026-07 至 2026-09）；回流数据引自世界经济论坛《AI 与入门级工作的未来》报告（2026-06，与 PwC 合作）及美国薪资面板。<strong>【研判】</strong>——顺序判断与"悖论"提法为本报告结论。</span>
+</div>
+</div>
+</section>
+
+<!-- ============ 第五章 ============ -->
+<section>
+<div class="narrow rv">
+<div class="kicker">第五章 · 对策</div>
+<h2>给三类主体，各一条现在就能做的动作</h2>
+<p class="lead">以下每条建议都必须满足两个条件：可由该主体独立执行（不依赖他人先动），且有可观测的成功信号。</p>
+</div>
+
+<div class="wrap rv">
+<div class="acts">
+<div class="act">
+<h4>求职者 · 不要向下竞争岗位，要横向争夺"可见的判断证据"</h4>
+<p><strong>动作：</strong>把"我做过 N 年"重写为"我做过什么判断、依据是什么、错了怎么纠"。具体形式是<strong>可审计的 AI 原生交付物</strong>——你搭的智能体工作流、你的评测集、你的决策记录、你的失败复盘——而不是"熟练使用 AI 工具"这个形容词。</p>
+<p><strong>为什么是这个：</strong>Anthropic 面试评分卡的变化是直接的信号——技术岗提到"候选人 AI 工具使用记录"的比重从 5% 升至 15%，非技术岗从 7% 升至 28%；而技术岗评分卡中增长最大的单项是"自主性与判断力"，"领域专业度"占比萎缩。<strong>当公司把资历证明换成判断力证明时，求职者如果还在用资历证明，就永远在和更老的人竞争同一个信号。</strong></p>
+<p><strong>反面警告：</strong>不要因为门槛抬高就去投更低的入门级岗位。纽约联储的数据显示，那条路上站着 30% 的 10 年以上经验者，6–9 年经验者中 62% 也在往下投。<strong>向下竞争是把你的议价能力送给在职者；横向竞争才是把判断力换成溢价。</strong></p>
+<p><strong>观测信号：</strong>面试轮次中"AI 使用"被问到的比例；是否拿到"需要现场做判断题"的环节——如果一家公司从来不问，说明它要的是执行，不是判断。</p>
+</div>
+
+<div class="act">
+<h4>企业 · 把"不招初级"改写成"重新设计入门级"，并写进预算</h4>
+<p><strong>动作：</strong>把入门级岗位从"执行岗"改造为"<strong>判断力训练位</strong>"，并至少做三件事：①在 JD 中把入门级成果定义为"判断与复核"，而不是"产出数量"；②给新人的第一年安排"接触错误"的机会（真实客户、真实缺陷、真实合规判断），因为工具不会替代这种经验；③设置"岗位风险早期预警 + 内部再调配"机制——<strong>把被 AI 压缩掉的岗位用于内部转岗，而不是用外部招聘补回被压缩掉的层级。</strong></p>
+<p><strong>为什么是这个：</strong>IBM 2026 年将美国入门级招聘三倍化，初级开发者从"每周 34 小时写代码"转向"与客户共事、做产品"；PwC 英国刻意保留部分手工任务，"以便初级员工发展专业判断力"。<strong>两家的共同点不是"多招人"，而是"改变第一级台阶上要练的东西"。</strong>世界经济论坛 2026 年的框架也主张把入门级招聘写进战略人力规划并设明确目标。</p>
+<p><strong>成本论证要用对的语言：</strong>不要论证"道德责任"，要论证<strong>2029 年的中级供给</strong>。今天砍掉的每一个初级，三年后就是一个不能带人的中级；而带人恰恰是 AI 没法替代的部分——Anthropic 自己的数据说得很清楚：<strong>AI 把"执行"自动化了，把"监督、协调、问责"留给了人，而这两者只能从基层练起。</strong></p>
+<p><strong>观测信号：</strong>入门级岗位发布量的同比；新人 12 个月后的独立产出评估分数；以及"因 AI 风险被再调配"的内部转岗人数——后者如果长期为零，说明预警系统是摆设。</p>
+</div>
+
+<div class="act">
+<h4>政策制定者 · 把再培训从"个人自付的项目"改成"有财政转移支付的制度"</h4>
+<p><strong>动作：</strong>建立<strong>以"岗位"而非以"课程"为单位的转移支付机制</strong>——由企业与公共财政共同为新进入者付费（学徒制补贴、雇主侧的带教津贴、以及入门级岗位的工资补贴），并把补贴与企业实际的入门级招聘量、留任率绑定，而不是与培训完成量绑定。</p>
+<p><strong>为什么是这个：</strong>Anthropic 报告的政策段落写得非常直接：<strong>"在位者的雇佣保护帮不到那些根本没被雇佣的人。雇主方面的私人行动必须与政府在再培训和收入支持上的远见政策并行。"</strong>这是本报告找到的、由利益相关方自己给出的最清晰的政策建议——它来自一家正在裁减入门岗位的公司，因此比学者建议更可信。</p>
+<p><strong>同时需要处理分配侧：</strong>如果 Anthropic 这类前沿实验室普遍把 5%–20% 的股权划入公共基金（10 月 18 日公告已明确把"AI 造成的岗位扰动与人员失业"列为用途），那么政策工具就应从"AI 专项税"扩展到"<strong>AI 上市公司股权公共基金强制条款 + 基于全民持股的直接分配试点</strong>"。参照样本是阿拉斯加永久基金，而需求侧的民意基础（71% 认为 AI 会减少岗位）已经存在。</p>
+<p><strong>中国语境下的最小可行版本：</strong>中国政策端的动作已经启动，但还停在"个人要自己提升"的框架里。2026 年 1 月 27 日人社部例行新闻发布会明确<strong>"将出台应对人工智能影响促就业文件"</strong>；中国新就业形态研究中心主任张成刚在会上提出，AI 催生三类岗位（AI 直接相关、"人工智能+行业"复合型、与新能源/储能/低碳管理相关），并指出<strong>"人工智能正在推动工作从'人做任务'向'人管理 AI 做任务'转变"</strong>——这句判断与 Anthropic 的"元工作"结论完全一致。人社部发〔2026〕40 号已提出"数字人直播带岗、远程招聘、智慧面试"等公共服务新模式；人社部能建中心依托《生成式人工智能（AIGC）技术应用》职业培训项目（线上 47 课时、全国统一线上考试）开展转岗培训。</p>
+<p><strong>本报告建议的改动是三步：</strong><strong>①</strong> 把技能更新从<strong>个人义务</strong>改为<strong>有雇主义务 + 有财政转移支付的义务</strong>——补贴与企业实际入门级招聘量、12 个月留任率绑定，而非与培训完成量绑定；<strong>②</strong> 把转移支付的投放<strong>优先放在 1,200 万毕业生涌入的 1–3 年经验入门段</strong>，因为那一段是整个阶梯的承重墙；<strong>③</strong> 补上"带教津贴"这个目前几乎不存在的东西——<strong>AI 不会自己教会新人判断力，师傅可以</strong>，而师傅的时间正是企业最舍不得付的成本。</p>
+<p><strong>一个需要先行核实的口径分歧：</strong>我国 AI 人才缺口"超 500 万人"被反复引用，但<strong>供需比存在两个互相冲突的官方口径</strong>——2026 年 9 月报道为"AI 技术岗位需供比 3.5:1"，2026 年 10 月央视网引人社部数据为"人才供需比 1:10"。两者若指同一指标则至少有一处口径错误。本报告在正文中只使用"缺口超 500 万"这一项，<strong>供需比在回溯原始发布前不予采用</strong>。</p>
+<p><strong>观测信号：</strong>带教津贴/学徒制岗位的绝对量；受补贴岗位的 12 个月留任率；以及 AI 上市公司中设有股权公共基金条款的公司比例。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 第六章 ============ -->
+<section class="alt">
+<div class="narrow rv">
+<div class="kicker">第六章 · 未来 12 个月</div>
+<h2>三个可跟踪、可证伪的观测指标</h2>
+<p class="lead">每个指标都给出：口径、数据源、判定阈值，以及"如果朝相反方向走说明什么"。没有阈值的观测指标没有决策价值。</p>
+</div>
+
+<div class="wrap rv">
+<div class="kpi">
+<div class="h">指标 一 · 第一级台阶的绝对量（不是增速）</div>
+<div class="b"><strong>口径：</strong>"1 年以内经验"岗位的绝对数量与占全部岗位发布的比例（美：中国用脉脉/智联"应届生岗位"口径；美：Indeed Hiring Lab 与 SignalFire 口径）。</div>
+<div class="t"><strong>观测源：</strong>Indeed Hiring Lab（2026-05 基准：入门级 −7.5%，资深 +14.7%）；Bain Q2 2026 基准（入门级 −11%，Q1 为 −6%）；智联/脉脉 2026 春招基准（3 年以上经验岗占比超七成，1 年以内岗 −20%）。<br>
+<strong>判定阈值：</strong>未来 12 个月内该占比再降 3–5 个百分点、且绝对量继续收缩 → 判定"第一级台阶被永久移除"（结构性，非周期）。<br>
+<strong>反向证伪：</strong>若出现 IBM 式"入门级招聘三倍化"被同行广泛复制——可观测为 NACE / Bain 口径下入门级岗位发布同比<strong>转正</strong>，或企业级入门级岗位数在 12 个月内回升 10% 以上 → 则"入门级被永久移除"的判断需要下调权重，坍塌叙事退回到"周期性 + 选择性收缩"。<br>
+<strong>为什么排第一：</strong>这是唯一一个能同时区分"结构"与"周期"的指标。所有其他指标（AI 岗增速、基金落地、智联份额）都只有间接性。</div>
+</div>
+
+<div class="kpi">
+<div class="h">指标 二 · Anthropic 公共利益基金的落地细则与实际资金流向</div>
+<div class="b"><strong>口径：</strong>基金治理结构、受益人判定标准、资金是否用于<strong>向个人直接分配</strong>（而非捐赠给非营利机构）、以及追加股份的估值触发条件是否公开。</div>
+<div class="t"><strong>观测源：</strong>Anthropic 后续公益进展报告；IPO 招股文件与路演材料（据报道最早于 <strong>2026 年 11 月 9 日当周</strong>启动路演，估值目标约 2 万亿美元，Q3 营收 168 亿美元）。<br>
+<strong>判定阈值：</strong>若基金从"捐给机构"转向"直接向个人分配"，且公布分配算法与金额 → <strong>"全民 AI 分红"从概念进入制度验证阶段</strong>；届时应立即重估各国政策工具箱（专项税 vs 强制股权基金条款 vs 直接分红）。<br>
+<strong>反向证伪：</strong>若 12 个月内细则仍未披露、或资金全部流向"AI 安全与生物医学"而就业用途长期挂账 → 结局三被证伪，本报告 4.3 节的判断需下调，并说明分配问题仍将由税收与转移支付承担。<br>
+<strong>为什么排第二：</strong>它不只是一家公司的慈善动作，而是<strong>AI 分配问题从"财政"转向"公司治理"的标志性测试案例</strong>。它一旦成功，会成为其他 AI 上市公司股权公共基金条款的模板。</div>
+</div>
+
+<div class="kpi">
+<div class="h">指标 三 · AI 岗位与入门级岗位的"剪刀差"是否收敛</div>
+<div class="b"><strong>口径：</strong>AI 相关岗位发布同比增速 与 入门级岗位发布同比增速 之差（当前基准：2026 Q2 全球 AI 岗 +60%、约 35.1 万个；入门级 −11%；印度 Naukri JobSpeak 2026-09：AI/ML 招聘 +20%、应届生 +1%）。</div>
+<div class="t"><strong>判定阈值：</strong>若未来 12 个月 AI 岗位同比增速降至 <strong>+20% 以下</strong>，而入门级仍为负增长 → 说明 AI 需求本身在降温，入门级坍塌应按<strong>周期</strong>而非结构重估，本报告第一章的归因需要下调。<br>
+<strong>反向证伪：</strong>若 AI 岗位维持 <strong>+40% 以上</strong>且入门级继续负增长 → 结构判断成立，"职业阶梯移除"将确认从美国现象变成全球默认状态，中国的时间表相应前移。<br>
+<strong>附加观测：</strong>OECD《Employment Outlook 2027》是否推翻其 2026 年 7 月"初步结论"；以及 Anthropic IPO 后首份年报中"人均创收 2–4 倍"是否延续——若延续，说明效率红利未被就业端分享的结构性判断进一步加固。</div>
+</div>
+
+<div class="note ok">
+<strong>为什么是这三个，而不是更多：</strong>它们分别对应三个不同层次——<strong>劳动力市场的量</strong>（指标一）、<strong>分配制度的形态</strong>（指标二）、<strong>归因的对错</strong>（指标三）。前两个决定怎么办，第三个决定本报告是否需要修正自己。
+</div>
+</div>
+</section>
+
+<!-- ============ 附录 ============ -->
+<section>
+<div class="narrow rv">
+<div class="kicker">附录</div>
+<h2>数据分级总表与未能查证清单</h2>
+<p class="lead">本报告对所有关键数据标注三档来源等级。读者可据此判断哪些数字可以直接用于决策，哪些需要先做进一步验证。</p>
+</div>
+
+<div class="wrap rv">
+<h3>A. 三档来源等级的定义</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th>等级</th><th>含义</th><th>可支持的用途</th><th class="num-c">本篇条目数</th></tr></thead>
+<tbody>
+<tr><td><strong>【已确认】</strong></td><td>来自机构一手发布物（原始报告、论文、公告、官方统计），本报告已直接调取原文或经两个以上独立一手/权威二手路径印证</td><td>可直接用于对外引用与决策</td><td class="num-c"><strong>31</strong></td></tr>
+<tr><td><strong>【媒体披露】</strong></td><td>来自可信媒体的二手转述、行业汇总或第三方调研，未能取得原始发布物</td><td>可用于方向判断；引用前应注明为转述</td><td class="num-c"><strong>24</strong></td></tr>
+<tr><td><strong>【本报告研判】</strong></td><td>本报告基于已确认/已披露数据做出的推断、排序与推演，非任何来源的原始表述</td><td>作为假说与行动依据，不作为事实引用</td><td class="num-c"><strong>17</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>B. 未能查证清单（重要）</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th>任务书表述</th><th>核验结果</th><th>本报告采用的替代</th></tr></thead>
+<tbody>
+<tr class="hl"><td>"入门级岗位增速从 <strong>7% 放缓至 4%</strong>"</td><td><strong>未能查证。</strong>未在任何一手来源（Indeed Hiring Lab、Bain、NACE、LinkedIn/UK Gov、脉脉/智联）中找到对应的"7%→4%"口径。检索到的相近数字分别属于不同指标（入门级发布同比 −7.5%、印度入门级发布同比 −11%、ZipRecruiter 中入门级占比 8.1%→7.4%），无法拼接成该表述。</td><td>改用六组可核验的入门级收缩指标建立剪刀差论证（见第一章 1.4 表）。<strong>【本报告研判】</strong>实际结构是入门级 −7.5%～−22% 与资深 +14.7%、AI 岗 +60% 的<strong>同季度分裂</strong>，而非平缓减速。</td></tr>
+<tr class="hl"><td>"<strong>90%</strong> 的新员工岗位需要过去 5–10 年经验"</td><td><strong>比例未能查证</strong>，但方向成立。Anthropic 报告本身未出现该数字；HBS 论文亦未出现。</td><td>三组替代：中国 AI 高薪岗 <strong>60%</strong> 要求 5–10 年（前程无忧 2026）；Anthropic 工程师入职前经验中位数 <strong>12.2 年</strong>、97% ≥3 年、44% ≥13 年（LinkedIn 1,680 人全量画像）；中国春招 <strong>超七成</strong> 岗位要求 3 年以上（脉脉）。<strong>【本报告研判】</strong>用"门槛被设在唯一还在增长的存量上"替代比例。</td></tr>
+<tr><td>"裁员集中在入门级岗位"</td><td><strong>部分不成立。</strong>多组研究一致显示初级就业下降的<strong>主因是招聘放缓（non-hiring），而非离职增加</strong>。哈佛研究：采用企业初级招聘 −22%，而分离效应很小；纽约联储亦指出发布量下滑早于 ChatGPT。</td><td>全文改用"<strong>不是裁员，是不招（failing to hire）</strong>"。这一修正很重要——<strong>失业统计只记分离不记未雇佣，因此这批位移在官方数据里近乎不可见</strong>。</td></tr>
+<tr><td>"Anthropic 内部研究披露的罕见'自己人'数据"</td><td><strong>成立且已核实原文。</strong>2026-10-16 发布，作者 Wilmers（MIT Sloan）、Catipon（Atlassian）、Massenkoff 与 McCrory（Anthropic），依据内部 HR 记录、AI 使用遥测、产出计量、员工调查、内部沟通记录、日历数据与招聘决策评分卡，并含 17 场员工访谈。</td><td>已直接调取 anthropic.com/research/employment-at-anthropic 全文核对全部数字与引文。</td></tr>
+<tr class="hl"><td>（任务书未列，本次核验新增）"入门级岗位需求崩塌"的幅度数字</td><td><strong>存在官方口径与二手口径的直接冲突，本报告不采信任何一方作为事实。</strong>二手流传："客服 −90%、初级会计 −90%、数据录入 −90%"、初级前端 −65%。同一时期智联招聘官方报告称<strong>"并没有出现岗位大规模消失的情况"</strong>，BOSS 官方报告称软件工程师岗位 <strong>+10.9%</strong>、AI 岗 <strong>+74.1%</strong>。</td><td>两者并列呈现（见 1.6 节），并给出可能的调和解释：<strong>总量守恒而入门级被抽走，缺位由 AI 相关岗位补上</strong>。<strong>【本报告研判】</strong></td></tr>
+<tr class="hl"><td>（新增）中国 AI 人才"供需比"</td><td><strong>两个官方口径互相冲突：</strong>2026-09 报道为"AI 技术岗位需供比 3.5:1"；2026-10-13 央视网引人社部数据为"人才供需比 1:10"。</td><td>正文只使用"缺口超 500 万人"这一项，<strong>供需比在回溯原始发布前不予采用</strong>。</td></tr>
+<tr><td>（新增）"token 价格下降 X 倍"的说法</td><td><strong>无任何机构官方口径。</strong>流传的 280 倍、300 倍、98%、93% 均为第三方测算（Stanford AI Index 的 280 倍可追溯，为最可信者）。</td><td>正文改用<strong>一手官方定价表</strong>（Anthropic / OpenAI 官网，2026-10-20 抓取），并附上关键校正：新分词器使同文本 token 约 +30%，<strong>名义降价 90% 的官方净口径是"平均约便宜 75%"</strong>。</td></tr>
+<tr><td>（新增）"超级个体"（OPC）社区数量</td><td><strong>三个互相冲突的口径：</strong>426 个 / 618 个 / 85 个，覆盖城市与省份范围亦不一致。</td><td>不采用社区数量。改用可核验的<strong>企业存量（1,600 万家，约占存续企业 1/4）</strong>与<strong>新注册量（2025 H1 286 万户，同比 +47%，占全部新设企业 23.8%）</strong>。</td></tr>
+<tr><td>（新增）Claude Sonnet 5 涨价时点</td><td>二手定价史页称"2026-09-01 起按 $3/$15 执行"，与 Anthropic 官方定价表所列"自 2026-09-01 起 $3/$15"及引入价截止日<strong>表述不一致</strong>。</td><td>采用<strong>官方定价表</strong>，不引用二手定价史。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>C. 三个值得单独立项跟踪的分支</h3>
+<ul class="bl">
+<li><strong>U 形教育分布（哈佛）</strong>：T3/T4 中段院校毕业生受冲击最重，T1/T2 与 T5 相对安全。这对公共政策的指向与"AI 冲击低技能"的默认叙事相反，值得单独做一题。</li>
+<li><strong>"资深化入门岗"（PwC 2026）</strong>：52% 的新技能属资深范畴、职位数 +35%，与传统入门级 −10% 并存。这意味着"入门级岗位"正在分裂为"真入门"与"伪入门"两个价格完全不同的市场，招聘统计若不分开看会失真。</li>
+<li><strong>外包链条的吸收效应</strong>：中国的基础岗位常先被外部供应商消化，官方失业率因此系统性滞后于实际收缩。这使本报告 4.4 节的中国时间表成为下限估计而非上限。</li>
+</ul>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<div class="rv">
+<h3>来源清单</h3>
+
+<h4>一级来源（已调取原文核对）</h4>
+<ul>
+<li><span class="lvl">Anthropic ·《How employment is changing at Anthropic》</span>，2026-10-16（修订 10-17）。作者：Nathan Wilmers、Regina Catipon、Maxim Massenkoff、Peter McCrory。anthropic.com/research/employment-at-anthropic</li>
+<li><span class="lvl">Anthropic ·《Working at the frontier shapes expectations for the future》</span>，2026-10-16。anthropic.com/research/expectations-for-the-future</li>
+<li><span class="lvl">Hyunjin Kim（INSEAD）&amp; Rembrand Koning（Harvard Business School）·《AI-Native Firms》</span>，HBS Working Paper 26-090，2026-06-09，66 页。数据源：YC W20–F24 批次 + PitchBook 2020–2024 首轮融资初创 × Revelio Labs 劳动力微观数据（2,233 家 YC 公司匹配率 77.2%）。</li>
+<li><span class="lvl">Bain &amp; Company ·《Global Job Market Trends》</span>，Q2 2026 数据，2026-10-12 发布。10 个主要市场岗位发布追踪。数据经 BFSI Updates（2026-10-12）与 India Today（2026-10-16）转述核验。</li>
+</ul>
+
+<h4>学术与政策文献（经一手摘要或原始出版方核对）</h4>
+<ul>
+<li>Seyed M. Hosseini Maasoum &amp; Guy Lichtinger（Harvard）·《Generative AI as Seniority-Biased Technological Change: Evidence from U.S. Résumé and Job Posting Data》· SSRN 5425555，2025-08-31（2026-06 修订）。6,200 万工人 / 285,000 家企业 / 2.46 亿条岗位发布 / 10,599 家采用企业（占 3.7%）。</li>
+<li>Stanford Digital Economy Lab × ADP Research ·"Canaries"工资面板，2026-08 更新（2026-06 数据）；Stanford HAI《2026 AI Index Report》。</li>
+<li>Indeed Hiring Lab，2026-05 与 2026-07 岗位发布分析（含 2026-05 入门级申请者构成：10 年以上经验占 30%）。</li>
+<li>OECD ·《Employment Outlook 2026》，2026 年 7 月。Humlum &amp; Vestergaard ·《Still Waters, Rapid Currents》，2026-03-13（丹麦）。</li>
+<li>New York Fed《Liberty Street Economics》，2026-05（Audoly、Guerin、Topa）。Economic Innovation Group ·《AI and Jobs》，2025-08。</li>
+<li>World Economic Forum（与 PwC 合作）·《Artificial Intelligence and the Future of Entry-Level Work: A Framework for Safeguarding and Reinventing Early Career Pathways》，2026-06/07。</li>
+<li>PwC ·《2026 AI Jobs Barometer》（240 万个美国入门级岗位样本）。</li>
+<li>Anthropic Institute · Roodman &amp; Massenkoff《An Evidence Review of Subsidized Job Training》，Working Paper 2026-01。</li>
+<li>Demirer, Musolff &amp; Yang ·《Writing Code vs. Shipping Code》，NBER WP 35275，2026。Ewens &amp; Giroud ·《Corporate Hierarchy》，NBER WP 34162，2025。</li>
+</ul>
+
+<h4>媒体披露与第三方调研（二手，按可追溯性排序）</h4>
+<ul>
+<li><strong>一手官方定价（2026-10-20 抓取）</strong>：Anthropic《Plans &amp; Pricing》anthropic.com/pricing（含 Opus 4.7+ / Fable 5 / Mythos 5 / Sonnet 5 的新分词器 +30% token 声明、Haiku 5.5 的 $0.10/$0.50 与缓存 $0.01、官方"平均约便宜 75%"表述）、anthropic.com/claude/haiku。OpenAI 官方定价页同步核对。</li>
+<li>Anthropic 公共利益基金 5% 股份公告：Reuters / FT / 中新经纬 / 新浪财经 / TechTimes / 智通财经，2026-10-18 至 10-19。含 9,650 亿美元估值、约 480 亿美元市值、+2%/估值 +50% 的追加机制、2 亿美元劳动力研究承诺、马斯克公开回应、Q3 营收 168 亿美元、IPO 路演时点。</li>
+<li><strong>中国市场一线案例</strong>：中国青年报《一线调查：被 AI 重塑的工厂》（玉柴，2026-09-08）；中国工信新闻网（洲一铝业、公牛、大唐袜业，2026-09-10）；央广网（华翔 2026-08-12、长安汽车 2026-09-23）；中国经济网（宝钢，2026-09-08）；徐州市人民政府（2026-08-09，一手政府）；广西东兴国家重点开发开放试验区管委会（2026-10-16，一手政府）。</li>
+<li><strong>中国官方与准官方数据</strong>：国家统计局 16–24 岁（不含在校生）失业率月度序列（2025-06 至 2026-08；2026-08 值经财新 2026-09-18 转述；统计局归因于毕业季季节性）；人社部 2026-01-27 例行新闻发布会（"将出台应对人工智能影响促就业文件"、三类新岗位、"人做任务"→"人管理 AI 做任务"）；人社部发〔2026〕40号；人社部能建中心 AIGC 职业培训项目（中国日报网 2026-04-24）；《中国工业报》《人工智能与制造业劳动变革》（2026-05-25）；教育部 2026 届毕业生 1,270 万人（2025-11-20）。</li>
+<li><strong>中国就业平台口径（互相冲突，已并列）</strong>：智联招聘《AI 如何重构就业》（2026-07，李强表述 + 上半年 AI 岗 +10.6%、招聘企业数 +24.8%、AI 产品经理 +87.7%）；BOSS 直聘《2026 人才趋势报告》（AI 岗 +74.1%、软件工程师 +10.9%）；脉脉《2026 春招求职行为洞察》；猎聘《2026 人工智能行业人才供需趋势洞察》（AI 核心产业规模突破 1.2 万亿元）。</li>
+<li><strong>OPC / 一人公司</strong>：中国税务报（国家税务总局深圳市税务局转载，2026-08-12）；正北方网（2026-09-28）；《近七成小微经营者无法持续使用 AI》（2026-06-29，58.5% 因价格弃用）；《全国 OPC 发展观察报告(2026)》人民周刊（2026-08-10）；中关村人才协会 OPC 社区调研。社区数量三口径冲突，正文不采用。</li>
+<li>前程无忧《2026 人工智能人才洞察》，2026-07 WAIC 期间发布。腾讯新闻（2026-07-16）、今日头条（2026-07-27）转述。含 60% 要求 5–10 年、71% 中高级岗 / 13% 校招初级岗、68.3% 企业认为需求总体稳定、25,340 元月薪中位值。</li>
+<li>SignalFire《State of Talent》2026 版（2026-06-29 TechOrange 转述）：大厂校招 −65%、初创 −76%、2025 届顶尖 CS 毕业生创业比例 2.9%→6%。</li>
+<li>上海科技大学 CEISD 测算（65,200 条岗位任务、1,267 个细分职业）；国务院《关于深入实施"人工智能+"行动的意见》（2025-08）。</li>
+<li>Anthropic 员工画像：基于 LinkedIn 5,306 名在职人员筛出 1,680 名工程岗、回溯 7,986 段职位描述（2026-06 经多篇中文科技媒体转述，方法可复核但非机构发布）。</li>
+<li>联合早报 / 光明日报（新加坡），2026-08-17：Jobstreet 入门级 AI 岗占比（IT 与教育 15%、金融 14%、HR 咨询 8%、政府国防 6%）、新加坡应届生全职就业率 74.4%（−5pp）、贸工部 Q2 调查显示 AI 带动的新增就业集中在 35–44 岁群体。</li>
+<li>Bot Memo《AI Replacing Jobs Statistics 2026: 90+ Verified Figures》，2026-09-21（用于汇总核对 OECD、纽约联储、丹麦研究与 EIG 的口径差异）。</li>
+<li>模型定价与推理成本：Stanford AI Index 2025（280 倍降幅）、OpenRouter 平台 token 量、FinOps LLM 汇总（2026-07）、TopClanker（2026-02）、BetOnAI（2026-04）、Deluair（2026-04）、Menlo Ventures《State of Generative AI in the Enterprise》（2025-12）；万级 MAU 月成本三口径（Cipher / APIpulse / PromptUnit）与 Agent 单用户成本（虎嗅·硅星人 2026-04-16）。</li>
+<li>资本门槛：Carta 2026 Q1 种子与 Series A 数据（经 The Founders Report 2026-08-04 转述，"AI 标签 5 倍 Series A 溢价"系二手转述）；Bandhakavi (2025) 全球 AI 风投 1,100 亿美元、+62%、美国占 74%。</li>
+</ul>
+
+<h4>方法与口径说明</h4>
+<ul>
+<li>本报告未采用任何来自本任务书本身但无法追溯到上述来源的数字。凡属推断，均已标注为【本报告研判】。</li>
+<li>Anthropic 报告自身声明的局限已完整纳入：单公司数据、描述性而非因果、"其中很多做法无法复制到全经济"。</li>
+<li>多源数据的量纲差异（岗位发布 vs 实际雇佣 vs 薪资面板 vs 招聘启事）在正文中逐处标注，不做跨源加总。</li>
+</ul>
+
+<div style="margin-top:34px;padding-top:22px;border-top:1px solid rgba(0,0,0,.12)">
+<strong style="color:#1d1d1f">选题 380 · AI 重塑的第一批人，和把他们挡在门外的第一批公司</strong><br>
+主责：研析（深度研究）· 策士（政策与商业策略分析）· 数据截至 2026-10-20 (UTC+8) · 交付于下一次例会前<br>
+<span style="font-size:13px">本报告为研究分析，不构成投资、就业或法律建议。所有前瞻性判断均已标注为【本报告研判】并给出证伪条件。</span>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+(function(){
+  function onReady(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  function reveal(){
+    var els=document.querySelectorAll('.rv');
+    if(!('IntersectionObserver' in window)){ for(var i=0;i<els.length;i++) els[i].classList.add('in'); return; }
+    var io=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        var en=entries[i];
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      }
+    },{rootMargin:'0px 0px -6% 0px',threshold:0.02});
+    for(var j=0;j<els.length;j++) io.observe(els[j]);
+  }
+  onReady(reveal);
+  // safety net: if anything above fails, reveal everything after 1.2s
+  setTimeout(function(){
+    var els=document.querySelectorAll('.rv:not(.in)');
+    for(var i=0;i<els.length;i++){
+      var r=els[i].getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0) els[i].classList.add('in');
+    }
+  },1200);
+})();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "13 人", "label": "AI 原生初创平均只有", "quote": "AI 原生初创平均只有 13 人"},
+  {"value": "10 个", "label": "主要市场岗位发布追踪", "quote": "10 个主要市场岗位发布追踪"},
+  {"value": "80%", "label": "相关岗位替代率超过", "quote": "相关岗位替代率超过 80%"},
+  {"value": "22 个", "label": "实体行业", "quote": "22 个实体行业"},
+  {"value": "19%", "label": "22–25 岁 AI 暴露职业就业缺口", "quote": "19% 22–25 岁 AI 暴露职业就业缺口"},
+  {"value": "60%", "label": "初级员工占技术部门比重", "quote": "60% 初级员工占技术部门比重"},
+  {"value": "12.2 年", "label": "新员工", "quote": "12.2 年 新员工"},
+  {"value": "44%", "label": "拥有 13 年或更长行业履历", "quote": "44% 拥有 13 年或更长行业履历"},
+  {"value": "60%", "label": "中国 AI 高薪岗位要求 5–10 年垂直行业深耕经验（", "quote": "60% 中国 AI 高薪岗位要求 5–10 年垂直行业深耕经验（"},
+  {"value": "25,340 元", "label": "中国 AI 相关岗位月薪中位值（前程无忧调研）", "quote": "25,340 元 中国 AI 相关岗位月薪中位值（前程无忧调研）"},
+  {"value": "73%", "label": "Agent 工作流相对单轮的 token 消耗", "quote": "73% Agent 工作流相对单轮的 token 消耗"},
+  {"value": "73%", "label": "企业成本管控调研，2026", "quote": "73% 企业成本管控调研，2026"},
+  {"value": "100 万亿", "label": "OpenRouter 平台数据", "quote": "100 万亿 OpenRouter 平台数据"},
+  {"value": "36.3%", "label": "2019 → 2025 上半年（引 Carta 2025", "quote": "36.3% 2019 → 2025 上半年（引 Carta 2025"},
+  {"value": "8,500 条", "label": "人均会议时长增加 20%（技术岗 +16%）——", "quote": "8,500 条 人均会议时长增加 20%（技术岗 +16%）——"},
+  {"value": "36.3%", "label": "独立创始人创办公司占比（2019 年为 23.7%），六", "quote": "36.3% 独立创始人创办公司占比（2019 年为 23.7%），六"},
+  {"value": "58.5%", "label": "小微经营者", "quote": "58.5% 小微经营者"},
+  {"value": "+74.1%", "label": "两者并列呈现（见 1.6 节），并给出可能的调和解释：", "quote": "+74.1% 两者并列呈现（见 1.6 节），并给出可能的调和解释："}
+]
+</script>
+</body>
+</html>

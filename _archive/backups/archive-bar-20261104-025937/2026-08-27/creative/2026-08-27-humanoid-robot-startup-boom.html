@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="机器人与具身">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人形机器人创业潮：11.6万户背后的冷思考</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0f;
+  --bg-card: #111118;
+  --bg-card-hover: #1a1a25;
+  --blue: #0071e3;
+  --blue-glow: rgba(0,113,227,0.3);
+  --orange: #ff9500;
+  --orange-glow: rgba(255,149,0,0.3);
+  --red: #ff3b30;
+  --green: #30d158;
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-dim: #555560;
+  --border: rgba(255,255,255,0.08);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--text-dim); border-radius:3px; }
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  overflow: hidden;
+}
+.hero canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.hero-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid var(--blue);
+  border-radius: 20px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.3s forwards;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.5s forwards;
+}
+.hero h1 .highlight-blue { color: var(--blue); }
+.hero h1 .highlight-orange { color: var(--orange); }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.7s forwards;
+}
+
+/* ── Big Numbers ── */
+.big-numbers {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.9s forwards;
+}
+.big-num-item {
+  text-align: center;
+}
+.big-num-value {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.big-num-value.blue { color: var(--blue); }
+.big-num-value.orange { color: var(--orange); }
+.big-num-value.red { color: var(--red); }
+.big-num-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Scroll Indicator ── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: 0;
+  animation: fadeInUp 0.8s 1.2s forwards;
+}
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid var(--text-dim);
+  border-bottom: 2px solid var(--text-dim);
+  transform: rotate(45deg);
+  animation: bounceDown 1.5s infinite;
+}
+
+/* ── Sections ── */
+.section {
+  padding: 120px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-dark {
+  background: var(--bg-secondary);
+  max-width: 100%;
+  padding: 120px 24px;
+}
+.section-dark .section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+/* ── AB Toggle ── */
+.ab-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.ab-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 48px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ab-btn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-secondary);
+}
+.ab-btn.active {
+  background: var(--blue);
+  color: white;
+  box-shadow: 0 4px 20px var(--blue-glow);
+}
+.ab-btn.reality.active {
+  background: var(--orange);
+  box-shadow: 0 4px 20px var(--orange-glow);
+}
+.ab-panels {
+  position: relative;
+  min-height: 500px;
+}
+.ab-panel {
+  display: none;
+  animation: fadeSwitch 0.5s;
+}
+.ab-panel.active { display: block; }
+
+/* ── Data Cards Grid ── */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+.data-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all 0.3s;
+  border: 1px solid var(--border);
+}
+.data-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.12);
+}
+.data-card .card-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.data-card .card-value {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.data-card .card-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.data-card .card-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ── City Map ── */
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.city-map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+}
+.map-canvas {
+  width: 100%;
+  height: 100%;
+}
+.city-marker {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+}
+.city-dot {
+  width: var(--size, 16px);
+  height: var(--size, 16px);
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 20px var(--blue-glow);
+  animation: pulse 2s infinite;
+  position: relative;
+}
+.city-dot::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px;
+  right: -4px; bottom: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,113,227,0.3);
+  animation: ripple 2s infinite;
+}
+.city-name {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.city-tooltip {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 260px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 100;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.city-marker:hover .city-tooltip,
+.city-marker.active .city-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+.tooltip-city {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--blue);
+}
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.tooltip-row:last-child { border: none; }
+.tooltip-label { color: var(--text-secondary); }
+.tooltip-value { font-weight: 600; }
+
+/* ── Chart Section ── */
+.chart-container {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.chart-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.chart-canvas {
+  width: 100%;
+  height: 300px;
+}
+
+/* ── Timeline ── */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--blue), var(--orange));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.6s;
+}
+.timeline-dot {
+  position: absolute;
+  left: -34px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--bg-primary);
+}
+.timeline-date {
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.timeline-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Insight Quote ── */
+.insight-box {
+  background: linear-gradient(135deg, rgba(0,113,227,0.08), rgba(255,149,0,0.05));
+  border: 1px solid rgba(0,113,227,0.2);
+  border-radius: 16px;
+  padding: 40px;
+  margin: 64px auto;
+  max-width: 800px;
+  text-align: center;
+}
+.insight-box .quote-mark {
+  font-size: 48px;
+  color: var(--blue);
+  opacity: 0.5;
+  line-height: 1;
+}
+.insight-box .quote-text {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.insight-box .quote-author {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ── Bar Chart (CSS) ── */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 200px;
+  padding: 0 8px;
+}
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.bar {
+  width: 100%;
+  max-width: 48px;
+  border-radius: 6px 6px 0 0;
+  transition: height 1s ease-out;
+  position: relative;
+}
+.bar-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.bar-value {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── Growth Chart (SVG) ── */
+.growth-chart {
+  width: 100%;
+  overflow: visible;
+}
+.growth-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.growth-area {
+  fill: url(#blueGrad);
+  opacity: 0.3;
+}
+.growth-dot {
+  fill: var(--blue);
+  r: 5;
+  transition: r 0.3s;
+  cursor: pointer;
+}
+.growth-dot:hover { r: 8; }
+.growth-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+}
+.growth-value {
+  fill: var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Final Section ── */
+.final-section {
+  text-align: center;
+  padding: 160px 24px;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #0a0a1a 100%);
+}
+.final-section h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  margin-bottom: 24px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-desc {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.final-stats {
+  display: flex;
+  gap: 64px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.final-stat {
+  text-align: center;
+}
+.final-stat-num {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--blue);
+}
+.final-stat-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.footer a { color: var(--blue); text-decoration: none; }
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes bounceDown {
+  0%,100% { transform: rotate(45deg) translateY(0); opacity:0.5; }
+  50% { transform: rotate(45deg) translateY(8px); opacity:1; }
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+@keyframes ripple {
+  0% { transform:scale(1); opacity:0.6; }
+  100% { transform:scale(2.5); opacity:0; }
+}
+@keyframes fadeSwitch {
+  from { opacity:0; transform:translateY(10px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes countUp {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 20px var(--blue-glow); }
+  50% { box-shadow: 0 0 40px var(--blue-glow), 0 0 80px rgba(0,113,227,0.1); }
+}
+
+.reveal { opacity:1; transform:translateY(0); }
+.reveal.gsap-ready { opacity:0; transform:translateY(40px); }
+.reveal.gsap-ready.visible { opacity:1; transform:translateY(0); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .big-numbers { gap: 24px; }
+  .data-grid { grid-template-columns: 1fr; }
+  .ab-toggle { flex-direction: column; width: calc(100% - 48px); }
+  .ab-btn { width: 100%; }
+  .final-stats { gap: 32px; }
+  .section, .section-dark { padding: 80px 20px; }
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-08-27</span><span class="sb-sep">/</span><span class="sb-beat">机器人与具身</span><span class="sb-sep">/</span><span class="sb-cnt">18 件 / 2026-08</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">7 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <canvas id="particleCanvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">2026 · 数据驱动的交互叙事</div>
+    <h1>
+      <span class="highlight-orange">11.6万户</span><br>
+      人形机器人创业潮
+    </h1>
+    <p class="hero-sub">
+      2026上半年，中国新设人形机器人企业11.6万户。<br>
+      平均每天诞生<span class="highlight-blue">640家</span>新公司。<br>
+      热潮之下，是机遇还是泡沫？
+    </p>
+    <div class="big-numbers">
+      <div class="big-num-item">
+        <div class="big-num-value orange" data-count="116000">0</div>
+        <div class="big-num-label">新设企业（户）</div>
+      </div>
+      <div class="big-num-item">
+        <div class="big-num-value blue" data-count="935">0</div>
+        <div class="big-num-label">融资总额（亿元）</div>
+      </div>
+      <div class="big-num-item">
+        <div class="big-num-value red" data-count="97">0</div>
+        <div class="big-num-label">全球出货占比（%）</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 1: THE BOOM (A/B Toggle) ══════════ -->
+<section class="section-dark" id="absection">
+  <div class="section-inner">
+    <div class="ab-container">
+      <div class="section-label reveal">双面视角</div>
+      <h2 class="reveal">热潮 vs 冷思考</h2>
+      <p class="section-desc reveal">同一组数据，两种截然不同的解读。点击切换，看见完整的产业图景。</p>
+      
+      <div class="ab-toggle reveal">
+        <button class="ab-btn active" onclick="switchTab('hype')">🔥 热潮数据</button>
+        <button class="ab-btn reality" onclick="switchTab('reality')">🧊 冷思考现实</button>
+      </div>
+
+      <div class="ab-panels">
+        <!-- HYPE Panel -->
+        <div class="ab-panel active" id="panel-hype">
+          <div class="data-grid">
+            <div class="data-card">
+              <div class="card-icon">📈</div>
+              <div class="card-value" style="color:var(--orange)">+9.5%</div>
+              <div class="card-label">新设企业同比增长</div>
+              <div class="card-note">高于全国新设企业平均增速</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">💰</div>
+              <div class="card-value" style="color:var(--blue)">935亿</div>
+              <div class="card-label">H1融资总额（元）</div>
+              <div class="card-note">同比增长5倍，322笔交易</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">🏭</div>
+              <div class="card-value" style="color:var(--green)">4万+</div>
+              <div class="card-label">H1产量（台）</div>
+              <div class="card-note">全年有望突破10万台</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">🌏</div>
+              <div class="card-value" style="color:var(--orange)">97%</div>
+              <div class="card-label">全球出货占比</div>
+              <div class="card-note">中国主导全球人形机器人市场</div>
+            </div>
+          </div>
+          <div class="insight-box reveal">
+            <div class="quote-mark">"</div>
+            <div class="quote-text">
+              人形机器人整机产品达<strong>400余款</strong>，超过全球半数。<br>
+              宇树科技IPO估值约<strong>420亿元</strong>，智元机器人H1出货<strong>8400台</strong>。
+            </div>
+            <div class="quote-author">—— 头部企业正从"烧钱"走向"量产"</div>
+          </div>
+        </div>
+
+        <!-- REALITY Panel -->
+        <div class="ab-panel" id="panel-reality">
+          <div class="data-grid">
+            <div class="data-card">
+              <div class="card-icon">⚠️</div>
+              <div class="card-value" style="color:var(--red)">65%</div>
+              <div class="card-label">小微企业占比</div>
+              <div class="card-note">注册资本低于500万元</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">❓</div>
+              <div class="card-value" style="color:var(--orange)">40%</div>
+              <div class="card-label">无明确量产时间表</div>
+              <div class="card-note">约4.6万户企业尚无量产计划</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">📉</div>
+              <div class="card-value" style="color:var(--red)">~5万</div>
+              <div class="card-label">全球年出货量（台）</div>
+              <div class="card-note">11.6万户抢不到一台</div>
+            </div>
+            <div class="data-card">
+              <div class="card-icon">🔗</div>
+              <div class="card-value" style="color:var(--orange)">&lt;10家</div>
+              <div class="card-label">稳定出货供应商</div>
+              <div class="card-note">减速器/灵巧手/传感器瓶颈</div>
+            </div>
+          </div>
+          <div class="insight-box reveal">
+            <div class="quote-mark">"</div>
+            <div class="quote-text">
+              全年出货量约<strong>5万台</strong>，国内乐观估计2-3万台。<br>
+              11.6万新注册企业——<strong>平均每家分不到一台</strong>。
+            </div>
+            <div class="quote-author">—— "人形机器人元年"更准确的叫法是"造梦元年"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 2: GROWTH CHART ══════════ -->
+<section class="section" id="growth">
+  <div class="section-label reveal">数据脉搏</div>
+  <h2 class="reveal">增长曲线：<br>从实验室到产业爆发</h2>
+  <p class="section-desc reveal">中国人形机器人产业正经历从技术验证到规模化量产的关键跃迁。</p>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">企业注册量趋势（万户）</div>
+    <div class="chart-subtitle">2021-2026H1 · 人形机器人相关企业累计注册量</div>
+    <svg class="growth-chart" viewBox="0 0 700 280" id="growthSvg">
+      <defs>
+        <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0071e3" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#0071e3" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Grid lines -->
+      <line x1="60" y1="40" x2="660" y2="40" stroke="rgba(255,255,255,0.05)" />
+      <line x1="60" y1="100" x2="660" y2="100" stroke="rgba(255,255,255,0.05)" />
+      <line x1="60" y1="160" x2="660" y2="160" stroke="rgba(255,255,255,0.05)" />
+      <line x1="60" y1="220" x2="660" y2="220" stroke="rgba(255,255,255,0.05)" />
+      <!-- Y axis labels -->
+      <text class="growth-label" x="50" y="44" text-anchor="end">40万</text>
+      <text class="growth-label" x="50" y="104" text-anchor="end">30万</text>
+      <text class="growth-label" x="50" y="164" text-anchor="end">20万</text>
+      <text class="growth-label" x="50" y="224" text-anchor="end">10万</text>
+    </svg>
+  </div>
+
+  <div class="chart-container reveal">
+    <div class="chart-title">H1融资规模爆发</div>
+    <div class="chart-subtitle">人形机器人领域一级市场投融资（亿元）</div>
+    <div class="bar-chart" id="fundingBars">
+      <!-- Will be populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 3: CITY MAP ══════════ -->
+<section class="section-dark" id="citymap">
+  <div class="section-inner">
+    <div class="section-label reveal">地理热力</div>
+    <h2 class="reveal">城市创业生态地图</h2>
+    <p class="section-desc reveal">长三角、珠三角、京津冀三大区域合计占比超七成。点击城市探索详情。</p>
+
+    <div class="map-container reveal">
+      <div class="city-map" id="cityMap">
+        <svg viewBox="0 0 800 500" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+          <!-- Simplified China outline -->
+          <path d="M350,50 L450,40 L520,60 L580,80 L620,120 L640,170 L660,200 L680,250 L670,300 L650,340 L620,370 L580,390 L540,400 L500,410 L460,420 L420,430 L380,440 L340,435 L300,420 L270,400 L250,370 L240,340 L250,300 L270,270 L300,240 L280,210 L260,180 L250,150 L260,120 L290,90 L320,70 Z" 
+                fill="none" stroke="rgba(0,113,227,0.15)" stroke-width="1.5" />
+          <!-- Region highlights -->
+          <ellipse cx="560" cy="370" rx="80" ry="50" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.15)" stroke-width="1" stroke-dasharray="4"/>
+          <ellipse cx="500" cy="330" rx="60" ry="40" fill="rgba(255,149,0,0.05)" stroke="rgba(255,149,0,0.12)" stroke-width="1" stroke-dasharray="4"/>
+          <ellipse cx="530" cy="180" rx="70" ry="50" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.15)" stroke-width="1" stroke-dasharray="4"/>
+          <!-- Region labels -->
+          <text x="560" y="315" fill="rgba(255,255,255,0.2)" font-size="11" text-anchor="middle" font-family="Inter">长三角</text>
+          <text x="500" y="295" fill="rgba(255,255,255,0.2)" font-size="11" text-anchor="middle" font-family="Inter">珠三角</text>
+          <text x="530" y="140" fill="rgba(255,255,255,0.2)" font-size="11" text-anchor="middle" font-family="Inter">京津冀</text>
+        </svg>
+        <!-- City markers will be placed by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 4: TIMELINE ══════════ -->
+<section class="section" id="timeline">
+  <div class="section-label reveal">时间线</div>
+  <h2 class="reveal">2026关键事件</h2>
+  <p class="section-desc reveal">从资本狂飙到产业落地，回顾人形机器人赛道的关键节点。</p>
+
+  <div class="timeline reveal" id="timelineList">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2026年1月</div>
+      <div class="timeline-title">资本狂飙开启</div>
+      <div class="timeline-desc">自变量机器人完成10亿元A++轮融资，字节跳动、红杉中国领投。开年以来具身智能领域已披露融资总额超200亿元。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--orange)"></div>
+      <div class="timeline-date">2026年2月</div>
+      <div class="timeline-title">百亿俱乐部扩容</div>
+      <div class="timeline-desc">逐际动力完成2亿美元B轮，智平方B轮超10亿元估值破百亿。前海具身智能"百亿俱乐部"达5家。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2026年3月</div>
+      <div class="timeline-title">IPO冲刺加速</div>
+      <div class="timeline-desc">宇树科技递交科创板招股书，估值约420亿元。杭州双企冲刺IPO，打造具身智能千亿集群。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--green)"></div>
+      <div class="timeline-date">2026年5-6月</div>
+      <div class="timeline-title">量产交付提速</div>
+      <div class="timeline-desc">智元H1出货8400台，宇树出货5900台。乐聚"夸父"核心部件国产化率达95%，成本降至十几万元级。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--orange)"></div>
+      <div class="timeline-date">2026年7月</div>
+      <div class="timeline-title">深圳冲刺"第一城"</div>
+      <div class="timeline-desc">逐际动力Pre-IPO融资估值150亿元。深圳机器人产业总产值达2426亿元，3000余家具身智能企业。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--red)"></div>
+      <div class="timeline-date">2026年8月</div>
+      <div class="timeline-title">11.6万户震撼数据</div>
+      <div class="timeline-desc">市场监管总局公布上半年数据：新设企业11.6万户，同比增长9.5%。专家提醒防止低水平重复建设。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SECTION 5: FOUR DIMENSIONS ══════════ -->
+<section class="section-dark" id="dimensions">
+  <div class="section-inner">
+    <div class="section-label reveal">多维透视</div>
+    <h2 class="reveal">创业潮的四个面向</h2>
+    <p class="section-desc reveal">技术、社会、经济、制造业——从不同维度审视这场创业潮的深层逻辑。</p>
+
+    <div class="data-grid reveal">
+      <div class="data-card" style="border-left:3px solid var(--blue)">
+        <div class="card-icon">🤖</div>
+        <div class="card-label" style="font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:8px">技术维度</div>
+        <div class="card-note" style="font-size:14px;color:var(--text-secondary);line-height:1.7">
+          核心零部件国产化进程加速。传感器、减速器、行星滚柱丝杠结构优化，部分关键技术基本可控。400余款整机产品超过全球半数，但"概率性能力"与"确定性产能"仍有结构性错位。
+        </div>
+      </div>
+      <div class="data-card" style="border-left:3px solid var(--orange)">
+        <div class="card-icon">👥</div>
+        <div class="card-label" style="font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:8px">社会维度</div>
+        <div class="card-note" style="font-size:14px;color:var(--text-secondary);line-height:1.7">
+          就业结构面临重塑。人形机器人从"展品"变为"商品"，3C质检、工业辅助、文旅展示等场景已先行试用。但伦理道德、社会治理等新课题亟待解答。"活找机器人"的时代正在到来。
+        </div>
+      </div>
+      <div class="data-card" style="border-left:3px solid var(--green)">
+        <div class="card-icon">💰</div>
+        <div class="card-label" style="font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:8px">经济维度</div>
+        <div class="card-note" style="font-size:14px;color:var(--text-secondary);line-height:1.7">
+          2026H1具身智能融资935亿元，同比增长5倍。但头部企业全年营收加总不足100亿，资本投入与真实收入存在数倍落差。"市梦率"向"市盈率"的转换是关键考验。
+        </div>
+      </div>
+      <div class="data-card" style="border-left:3px solid var(--red)">
+        <div class="card-icon">🏭</div>
+        <div class="card-label" style="font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:8px">制造业维度</div>
+        <div class="card-note" style="font-size:14px;color:var(--text-secondary);line-height:1.7">
+          深圳已形成"核心零部件—整机制造—场景应用"完整产业链，机器人产业总产值2426亿元。谐波减速器单价降幅超60%，核心零部件国产化率超70%，量产基础正在夯实。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FINAL ══════════ -->
+<section class="final-section" id="final">
+  <div class="section-label reveal" style="color:var(--blue)">结语</div>
+  <h2 class="reveal">
+    创业潮是起点<br>
+    还是泡沫？
+  </h2>
+  <p class="final-desc reveal">
+    能笑到最后的，不是讲故事最动听的那家，<br>
+    而是真正拿到订单、账上有钱、<br>
+    熬得过两三轮技术迭代的那几家。
+  </p>
+  <div class="final-stats reveal">
+    <div class="final-stat">
+      <div class="final-stat-num" data-count="100000">0</div>
+      <div class="final-stat-label">2026年预计产量（台）</div>
+    </div>
+    <div class="final-stat">
+      <div class="final-stat-num" style="color:var(--orange)" data-count="380000">0</div>
+      <div class="final-stat-label">2030年预测产量（台）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <p>数据来源：国家市场监管总局 · IT桔子 · 中商产业研究院 · 证券日报 · 新华社 · 经济参考报</p>
+  <p style="margin-top:8px">2026年8月27日 · 绘界出品 · 交互数据叙事</p>
+</div>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script src="../../assets/vendor/ajax_libs_gsap_3.12.5/gsap.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'"></script>
+<script src="../../assets/vendor/ajax_libs_gsap_3.12.5/ScrollTrigger.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'"></script>
+<script>
+// ── Particle Canvas ──
+(function(){
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+  
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  
+  class Particle {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random()*W;
+      this.y = Math.random()*H;
+      this.size = Math.random()*2+0.5;
+      this.speedX = (Math.random()-0.5)*0.3;
+      this.speedY = (Math.random()-0.5)*0.3;
+      this.opacity = Math.random()*0.5+0.1;
+    }
+    update(){
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(0,113,227,${this.opacity})`;
+      ctx.fill();
+    }
+  }
+  
+  for(let i=0; i<120; i++) particles.push(new Particle());
+  
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{p.update();p.draw();});
+    
+    // Draw connections
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle=`rgba(0,113,227,${0.08*(1-dist/120)})`;
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── Number Counter Animation ──
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseInt(el.dataset.count);
+    const duration = 2000;
+    const start = performance.now();
+    
+    function update(now){
+      const elapsed = now-start;
+      const progress = Math.min(elapsed/duration, 1);
+      const eased = 1 - Math.pow(1-progress, 3);
+      const current = Math.floor(target*eased);
+      
+      if(target >= 10000){
+        el.textContent = (current/10000).toFixed(1) + '万';
+      } else if(target >= 1000){
+        el.textContent = current.toLocaleString();
+      } else {
+        el.textContent = current;
+      }
+      
+      if(progress<1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// Trigger counter when hero is visible
+const heroObs = new IntersectionObserver((entries)=>{
+  if(entries[0].isIntersecting){
+    animateCounters();
+    heroObs.disconnect();
+  }
+},{threshold:0.3});
+heroObs.observe(document.getElementById('hero'));
+
+// ── AB Toggle ──
+function switchTab(tab){
+  document.querySelectorAll('.ab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.ab-panel').forEach(p=>p.classList.remove('active'));
+  
+  if(tab==='hype'){
+    document.querySelector('.ab-btn:first-child').classList.add('active');
+    document.getElementById('panel-hype').classList.add('active');
+  } else {
+    document.querySelector('.ab-btn.reality').classList.add('active');
+    document.getElementById('panel-reality').classList.add('active');
+  }
+}
+
+// ── City Map Markers ──
+const cities = [
+  {name:'深圳', x:62, y:82, enterprises:'3000+', funding:'60亿+', output:'2426亿', keyCompanies:'优必选、逐际动力、智平方、自变量', detail:'冲刺"人形机器人第一城"，产业链最完整', size:22},
+  {name:'北京', x:55, y:30, enterprises:'2000+', funding:'7亿+', output:'500亿+', keyCompanies:'银河通用、星海图、星动纪元', detail:'具身智能创新中心，估值200亿+', size:20},
+  {name:'上海', x:65, y:52, enterprises:'1500+', funding:'50亿+', output:'800亿+', keyCompanies:'智元机器人、达闼', detail:'H1出货8400台，全球44%份额', size:18},
+  {name:'杭州', x:63, y:56, enterprises:'800+', funding:'42亿+', output:'170亿', keyCompanies:'宇树科技、云深处、千寻智能', detail:'双企冲刺IPO，千亿产业集群', size:16},
+  {name:'广州', x:58, y:80, enterprises:'600+', funding:'15亿+', output:'300亿+', keyCompanies:'小鹏IRON、越疆', detail:'机器人"十骏"现象，广汽入局', size:14},
+  {name:'重庆', x:38, y:62, enterprises:'400+', funding:'5亿+', output:'100亿+', keyCompanies:'宇树科技实验室', detail:'引入具身智能实验室和生产基地', size:12},
+  {name:'合肥', x:58, y:55, enterprises:'300+', funding:'3亿+', output:'80亿', keyCompanies:'逐际动力投资方', detail:'创新投参与多轮融资', size:11},
+  {name:'成都', x:33, y:65, enterprises:'350+', funding:'4亿+', output:'90亿', keyCompanies:'长虹、极飞', detail:'深耕地工与汽车电子', size:11},
+];
+
+function createCityMarkers(){
+  const map = document.getElementById('cityMap');
+  cities.forEach(city=>{
+    const marker = document.createElement('div');
+    marker.className = 'city-marker';
+    marker.style.left = city.x+'%';
+    marker.style.top = city.y+'%';
+    marker.innerHTML = `
+      <div class="city-dot" style="--size:${city.size}px"></div>
+      <div class="city-name">${city.name}</div>
+      <div class="city-tooltip">
+        <div class="tooltip-city">${city.name}</div>
+        <div class="tooltip-row"><span class="tooltip-label">相关企业</span><span class="tooltip-value">${city.enterprises}</span></div>
+        <div class="tooltip-row"><span class="tooltip-label">融资情况</span><span class="tooltip-value">${city.funding}</span></div>
+        <div class="tooltip-row"><span class="tooltip-label">产业规模</span><span class="tooltip-value">${city.output}</span></div>
+        <div class="tooltip-row"><span class="tooltip-label">代表企业</span><span class="tooltip-value" style="font-size:12px">${city.keyCompanies}</span></div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.5;border-top:1px solid var(--border);padding-top:10px">${city.detail}</div>
+      </div>
+    `;
+    map.appendChild(marker);
+  });
+}
+createCityMarkers();
+
+// ── Funding Bar Chart ──
+function createFundingBars(){
+  const container = document.getElementById('fundingBars');
+  const data = [
+    {year:'2022', value:6.3, color:'var(--text-dim)'},
+    {year:'2023', value:25, color:'var(--text-dim)'},
+    {year:'2024', value:56, color:'var(--text-dim)'},
+    {year:'2025', value:260, color:'var(--blue)'},
+    {year:'2026H1', value:935, color:'var(--orange)'},
+  ];
+  const maxVal = Math.max(...data.map(d=>d.value));
+  
+  data.forEach(d=>{
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+    const height = (d.value/maxVal)*160;
+    group.innerHTML = `
+      <div class="bar" style="height:0;background:${d.color}">
+        <div class="bar-value" style="color:${d.color}">${d.value}亿</div>
+      </div>
+      <div class="bar-label">${d.year}</div>
+    `;
+    container.appendChild(group);
+    
+    // Animate bar height
+    setTimeout(()=>{
+      group.querySelector('.bar').style.height = height+'px';
+    }, 500);
+  });
+}
+createFundingBars();
+
+// ── Growth Chart SVG Line ──
+function drawGrowthLine(){
+  const svg = document.getElementById('growthSvg');
+  const data = [
+    {year:'2021', value:5},
+    {year:'2022', value:10},
+    {year:'2023', value:16},
+    {year:'2024', value:24},
+    {year:'2025', value:32},
+    {year:'2026H1', value:42},
+  ];
+  
+  const startX=80, endX=640, startY=240, endY=30;
+  const stepX = (endX-startX)/(data.length-1);
+  const maxVal = 45;
+  
+  let pathD = '';
+  let areaD = '';
+  let dots = '';
+  
+  data.forEach((d,i)=>{
+    const x = startX + i*stepX;
+    const y = startY - (d.value/maxVal)*(startY-endY);
+    
+    if(i===0){
+      pathD += `M${x},${y}`;
+      areaD += `M${x},${startY} L${x},${y}`;
+    } else {
+      pathD += ` L${x},${y}`;
+      areaD += ` L${x},${y}`;
+    }
+    
+    if(i===data.length-1){
+      areaD += ` L${x},${startY} Z`;
+    }
+    
+    dots += `<circle class="growth-dot" cx="${x}" cy="${y}" r="5">
+      <title>${d.year}: ${d.value}万户</title>
+    </circle>`;
+    dots += `<text class="growth-label" x="${x}" y="${startY+24}" text-anchor="middle">${d.year}</text>`;
+    dots += `<text class="growth-value" x="${x}" y="${y-14}" text-anchor="middle">${d.value}万</text>`;
+  });
+  
+  const areaPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+  areaPath.setAttribute('d', areaD);
+  areaPath.setAttribute('class','growth-area');
+  svg.appendChild(areaPath);
+  
+  const linePath = document.createElementNS('http://www.w3.org/2000/svg','path');
+  linePath.setAttribute('d', pathD);
+  linePath.setAttribute('class','growth-line');
+  linePath.style.strokeDasharray = linePath.getTotalLength ? '2000' : '2000';
+  linePath.style.strokeDashoffset = '2000';
+  svg.appendChild(linePath);
+  
+  svg.insertAdjacentHTML('beforeend', dots);
+  
+  // Animate line drawing
+  setTimeout(()=>{
+    linePath.style.transition = 'stroke-dash-offset 2s ease-out';
+    linePath.style.strokeDashoffset = '0';
+  }, 800);
+}
+drawGrowthLine();
+
+// ── Scroll Reveal ──
+gsap.registerPlugin(ScrollTrigger);
+
+document.querySelectorAll('.reveal').forEach(el=>{
+  el.classList.add('gsap-ready');
+  gsap.fromTo(el,
+    {opacity:0, y:40},
+    {
+      scrollTrigger: {trigger:el, start:'top 85%', toggleActions:'play none none none'},
+      opacity:1, y:0, duration:0.8, ease:'power3.out',
+      onComplete: ()=> el.classList.add('visible')
+    }
+  );
+});
+
+// Timeline items stagger
+gsap.utils.toArray('.timeline-item').forEach((item,i)=>{
+  item.style.opacity = '0';
+  item.style.transform = 'translateX(-20px)';
+  gsap.to(item, {
+    scrollTrigger: {trigger:item, start:'top 85%'},
+    opacity:1, x:0, duration:0.6, delay:i*0.1, ease:'power2.out'
+  });
+});
+
+// ── Hero Parallax ──
+window.addEventListener('scroll',()=>{
+  const hero = document.getElementById('hero');
+  const scrolled = window.scrollY;
+  if(scrolled < window.innerHeight){
+    hero.style.transform = `translateY(${scrolled*0.3}px)`;
+    hero.style.opacity = 1 - scrolled/window.innerHeight;
+  }
+});
+
+// ── Smooth number formatting ──
+function formatNum(n){
+  if(n>=10000) return (n/10000).toFixed(1)+'万';
+  if(n>=1000) return n.toLocaleString();
+  return n.toString();
+}
+
+console.log('🤖 Humanoid Robot Startup Boom — Interactive Experience Loaded');
+console.log('📊 Data: 11.6万 new enterprises, 935亿 funding, 97% global share');
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "+9.5%", "label": "新设企业同比增长", "quote": "+9.5% 新设企业同比增长"},
+  {"value": "935亿", "label": "H1融资总额（元）", "quote": "935亿 H1融资总额（元）"},
+  {"value": "97%", "label": "全球出货占比", "quote": "97% 全球出货占比"},
+  {"value": "8400台", "label": "—— 头部企业正从\"烧钱\"走向\"量产\"", "quote": "8400台 —— 头部企业正从\"烧钱\"走向\"量产\""},
+  {"value": "65%", "label": "小微企业占比", "quote": "65% 小微企业占比"},
+  {"value": "40%", "label": "无明确量产时间表", "quote": "40% 无明确量产时间表"}
+]
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# 设计修复批次 3 —— 对比度 <3:1 的作品（最差优先）
+# 合计 106 条严重对比度问题；最差 1.10:1
+/app/working/shared/showcase/2026-10-13/creative/2026-10-13-ai-overreach-governance.html	# 最差 1.10:1 × 3 条
+/app/working/shared/showcase/2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html	# 最差 1.20:1 × 39 条
+/app/working/shared/showcase/2026-08-15/research/2026-08-15-tencent-ai-bet.html	# 最差 1.20:1 × 17 条
+/app/working/shared/showcase/2026-08-18/research/2026-08-18-open-source-model-showdown.html	# 最差 1.20:1 × 16 条
+/app/working/shared/showcase/2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html	# 最差 1.20:1 × 16 条
+/app/working/shared/showcase/2026-10-06/research/2026-10-06-ai-carbon-footprint.html	# 最差 1.20:1 × 15 条

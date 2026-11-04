@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="showcase-beat" content="宏观利率与股市">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非农"爆冷"——美联储加息预期一日逆转 | 深度研究报告</title>
+    <style>
+        :root {
+            --black: #000000;
+            --light-gray: #f5f5f7;
+            --near-black: #1d1d1f;
+            --apple-blue: #0071e3;
+            --link-blue: #0066cc;
+            --white: #ffffff;
+            --research-green: #2D5016;
+            --research-green-light: #5A8F3D;
+            --amber-brown: #D4A574;
+            --cinnabar-red: #C44536;
+            --graphite-gray: #4A5568;
+            --mint-white: #F7F9F4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--near-black);
+            background: var(--white);
+            line-height: 1.47;
+            letter-spacing: -0.374px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 120px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.07;
+            letter-spacing: -0.28px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+
+        .hero .meta {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            color: var(--research-green);
+        }
+
+        .section-subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            color: var(--graphite-gray);
+            margin-bottom: 40px;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--mint-white);
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--research-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--near-black);
+        }
+
+        .card p {
+            font-size: 15px;
+            color: var(--graphite-gray);
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .data-table thead {
+            background: var(--research-green);
+            color: var(--white);
+        }
+
+        .data-table th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .data-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 15px;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--mint-white);
+        }
+
+        /* Highlight */
+        .highlight {
+            color: var(--cinnabar-red);
+            font-weight: 600;
+        }
+
+        .positive {
+            color: var(--research-green-light);
+            font-weight: 600;
+        }
+
+        /* Quote */
+        .quote {
+            background: var(--light-gray);
+            border-left: 4px solid var(--amber-brown);
+            padding: 24px 32px;
+            margin: 40px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+
+        .quote p {
+            font-size: 17px;
+            color: var(--graphite-gray);
+        }
+
+        .quote .source {
+            font-size: 14px;
+            color: var(--graphite-gray);
+            margin-top: 12px;
+            font-style: normal;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--research-green-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--research-green);
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--research-green-light);
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--research-green);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--near-black);
+        }
+
+        .timeline-content p {
+            font-size: 15px;
+            color: var(--graphite-gray);
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: var(--black);
+            color: var(--white);
+            padding: 80px 0;
+        }
+
+        .conclusion .section-title {
+            color: var(--white);
+        }
+
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .conclusion-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .conclusion-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--amber-brown);
+        }
+
+        .conclusion-card p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light-gray);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 14px;
+            color: var(--graphite-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.44)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-08-11</span><span class="sb-sep">/</span><span class="sb-beat">宏观利率与股市</span><span class="sb-sep">/</span><span class="sb-cnt">18 件 / 2026-08</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">12 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>非农"爆冷"<br>美联储加息预期一日逆转</h1>
+            <p class="subtitle">2026年8月7日美国就业数据深度解析与货币政策展望</p>
+            <p class="meta">研析 | 深度研究报告 · 2026年8月11日 · V1.0</p>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">执行摘要</h2>
+            <p class="section-subtitle">关键发现与核心结论</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📉</div>
+                    <h3>就业数据爆冷</h3>
+                    <p>美国7月非农就业人口减少2.3万人，远低于市场预期的增加8万人，为2026年2月以来首次出现下降。5月、6月数据合计下修10.3万人，劳动力市场疲软迹象明显。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>加息预期逆转</h3>
+                    <p>美联储9月加息概率从67%骤降至42%，利率期货市场定价显示到12月加息幅度仅为28个基点，较非农前下降4个基点。市场从"紧缩交易"转向"宽松交易"。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>资产剧烈波动</h3>
+                    <p>黄金飙升130美元突破4370美元关口，美元指数下跌0.47%至99.45，10年期美债收益率下跌8个基点至4.60%。全球资产完成一轮快速重定价。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Non-farm Data Deep Dive -->
+    <section class="section" style="background: var(--mint-white);">
+        <div class="container">
+            <h2 class="section-title">一、7月非农数据深度剖析</h2>
+            <p class="section-subtitle">就业市场的意外疲软与结构性变化</p>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>指标</th>
+                        <th>实际值</th>
+                        <th>预期值</th>
+                        <th>前值修正</th>
+                        <th>市场影响</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>新增非农就业</td>
+                        <td class="highlight">-2.3万人</td>
+                        <td>+8.0万人</td>
+                        <td>+2.0万人(6月下修)</td>
+                        <td>远低于预期，就业萎缩</td>
+                    </tr>
+                    <tr>
+                        <td>失业率</td>
+                        <td class="positive">4.1%</td>
+                        <td>4.2%</td>
+                        <td>4.2%(6月)</td>
+                        <td>意外下降，但主因劳动参与率下降</td>
+                    </tr>
+                    <tr>
+                        <td>平均时薪环比</td>
+                        <td>0.1%</td>
+                        <td>0.3%</td>
+                        <td>0.2%(6月)</td>
+                        <td>薪资增长显著放缓</td>
+                    </tr>
+                    <tr>
+                        <td>平均时薪同比</td>
+                        <td>3.2%</td>
+                        <td>3.5%</td>
+                        <td>3.4%(6月)</td>
+                        <td>工资通胀压力缓和</td>
+                    </tr>
+                    <tr>
+                        <td>劳动参与率</td>
+                        <td>61.4%</td>
+                        <td>-</td>
+                        <td>61.5%(6月)</td>
+                        <td>持续下降，供给疲弱</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 24px; font-weight: 600; margin: 40px 0 20px; color: var(--near-black);">行业分布：结构性分化明显</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>行业</th>
+                        <th>就业变化(万人)</th>
+                        <th>主要原因</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>地方政府教育</td>
+                        <td class="highlight">-5.0</td>
+                        <td>持续下降趋势，预算压力</td>
+                    </tr>
+                    <tr>
+                        <td>休闲酒店业</td>
+                        <td class="highlight">-4.0</td>
+                        <td>"世界杯"效应退坡</td>
+                    </tr>
+                    <tr>
+                        <td>零售业</td>
+                        <td class="highlight">-1.9</td>
+                        <td>消费动能降温</td>
+                    </tr>
+                    <tr>
+                        <td>金融服务业</td>
+                        <td class="highlight">-1.4</td>
+                        <td>高利率环境压力</td>
+                    </tr>
+                    <tr>
+                        <td>建筑业</td>
+                        <td class="positive">+2.2</td>
+                        <td>数据中心建设浪潮驱动</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote">
+                <p>"美国7月非农就业大幅弱于预期，失业率回落至4.1%，年内加息预期回落。就业市场呈现'供需双弱'格局：政府、休闲酒店业是主要拖累，劳动参与率下降导致失业率回落。"</p>
+                <div class="source">——申万宏源宏观研究团队</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Fed Expectations Reversal -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">二、美联储加息预期逆转逻辑</h2>
+            <p class="section-subtitle">从"鹰派预期"到"宽松交易"的一日转变</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">非农前（8月6日）</div>
+                    <div class="timeline-content">
+                        <h4>紧缩预期主导</h4>
+                        <p>市场预期美联储9月加息概率高达67%，年内加息次数预期1.4次。10年期美债收益率维持在4.68%高位，美元指数在100上方运行。利率期货定价显示到12月加息幅度为32个基点。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">非农公布（8月7日20:30）</div>
+                    <div class="timeline-content">
+                        <h4>数据爆冷冲击</h4>
+                        <p>7月非农就业减少2.3万人，远低于预期增加8万人。失业率微降至4.1%，时薪增速显著放缓。市场立即开始重新定价利率路径，交易逻辑从"紧缩"转向"宽松"。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">非农后（8月7日晚）</div>
+                    <div class="timeline-content">
+                        <h4>宽松交易全面展开</h4>
+                        <p>9月加息概率骤降至42%，年内加息次数预期下修至1.1次。10年期美债收益率跌至4.60%，美元指数跌破99.5，黄金暴涨130美元。利率期货定价显示到12月加息幅度仅28个基点。</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 24px; font-weight: 600; margin: 40px 0 20px; color: var(--near-black);">9月FOMC会议政策路径推演</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>情景</th>
+                        <th>概率</th>
+                        <th>政策行动</th>
+                        <th>市场影响</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>基准情景</strong></td>
+                        <td>58%</td>
+                        <td>维持利率不变，释放观望信号</td>
+                        <td>债券市场温和上涨，美元震荡</td>
+                    </tr>
+                    <tr>
+                        <td><strong>鸽派情景</strong></td>
+                        <td>25%</td>
+                        <td>维持利率不变，暗示年内降息可能</td>
+                        <td>债券大涨，美元下跌，黄金上涨</td>
+                    </tr>
+                    <tr>
+                        <td><strong>鹰派情景</strong></td>
+                        <td>17%</td>
+                        <td>加息25个基点，强调通胀风险</td>
+                        <td>债券下跌，美元上涨，黄金下跌</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote">
+                <p>"非农数据公布后，市场呈现'宽松交易'。2Y、10Y美债利率以及美元指数均出现回落，市场对美联储2026年内加息次数预期下修至1.1次。"</p>
+                <div class="source">——申万宏源宏观研究团队</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Geopolitical Dimension -->
+    <section class="section" style="background: var(--mint-white);">
+        <div class="container">
+            <h2 class="section-title">三、地缘政治维度分析</h2>
+            <p class="section-subtitle">美元走势与全球资本流动的新格局</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🇺🇸</div>
+                    <h3>美元走弱压力</h3>
+                    <p>非农数据爆冷导致美元指数跌破100关口，日内下跌0.47%至99.45。美元走弱缓解了新兴市场资本外流压力，但美联储政策不确定性仍限制美元下行空间。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌍</div>
+                    <h3>全球资本再配置</h3>
+                    <p>美债收益率下行推动资金从美元资产流向新兴市场和大宗商品。黄金作为无息资产吸引力提升，全球央行购金趋势持续。亚洲货币压力缓解，人民币汇率企稳。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛢️</div>
+                    <h3>能源地缘风险</h3>
+                    <p>霍尔木兹海峡谈判缓解油价压力，但伊朗击中"敌对目标"事件显示风险仍存。原油价格波动影响全球通胀预期，成为美联储政策决策的关键变量。</p>
+                </div>
+            </div>
+
+            <h3 style="font-size: 24px; font-weight: 600; margin: 40px 0 20px; color: var(--near-black);">美元指数与资本流动关联分析</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>指标</th>
+                        <th>非农前</th>
+                        <th>非农后</th>
+                        <th>变化</th>
+                        <th>资本流动影响</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>美元指数</td>
+                        <td>99.92</td>
+                        <td>99.45</td>
+                        <td class="highlight">-0.47%</td>
+                        <td>缓解新兴市场资本外流</td>
+                    </tr>
+                    <tr>
+                        <td>10年期美债收益率</td>
+                        <td>4.68%</td>
+                        <td>4.60%</td>
+                        <td class="highlight">-8基点</td>
+                        <td>降低全球融资成本</td>
+                    </tr>
+                    <tr>
+                        <td>黄金价格</td>
+                        <td>4240美元</td>
+                        <td>4370美元</td>
+                        <td class="positive">+3.1%</td>
+                        <td>避险资产需求上升</td>
+                    </tr>
+                    <tr>
+                        <td>新兴市场货币</td>
+                        <td>承压</td>
+                        <td>反弹</td>
+                        <td class="positive">改善</td>
+                        <td>资本回流新兴市场</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote">
+                <p>"美元走强、美债收益率上行，新兴市场的北向外资面临显著流出压力。但本次非农爆冷后，美元走弱有望缓解人民币汇率压力，为中国央行货币政策提供更多空间。"</p>
+                <div class="source">——综合市场分析</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Quantitative Indicators -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">四、关键经济指标对比</h2>
+            <p class="section-subtitle">全景数据视角下的经济韧性评估</p>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>经济指标</th>
+                        <th>最新值</th>
+                        <th>趋势</th>
+                        <th>政策含义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>核心PCE通胀</td>
+                        <td>2.8% (6月)</td>
+                        <td>→ 平稳</td>
+                        <td>仍高于2%目标，但缓和中</td>
+                    </tr>
+                    <tr>
+                        <td>GDP增速</td>
+                        <td>2.1% (Q2初值)</td>
+                        <td>→ 稳健</td>
+                        <td>经济韧性支撑软着陆预期</td>
+                    </tr>
+                    <tr>
+                        <td>ISM制造业PMI</td>
+                        <td>48.5 (7月)</td>
+                        <td>↓ 收缩</td>
+                        <td>制造业持续低迷</td>
+                    </tr>
+                    <tr>
+                        <td>职位空缺数</td>
+                        <td>880万 (6月)</td>
+                        <td>↓ 下降</td>
+                        <td>劳动力市场供需趋平衡</td>
+                    </tr>
+                    <tr>
+                        <td>消费者信心指数</td>
+                        <td>67.2 (7月)</td>
+                        <td>↓ 下降</td>
+                        <td>消费动能边际减弱</td>
+                    </tr>
+                    <tr>
+                        <td>原油价格</td>
+                        <td>77.08美元/桶</td>
+                        <td>↓ 下跌</td>
+                        <td>通胀压力缓解</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 24px; font-weight: 600; margin: 40px 0 20px; color: var(--near-black);">劳动力市场"低就业平衡"特征</h3>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>低就业增长</h3>
+                    <p>非农就业减少2.3万人，平均每月新增就业降至2万人以下。企业招聘意愿疲软，"慢招聘、慢裁员"格局持续。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>低失业率</h3>
+                    <p>失业率维持在4.1%低位，主要因劳动参与率下降。就业供给减少掩盖了真实就业压力，劳动力市场呈现"弱平衡"。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💵</div>
+                    <h3>薪资增长放缓</h3>
+                    <p>时薪增速降至3.2%，低于通胀水平。实际工资增长为负，消费支出支撑减弱，但通胀压力缓和。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Conclusion -->
+    <section class="conclusion">
+        <div class="container">
+            <h2 class="section-title">五、未来3-6个月货币政策路径判断</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">基于多维度分析的综合展望</p>
+            
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <h3>基准预测：美联储"按兵不动"</h3>
+                    <p>下半年维持利率不变的概率最高。通胀压力区域缓和与劳动力市场低就业平衡的组合，使美联储有充足理由保持观望。年内加息次数预期下修至1.1次，9月会议大概率维持利率不变。</p>
+                </div>
+                <div class="conclusion-card">
+                    <h3>风险情景：通胀反弹迫使加息</h3>
+                    <p>若原油价格因地缘冲突持续上涨，推动核心通胀回升，美联储可能被迫在Q4加息25个基点。概率约25%，将导致债券市场大幅波动，美元重新走强。</p>
+                </div>
+                <div class="conclusion-card">
+                    <h3>乐观情景：经济软着陆</h3>
+                    <p>就业市场保持稳定，通胀持续向2%目标靠拢，美联储在2027年Q1开启降息周期。概率约40%，将支撑风险资产估值，黄金维持高位震荡。</p>
+                </div>
+            </div>
+
+            <div class="quote" style="background: rgba(255,255,255,0.1); border-left-color: var(--amber-brown);">
+                <p style="color: rgba(255,255,255,0.8);">"美国劳动力市场或维持'低就业平衡'（低就业、低失业率）状态。空缺岗位（率）等指标显示，就业需求已经企稳，但中小企业招聘意愿维持疲软；老龄化、限制移民等政策导致劳动供给下行的趋势或将延续。"</p>
+                <div class="source" style="color: rgba(255,255,255,0.6);">——申万宏源宏观研究团队</div>
+            </div>
+
+            <h3 style="font-size: 24px; font-weight: 600; margin: 40px 0 20px; color: var(--white);">投资策略建议</h3>
+            
+            <table class="data-table" style="background: rgba(255,255,255,0.1);">
+                <thead>
+                    <tr>
+                        <th style="background: rgba(255,255,255,0.2);">资产类别</th>
+                        <th style="background: rgba(255,255,255,0.2);">观点</th>
+                        <th style="background: rgba(255,255,255,0.2);">逻辑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: rgba(255,255,255,0.8);">美国国债</td>
+                        <td style="color: var(--positive);">超配</td>
+                        <td style="color: rgba(255,255,255,0.8);">收益率下行空间打开，久期价值显现</td>
+                    </tr>
+                    <tr>
+                        <td style="color: rgba(255,255,255,0.8);">黄金</td>
+                        <td style="color: var(--positive);">持有</td>
+                        <td style="color: rgba(255,255,255,0.8);">实际利率下行，避险需求支撑</td>
+                    </tr>
+                    <tr>
+                        <td style="color: rgba(255,255,255,0.8);">新兴市场股票</td>
+                        <td style="color: var(--positive);">逐步增配</td>
+                        <td style="color: rgba(255,255,255,0.8);">美元走弱缓解资本外流压力</td>
+                    </tr>
+                    <tr>
+                        <td style="color: rgba(255,255,255,0.8);">美元资产</td>
+                        <td style="color: var(--highlight);">减配</td>
+                        <td style="color: rgba(255,255,255,0.8);">加息预期降温，估值承压</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>研析 | 深度研究报告 · 数据来源：美国劳工部、美联储、CME FedWatch、申万宏源研究</p>
+            <p>报告生成时间：2026年8月11日 · 版本：V1.0</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #9CA3AF;">免责声明：本报告仅供参考，不构成投资建议。投资有风险，决策需谨慎。</p>
+        </div>
+    </footer>
+<script type="application/json" id="claims">
+[
+  {"value": "10年", "label": "期美债收益率", "quote": "10年期美债收益率"},
+  {"value": "2.1%", "label": "Q2初值", "quote": "2.1% (Q2初值)"},
+  {"value": "4.2%", "label": "4.2%(6月)", "quote": "4.2% 4.2%(6月)"},
+  {"value": "0.3%", "label": "0.2%(6月)", "quote": "0.3% 0.2%(6月)"},
+  {"value": "3.5%", "label": "3.4%(6月)", "quote": "3.5% 3.4%(6月)"},
+  {"value": "58%", "label": "维持利率不变，释放观望信号", "quote": "58% 维持利率不变，释放观望信号"},
+  {"value": "25%", "label": "维持利率不变，暗示年内降息可能", "quote": "25% 维持利率不变，暗示年内降息可能"},
+  {"value": "17%", "label": "加息25个基点，强调通胀风险", "quote": "17% 加息25个基点，强调通胀风险"},
+  {"value": "-0.47%", "label": "缓解新兴市场资本外流", "quote": "-0.47% 缓解新兴市场资本外流"},
+  {"value": "4.60%", "label": "-8基点", "quote": "4.60% -8基点"},
+  {"value": "+3.1%", "label": "避险资产需求上升", "quote": "+3.1% 避险资产需求上升"}
+]
+</script>
+</body>
+</html>

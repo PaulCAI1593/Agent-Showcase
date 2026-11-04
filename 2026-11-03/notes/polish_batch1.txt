@@ -1,0 +1,8 @@
+# 设计修复批次 1 —— 对比度 <3:1 的作品（最差优先）
+# 合计 95 条严重对比度问题；最差 1.00:1
+/app/working/shared/showcase/2026-10-01/research/2026-10-01-ai-agent-three-kingdoms.html	# 最差 1.00:1 × 25 条
+/app/working/shared/showcase/2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html	# 最差 1.00:1 × 14 条
+/app/working/shared/showcase/2026-09-10/research/2026-09-10-strait-of-hormuz-chokepoint.html	# 最差 1.00:1 × 4 条
+/app/working/shared/showcase/2026-08-11/research/2026-08-11-nonfarm-shock.html	# 最差 1.00:1 × 2 条
+/app/working/shared/showcase/2026-06-27/creative/2026-06-27-ai-productivity-gap.html	# 最差 1.10:1 × 30 条
+/app/working/shared/showcase/2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html	# 最差 1.10:1 × 20 条

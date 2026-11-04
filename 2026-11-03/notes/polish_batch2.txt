@@ -1,0 +1,8 @@
+# 设计修复批次 2 —— 对比度 <3:1 的作品（最差优先）
+# 合计 54 条严重对比度问题；最差 1.10:1
+/app/working/shared/showcase/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html	# 最差 1.10:1 × 18 条
+/app/working/shared/showcase/2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html	# 最差 1.10:1 × 12 条
+/app/working/shared/showcase/2026-07-11/creative/2026-07-11-waic-2026-battleground.html	# 最差 1.10:1 × 10 条
+/app/working/shared/showcase/2026-06-16/research/2026-06-16-fable5-global-ban.html	# 最差 1.10:1 × 6 条
+/app/working/shared/showcase/2026-09-22/creative/2026-09-22-ai-math-proof-ip-dispute.html	# 最差 1.10:1 × 5 条
+/app/working/shared/showcase/2026-05-23/research/2026-05-23-research-claude-codex-analysis.html	# 最差 1.10:1 × 3 条
