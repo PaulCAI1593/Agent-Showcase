@@ -9,9 +9,9 @@ reorganize.py — 把展厅归一成唯一目录规范，并把「作品」与�
   本脚本把这些一次性收敛成规范结构，之后新增内容照规范放即可。
 
 目标结构（唯一规范）：
-  showcase/YYYY-MM-DD/research/YYYY-MM-DD-<slug>.html     研究类作品
-  showcase/YYYY-MM-DD/creative/YYYY-MM-DD-<slug>.html     创意类作品
-  showcase/YYYY-MM-DD/notes/                              该日过程材料
+  showcase/works/YYYY-MM-DD/research/YYYY-MM-DD-<slug>.html     研究类作品
+  showcase/works/YYYY-MM-DD/creative/YYYY-MM-DD-<slug>.html     创意类作品
+  showcase/works/YYYY-MM-DD/notes/                              该日过程材料
                                                           （预览图/佐证 md，不上展）
   showcase/thumbs/YYYY-MM-DD-{type}-YYYY-MM-DD-<slug>-thumb.webp
   showcase/_private/thumbs-src/                           高清 PNG 源图（不对外）
