@@ -280,7 +280,7 @@ a{color:inherit}
 .cvlock .sockets i.on[data-k="ene"]{background:var(--ene);box-shadow:0 0 12px var(--ene)}
 .cvlock .sockets i.on[data-k="cur"]{background:var(--cur);box-shadow:0 0 12px var(--cur)}
 .cvlock.hide{opacity:0;height:0;padding:0;margin:0;overflow:hidden;border-width:0}
-.cvbox{position:relative;margin-top:40px;border:1px solid var(--hair);border-radius:var(--r);
+.cvbox{padding:10px;position:relative;margin-top:40px;border:1px solid var(--hair);border-radius:var(--r);
   background:rgba(255,255,255,.022);padding:clamp(12px,2.2vw,26px);overflow-x:auto;opacity:0;transform:translateY(18px);
   transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .cvbox.on{opacity:1;transform:none}
@@ -360,6 +360,8 @@ div.phead > div.where > span::before{width:1px !important}
 thead > tr > th::after{box-shadow:0 2px 10px rgba(0,0,0,1) !important}
 thead > tr > th::after{width:1px !important}
 div.foot > ul > li::before{width:1px !important}
+/* cramped-padding 修复 */
+.cvbox{padding:10px !important}
 </style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>

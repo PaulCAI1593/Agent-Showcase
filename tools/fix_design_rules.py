@@ -323,6 +323,73 @@ def fix_side_tab_pseudo(html, findings, rule):
     return new, ([] if new == html else [{'rule': 'side-tab', 'to': '1px'}])
 
 
+
+def fix_cramped_padding(html, findings, rule):
+    """内容紧贴边框/背景（无内缩）→ 给点 padding。
+
+    检测器直接点名了 class（片段形如 `\"table-wrap\": children flush against border`），
+    按 class 精确加内缩即可，不猜。
+    """
+    classes = set()
+    for f in findings:
+        for m in re.finditer(r'"([a-zA-Z][\w-]*)"\s*:', f.get('snippet', '')):
+            classes.add(m.group(1))
+    if not classes:
+        return html, []
+    if not classes:
+        return html, []
+    # ⚠️ 必须**追加到样式表末尾**：插在规则体开头的 padding 会被同规则后面的
+    #    padding 声明覆盖（同规则内后者胜）—— 实测这样改 33 件一条没降。
+    rules = '\n'.join(f'.{c}{{padding:10px !important}}' for c in sorted(classes))
+    css = '/* cramped-padding 修复 */\n' + rules + '\n'
+    if '</style>' in html:
+        i = html.rfind('</style>')
+        out = html[:i] + css + html[i:]
+    else:
+        out = html + css
+    return out, [{'rule': 'cramped-padding', 'to': 'padding:10px !important',
+                  'classes': sorted(classes)}]
+
+
+def fix_codex_grid(html, findings, rule):
+    """两轴网格线渐变背景 → 去掉（craft-floor：网格底纹需要有真实的画布/蓝图做底）。"""
+    # 两轴网格 = 同一条声明里出现两次 repeating-linear-gradient
+    classes = set()
+    for m in re.finditer(r'([.#][\w-]+)\s*\{[^}]*repeating-linear-gradient[^}]*repeating-linear-gradient',
+                         html, re.S):
+        classes.add(m.group(1))
+    if not classes:
+        return html, []
+    rules = '\n'.join(f'{c}{{background-image:none !important}}' for c in sorted(classes))
+    css = '/* codex-grid-background 修复 */\n' + rules + '\n'
+    i = html.rfind('</style>')
+    out = (html[:i] + css + html[i:]) if i > 0 else html + css
+    return out, [{'rule': 'codex-grid-background', 'to': '去除网格底纹',
+                  'classes': sorted(classes)}]
+
+
+def fix_bounce_keyframes(html, findings, rule):
+    """@keyframes bounce 的过冲（scale>1 / translateY 幅度大）→ 收敛成平缓位移。
+
+    检测器片段形如 `animation: bounce` —— 指的是用了 bounce 关键帧动画。
+    不删动画（会改变作者的设计），而是把过冲压掉。
+    """
+    def fn(block):
+        out = block
+        def soften(m):
+            kf = m.group(0)
+            kf = re.sub(r'scale\(\s*(1\.\d+)\s*\)', 'scale(1)', kf)
+            kf = re.sub(r'translateY\(\s*(-?[\d.]+)px\s*\)',
+                        lambda mm: 'translateY(%spx)' % (float(mm.group(1)) * 0.4), kf)
+            return kf
+        # 关键帧名有多种变体：bounce / bounceDown / shield-bounce / bounce-arrow / cue-bounce
+        out = re.sub(r'@keyframes\s+[\w-]*bounce[\w-]*\s*\{.*?\n\}', soften, out, flags=re.S)
+        out = re.sub(r'@keyframes\s+[\w-]*bounce[\w-]*\s*\{[^{}]*\{[^{}]*\}[^{}]*\}',
+                     soften, out, flags=re.S)
+        return out
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'bounce-easing', 'to': '收敛 bounce 过冲'}])
+
 FIXERS = {
     'tiny-text': lambda h, f, r: fix_sizes(h, f, r),
     'undersized-ui-text': lambda h, f, r: fix_sizes(h, f, r),
@@ -333,6 +400,9 @@ FIXERS = {
     'dark-glow': fix_dark_glow,
     'border-accent-on-rounded': fix_border_accent_rounded,
     'side-tab': fix_side_tab_pseudo,
+    'cramped-padding': fix_cramped_padding,
+    'codex-grid-background': fix_codex_grid,
+    'bounce-easing': fix_bounce_keyframes,
 }
 
 

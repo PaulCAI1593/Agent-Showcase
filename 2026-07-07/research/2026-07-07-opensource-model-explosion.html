@@ -100,7 +100,7 @@
   .container { max-width: 980px; margin: 0 auto; padding: 0 40px; }
 
   /* Section Styles */
-  .section { padding: 80px 0; }
+  .section{padding:10px; padding: 80px 0; }
   .section-dark { background: var(--black); color: var(--white); }
   .section-light { background: var(--light-gray); }
   .section-mint { background: var(--mint-white); }
@@ -572,7 +572,7 @@
     .impact-grid { grid-template-columns: 1fr; }
     .container { padding: 0 20px; }
     .hero { padding: 80px 20px 60px; }
-    .section { padding: 60px 0; }
+    .section{padding:10px; padding: 60px 0; }
     .section-title { font-size: 32px; }
     .model-card { padding: 28px; }
   }
@@ -590,6 +590,8 @@ div.container > div.summary-grid > div.summary-card::before{width:1px !important
 section.section > div.container > div.timeline::before{width:1px !important}
 div.timeline > div.timeline-item > div.timeline-dot{box-shadow:0 2px 10px rgba(0,0,0,1) !important}
 div.timeline > div.timeline-item > div.timeline-dot{border-top-width:1px !important}
+/* cramped-padding 修复 */
+.section{padding:10px !important}
 </style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
