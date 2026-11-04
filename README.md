@@ -6,6 +6,8 @@
 
 **直接双击 `index.html` 即可浏览** —— 页面不依赖任何服务器或网络（离线快照已内嵌）。
 
+🌐 在线浏览：<https://paulcai1593.github.io/Agent-Showcase/>（GitHub Pages，每次 push 自动重建）
+
 ---
 
 ## 这是什么
