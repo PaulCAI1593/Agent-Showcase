@@ -101,12 +101,21 @@ def style_blocks(html):
 
 
 def edit_styles(html, fn):
-    """只对 <style> 块应用 fn(block) -> block'。"""
+    """对 <style> 块**与内联 style 属性**都应用 fn。
+
+    只改 <style> 会漏掉内联样式里的缓动/阴影 —— 实测 bounce-easing 残余 16 条
+    就在内联 style 里。
+    """
     def do(m):
         blk = m.group(0)
         head = blk[:blk.index('>') + 1]
         return head + fn(blk[blk.index('>') + 1:-len('</style>')]) + '</style>'
-    return re.sub(r'<style[^>]*>.*?</style>', do, html, flags=re.S)
+    html = re.sub(r'<style[^>]*>.*?</style>', do, html, flags=re.S)
+
+    def do_attr(m):
+        return 'style="' + fn(m.group(1)) + '"'
+    html = re.sub(r'style="([^"]*)"', do_attr, html)
+    return html
 
 
 # ── 各规则的修法 ─────────────────────────────────────────
@@ -208,6 +217,48 @@ def fix_side_tab(html, findings, rule):
     return new, ([] if new == html else [{'rule': 'side-tab', 'to': '1px'}])
 
 
+def _desat(color_hex):
+    """把彩色转为同亮度的中性灰（保留 alpha）。"""
+    h = color_hex.lstrip('#')
+    if len(h) == 3:
+        h = ''.join(c * 2 for c in h)
+    if len(h) < 6:
+        return None
+    try:
+        r, g, b = (int(h[i:i + 2], 16) for i in (0, 2, 4))
+    except ValueError:
+        return None
+    if max(r, g, b) - min(r, g, b) < 30:          # 本来就是中性色
+        return None
+    y = round(0.2126 * r + 0.7152 * g + 0.0722 * b)
+    return f'#{y:02x}{y:02x}{y:02x}'
+
+
+def fix_dark_glow(html, findings, rule):
+    """零偏移彩色光晕 → 中性阴影 + 一个真实偏移（craft-floor：发光阴影是 AI 味）。"""
+    def fn(block):
+        out = block
+
+        def repl_shadow(m):
+            prop, body = m.group(1), m.group(2)
+            # 只处理「0 偏移」的阴影（0 0 blur color）
+            if not re.match(r'\s*0\s+0\s+', body):
+                return m.group(0)
+            def col(mc):
+                d = _desat(mc.group(1))
+                return mc.group(0) if not d else d
+            nb = re.sub(r'(#[0-9a-fA-F]{3,8})', col, body)
+            if nb == body:
+                return m.group(0)
+            nb = re.sub(r'^(\s*)0\s+0\s+', r'\g<1>0 2px ', nb)
+            return f'{prop}: {nb}'
+
+        out = re.sub(r'((?:box|text)-shadow)\s*:\s*([^;{}]+)', repl_shadow, out, flags=re.I)
+        return out
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'dark-glow', 'to': '中性化 + 偏移'}])
+
+
 FIXERS = {
     'tiny-text': lambda h, f, r: fix_sizes(h, f, r),
     'undersized-ui-text': lambda h, f, r: fix_sizes(h, f, r),
@@ -215,6 +266,7 @@ FIXERS = {
     'pulsing-dot': fix_pulse,
     'gradient-text': fix_gradient_text,
     'side-tab': fix_side_tab,
+    'dark-glow': fix_dark_glow,
 }
 
 

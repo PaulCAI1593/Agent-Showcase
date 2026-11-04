@@ -1,0 +1,13 @@
+# 剩余 findings 最多的 12 件（需人工/按元素精修，非机械可解）
+2026-06-30-hormuz-60-days-energy-reshape.html	156
+2026-08-25-ai-agent-orchestration-wars.html	109
+2026-07-04-欧洲爆单与制冷供应链重构.html	102
+2026-10-03-ai-data-famine.html	97
+2026-10-03-ai-embodied-intelligence.html	79
+2026-09-03-open-source-vs-closed-source-ai.html	66
+2026-06-25-ai-hardware-arms-race.html	63
+2026-09-05-deepseek-pricing-war.html	62
+2026-07-02-middle-east-powder-keg-2.html	60
+2026-09-22-iran-four-front-conflict.html	60
+2026-10-06-ai-carbon-footprint.html	60
+2026-10-20-policy-scissors-ai-plus-vs-export-control.html	58
