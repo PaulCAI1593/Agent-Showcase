@@ -1,122 +1,67 @@
 {
  "applied": {
-  "2026-06-20/creative/2026-06-20-musk-trillion-path.html": [
+  "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html": [
    {
-    "rule": "bounce-easing",
+    "rule": "undersized-ui-text",
     "changes": [
      {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
      }
     ]
    }
   ],
-  "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html": [
+  "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html": [
    {
-    "rule": "bounce-easing",
+    "rule": "undersized-ui-text",
     "changes": [
      {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-07-04/creative/2026-07-04-ai-faith-collapse.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-09-03/creative/2026-09-03-ai-compute-explosion.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
-     }
-    ]
-   }
-  ],
-  "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html": [
-   {
-    "rule": "bounce-easing",
-    "changes": [
-     {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
      }
     ]
    }
   ],
   "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html": [
    {
-    "rule": "bounce-easing",
+    "rule": "undersized-ui-text",
     "changes": [
      {
-      "rule": "bounce-easing",
-      "to": "收敛 bounce 过冲"
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
+     }
+    ]
+   }
+  ],
+  "2026-10-08/creative/2026-10-08-ai-digital-twin.html": [
+   {
+    "rule": "undersized-ui-text",
+    "changes": [
+     {
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
+     }
+    ]
+   }
+  ],
+  "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html": [
+   {
+    "rule": "undersized-ui-text",
+    "changes": [
+     {
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
+     }
+    ]
+   }
+  ],
+  "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html": [
+   {
+    "rule": "undersized-ui-text",
+    "changes": [
+     {
+      "rule": "undersized-ui-text",
+      "to": "提到 11px"
      }
     ]
    }
@@ -124,59 +69,34 @@
  },
  "improved": [
   [
-   "2026-06-20/creative/2026-06-20-musk-trillion-path.html",
-   8,
-   8
+   "2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
+   49,
+   27
   ],
   [
-   "2026-06-25/creative/2026-06-25-ai-hardware-arms-race.html",
-   45,
-   45
-  ],
-  [
-   "2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
-   24,
-   24
-  ],
-  [
-   "2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
-   15,
-   15
-  ],
-  [
-   "2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
-   13,
-   13
-  ],
-  [
-   "2026-08-27/creative/2026-08-27-humanoid-robot-startup-boom.html",
-   5,
-   5
-  ],
-  [
-   "2026-09-01/creative/2026-09-01-nvidia-huggingface-power-map.html",
-   3,
-   3
-  ],
-  [
-   "2026-09-03/creative/2026-09-03-ai-compute-explosion.html",
-   10,
-   10
-  ],
-  [
-   "2026-09-08/creative/2026-09-08-anti-fraud-ai-app.html",
-   7,
-   6
-  ],
-  [
-   "2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html",
-   14,
-   14
+   "2026-09-24/creative/2026-09-24-ai-product-convergence-creative.html",
+   19,
+   7
   ],
   [
    "2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
    79,
-   79
+   21
+  ],
+  [
+   "2026-10-08/creative/2026-10-08-ai-digital-twin.html",
+   6,
+   5
+  ],
+  [
+   "2026-10-22/creative/2026-10-22-three-fuses-military-energy-currency.html",
+   7,
+   5
+  ],
+  [
+   "2026-10-24/creative/2026-10-24-three-hawkish-rate-tables.html",
+   29,
+   26
   ]
  ],
  "reverted": [],

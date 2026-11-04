@@ -112,13 +112,13 @@ body::after{
   font-family:var(--font-mono);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;
   color:var(--silver-100);letter-spacing:-.03em;
 }
-.hero-stat .num .unit{font-size:.5em;color:var(--silver-500);margin-left:2px}
+.hero-stat .num .unit{font-size:0.6875em;color:var(--silver-500);margin-left:2px}
 .hero-stat .desc{font-size:.78rem;color:var(--silver-500);margin-top:4px;letter-spacing:.05em}
 .scroll-cue{
   position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;
 }
-.scroll-cue span{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;color:var(--silver-600);text-transform:uppercase}
+.scroll-cue span{font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.2em;color:var(--silver-600);text-transform:uppercase}
 .scroll-cue .arrow{width:20px;height:20px;animation:cue-bounce 2s infinite}
 .scroll-cue .arrow svg{width:100%;height:100%;stroke:var(--silver-600);fill:none;stroke-width:2}
 @keyframes cue-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(3.2px)}}
@@ -133,7 +133,7 @@ body::after{
 .screen-frame::before{
   content:'PHYSICAL WORLD BOUNDARY';
   position:absolute;top:-22px;left:50%;transform:translateX(-50%);
-  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.25em;
+  font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.25em;
   color:var(--silver-600);text-transform:uppercase;
 }
 .screen-frame::after{
@@ -160,7 +160,7 @@ body::after{
 .narrative-section{padding:120px 0}
 .chapter{opacity:0;transform:translateY(50px)}
 .chapter .ch-label{
-  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.2em;
+  font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.2em;
   color:var(--silver-600);text-transform:uppercase;margin-bottom:12px;
 }
 .chapter h2{color:var(--silver-100);margin-bottom:24px}
@@ -192,7 +192,7 @@ body::after{
 .robot-sil-card .r-org{font-family:var(--font-mono);font-size:.72rem;color:var(--silver-500);margin-bottom:16px;letter-spacing:.08em}
 .robot-sil-card .r-tag{
   display:inline-block;padding:3px 10px;border-radius:6px;
-  font-size:.68rem;font-weight:600;margin:3px;
+  font-size:0.6875rem;font-weight:600;margin:3px;
 }
 .robot-sil-card .r-tag.tech{background:var(--cyan-dim);color:var(--cyan)}
 .robot-sil-card .r-tag.industry{background:var(--amber-dim);color:var(--amber)}
@@ -216,7 +216,7 @@ body::after{
 .map-node text{font-family:var(--font-mono);pointer-events:none;user-select:none}
 .map-edge{stroke:rgba(255,255,255,.06);stroke-width:1;fill:none}
 .map-edge.highlight{stroke:rgba(0,212,255,.35);stroke-width:1.5}
-.map-label{font-family:var(--font-mono);font-size:9px;fill:var(--silver-600);letter-spacing:.1em;text-transform:uppercase}
+.map-label{font-family:var(--font-mono);font-size:11px;fill:var(--silver-600);letter-spacing:.1em;text-transform:uppercase}
 
 /* Detail panel */
 .detail-panel{
@@ -246,17 +246,17 @@ body::after{
   padding:10px 14px;border-radius:var(--radius-sm);
   background:var(--bg-elevated);border:1px solid var(--border);
 }
-.detail-panel .dp-spec .k{font-family:var(--font-mono);font-size:.62rem;color:var(--silver-600);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.detail-panel .dp-spec .k{font-family:var(--font-mono);font-size:0.6875rem;color:var(--silver-600);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
 .detail-panel .dp-spec .v{font-family:var(--font-mono);font-size:.88rem;color:var(--silver-100);font-weight:600}
 .detail-panel .dp-tags{display:flex;flex-wrap:wrap;gap:6px}
 .detail-panel .dp-tag{
-  padding:4px 10px;border-radius:6px;font-size:.68rem;font-weight:600;
+  padding:4px 10px;border-radius:6px;font-size:0.6875rem;font-weight:600;
   background:var(--cyan-dim);color:var(--cyan);
 }
 .detail-panel .dp-tag.v{background:var(--violet-dim);color:var(--violet)}
 .detail-panel .dp-tag.a{background:var(--amber-dim);color:var(--amber)}
 .detail-panel .dp-applications{margin-top:4px}
-.detail-panel .dp-applications .k{font-family:var(--font-mono);font-size:.62rem;color:var(--silver-600);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.detail-panel .dp-applications .k{font-family:var(--font-mono);font-size:0.6875rem;color:var(--silver-600);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
 .detail-panel .dp-app-list{display:flex;flex-direction:column;gap:6px}
 .detail-panel .dp-app-item{
   display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--silver-300);
@@ -296,7 +296,7 @@ body::after{
 }
 .duel-side.left .side-glow{background:linear-gradient(90deg,var(--cyan),transparent)}
 .duel-side.right .side-glow{background:linear-gradient(270deg,var(--violet),transparent)}
-.duel-side .side-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.duel-side .side-label{font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
 .duel-side.left .side-label{color:var(--cyan)}
 .duel-side.right .side-label{color:var(--violet)}
 .duel-side .side-name{font-size:1.4rem;font-weight:700;color:var(--silver-100);margin-bottom:4px}
@@ -311,7 +311,7 @@ body::after{
 .duel-side.left .metric .m-bar .fill{background:linear-gradient(90deg,var(--cyan-dim),var(--cyan))}
 .duel-side.right .metric .m-bar .fill{background:linear-gradient(90deg,var(--violet-dim),var(--violet))}
 .duel-side .pros-cons{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.duel-side .pc-col .pc-title{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.duel-side .pc-col .pc-title{font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
 .duel-side .pc-col.pros .pc-title{color:var(--emerald)}
 .duel-side .pc-col.cons .pc-title{color:var(--rose)}
 .duel-side .pc-col ul{list-style:none;display:flex;flex-direction:column;gap:5px}
@@ -347,7 +347,7 @@ body::after{
 .data-card .dc-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:20px}
 .data-card .dc-title{font-size:.88rem;font-weight:600;color:var(--silver-200)}
 .data-card .dc-badge{
-  font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;border-radius:4px;
+  font-family:var(--font-mono);font-size:0.6875rem;padding:3px 8px;border-radius:4px;
   background:var(--cyan-dim);color:var(--cyan);letter-spacing:.1em;
 }
 .data-card .dc-chart{margin:16px 0}
@@ -363,9 +363,9 @@ body::after{
 }
 .bar-col .bar .bar-val{
   position:absolute;top:-20px;left:50%;transform:translateX(-50%);
-  font-family:var(--font-mono);font-size:.62rem;color:var(--silver-300);white-space:nowrap;
+  font-family:var(--font-mono);font-size:0.6875rem;color:var(--silver-300);white-space:nowrap;
 }
-.bar-col .bar-label{font-family:var(--font-mono);font-size:.58rem;color:var(--silver-600);letter-spacing:.05em}
+.bar-col .bar-label{font-family:var(--font-mono);font-size:0.6875rem;color:var(--silver-600);letter-spacing:.05em}
 
 /* Line chart (SVG) */
 .line-chart-wrap{position:relative;height:140px}
@@ -387,7 +387,7 @@ body::after{
   font-family:var(--font-mono);font-size:clamp(1.6rem,3.5vw,2.4rem);
   font-weight:700;color:var(--silver-100);letter-spacing:-.03em;
 }
-.stat-block .s-num .s-unit{font-size:.45em;color:var(--silver-500);margin-left:2px}
+.stat-block .s-num .s-unit{font-size:0.6875em;color:var(--silver-500);margin-left:2px}
 .stat-block .s-label{font-size:.75rem;color:var(--silver-500);margin-top:6px;line-height:1.4}
 
 /* Radar / tech maturity */
@@ -447,7 +447,7 @@ body::after{
 .emotion-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .emotion-card.excited::before{background:linear-gradient(90deg,var(--cyan),var(--emerald))}
 .emotion-card.anxious::before{background:linear-gradient(90deg,var(--amber),var(--rose))}
-.emotion-card .em-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.emotion-card .em-label{font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
 .emotion-card.excited .em-label{color:var(--cyan)}
 .emotion-card.anxious .em-label{color:var(--amber)}
 .emotion-card h3{color:var(--silver-100);margin-bottom:14px;font-size:1.2rem}
@@ -506,7 +506,7 @@ footer{
 footer .f-text{font-size:.78rem;color:var(--silver-600);line-height:1.7}
 footer .f-text a{color:var(--silver-500);text-decoration:none}
 footer .f-sources{
-  margin-top:16px;font-family:var(--font-mono);font-size:.62rem;
+  margin-top:16px;font-family:var(--font-mono);font-size:0.6875rem;
   color:var(--silver-600);line-height:1.8;max-width:800px;margin-left:auto;margin-right:auto;
 }
 
@@ -1208,7 +1208,7 @@ div.container > div.dual-emotion > div.emotion-card::before{width:1px !important
     <div class="tech-maturity">
       <div class="maturity-chart">
         <div class="dc-title" style="font-size:1rem;font-weight:600;color:var(--silver-200);margin-bottom:4px">技术成熟度评估</div>
-        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--silver-600);letter-spacing:.1em">TECHNOLOGY READINESS LEVEL · 2026</div>
+        <div style="font-family:var(--font-mono);font-size:0.6875rem;color:var(--silver-600);letter-spacing:.1em">TECHNOLOGY READINESS LEVEL · 2026</div>
         <div class="maturity-bars" id="maturity-bars">
           <div class="maturity-bar">
             <div class="mb-header"><span class="mb-name">运动控制（行走/平衡）</span><span class="mb-val">72%</span></div>
@@ -1281,15 +1281,15 @@ div.container > div.dual-emotion > div.emotion-card::before{width:1px !important
 
     <div class="social-stats">
       <div class="social-stat">
-        <div class="ss-num">680<span style="font-size:.5em;color:var(--silver-500)">+</span></div>
+        <div class="ss-num">680<span style="font-size:0.6875em;color:var(--silver-500)">+</span></div>
         <div class="ss-label">中国整机企业数量<br>其中99%仍为"旁观者"</div>
       </div>
       <div class="social-stat">
-        <div class="ss-num">3<span style="font-size:.5em;color:var(--silver-500)">年</span></div>
+        <div class="ss-num">3<span style="font-size:0.6875em;color:var(--silver-500)">年</span></div>
         <div class="ss-label">行业共识的"洗牌窗口期"<br>无法落地的企业将被淘汰</div>
       </div>
       <div class="social-stat">
-        <div class="ss-num">30<span style="font-size:.5em;color:var(--silver-500)">家</span></div>
+        <div class="ss-num">30<span style="font-size:0.6875em;color:var(--silver-500)">家</span></div>
         <div class="ss-label">已建/在建的具身智能训练场<br>数据基础设施加速布局</div>
       </div>
     </div>

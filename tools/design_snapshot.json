@@ -1,5 +1,5 @@
 {
- "ts": "2026-11-04 13:45:04",
+ "ts": "2026-11-04 14:27:37",
  "scope": "all",
  "scanned": 116,
  "by_rule": {
@@ -22,7 +22,6 @@
   "icon-tile-stack": 42,
   "gradient-text": 30,
   "pulsing-dot": 4,
-  "undersized-ui-text": 98,
   "repeating-stripes-gradient": 6,
   "flat-type-hierarchy": 1,
   "marquee": 2,
@@ -32,8 +31,8 @@
   "radial-halo": 1
  },
  "by_severity": {
-  "warning": 1358,
-  "advisory": 405
+  "warning": 1285,
+  "advisory": 380
  },
  "by_file": {
   "2026-05-23-research-claude-codex-analysis.html": 1,
@@ -94,7 +93,7 @@
   "2026-08-25-ai-agent-orchestration-wars.html": 7,
   "2026-08-27-humanoid-robot-startup-boom.html": 5,
   "2026-08-27-hormuz-crisis-new-phase.html": 7,
-  "2026-08-29-agent-orchestration-visual.html": 49,
+  "2026-08-29-agent-orchestration-visual.html": 27,
   "2026-08-29-ai-agent-security-battle.html": 14,
   "2026-09-01-nvidia-huggingface-power-map.html": 3,
   "2026-09-01-a-share-tech-crash-analysis.html": 1,
@@ -114,16 +113,16 @@
   "2026-09-17-openai-agents-api-open-source.html": 3,
   "2026-09-22-ai-math-proof-ip-dispute.html": 15,
   "2026-09-22-iran-four-front-conflict.html": 24,
-  "2026-09-24-ai-product-convergence-creative.html": 19,
+  "2026-09-24-ai-product-convergence-creative.html": 7,
   "2026-09-29-ai-safety-growth-paradox.html": 6,
   "2026-09-29-global-rates-nuclear-bomb.html": 26,
   "2026-10-01-china-ai-valuation.html": 22,
   "2026-10-01-ai-agent-three-kingdoms.html": 35,
-  "2026-10-03-ai-embodied-intelligence.html": 79,
+  "2026-10-03-ai-embodied-intelligence.html": 21,
   "2026-10-03-ai-data-famine.html": 73,
   "2026-10-06-ai-employment-migration.html": 38,
   "2026-10-06-ai-carbon-footprint.html": 48,
-  "2026-10-08-ai-digital-twin.html": 6,
+  "2026-10-08-ai-digital-twin.html": 5,
   "2026-10-08-ai-open-source-war.html": 3,
   "2026-10-10-ai-everywhere.html": 22,
   "2026-10-10-ai-energy-crisis.html": 2,
@@ -135,10 +134,10 @@
   "2026-10-20-a-share-ice-and-fire.html": 5,
   "2026-10-20-policy-scissors-ai-plus-vs-export-control.html": 46,
   "2026-10-20-ai-rewired-first-workers.html": 3,
-  "2026-10-22-three-fuses-military-energy-currency.html": 7,
+  "2026-10-22-three-fuses-military-energy-currency.html": 5,
   "2026-10-22-ai-credit-contagion-chain.html": 5,
   "2026-10-24-meta-privacy-price-slider.html": 4,
-  "2026-10-24-three-hawkish-rate-tables.html": 29,
+  "2026-10-24-three-hawkish-rate-tables.html": 26,
   "2026-10-24-micron-taoyuan-strike-profit-sharing.html": 2,
   "2026-10-27-50m-ai-songs-out-of-recommendation.html": 3,
   "2026-10-27-three-prices-of-one-token.html": 1,
@@ -149,6 +148,6 @@
   "2-3:1 大字号不达标": 241,
   "<2:1 几乎不可读": 110
  },
- "total": 1763,
+ "total": 1665,
  "files_with_findings": 107
 }

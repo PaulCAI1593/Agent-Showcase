@@ -390,6 +390,174 @@ def fix_bounce_keyframes(html, findings, rule):
     new = edit_styles(html, fn)
     return new, ([] if new == html else [{'rule': 'bounce-easing', 'to': '收敛 bounce 过冲'}])
 
+
+def _px_of(val, unit):
+    try:
+        v = float(val)
+    except ValueError:
+        return None
+    if unit == 'px':
+        return v
+    if unit in ('rem', 'em'):
+        return v * 16.0          # 根字号近似 16px（em 相对父级，取近似）
+    if unit == 'pt':
+        return v * 1.3333
+    return None
+
+
+def fix_undersized_ui(html, findings, rule):
+    """过小字号 → 提到 11px 下限。
+
+    检测器报的是**计算后**的字号（如 9.6px / 10.4px）—— 源码里往往写成
+    0.6rem / 0.65em 这类相对单位，字面量匹配不到 → 必须按计算值反推。
+    """
+    floor = 11.0
+    def fn(block):
+        out = block
+        def repl(m):
+            val, unit = m.group(1), m.group(2)
+            px = _px_of(val, unit)
+            if px is None or px >= floor:
+                return m.group(0)
+            if unit in ('rem',):
+                newv = '%.4frem' % (floor / 16.0)
+            elif unit == 'em':
+                newv = '%.4fem' % (floor / 16.0)
+            else:
+                newv = '%gpx' % floor
+            return f'font-size:{newv}'
+        out = re.sub(r'font-size\s*:\s*([\d.]+)(px|rem|em|pt)\b', repl, out, flags=re.I)
+        return out
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'undersized-ui-text', 'to': '提到 11px'}])
+
+
+def fix_gradient_text_v2(html, findings, rule):
+    """渐变文字（background-clip:text）→ 改实色。
+
+    上一版要求「同一规则体内同时有 color:transparent」，实际作品常把 color 写在
+    另一条规则里 → 整类漏掉（实测 30 条一条没清）。
+    现在：命中 background-clip:text 的规则，直接给它补一个实色 color。
+    """
+    def fn(block):
+        out = block
+        def do_rule(m):
+            sel, body = m.group(1), m.group(2)
+            if not re.search(r'(-webkit-)?background-clip\s*:\s*text', body, re.I):
+                return m.group(0)
+            if re.search(r'color\s*:\s*transparent', body, re.I):
+                return m.group(0)
+            g = re.search(r'linear-gradient\(([^)]*)\)', body, re.I)
+            color = None
+            if g:
+                c = re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', g.group(1))
+                if c:
+                    color = c[0]
+            if not color:
+                return m.group(0)
+            return sel + '{' + body.rstrip().rstrip(';') + ';color:' + color + ' !important;}'
+        return re.sub(r'([^{}]+)\{([^{}]*)\}', do_rule, out)
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'gradient-text', 'to': '改实色'}])
+
+
+def _hex_to_hsl(rgb):
+    import colorsys
+    r, g, b = [c / 255.0 for c in rgb]
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    return h, s, l
+
+
+def _hsl_to_hex(h, s, l):
+    import colorsys
+    r, g, b = colorsys.hls_to_rgb(h, l, max(0.0, min(1.0, s)))
+    return '#%02x%02x%02x' % (int(r * 255 + .5), int(g * 255 + .5), int(b * 255 + .5))
+
+
+def _rel_lum(rgb):
+    def f(c):
+        c /= 255.0
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = (f(x) for x in rgb)
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def _contrast(a, b):
+    la, lb = _rel_lum(a), _rel_lum(b)
+    hi, lo = max(la, lb), min(la, lb)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def fix_gray_on_color(html, findings, rule):
+    """彩色底上的灰字 → 染上底色相（craft-floor：「never gray」）。
+
+    检测器直接给出配对：`text #b0b8c4 on bg #16213e` —— 实测 43 条全是同一对，
+    一次字面量替换即可全部解决。做法：把前景色的**色相**换成背景色的色相，
+    再微调亮度直到对比度达标（保持原有明暗关系）。
+    """
+    pairs = []
+    for f in findings:
+        m = re.search(r'text\s+(#[0-9a-fA-F]{3,6})\s+on\s+(#[0-9a-fA-F]{3,6})',
+                      f.get('snippet', ''))
+        if m:
+            pairs.append((m.group(1).lower(), m.group(2).lower()))
+    if not pairs:
+        return html, []
+    notes = []
+    for fg_hex, bg_hex in set(pairs):
+        fg = _hex_rgb(fg_hex)
+        bg = _hex_rgb(bg_hex)
+        if not fg or not bg:
+            continue
+        fh, fs, fl = _hex_to_hsl(fg)
+        bh, bs, bl = _hex_to_hsl(bg)
+        new_sat = max(fs, min(bs, 0.45))
+        best = None
+        for dl in [i / 100.0 for i in range(-100, 101)]:
+            cand_l = fl + dl * 0.9
+            if not (0.02 <= cand_l <= 0.98):
+                continue
+            cand = _hsl_to_hex(bh, new_sat, cand_l)
+            c = _hex_rgb(cand)
+            if c and _contrast(c, bg) >= 4.5:
+                best = cand
+                break
+        if not best:
+            continue
+        html2 = re.sub(re.escape(fg_hex), best, html, flags=re.I)
+        if html2 != html:
+            html = html2
+            notes.append({'from': fg_hex, 'to': best, 'bg': bg_hex})
+    return html, ([{'rule': 'gray-on-color', 'to': '染底色相'}] if notes else [])
+
+
+def _hex_rgb(h):
+    h = h.lstrip('#')
+    if len(h) == 3:
+        h = ''.join(c * 2 for c in h)
+    try:
+        return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+    except ValueError:
+        return None
+
+
+def fix_codex_grid_v2(html, findings, rule):
+    """两轴网格底纹 → 去掉（selector 未必是 class，元素选择器也算）。"""
+    classes = set()
+    for m in re.finditer(r'([^{}]{1,80}?)\s*\{[^}]*repeating-linear-gradient[^}]*repeating-linear-gradient',
+                         html, re.S):
+        sel = m.group(1).strip()
+        if sel and not sel.startswith('@'):
+            classes.add(sel.split(',')[0].strip())
+    if not classes:
+        return html, []
+    rules = '\n'.join(f'{c}{{background-image:none !important}}' for c in sorted(classes))
+    css = '/* codex-grid-background 修复 */\n' + rules + '\n'
+    i = html.rfind('</style>')
+    out = (html[:i] + css + html[i:]) if i > 0 else html + css
+    return out, [{'rule': 'codex-grid-background', 'to': '去除网格底纹',
+                  'selectors': sorted(classes)}]
+
 FIXERS = {
     'tiny-text': lambda h, f, r: fix_sizes(h, f, r),
     'undersized-ui-text': lambda h, f, r: fix_sizes(h, f, r),
@@ -403,6 +571,10 @@ FIXERS = {
     'cramped-padding': fix_cramped_padding,
     'codex-grid-background': fix_codex_grid,
     'bounce-easing': fix_bounce_keyframes,
+    'undersized-ui-text': fix_undersized_ui,
+    'gradient-text': fix_gradient_text_v2,
+    'gray-on-color': fix_gray_on_color,
+    'codex-grid-background': fix_codex_grid_v2,
 }
 
 
