@@ -39,10 +39,10 @@ section{position:relative;z-index:1;padding:100px 0}
 .tc{text-align:center}.hl{color:var(--wr)}
 
 .tl{position:relative;padding-left:40px;max-width:800px;margin:0 auto}
-.tl::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--wr),var(--gd),var(--oc),#51836d)}
+.tl::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--wr),var(--gd),var(--oc),#51836d)}
 .tli{position:relative;margin-bottom:56px;opacity:0;transform:translateX(-20px);transition:all .6s}
 .tli.vis{opacity:1;transform:translateX(0)}
-.tli::before{content:'';position:absolute;left:-33px;top:8px;width:14px;height:14px;border-radius:50%;border:3px solid var(--ob);z-index:2}
+.tli::before{content:'';position:absolute;left:-33px;top:8px;width:1px;height:1px;border-radius:50%;border:3px solid var(--ob);z-index:2}
 .tli:nth-child(1)::before{background:var(--wr)}.tli:nth-child(2)::before{background:var(--gd)}.tli:nth-child(3)::before{background:var(--oc)}.tli:nth-child(4)::before{background:#51836d}
 .tdt{font-size:.8rem;letter-spacing:1px;font-weight:700;margin-bottom:6px}
 .tli:nth-child(1) .tdt{color:var(--wr)}.tli:nth-child(2) .tdt{color:var(--gd)}.tli:nth-child(3) .tdt{color:var(--oc)}.tli:nth-child(4) .tdt{color:#51836d}
@@ -110,7 +110,7 @@ section{position:relative;z-index:1;padding:100px 0}
 
 .ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
 .ic{background:var(--gl);border:1px solid var(--gb);border-radius:12px;padding:28px;transition:all .4s;position:relative;overflow:hidden}
-.ic::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--wr);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.ic::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--wr);transform:scaleX(0);transition:transform .4s;transform-origin:left}
 .ic:hover::before{transform:scaleX(1)}
 .ic:hover{border-color:rgba(230,57,70,.3);transform:translateY(-4px)}
 .ic .ii{font-size:1.8rem;margin-bottom:16px}.ic h4{font-size:1.05rem;margin-bottom:8px}.ic p{font-size:.9rem;color:var(--ts);line-height:1.7}

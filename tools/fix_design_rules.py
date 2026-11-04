@@ -144,6 +144,11 @@ def fix_sizes(html, findings, rule):
             out, n = pat.subn(r'\g<1>' + new, out)
             if n:
                 changed.append({'from': s, 'to': new, 'count': n})
+            # font: 12px/1.4 ... 简写里的字号
+            pat2 = re.compile(r'(font\s*:\s*(?:[^;{}]*?))' + re.escape(s))
+            out, n2 = pat2.subn(r'\g<1>' + new, out)
+            if n2:
+                changed.append({'from': s, 'to': new, 'count': n2, 'via': 'font 简写'})
         return out
     return edit_styles(html, fn), changed
 
@@ -242,7 +247,7 @@ def fix_dark_glow(html, findings, rule):
         def repl_shadow(m):
             prop, body = m.group(1), m.group(2)
             # 只处理「0 偏移」的阴影（0 0 blur color）
-            if not re.match(r'\s*0\s+0\s+', body):
+            if not re.match(r'\s*0(?:px)?\s+0(?:px)?\s+', body):
                 return m.group(0)
             def col(mc):
                 d = _desat(mc.group(1))
@@ -250,13 +255,55 @@ def fix_dark_glow(html, findings, rule):
             nb = re.sub(r'(#[0-9a-fA-F]{3,8})', col, body)
             if nb == body:
                 return m.group(0)
-            nb = re.sub(r'^(\s*)0\s+0\s+', r'\g<1>0 2px ', nb)
+            nb = re.sub(r'^(\s*)0(?:px)?\s+0(?:px)?\s+', r'\g<1>0 2px ', nb)
             return f'{prop}: {nb}'
 
         out = re.sub(r'((?:box|text)-shadow)\s*:\s*([^;{}]+)', repl_shadow, out, flags=re.I)
         return out
     new = edit_styles(html, fn)
     return new, ([] if new == html else [{'rule': 'dark-glow', 'to': '中性化 + 偏移'}])
+
+
+
+def fix_border_accent_rounded(html, findings, rule):
+    """圆角元素上的粗边框 → 降到 1px（craft-floor：圆角与粗色边框相撞）。"""
+    def fn(block):
+        out = block
+
+        def do_rule(m):
+            sel, body = m.group(1), m.group(2)
+            if not re.search(r'border-radius\s*:\s*(\d+px|9999px|50%|\d+rem)', body, re.I):
+                return m.group(0)
+            nb = re.sub(r'border-(top|left|right|bottom)\s*:\s*([2-9]|\d{2,})px\s+(solid|dashed|double)',
+                         r'border-\1:1px \3', body, flags=re.I)
+            if nb == body:
+                return m.group(0)
+            return sel + '{' + nb + '}'
+
+        return re.sub(r'([^{}]+)\{([^{}]*)\}', do_rule, out)
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'border-accent-on-rounded', 'to': '1px'}])
+
+
+def fix_side_tab_pseudo(html, findings, rule):
+    """伪元素画的单侧粗条纹 → 降到 1px（AI 生成 UI 最易认的特征）。"""
+    def fn(block):
+        out = block
+
+        def do_rule(m):
+            sel, body = m.group(1), m.group(2)
+            if '::before' not in sel and '::after' not in sel:
+                return m.group(0)
+            if 'position' not in body or 'absolute' not in body:
+                return m.group(0)
+            nb = re.sub(r'(width|height)\s*:\s*([2-9]|\d{2,})px', r'\1:1px', body)
+            if nb == body:
+                return m.group(0)
+            return sel + '{' + nb + '}'
+
+        return re.sub(r'([^{}]+)\{([^{}]*)\}', do_rule, out)
+    new = edit_styles(html, fn)
+    return new, ([] if new == html else [{'rule': 'side-tab', 'to': '1px'}])
 
 
 FIXERS = {
@@ -267,6 +314,8 @@ FIXERS = {
     'gradient-text': fix_gradient_text,
     'side-tab': fix_side_tab,
     'dark-glow': fix_dark_glow,
+    'border-accent-on-rounded': fix_border_accent_rounded,
+    'side-tab': fix_side_tab_pseudo,
 }
 
 

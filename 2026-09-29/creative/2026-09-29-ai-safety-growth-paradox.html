@@ -95,7 +95,7 @@ section.glow{background:radial-gradient(ellipse at 50% 50%,rgba(0,212,255,.05),v
 }
 .narrative-card:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
 .narrative-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .3s;
 }
 .narrative-card:hover::before{opacity:1}
@@ -200,12 +200,12 @@ section.glow{background:radial-gradient(ellipse at 50% 50%,rgba(0,212,255,.05),v
 /* ═══════════════ TIMELINE ═══════════════ */
 .timeline{position:relative;padding-left:40px;margin-top:48px}
 .timeline::before{
-  content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;
+  content:'';position:absolute;left:14px;top:0;bottom:0;width:1px;
   background:linear-gradient(180deg,var(--accent),var(--accent2),var(--success));
 }
 .tl-item{position:relative;margin-bottom:48px;padding-left:32px}
 .tl-item::before{
-  content:'';position:absolute;left:-32px;top:6px;width:12px;height:12px;
+  content:'';position:absolute;left:-32px;top:6px;width:1px;height:1px;
   border-radius:50%;border:2px solid var(--accent);background:var(--deep);z-index:1;
 }
 .tl-item.active::before{background:var(--accent);box-shadow:0 0 12px rgba(0,212,255,.5)}

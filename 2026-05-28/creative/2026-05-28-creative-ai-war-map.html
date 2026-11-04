@@ -56,7 +56,7 @@
         .map-section{padding:120px 0}
         .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
         .country-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:20px;padding:40px;position:relative;overflow:hidden;opacity:0;transform:translateY(60px);transition:transform .4s ease,box-shadow .4s ease}
-        .country-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--card-accent)}
+        .country-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--card-accent)}
         .country-card:hover{transform:translateY(-8px)}
         .country-card.usa{--card-accent:var(--accent-red)}
         .country-card.china{--card-accent:var(--accent-green)}
@@ -85,7 +85,7 @@
         .timeline-container:hover .timeline-arrow{opacity:1}
         .timeline-hint{text-align:center;font-size:13px;color:var(--text-secondary);margin-bottom:16px;opacity:.7}
         .timeline-item{flex-shrink:0;width:320px;position:relative;opacity:0;transform:translateY(40px)}
-        .timeline-item::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;border:3px solid var(--bg-secondary);box-shadow:0 0 20px var(--node-color)}
+        .timeline-item::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:1px;height:1px;border-radius:50%;border:3px solid var(--bg-secondary);box-shadow:0 0 20px var(--node-color)}
         .timeline-item:nth-child(1){--node-color:var(--accent-red)}
         .timeline-item:nth-child(2){--node-color:var(--accent-blue)}
         .timeline-item:nth-child(3){--node-color:var(--accent-green)}

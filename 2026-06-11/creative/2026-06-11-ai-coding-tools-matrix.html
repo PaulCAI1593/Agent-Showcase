@@ -142,7 +142,7 @@
     overflow: hidden;
   }
   .product::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height:1px;
     background: var(--brand-color, var(--accent));
   }
   .product:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
@@ -367,7 +367,7 @@
   .timeline::before {
     content: ""; position: absolute;
     top: 0; bottom: 0; left: 50%;
-    width: 2px; background: var(--line-soft);
+    width:1px; background: var(--line-soft);
     transform: translateX(-50%);
   }
   .tl-item {
@@ -378,7 +378,7 @@
   .tl-item.right { left: 50%; text-align: left; }
   .tl-item::before {
     content: ""; position: absolute;
-    top: 36px; width: 12px; height: 12px; border-radius: 50%;
+    top: 36px; width:1px; height:1px; border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 0 4px #fff, 0 0 0 5px var(--accent);
   }
