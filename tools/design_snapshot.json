@@ -1,10 +1,10 @@
 {
- "ts": "2026-11-04 09:36:53",
+ "ts": "2026-11-04 09:43:44",
  "scope": "all",
  "scanned": 116,
  "by_rule": {
   "kicker-above-heading": 65,
-  "low-contrast": 1596,
+  "low-contrast": 1572,
   "cramped-padding": 99,
   "bounce-easing": 16,
   "overused-font": 10,
@@ -17,7 +17,7 @@
   "em-dash-overuse": 69,
   "numbered-section-labels": 49,
   "nested-cards": 10,
-  "gray-on-color": 46,
+  "gray-on-color": 52,
   "hero-eyebrow-chip": 15,
   "tight-leading": 6,
   "wide-tracking": 9,
@@ -34,8 +34,8 @@
   "radial-halo": 1
  },
  "by_severity": {
-  "warning": 2017,
-  "advisory": 571
+  "warning": 2013,
+  "advisory": 557
  },
  "by_file": {
   "2026-05-23-research-claude-codex-analysis.html": 1,
@@ -83,7 +83,7 @@
   "2026-08-11-capital-migration.html": 5,
   "2026-08-11-nonfarm-shock.html": 13,
   "2026-08-13-ai-earnings-dashboard.html": 15,
-  "2026-08-13-aisi-safety-assessment.html": 57,
+  "2026-08-13-aisi-safety-assessment.html": 58,
   "2026-08-15-hormuz-chokepoint.html": 6,
   "2026-08-15-tencent-ai-bet.html": 41,
   "2026-08-18-fcc-china-robot-ban.html": 13,
@@ -103,7 +103,7 @@
   "2026-09-03-ai-compute-explosion.html": 15,
   "2026-09-03-open-source-vs-closed-source-ai.html": 64,
   "2026-09-05-us-iran-conflict-simulator.html": 20,
-  "2026-09-05-deepseek-pricing-war.html": 60,
+  "2026-09-05-deepseek-pricing-war.html": 42,
   "2026-09-08-anti-fraud-ai-app.html": 7,
   "2026-09-08-ai-ultrasound-robot-surgery.html": 19,
   "2026-09-10-ai-model-fatigue.html": 6,
@@ -135,7 +135,7 @@
   "2026-10-15-memory-price-tsunami.html": 28,
   "2026-10-17-fda-genai-device-129-comments.html": 13,
   "2026-10-20-a-share-ice-and-fire.html": 10,
-  "2026-10-20-policy-scissors-ai-plus-vs-export-control.html": 58,
+  "2026-10-20-policy-scissors-ai-plus-vs-export-control.html": 57,
   "2026-10-20-ai-rewired-first-workers.html": 3,
   "2026-10-22-three-fuses-military-energy-currency.html": 11,
   "2026-10-22-ai-credit-contagion-chain.html": 11,
@@ -147,10 +147,10 @@
   "2026-11-03-ai-accelerator-crown-shift.html": 3
  },
  "contrast_bands": {
-  "3-4.5:1 正文不达标": 1062,
-  "2-3:1 大字号不达标": 345,
-  "<2:1 几乎不可读": 147
+  "3-4.5:1 正文不达标": 1060,
+  "2-3:1 大字号不达标": 320,
+  "<2:1 几乎不可读": 150
  },
- "total": 2588,
+ "total": 2570,
  "files_with_findings": 107
 }

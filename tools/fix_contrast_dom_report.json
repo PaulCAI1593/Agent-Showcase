@@ -1,0 +1,394 @@
+{
+ "improved": [
+  [
+   "2026-09-05/research/2026-09-05-deepseek-pricing-war.html",
+   106,
+   65
+  ],
+  [
+   "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html",
+   36,
+   13
+  ],
+  [
+   "2026-08-13/research/2026-08-13-aisi-safety-assessment.html",
+   53,
+   20
+  ]
+ ],
+ "reverted": [
+  [
+   "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+   145,
+   179
+  ],
+  [
+   "2026-09-22/research/2026-09-22-iran-four-front-conflict.html",
+   78,
+   111
+  ],
+  [
+   "2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
+   52,
+   209
+  ]
+ ],
+ "unverifiable": [],
+ "notes": {
+  "2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html": [
+   {
+    "from": "#6e6e73",
+    "to": "#747479",
+    "mode": "literal"
+   },
+   {
+    "from": "#6b7280",
+    "to": [
+     "#6e7583",
+     "#6a717f"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#b5b5b8",
+    "to": [
+     "#767678",
+     "#707072",
+     "#707072",
+     "#727274"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#757576",
+    "to": "#737374",
+    "mode": "literal"
+   },
+   {
+    "from": "#627c50",
+    "to": "#617b4f",
+    "mode": "literal"
+   },
+   {
+    "from": "#ffffff",
+    "to": "#8c8c8c",
+    "mode": "literal"
+   },
+   {
+    "from": "#85bbf2",
+    "to": [
+     "#6892bd",
+     "#6c97c4"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ef4444",
+    "to": [
+     "#d23c3c",
+     "#d73d3d"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#10b981",
+    "to": "#0fa875",
+    "mode": "literal"
+   },
+   {
+    "from": "#f59e0b",
+    "to": "#ce8509",
+    "mode": "literal"
+   },
+   {
+    "from": "#a8e06c",
+    "to": "#729849",
+    "mode": "literal"
+   },
+   {
+    "from": "#a7f3d0",
+    "to": "#527766",
+    "mode": "literal"
+   },
+   {
+    "from": "#34d399",
+    "to": "#1f7f5c",
+    "mode": "literal"
+   },
+   {
+    "from": "#fbbf24",
+    "to": "#8d6b14",
+    "mode": "literal"
+   }
+  ],
+  "2026-09-05/research/2026-09-05-deepseek-pricing-war.html": [
+   {
+    "from": "#fafafa",
+    "to": "#767676",
+    "mode": "literal"
+   },
+   {
+    "from": "#0071e3",
+    "to": [
+     "#0372e3",
+     "#006edc"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ff9500",
+    "to": [
+     "#ad6500",
+     "#a35f00",
+     "#d97f00"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#af52de",
+    "to": [
+     "#a64ed3",
+     "#9e4ac8"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#34c759",
+    "to": [
+     "#23873d",
+     "#217f39",
+     "#2ca94c"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ffffff",
+    "to": [
+     "#949494",
+     "#696969",
+     "#8c8c8c"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#86868b",
+    "to": [
+     "#6f6f73",
+     "#76767a",
+     "#939398"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ff3b30",
+    "to": "#d43128",
+    "mode": "literal"
+   },
+   {
+    "from": "#a1a1a6",
+    "to": [
+     "#aeaeb2",
+     "#6f6f73"
+    ],
+    "mode": "override"
+   }
+  ],
+  "2026-09-22/research/2026-09-22-iran-four-front-conflict.html": [
+   {
+    "from": "#fafafa",
+    "to": "#767676",
+    "mode": "literal"
+   },
+   {
+    "from": "#0071e3",
+    "to": [
+     "#0372e3",
+     "#006edc",
+     "#0070e1",
+     "#2686e7"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#86868b",
+    "to": [
+     "#76767a",
+     "#6f6f73"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#10b981",
+    "to": [
+     "#0c875e",
+     "#0b8059"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#e65100",
+    "to": "#b33f00",
+    "mode": "literal"
+   },
+   {
+    "from": "#d4a574",
+    "to": [
+     "#90704f",
+     "#886a4a"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#d2d2d7",
+    "to": [
+     "#767678",
+     "#6f6f72"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ff9800",
+    "to": [
+     "#ab6600",
+     "#a66300"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#ffc107",
+    "to": "#947004",
+    "mode": "literal"
+   },
+   {
+    "from": "#4a5568",
+    "to": "#7d8592",
+    "mode": "literal"
+   }
+  ],
+  "2026-10-06/research/2026-10-06-ai-carbon-footprint.html": [
+   {
+    "from": "#fafafa",
+    "to": "#767676",
+    "mode": "literal"
+   },
+   {
+    "from": "#0071e3",
+    "to": [
+     "#0372e3",
+     "#006edc"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#2d5016",
+    "to": "#627c50",
+    "mode": "literal"
+   },
+   {
+    "from": "#8b6914",
+    "to": "#917020",
+    "mode": "literal"
+   },
+   {
+    "from": "#6b7280",
+    "to": [
+     "#6e7583",
+     "#6a717f"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#d4a574",
+    "to": "#b48c63",
+    "mode": "literal"
+   },
+   {
+    "from": "#ffffff",
+    "to": "#666666",
+    "mode": "literal"
+   },
+   {
+    "from": "#c44536",
+    "to": "#c64c3e",
+    "mode": "literal"
+   },
+   {
+    "from": "#1d1d1f",
+    "to": "#757576",
+    "mode": "literal"
+   },
+   {
+    "from": "#9ca3af",
+    "to": "#727780",
+    "mode": "literal"
+   }
+  ],
+  "2026-10-20/creative/2026-10-20-policy-scissors-ai-plus-vs-export-control.html": [
+   {
+    "from": "#6e6e6f",
+    "to": [
+     "#787879",
+     "#7b7b7c",
+     "#7b7b7c",
+     "#6d6d6e"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#a89586",
+    "to": "#796b60",
+    "mode": "literal"
+   },
+   {
+    "from": "#8a7466",
+    "to": "#8e786b",
+    "mode": "literal"
+   },
+   {
+    "from": "#9a8578",
+    "to": "#847267",
+    "mode": "literal"
+   },
+   {
+    "from": "#7b6a60",
+    "to": "#86766d",
+    "mode": "literal"
+   }
+  ],
+  "2026-08-13/research/2026-08-13-aisi-safety-assessment.html": [
+   {
+    "from": "#fafafa",
+    "to": "#767676",
+    "mode": "literal"
+   },
+   {
+    "from": "#7497bc",
+    "to": [
+     "#5d7996",
+     "#58738f"
+    ],
+    "mode": "override"
+   },
+   {
+    "from": "#6b7280",
+    "to": "#6a717f",
+    "mode": "literal"
+   },
+   {
+    "from": "#9c6a64",
+    "to": "#94655f",
+    "mode": "literal"
+   },
+   {
+    "from": "#c44536",
+    "to": "#c64c3e",
+    "mode": "literal"
+   },
+   {
+    "from": "#d4a574",
+    "to": "#886a4a",
+    "mode": "literal"
+   }
+  ]
+ }
+}

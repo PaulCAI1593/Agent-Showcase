@@ -112,7 +112,7 @@ h3{font-size:23px;font-weight:650;line-height:1.2;letter-spacing:-.3px;}
 .cdeck .deck{color:var(--cold-ink2);} .cdeck .deck b{color:var(--cold-ink);}
 .wdeck .deck{color:var(--warm-ink2);} .wdeck .deck b{color:var(--warm-ink);}
 p{font-size:17px;line-height:1.68;max-width:900px;}
-.src{font-size:12px;color:#7b6a60;letter-spacing:.15px;margin-top:12px;line-height:1.6;}
+.src{font-size:12px;color:#86766d;letter-spacing:.15px;margin-top:12px;line-height:1.6;}
 .cstage .src,.cold .src{color:#7C8E9B;}
 
 /* paper (warm) */
@@ -147,8 +147,8 @@ p{font-size:17px;line-height:1.68;max-width:900px;}
 .warmdark .kpi .num{color:var(--warm-4);}
 .kpi .lb{font-size:13.5px;line-height:1.5;margin-top:11px;color:var(--warm-ink2);}
 .cold .kpi .lb{color:#93A3AF;} .warmdark .kpi .lb{color:#B9A396;}
-.kpi .sc{font-size:12px;letter-spacing:.4px;margin-top:9px;color:#A89586;opacity:.85;}
-.cold .kpi .sc{color:#6E8290;} .warmdark .kpi .sc{color:#8A7466;}
+.kpi .sc{font-size:12px;letter-spacing:.4px;margin-top:9px;color:#796b60;opacity:.85;}
+.cold .kpi .sc{color:#6E8290;} .warmdark .kpi .sc{color:#8e786b;}
 .kpi.hot .num{color:var(--warm-2);}
 
 /* ===== DEPLOY CARDS (file A) ===== */
@@ -293,7 +293,7 @@ p{font-size:17px;line-height:1.68;max-width:900px;}
 .jleft h3,.jright h3{font-size:19px;margin-bottom:8px;}
 .jgroup{margin-bottom:26px;}
 .jgroup .gl{font-size:12px;letter-spacing:1.7px;text-transform:uppercase;color:#897264;margin-bottom:11px;}
-.jgroup .hint{font-size:12.5px;color:#7b6a60;margin-top:7px;line-height:1.5;}
+.jgroup .hint{font-size:12.5px;color:#86766d;margin-top:7px;line-height:1.5;}
 input[type=range].rng{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:0;}
 input[type=range].rng::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--warm-2),var(--warm-3));}
 input[type=range].rng::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-7px;box-shadow:0 1px 6px rgba(0,0,0,.35);}
@@ -397,7 +397,15 @@ footer .disc{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,
 <div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><span class="sb-sep">/</span><span class="sb-date">2026-10-20</span><span class="sb-sep">/</span><span class="sb-beat">地缘与能源</span><span class="sb-sep">/</span><span class="sb-cnt">29 件 / 2026-10</span><span class="sb-sep">/</span><span class="sb-cnt sb-claims">19 条已验证断言</span><a class="sb-back" href="../../index.html">回到柜子</a></div>
 <style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* reveal */ .js .reveal{opacity:1!important;visibility:visible!important;transform:none!important}</style>
 <!-- showcase-backlink -->
-<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 对比度修复（页内取证生成） */
+script{color:#787879 !important}
+style{color:#787879 !important}
+div.full > p.deck > b{color:#7b7b7c !important}
+div.wrap > p.deck > b{color:#7b7b7c !important}
+div.wrap > p.deck > b{color:#7b7b7c !important}
+div.wrap > p.deck > b{color:#6d6d6e !important}
+</style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
 
@@ -1106,7 +1114,7 @@ footer .disc{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,
           <input class="rng" type="range" id="j-param" min="0" max="100" value="12" step="1" aria-label="模型参数量，单位万亿">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;">
             <span class="rngv" id="j-param-v">1.2 万亿</span>
-            <span style="font-size:11.5px;color:#9A8578;">红线：2 万亿</span>
+            <span style="font-size:11.5px;color:#847267;">红线：2 万亿</span>
           </div>
         </div>
 
@@ -1115,7 +1123,7 @@ footer .disc{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,
           <input class="rng" type="range" id="j-flop" min="0" max="100" value="30" step="1" aria-label="训练算力，10 的幂次">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;">
             <span class="rngv" id="j-flop-v">10²⁵·⁵ FLOPs</span>
-            <span style="font-size:11.5px;color:#9A8578;">红线：10²⁶</span>
+            <span style="font-size:11.5px;color:#847267;">红线：10²⁶</span>
           </div>
         </div>
 
@@ -1124,7 +1132,7 @@ footer .disc{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,
           <input class="rng" type="range" id="j-rank" min="1" max="40" value="18" step="1" aria-label="公开测评全球排名">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;">
             <span class="rngv" id="j-rank-v">第 18 名</span>
-            <span style="font-size:11.5px;color:#9A8578;">红线：前 10</span>
+            <span style="font-size:11.5px;color:#847267;">红线：前 10</span>
           </div>
         </div>
 
