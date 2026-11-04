@@ -119,7 +119,7 @@ def detect(path):
         return None
     cmd = [launcher, 'detect', path, '--json']
     try:
-        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=600)
+        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=900)
     except subprocess.TimeoutExpired:
         return None
     raw = p.stdout.strip()
@@ -191,7 +191,41 @@ def fix_white_rules(html, bg_hex, new_color):
     return RULE_RE.sub(do_block, html)
 
 
-def fix_one(path, dry=False, rounds=5):
+
+def _near(a, b):
+    """两个颜色是否足够接近（用来匹配同一背景色）。"""
+    try:
+        ca, cb = hex_to_rgb(a), hex_to_rgb(b)
+    except Exception:
+        return False
+    return sum(abs(x - y) for x, y in zip(ca, cb)) < 45
+
+
+def fix_rules_for_color(html, color, bg, new_color):
+    """**只改规则级**：在 <style> 内找「同一条规则里既声明了该文字色、又声明了
+    匹配背景色」的规则，改那一处的 color。
+
+    为什么不用全局字面量替换：同一颜色常被用在多种背景上（浅底上的正文 +
+    深底上的强调），全局改色会把另一半改坏 —— 实测 ai-agent-orchestration-wars
+    因此从 119 条涨到 373 条。规则级改写只碰「确实压在这个背景上」的那一条。
+    """
+    def do_block(m):
+        sel, body = m.group(1), m.group(2)
+        if not re.search(r'color\s*:\s*' + re.escape(color) + r'\b', body, re.I):
+            return m.group(0)
+        bgs = re.findall(r'background(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,6})', body)
+        if not bgs or not any(_near(b, bg) for b in bgs):
+            return m.group(0)          # 背景不在本规则内 → 不动（宁可留残余）
+        nb = re.sub(r'(color\s*:\s*)' + re.escape(color),
+                    r'\g<1>' + new_color, body, count=1, flags=re.I)
+        return sel + '{' + nb + '}'
+
+    def do_style(m):
+        return m.group(0)[:m.group(0).index('>') + 1] + RULE_RE.sub(do_block, m.group(1)) + '</style>'
+
+    return re.sub(r'<style[^>]*>(.*?)</style>', do_style, html, flags=re.S)
+
+def fix_one(path, dry=False, rounds=3):
     full = os.path.join(ROOT, path)
     if not os.path.exists(full):
         return {'path': path, 'error': '文件不存在'}
@@ -244,12 +278,25 @@ def fix_one(path, dry=False, rounds=5):
             break
         changed = False
         for old, new in mapping.items():
-            if is_light(old):
-                continue                      # 白色/浅色文字走规则定位
+            # 逐个背景做规则级改写：一个颜色可能压多种背景，逐背景分别定位
+            hit = False
+            for bg in {x['bg'] for x in lcs if x['text'] == old}:
+                html2 = fix_rules_for_color(html, old, bg, new)
+                if html2 != html:
+                    html = html2
+                    hit = True
+            if hit:
+                applied.append({'from': old, 'to': new, 'count': 'rule-scoped',
+                                'round': rnd + 1})
+                changed = True
+                continue
+            # 规则级定位不到（背景在祖先规则里）→ 退回全局替换。
+            # 现在有「终局 vs 原始」闸门兜底：文件整体变差就整件回退，最坏是不改。
             html2, n = replace_literal(html, old, new)
             if n:
                 html = html2
-                applied.append({'from': old, 'to': new, 'count': n, 'round': rnd + 1})
+                applied.append({'from': old, 'to': new, 'count': n, 'round': rnd + 1,
+                                'mode': 'global(有终局闸门兜底)'})
                 changed = True
         # 白色文字：按规则定位（同规则内既有浅底又有白字）
         whites = [x for x in lcs if is_light(x['text'])]
@@ -284,7 +331,13 @@ def fix_one(path, dry=False, rounds=5):
     #    累加后落在比原始更差的终点（同一颜色被用在多种背景上，全局替换把另一半改坏了）。
     #    没有这道闸门，工具会把「改过」当成「改好」。
     final = detect(path)
-    if final is not None:
+    if final is None:
+        # ⚠️ 终局复验拿不到结果（超时/不可用）→ **不许写盘**。
+        #    实测：大文件上 final detect 超时 → 闸门被跳过 → 坏状态直接落盘
+        #    （棘轮随后抓到 low-contrast +23）。「没验过」不等于「通过」。
+        applied.append({'rolled_back': True, 'reason': '终局复验超时/不可用，不写盘'})
+        html = orig
+    else:
         fin_lcs = low_contrast_findings(final)
         orig_findings = detect(path) if False else None
         orig_n = _orig_counts.get(path)

@@ -104,6 +104,7 @@ cd /app/working/shared/showcase && ./tools/autopublish.sh
 | `autotag.py` | 自动补标签 |
 | `claim_gate.py` | **断言闸门**：三道机器闸门 + 存量回填（见五-D） |
 | `inject_contracts.py` | **作品契约注入**：把已过闸门的断言（`enrich.json`）与追踪线（`manifest.json`）搬进缺声明的作品 HTML —— 只搬运不发明，逐条仍受闸门校验；幂等，`--dry-run` 只算不写 |
+| `fix_contrast.py` | **对比度机械修复**：跑 detect 解析出「文字色/背景色/比值」，按规则定位改写 CSS 颜色（先规则级，定位不到再退回全局替换）；**终局闸门**：与文件原始状态比，更差则整件回退 |
 | `design_scan.py` | **设计质量棘轮**：全馆跑 `impeccable detect`，与 `tools/design_baseline.json` 比对，**任何规则条数上升即判回归**（退出码 1）；`--update-baseline` 在有意改善后收紧 |
 
 > ⚠️ **「N 条已验证断言」的两个数不是一回事**（2026-11-03 起）

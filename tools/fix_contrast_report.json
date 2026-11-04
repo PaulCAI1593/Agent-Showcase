@@ -1,305 +1,68 @@
 [
  {
-  "path": "/app/working/shared/showcase/2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
-  "applied": [
-   {
-    "from": "#1d1d1f",
-    "to": "#7c7c7d",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#4a4a52",
-    "to": "#75757c",
-    "count": 1,
-    "round": 1
-   }
-  ],
-  "low_contrast_before": null,
-  "low_contrast_after": 18,
-  "worst_after": 2.4,
-  "changed": true
+  "path": "2026-07-11/research/2026-07-11-waic-2026-battleground.html",
+  "error": "文件不存在"
  },
  {
-  "path": "/app/working/shared/showcase/2026-07-04/research/2026-07-04-欧洲爆单与制冷供应链重构.html",
+  "path": "2026-07-02/research/2026-07-02-middle-east-powder-keg-2.html",
   "applied": [
    {
-    "from": "#c44536",
-    "to": "#cd6356",
-    "count": 2,
-    "round": 1
-   },
-   {
-    "from": "#5a8f3d",
-    "to": "#528238",
-    "count": 2,
-    "round": 1
+    "from": "#0071e3",
+    "to": "#0372e3",
+    "count": 1,
+    "round": 1,
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#d4a574",
-    "to": "#8a6b4b",
+    "to": "#886a4a",
     "count": 2,
-    "round": 1
-   },
-   {
-    "from": "#4a5568",
-    "to": "#6c7585",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#1d1d1f",
-    "to": "#757576",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#0071e3",
-    "to": "#0065ca",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ffffff",
-    "to": "#545454",
-    "count": "rule-scoped",
     "round": 1,
-    "bg": "#e8c49a"
-   }
-  ],
-  "low_contrast_before": null,
-  "low_contrast_after": 90,
-  "worst_after": 1.5,
-  "changed": true
- },
- {
-  "path": "/app/working/shared/showcase/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
-  "applied": [
-   {
-    "from": "#86868b",
-    "to": "#6f6f73",
-    "count": 7,
-    "round": 1
-   },
-   {
-    "from": "#34c759",
-    "to": "#23873d",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ff9500",
-    "to": "#a35f00",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ff3b30",
-    "to": "#d43128",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#1d1d1f",
-    "to": "#757576",
-    "count": 3,
-    "round": 1
-   },
-   {
-    "from": "#0071e3",
-    "to": "#006edc",
-    "count": 2,
-    "round": 1
-   }
-  ],
-  "low_contrast_before": null,
-  "low_contrast_after": 66,
-  "worst_after": 3.1,
-  "changed": true
- },
- {
-  "path": "/app/working/shared/showcase/2026-08-18/research/2026-08-18-open-source-model-showdown.html",
-  "applied": [
-   {
-    "from": "#86868b",
-    "to": "#6e6e72",
-    "count": 7,
-    "round": 1
-   },
-   {
-    "from": "#34c759",
-    "to": "#23873d",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ff9500",
-    "to": "#ad6500",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#6e6e73",
-    "to": "#747479",
-    "count": 2,
-    "round": 1
-   },
-   {
-    "from": "#1d1d1f",
-    "to": "#757576",
-    "count": 3,
-    "round": 1
-   }
-  ],
-  "low_contrast_before": null,
-  "low_contrast_after": 65,
-  "worst_after": 3.3,
-  "changed": true
- },
- {
-  "path": "/app/working/shared/showcase/2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
-  "applied": [
-   {
-    "from": "#6e6e73",
-    "to": "#747479",
-    "count": 1,
-    "round": 1
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#86868b",
-    "to": "#6f6f73",
-    "count": 3,
-    "round": 1
-   },
-   {
-    "from": "#0071e3",
-    "to": "#006ad5",
+    "to": "#ffffff",
     "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#e65100",
-    "to": "#c44500",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#2e7d32",
-    "to": "#296f2c",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#c62828",
-    "to": "#b62525",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#f57f17",
-    "to": "#ae5a10",
-    "count": 1,
-    "round": 1
+    "round": 1,
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#c44536",
-    "to": "#be4334",
+    "to": "#b84133",
     "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#1d1d1f",
-    "to": "#757576",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#a1a1a6",
-    "to": "#767679",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#4a5568",
-    "to": "#7d8592",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ffffff",
-    "to": "#737373",
-    "count": "rule-scoped",
     "round": 1,
-    "bg": "#f9fafb"
-   }
-  ],
-  "low_contrast_before": null,
-  "low_contrast_after": 346,
-  "worst_after": 0.0,
-  "changed": true
- },
- {
-  "path": "/app/working/shared/showcase/2026-10-06/research/2026-10-06-ai-carbon-footprint.html",
-  "applied": [
-   {
-    "from": "#0071e3",
-    "to": "#0d78e4",
-    "count": 1,
-    "round": 1
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#2d5016",
     "to": "#667f55",
     "count": 1,
-    "round": 1
+    "round": 1,
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#8b6914",
     "to": "#9c7f37",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#6b7280",
-    "to": "#747a88",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#d4a574",
-    "to": "#90704f",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#c44536",
-    "to": "#c64c3e",
-    "count": 1,
-    "round": 1
+    "count": 2,
+    "round": 1,
+    "mode": "global(有终局闸门兜底)"
    },
    {
     "from": "#1d1d1f",
-    "to": "#777779",
+    "to": "#f6f6f6",
     "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#9ca3af",
-    "to": "#727780",
-    "count": 1,
-    "round": 1
-   },
-   {
-    "from": "#ffffff",
-    "to": "#545454",
-    "count": "rule-scoped",
     "round": 1,
-    "bg": "#e8c4a0"
+    "mode": "global(有终局闸门兜底)"
    }
   ],
   "low_contrast_before": null,
-  "low_contrast_after": 88,
-  "worst_after": 1.6,
+  "low_contrast_after": 52,
+  "worst_after": 1.1,
   "changed": true
+ },
+ {
+  "path": "2026-09-22/research/2026-09-22-ai-math-proof-ip-dispute.html",
+  "error": "文件不存在"
  }
 ]
