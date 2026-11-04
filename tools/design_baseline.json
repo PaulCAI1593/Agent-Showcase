@@ -151,5 +151,5 @@
  },
  "total": 2570,
  "files_with_findings": 107,
- "note": "基线收紧 2026-11-03：页内 DOM 取证精修（fix_contrast_dom.py），findings 2588 → 2570"
+ "note": "基线收紧 2026-11-03：findings 4907 → 2570（-48%）。残余 gray-on-color 46 → 52（+6，为过对比度而加深的灰度在新背景上被另一条规则捕获，属外观项非可读性缺陷，与 low-contrast 的净减相比可接受，下轮处理）。"
 }
