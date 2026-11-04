@@ -1,0 +1,11 @@
+[
+  {"old": "<h4 style=\"color:#10B981;\">✅ 正面数据</h4>",
+   "new": "<h4 style=\"color:#0c865d;\">✅ 正面数据</h4>", "count": 1},
+  {"old": "<h4 style=\"color:#EF4444;\">⚠️ 风险信号</h4>",
+   "new": "<h4 style=\"color:#d53d3d;\">⚠️ 风险信号</h4>", "count": 1},
+  {"old": "<p style=\"font-size:14px;color:#86868b;margin-bottom:20px;\">",
+   "new": "<p style=\"font-size:14px;color:#6e6e73;margin-bottom:20px;\">", "count": 1},
+  {"old": ".section-dark .card p { color: var(--graphite); }",
+   "new": ".section-dark .card p { color: var(--graphite); }\n.section-dark .quote { color: var(--white); }",
+   "count": 1}
+]

@@ -1,0 +1,28 @@
+[
+  {"old": "  --apple-blue: #0071e3;", "new": "  --apple-blue: #0066cc;", "count": 1},
+  {"old": "  --success-green: #2e7d32;", "new": "  --success-green: #266b2a;", "count": 1},
+  {"old": "  --accent-amber: #ff9500;", "new": "  --accent-amber: #9f5d00;", "count": 1},
+
+  {"old": ".data-table {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--white);",
+   "new": ".data-table {\n  width: 100%;\n  border-collapse: collapse;\n  background: var(--white);\n  color: var(--near-black);",
+   "count": 1},
+  {"old": ".data-table tr:hover td { background: var(--bg-card); }",
+   "new": ".data-table tr:hover td { background: var(--bg-card); color: var(--near-black); }",
+   "count": 1},
+
+  {"old": ".bar-value {\n  position: absolute;\n  top: -22px;\n  left: 50%;\n  transform: translateX(-50%);\n  font-size: 11px;\n  font-weight: 600;\n  color: var(--near-black);\n  white-space: nowrap;\n}",
+   "new": ".bar-value {\n  position: absolute;\n  top: -22px;\n  left: 50%;\n  transform: translateX(-50%);\n  font-size: 11px;\n  font-weight: 600;\n  color: var(--near-black);\n  background: var(--white);\n  white-space: nowrap;\n}",
+   "count": 1},
+
+  {"old": ".sector-tile.hot { background: linear-gradient(135deg, #d70015, #ff3b30); }\n.sector-tile.warm { background: linear-gradient(135deg, #ff9500, #ffb340); }\n.sector-tile.cool { background: linear-gradient(135deg, #5d5d6f, #86868b); }\n.sector-tile.cold { background: linear-gradient(135deg, #0071e3, #4a9eff); }\n.sector-tile.ice { background: linear-gradient(135deg, #2e7d32, #66bb6a); }",
+   "new": ".sector-tile.hot { background: linear-gradient(135deg, #d40015, #c92f26); }\n.sector-tile.warm { background: linear-gradient(135deg, #9e5c00, #8e6424); }\n.sector-tile.cool { background: linear-gradient(135deg, #5d5d6f, #6c6c70); }\n.sector-tile.cold { background: linear-gradient(135deg, #0069d3, #336eb1); }\n.sector-tile.ice { background: linear-gradient(135deg, #2d7b31, #417844); }",
+   "count": 1},
+
+  {"old": ".sector-note {\n  font-size: 11px;\n  opacity: 0.85;\n  margin-top: 6px;\n  line-height: 1.3;\n}",
+   "new": ".sector-note {\n  font-size: 11px;\n  opacity: 1;\n  color: rgba(255,255,255,0.9);\n  margin-top: 6px;\n  line-height: 1.3;\n}",
+   "count": 1},
+
+  {"old": "<div class=\"callout-text\" style=\"color: #d1d1d6;\">",
+   "new": "<div class=\"callout-text\" style=\"color: var(--near-black);\">",
+   "count": 1}
+]

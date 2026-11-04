@@ -1,0 +1,5 @@
+[
+  {"old": "  .sector-grid { grid-template-columns: repeat(2, 1fr); }\n}\n</style>",
+   "new": "  .sector-grid { grid-template-columns: repeat(2, 1fr); }\n}\n\n/* ==================== 对比度修正（页内 DOM 取证生成） ====================\n   背景：#86868b 在浅底仅 3.3–3.6:1（WCAG AA 需 4.5:1），#0071e3 在纯黑底仅 4.47:1。\n   浅底正文改用 #6e6e73（白底 5.1:1 / #f5f5f7 4.7:1 / #fafafa 4.9:1），\n   深底（.hero / .section-dark）保留原灰 #86868b（黑底 5.8:1）。 */\nbody { --mid-gray: #6e6e73; }\n.hero, .section-dark { --mid-gray: #86868b; }\n/* 深底上的苹果蓝提亮至 #0a7cff（黑底 5.3:1） */\n.hero-eyebrow, .press-release-eyebrow, .section-dark .section-eyebrow { color: #0a7cff; }\n</style>",
+   "count": 1}
+]

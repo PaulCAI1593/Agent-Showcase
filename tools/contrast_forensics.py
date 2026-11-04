@@ -36,6 +36,7 @@ INSPECT_JS = r"""
   const lum = (c) => { const s = c.map(v => { v/=255; return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); });
     return 0.2126*s[0] + 0.7152*s[1] + 0.0722*s[2]; };
   const parse = (s) => { const m = s.match(/[\d.]+/g); return m ? m.map(Number) : null; };
+  const hexParse = (h) => { const m = h.replace('#','').match(/../g); return m ? m.map(x => parseInt(x,16)) : null; };
   const bgOf = (el) => { let n = el;
     while (n && n !== document.documentElement) { const c = getComputedStyle(n).backgroundColor;
       const p = parse(c); if (p && (p[3] === undefined || p[3] > 0.9)) return c; n = n.parentElement; }
@@ -103,14 +104,33 @@ INSPECT_JS = r"""
     const big = fs >= 24 || (fs >= 18.66 && fw >= 700);
     const need = big ? 3 : 4.5;
     const grad = gradOf(el);
-    if (cr >= need && !grad) return;
     const owner = bgOwner(el);
+    // 元素自带不透明底 → 它就是真正的底，忽略祖先渐变
+    const ownBg = parse(getComputedStyle(el).backgroundColor);
+    const ownOpaque = ownBg && (ownBg[3] === undefined || ownBg[3] > 0.9);
+    const g = ownOpaque ? null : grad;
+    let gcr = null, gstop = null;
+    if (g) {
+      const sa = (cs.color.match(/[\d.]+/g) || []).map(Number);
+      const ta = (sa.length > 3 ? sa[3] : 1) * parseFloat(cs.opacity);
+      for (const st of g.stops) {
+        const s = hexParse(st);
+        if (!s) continue;
+        const comp = [0,1,2].map(i => ta * sa[i] + (1 - ta) * s[i]);
+        const Lc = lum(comp), Ls = lum(s.slice(0,3));
+        const c2 = (Math.max(Lc,Ls)+0.05)/(Math.min(Lc,Ls)+0.05);
+        if (gcr === null || c2 < gcr) { gcr = c2; gstop = st; }
+      }
+    }
+    const real = g ? gcr : cr;
+    if (real >= need) return;
     out.push({sel: uniq(el), tag: el.tagName.toLowerCase(),
               cls: cls(el), own: own(el),
               ctx: own(owner), ctxTag: owner.tagName.toLowerCase(),
-              fg, bg, cr: +cr.toFixed(2), need,
+              fg, bg, cr: +real.toFixed(2), need,
+              gcr: gcr === null ? null : +gcr.toFixed(2), gstop: gstop,
               fs: cs.fontSize, fw: fw, big: big,
-              grad: grad ? grad.stops : null, gradOwner: grad ? grad.owner : null,
+              grad: g ? g.stops : null, gradOwner: g ? g.owner : null,
               txt: txt.slice(0,26)});
   });
   return out;

@@ -1,0 +1,5 @@
+[
+  {"old": "@media (max-width: 768px) {\n  h1 { font-size: 36px; }",
+   "new": "/* ==================== 对比度修正（页内 DOM 取证生成） ====================\n   1) 暗色卡片（section-dark 内的白卡）里的正文回落为 graphite\n   2) 页脚的 p 继承 p{color:graphite}，在近黑底上仅 2.2:1\n   3) 深色卡片里的表格悬停底改为深色（原 #f9fafb 会让 #b0bec5 正文变 1.8:1） */\n.section-dark .card p { color: var(--graphite); }\n.footer p { color: #86868b; }\n.card[style*=\"near-black\"] tr:hover td { background: #2a2a3d; color: #b0bec5; }\n\n@media (max-width: 768px) {\n  h1 { font-size: 36px; }",
+   "count": 1}
+]

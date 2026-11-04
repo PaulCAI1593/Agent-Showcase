@@ -8,14 +8,14 @@
 <style>
 :root {
   --black: #000000;
-  --near-black: #757576;
+  --near-black: #6f6f70;
   --light-gray: #f5f5f7;
   --white: #ffffff;
   --forest: #2D5016;
   --grass: #528238;
   --amber: #8a6b4b;
-  --cinnabar: #cd6356;
-  --graphite: #6c7585;
+  --cinnabar: #a04d43;
+  --graphite: #67707f;
   --mint: #F7F9F4;
   --apple-blue: #0065ca;
   --link-blue: #0066cc;
@@ -659,14 +659,19 @@ body {
   transition: width 1s ease-out;
 }
 
-.risk-bar-fill.high { background: linear-gradient(90deg, #cd6356, #E05A4B); }
-.risk-bar-fill.medium { background: linear-gradient(90deg, #8a6b4b, #E8C49A); }
-.risk-bar-fill.low { background: linear-gradient(90deg, #528238, #7AB648); }
+.risk-bar-fill.high { background: linear-gradient(90deg, #b8594d, #c54f42); }
+.risk-bar-fill.medium { background: linear-gradient(90deg, #8a6b4b, #877259); }
+.risk-bar-fill.low { background: linear-gradient(90deg, #528138, #568033); }
+
+/* ===== 对比度修正（页内 DOM 取证生成） =====
+   1) 琥珀 #8a6b4b 与草绿 #528238 在近黑底（hero / 深色章节）仅 3.5–4.3:1，深底改用提亮值
+   2) 朱砂 #cd6356 在浅底（白卡 / 粉底标签）仅 3.0–3.8:1，浅底改用 #a04d43，深底保留原色 */
+.hero, .section-dark { --amber: #9a7f64; --grass: #65904d; --cinnabar: #cd6356; }
 
 /* ===== FOOTER ===== */
 .report-footer {
   background: var(--black);
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.6);
   padding: 60px 40px;
   text-align: center;
   font-size: 12px;
@@ -677,7 +682,7 @@ body {
   max-width: 600px;
   margin: 0 auto 24px;
   font-size: 12px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.5);
   line-height: 1.6;
 }
 

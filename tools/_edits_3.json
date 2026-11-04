@@ -1,0 +1,26 @@
+[
+  {"old": "  --near-black: #757576;", "new": "  --near-black: #6f6f70;", "count": 1},
+  {"old": "  --graphite: #6c7585;", "new": "  --graphite: #67707f;", "count": 1},
+  {"old": "  --cinnabar: #cd6356;", "new": "  --cinnabar: #a04d43;", "count": 1},
+
+  {"old": ".report-footer {\n  background: var(--black);\n  color: rgba(255,255,255,0.4);",
+   "new": ".report-footer {\n  background: var(--black);\n  color: rgba(255,255,255,0.6);",
+   "count": 1},
+  {"old": ".report-footer .disclaimer {\n  max-width: 600px;\n  margin: 0 auto 24px;\n  font-size: 12px;\n  color: rgba(255,255,255,0.3);",
+   "new": ".report-footer .disclaimer {\n  max-width: 600px;\n  margin: 0 auto 24px;\n  font-size: 12px;\n  color: rgba(255,255,255,0.5);",
+   "count": 1},
+
+  {"old": ".risk-bar-fill.high { background: linear-gradient(90deg, #cd6356, #E05A4B); }",
+   "new": ".risk-bar-fill.high { background: linear-gradient(90deg, #b8594d, #c54f42); }",
+   "count": 1},
+  {"old": ".risk-bar-fill.medium { background: linear-gradient(90deg, #8a6b4b, #E8C49A); }",
+   "new": ".risk-bar-fill.medium { background: linear-gradient(90deg, #8a6b4b, #877259); }",
+   "count": 1},
+  {"old": ".risk-bar-fill.low { background: linear-gradient(90deg, #528238, #7AB648); }",
+   "new": ".risk-bar-fill.low { background: linear-gradient(90deg, #528138, #568033); }",
+   "count": 1},
+
+  {"old": "/* ===== FOOTER ===== */",
+   "new": "/* ===== 对比度修正（页内 DOM 取证生成） =====\n   1) 琥珀 #8a6b4b 与草绿 #528238 在近黑底（hero / 深色章节）仅 3.5–4.3:1，深底改用提亮值\n   2) 朱砂 #cd6356 在浅底（白卡 / 粉底标签）仅 3.0–3.8:1，浅底改用 #a04d43，深底保留原色 */\n.hero, .section-dark { --amber: #9a7f64; --grass: #65904d; --cinnabar: #cd6356; }\n\n/* ===== FOOTER ===== */",
+   "count": 1}
+]

@@ -21,7 +21,7 @@
   --graphite: #4A5568;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; color: var(--near-black); line-height: 1.47; -webkit-font-smoothing: antialiased; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; color: var(--near-black); background: var(--white); line-height: 1.47; -webkit-font-smoothing: antialiased; }
 .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 h1 { font-size: 56px; font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; }
 h2 { font-size: 40px; font-weight: 600; line-height: 1.1; margin-bottom: 20px; }
@@ -31,7 +31,7 @@ p { font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; margin-bottom:
 .hero { background: var(--black); color: var(--white); padding: 120px 0 100px; text-align: center; }
 .hero h1 { color: var(--white); margin-bottom: 16px; }
 .hero .subtitle { font-size: 21px; color: #86868b; font-weight: 400; line-height: 1.38; letter-spacing: 0.011em; max-width: 700px; margin: 0 auto 24px; }
-.hero .meta { font-size: 14px; color: #6e6e73; }
+.hero .meta { font-size: 14px; color: #86868b; }
 .section-light { background: var(--light-gray); padding: 80px 0; }
 .section-white { background: var(--white); padding: 80px 0; }
 .section-dark { background: var(--black); color: var(--white); padding: 80px 0; }
@@ -40,25 +40,25 @@ p { font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; margin-bottom:
 .highlight { color: var(--apple-blue); }
 .badge { display: inline-block; padding: 4px 12px; border-radius: 980px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .badge-green { background: #e8f5e9; color: var(--forest); }
-.badge-blue { background: #e3f2fd; color: var(--apple-blue); }
-.badge-amber { background: #fff3e0; color: #e65100; }
-.badge-red { background: #ffebee; color: var(--vermilion); }
+.badge-blue { background: #e3f2fd; color: #006ad4; }
+.badge-amber { background: #fff3e0; color: #c34500; }
+.badge-red { background: #ffebee; color: #bd4234; }
 .badge-purple { background: #f3e5f5; color: #7b1fa2; }
 .card { background: var(--white); border-radius: 18px; padding: 32px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 32px 0; }
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 40px 0; }
 .stat { text-align: center; padding: 24px; }
 .stat-number { font-size: 48px; font-weight: 700; color: var(--apple-blue); line-height: 1; margin-bottom: 8px; letter-spacing: -1px; }
-.stat-label { font-size: 14px; color: #86868b; font-weight: 500; }
+.stat-label { font-size: 14px; color: #6e6e73; font-weight: 500; }
 table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 15px; }
 th { background: var(--near-black); color: var(--white); padding: 14px 16px; text-align: left; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
 td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
-tr:hover td { background: #f9fafb; }
+tr:hover td { background: #f9fafb; color: var(--near-black); }
 .chart-bar { display: flex; align-items: center; margin: 8px 0; }
 .chart-label { width: 160px; font-size: 14px; font-weight: 500; flex-shrink: 0; }
 .chart-fill { height: 28px; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 13px; font-weight: 600; color: white; min-width: 60px; transition: width 0.6s ease; }
 .insight-box { background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%); border-left:1px solid var(--apple-blue); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
-.insight-box strong { color: var(--apple-blue); }
+.insight-box strong { color: #006bd7; }
 .warning-box { background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%); border-left:1px solid #f59e0b; border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 24px 0; }
 .verdict { background: var(--near-black); color: var(--white); border-radius: 18px; padding: 40px; margin: 32px 0; }
 .verdict h3 { color: var(--apple-blue); }
@@ -77,13 +77,22 @@ tr:hover td { background: #f9fafb; }
 .framework-header { padding: 24px 32px; color: var(--white); }
 .framework-body { padding: 24px 32px; }
 .lg-header { background: linear-gradient(135deg, #1a1a2e, #16213e); }
-.crew-header { background: linear-gradient(135deg, #2D5016, #5A8F3D); }
-.ag-header { background: linear-gradient(135deg, #0078d4, #005a9e); }
+.crew-header { background: linear-gradient(135deg, #2D5016, #4a7630); }
+.ag-header { background: linear-gradient(135deg, #0066c0, #005a9e); }
 .sk-header { background: linear-gradient(135deg, #5c2d91, #3b1a6e); }
 .score { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-weight: 700; font-size: 16px; margin-right: 6px; }
-.score-high { background: #c8e6c9; color: #2e7d32; }
-.score-mid { background: #fff9c4; color: #f57f17; }
-.score-low { background: #ffcdd2; color: #c62828; }
+.score-high { background: #c8e6c9; color: #296f2c; }
+.score-mid { background: #fff9c4; color: #ad5a10; }
+.score-low { background: #ffcdd2; color: #b52424; }
+/* ==================== 对比度修正（页内 DOM 取证生成） ====================
+   1) 暗色卡片（section-dark 内的白卡）里的正文回落为 graphite
+   2) 页脚的 p 继承 p{color:graphite}，在近黑底上仅 2.2:1
+   3) 深色卡片里的表格悬停底改为深色（原 #f9fafb 会让 #b0bec5 正文变 1.8:1） */
+.section-dark .card p { color: var(--graphite); }
+.section-dark .quote { color: var(--white); }
+.footer p { color: #86868b; }
+.card[style*="near-black"] tr:hover td { background: #2a2a3d; color: #b0bec5; }
+
 @media (max-width: 768px) {
   h1 { font-size: 36px; }
   h2 { font-size: 28px; }
@@ -135,7 +144,7 @@ tr:hover td { background: #f9fafb; }
 
 <div class="quote">
   "Agent = Model + Harness。如果你不是模型，你就是Harness。"<br>
-  <span style="font-size:15px;font-style:normal;color:#86868b;">——LangChain 2026</span>
+  <span style="font-size:15px;font-style:normal;color:#6e6e73;">——LangChain 2026</span>
 </div>
 
 <div class="stat-grid">
@@ -239,7 +248,7 @@ tr:hover td { background: #f9fafb; }
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div>
         <h3 style="color:white;margin:0;font-size:28px;">🔬 LangGraph</h3>
-        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">图驱动 · 生产级状态机 · LangChain Inc.</p>
+        <p style="color:rgba(255,255,255,0.92);margin:4px 0 0;font-size:15px;">图驱动 · 生产级状态机 · LangChain Inc.</p>
       </div>
       <div style="text-align:right;">
         <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 40.3K Stars</span>
@@ -278,11 +287,11 @@ tr:hover td { background: #f9fafb; }
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div>
         <h3 style="color:white;margin:0;font-size:28px;">👥 CrewAI</h3>
-        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">角色驱动 · 团队协作隐喻 · CrewAI Inc.</p>
+        <p style="color:rgba(255,255,255,0.92);margin:4px 0 0;font-size:15px;">角色驱动 · 团队协作隐喻 · CrewAI Inc.</p>
       </div>
       <div style="text-align:right;">
-        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 55.1K Stars</span>
-        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">v1.10.1</span>
+        <span class="badge" style="background:rgba(0,0,0,0.38);color:#fff;">⭐ 55.1K Stars</span>
+        <span class="badge" style="background:rgba(0,0,0,0.38);color:#fff;">v1.10.1</span>
       </div>
     </div>
   </div>
@@ -318,12 +327,12 @@ tr:hover td { background: #f9fafb; }
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div>
         <h3 style="color:white;margin:0;font-size:28px;">🏢 Microsoft Agent Framework</h3>
-        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">企业统一SDK · Semantic Kernel + AutoGen合并 · Microsoft</p>
+        <p style="color:rgba(255,255,255,0.92);margin:4px 0 0;font-size:15px;">企业统一SDK · Semantic Kernel + AutoGen合并 · Microsoft</p>
       </div>
       <div style="text-align:right;">
-        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">⭐ 11.9K Stars</span>
-        <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">v1.0 GA</span>
-        <span class="badge" style="background:#ff6b6b;color:white;">2026.04 发布</span>
+        <span class="badge" style="background:rgba(0,0,0,0.38);color:#fff;">⭐ 11.9K Stars</span>
+        <span class="badge" style="background:rgba(0,0,0,0.38);color:#fff;">v1.0 GA</span>
+        <span class="badge" style="background:#c15151;color:white;">2026.04 发布</span>
       </div>
     </div>
   </div>
@@ -355,10 +364,10 @@ tr:hover td { background: #f9fafb; }
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div>
         <h3 style="color:white;margin:0;font-size:28px;">💬 AutoGen（已合并）</h3>
-        <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:15px;">对话驱动 · 多Agent协商 · Microsoft Research → 维护模式</p>
+        <p style="color:rgba(255,255,255,0.92);margin:4px 0 0;font-size:15px;">对话驱动 · 多Agent协商 · Microsoft Research → 维护模式</p>
       </div>
       <div style="text-align:right;">
-        <span class="badge" style="background:#ff6b6b;color:white;">⚠️ 维护模式</span>
+        <span class="badge" style="background:#c15151;color:white;">⚠️ 维护模式</span>
         <span class="badge" style="background:rgba(255,255,255,0.2);color:white;">59.6K Stars (Legacy)</span>
       </div>
     </div>
@@ -403,11 +412,11 @@ tr:hover td { background: #f9fafb; }
 <div style="margin:24px 0;">
   <div class="chart-bar">
     <div class="chart-label">AutoGen (Legacy)</div>
-    <div class="chart-fill" style="width:90%;background:linear-gradient(90deg,#0078d4,#005a9e);">59.6K</div>
+    <div class="chart-fill" style="width:90%;background:linear-gradient(90deg,#0066c0,#005a9e);">59.6K</div>
   </div>
   <div class="chart-bar">
     <div class="chart-label">CrewAI</div>
-    <div class="chart-fill" style="width:83%;background:linear-gradient(90deg,#2D5016,#5A8F3D);">55.1K</div>
+    <div class="chart-fill" style="width:83%;background:linear-gradient(90deg,#2D5016,#4a7630);">55.1K</div>
   </div>
   <div class="chart-bar">
     <div class="chart-label">LangGraph</div>
@@ -415,11 +424,11 @@ tr:hover td { background: #f9fafb; }
   </div>
   <div class="chart-bar">
     <div class="chart-label">Agno</div>
-    <div class="chart-fill" style="width:62%;background:linear-gradient(90deg,#6366f1,#4f46e5);">41.1K</div>
+    <div class="chart-fill" style="width:62%;background:linear-gradient(90deg,#6164ed,#4f46e5);">41.1K</div>
   </div>
   <div class="chart-bar">
     <div class="chart-label">Google ADK</div>
-    <div class="chart-fill" style="width:31%;background:linear-gradient(90deg,#4285f4,#34a853);">20.5K</div>
+    <div class="chart-fill" style="width:31%;background:linear-gradient(90deg,#3973d3,#298642);">20.5K</div>
   </div>
   <div class="chart-bar">
     <div class="chart-label">MS Agent Framework</div>
@@ -439,11 +448,11 @@ tr:hover td { background: #f9fafb; }
   </div>
   <div class="chart-bar">
     <div class="chart-label">CrewAI</div>
-    <div class="chart-fill" style="width:15%;background:#5A8F3D;">5.2M</div>
+    <div class="chart-fill" style="width:15%;background:#4a7630;">5.2M</div>
   </div>
   <div class="chart-bar">
     <div class="chart-label">Google ADK</div>
-    <div class="chart-fill" style="width:9%;background:#4285f4;">3.3M</div>
+    <div class="chart-fill" style="width:9%;background:#3973d3;">3.3M</div>
   </div>
 </div>
 
@@ -552,9 +561,9 @@ tr:hover td { background: #f9fafb; }
   <p style="color:#b0bec5;">对比单Agent vs. 编排式多Agent系统在模拟80个并发临床任务下的表现：</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0;">
     <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.05);border-radius:12px;">
-      <div style="font-size:48px;font-weight:700;color:#ef5350;">16%</div>
+      <div style="font-size:48px;font-weight:700;color:#f05e5b;">16%</div>
       <div style="color:#b0bec5;font-size:14px;">单Agent系统在高负载下的准确率</div>
-      <div style="color:#ef5350;font-size:13px;">（从73%暴跌至16%）</div>
+      <div style="color:#f05e5b;font-size:13px;">（从73%暴跌至16%）</div>
     </div>
     <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.05);border-radius:12px;">
       <div style="font-size:48px;font-weight:700;color:#66bb6a;">65x</div>
@@ -571,17 +580,17 @@ tr:hover td { background: #f9fafb; }
   <div class="card">
     <h4 style="color:var(--forest);">🫀 Hippocratic AI: Agentic Orchestrators</h4>
     <p><strong>250M+患者交互</strong>，99.89%正确建议，零严重伤害。Polaris架构：700B参数主模型+30+监督模型。2026年8月从单Agent升级到编排式Orchestrator——围绕再入院预防、药物依从性、慢性病管理等结局指标，协调多个专业语音Agent。</p>
-    <p style="font-size:14px;color:#86868b;">融资$444M（a16z, General Catalyst, Kleiner Perkins, NVIDIA）</p>
+    <p style="font-size:14px;color:#6e6e73;">融资$444M（a16z, General Catalyst, Kleiner Perkins, NVIDIA）</p>
   </div>
   <div class="card">
     <h4 style="color:var(--apple-blue);">🏥 General Catalyst + Summa Health</h4>
     <p>2026年8月19日，General Catalyst公布了集成8家AI公司的医疗AI技术栈部署到Summa Health的完整蓝图。Percepta作为编排层协调Aidoc（影像AI）、Hippocratic AI（患者交互）、Commure（EHR数据基础设施）等多个专业Agent。</p>
-    <p style="font-size:14px;color:#86868b;">这是美国已披露的最大规模多Agent医疗编排部署之一</p>
+    <p style="font-size:14px;color:#6e6e73;">这是美国已披露的最大规模多Agent医疗编排部署之一</p>
   </div>
   <div class="card">
     <h4 style="color:#7b1fa2;">📊 医疗Agent市场规模</h4>
     <p>Agentic AI医疗市场预测：2025年$7.9亿 → 2035年$336.6亿，CAGR 45.6%。BCG报告：69%医疗机构已在使用生成式AI，61%正在构建Agentic AI系统，但<strong>仅3%已投入生产</strong>。</p>
-    <p style="font-size:14px;color:#86868b;">医疗AI编排层的市场窗口正在打开</p>
+    <p style="font-size:14px;color:#6e6e73;">医疗AI编排层的市场窗口正在打开</p>
   </div>
 </div>
 
@@ -641,7 +650,7 @@ tr:hover td { background: #f9fafb; }
 
 <div class="card-grid">
   <div class="card" style="border-top:4px solid #10B981;">
-    <h4 style="color:#10B981;">✅ 正面数据</h4>
+    <h4 style="color:#0c865d;">✅ 正面数据</h4>
     <ul style="padding-left:20px;">
       <li style="margin:6px 0;">IDC/微软：生成式AI每$1投入回报$3.70</li>
       <li style="margin:6px 0;">领先企业在AI客服领域回报达到<strong>8倍</strong></li>
@@ -650,7 +659,7 @@ tr:hover td { background: #f9fafb; }
     </ul>
   </div>
   <div class="card" style="border-top:4px solid #EF4444;">
-    <h4 style="color:#EF4444;">⚠️ 风险信号</h4>
+    <h4 style="color:#d53d3d;">⚠️ 风险信号</h4>
     <ul style="padding-left:20px;">
       <li style="margin:6px 0;">Gartner：<strong>>40%</strong>的Agentic AI项目将在2027年前被取消</li>
       <li style="margin:6px 0;">IBM CEO研究：仅<strong>25%</strong>的AI项目交付了预期ROI</li>
@@ -739,7 +748,7 @@ tr:hover td { background: #f9fafb; }
 <h3>最终选型建议</h3>
 
 <div class="card" style="background:var(--near-black);color:white;">
-  <h4 style="color:var(--apple-blue);">2026年8月的实用建议</h4>
+  <h4 style="color:#2887e7;">2026年8月的实用建议</h4>
   <table style="color:#b0bec5;">
     <tr><th style="color:white;">如果你是...</th><th style="color:white;">选这个</th><th style="color:white;">理由</th></tr>
     <tr><td>多数企业团队</td><td style="color:#66bb6a;"><strong>CrewAI起步 → LangGraph生产</strong></td><td>用CrewAI验证设计（1天），迁移到LangGraph投产（1-2周）</td></tr>
@@ -761,7 +770,7 @@ tr:hover td { background: #f9fafb; }
 <div class="section-light">
 <div class="container">
 <h2 id="ref">九、参考来源</h2>
-<p style="font-size:14px;color:#86868b;margin-bottom:20px;">所有数据标注来源和置信度。标注 🔵高置信度 🟡中置信度 🔴待验证。</p>
+<p style="font-size:14px;color:#6e6e73;margin-bottom:20px;">所有数据标注来源和置信度。标注 🔵高置信度 🟡中置信度 🔴待验证。</p>
 
 <h4>框架官方文档与发布</h4>
 <ol style="padding-left:20px;font-size:14px;line-height:1.8;color:var(--graphite);">

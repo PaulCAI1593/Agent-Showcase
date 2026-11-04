@@ -149,8 +149,12 @@ def main():
     sample = None
     if "--sample" in args:
         sample = int(args[args.index("--sample") + 1])
+    # 位置参数 = 只查这几件（相对仓库根目录）；不带参数则全量
+    only = [a for a in args if not a.startswith("-") and not a.isdigit()]
     ws = works()
-    if sample:
+    if only:
+        ws = [f for f in only if os.path.exists(f)]
+    elif sample:
         step = max(1, len(ws) // sample)
         ws = ws[::step][:sample]
 
