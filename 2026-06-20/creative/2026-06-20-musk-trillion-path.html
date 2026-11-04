@@ -902,6 +902,16 @@ div.compare-person > div.compare-bar > div.bar-value{color:#757575 !important}
 /* 设计修复（页内计算样式取证生成） */
 div.compare-visual > div.compare-person > div.compare-avatar{border-top-width:1px !important}
 div.compare-person > div.compare-bar > div.bar-value{color:#ffffff !important}
+
+/* 设计修复（页内计算样式取证生成） */
+div.hero-counter > div > span.counter-value{text-shadow:0 1px 2px rgba(1,1,1,0.4) !important}
+div.compare-person > div.compare-bar > div.bar-value{color:#737373 !important}
+
+/* 设计修复（页内计算样式取证生成） */
+section.hero::before{width:1px !important}
+div.timeline-container > div.timeline-item > div.timeline-dot{border-top-width:1px !important}
+section.section > div.empire-grid > div.empire-card::before{width:1px !important}
+div.compare-person > div.compare-bar > div.bar-value{color:#ffffff !important}
 </style>
 <a id="showcase-backlink" href="../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
 <script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>

@@ -56,6 +56,39 @@ INSPECT_JS = r"""
     return parts.join(' > ') + (pseudo || '');
   };
   const out = [];
+  const checkDecor = (el, cs, pseudo) => {
+    // 彩色光晕（零偏移，或大模糊）—— box-shadow / text-shadow / drop-shadow
+    const shadows = [];
+    if (cs.boxShadow && cs.boxShadow !== 'none') shadows.push(['box-shadow', cs.boxShadow]);
+    if (cs.textShadow && cs.textShadow !== 'none') shadows.push(['text-shadow', cs.textShadow]);
+    const dm = (cs.filter || '').match(/drop-shadow\(([^)]*)\)/);
+    if (dm) shadows.push(['filter', 'drop-shadow(' + dm[1] + ')']);
+    for (const [prop, sh] of shadows) {
+      const re = /rgba?\(([^)]*)\)\s*(-?[\d.]+)px\s*(-?[\d.]+)px(?:\s*(-?[\d.]+)px)?/g;
+      let m;
+      while ((m = re.exec(sh)) !== null) {
+        const rgb = m[1].split(',').map(Number);
+        const ox = parseFloat(m[2]), oy = parseFloat(m[3]);
+        const blur = m[4] === undefined ? 0 : Math.abs(parseFloat(m[4]));
+        const chroma = rgb.length >= 3 ? (Math.max(rgb[0],rgb[1],rgb[2]) - Math.min(rgb[0],rgb[1],rgb[2])) : 0;
+        if (chroma > 30 && ((Math.abs(ox) < 0.5 && Math.abs(oy) < 0.5) || blur >= 12)) {
+          out.push({kind:'glow', sel:path(el,pseudo), prop: prop,
+                    color:'rgb(' + rgb.slice(0,3).join(',') + ')',
+                    alpha: rgb[3] === undefined ? 1 : rgb[3]});
+          break;
+        }
+      }
+    }
+    // 圆角元素上的粗边框
+    const bw = parseFloat(cs.borderTopWidth), br = parseFloat(cs.borderTopLeftRadius);
+    if (bw >= 2 && br >= 8) out.push({kind:'accent-border', sel:path(el,pseudo), w: cs.borderTopWidth});
+    // 伪元素画的绝对定位条纹
+    if (pseudo) {
+      const w = parseFloat(cs.width), h = parseFloat(cs.height);
+      if ((w >= 2 || h >= 2) && cs.position === 'absolute')
+        out.push({kind:'stripe', sel:path(el,pseudo), w: cs.width, h: cs.height});
+    }
+  };
   const check = (el, cs, pseudo, txt) => {
     // 渐变文字：color 透明 + background-clip:text → 用渐变首色当前景
     let fg = cs.color;
@@ -76,40 +109,22 @@ INSPECT_JS = r"""
       if (cr < need) out.push({kind:'contrast', sel:path(el,pseudo), fg, bg, cr:+cr.toFixed(2),
                                need, fs: cs.fontSize, txt:(txt||'').slice(0,22)});
     }
-    // 阴影：零偏移 + 彩色 → 发光
-    const sh = cs.boxShadow && cs.boxShadow !== 'none' ? cs.boxShadow : '';
-    if (sh) {
-      const m = sh.match(/rgba?\(([^)]*)\)\s*(-?[\d.]+)px\s*(-?[\d.]+)px/);
-      if (m) {
-        const rgb = m[1].split(',').map(Number);
-        const ox = parseFloat(m[2]), oy = parseFloat(m[3]);
-        const chroma = rgb.length >= 3 ? (Math.max(rgb[0],rgb[1],rgb[2]) - Math.min(rgb[0],rgb[1],rgb[2])) : 0;
-        if (chroma > 30 && Math.abs(ox) < 0.5 && Math.abs(oy) < 0.5)
-          out.push({kind:'glow', sel:path(el,pseudo), color:'rgb('+rgb.slice(0,3).join(',')+')',
-                    alpha: rgb[3] === undefined ? 1 : rgb[3]});
-      }
-    }
-    // 圆角元素上的粗边框
-    const bw = parseFloat(cs.borderTopWidth);
-    const br = parseFloat(cs.borderTopLeftRadius);
-    if (bw >= 2 && br >= 8)
-      out.push({kind:'accent-border', sel:path(el,pseudo), w: cs.borderTopWidth});
-    // 伪元素画的绝对定位条纹
-    if (pseudo) {
-      const w = parseFloat(cs.width), h = parseFloat(cs.height);
-      if ((w >= 2 || h >= 2) && cs.position === 'absolute')
-        out.push({kind:'stripe', sel:path(el,pseudo), w: cs.width, h: cs.height});
-    }
   };
   document.querySelectorAll('body *').forEach(el => {
     const txt = (el.innerText || '').trim();
     if (!el.children.length && txt) check(el, getComputedStyle(el), null, txt);
+    // 阴影/边框/条纹：**所有元素**都要查 —— 之前只在文字叶节点上查，
+    // 漏掉了「有子元素却带彩色光晕」和「无文字但有阴影的伪元素」两类
+    // （实测取证 33 条 vs 检测器 164 条）。
+    checkDecor(el, getComputedStyle(el), null);
     for (const ps of ['::before','::after']) {
       const cs = getComputedStyle(el, ps);
-      if (cs && cs.content && cs.content !== 'none' && cs.content !== 'normal') {
+      if (!cs) continue;
+      if (cs.content && cs.content !== 'none' && cs.content !== 'normal') {
         const t = cs.content.replace(/^["']|["']$/g,'');
         if (t && t.trim()) check(el, cs, ps, t);
       }
+      checkDecor(el, cs, ps);
     }
   });
   return out;
@@ -250,8 +265,15 @@ def build_rules(items):
                 continue
             y = round(rel_lum(c))
             a = it.get('alpha', 1)
-            rules.setdefault((it['sel'], 'box-shadow'),
-                             f'0 2px 10px rgba({y},{y},{y},{a})')
+            prop = it.get('prop', 'box-shadow')
+            if prop == 'text-shadow':
+                rules.setdefault((it['sel'], 'text-shadow'),
+                                 f'0 1px 2px rgba({y},{y},{y},{a})')
+            elif prop == 'filter':
+                rules.setdefault((it['sel'], 'filter'), 'none')
+            else:
+                rules.setdefault((it['sel'], 'box-shadow'),
+                                 f'0 2px 10px rgba({y},{y},{y},{a})')
         elif it['kind'] == 'accent-border':
             rules.setdefault((it['sel'], 'border-top-width'), '1px')
         elif it['kind'] == 'stripe':
