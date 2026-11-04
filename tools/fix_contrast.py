@@ -1,31 +1,29 @@
 #!/usr/bin/env python3
 """
-fix_contrast.py — 机械修对比度（只改颜色，逐条复验）
+fix_contrast.py — 批量化修对比度（两遍 detect，逐件终局闸门）
 
-为什么需要它
-------------
-全馆有 **757 条对比度低于 3:1**（160 条低于 2:1，白字压近白底＝字看不见）。
-逐件手工修要 76 件 × 若干轮，人力不现实；而检测器已经把「哪个颜色压哪个底」
-算得很清楚了 —— 剩下的只是**把文字色调到达标**这一步机械动作。
+为什么是批处理
+--------------
+逐件调 detect = 每件启一次浏览器。大文件（40KB+ 内联 CSS/JS）单件就要几分钟，
+还会超时（实测 3 件 detect 超时）。改成：
+    第 1 遍 detect（一次扫描整批） → 逐件算改色方案 → 逐件改写
+    第 2 遍 detect（一次扫描整批） → 逐件比对：变差就整件回退
+两遍扫描，不是 2N 遍。
 
-所以本工具做「机械动作」，把判断留给检测器复验：
-  1. 跑 impeccable detect，解析出 (文字色, 背景色, 比值)
-  2. 算出该文字色在原背景上要达到 4.5:1 的目标值（保色相：浅底加深、深底提亮）
-  3. 改写 CSS 里的颜色字面量
-  4. **重新 detect 复验**：比值必须上升；若引入新问题（如同一颜色在别的背景上反而变差），
-     该轮回退
-
-边界（重要）
-- 只改**颜色**，不改结构/文案/布局/数据
-- 白色文字不全局替换（白字在深底按钮上是对的）→ 改成**按规则定位**：
-  只改「同一条规则里既有浅色背景、又有白色文字」的那些规则
-- 非白色文字色才做字面量替换（那种色几乎专用于弱化文字）
-- 每轮改完必须 detect 复验，比值不升就回退该轮
+安全边界（都是被棘轮抓出来的教训）
+-----------------------------------
+1. **终局 vs 原始**：逐件与第 1 遍的结果比，变差 → 整件回退。
+   教训：多轮各自「持平」，累加后落在比原始更差的终点（119 → 373 条）。
+2. **改写策略**：先规则级（只改「同规则内既有该文字色、又有匹配背景」的规则），
+   定位不到再退回全局替换 —— 此时有终局闸门兜底，最坏是不改。
+   教训：全局替换会把「同色异底」的另一半改坏。
+3. **第 2 遍拿不到结果 → 该件不改**（「没验过」不等于「通过」）。
+   教训：复验超时时闸门被跳过，坏状态直接落盘（棘轮抓到 +23）。
 
 用法：
-  python3 tools/fix_contrast.py <文件相对路径> [...]
-  python3 tools/fix_contrast.py --batch 2026-11-03/notes/polish_batch1.txt
-  python3 tools/fix_contrast.py --dry-run <文件>
+  python3 tools/fix_contrast.py --scope all
+  python3 tools/fix_contrast.py --files a.html b.html
+  python3 tools/fix_contrast.py --scope all --min-ratio 3      # 只修 <3:1 的
 """
 import argparse
 import json
@@ -43,13 +41,12 @@ LAUNCHER_CANDIDATES = [
     os.path.join(ROOT, '.agents/skills/impeccable/scripts/impeccable'),
 ]
 
-MIN_RATIO = 4.5
+RULE_RE = re.compile(r'([^{}]+)\{([^{}]*)\}')
+FIND_RE = re.compile(r'text\s+(#[0-9a-fA-F]{3,6})\s+on\s+(#[0-9a-fA-F]{3,6})')
+RATIO_RE = re.compile(r'([\d.]+):1')
 
-# 各文件「原始」low-contrast 条数（终局闸门用）
-_orig_counts = {}
 
-
-# ── 颜色与对比度 ─────────────────────────────────────────
+# ── 颜色 ─────────────────────────────────────────────────
 def hex_to_rgb(h):
     h = h.strip().lstrip('#')
     if len(h) == 3:
@@ -75,34 +72,35 @@ def contrast(a, b):
     return (hi + 0.05) / (lo + 0.05)
 
 
-def adjust_toward(fg_hex, bg_hex, target=MIN_RATIO):
-    """保色相地把前景色调到对背景达标。返回新 hex 或 None（调不到）。"""
+def is_light(hexc):
+    return rel_lum(hex_to_rgb(hexc)) >= 0.5
+
+
+def _near(a, b):
+    try:
+        ca, cb = hex_to_rgb(a), hex_to_rgb(b)
+    except Exception:
+        return False
+    return sum(abs(x - y) for x, y in zip(ca, cb)) < 45
+
+
+def adjust_toward(fg_hex, bg_hex, target):
+    """保色相地把前景色调到对背景达标；调不到返回 None。"""
     fg, bg = hex_to_rgb(fg_hex), hex_to_rgb(bg_hex)
     if contrast(fg, bg) >= target:
         return None
-    # 底色亮 → 前景往暗走；底色暗 → 前景往亮走。沿灰阶缩放，保色相。
-    if rel_lum(bg) >= 0.5:
-        # 往黑走
-        best = None
+    if rel_lum(bg) >= 0.5:                      # 浅底 → 前景加深
         for k in range(100, 0, -1):
-            t = k / 100.0
-            cand = tuple(c * t for c in fg)
+            cand = tuple(c * (k / 100.0) for c in fg)
             if contrast(cand, bg) >= target:
-                best = cand
-                break
-        return rgb_to_hex(best) if best else None
-    best = None
-    for k in range(100, 301):
+                return rgb_to_hex(cand)
+        return None
+    for k in range(100, 301):                   # 深底 → 前景提亮
         t = k / 100.0
         cand = tuple(c + (255 - c) * (t - 1) for c in fg)
         if contrast(cand, bg) >= target:
-            best = cand
-            break
-    return rgb_to_hex(best) if best else None
-
-
-def is_light(hexc):
-    return rel_lum(hex_to_rgb(hexc)) >= 0.5
+            return rgb_to_hex(cand)
+    return None
 
 
 # ── 检测 ─────────────────────────────────────────────────
@@ -113,275 +111,229 @@ def find_launcher():
     return None
 
 
-def detect(path):
+def detect_many(files, timeout=2400):
+    """一次扫描多件 → {相对路径: findings}。"""
     launcher = find_launcher()
-    if not launcher:
-        return None
-    cmd = [launcher, 'detect', path, '--json']
+    if not launcher or not files:
+        return {}
+    cmd = [launcher, 'detect'] + list(files) + ['--json']
     try:
-        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=900)
+        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return None
+        return {}
     raw = p.stdout.strip()
     if not raw:
-        return []
+        return {}
     try:
-        d = json.loads(raw)
+        data = json.loads(raw)
     except json.JSONDecodeError:
-        return []
-    return d if isinstance(d, list) else d.get('findings', [])
+        return {}
+    if isinstance(data, dict):
+        data = data.get('findings', [])
+    out = {}
+    for f in data:
+        rel = f.get('file', '')
+        if rel.startswith('file://'):
+            rel = rel[len('file://'):]
+        rel = rel.replace(ROOT + '/', '').replace(ROOT, '')
+        out.setdefault(rel, []).append(f)
+    return out
 
 
-FIND_RE = re.compile(r'text\s+(#[0-9a-fA-F]{3,6})\s+on\s+(#[0-9a-fA-F]{3,6})')
-
-
-def low_contrast_findings(findings):
+def lc_of(findings):
     out = []
     for f in findings or []:
         if f.get('antipattern') != 'low-contrast':
             continue
-        m = FIND_RE.search(f.get('snippet', ''))
+        sn = f.get('snippet', '')
+        m = FIND_RE.search(sn)
+        r = RATIO_RE.match(sn)
         if not m:
             continue
-        r = re.match(r'([\d.]+):1', f.get('snippet', ''))
-        ratio = float(r.group(1)) if r else 0.0
         out.append({'text': m.group(1).lower(), 'bg': m.group(2).lower(),
-                    'ratio': ratio, 'snippet': f.get('snippet', '')[:100]})
+                    'ratio': float(r.group(1)) if r else 0.0})
     return out
 
 
 # ── 改写 ─────────────────────────────────────────────────
-def css_of(html):
-    return '\n'.join(re.findall(r'<style[^>]*>(.*?)</style>', html, re.S))
-
-
-def replace_literal(html, old, new):
-    """把颜色字面量替换成新的（仅在 CSS 里，区分大小写不敏感）。"""
-    pat = re.compile(re.escape(old), re.I)
-    out, n = [], 0
-    pos = 0
-    for m in re.finditer(r'<style[^>]*>.*?</style>', html, re.S):
-        out.append(html[pos:m.start()])
-        block = m.group(0)
-        block2, cnt = pat.subn(new, block)
-        n += cnt
-        out.append(block2)
-        pos = m.end()
-    out.append(html[pos:])
-    return ''.join(out), n
-
-
-RULE_RE = re.compile(r'([^{}]+)\{([^{}]*)\}')
-
-
-def fix_white_rules(html, bg_hex, new_color):
-    """白色文字不全局替换：只改「同规则内既有浅底又有白字」的规则。"""
-    def do_block(m):
-        sel, body = m.group(1), m.group(2)
-        if not re.search(r'color\s*:\s*(#fff(?:fff)?\b|white\b)', body, re.I):
-            return m.group(0)
-        # 同规则里是否有浅色背景
-        bgs = re.findall(r'background(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,6})', body)
-        light = [b for b in bgs if is_light(b)]
-        if not light and bg_hex and not is_light(bg_hex):
-            return m.group(0)
-        nb = re.sub(r'(color\s*:\s*)(#fff(?:fff)?\b|white\b)', r'\g<1>' + new_color, body,
-                    count=1, flags=re.I)
-        return sel + '{' + nb + '}'
-    return RULE_RE.sub(do_block, html)
-
-
-
-def _near(a, b):
-    """两个颜色是否足够接近（用来匹配同一背景色）。"""
-    try:
-        ca, cb = hex_to_rgb(a), hex_to_rgb(b)
-    except Exception:
-        return False
-    return sum(abs(x - y) for x, y in zip(ca, cb)) < 45
-
-
 def fix_rules_for_color(html, color, bg, new_color):
-    """**只改规则级**：在 <style> 内找「同一条规则里既声明了该文字色、又声明了
-    匹配背景色」的规则，改那一处的 color。
-
-    为什么不用全局字面量替换：同一颜色常被用在多种背景上（浅底上的正文 +
-    深底上的强调），全局改色会把另一半改坏 —— 实测 ai-agent-orchestration-wars
-    因此从 119 条涨到 373 条。规则级改写只碰「确实压在这个背景上」的那一条。
-    """
     def do_block(m):
         sel, body = m.group(1), m.group(2)
         if not re.search(r'color\s*:\s*' + re.escape(color) + r'\b', body, re.I):
             return m.group(0)
         bgs = re.findall(r'background(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,6})', body)
         if not bgs or not any(_near(b, bg) for b in bgs):
-            return m.group(0)          # 背景不在本规则内 → 不动（宁可留残余）
+            return m.group(0)
         nb = re.sub(r'(color\s*:\s*)' + re.escape(color),
                     r'\g<1>' + new_color, body, count=1, flags=re.I)
         return sel + '{' + nb + '}'
 
     def do_style(m):
-        return m.group(0)[:m.group(0).index('>') + 1] + RULE_RE.sub(do_block, m.group(1)) + '</style>'
+        head = m.group(0)[:m.group(0).index('>') + 1]
+        return head + RULE_RE.sub(do_block, m.group(1)) + '</style>'
 
     return re.sub(r'<style[^>]*>(.*?)</style>', do_style, html, flags=re.S)
 
-def fix_one(path, dry=False, rounds=3):
-    full = os.path.join(ROOT, path)
-    if not os.path.exists(full):
-        return {'path': path, 'error': '文件不存在'}
-    orig = open(full, encoding='utf-8', errors='ignore').read()
-    html = orig
-    applied = []
-    _orig_counts[path] = len(low_contrast_findings(detect(path) or []))
-    for rnd in range(rounds):
-        findings = detect(path)
-        if findings is None:
-            return {'path': path, 'error': 'detect 不可用'}
-        lcs = low_contrast_findings(findings)
-        if not lcs:
-            break
-        before = min((x['ratio'] for x in lcs), default=0)
-        before_n = len(lcs)
-        # 收集要改的 (文字色 → 目标色)
-        # ⚠️ 同一颜色可能同时压在浅底和深底上（如 #0071e3 on #f5f5f7 与 on #000000）：
-        #    按「首个背景」定方向会把另一半改坏。所以按该颜色的**全部背景**一起看：
-        #    若多数背景需要「加深」，就加深；若冲突则取多数方向，少数项列为残余。
-        by_color = {}
-        for x in lcs:
-            by_color.setdefault(x['text'], []).append(x['bg'])
-        mapping = {}
-        for color, bgs in by_color.items():
-            darker, lighter, cand = 0, 0, {}
-            for bg in set(bgs):
-                newc = adjust_toward(color, bg)
-                if not newc:
-                    continue
-                cand[bg] = newc
-                fg = hex_to_rgb(color)
-                if all(hex_to_rgb(c) <= fg for c in [newc]):
-                    darker += 1
-                else:
-                    lighter += 1
-            if not cand:
+
+def replace_literal(html, old, new):
+    pat = re.compile(re.escape(old), re.I)
+    out, n, pos = [], 0, 0
+    for m in re.finditer(r'<style[^>]*>.*?</style>', html, re.S):
+        out.append(html[pos:m.start()])
+        block, cnt = pat.subn(new, m.group(0))
+        n += cnt
+        out.append(block)
+        pos = m.end()
+    out.append(html[pos:])
+    return ''.join(out), n
+
+
+def plan_for(lcs, target):
+    """为一件作品算 (颜色 → 新色) 映射：按该颜色的**全部背景**取多数方向。"""
+    by_color = {}
+    for x in lcs:
+        by_color.setdefault(x['text'], []).append(x['bg'])
+    mapping = {}
+    for color, bgs in by_color.items():
+        cand, darker, lighter = {}, 0, 0
+        fg = hex_to_rgb(color)
+        for bg in set(bgs):
+            newc = adjust_toward(color, bg, target)
+            if not newc:
                 continue
-            if darker and lighter:
-                # 冲突：取多数方向
-                if darker >= lighter:
-                    pick = min(cand.values(), key=lambda c: sum(hex_to_rgb(c)))
-                else:
-                    pick = max(cand.values(), key=lambda c: sum(hex_to_rgb(c)))
+            cand[bg] = newc
+            if all(hex_to_rgb(newc)[i] <= fg[i] for i in range(3)):
+                darker += 1
             else:
-                pick = cand[next(iter(cand))]
-            if pick.lower() != color:
-                mapping[color] = pick
-        if not mapping:
-            break
-        changed = False
-        for old, new in mapping.items():
-            # 逐个背景做规则级改写：一个颜色可能压多种背景，逐背景分别定位
-            hit = False
-            for bg in {x['bg'] for x in lcs if x['text'] == old}:
-                html2 = fix_rules_for_color(html, old, bg, new)
-                if html2 != html:
-                    html = html2
-                    hit = True
-            if hit:
-                applied.append({'from': old, 'to': new, 'count': 'rule-scoped',
-                                'round': rnd + 1})
-                changed = True
-                continue
-            # 规则级定位不到（背景在祖先规则里）→ 退回全局替换。
-            # 现在有「终局 vs 原始」闸门兜底：文件整体变差就整件回退，最坏是不改。
-            html2, n = replace_literal(html, old, new)
-            if n:
-                html = html2
-                applied.append({'from': old, 'to': new, 'count': n, 'round': rnd + 1,
-                                'mode': 'global(有终局闸门兜底)'})
-                changed = True
-        # 白色文字：按规则定位（同规则内既有浅底又有白字）
-        whites = [x for x in lcs if is_light(x['text'])]
-        for x in whites:
-            new = adjust_toward(x['text'], x['bg'])
-            if not new:
-                continue
-            html2 = fix_white_rules(html, x['bg'], new)
-            if html2 != html:
-                html = html2
-                applied.append({'from': x['text'], 'to': new, 'count': 'rule-scoped',
-                                'round': rnd + 1, 'bg': x['bg']})
-                changed = True
-        if not changed:
-            break
-        # 复验：比值必须整体上升，否则回退本轮
-        after_findings = detect(path) if not dry else None
-        if after_findings is not None:
-            after = low_contrast_findings(after_findings)
-            after_min = min((x['ratio'] for x in after), default=99)
-            after_n = len(after)
-            if after_min < before - 0.01 or after_n > before_n:
-                # 本轮改坏了 → 回退
-                html = html[:0] + orig if False else html  # 占位，下面真正回退
-                html = orig
-                applied.append({'round': rnd + 1, 'rolled_back': True,
-                                'reason': f'复验变差：最差 {before:.2f}→{after_min:.2f}'})
-                break
-            before, before_n = after_min, after_n
-    # ⚠️ 终局闸门：必须与**文件原始状态**比，不是只比轮间。
-    #    实测教训：AI-agent-orchestration-wars 119 → 373 条 —— 多轮各自「持平」，
-    #    累加后落在比原始更差的终点（同一颜色被用在多种背景上，全局替换把另一半改坏了）。
-    #    没有这道闸门，工具会把「改过」当成「改好」。
-    final = detect(path)
-    if final is None:
-        # ⚠️ 终局复验拿不到结果（超时/不可用）→ **不许写盘**。
-        #    实测：大文件上 final detect 超时 → 闸门被跳过 → 坏状态直接落盘
-        #    （棘轮随后抓到 low-contrast +23）。「没验过」不等于「通过」。
-        applied.append({'rolled_back': True, 'reason': '终局复验超时/不可用，不写盘'})
-        html = orig
-    else:
-        fin_lcs = low_contrast_findings(final)
-        orig_findings = detect(path) if False else None
-        orig_n = _orig_counts.get(path)
-        if orig_n is not None and len(fin_lcs) > orig_n:
-            html = orig
-            applied.append({'rolled_back': True,
-                            'reason': f'终局闸门：{orig_n} → {len(fin_lcs)} 条，比原始更差，整文件回退'})
-    if html != orig and not dry:
-        open(full, 'w', encoding='utf-8').write(html)
-    lcs = low_contrast_findings(final) if final is not None else []
-    return {'path': path, 'applied': applied,
-            'low_contrast_before': None, 'low_contrast_after': len(lcs),
-            'worst_after': min((x['ratio'] for x in lcs), default=None),
-            'changed': html != orig}
+                lighter += 1
+        if not cand:
+            continue
+        if darker and lighter:
+            pick = (min(cand.values(), key=lambda c: sum(hex_to_rgb(c))) if darker >= lighter
+                    else max(cand.values(), key=lambda c: sum(hex_to_rgb(c))))
+        else:
+            pick = cand[next(iter(cand))]
+        if pick.lower() != color:
+            mapping[color] = pick
+    return mapping
+
+
+def apply_mapping(html, mapping, lcs):
+    applied = []
+    for color, new in mapping.items():
+        hit = False
+        for bg in {x['bg'] for x in lcs if x['text'] == color}:
+            h2 = fix_rules_for_color(html, color, bg, new)
+            if h2 != html:
+                html = h2
+                hit = True
+        if hit:
+            applied.append({'from': color, 'to': new, 'mode': 'rule-scoped'})
+            continue
+        h2, n = replace_literal(html, color, new)
+        if n:
+            html = h2
+            applied.append({'from': color, 'to': new, 'mode': 'global', 'count': n})
+    return html, applied
+
+
+# ── 主流程 ───────────────────────────────────────────────
+def works():
+    out = []
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames
+                       if not d.startswith('.') and d not in ('tools', 'templates', '_archive',
+                                                            '_private', 'thumbs', 'assets', 'notes')]
+        for fn in filenames:
+            if fn.endswith('.html') and not fn.startswith('.') and '.bak' not in fn:
+                out.append(os.path.relpath(os.path.join(dirpath, fn), ROOT))
+    return sorted(out)
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('paths', nargs='*')
-    ap.add_argument('--batch', default='')
+    ap.add_argument('--files', nargs='*', default=[])
+    ap.add_argument('--scope', default='')
+    ap.add_argument('--target', type=float, default=4.5)
+    ap.add_argument('--min-ratio', type=float, default=0.0,
+                    help='只修低于此比值的（0=全修）')
+    ap.add_argument('--limit', type=int, default=0)
     ap.add_argument('--dry-run', action='store_true')
     args = ap.parse_args()
-    paths = list(args.paths)
-    if args.batch:
-        for line in open(args.batch, encoding='utf-8'):
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            paths.append(line.split('\t')[0].split('#')[0].strip())
-    if not paths:
-        print('用法：fix_contrast.py <文件...> 或 --batch <清单>')
+
+    files = list(args.files)
+    if args.scope == 'all':
+        files = works()
+    if args.limit:
+        files = files[:args.limit]
+    if not files:
+        print('没有目标文件')
         return 2
-    results = []
-    for p in paths:
-        r = fix_one(p, dry=args.dry_run)
-        results.append(r)
-        st = '✓' if r.get('changed') else '·'
-        print(f"{st} {os.path.basename(p)}: 改动 {len(r.get('applied') or [])} 处 · "
-              f"low-contrast 剩 {r.get('low_contrast_after')} 条"
-              + (f"（最差 {r['worst_after']:.2f}:1）" if r.get('worst_after') else ''))
-        for a in (r.get('applied') or [])[:4]:
-            print('    ', a)
+
+    print(f'第 1 遍 detect：{len(files)} 件 …', flush=True)
+    before = detect_many(files)
+    if not before:
+        print('✗ detect 不可用或超时，本轮不改任何文件')
+        return 2
+
+    targets, backups, plans = {}, {}, {}
+    for rel, finds in before.items():
+        lcs = lc_of(finds)
+        if args.min_ratio:
+            lcs = [x for x in lcs if x['ratio'] < args.min_ratio]
+        if not lcs:
+            continue
+        full = os.path.join(ROOT, rel)
+        if not os.path.exists(full):
+            continue
+        orig = open(full, encoding='utf-8', errors='ignore').read()
+        mapping = plan_for(lcs, args.target)
+        if not mapping:
+            continue
+        html, applied = apply_mapping(orig, mapping, lcs)
+        if html == orig:
+            continue
+        backups[rel] = orig
+        plans[rel] = applied
+        targets[rel] = html
+    print(f'第 1 遍：{len(before)} 件有记录，可改 {len(targets)} 件', flush=True)
+
+    if not args.dry_run:
+        for rel, html in targets.items():
+            open(os.path.join(ROOT, rel), 'w', encoding='utf-8').write(html)
+
+    print(f'第 2 遍 detect：复验 {len(targets)} 件 …', flush=True)
+    after = detect_many(list(targets.keys()))
+
+    improved, reverted, unverifiable = 0, [], []
+    for rel, html in targets.items():
+        n_before = len(lc_of(before.get(rel, [])))
+        if rel not in after:
+            unverifiable.append(rel)      # 没验过 → 不算数
+            continue
+        n_after = len(lc_of(after.get(rel, [])))
+        if n_after > n_before:
+            reverted.append((rel, n_before, n_after))
+            if not args.dry_run:
+                open(os.path.join(ROOT, rel), 'w', encoding='utf-8').write(backups[rel])
+        else:
+            improved += 1
+
+    print(f'\n✓ 变好或持平: {improved} 件')
+    if reverted:
+        print(f'↩ 回退（变差）: {len(reverted)} 件')
+        for rel, b, a in reverted[:12]:
+            print(f'    {b} → {a}  {os.path.basename(rel)}')
+    if unverifiable:
+        print(f'⚠ 第 2 遍没验到（保持原样）: {len(unverifiable)} 件')
+        for rel in unverifiable[:8]:
+            print(f'    {os.path.basename(rel)}')
+            if not args.dry_run:
+                open(os.path.join(ROOT, rel), 'w', encoding='utf-8').write(backups[rel])
+
     with open('tools/fix_contrast_report.json', 'w', encoding='utf-8') as f:
-        json.dump(results, f, ensure_ascii=False, indent=1)
+        json.dump({'plans': plans, 'reverted': reverted, 'unverifiable': unverifiable,
+                   'improved': improved}, f, ensure_ascii=False, indent=1)
     return 0
 
 
