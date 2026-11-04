@@ -1,0 +1,49 @@
+name: deploy-pages
+
+# 把档案柜发布到 GitHub Pages（静态站点，无需构建）。
+# 站点是「双击 index.html 即可离线打开」的自包含页面：
+#   - 运行时优先 fetch manifest.json
+#   - 取不到时回退到 index.html 内嵌的 EMBEDDED 离线快照
+# 所以 Pages 与本地双击看到的是同一套界面。
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: 准备发布目录
+        run: |
+          mkdir -p _site
+          cp index.html manifest.json enrich.json _site/
+          cp -r works thumbs assets _site/
+          touch _site/.nojekyll
+          echo "发布内容："
+          du -sh _site
+          find _site -maxdepth 1 -mindepth 1 | sed 's/^/  /'
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,49 @@
+name: verify-archive
+
+# 每次 push 都验证归档的自洽性 —— 这是档案柜的质量契约：
+#   ① 结构一致性：manifest / index.html 与磁盘必须一致
+#   ② 断言逐字校验：每条 quote 必须仍在原文中（防止原文改动后断言悬空）
+#   ③ 十项硬校验：计数 / 缩略图 / 标签 / 返回链 / 断言层等
+# 任一不过即判失败 —— 与本地 ./tools/autopublish.sh 同一套判据。
+#
+# 注：设计质量棘轮（tools/design_scan.py）需要 impeccable 技能，
+#     不在 CI 依赖内，故未纳入；它在本地由守护进程每 6 小时执行。
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: 归档自洽性
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ① 结构一致性
+        run: python3 tools/build_manifest.py --check
+
+      - name: ② 断言逐字校验
+        run: python3 tools/claim_gate.py --verify
+
+      - name: ③ 十项硬校验
+        run: ./tools/autopublish.sh --dry-run
+
+      - name: ④ 工作树必须干净（生成物不得手改）
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "✗ 工作树有未提交改动 —— manifest.json / index.html / enrich.json 是生成物，"
+            echo "  请跑 ./tools/autopublish.sh 后提交。"
+            git status --porcelain
+            exit 1
+          fi
+          echo "✓ 工作树干净"
