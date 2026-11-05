@@ -303,7 +303,7 @@ p{max-width:64ch;line-height:1.78;text-wrap:pretty;color:var(--bone-2)}
 .heat th{font-weight:500;color:var(--bone-3);text-align:left;padding:5px 7px;white-space:nowrap;font-size:11.5px}
 .heat th.rot{writing-mode:vertical-rl;text-orientation:mixed;height:96px;padding:6px 3px;text-align:left}
 .heat td{padding:2px}
-.heat td .hc{width:40px;height:20px;background-color:rgba(236,229,215,calc(var(--f,0) * .92))}
+.heat td .hc{display:block;width:40px;height:20px;background-color:rgba(236,229,215,calc(var(--f,0) * .92))}
 .heat td .hc.on{box-shadow:inset 0 0 0 2px var(--bone)}
 .heat td .hc.zero{box-shadow:inset 0 0 0 1px var(--red-2)}
 .heat td.rowlab{padding-right:10px;color:var(--bone-2);font-size:12.5px;white-space:nowrap}
@@ -491,7 +491,7 @@ footer .src{margin-bottom:10px}
     <div class="heat" id="heat"></div>
 
     <h3>成本与完成率</h3>
-    <p class="note" style="margin-bottom:18px">横轴是每项任务的平均成本（对数刻度），纵轴是 GDPx 总分。右上角是又强又便宜，左上角是又强又贵，右下角是便宜但弱。</p>
+    <p class="note" style="margin-bottom:18px">横轴是每项任务的平均成本（对数刻度），纵轴是 GDPx 总分。右上角是又强又贵，左上角是又强又便宜，右下角是贵但弱，左下角是便宜但弱。</p>
     <div style="max-width:820px;background:var(--ink-2);border:1px solid var(--rule);padding:18px">
       <canvas id="pareto" height="260" role="img" aria-label="13 个模型的成本与完成率散点图"></canvas>
     </div>
@@ -562,7 +562,8 @@ footer .src{margin-bottom:10px}
 
   /* ── 行业级数据辅助 ─────────────────────────── */
   function blockAllZero(blk){
-    for (var i = 0; i < blk.v.length; i++) if (blk.v[i].s !== 0) return false;
+    var key = state.metric === 'partial' ? 'p' : 's';
+    for (var i = 0; i < blk.v.length; i++) if (blk.v[i][key] !== 0) return false;
     return true;
   }
   function domainScore(modelId, dom){
@@ -583,9 +584,12 @@ footer .src{margin-bottom:10px}
     for (var j = 0; j < blk.b.length; j++){ sum += blk.b[j].v[i].p; n++; }
     return n ? sum / n : null;
   }
+  function domainCur(modelId, dom){
+    return state.metric === 'partial' ? domainPartial(modelId, dom) : domainScore(modelId, dom);
+  }
   function zeroCount(dom){
     var c = 0;
-    for (var i = 0; i < M.length; i++) if (domainScore(M[i].id, dom) === 0) c++;
+    for (var i = 0; i < M.length; i++) if (domainCur(M[i].id, dom) === 0) c++;
     return c;
   }
 
@@ -628,8 +632,8 @@ footer .src{margin-bottom:10px}
       html = '<b>0%</b>：一个任务都没办成。13 个模型的最好成绩是 12.0%，即 ' +
              Math.round(TOTAL * best / 100) + ' 项。';
     } else if (v < best - 0.001){
-      html = '<b>' + fmt(v) + '%</b>：相当于 206 项里的 ' + tasks + ' 项。13 个模型里最高的也只有 ' + tasks +
-             ' 项，没有任何模型到达这里。';
+      html = '<b>' + fmt(v) + '%</b>：相当于 206 项里的 ' + tasks + ' 项。13 个模型全在这条线之上，' +
+             '最好的是 ' + best.toFixed(1) + '%，即 ' + Math.round(TOTAL * best / 100) + ' 项。';
     } else if (v <= 20.001){
       html = '<b>' + fmt(v) + '%</b>：相当于 206 项里的 ' + tasks + ' 项。' +
              '五分之一是 ' + fifth + ' 项，还差 ' + (fifth - tasks) + ' 项。';
@@ -681,7 +685,7 @@ footer .src{margin-bottom:10px}
         var f = Math.max(0, Math.min(1, done - c));
         var cell = el('i', 'cell' + (zero ? ' zerozone' : ''));
         cell.style.setProperty('--f', f.toFixed(3));
-        cell.title = b.n + ' 项任务 · 完成率 ' + fmt(b.v[i].s) + '%';
+        cell.title = b.n + ' 项任务 · ' + (state.metric === 'partial' ? '部分得分 ' : '完成率 ') + fmt(metric) + '%';
         s.appendChild(cell);
       }
       wrap.appendChild(s);
@@ -829,8 +833,8 @@ footer .src{margin-bottom:10px}
     var bars = document.getElementById('domainBars');
     bars.innerHTML = '';
     B.forEach(function(blk){
-      var a = domainScore(state.focus, blk.d);
-      var b = state.compare ? domainScore(state.compare, blk.d) : null;
+      var a = domainCur(state.focus, blk.d);
+      var b = state.compare ? domainCur(state.compare, blk.d) : null;
       var r = el('div', 'db-row');
       r.appendChild(el('span', 'nm', esc(blk.zh)));
       var tr = el('span', 'tr');
@@ -852,7 +856,7 @@ footer .src{margin-bottom:10px}
 
   function zeroDomains(modelId){
     var c = 0;
-    B.forEach(function(b){ if (domainScore(modelId, b.d) === 0) c++; });
+    B.forEach(function(b){ if (domainCur(modelId, b.d) === 0) c++; });
     return c;
   }
 
@@ -867,7 +871,7 @@ footer .src{margin-bottom:10px}
       row.appendChild(nm);
       row.appendChild(stripHTML(blk, state.focus));
       var v = el('div', 'vl');
-      var sc = state.metric === 'partial' ? domainPartial(state.focus, blk.d) : domainScore(state.focus, blk.d);
+      var sc = domainCur(state.focus, blk.d);
       v.textContent = fmt(sc) + '%';
       row.appendChild(v);
       matrixRows.appendChild(row);
@@ -890,11 +894,11 @@ footer .src{margin-bottom:10px}
       var lab = el('td', 'rowlab', esc(blk.zh));
       row.appendChild(lab);
       M.forEach(function(m){
-        var sc = domainScore(m.id, blk.d);
+        var sc = domainCur(m.id, blk.d);
         var td = el('td');
         var c = el('span', 'hc' + (sc === 0 ? ' zero' : '') + (m.id === state.focus ? ' on' : ''));
-        c.style.setProperty('--f', (sc / 40).toFixed(3));
-        c.title = blk.zh + ' · ' + m.name + ' · ' + fmt(sc) + '%';
+        c.style.setProperty('--f', (sc / 100).toFixed(3));
+        c.title = blk.zh + ' · ' + m.name + ' · ' + (state.metric === 'partial' ? '部分得分 ' : '完成率 ') + fmt(sc) + '%';
         td.appendChild(c);
         row.appendChild(td);
       });
@@ -970,7 +974,7 @@ footer .src{margin-bottom:10px}
     var host = document.getElementById('winners');
     host.innerHTML = '';
     B.forEach(function(blk){
-      var scores = M.map(function(m){ return { m: m, sc: domainScore(m.id, blk.d) }; });
+      var scores = M.map(function(m){ return { m: m, sc: domainCur(m.id, blk.d) }; });
       var bestScore = scores.reduce(function(a, b){ return b.sc > a ? b.sc : a; }, -1);
       var winners = scores.filter(function(x){ return x.sc === bestScore; }).map(function(x){ return x.m.name; });
       var row = el('div', 'wrow');
@@ -1016,6 +1020,10 @@ footer .src{margin-bottom:10px}
       var col = row.children[2];
       col.innerHTML = '';
       col.appendChild(stripHTML(blk, state.focus));
+      var badge = row.children[3];
+      var z = zeroCount(blk.d);
+      badge.className = z === M.length ? 'dbadge zero' : 'dbadge';
+      badge.innerHTML = z === M.length ? '13 / 13 零完成' : (z > 0 ? z + ' / 13 零完成' : '');
     });
   }
 
