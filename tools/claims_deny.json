@@ -1,0 +1,93 @@
+[
+  {
+    "file": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+    "value": "41%",
+    "label": "🇺🇸 美国",
+    "quote": "41% 🇺🇸 美国",
+    "reason": "跨元素错位：记录值 41%，原文该指标为 36.5%"
+  },
+  {
+    "file": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html",
+    "value": "36.5%",
+    "label": "🇪🇺 欧洲",
+    "quote": "36.5% 🇪🇺 欧洲",
+    "reason": "跨元素错位：记录值 36.5%，原文该指标为 12%"
+  },
+  {
+    "file": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+    "value": "90%",
+    "label": "🇺🇸 美国",
+    "quote": "90% 🇺🇸 美国",
+    "reason": "跨元素错位：记录值 90%，原文该指标为 7%"
+  },
+  {
+    "file": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+    "value": "7%",
+    "label": "🇪🇺 欧洲",
+    "quote": "7% 🇪🇺 欧洲",
+    "reason": "跨元素错位：记录值 7%，原文该指标为 2%"
+  },
+  {
+    "file": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html",
+    "value": "2%",
+    "label": "🌏 其他",
+    "quote": "2% 🌏 其他",
+    "reason": "跨元素错位：记录值 2%，原文该指标为 1%"
+  },
+  {
+    "file": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+    "value": "41%",
+    "label": "🇺🇸 美国",
+    "quote": "41% 🇺🇸 美国",
+    "reason": "跨元素错位：记录值 41%，原文该指标为 36.5%"
+  },
+  {
+    "file": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+    "value": "36.5%",
+    "label": "🇪🇺 欧洲",
+    "quote": "36.5% 🇪🇺 欧洲",
+    "reason": "跨元素错位：记录值 36.5%，原文该指标为 12%"
+  },
+  {
+    "file": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html",
+    "value": "12%",
+    "label": "🌏 其他",
+    "quote": "12% 🌏 其他",
+    "reason": "跨元素错位：记录值 12%，原文该指标为 10.5%"
+  },
+  {
+    "file": "works/2026-08-29/creative/2026-08-29-agent-orchestration-visual.html",
+    "value": "42%",
+    "label": "医疗健康",
+    "quote": "42% 医疗健康",
+    "reason": "跨元素错位：记录值 42%，原文该指标为 48%"
+  },
+  {
+    "file": "works/2026-09-17/research/2026-09-17-openai-agents-api-open-source.html",
+    "value": "66%",
+    "label": "医疗健康",
+    "quote": "66% 医疗健康",
+    "reason": "跨元素错位：记录值 66%，原文该指标为 28%"
+  },
+  {
+    "file": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+    "value": "+0.7%",
+    "label": "研发支出",
+    "quote": "+0.7% 研发支出",
+    "reason": "跨元素错位：记录值 +0.7%，原文该指标为 +35%（+0.7% 属净利润那格）"
+  },
+  {
+    "file": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+    "value": "+13%",
+    "label": "毛利率",
+    "quote": "+13% 毛利率",
+    "reason": "跨元素错位：记录值 +13%，原文该指标为 58% / +1pp（+13% 属毛利那格）"
+  },
+  {
+    "file": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
+    "value": "5家",
+    "label": "公司总营收",
+    "quote": "5家公司总营收",
+    "reason": "跨元素错位：记录值 5家，原文该指标为 value 被错切成「5家」，原文是计数行不是指标值"
+  }
+]

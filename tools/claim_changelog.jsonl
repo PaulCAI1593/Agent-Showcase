@@ -204,3 +204,28 @@
 {"ts": "2026-11-03T16:46:37", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1176, "to": 1085, "delta": -91, "reject_rate": 0.3319}}
 {"ts": "2026-11-03T17:09:36", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1085, "to": 1088, "delta": 3, "reject_rate": 0.3162}}
 {"ts": "2026-11-04T06:28:00", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1088, "to": 1096, "delta": 8, "reject_rate": 0.3146}}
+{"ts": "2026-11-04T23:21:09", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1096, "to": 1104, "delta": 8, "reject_rate": 0.3134}}
+{"ts": "2026-11-05T03:18:47", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1104, "to": 1112, "delta": 8, "reject_rate": 0.3119}}
+{"ts": "2026-11-05T11:09:34", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1112, "to": 1116, "delta": 4, "reject_rate": 0.3107}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html", "detail": {"count": 1, "items": ["5家 公司总营收"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html", "detail": {"count": 2, "items": ["+13% 毛利率", "+0.7% 研发支出"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "detail": {"count": 3, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲", "12% 🌏 其他"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "detail": {"count": 1, "items": ["42% 医疗健康"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "detail": {"count": 2, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "detail": {"count": 1, "items": ["66% 医疗健康"]}}
+{"ts": "2026-11-05T11:49:18", "event": "claim_deny", "work": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "detail": {"count": 3, "items": ["90% 🇺🇸 美国", "7% 🇪🇺 欧洲", "2% 🌏 其他"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html", "detail": {"count": 1, "items": ["5家 公司总营收"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html", "detail": {"count": 2, "items": ["+13% 毛利率", "+0.7% 研发支出"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "detail": {"count": 3, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲", "12% 🌏 其他"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "detail": {"count": 1, "items": ["42% 医疗健康"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "detail": {"count": 2, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "detail": {"count": 1, "items": ["66% 医疗健康"]}}
+{"ts": "2026-11-05T11:49:19", "event": "claim_deny", "work": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "detail": {"count": 3, "items": ["90% 🇺🇸 美国", "7% 🇪🇺 欧洲", "2% 🌏 其他"]}}
+{"ts": "2026-11-05T11:50:32", "event": "claims_total", "work": "(全馆)", "detail": {"from": 1116, "to": 1103, "delta": -13, "reject_rate": 0.3132}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html", "detail": {"count": 1, "items": ["5家 公司总营收"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html", "detail": {"count": 2, "items": ["+13% 毛利率", "+0.7% 研发支出"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-08-20/creative/2026-08-20-china-open-source-ai-ecosystem.html", "detail": {"count": 3, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲", "12% 🌏 其他"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-08-29/creative/2026-08-29-agent-orchestration-visual.html", "detail": {"count": 1, "items": ["42% 医疗健康"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-09-03/research/2026-09-03-open-source-vs-closed-source-ai.html", "detail": {"count": 2, "items": ["41% 🇺🇸 美国", "36.5% 🇪🇺 欧洲"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-09-17/research/2026-09-17-openai-agents-api-open-source.html", "detail": {"count": 1, "items": ["66% 医疗健康"]}}
+{"ts": "2026-11-05T11:55:44", "event": "claim_deny", "work": "works/2026-10-03/creative/2026-10-03-ai-embodied-intelligence.html", "detail": {"count": 3, "items": ["90% 🇺🇸 美国", "7% 🇪🇺 欧洲", "2% 🌏 其他"]}}

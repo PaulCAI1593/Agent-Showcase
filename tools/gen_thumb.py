@@ -12,7 +12,7 @@
   * clip 裁剪: {"x":0,"y":0,"width":1260,"height":800}
   * 输出文件名: thumbs/{date}-{type}-{stem}-thumb.png
 """
-import json
+import argparse, json
 import os
 import sys
 
@@ -90,7 +90,20 @@ def infer_type(stem):
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "--all":
+    # argparse：原 `sys.argv[1] == "--all"` 会把 --help 当成 html 路径，
+    # 不带参数则 IndexError。
+    # 注意：本模块被 autopublish.py:739 `import gen_thumb` 复用，
+    # 所以解析必须留在 main() 里，不能提到模块级（否则 import 就解析调用方 argv）。
+    ap = argparse.ArgumentParser(
+        prog='gen_thumb.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--all', action='store_true',
+                    help='扫描 manifest 中所有缺缩略图的作品')
+    ap.add_argument('rel', nargs='?', help='html 文件相对路径')
+    ap.add_argument('typ', nargs='?', help='research|creative（可省，自动推断）')
+    a = ap.parse_args()
+
+    if a.all:
         with open(os.path.join(ROOT, "manifest.json"), encoding="utf-8") as f:
             man = json.load(f)
         todo = [
@@ -103,8 +116,10 @@ def main():
         for rel, grp in todo:
             shoot(rel, grp)
     else:
-        rel = sys.argv[1]
-        typ = sys.argv[2] if len(sys.argv) > 2 else infer_type(os.path.splitext(rel)[0])
+        if not a.rel:
+            ap.error('需要 html 文件相对路径，或用 --all')
+        rel = a.rel
+        typ = a.typ or infer_type(os.path.splitext(rel)[0])
         if not typ:
             print("无法推断类型，请显式传入 research|creative")
             sys.exit(1)

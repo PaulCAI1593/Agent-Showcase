@@ -19,7 +19,7 @@ vendor_assets.py — 把作品页引用的远程 JS 依赖本地化
   python3 tools/vendor_assets.py              # 下载 + 改写
 """
 
-import json, os, re, sys, time, urllib.request, urllib.error, collections
+import argparse, json, os, re, sys, time, urllib.request, urllib.error, collections
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VENDOR = os.path.join(ROOT, 'assets', 'vendor')
@@ -57,7 +57,13 @@ def rel_from(work_rel, asset_abs):
 
 
 def main():
-    dry = '--dry-run' in sys.argv
+    # argparse：原 `in sys.argv` 判定会把 --help 等未知参数静默当正常执行，
+    # 而本脚本会改作品 HTML 的 <script> 引用并落盘。
+    ap = argparse.ArgumentParser(
+        prog='vendor_assets.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--dry-run', action='store_true', help='只预览，不改写作品 HTML')
+    dry = ap.parse_args().dry_run
     works = load_works()
 
     urls = collections.Counter()

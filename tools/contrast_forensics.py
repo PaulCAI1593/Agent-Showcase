@@ -23,7 +23,7 @@ impeccable detect 对 low-contrast 只给「前景色 + 背景色 + 比值」，
   python3 tools/contrast_forensics.py --json <html> ...
   python3 tools/contrast_forensics.py --out evidence.json <html> ...
 """
-import json
+import argparse, json
 import os
 import re
 import sys
@@ -203,14 +203,15 @@ def inspect(paths):
 
 
 def main():
-    args = sys.argv[1:]
-    as_json = '--json' in args
-    outf = None
-    if '--out' in args:
-        i = args.index('--out')
-        outf = args[i + 1]
-        del args[i:i + 2]
-    files = args
+    # argparse：原手解析会把 --help 当成文件路径（--out 漏传值还会 IndexError）。
+    ap = argparse.ArgumentParser(
+        prog='contrast_forensics.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--json', action='store_true', help='输出 JSON')
+    ap.add_argument('--out', metavar='FILE', default=None, help='把结果写入文件')
+    ap.add_argument('files', nargs='*', help='待检查的 HTML 文件')
+    a = ap.parse_args()
+    as_json, outf, files = a.json, a.out, a.files
     if not files:
         print(__doc__)
         return 2

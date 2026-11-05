@@ -27,6 +27,7 @@ inject_contracts.py — 给缺声明的作品补上「作品契约」
   python3 tools/inject_contracts.py --dry-run   # 预览
   python3 tools/inject_contracts.py             # 写入（幂等）
 """
+import argparse
 import json
 import os
 import re
@@ -128,7 +129,15 @@ def inject_one(rel, claims, beat, dry=False):
 
 
 def main():
-    dry = '--dry-run' in sys.argv
+    # 参数交给 argparse（与 build_manifest.py / claim_gate.py 同法）：
+    # 原实现 `dry = '--dry-run' in sys.argv` 意味着**任何**未识别参数
+    # （含 --help、拼错的 --dryrun）都会落到 dry=False 分支 —— 诊断命令
+    # 会真的把 claims/meta 写进作品 HTML。写盘工具必须先过 argparse。
+    ap = argparse.ArgumentParser(
+        prog='inject_contracts.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--dry-run', action='store_true', help='只预览，不写入作品 HTML')
+    dry = ap.parse_args().dry_run
     manifest = load('manifest.json')
     enrich = load('enrich.json')
     by_file = {w['file']: w for w in enrich.get('works', [])}

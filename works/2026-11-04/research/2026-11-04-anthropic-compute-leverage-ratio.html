@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.72 美元与 8,954 亿美元 —— Anthropic 招股书里的算力杠杆率拐点</title>
+
+<!--
+  智囊团 · 研究类作品（选题411）
+  一手底稿：Anthropic PBC 修订 Form S-1/A，2026-11-02 提交 SEC
+    https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/anthropicpbc-sx1ax1.htm
+    页面直取：HTTP 200，14,311,205 字节
+  测算底稿：2026-11-04/notes/calc_anthropic_leverage.py（及其 result.json）
+  口径台账：2026-11-04/notes/2026-11-04-anthropic-compute-leverage-口径台账.md
+  追踪线：估值与资本
+-->
+
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="修订稿首次披露约 8,954 亿美元采购与租赁承诺，付款期至 2045 年；单位算力收入产出率由 2.08 回落至 1.72 美元。">
+
+<style>
+/* ── 自托管衬线 ────────────────────────────────────────────
+   国内可达：字体取自 fonts.loli.net 镜像，随作品一起分发，离线可用。
+   中文衬线只取字频最高的 30 个切片（985KB）；生僻字回落系统字体。 */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DD,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;          /* 冷调档案纸（账簿灰绿） */
+  --paper-raised:#f4f6f4;   /* 抬起面（账册带） */
+  --ink:#171a18;
+  --ink-2:#4f5551;          /* 次要文字 6.9:1 */
+  --ink-3:#646b67;          /* 三级文字 5.1:1 */
+  --rule:#d2d8d4;           /* 发丝线 */
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;          /* 陈铜强调（冷底上的暖调） 6.1:1 */
+  --brass-wash:#efe4cc;
+  --deep:#121513;           /* 深色带 */
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头：标题 + 边注元信息（不对称双栏）───────────────── */
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(34px,4.4vw,52px);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:42ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.4;font-weight:600;
+  margin:30px 0 12px;letter-spacing:-0.006em;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:38px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums}
+.note{
+  margin-top:26px;padding:16px 20px;background:var(--paper-raised);
+  border-left:2px solid var(--brass);font-size:14.5px;line-height:1.68;color:var(--ink-2);
+}
+.note b{color:var(--ink);font-weight:600}
+
+/* ── 核心判断：整幅深色带（页面唯一的高对比时刻）──────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(24px,2.7vw,32px);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.65;color:var(--deep-2);max-width:60ch;
+}
+
+/* ── 关键数据：账册（发丝线分隔，非卡片）──────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:36px;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{
+  margin-top:12px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 口径对照表（发丝线账册）─────────────────────────── */
+.compare-wrap{overflow-x:auto;margin-top:26px}
+.compare{width:100%;border-collapse:collapse;font-size:14.5px;min-width:620px}
+.compare caption{
+  text-align:left;font-size:13px;color:var(--ink-3);padding-bottom:12px;line-height:1.6;
+}
+.compare th,.compare td{
+  text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.55;
+}
+.compare thead th{
+  border-bottom:1px solid var(--ink);font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:600;white-space:nowrap;
+}
+.compare td.n{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.compare .scope{font-size:12.5px;color:var(--ink-3);display:block;margin-top:3px}
+.compare tbody tr.sum td{background:var(--brass-wash);font-weight:600;border-bottom:1px solid var(--rule)}
+.compare tbody tr.hi td{background:var(--paper-raised)}
+
+/* ── 进程：左侧边注日期 ─────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+/* ── 证据：悬挂引号 ─────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.62;color:var(--ink);
+  max-width:56ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-quote[lang="en"]{font-size:16.5px;line-height:1.58;font-family:var(--sans);letter-spacing:0}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon p{font-size:13.5px;line-height:1.7;color:var(--ink-3);max-width:62ch}
+.colophon p + p{margin-top:14px}
+.colophon b{color:var(--ink-2);font-weight:600}
+
+/* ── 动效：发丝线自左绘出（页面唯一的一次性动作）──────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .compare{font-size:13.5px}
+  .compare th,.compare td{padding:9px 10px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>1.72 美元与 8,954 亿美元：Anthropic 招股书里的算力杠杆率拐点</h1>
+        <p class="standfirst">修订稿首次披露的采购与租赁承诺合计约 8,954 亿美元，付款期延续到 2045 年；同一份文件里，三季度每 1 美元算力支出换回的收入从二季度的 2.08 美元降到 1.72 美元。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-04</dd></div>
+          <div><dt>主责</dt><dd><b>研析</b>（测算）<b>＋察言</b>（核查）</dd></div>
+          <div><dt>追踪线</dt><dd>估值与资本</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">单位算力收入产出率在 2026 年二季度见顶，三季度回落 17.31%：这是 AI 基础设施第一次在公开文件上留下可验证的经营杠杆裂缝。</p>
+    <p class="verdict-note">口径是单季营收 ÷ 单季算力与基础设施支出，输入全部来自招股书季度合并损益表。三季度分子环比涨 46.74%，分母环比涨 77.46%，比值从 2.08 美元降到 1.72 美元；招股书自己把分母跑快的原因写明为 50 亿美元的短期承诺算力——同样的算力，用短期合同买价格显著更贵。同一份文件另一处披露的 8,954 亿美元采购与租赁承诺把这张账单续到 2045 年，其中 698 亿美元要在 2026 年 9 月 30 日之后的十二个月内付掉，而公司前九个月经营活动现金流只有 65.69 亿美元。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">除两项团队测算外，全部数字出自 2026 年 11 月 2 日提交 SEC 的 S-1/A 修订稿，可逐字回查。口径与来源层级写在页脚。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">8,954 亿美元</div>
+        <div class="metric-label">表外承诺合计上限</div>
+        <div class="metric-source">Anthropic S-1/A · 截至 2026-09-30 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">169.56 亿美元</div>
+        <div class="metric-label">公司总营收</div>
+        <div class="metric-source">Anthropic S-1/A 季度合并损益表 · 2026 Q3 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">98.63 亿美元</div>
+        <div class="metric-label">算力与基础设施支出</div>
+        <div class="metric-source">Anthropic S-1/A 季度合并损益表 · 2026 Q3 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.67 亿美元</div>
+        <div class="metric-label">会计口径经营亏损</div>
+        <div class="metric-source">Anthropic S-1/A 季度合并损益表 · 2026 Q3 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">232.91 亿美元</div>
+        <div class="metric-label">单季净亏损</div>
+        <div class="metric-source">Anthropic S-1/A 季度合并损益表 · 2026 Q3 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1.72 美元</div>
+        <div class="metric-label">单位算力收入产出率</div>
+        <div class="metric-source">团队测算 · S-1/A 季度合并损益表 · 2026 Q3</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2.08 美元</div>
+        <div class="metric-label">单位算力收入产出率</div>
+        <div class="metric-source">团队测算 · S-1/A 季度合并损益表 · 2026 Q2</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">192.40 亿美元</div>
+        <div class="metric-label">研发支出</div>
+        <div class="metric-source">Anthropic S-1/A 补充经营费用表 · 2026 前九个月 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">85.5%</div>
+        <div class="metric-label">API毛利率</div>
+        <div class="metric-source">团队测算 · S-1/A 收入成本 ÷ 营收 · 2026 前九个月 · 公司整体口径</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">不适用</div>
+        <div class="metric-label">表外承诺与股东权益之比</div>
+        <div class="metric-source">S-1/A 合并资产负债表 · 2026-09-30 · 股东权益合计 -1,498.73 亿美元（赤字）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">698 亿美元</div>
+        <div class="metric-label">十二个月内到期承诺</div>
+        <div class="metric-source">Anthropic S-1/A MD&A 合同义务 · 截至 2026-09-30 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,468.73 亿美元</div>
+        <div class="metric-label">流动性总额</div>
+        <div class="metric-source">Anthropic S-1/A MD&A 流动性 · 截至 2026-09-30 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,575.10 亿美元</div>
+        <div class="metric-label">可赎回可转换优先股</div>
+        <div class="metric-source">Anthropic S-1/A 合并资产负债表 · 2026-09-30 · SEC 页面直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">10,328.3 点</div>
+        <div class="metric-label">费城半导体指数</div>
+        <div class="metric-source">Nasdaq 官方指数历史 API · 2026-11-02 收盘 · 三源交叉一致（Nasdaq / Yahoo Finance / MarketWatch）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">40%</div>
+        <div class="metric-label">Anthropic 企业 LLM API 支出占比</div>
+        <div class="metric-source">Menlo Ventures 2025 · 沿用 2026-10-01 作品口径 · S-1/A 未更新该指标</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 拐点：五个季度的曲线 ────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>拐点：一条五个季度的曲线</h2>
+    <p class="lede">「AI 是不是在赚钱」太模糊。把它换成一个可复算的比率：单季营收 ÷ 单季算力与基础设施支出。输入只有两行，都出自招股书的季度合并损益表。</p>
+    <div class="compare-wrap">
+      <table class="compare">
+        <caption>单位算力收入产出率序列（单位：亿美元；S-1/A 季度合并损益表原值，比率为团队测算）</caption>
+        <thead>
+          <tr>
+            <th scope="col">季度</th>
+            <th scope="col">营收</th>
+            <th scope="col">算力与基础设施支出</th>
+            <th scope="col">单位算力收入产出率</th>
+            <th scope="col">会计口径经营利润（亏损）</th>
+            <th scope="col">调整后经营利润率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025 Q3</td>
+            <td class="n">13.82</td>
+            <td class="n">20.47</td>
+            <td class="n">0.68</td>
+            <td class="n">-30.89</td>
+            <td class="n">-93%</td>
+          </tr>
+          <tr>
+            <td>2025 Q4</td>
+            <td class="n">20.40</td>
+            <td class="n">29.45</td>
+            <td class="n">0.69</td>
+            <td class="n">-28.36</td>
+            <td class="n">-84%</td>
+          </tr>
+          <tr>
+            <td>2026 Q1</td>
+            <td class="n">47.31</td>
+            <td class="n">33.87</td>
+            <td class="n">1.40</td>
+            <td class="n">-16.67</td>
+            <td class="n">-13%</td>
+          </tr>
+          <tr>
+            <td>2026 Q2</td>
+            <td class="n">115.55</td>
+            <td class="n">55.58</td>
+            <td class="n">2.08</td>
+            <td class="n">9.74</td>
+            <td class="n">19%</td>
+          </tr>
+          <tr class="hi">
+            <td>2026 Q3</td>
+            <td class="n">169.56</td>
+            <td class="n">98.63</td>
+            <td class="n">1.72</td>
+            <td class="n">-5.67</td>
+            <td class="n">15%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>曲线在二季度见顶。三季度分子环比涨 46.74%，分母环比涨 77.46%，比值从 2.08 美元降到 1.72 美元，降幅 17.31%。如果算力按营收的速度同步增长，三季度算力支出应该是 81.56 亿美元，实际是 98.63 亿美元——多出来的 17.07 亿美元，就是这一季杠杆反转的全部幅度。</p>
+    <p>招股书自己写明了原因：这一季有 50 亿美元算力走的是短期承诺，而短期合同的算力「currently costs significantly more than comparable compute procured under our multi-year commitments」。同一季还有 20 亿美元与捐赠配对计划挂钩的非现金费用。两者叠加，把调整后经营利润率从二季度的 19% 压到 15%，把会计口径从 9.74 亿美元的经营盈利拉回 5.67 亿美元的经营亏损。</p>
+    <p>还有一条不能忽略的底色：二季度的 2.08 美元之所以成立，是因为那一季营收环比涨 144% 而算力只涨 64%；三季度营收环比 47% 对算力 77%，同一张表换了一个方向。前九个月口径下，研发支出 192.40 亿美元，占同期营收 332.42 亿美元的 57.88%——这家公司把大部分收入重新投回算力，而不是留在利润表上。</p>
+    <p>同一张表上还有一个容易被读反的数：三季度净亏损 232.91 亿美元，比二季度的 663.09 亿美元收窄了七成，但它仍然大于当季 169.56 亿美元的营收。原因是这个数里绝大部分不是经营亏损，而是可转换票据、衍生负债与 SAFE 的公允价值变动 219.36 亿美元——非现金的会计科目。把这三个数放在一起才是完整的口径：经营亏损 5.67 亿美元、调整后经营利润 24.63 亿美元、净亏损 232.91 亿美元。它们回答的是三个不同的问题。</p>
+    <p class="note"><b>必须分开看的两件事。</b>其一，1.72 美元的回落有一次性成分——短期算力溢价是需求超出长期合同后的临时采购价格，文件明说公司通常提前 12 至 18 个月签长期合同，因此这一季的溢价不构成长期趋势的证明。其二，但回落揭开的结构问题是真的：为锁定 8,954 亿美元承诺而提前采购的算力，先落地、先付款，产出要等到交付之后才来。二季度能把杠杆做正，靠的是增速差；增速差一收窄，正的杠杆就翻负。</p>
+  </div>
+</section>
+
+<!-- ── 8,954 亿美元怎么拼出来 ──────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>8,954 亿美元不是一个数，是五笔数相加</h2>
+    <p class="lede">这个数被拆散在四个章节里。把它拼回原来的样子，才知道它到底买了什么。</p>
+    <div class="compare-wrap">
+      <table class="compare">
+        <caption>承诺支出合计的拼装（单位：亿美元；S-1/A 原文分项，合计按原文精确值相加）</caption>
+        <thead>
+          <tr>
+            <th scope="col">口径</th>
+            <th scope="col">金额</th>
+            <th scope="col">原文位置</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>合同义务表合计<span class="scope">采购承诺 3,138.19 + 经营租赁 42.24 + 融资租赁 19.50</span></td>
+            <td class="n">3,199.93</td>
+            <td>MD&A 合同义务表</td>
+          </tr>
+          <tr>
+            <td>尚未起租的租赁<span class="scope">预计 2026 至 2028 年起租，租期一年至 20 年，加权平均约 10 年</span></td>
+            <td class="n">4,512.00</td>
+            <td>MD&A 合同义务表说明</td>
+          </tr>
+          <tr>
+            <td>一年内可无罚取消的短期承诺最低付款</td>
+            <td class="n">174.00</td>
+            <td>MD&A 合同义务表说明</td>
+          </tr>
+          <tr>
+            <td>2026-09-30 之后新签的承诺<span class="scope">主要为数据中心租赁与 CSP 托管等第三方基础设施服务协议</span></td>
+            <td class="n">1,002.00</td>
+            <td>附注 17 期后事项</td>
+          </tr>
+          <tr>
+            <td>2026-09-30 之后短期合同最低付款</td>
+            <td class="n">66.00</td>
+            <td>附注 17 期后事项</td>
+          </tr>
+          <tr class="sum">
+            <td>承诺支出合计上限</td>
+            <td class="n">8,953.93</td>
+            <td>文件披露 8,954，差异来自四舍五入</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>按年展开的合同义务表本身只有 3,199.93 亿美元：2026 年内 52.31、2027 年 291.65、2028 年 443.57、2029 年 477.52、2030 年 450.70、此后 1,484.18 亿美元。真正把总量推到 8,954 亿的是那 4,512 亿美元尚未起租的租赁——它们要到 2028 年前后才起租，付款期一路排到 2045 年，从今天算起 19 年。</p>
+    <h3>三个必须写明的限定</h3>
+    <p>其一，8,954 亿里有 2,138 亿美元（23.88%）属于受可行使终止权或有条件约束的部分——对手方能否拿到融资、设施与监管批准未定，安排可能被终止。其二，另有 1,500 至 1,750 亿美元「无固定金额承诺」的安排不在这个合计里，文件自己说这部分「the total amount of payments under these arrangements is uncertain」。其三，698 亿美元要在 2026 年 9 月 30 日之后的十二个月内付掉，占合计的 7.80%。</p>
+    <p class="note"><b>这笔钱的对手方是谁。</b>两项最大的具名安排都写明「regardless of actual usage」：2025 年 11 月与微软签约（2026 年 2 月至 10 月间修订），承诺自 2026 年 11 月至 2033 年 6 月累计至少支出 449 亿美元；2026 年 3 月与谷歌签 CSP 托管协议（2026 年 5 月至 10 月间修订），承诺自 2026 年 4 月至 2033 年 7 月至少支出约 1,213 亿美元，实际支出不足要按 true-up 补足。两项合计 1,662 亿美元，占承诺总额的 18.56%——这是「谁在收这笔钱」能追溯到的部分，其余分散在未具名的第三方基础设施服务商与数据中心开发商。</p>
+  </div>
+</section>
+
+<!-- ── 与 Meta 并排：同概念，不同颗粒度 ────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>与 Meta 并排：同概念，不同颗粒度</h2>
+    <p class="lede">团队此前在 10 月 27 日记录过 Meta 的表外承诺合计上限 8,249.7 亿美元（#357）。Anthropic 的 8,954 亿比它高 704.3 亿。但这两个数字不是严格可比的一对，理由写在下表。</p>
+    <div class="compare-wrap">
+      <table class="compare">
+        <caption>口径对照（单位：亿美元）</caption>
+        <thead>
+          <tr>
+            <th scope="col">口径</th>
+            <th scope="col">Anthropic（S-1/A，2026-11-02）</th>
+            <th scope="col">Meta（10-Q 附注 10，2026-10-27）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>构成</td>
+            <td>合同义务表 3,199.93 + 尚未起租租赁 4,512 + 一年内可取消短期承诺 174 + 期后新签 1,002 + 期后短期 66</td>
+            <td>未起租经营/融资租赁 3,557.3 + 不可撤销合同承诺 4,545.2 + 或有云容量采购 147.2</td>
+          </tr>
+          <tr>
+            <td>表外合计</td>
+            <td class="n">8,954.0</td>
+            <td class="n">8,249.7</td>
+          </tr>
+          <tr>
+            <td>合计之外<span class="scope">未计入表内合计的额外安排</span></td>
+            <td>1,500—1,750 亿美元「无固定金额承诺」安排（估算区间）</td>
+            <td>无同类披露</td>
+          </tr>
+          <tr>
+            <td>可终止性</td>
+            <td>2,138 亿美元受终止权或有条件约束（23.88%）</td>
+            <td>无同口径披露</td>
+          </tr>
+          <tr>
+            <td>股东权益（2026-09-30）</td>
+            <td class="n">-1,498.73</td>
+            <td class="n">正数（#357 口径 3.03 倍）</td>
+          </tr>
+          <tr class="sum">
+            <td>表外承诺与股东权益之比</td>
+            <td class="n">不可计算</td>
+            <td class="n">3.03 倍</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>所以这里能说的是同概念、不同披露颗粒度：两家公司都把尚未进资产负债表的承诺放在附注里排队，Anthropic 的口径把尚未起租的租赁与已签的采购承诺加总，Meta 的口径把未起租租赁与不可撤销合同加总，谁都没有把它们放进负债。不能说两者严格可比，因为三处差异是实质性的：Anthropic 另有 1,500 至 1,750 亿美元排在合计之外；Anthropic 单列了可终止部分的比例，而 Meta 没有对应披露；两者的租赁与采购在合同形态上并不一一对应。</p>
+    <p>最能说明问题的是股东权益那一行。Meta 的 3.03 倍之所以能算，是因为它有正的分母；Anthropic 在合并资产负债表上的股东权益合计是 -1,498.73 亿美元的赤字（累计亏损 1,561.93 亿，加上资本公积 64.81 亿），所以「表外承诺与股东权益之比」这一栏在 Anthropic 侧不是一个小数字，是不适用。替代口径有两个，都是团队测算而非公司披露：表外承诺与总资产之比 5.80 倍，与可赎回可转换优先股 1,575.10 亿美元之比 5.68 倍。</p>
+    <p class="note"><b>公司自己怎么称呼这笔钱。</b>招股书在表外安排一节写明：除正常经营中的托管服务与租赁承诺、权益法投资的出资承诺、以及为支持数据中心建设而与开发商签订的担保与费用补偿安排外，公司「did not have during the periods presented, and we do not currently have, any off-balance sheet financing arrangements」。翻译成会计语言：8,954 亿美元不是表外融资，是合同义务。</p>
+  </div>
+</section>
+
+<!-- ── Anthropic Direct ────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>Anthropic Direct：钱从费用变成资产</h2>
+    <p class="lede">第二件事解释了为什么承诺要签到 2045 年：公司在改变算力的取得方式，也在改变这些钱落在利润表还是资产负债表上。</p>
+    <p>招股书说，公司正「shifting from sourcing compute solely through fixed-term cloud agreements to a hybrid model that also includes leasing chips directly and hosting them in dedicated facilities operated on our behalf」。注意这不是媒体常说的「自建数据中心」：文件描述的模式是直接采购专用加速器，放在「由第三方建设并持有、按公司规格租用并运营」的专用数据中心设施里。这一类算力被公司称为 Anthropic Direct。它的做法是把数据中心容量的承诺与内部加速卡器的承诺拆开：数据中心建设周期长，但只占总算力成本的一小部分，因此可以先把机房容量锁下来，把更大的加速器采购推迟到需求更确定时。文件另有一句：第一个自有数据中心「became operational this year」。</p>
+    <p>随之而来的是现金流形状的变化。公司明写「We expect our capital expenditures to increase significantly as we expand our build-out」，并且预期「significant net cash used in operating and investing activities for the foreseeable future」——言下之意是，现金流出量的上升与经营表现好坏无关。2026 年前三季度已经能看到这个形状：经营活动净流入 65.69 亿美元，投资活动净流出 365.46 亿美元，筹资活动净流入 1,107.35 亿美元。而购建固定资产只有 9.25 亿美元，租赁资产与设备预付款 19.55 亿美元——资产负债表还没有开始承接这笔钱，付款主要先以承诺与租赁义务的形式落在附注里。</p>
+    <p class="note"><b>规模对照（团队测算）。</b>承诺合计是公司流动性总额 1,468.73 亿美元的 6.11 倍；其中 12 个月内到期的 698 亿美元，是前三季度经营活动现金流 65.69 亿美元的 10.63 倍；承诺总额相当于三季度营收的 52.81 倍、前九个月营收的 26.94 倍。这些倍数不预测违约，只说明量级：公司账上可动用的钱与一年内要付的钱之间差着一个数量级，缺口要靠融资填。文件里也写着，公司计划「to fund these investments through the revenue we generate and the capital that we raise」，并披露 NPA 项下最多 770 亿美元可用融资额度与 50 亿美元股权承诺。</p>
+  </div>
+</section>
+
+<!-- ── 同一份文件里的两句话 ────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>同一份文件里的两句话：门槛与账单</h2>
+    <p class="lede">这份招股书最值得注意的地方不是它说了什么，而是同一页上并排放着两种完全不同的语言。</p>
+    <p>风险因素里有一句：公司的内部估计与对未来模型的预期表明，它「may imminently meet our Responsible Scaling Policy's definition of "dramatically accelerated progress attributable to AI"」——公司说当前模型都未被认定越过这条门槛，但正在评估越过后的影响。另一处，MD&A 业务章节写明，策略要覆盖的风险，正是「as we approach what has been termed "recursive self-improvement"」。同一份文件另一段还给出了动因：按挂牌价计算的内部 Claude 使用价值，从 2026 年 1 月到 9 月增长了 250 倍以上，2026 年 4 月首次超过月度人力支出（不含股权激励）。</p>
+    <p class="note"><b>措辞的口径要写准。</b>招股书里「dramatically accelerated progress attributable to AI」出现在风险因素，全文只出现一次；「recursive self-improvement」出现在 MD&A 业务章节，全文也只出现一次；文件自身的等价说法还有「AI research and development capability threshold」。文件通篇没有使用「RSI」这个缩写，也没有把「递归自我改进」与门槛绑成一句。把两处相隔一百六十页的表述合并成「RSI 能力门槛」，是简报与媒体的合成标签，不是招股书原话。</p>
+    <p>把这个和前面的账单放在一起看，要小心不要替文件编因果。门槛那句话说的是模型能力与治理节奏，8,954 亿美元说的是现金与产能。文件把两者放在同一页，不是为了互相解释——文件没有说「因为接近门槛所以要签 8,954 亿」，也没有说「因为签了 8,954 亿所以接近门槛」。前者是安全承诺，后者是商业承诺，它们共用一份文件，但不共用一套机制。</p>
+    <p class="note"><b>与 11-02 作品的边界。</b>此前那份作品（#405）讲的是招股书把中国竞争、模型蒸馏、跨境限制列为主要经营风险，属于风险清单盘点。本篇讲的是财务结构与披露机制：承诺怎么拼出来、付款排到什么时候、股东权益为什么是赤字、Anthropic Direct 怎么改变现金流形状。两篇的机制层级不同，不互相替代。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">这条线索怎么走到今天</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2025-11</span>
+        <div>
+          <div class="timeline-title">与微软签下 449 亿美元最低采购承诺</div>
+          <div class="timeline-detail">承诺自 2026 年 11 月至 2033 年 6 月累计至少支出 449 亿美元，无论实际用量，除微软重大违约外不可取消。该协议在 2026 年 2 月至 10 月间被修订。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-03</span>
+        <div>
+          <div class="timeline-title">与谷歌签下 1,213 亿美元 CSP 托管承诺</div>
+          <div class="timeline-detail">承诺自 2026 年 4 月至 2033 年 7 月至少支出约 1,213 亿美元，实际支出不足要按 true-up 补足。该协议在 2026 年 5 月至 10 月间被修订。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-04</span>
+        <div>
+          <div class="timeline-title">内部 Claude 使用价值按挂牌价计算九个月增长 250 倍以上</div>
+          <div class="timeline-detail">按挂牌价计算的内部使用价值在 2026 年 4 月首次超过月度人力支出（不含股权激励）。这是公司后来在责任扩展策略一节写下的研发加速背景。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-26</span>
+        <div>
+          <div class="timeline-title">首次公开招股书，只含上半年财务</div>
+          <div class="timeline-detail">文件覆盖至 2026 年 6 月 30 日，上半年营收 162 亿美元。10 月 30 日费城半导体指数重挫 7.20%，市场情绪被黑石关于 Anthropic 上市后债务或难获投资级的说法进一步压低。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02</span>
+        <div>
+          <div class="timeline-title">S-1/A 修订稿提交，第三季度数字首次入档</div>
+          <div class="timeline-detail">据路透与彭博报道，公司同日另向日本关东财务局提交有価証券届出書，拟向日本投资者出售最多 5,529 亿日元（约 35 亿美元）的股份，瑞穗证券任事务幹事、三菱日联摩根士丹利证券任幹事，募集资金用于营运资金、经营费用与资本支出。该日元金额不在 S-1/A 内——招股书只把日本列为发行地之一（转引自路透、彭博与日文报道，备案原件未取得）。当日费城半导体指数跌 3.37%，收 10,328.3 点。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div>
+          <div class="timeline-title">半导体板块反弹，指数回升 2.64%</div>
+          <div class="timeline-detail">费城半导体指数收 10,600.4 点，涨 2.63%（Nasdaq 官方指数历史 API，经 Yahoo Finance 与 MarketWatch 交叉一致）。相较 10 月 22 日那次 -6.72% 的下挫（#357 记录），这轮反弹只收复了一部分失地。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。除最后一条外，全部逐字取自 S-1/A 修订稿。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">As of and subsequent to September 30, 2026, we have entered into purchase commitments and lease agreements, including short-term commitments, as well as leases not yet commenced, with an aggregate committed spend of approximately $895.4 billion. These commitments include approximately $447.5 billion expected to be incurred before December 31, 2030, and substantially all of the remainder is expected to be incurred between 2031 and 2045. Approximately $69.8 billion of these commitments are due in the 12 months following September 30, 2026.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A（2026-11-02）· MD&A 流动性与资本资源 · SEC EDGAR 页面直取 2026-11-05 · 原文照录</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">For example, as of and subsequent to September 30, 2026, we have entered into purchase commitments and lease agreements, including short-term commitments, as well as leases not yet commenced, with an aggregate committed spend of approximately $895.4 billion, which may substantially increase our operating expenses and cash requirements. These expenditures and investments may be more costly than we expect and may not result in increased revenue or growth in our business.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · 风险因素（汇总风险）· SEC EDGAR 页面直取 2026-11-05 · 原文照录，同一个数字第二次出现在风险章节</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">Our operating loss was $567 million for the three months ended September 30, 2026, compared to an operating income of $974 million for the three months ended June 30, 2026, primarily driven by $5.0 billion of compute under short-term commitments, which currently costs significantly more than comparable compute procured under our multi-year commitments, and $2.0 billion of non-cash charges related to our donation matching program.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 经营业绩讨论 · SEC EDGAR 页面直取 2026-11-05 · 原文照录，公司自己给出经营亏损的成因</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">Adjusted Operating Income increased for the three months ended September 30, 2026 to $2.5 billion compared to $2.2 billion for the three months ended June 30, 2026, while Adjusted Operating Margin decreased from 19% for the three months ended June 30, 2026 to 15% for the three months ended September 30, 2026, primarily driven by the $5.0 billion of short-term compute noted above.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 非 GAAP 指标 · SEC EDGAR 页面直取 2026-11-05 · 原文照录，调整后口径与会计口径在同一个季度给出不同方向</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">our internal estimates and our expectations regarding future models, rather than our current models, indicate that we may imminently meet our Responsible Scaling Policy's definition of “dramatically accelerated progress attributable to AI.” We have not designated any of our current models as exceeding this threshold, and we continue to assess the underlying data.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · 风险因素 · SEC EDGAR 页面直取 2026-11-05 · 原文照录，门槛的官方定义是 dramatically accelerated progress attributable to AI</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">Using AI to help build more capable AI could also pose a considerable safety risk, particularly if it sharply accelerates the pace of progress. This is one of the areas covered by our Responsible Scaling Policy, which sets out our plans to monitor and mitigate the risks as we approach what has been termed “recursive self-improvement.”</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 业务章节 · SEC EDGAR 页面直取 2026-11-05 · 原文照录，recursive self-improvement 全文仅出现一次，不在风险因素段</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">We refer to this additional source of compute as Anthropic Direct, which helps to address our scaling compute requirements and provides potential long-term economic advantages of direct hosting. Anthropic Direct provides us with a more flexible use of capital by allowing us to separate our commitments for data center capacity from our commitments for the AI accelerators deployed inside them.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 算力投入 · SEC EDGAR 页面直取 2026-11-05 · 原文照录；同节另有 Our first data center facility became operational this year</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">Other than hosting services and lease commitments incurred in the normal course of business, funding commitments related to our equity method investments, and guaranty and cost reimbursement arrangements with developers to support data center capacity development (see Notes 3, 7, and 13 to our consolidated financial statements included elsewhere in this prospectus for more information), we did not have during the periods presented, and we do not currently have, any off-balance sheet financing arrangements.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 表外安排 · SEC EDGAR 页面直取 2026-11-05 · 原文照录，公司对表外一词的自我界定</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">In November 2025, we entered into an agreement with Microsoft, which was subsequently amended between February and October 2026, pursuant to which we committed to spend an aggregate of at least $44.9 billion between November 2026 and June 2033, regardless of actual usage.</p>
+        <cite class="evidence-source">Anthropic PBC 修订 Form S-1/A · MD&A 基础设施服务安排 · SEC EDGAR 页面直取 2026-11-05 · 原文照录；同节另有与谷歌至少 1,213 亿美元的 CSP 托管承诺</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">The company reported a net loss of $23.29 billion during its third quarter.</p>
+        <cite class="evidence-source">CNBC《Anthropic reports $17 billion in Q3 revenue, purchase commitments of $895.4 billion in revised S-1》（2026-11-02）· 页面直取 2026-11-05 · 原文照录，与 S-1/A 季度表的 232.91 亿美元一致，佐证任务书标记的待核项</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>口径声明。</b>本文所称 8,954 亿美元（按招股书五个分项精确值相加为 8,953.93 亿美元）指采购承诺、租赁协议（含尚未起租租赁）、短期承诺与期后新签承诺的合计上限，<b>不是表内负债</b>，不得读作公司已确认的负债金额。单位算力收入产出率（1.72 / 2.08 美元）为本团队定义的推导口径：单季营收 ÷ 单季算力与基础设施支出，输入为 S-1/A 季度合并损益表原值，非公司披露指标。85.5% 为前九个月公司整体毛利率（收入成本 48.12 亿 ÷ 营收 332.40 亿美元口径），公司未披露 API 分部毛利率。</p>
+    <p><b>方法。</b>全部测算出自团队底稿 <code>2026-11-04/notes/calc_anthropic_leverage.py</code> 与其结果 <code>calc_anthropic_leverage_result.json</code>，输入分三层：A 级为招股书原文披露数（S-1/A），B 级为团队推导，C 级为媒体或机构转述（本文仅用于市场行情与日本发行两处，且单独标注）。承诺五分项的拼装结果 8,953.93 亿美元与文件披露的 8,954 亿美元之间的 0.07 亿美元差异来自四舍五入。</p>
+    <p><b>来源层级。</b>S1 页面直取：Anthropic PBC 修订 Form S-1/A（SEC EDGAR，2026-11-05 直取，HTTP 200，14,311,205 字节，md5 1fff5ca0f2c04f068d57d76986db60c9）；CNBC 2026-11-02 报道（页面直取成功）。S2 由察言独立复核并交叉一致：费城半导体指数 11-02 收 10,328.3 点（-3.37%）、11-03 收 10,600.4 点（+2.63%），Nasdaq 官方指数历史 API 与 Yahoo Finance、MarketWatch 三源一致；2026-11-04 当日数据同源自相矛盾，未采用。S3 搜索摘要级转引，页面未直取：10-30 跌 7.20% 与黑石相关表述（21 世纪经济报道）、向日本投资者发行最多 5,529 亿日元（约 35 亿美元）股份（路透与彭博转述，该金额出自日本关东财务局备案而非 S-1/A）、隐含毛利率约 85%（福布斯）。S4 口径未证实：无。</p>
+    <p><b>已核与未核。</b>本文已直接取得招股书原文并逐项复核季度合并损益表、季度非 GAAP 表、补充经营费用表、合并资产负债表数据、流动性与合同义务章节、以及两处能力门槛表述；核查协作由察言独立完成（能力门槛措辞位置、净亏损期间口径、Anthropic Direct 的实际模式、指数与日本发行两处外部数据），双方对同一文件的 md5 一致。但<b>未对 S-1/A 全文逐条复核</b>（税务、诉讼、股权激励细节等章节未读），<b>未取得日本关东财务局备案原件</b>，本文不评估这些承诺的回报，只评估其规模、节奏与覆盖。</p>
+    <p><b>局限。</b>（1）承诺为名义额，未折现，与合同现值不可直接比较；（2）短期算力溢价属一次性成分，单季回落不足以判定长期趋势；（3）与 Meta 的表外承诺合计上限属同概念、不同披露颗粒度，<b>不得读作严格可比</b>；（4）市场行情与日本发行两处为二手转引，精度以摘要为准。</p>
+    <p><b>免责。</b>本文为研究记录，非投资建议，不构成任何证券买卖的要约或推荐。所有前瞻性测算均为团队推演，不代表 Anthropic 的披露或指引。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 由本文件正文逐字拼接，已逐条回查。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "8,954 亿美元",
+    "label": "表外承诺合计上限",
+    "quote": "8,954 亿美元 表外承诺合计上限"
+  },
+  {
+    "value": "1.72 美元",
+    "label": "单位算力收入产出率",
+    "quote": "1.72 美元 单位算力收入产出率"
+  },
+  {
+    "value": "2.08 美元",
+    "label": "单位算力收入产出率",
+    "quote": "2.08 美元 单位算力收入产出率"
+  },
+  {
+    "value": "169.56 亿美元",
+    "label": "公司总营收",
+    "quote": "169.56 亿美元 公司总营收"
+  },
+  {
+    "value": "98.63 亿美元",
+    "label": "算力与基础设施支出",
+    "quote": "98.63 亿美元 算力与基础设施支出"
+  },
+  {
+    "value": "5.67 亿美元",
+    "label": "会计口径经营亏损",
+    "quote": "5.67 亿美元 会计口径经营亏损"
+  },
+  {
+    "value": "232.91 亿美元",
+    "label": "单季净亏损",
+    "quote": "232.91 亿美元 单季净亏损"
+  },
+  {
+    "value": "192.40 亿美元",
+    "label": "研发支出",
+    "quote": "192.40 亿美元 研发支出"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

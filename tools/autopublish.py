@@ -1101,8 +1101,20 @@ def phase_validate(pre_manifest, pre_tags, excluded=None, js_bad=None):
     strays = sorted(f for f in os.listdir(ROOT)
                     if os.path.isfile(os.path.join(ROOT, f))
                     and not f.startswith('.') and f not in ROOT_ALLOWED)
+    #  覆盖率不写死：曾硬编码「88%」，随断言增长漂移（2026-11-05 实测已到 95%）。
+    #  同类教训见 build_manifest.sync_embedded 的 meta 计数（曾长期停在 104 件/1014 条）。
+    #  W1 口径修正（2026-11-05）：原话「覆盖率的缺口就在这里」经实测**不成立** ——
+    #  缺声明的那几件同时是无结构作品（claim_gate 抽取 L0=0 / L1=0，
+    #  inject_contracts --dry-run 报「无断言可注入 6 件」并明确跳过）。
+    #  给它们补 [] 声明不会改变覆盖率，所以缺口归属要如实分开写：
+    #  契约完整性（W1）与覆盖率是两件事，不能互相解释。
+    structless = {i['file'] for i in items if not (i.get('claims') or [])}
+    both = len(structless & set(no_claims))
     log(f'  ⚠ W1 作品契约  缺claims声明 {len(no_claims)} 件 · 缺追踪线声明 {len(no_beat)} 件'
-        f'（不判失败，但覆盖率 88% 的缺口就在这里）')
+        f'（不判失败）')
+    if both:
+        log(f'        其中 {both} 件本身无可抽取断言 → 覆盖率 {cs.get("coverage", 0)}%'
+            f' 的缺口是作品无统计结构，补声明不改变覆盖率')
     for f in no_claims[-3:]:
         log(f'        ! 无 claims 声明块: {f}')
     if strays:

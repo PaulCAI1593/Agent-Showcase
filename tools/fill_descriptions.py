@@ -19,7 +19,7 @@ fill_descriptions.py — 从作品正文提取 description，补进 enrich.json
   python3 tools/fill_descriptions.py --min 40    # 过滤过短的噪声（默认 24）
 """
 
-import json, os, re, sys, html as htmlmod
+import argparse, json, os, re, sys, html as htmlmod
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANIFEST = os.path.join(ROOT, 'manifest.json')
@@ -160,12 +160,22 @@ def repair_tails(e, dry):
 
 
 def main():
-    dry = '--dry-run' in sys.argv
-    if '--repair-tails' in sys.argv:
+    # argparse：原 `in sys.argv` 判定会把 --help 等未知参数静默当正常执行，
+    # 而本脚本会写 enrich.json；且 `--min` 漏传值会直接 IndexError。
+    ap = argparse.ArgumentParser(
+        prog='fill_descriptions.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--dry-run', action='store_true', help='只预览，不写回 enrich.json')
+    ap.add_argument('--repair-tails', action='store_true', help='修复 enrich 里收尾异常的 description')
+    ap.add_argument('--min', type=int, default=8, metavar='N',
+                    help='description 最短长度阈值（默认 8）')
+    a = ap.parse_args()
+    dry = a.dry_run
+    if a.repair_tails:
         e = json.load(open(ENRICH, encoding='utf-8')) if os.path.exists(ENRICH) else {'works': []}
         repair_tails(e, dry)
         return 0
-    min_len = int(sys.argv[sys.argv.index('--min') + 1]) if '--min' in sys.argv else 8
+    min_len = a.min
 
     m = json.load(open(MANIFEST, encoding='utf-8'))
     items = m['research'] + m['creative']

@@ -1,0 +1,33 @@
+﻿impeccable 门禁留痕 · 选题412 · GDPx 智能体能力天花板
+作品：works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html
+执行日期：2026-11-05（Asia/Shanghai）
+执行顺序：开工前 `impeccable context`（读取 reference/craft-floor.md 与 reference/init.md）→ 交付前 detect 一次。
+
+── 命令 1（交付前，autopublish 注入返回链之后）────────────────────────────
+$ cd /app/working/shared/showcase && /app/working/workspaces/default/skills/impeccable/scripts/impeccable detect --json works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html
+[]
+exit=0
+
+── 命令 2（交付前，autopublish 注入返回链之前，复核一致）────────────────
+$ cd /app/working/shared/showcase && /app/working/workspaces/default/skills/impeccable/scripts/impeccable detect works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html
+（无输出）
+exit=0
+
+── 对照组：检测器本身可用的证明 ────────────────────────────────────────
+$ /app/working/workspaces/default/skills/impeccable/scripts/impeccable detect /tmp/badtest.html
+/tmp/badtest.html
+  [low-contrast] 3.5:1 (need 4.5:1) — text #5b6b8c on #0b1020
+  [hero-eyebrow-chip] eyebrow chip (tracked-caps) "ENTERPRISE GRADE AI" above h1 "Supercharge your workflow with world-class intelligence"
+  [undersized-ui-text] 9px functional text "Get started" (below 11px floor)
+  [tiny-text] 10px body text
+  [oversized-h1] 90px h1, 55 chars "Supercharge your workflow with world-class intelligence"
+  [marketing-buzzword] 4 buzzword phrases: "Get started Empower your team with c"
+8 anti-patterns found.
+exit=2
+
+结论
+  作品文件：0 warning / 0 error（findings 数组为空，退出码 0）。
+  对照组同一探测器在故意做坏的样本上稳定报出 8 条并以退出码 2 结束，
+  证明 detect 确实扫描了本作品，而不是因解析失败静默返回空数组。
+  AGENTS.md 规则 14（交付前跑 audit + polish）在本机以 detect 作为可执行形态；
+  设计质量另经人工渲染复核（4 张预览截图、控制台错误 0、375px 视口无横向滚动）。

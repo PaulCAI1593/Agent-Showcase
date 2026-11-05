@@ -1,0 +1,167 @@
+{
+  "yield_series": [
+    {
+      "quarter": "2025Q1",
+      "revenue_usd100m": 3.76,
+      "compute_usd100m": 9.44,
+      "yield_usd": 0.3983,
+      "yield_rounded_2dp": 0.4,
+      "operating_pl_usd100m": -9.35,
+      "net_loss_usd100m": -65.92,
+      "adj_op_income_usd100m": -8.3,
+      "adj_op_margin_pct": -221
+    },
+    {
+      "quarter": "2025Q2",
+      "revenue_usd100m": 7.87,
+      "compute_usd100m": 13.9,
+      "yield_usd": 0.5662,
+      "yield_rounded_2dp": 0.57,
+      "operating_pl_usd100m": -12.0,
+      "net_loss_usd100m": -63.77,
+      "adj_op_income_usd100m": -10.19,
+      "adj_op_margin_pct": -129
+    },
+    {
+      "quarter": "2025Q3",
+      "revenue_usd100m": 13.82,
+      "compute_usd100m": 20.47,
+      "yield_usd": 0.6751,
+      "yield_rounded_2dp": 0.68,
+      "operating_pl_usd100m": -30.89,
+      "net_loss_usd100m": -121.38,
+      "adj_op_income_usd100m": -12.84,
+      "adj_op_margin_pct": -93
+    },
+    {
+      "quarter": "2025Q4",
+      "revenue_usd100m": 20.4,
+      "compute_usd100m": 29.45,
+      "yield_usd": 0.6927,
+      "yield_rounded_2dp": 0.69,
+      "operating_pl_usd100m": -28.36,
+      "net_loss_usd100m": -168.58,
+      "adj_op_income_usd100m": -17.21,
+      "adj_op_margin_pct": -84
+    },
+    {
+      "quarter": "2026Q1",
+      "revenue_usd100m": 47.31,
+      "compute_usd100m": 33.87,
+      "yield_usd": 1.3968,
+      "yield_rounded_2dp": 1.4,
+      "operating_pl_usd100m": -16.67,
+      "net_loss_usd100m": -144.39,
+      "adj_op_income_usd100m": -6.17,
+      "adj_op_margin_pct": -13
+    },
+    {
+      "quarter": "2026Q2",
+      "revenue_usd100m": 115.55,
+      "compute_usd100m": 55.58,
+      "yield_usd": 2.079,
+      "yield_rounded_2dp": 2.08,
+      "operating_pl_usd100m": 9.74,
+      "net_loss_usd100m": -663.09,
+      "adj_op_income_usd100m": 22.35,
+      "adj_op_margin_pct": 19
+    },
+    {
+      "quarter": "2026Q3",
+      "revenue_usd100m": 169.56,
+      "compute_usd100m": 98.63,
+      "yield_usd": 1.7192,
+      "yield_rounded_2dp": 1.72,
+      "operating_pl_usd100m": -5.67,
+      "net_loss_usd100m": -232.91,
+      "adj_op_income_usd100m": 24.63,
+      "adj_op_margin_pct": 15
+    }
+  ],
+  "turning_point": {
+    "revenue_qoq_pct": 46.74,
+    "compute_qoq_pct": 77.46,
+    "yield_q2": 2.079,
+    "yield_q3": 1.7192,
+    "yield_change_pct": -17.31,
+    "compute_if_grew_with_revenue_usd100m": 81.56,
+    "excess_compute_vs_rev_growth_usd100m": 17.07,
+    "short_term_compute_q3_usd100m": 5000,
+    "noncash_donation_q3_usd100m": 2000,
+    "sbc_q3_usd100m": 10.7,
+    "noncash_charity_q3_usd100m": 19.6,
+    "adj_op_margin_q2_pct": 19,
+    "adj_op_margin_q3_pct": 15
+  },
+  "nine_month_2026": {
+    "revenue_usd100m": 332.42,
+    "cost_of_revenue_usd100m": 48.12,
+    "research_development_usd100m": 192.4,
+    "total_operating_expenses_usd100m": 345.02,
+    "operating_loss_usd100m": -12.6,
+    "gross_margin_pct": 85.52,
+    "compute_sum_from_quarters_usd100m": 188.08,
+    "compute_yoy_increase_usd100m": 144.27,
+    "compute_yoy_pct": 329.3,
+    "rd_share_of_revenue_pct": 57.88,
+    "cost_of_revenue_share_pct": 14.48
+  },
+  "commitment_reconciliation": {
+    "parts_usd100m": {
+      "contractual_obligations_table": 3199.93,
+      "leases_not_yet_commenced": 4512.0,
+      "short_term_cancelable_1y": 174.0,
+      "post_9_30_commitments": 1002.0,
+      "post_9_30_short_term_minimum": 66.0
+    },
+    "sum_usd100m": 8953.93,
+    "filing_aggregate_usd100m": 8954.0,
+    "difference_usd100m": -0.07,
+    "purchase_commitments_share_pct": 35.05,
+    "leases_not_commenced_share_pct": 50.39,
+    "due_12m_share_pct": 7.8,
+    "due_before_2030_share_pct": 49.98,
+    "terminable_share_pct": 23.88,
+    "excluded_range_usd100m": [
+      1500.0,
+      1750.0
+    ],
+    "payment_horizon_years": 19
+  },
+  "off_balance_sheet_context": {
+    "total_stockholders_equity_usd100m": -1498.73,
+    "table_offbs_to_equity_ratio": null,
+    "ratio_status": "股东权益为赤字（-1,498.73 亿美元），比值不可计算",
+    "table_offbs_to_total_assets_ratio": 5.8,
+    "table_offbs_to_redeemable_preferred_ratio": 5.68,
+    "table_offbs_to_liquidity_ratio": 6.11,
+    "due_12m_to_9m_operating_cash_ratio": 10.63,
+    "table_offbs_to_q3_revenue_multiple": 52.81,
+    "table_offbs_to_9m_revenue_multiple": 26.94,
+    "q3_net_loss_usd100m": -232.91,
+    "q3_operating_loss_usd100m": -5.67,
+    "q3_fair_value_change_usd100m": -219.36,
+    "q3_net_loss_minus_operating_loss_usd100m": -227.24
+  },
+  "meta_comparison": {
+    "anthropic_usd100m": 8954.0,
+    "meta_usd100m": 8249.7,
+    "difference_usd100m": 704.3,
+    "ratio": 1.0854,
+    "meta_stockholders_equity_ratio": 3.03,
+    "anthropic_equity_ratio": null,
+    "comparability": "同概念（表外承诺合计上限）、不同披露颗粒度，非严格可比"
+  },
+  "anthropic_direct": {
+    "capex_9m_ppe_usd100m": -9.25,
+    "prepayments_leased_assets_9m_usd100m": -19.55,
+    "operating_cf_9m_usd100m": 65.69,
+    "investing_cf_9m_usd100m": -365.46,
+    "financing_cf_9m_usd100m": 1107.35,
+    "liquidity_usd100m": 1466.0,
+    "npa_capacity_usd100m": 770.0,
+    "microsoft_commitment_usd100m": 449.0,
+    "google_commitment_usd100m": 1213.0,
+    "top2_arrangements_share_pct": 18.56
+  }
+}

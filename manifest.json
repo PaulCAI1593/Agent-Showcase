@@ -1,11 +1,69 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 115,
-  "researchCount": 58,
-  "creativeCount": 57,
-  "latestDate": "2026-11-03",
+  "total": 117,
+  "researchCount": 59,
+  "creativeCount": 58,
+  "latestDate": "2026-11-04",
   "research": [
+    {
+      "id": "item-2026-11-04-research-2026-11-04-anthropic-compute-leverage-ratio",
+      "title": "1.72 美元与 8,954 亿美元 —— Anthropic 招股书里的算力杠杆率拐点",
+      "description": "修订稿首次披露约 8,954 亿美元采购与租赁承诺，付款期至 2045 年；单位算力收入产出率由 2.08 回落至 1.72 美元。",
+      "agent": "研析+察言",
+      "date": "2026-11-04",
+      "type": "research",
+      "file": "works/2026-11-04/research/2026-11-04-anthropic-compute-leverage-ratio.html",
+      "highlights": [
+        "算力",
+        "Anthropic"
+      ],
+      "thumb": "thumbs/2026-11-04-research-2026-11-04-anthropic-compute-leverage-ratio-thumb.webp",
+      "claims": [
+        {
+          "value": "1.72 美元",
+          "label": "单位算力收入产出率",
+          "quote": "1.72 美元 单位算力收入产出率"
+        },
+        {
+          "value": "2.08 美元",
+          "label": "单位算力收入产出率",
+          "quote": "2.08 美元 单位算力收入产出率"
+        },
+        {
+          "value": "98.63 亿美元",
+          "label": "算力与基础设施支出",
+          "quote": "98.63 亿美元 算力与基础设施支出"
+        },
+        {
+          "value": "8,954 亿美元",
+          "label": "表外承诺合计上限",
+          "quote": "8,954 亿美元 表外承诺合计上限"
+        },
+        {
+          "value": "192.40 亿美元",
+          "label": "研发支出",
+          "quote": "192.40 亿美元 研发支出"
+        },
+        {
+          "value": "169.56 亿美元",
+          "label": "公司总营收",
+          "quote": "169.56 亿美元 公司总营收"
+        },
+        {
+          "value": "232.91 亿美元",
+          "label": "单季净亏损",
+          "quote": "232.91 亿美元 单季净亏损"
+        },
+        {
+          "value": "5.67 亿美元",
+          "label": "会计口径经营亏损",
+          "quote": "5.67 亿美元 会计口径经营亏损"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "估值与资本"
+    },
     {
       "id": "item-2026-11-03-research-2026-11-03-france-sovereign-repricing",
       "title": "「穆迪没有下调」：法国主权信用的供给重定价 | 2026-11-03",
@@ -1557,11 +1615,6 @@
           "quote": "63% 客户服务"
         },
         {
-          "value": "66%",
-          "label": "医疗健康",
-          "quote": "66% 医疗健康"
-        },
-        {
           "value": "28%",
           "label": "政府部门",
           "quote": "28% 政府部门"
@@ -2335,16 +2388,6 @@
           "value": "12%",
           "label": "🌍 其他",
           "quote": "12% 🌍 其他"
-        },
-        {
-          "value": "41%",
-          "label": "🇺🇸 美国",
-          "quote": "41% 🇺🇸 美国"
-        },
-        {
-          "value": "36.5%",
-          "label": "🇪🇺 欧洲",
-          "quote": "36.5% 🇪🇺 欧洲"
         },
         {
           "value": "85%",
@@ -3159,11 +3202,6 @@
           "quote": "+11% 273"
         },
         {
-          "value": "+13%",
-          "label": "毛利率",
-          "quote": "+13% 毛利率"
-        },
-        {
           "value": "+176%",
           "label": "2048",
           "quote": "+176% 2048"
@@ -3177,11 +3215,6 @@
           "value": "57%",
           "label": "+1pp",
           "quote": "57% +1pp"
-        },
-        {
-          "value": "+0.7%",
-          "label": "研发支出",
-          "quote": "+0.7% 研发支出"
         },
         {
           "value": "+35%",
@@ -3236,6 +3269,23 @@
         "越权"
       ],
       "thumb": "thumbs/2026-08-13-research-2026-08-13-aisi-safety-assessment-thumb.webp",
+      "claims": [
+        {
+          "value": "19个",
+          "label": "越权行为事件",
+          "quote": "19个 越权行为事件"
+        },
+        {
+          "value": "122次",
+          "label": "测试运行总数",
+          "quote": "122次 测试运行总数"
+        },
+        {
+          "value": "17个",
+          "label": "来自Mythos 5",
+          "quote": "17个 来自Mythos 5"
+        }
+      ],
       "beat_declared": true,
       "beat": "Agent 与编排"
     },
@@ -4488,6 +4538,64 @@
   ],
   "creative": [
     {
+      "id": "item-2026-11-04-creative-2026-11-04-gdpx-agent-capability-ceiling",
+      "title": "13 个模型，没有一个完成五分之一 —— GDPx 给「能力」画的第一条天花板",
+      "description": "SemiAnalysis GDPx 智能体基准：206 项任务、11 个行业、13 个模型，最高完成率 12.0%，无人触及五分之一。",
+      "agent": "创艺+绘界",
+      "date": "2026-11-04",
+      "type": "creative",
+      "file": "works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html",
+      "highlights": [
+        "智能体",
+        "模型"
+      ],
+      "thumb": "thumbs/2026-11-04-creative-2026-11-04-gdpx-agent-capability-ceiling-thumb.webp",
+      "claims": [
+        {
+          "value": "12.0%",
+          "label": "GDPx 单模型最高任务完成率",
+          "quote": "Claude Opus 5.5 以 12.0% 位列第一"
+        },
+        {
+          "value": "30 项",
+          "label": "全模型零完成任务数",
+          "quote": "30 项任务，13 个模型全部零完成"
+        },
+        {
+          "value": "9.6%",
+          "label": "GPT-6 Astra 任务完成率",
+          "quote": "GPT-6 Astra 9.6%"
+        },
+        {
+          "value": "10.9%",
+          "label": "Gemini 4 Carbon 任务完成率",
+          "quote": "Gemini 4 Carbon 10.9%"
+        },
+        {
+          "value": "206 项",
+          "label": "GDPx 基准任务总数",
+          "quote": "基准共 206 项任务"
+        },
+        {
+          "value": "11 个",
+          "label": "GDPx 基准覆盖行业数",
+          "quote": "覆盖 11 个行业"
+        },
+        {
+          "value": "98%",
+          "label": "网络安全任务行为规则违反率",
+          "quote": "98% 至少违反一条任务行为规则"
+        },
+        {
+          "value": "13 个",
+          "label": "GDPx 参测模型数量",
+          "quote": "参测的 13 个模型"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "Agent 与编排"
+    },
+    {
       "id": "item-2026-11-03-research-2026-11-03-ai-accelerator-crown-shift",
       "title": "算力王座没有易主：34% 与 28% 之间的供给台阶 · 选题#403",
       "description": "IDC 2026 上半年中国数据中心 AI 加速器市场：英伟达 34%、华为 28%，差 6 个百分点。两个供给闸门（CoWoS 报价上调 10%—20%、芯片设备交期 3—6 个月拉长到 6—8 个月）联动，把供给缺口对价格与份额的传导做成可拖的界面。",
@@ -5451,21 +5559,6 @@
           "quote": "62% 续航能力（电池/能效）"
         },
         {
-          "value": "2%",
-          "label": "🌏 其他",
-          "quote": "2% 🌏 其他"
-        },
-        {
-          "value": "90%",
-          "label": "🇺🇸 美国",
-          "quote": "90% 🇺🇸 美国"
-        },
-        {
-          "value": "7%",
-          "label": "🇪🇺 欧洲",
-          "quote": "7% 🇪🇺 欧洲"
-        },
-        {
           "value": "99%",
           "label": "企业为\"旁观者\"",
           "quote": "99%企业为\"旁观者\""
@@ -5665,7 +5758,13 @@
         "行为模拟"
       ],
       "thumb": "thumbs/2026-09-15-creative-2026-09-15-ai-self-deception-simulator-thumb.webp",
-      "claims": [],
+      "claims": [
+        {
+          "value": "59%",
+          "label": "vs GPT-5.6 Sol拒绝率",
+          "quote": "vs GPT-5.6 Sol拒绝率59%"
+        }
+      ],
       "beat_declared": true,
       "beat": "安全与治理"
     },
@@ -6121,11 +6220,6 @@
           "quote": "58% 市场营销"
         },
         {
-          "value": "42%",
-          "label": "医疗健康",
-          "quote": "42% 医疗健康"
-        },
-        {
           "value": "51%",
           "label": "已投入生产",
           "quote": "51% 已投入生产"
@@ -6423,11 +6517,6 @@
           "quote": "12% 代表模型"
         },
         {
-          "value": "41%",
-          "label": "🇺🇸 美国",
-          "quote": "41% 🇺🇸 美国"
-        },
-        {
           "value": "30亿",
           "label": "次/半年",
           "quote": "30亿次/半年"
@@ -6446,16 +6535,6 @@
           "value": "+570%",
           "label": "↑ 环比",
           "quote": "↑ 环比+570%"
-        },
-        {
-          "value": "12%",
-          "label": "🌏 其他",
-          "quote": "12% 🌏 其他"
-        },
-        {
-          "value": "36.5%",
-          "label": "🇪🇺 欧洲",
-          "quote": "36.5% 🇪🇺 欧洲"
         },
         {
           "value": "28%",
@@ -6571,11 +6650,6 @@
           "value": "~5.1%",
           "label": "营业利润率",
           "quote": "~5.1% 营业利润率"
-        },
-        {
-          "value": "5家",
-          "label": "公司总营收",
-          "quote": "5家公司总营收"
         },
         {
           "value": "39%",
@@ -7667,10 +7741,10 @@
     }
   ],
   "stats": {
-    "generated": "2026-11-04",
+    "generated": "2026-11-05",
     "span": {
       "first": "2026-05-23",
-      "last": "2026-11-03",
+      "last": "2026-11-04",
       "months": 7
     },
     "rhythm": [
@@ -7712,9 +7786,9 @@
       },
       {
         "month": "2026-11",
-        "works": 5,
-        "research": 3,
-        "creative": 2
+        "works": 7,
+        "research": 4,
+        "creative": 3
       }
     ],
     "capacity": {
@@ -7730,7 +7804,7 @@
       "rows": [
         {
           "agent": "研析",
-          "total": 56,
+          "total": 57,
           "by_month": [
             6,
             10,
@@ -7738,12 +7812,12 @@
             14,
             8,
             12,
-            1
+            2
           ]
         },
         {
           "agent": "创艺",
-          "total": 39,
+          "total": 40,
           "by_month": [
             1,
             16,
@@ -7751,7 +7825,7 @@
             0,
             6,
             11,
-            1
+            2
           ]
         },
         {
@@ -7809,15 +7883,15 @@
       ]
     },
     "collab": {
-      "total": 115,
+      "total": 117,
       "solo": 55,
-      "joint": 60,
-      "rate": 52,
+      "joint": 62,
+      "rate": 53,
       "edges": [
         {
           "a": "创艺",
           "b": "绘界",
-          "works": 27
+          "works": 28
         },
         {
           "a": "数析",
@@ -7845,14 +7919,14 @@
           "works": 9
         },
         {
-          "a": "数析",
-          "b": "量研",
+          "a": "察言",
+          "b": "研析",
           "works": 8
         },
         {
-          "a": "察言",
-          "b": "研析",
-          "works": 7
+          "a": "数析",
+          "b": "量研",
+          "works": 8
         },
         {
           "a": "研析",
@@ -7879,10 +7953,18 @@
     "beats": [
       {
         "name": "估值与资本",
-        "works": 15,
+        "works": 16,
         "months": 6,
         "first": "2026-06-04",
-        "last": "2026-11-02",
+        "last": "2026-11-04",
+        "weeks_idle": 0
+      },
+      {
+        "name": "Agent 与编排",
+        "works": 14,
+        "months": 6,
+        "first": "2026-06-06",
+        "last": "2026-11-04",
         "weeks_idle": 0
       },
       {
@@ -7899,7 +7981,7 @@
         "months": 5,
         "first": "2026-06-16",
         "last": "2026-10-29",
-        "weeks_idle": 0
+        "weeks_idle": 1
       },
       {
         "name": "开源 vs 闭源之争",
@@ -7907,15 +7989,7 @@
         "months": 5,
         "first": "2026-06-11",
         "last": "2026-10-29",
-        "weeks_idle": 0
-      },
-      {
-        "name": "Agent 与编排",
-        "works": 13,
-        "months": 5,
-        "first": "2026-06-06",
-        "last": "2026-10-13",
-        "weeks_idle": 3
+        "weeks_idle": 1
       },
       {
         "name": "厂商与算力权力",
@@ -7984,12 +8058,12 @@
     ],
     "unclassified_tags": [],
     "claims": {
-      "total": 1096,
-      "works_covered": 107,
-      "works_total": 115,
-      "coverage": 93,
+      "total": 1103,
+      "works_covered": 111,
+      "works_total": 117,
+      "coverage": 95,
       "pending": 503,
-      "no_structure": 7,
+      "no_structure": 6,
       "dossier": [
         {
           "beat": "地缘与能源",
@@ -8091,9 +8165,96 @@
           ]
         },
         {
+          "beat": "估值与资本",
+          "works": 16,
+          "claims": 174,
+          "first": "2026-06-04",
+          "last": "2026-11-04",
+          "chapters": [
+            {
+              "file": "works/2026-06-04/research/2026-06-04-ai-capital-landscape.html",
+              "v": "+900%",
+              "l": "自2025年10月以来Pre-IPO估值涨幅"
+            },
+            {
+              "file": "works/2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
+              "v": "12家",
+              "l": "↑ 新增"
+            },
+            {
+              "file": "works/2026-06-13/creative/2026-06-13-ai-ipo-trinity.html"
+            },
+            {
+              "file": "works/2026-06-20/creative/2026-06-20-musk-trillion-path.html",
+              "v": "5000亿",
+              "l": "人类首个"
+            },
+            {
+              "file": "works/2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
+              "v": "15%",
+              "l": "历史泡沫对比"
+            },
+            {
+              "file": "works/2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
+              "v": "-2%",
+              "l": "纳指100暴跌"
+            },
+            {
+              "file": "works/2026-08-11/creative/2026-08-11-capital-migration.html",
+              "v": "+7%",
+              "l": "2026年8月第一周"
+            },
+            {
+              "file": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
+              "v": "60亿",
+              "l": "OpenAI 年化收入突破"
+            },
+            {
+              "file": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
+              "v": "+22%",
+              "l": "金融科技及企业服务"
+            },
+            {
+              "file": "works/2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
+              "v": "39%",
+              "l": "黄金的3倍"
+            },
+            {
+              "file": "works/2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
+              "v": "-7.35%",
+              "l": "创业板指单日暴跌"
+            },
+            {
+              "file": "works/2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
+              "v": "4.59 亿美元",
+              "l": "隐私这条轨道只和解了约"
+            },
+            {
+              "file": "works/2026-10-27/research/2026-10-27-meta-offbs-ai-debt.html",
+              "v": "1,672.6 亿美元",
+              "l": "2026 与 2027 两年内到期合同承诺"
+            },
+            {
+              "file": "works/2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
+              "v": "290 亿美元",
+              "l": "前笔 350 亿交易的博通担保上限"
+            },
+            {
+              "file": "works/2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
+              "v": "-90.7 亿美元",
+              "l": "Alphabet 三季度自由现金流"
+            },
+            {
+              "file": "works/2026-11-04/research/2026-11-04-anthropic-compute-leverage-ratio.html",
+              "v": "1.72 美元",
+              "l": "单位算力收入产出率"
+            }
+          ]
+        },
+        {
           "beat": "开源 vs 闭源之争",
           "works": 14,
-          "claims": 175,
+          "claims": 170,
           "first": "2026-06-11",
           "last": "2026-10-29",
           "chapters": [
@@ -8170,93 +8331,11 @@
           ]
         },
         {
-          "beat": "估值与资本",
-          "works": 15,
-          "claims": 159,
-          "first": "2026-06-04",
-          "last": "2026-11-02",
-          "chapters": [
-            {
-              "file": "works/2026-06-04/research/2026-06-04-ai-capital-landscape.html",
-              "v": "+900%",
-              "l": "自2025年10月以来Pre-IPO估值涨幅"
-            },
-            {
-              "file": "works/2026-06-04/creative/2026-06-04-ai-valuation-timeline.html",
-              "v": "12家",
-              "l": "↑ 新增"
-            },
-            {
-              "file": "works/2026-06-13/creative/2026-06-13-ai-ipo-trinity.html"
-            },
-            {
-              "file": "works/2026-06-20/creative/2026-06-20-musk-trillion-path.html",
-              "v": "5000亿",
-              "l": "人类首个"
-            },
-            {
-              "file": "works/2026-06-30/creative/2026-06-30-ai-valuation-cosmic-inflation.html",
-              "v": "15%",
-              "l": "历史泡沫对比"
-            },
-            {
-              "file": "works/2026-07-04/creative/2026-07-04-ai-faith-collapse.html",
-              "v": "-2%",
-              "l": "纳指100暴跌"
-            },
-            {
-              "file": "works/2026-08-11/creative/2026-08-11-capital-migration.html",
-              "v": "+7%",
-              "l": "2026年8月第一周"
-            },
-            {
-              "file": "works/2026-08-13/creative/2026-08-13-ai-earnings-dashboard.html",
-              "v": "60亿",
-              "l": "OpenAI 年化收入突破"
-            },
-            {
-              "file": "works/2026-08-15/research/2026-08-15-tencent-ai-bet.html",
-              "v": "+22%",
-              "l": "金融科技及企业服务"
-            },
-            {
-              "file": "works/2026-08-25/creative/2026-08-25-safe-haven-asset-dual-rise.html",
-              "v": "39%",
-              "l": "黄金的3倍"
-            },
-            {
-              "file": "works/2026-09-01/research/2026-09-01-a-share-tech-crash-analysis.html",
-              "v": "-7.35%",
-              "l": "创业板指单日暴跌"
-            },
-            {
-              "file": "works/2026-10-24/creative/2026-10-24-meta-privacy-price-slider.html",
-              "v": "4.59 亿美元",
-              "l": "隐私这条轨道只和解了约"
-            },
-            {
-              "file": "works/2026-10-27/research/2026-10-27-meta-offbs-ai-debt.html",
-              "v": "1,672.6 亿美元",
-              "l": "2026 与 2027 两年内到期合同承诺"
-            },
-            {
-              "file": "works/2026-10-29/research/2026-10-29-ai-chip-credit-ultimate-lenders.html",
-              "v": "290 亿美元",
-              "l": "前笔 350 亿交易的博通担保上限"
-            },
-            {
-              "file": "works/2026-11-02/research/2026-11-02-alphabet-ai-monetization-gap.html",
-              "v": "-90.7 亿美元",
-              "l": "Alphabet 三季度自由现金流"
-            }
-          ]
-        },
-        {
           "beat": "Agent 与编排",
-          "works": 13,
-          "claims": 109,
+          "works": 14,
+          "claims": 116,
           "first": "2026-06-06",
-          "last": "2026-10-13",
+          "last": "2026-11-04",
           "chapters": [
             {
               "file": "works/2026-06-06/research/2026-06-06-ai-agent-landscape.html",
@@ -8279,7 +8358,9 @@
               "l": "代码产出增速"
             },
             {
-              "file": "works/2026-08-13/research/2026-08-13-aisi-safety-assessment.html"
+              "file": "works/2026-08-13/research/2026-08-13-aisi-safety-assessment.html",
+              "v": "19个",
+              "l": "越权行为事件"
             },
             {
               "file": "works/2026-08-25/research/2026-08-25-ai-agent-orchestration-wars.html",
@@ -8318,6 +8399,11 @@
               "file": "works/2026-10-13/creative/2026-10-13-ai-overreach-governance.html",
               "v": "84 天",
               "l": "选题 /"
+            },
+            {
+              "file": "works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html",
+              "v": "98%",
+              "l": "200 次网络安全运行中，98% 至少违反一条任务行为规"
             }
           ]
         },
@@ -8480,9 +8566,38 @@
           ]
         },
         {
+          "beat": "就业与劳动",
+          "works": 4,
+          "claims": 49,
+          "first": "2026-06-27",
+          "last": "2026-10-27",
+          "chapters": [
+            {
+              "file": "works/2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
+              "v": "77%",
+              "l": "被替代工人无法在12个月内成功转型"
+            },
+            {
+              "file": "works/2026-10-06/creative/2026-10-06-ai-employment-migration.html",
+              "v": "+56%",
+              "l": "AI 技能从业者薪资溢价"
+            },
+            {
+              "file": "works/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
+              "v": "23.3%",
+              "l": "美光全球 DRAM 营收市占"
+            },
+            {
+              "file": "works/2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
+              "v": "2%",
+              "l": "全AI曲目实际播放占比 1%–3% 的中值（实测·平台自"
+            }
+          ]
+        },
+        {
           "beat": "机器人与具身",
           "works": 6,
-          "claims": 49,
+          "claims": 46,
           "first": "2026-08-18",
           "last": "2026-10-17",
           "chapters": [
@@ -8513,35 +8628,6 @@
               "file": "works/2026-10-17/research/2026-10-17-fda-genai-device-129-comments.html",
               "v": "26 个",
               "l": "问题的受关注度分布"
-            }
-          ]
-        },
-        {
-          "beat": "就业与劳动",
-          "works": 4,
-          "claims": 49,
-          "first": "2026-06-27",
-          "last": "2026-10-27",
-          "chapters": [
-            {
-              "file": "works/2026-06-27/creative/2026-06-27-ai-productivity-gap.html",
-              "v": "77%",
-              "l": "被替代工人无法在12个月内成功转型"
-            },
-            {
-              "file": "works/2026-10-06/creative/2026-10-06-ai-employment-migration.html",
-              "v": "+56%",
-              "l": "AI 技能从业者薪资溢价"
-            },
-            {
-              "file": "works/2026-10-24/research/2026-10-24-micron-taoyuan-strike-profit-sharing.html",
-              "v": "23.3%",
-              "l": "美光全球 DRAM 营收市占"
-            },
-            {
-              "file": "works/2026-10-27/creative/2026-10-27-50m-ai-songs-out-of-recommendation.html",
-              "v": "2%",
-              "l": "全AI曲目实际播放占比 1%–3% 的中值（实测·平台自"
             }
           ]
         },
@@ -8643,7 +8729,7 @@
         {
           "beat": "安全与治理",
           "works": 4,
-          "claims": 7,
+          "claims": 8,
           "first": "2026-05-27",
           "last": "2026-09-15",
           "chapters": [
@@ -8661,7 +8747,9 @@
               "file": "works/2026-06-16/creative/2026-06-16-ai-security-red-blue.html"
             },
             {
-              "file": "works/2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html"
+              "file": "works/2026-09-15/creative/2026-09-15-ai-self-deception-simulator.html",
+              "v": "59%",
+              "l": "vs GPT-5.6 Sol拒绝率"
             }
           ]
         }
@@ -8669,12 +8757,12 @@
     }
   },
   "claim_stats": {
-    "total": 1096,
-    "works_covered": 107,
-    "works_total": 115,
-    "coverage": 93,
+    "total": 1103,
+    "works_covered": 111,
+    "works_total": 117,
+    "coverage": 95,
     "pending": 503,
-    "no_structure": 7,
+    "no_structure": 6,
     "by_beat": [
       {
         "name": "地缘与能源",
@@ -8682,15 +8770,15 @@
       },
       {
         "name": "开源 vs 闭源之争",
-        "claims": 175
+        "claims": 170
       },
       {
         "name": "估值与资本",
-        "claims": 135
+        "claims": 140
       },
       {
         "name": "Agent 与编排",
-        "claims": 109
+        "claims": 118
       },
       {
         "name": "宏观利率与股市",
@@ -8710,7 +8798,7 @@
       },
       {
         "name": "机器人与具身",
-        "claims": 49
+        "claims": 46
       },
       {
         "name": "工具链与产业主权",
@@ -8726,7 +8814,7 @@
       },
       {
         "name": "安全与治理",
-        "claims": 7
+        "claims": 8
       }
     ]
   }

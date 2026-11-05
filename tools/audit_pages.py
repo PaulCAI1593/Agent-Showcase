@@ -21,6 +21,7 @@ audit_pages.py — 作品页健康巡检（运行时错误 / 空白页 / 资源�
   python3 tools/audit_pages.py --sample 20 # 抽样
   python3 tools/audit_pages.py --fix        # 巡检并把能自动修的（缺返回链等）修掉
 """
+import argparse
 import glob
 import json
 import os
@@ -145,12 +146,19 @@ def audit_one(pg, rel):
 
 
 def main():
-    args = sys.argv[1:]
-    sample = None
-    if "--sample" in args:
-        sample = int(args[args.index("--sample") + 1])
-    # 位置参数 = 只查这几件（相对仓库根目录）；不带参数则全量
-    only = [a for a in args if not a.startswith("-") and not a.isdigit()]
+    # argparse：原手解析会把 --help 吞掉（只过滤 '-' 开头的参数）→ 直接跑全量
+    # 巡检（分钟级），而不是打印帮助；--sample 漏传值还会 IndexError。
+    # 调用方 auto_maintain.py:270 传 ['--sample', str(n)]，语义不变。
+    ap = argparse.ArgumentParser(
+        prog='audit_pages.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--sample', type=int, default=None, metavar='N',
+                    help='只抽查 N 件（不带则全量）')
+    ap.add_argument('files', nargs='*',
+                    help='只查这几件（相对仓库根目录）；不带则全量')
+    a = ap.parse_args()
+    sample = a.sample
+    only = a.files
     ws = works()
     if only:
         ws = [f for f in only if os.path.exists(f)]

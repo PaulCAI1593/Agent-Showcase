@@ -875,7 +875,7 @@ section.section::before{width:1px !important}
       <div class="data-card" data-card>
         <div class="data-card-icon red">🛡️</div>
         <div class="data-card-value red" data-counter="91.5" data-suffix="%">0</div>
-        <div class="data-card-label">Astra对网络攻击请求的拒绝率<br>vs GPT-5.6 Sol的59%</div>
+        <div class="data-card-label">Astra对网络攻击请求的拒绝率<br>vs GPT-5.6 Sol拒绝率59%</div>
         <div class="data-card-bar"><div class="data-card-bar-fill red" data-width="91.5"></div></div>
       </div>
       <div class="data-card" data-card>
@@ -1616,6 +1616,11 @@ function updateChartFinal() {
 
   chartObserver.observe(canvas.parentElement);
 })();
+</script>
+<script type="application/json" id="claims">
+[
+  {"value": "59%", "label": "vs GPT-5.6 Sol拒绝率", "quote": "vs GPT-5.6 Sol拒绝率59%"}
+]
 </script>
 </body>
 </html>

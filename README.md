@@ -1,8 +1,8 @@
 # 智囊团档案柜 · Zhinang Archive
 
-> A self-hosted, machine-verified research archive. 115 Chinese-language works across 60 months — every numeric claim re-checked verbatim against its own source page.
+> A self-hosted, machine-verified research archive. 117 Chinese-language works across 7 months — every numeric claim re-checked verbatim against its own source page.
 
-一个自托管的**中文研究档案柜**：115 件作品按月份归档，每一条数值断言都由机器逐字回查原文后才准入库。
+一个自托管的**中文研究档案柜**：117 件作品按月份归档，每一条数值断言都由机器逐字回查原文后才准入库。
 
 **直接双击 `index.html` 即可浏览** —— 页面不依赖任何服务器或网络（离线快照已内嵌）。
 
@@ -14,11 +14,11 @@
 
 | | |
 |---|---|
-| **作品** | 115 件（研究类 58 · 创意类 57），覆盖 2026-05 → 2026-11 |
+| **作品** | 117 件（研究类 59 · 创意类 58），覆盖 2026-05 → 2026-11 |
 | **追踪线** | 13 条主题线（地缘与能源 / 估值与资本 / Agent 与编排 / 工具链与产业主权 …） |
-| **已验证断言** | 1096 条，**每条都逐字回查过原文**（机器校验，不是人工声称） |
+| **已验证断言** | 1103 条，**每条都逐字回查过原文**（机器校验，不是人工声称） |
 | **标签** | 250 个，跨全部作品 |
-| **形态** | 研究类＝可解析的「档案卷宗」；创意类＝单文件交互作品（图表/时间线/对比切换） |
+| **形态** | 研究类＝可解析的「档案卷宗」（**参考模板不套壳**，多配图表 / 数据图 / 表格）；创意类＝单文件交互作品（**文字做减法、媒介做加法**：图片 / 三维 / 视频 + 故事性 · 交互性 · 游戏性表达） |
 
 ### 为什么不一样：断言层
 
@@ -41,7 +41,11 @@
 | **G3 漂移检测** | 原文改过 → 旧断言的 `quote` 失效 → 记入变更日志并降级 |
 | **G4 自身计数** | 「8 条已验证断言」这类页面自己的计数行不是命题，剔除 |
 
-于是「跨作品的断言序列」能自动长出来：同一指标的标签一致，机器就能把它们接成时间线。
+**屏蔽清单（只降级不删除）**：G1–G4 只能证明「quote 在原文里」，证明不了「quote 支持那条断言」。配对错位时（DOM 里标签在前、数值在后，抽取按「数值 → 下一个元素」右移一格）会生成**引用有效、数值取错格**的假断言——G1/G2 全部放行，重跑抽取也不会自愈（声明优先于抽取）。这类由人工逐条回原文核对后登记进 `tools/claims_deny.json`（按 `file + value + label` 三元组匹配），在扫描、回填、清单生成三处移出视图；**作品原文与声明块一律不改**，每次移出写 `tools/claim_changelog.jsonl`（`event=claim_deny`）留痕。
+
+当前清单 **13 条 / 7 件作品**，断言因此为 **1103 = 1116 − 13**；覆盖仍 111/117 件，引用失效 0。
+
+于是「跨作品的断言序列」能自动长出来：同一指标的标签一致，机器就能把它们接成时间线（现 **12 组**：真 4 组 + 已知口径问题 8 组，后者见 `docs/OPERATIONS.md` §五-B5）。
 
 ---
 
@@ -52,7 +56,7 @@ showcase/
 ├── index.html            # 档案柜首页（双击即开，含离线快照）
 ├── manifest.json         # 作品清单（生成物，已入库作为发布快照）
 ├── enrich.json           # 人工维护的描述/标签/署名（生成器保留这些字段）
-├── works/                # ★ 作品本体：60 个日期目录
+├── works/                # ★ 作品本体：61 个日期目录
 │   └── YYYY-MM-DD/
 │       ├── research/     # 研究类：YAML-MM-DD-<slug>.html
 │       ├── creative/     # 创意类：单文件交互作品
@@ -74,8 +78,8 @@ cd showcase
 # 扫描磁盘 → 重建 manifest / index.html / enrich 快照
 python3 tools/build_manifest.py
 
-# 断言层巡检：逐条回查 quote 是否仍在原文
-python3 tools/claim_gate.py --scan
+# 断言层巡检：逐条回查 quote 是否仍在原文（只读，不写盘）
+python3 tools/claim_gate.py --verify
 
 # 一键收敛：注入返回链 + 回填断言 + 十项硬校验 + 生成发布快照
 ./tools/autopublish.sh
@@ -96,7 +100,7 @@ python3 tools/claim_gate.py --scan
 - **零外部依赖**：字体（Noto Serif SC）、图表库（Chart.js / D3 / GSAP）全部自托管于 `assets/vendor/`，页面在完全离线的环境下可正常渲染
 - **file:// 直开**：`index.html` 内嵌离线快照（`EMBEDDED`），同时运行时优先 fetch `manifest.json`；两者不一致时页面会显式提示降级，而不是静默展示旧数据
 - **返回链**：每件作品底部都有「返回展厅」与档案条（追踪线 / 作品数 / 日期），且链接层级随目录深度自动计算
-- **体积护栏**：`index.html` 有 400KB 硬预算（现 193KB），防止首页随作品增长而无限膨胀
+- **体积护栏**：`index.html` 有 400KB 硬预算（现 195KB），防止首页随作品增长而无限膨胀
 
 ---
 

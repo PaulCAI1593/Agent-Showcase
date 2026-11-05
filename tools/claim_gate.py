@@ -39,12 +39,12 @@ quote 只能证明「这句话在原文里」，**不能证明「这句话支持
 
 用法
 ----
-  python3 claim_gate.py --scan              # 体检报告（只读，不写）
   python3 claim_gate.py --backfill          # 存量回填 → enrich.json
   python3 claim_gate.py --verify            # 重校验既有断言（漂移检测）
   python3 claim_gate.py --test              # 自测
 """
 
+import argparse
 import json
 import os
 import re
@@ -55,6 +55,7 @@ from collections import Counter, defaultdict
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENRICH = os.path.join(ROOT, 'enrich.json')
 CHANGELOG = os.path.join(ROOT, 'tools', 'claim_changelog.jsonl')
+DENY_FILE = os.path.join(ROOT, 'tools', 'claims_deny.json')
 
 EXCLUDE_DIRS = {'_archive', 'thumbs', '.git', '__pycache__', 'notes',
                 'templates', 'tools', 'assets'}
@@ -360,6 +361,46 @@ def verify_quote(quote, normalized_body):
     return normalize(quote) in normalized_body
 
 
+
+# ── 屏蔽清单（人工核对后的已知错断言）─────────────────────
+def load_deny():
+    """读 tools/claims_deny.json —— 人工逐条回原文核对后登记的错断言。
+
+    只做「移出视图」：不改作品原文、不放宽 G1/G2、不动校验逻辑。
+    宁可卷宗少一条，也不能有一条假断言被当成"团队过去的判断"来对账。
+    清单按 (file, value, label) 三元组匹配，条目缺失或解析失败时返回空表
+    （屏蔽失效只会让错断言重新可见，不会让正确断言消失）。
+    """
+    if not os.path.exists(DENY_FILE):
+        return {}
+    try:
+        with open(DENY_FILE, encoding='utf-8') as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out = {}
+    for it in (data if isinstance(data, list) else data.get('deny', [])):
+        if not isinstance(it, dict):
+            continue
+        key = '||'.join((str(it.get('file', '')), str(it.get('value', '')),
+                         str(it.get('label', ''))))
+        out[key] = it.get('reason', '')
+    return out
+
+
+def deny_filter(rel, claims, deny=None):
+    """移出已登记的错断言。返回 (保留, 移出)，幂等。"""
+    if deny is None:
+        deny = load_deny()
+    if not deny:
+        return claims, []
+    keep, hit = [], []
+    for c in claims:
+        k = '||'.join((rel, str(c.get('value', '')), str(c.get('label', ''))))
+        (hit if k in deny else keep).append(c)
+    return keep, hit
+
+
 # ── 闸门主流程 ──────────────────────────────────────────
 def gate_work(html):
     """对单篇作品跑完整闸门。返回 {l0, l1, l2_reason}。
@@ -394,6 +435,7 @@ def gate_work(html):
 def scan_works(root=ROOT):
     """扫描磁盘上所有作品。返回 {relpath: gate_result}。"""
     out = {}
+    deny = load_deny()
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS and not d.startswith('.')]
         for fn in filenames:
@@ -408,6 +450,9 @@ def scan_works(root=ROOT):
             except OSError:
                 continue
             out[rel] = gate_work(html)
+            keep, hit = deny_filter(rel, out[rel]['l0'], deny)
+            if hit:
+                out[rel]['l0'] = keep
     return out
 
 
@@ -491,6 +536,7 @@ def backfill(dry_run=False):
     works = enrich.get('works', [])
     by_file = {w['file']: w for w in works}
     results = scan_works()
+    deny = load_deny()
 
     stats = Counter()
     changed = []
@@ -513,6 +559,12 @@ def backfill(dry_run=False):
                 stats['declared_rejected'] += len(declared) - len(new_claims)
         else:
             new_claims = g['l0']
+        # 屏蔽清单：人工核对过的错断言移出视图（对仓库留痕，不改作品原文）
+        new_claims, denied = deny_filter(rel, new_claims, deny)
+        if denied:
+            log_changelog('claim_deny', rel, {'count': len(denied),
+                           'items': [f"{d.get('value','')} {d.get('label','')}" for d in denied]})
+            stats['deny_dropped'] += len(denied)
         # G3 漂移检测：旧断言的 quote 若已不在原文 → 记录并丢弃
         stale = []
         if old_claims:
@@ -587,6 +639,12 @@ def report(results):
         print('L1 拦截原因：')
         for r, n in reasons.most_common():
             print(f'   {n:4}  {r}')
+        # 口径说明：quote未命中 多为 extract_candidates 方法A（跨元素拼接）的必然产物
+        # —— value 与 label 各自在正文、拼起来不连续，G1 按设计拦下。实测 2026-11-05
+        # 的 248 条全部落在自带 <script id="claims"> 声明块的作品上，backfill 走「声明优先」，
+        # 这些候选不进产出、零断言损失。故 L1 是「抽取候选中被拒的数量」，不等于丢失的断言数。
+        print('   注：quote未命中 多为跨元素拼接的必然拦截（value/label 各在正文、合起来不连续）；')
+        print('       作品自带 claims 声明块时声明优先，此类不入产出、无断言损失。')
         print()
     # 覆盖分布
     buckets = Counter()
@@ -691,15 +749,36 @@ def selftest():
     check('L0 有 2 条', len(g['l0']), 2)
     check('L1 为 0', len(g['l1']), 0)
 
+    print('【屏蔽清单（错断言移出视图）】')
+    dy = {'w.html||41%||🇺🇸 美国': '数值取自相邻格'}
+    k, h = deny_filter('w.html', [{'value': '41%', 'label': '🇺🇸 美国'},
+                                  {'value': '36.5%', 'label': '🇪🇺 欧洲'}], dy)
+    check('命中清单 → 移出', (len(k), len(h)), (1, 1))
+    k2, h2 = deny_filter('other.html', [{'value': '41%', 'label': '🇺🇸 美国'}], dy)
+    check('不同作品不误伤', (len(k2), len(h2)), (1, 0))
+    k3, h3 = deny_filter('w.html', [{'value': '36.5%', 'label': '🇪🇺 欧洲'}], dy)
+    check('清单为空的文件不受影响', (len(k3), len(h3)), (1, 0))
+
     print(f'\n自测结果: {ok} 通过 / {fail} 失败')
     return 0 if fail == 0 else 1
 
 
 # ── CLI ─────────────────────────────────────────────────
 def main():
-    if '--test' in sys.argv:
+    # 参数交给 argparse（与 build_manifest.py 同法）：原先按 `in sys.argv` 判定，
+    # 未识别参数（含 --help）会静默落到默认分支 —— 诊断命令变成体检报告。
+    ap = argparse.ArgumentParser(
+        prog='claim_gate.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--test', action='store_true', help='跑内置自测')
+    ap.add_argument('--verify', action='store_true', help='对已入库断言逐字重校验')
+    ap.add_argument('--backfill', action='store_true', help='把通过闸门的断言写回 enrich.json')
+    ap.add_argument('--dry-run', action='store_true', help='配合 --backfill：只统计不写盘')
+    a = ap.parse_args()
+
+    if a.test:
         return selftest()
-    if '--verify' in sys.argv:
+    if a.verify:
         problems, checked = verify_existing()
         print(f'重校验 {checked} 条断言')
         if problems:
@@ -709,8 +788,8 @@ def main():
             return 1
         print('✓ 全部通过')
         return 0
-    if '--backfill' in sys.argv:
-        dry = '--dry-run' in sys.argv
+    if a.backfill:
+        dry = a.dry_run
         stats, changed = backfill(dry_run=dry)
         print(f"作品 {stats['works']} · L0 {stats['l0']} · L1 {stats['l1']} · "
               f"L2作品 {stats['l2_works']} · 漂移丢弃 {stats['stale_dropped']}")

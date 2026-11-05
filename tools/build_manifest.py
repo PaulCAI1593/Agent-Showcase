@@ -18,7 +18,7 @@ build_manifest.py — showcase 单一数据源生成器
   - 保留人工字段：description / highlights / agent / title 等在 enrich.json 中维护
 """
 
-import json, os, re, sys, itertools
+import argparse, json, os, re, sys, itertools
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -288,6 +288,42 @@ def guardrails(manifest):
                 problems.append(f'index.html meta description 计数 {a}/{b}/{c} '
                                 f'≠ manifest {n_works}/{n_beats}/{n_claims}（陈旧）')
 
+    # README 的**现在时**计数必须跟着数据走：2026-11-05 实测 README 仍写「115 件 /
+    # 1096 条 / 60 个日期目录 / 193KB」，磁盘早已 117 / 1116 / 61 / 195。index.html 的
+    # meta 由上面那段守，README 没人守 → 修一次会再漂一次。
+    # 只校验权威计数行；历史叙述（「过去 104 件」「历史事故：15 件」）是有意保留的
+    # 现场记录，正则不覆盖它们。
+    rp = os.path.join(ROOT, 'README.md')
+    if os.path.exists(rp):
+        rd = open(rp, encoding='utf-8').read()
+        works_dirs = sorted(d for d in os.listdir(os.path.join(ROOT, 'works'))
+                            if os.path.isdir(os.path.join(ROOT, 'works', d)))
+        rd_checks = [
+            (r'(\d+)\s*Chinese-language works across\s*(\d+)\s*months',
+             (manifest['total'], len({d[:7] for d in works_dirs})), '英文副标题'),
+            (r'(\d+)\s*件作品按月份归档', manifest['total'], '首段件数'),
+            (r'(\d+)\s*件（研究类\s*(\d+)\s*·\s*创意类\s*(\d+)）',
+             (manifest['total'], len(manifest.get('research') or []),
+              len(manifest.get('creative') or [])), '作品表行'),
+            (r'已验证断言\*\*\s*\|\s*(\d+)\s*条',
+             sum(len(i.get('claims') or []) for g in ('research', 'creative')
+                 for i in manifest[g]), '断言表行'),
+            (r'(\d+)\s*条主题线',
+             len(manifest.get('stats', {}).get('beats') or []), '追踪线表行'),
+            (r'(\d+)\s*个日期目录', len(works_dirs), '目录树件数'),
+        ]
+        for pat, want, name in rd_checks:
+            want_t = want if isinstance(want, tuple) else (want,)
+            hit = re.search(pat, rd)
+            if not hit:
+                problems.append(f'README.md 缺少{name}的可校验计数（正则未命中 {pat}）')
+                continue
+            got_t = tuple(int(x) for x in hit.groups())
+            if got_t != want_t:
+                problems.append(
+                    f'README.md {name}计数 {"/".join(map(str, got_t))} '
+                    f'≠ manifest {"/".join(map(str, want_t))}（陈旧）')
+
     em = re.search(r'^const EMBEDDED=(\{.*\});$', ih, re.M)
     if not em:
         problems.append('index.html 缺少单行 EMBEDDED 数据段（生成器契约已断）')
@@ -327,8 +363,11 @@ def guardrails(manifest):
     unattributed = [i['file'] for g in ('research', 'creative')
                     for i in manifest[g] if not (i.get('agent') or '').strip()]
     if unattributed:
+        # 指向真实存在的文件：原写法 `archive/选题库-派单日.md` 全盘不存在
+        # （已 find 核实），会把读者引到死路。实际结构是「索引 + 按日正文」。
         print(f'  提示: {len(unattributed)} 件作品缺 agent 署名'
-              f'（可在 enrich.json 补，依据见 archive/选题库-派单日.md 的"推荐Agent"）')
+              f'（可在 enrich.json 补，依据见 shared/knowledge/memory/选题库.md 索引，'
+              f'正文在 shared/knowledge/memory/archive/选题库-YYYY-MM-DD.md 的"推荐Agent"）')
         for f in unattributed[:3]:
             print('     -', f)
 
@@ -526,6 +565,40 @@ def claim_guardrails(manifest, gate):
           f'{stats.get("works_total", 0)} 件 ({stats.get("coverage", 0)}%) · '
           f'待处理 {pending} · 无结构 {stats.get("no_structure", 0)} · '
           f'重校验 {checked - bad}/{checked} 通过')
+    return problems
+
+
+def tooling_guardrails():
+    """工具链规范。返回问题列表（空=通过）。
+
+    防 2026-11-05 那类回归：13 个工具手工嗅探 sys.argv 判定开关，
+    未识别的参数（含 `--help`）静默落到默认分支 —— 诊断命令反而改写生产数据。
+    改成 argparse 之后必须有闸门守住，否则下一个工具又会写回裸解析。
+
+    只扫 tools/*.py（非递归，避开 .autopublish_backups 里的历史副本）。
+    """
+    problems = []
+    sniff = re.compile(r"""['"]--[\w][\w-]*['"]\s+in\s+sys\.argv""")
+    idx = re.compile(r'sys\.argv\.index\(')
+    d = os.path.join(ROOT, 'tools')
+    for name in sorted(os.listdir(d)):
+        if not name.endswith('.py'):
+            continue
+        f = os.path.join(d, name)
+        rel = os.path.relpath(f, ROOT)
+        in_doc = False
+        for n, line in enumerate(open(f, encoding='utf-8', errors='ignore'), 1):
+            # 文档字符串整体跳过：里面常拿反例当示例，不是可执行代码
+            if '"""' in line or "'''" in line:
+                in_doc = not in_doc
+                if line.count('"""') >= 2 or line.count("'''") >= 2:
+                    in_doc = False
+                continue
+            if in_doc:
+                continue
+            code = line.split('#')[0]        # 注释里提反例不算
+            if sniff.search(code) or idx.search(code):
+                problems.append(f'{rel}:{n} 手工嗅探 sys.argv —— 改用 argparse')
     return problems
 
 
@@ -747,7 +820,17 @@ def compute_stats(manifest):
 
 
 def main():
-    check_only = '--check' in sys.argv
+    # 参数交给 argparse：原实现是 `check_only = '--check' in sys.argv`，
+    # 任何未识别参数（含 --help / 拼错的 --chek）都会被静默忽略并照常写盘
+    # —— 诊断命令产生副作用，实测 2026-11-05 跑 `--help` 覆写了
+    # manifest.json + index.html。argparse 同时提供标准 --help 并对未知参数报错。
+    ap = argparse.ArgumentParser(
+        prog='build_manifest.py',
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--check', action='store_true',
+                    help='只校验，不写文件（CI 用）')
+    check_only = ap.parse_args().check
 
     old_items = load_json(MANIFEST, {'research': [], 'creative': []})
     old_by_file = {i['file']: i for g in ('research', 'creative') for i in old_items.get(g, [])}
@@ -803,7 +886,11 @@ def main():
         if declared is not None and gate is not None:
             raw = open(os.path.join(ROOT, rel), encoding='utf-8', errors='ignore').read()
             passed = gate.filter_declared(raw, declared)
-            item['claims'] = passed
+            # 屏蔽清单：人工逐条回原文核对过的错断言移出视图。
+            # **不计为问题** —— 它是已登记的人工裁决，不是闸门拦截；
+            # 留痕在 tools/claim_changelog.jsonl（event=claim_deny）与清单文件本身。
+            kept, _ = gate.deny_filter(rel, passed)
+            item['claims'] = kept
             if len(passed) != len(declared):
                 issues.append(f'{rel}: {len(declared)-len(passed)} 条声明断言未过闸门'
                               f'（引用不在原文或标签像句子）')
@@ -882,6 +969,7 @@ def main():
         probs = guardrails(manifest)
         if gate is not None:
             probs += claim_guardrails(manifest, gate)
+        probs += tooling_guardrails()
         for g in probs:
             print('   ✗', g)
         return 0 if (same and not probs) else 1
@@ -894,6 +982,7 @@ def main():
     probs = guardrails(manifest)
     if gate is not None:
         probs += claim_guardrails(manifest, gate)
+    probs += tooling_guardrails()
     for g in probs:
         print('   ✗ 落盘后仍有问题:', g)
     return 0 if not probs else 1

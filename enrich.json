@@ -1991,11 +1991,6 @@
       "agent": "研析",
       "claims": [
         {
-          "value": "5家",
-          "label": "公司总营收",
-          "quote": "5家公司总营收"
-        },
-        {
           "value": "+127%",
           "label": "QoQ",
           "quote": "+127% QoQ"
@@ -2050,7 +2045,24 @@
         "安全",
         "越权"
       ],
-      "agent": "研析"
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "19个",
+          "label": "越权行为事件",
+          "quote": "19个 越权行为事件"
+        },
+        {
+          "value": "17个",
+          "label": "来自Mythos 5",
+          "quote": "17个 来自Mythos 5"
+        },
+        {
+          "value": "122次",
+          "label": "测试运行总数",
+          "quote": "122次 测试运行总数"
+        }
+      ]
     },
     {
       "file": "works/2026-08-15/creative/2026-08-15-hormuz-chokepoint.html",
@@ -2127,11 +2139,6 @@
           "quote": "+22% 金融科技及企业服务"
         },
         {
-          "value": "+13%",
-          "label": "毛利率",
-          "quote": "+13% 毛利率"
-        },
-        {
           "value": "57%",
           "label": "+1pp",
           "quote": "57% +1pp"
@@ -2150,11 +2157,6 @@
           "value": "+9%",
           "label": "净利润（归母）",
           "quote": "+9% 净利润（归母）"
-        },
-        {
-          "value": "+0.7%",
-          "label": "研发支出",
-          "quote": "+0.7% 研发支出"
         },
         {
           "value": "+35%",
@@ -2353,21 +2355,6 @@
           "value": "3.08万亿",
           "label": "MiMo周Token",
           "quote": "3.08万亿 MiMo周Token"
-        },
-        {
-          "value": "41%",
-          "label": "🇺🇸 美国",
-          "quote": "41% 🇺🇸 美国"
-        },
-        {
-          "value": "36.5%",
-          "label": "🇪🇺 欧洲",
-          "quote": "36.5% 🇪🇺 欧洲"
-        },
-        {
-          "value": "12%",
-          "label": "🌏 其他",
-          "quote": "12% 🌏 其他"
         },
         {
           "value": "10.5%",
@@ -3023,11 +3010,6 @@
           "quote": "51% 运营/供应链"
         },
         {
-          "value": "42%",
-          "label": "医疗健康",
-          "quote": "42% 医疗健康"
-        },
-        {
           "value": "98%",
           "label": "认知障碍筛查特异性 (Mass General Brig",
           "quote": "98% 认知障碍筛查特异性 (Mass General Brig"
@@ -3540,16 +3522,6 @@
           "value": "85%",
           "label": "成本降低潜力",
           "quote": "85% 成本降低潜力"
-        },
-        {
-          "value": "41%",
-          "label": "🇺🇸 美国",
-          "quote": "41% 🇺🇸 美国"
-        },
-        {
-          "value": "36.5%",
-          "label": "🇪🇺 欧洲",
-          "quote": "36.5% 🇪🇺 欧洲"
         },
         {
           "value": "12%",
@@ -4178,7 +4150,13 @@
         "行为模拟"
       ],
       "agent": "绘界+创艺",
-      "claims": []
+      "claims": [
+        {
+          "value": "59%",
+          "label": "vs GPT-5.6 Sol拒绝率",
+          "quote": "vs GPT-5.6 Sol拒绝率59%"
+        }
+      ]
     },
     {
       "file": "works/2026-09-15/research/2026-09-15-triple-kill-energy-rates-stocks.html",
@@ -4444,11 +4422,6 @@
           "value": "63%",
           "label": "客户服务",
           "quote": "63% 客户服务"
-        },
-        {
-          "value": "66%",
-          "label": "医疗健康",
-          "quote": "66% 医疗健康"
         },
         {
           "value": "28%",
@@ -4946,21 +4919,6 @@
           "value": "99%",
           "label": "🧠 数据缺口超过",
           "quote": "🧠 数据缺口超过99%"
-        },
-        {
-          "value": "90%",
-          "label": "🇺🇸 美国",
-          "quote": "90% 🇺🇸 美国"
-        },
-        {
-          "value": "7%",
-          "label": "🇪🇺 欧洲",
-          "quote": "7% 🇪🇺 欧洲"
-        },
-        {
-          "value": "2%",
-          "label": "🌏 其他",
-          "quote": "2% 🌏 其他"
         },
         {
           "value": "72%",
@@ -6856,6 +6814,108 @@
         "设备交期"
       ],
       "agent": "创艺"
+    },
+    {
+      "file": "works/2026-11-04/research/2026-11-04-anthropic-compute-leverage-ratio.html",
+      "description": "修订稿首次披露约 8,954 亿美元采购与租赁承诺，付款期至 2045 年；单位算力收入产出率由 2.08 回落至 1.72 美元。",
+      "highlights": [
+        "算力",
+        "Anthropic"
+      ],
+      "agent": "研析+察言",
+      "claims": [
+        {
+          "value": "8,954 亿美元",
+          "label": "表外承诺合计上限",
+          "quote": "8,954 亿美元 表外承诺合计上限"
+        },
+        {
+          "value": "1.72 美元",
+          "label": "单位算力收入产出率",
+          "quote": "1.72 美元 单位算力收入产出率"
+        },
+        {
+          "value": "2.08 美元",
+          "label": "单位算力收入产出率",
+          "quote": "2.08 美元 单位算力收入产出率"
+        },
+        {
+          "value": "169.56 亿美元",
+          "label": "公司总营收",
+          "quote": "169.56 亿美元 公司总营收"
+        },
+        {
+          "value": "98.63 亿美元",
+          "label": "算力与基础设施支出",
+          "quote": "98.63 亿美元 算力与基础设施支出"
+        },
+        {
+          "value": "5.67 亿美元",
+          "label": "会计口径经营亏损",
+          "quote": "5.67 亿美元 会计口径经营亏损"
+        },
+        {
+          "value": "232.91 亿美元",
+          "label": "单季净亏损",
+          "quote": "232.91 亿美元 单季净亏损"
+        },
+        {
+          "value": "192.40 亿美元",
+          "label": "研发支出",
+          "quote": "192.40 亿美元 研发支出"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-04/creative/2026-11-04-gdpx-agent-capability-ceiling.html",
+      "claims": [
+        {
+          "value": "12.0%",
+          "label": "GDPx 单模型最高任务完成率",
+          "quote": "Claude Opus 5.5 以 12.0% 位列第一"
+        },
+        {
+          "value": "10.9%",
+          "label": "Gemini 4 Carbon 任务完成率",
+          "quote": "Gemini 4 Carbon 10.9%"
+        },
+        {
+          "value": "9.6%",
+          "label": "GPT-6 Astra 任务完成率",
+          "quote": "GPT-6 Astra 9.6%"
+        },
+        {
+          "value": "206 项",
+          "label": "GDPx 基准任务总数",
+          "quote": "基准共 206 项任务"
+        },
+        {
+          "value": "11 个",
+          "label": "GDPx 基准覆盖行业数",
+          "quote": "覆盖 11 个行业"
+        },
+        {
+          "value": "13 个",
+          "label": "GDPx 参测模型数量",
+          "quote": "参测的 13 个模型"
+        },
+        {
+          "value": "30 项",
+          "label": "全模型零完成任务数",
+          "quote": "30 项任务，13 个模型全部零完成"
+        },
+        {
+          "value": "98%",
+          "label": "网络安全任务行为规则违反率",
+          "quote": "98% 至少违反一条任务行为规则"
+        }
+      ],
+      "description": "SemiAnalysis GDPx 智能体基准：206 项任务、11 个行业、13 个模型，最高完成率 12.0%，无人触及五分之一。",
+      "highlights": [
+        "智能体",
+        "模型"
+      ],
+      "agent": "创艺+绘界"
     }
   ]
 }

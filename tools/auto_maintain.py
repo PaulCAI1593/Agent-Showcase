@@ -142,6 +142,26 @@ def converge_showcase():
 
 
 # ── ② cron 健康 ───────────────────────────────────────────
+def last_history_entry(jid):
+    """从 jobs_history/<id>.json 取最近一次运行记录（跨 qwenpaw 重启持久）。
+
+    返回 {'run_at':..., 'status':..., 'error':...} 或 None。
+    """
+    p = os.path.join(WORKSPACE, 'jobs_history', jid + '.json')
+    if not os.path.exists(p):
+        return None
+    try:
+        with open(p, encoding='utf-8') as f:
+            hist = json.load(f)
+    except Exception:
+        return None
+    runs = [e for e in hist if isinstance(e, dict) and e.get('run_at')]
+    if not runs:
+        return None
+    runs.sort(key=lambda e: str(e.get('run_at')))
+    return runs[-1]
+
+
 def check_crons():
     """逐个查 cron 的运行状态。返回 [{name, status, age_min, ok, note}]"""
     rc, out, err = run(['qwenpaw', 'cron', 'list', '--agent-id', 'default'], timeout=120)
@@ -166,6 +186,21 @@ def check_crons():
         st = parse_json(out2) or {}
         status = st.get('last_status', '?')
         last = st.get('last_run_at')
+        # ⚠️ `cron state` 的 last_* 是**运行内存**里的字段：qwenpaw 进程一重启就全变 null
+        # （实测 11-04 09:24 重启后，6 个 cron 的 state.last_status 同时变 null，
+        #   而 jobs_history/*.json 里明明记着当天 success）。
+        # 只看它 → 每轮巡检都把 6 个健康 cron 误判成「上次状态 None」的 🔴，
+        #   白白污染 TODO 表、把真故障淹没在噪声里。
+        # 因此：state 为 null 时回落读磁盘上的 jobs_history（跨重启持久）。
+        if not status or status == 'None':
+            h = last_history_entry(jid)
+            if h:
+                status = h.get('status') or status
+                last = h.get('run_at') or last
+            else:
+                # 既无内存态也无历史 → 这个 cron 从未跑过（如新建的周度发布 job）。
+                # 「还没到点」不是故障，判为正常，等它第一次触发。
+                status = '未首次运行'
         age_min = None
         if last:
             try:
@@ -179,9 +214,9 @@ def check_crons():
         # 判定：失败，或超过 2.5 倍间隔还没跑
         interval = CRON_INTERVAL_HINT.get(cron, 1440)
         late = age_min is not None and age_min > interval * 2.5
-        ok = (status in ('success', 'ok')) and not late
+        ok = (status in ('success', 'ok', '未首次运行')) and not late
         note = ''
-        if status not in ('success', 'ok'):
+        if status not in ('success', 'ok', '未首次运行'):
             note = err or f'上次状态 {status}'
         elif late:
             note = f'已 {age_min/60:.0f} 小时未跑（应每 {interval/60:.0f} 小时）'

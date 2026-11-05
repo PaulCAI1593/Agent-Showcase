@@ -20,7 +20,7 @@ dev-only：页面本身不引用本脚本，也不含任何开关；数据从测
   python3 tools/break_ui_check.py            # 跑全部场景
   python3 tools/break_ui_check.py --shots    # 额外保存截图到 tools/break_ui_shots/
 """
-import json
+import argparse, json
 import os
 import sys
 
@@ -88,24 +88,28 @@ def fixture_one():
 
 
 MEASURE = """() => {
-  const out = {hOverflow: document.documentElement.scrollWidth - window.clientWidth,
+  // ⚠️ window.clientWidth 不存在（恒为 undefined → NaN），`NaN > 0` 恒假，这条检查等于没跑
+  const out = {hOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
                brokenImgs: 0, overflowEls: [], emptyDrawers: 0, undefinedText: 0,
                notes: []};
   out.brokenImgs = [...document.images].filter(i => i.complete && i.naturalWidth === 0).length;
   // 元素级横向溢出（排除刻意裁剪的装饰层）
-  const skip = el => el.closest('.ledger-wall,.lw-row,.cover-title');
+  //  · .cover-field —— 拼贴装饰层（pointer-events:none; z-index:0），图片刻意出血、由自身 overflow:hidden 裁切
+  //  · text-overflow:ellipsis —— 元素自己声明单行截断，scrollWidth > clientWidth 是省略号的正常表现
+  //  排除只认这两条显式声明；像 .cover-focus 那种未声明的图片溢出照报不误
+  const skip = el => el.closest('.ledger-wall,.lw-row,.cover-title,.cover-field');
   for (const el of document.querySelectorAll('body *')) {
     if (skip(el)) continue;
     if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
     if (el.scrollWidth > el.clientWidth + 2 && el.clientWidth > 0) {
       const cs = getComputedStyle(el);
-      if (cs.overflowX === 'visible' || cs.overflowX === 'hidden') {
-        out.overflowEls.push({tag: el.tagName, cls: el.className.toString().slice(0, 60),
-                              sw: el.scrollWidth, cw: el.clientWidth});
-      }
+      if (cs.overflowX !== 'visible' && cs.overflowX !== 'hidden') continue;
+      if (cs.textOverflow === 'ellipsis') continue;
+      out.overflowEls.push({tag: el.tagName, cls: el.className.toString().slice(0, 60),
+                            sw: el.scrollWidth, cw: el.clientWidth});
     }
   }
-  out.overflowEls = out.overflowEls.slice(0, 8);
+  // 溢出条目不截断：计数必须真实，回归时能看出是一处还是几十处
   // 渲染出 undefined / NaN / [object Object] 字面量
   // ⚠️ 两个坑：① 方括号必须转义，否则 /[object Object]/ 是字符类，匹配任意字母
   //            ② 只看叶子节点的 innerText，父节点的 innerText 会把子节点重复计入
@@ -166,7 +170,14 @@ def run(pg, data, label, shots=False):
 
 
 def main():
-    shots = "--shots" in sys.argv
+    # argparse：原 `in sys.argv` 判定会把 --help 当成「没传 --shots」→
+    # 不打印帮助，直接跑一轮分钟级的全量 UI 巡检。
+    ap = argparse.ArgumentParser(
+        prog='break_ui_check.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--shots', action='store_true',
+                    help='额外保存截图到 tools/break_ui_shots/')
+    shots = ap.parse_args().shots
     results = []
     with sync_playwright() as p:
         br = p.chromium.launch(executable_path="/usr/bin/chromium",
@@ -185,16 +196,26 @@ def main():
     print(json.dumps(results, ensure_ascii=False, indent=1))
     # 汇总成可判读的结论
     print("\n===== 结论 =====")
+    # 退出码语义（原实现两头都错：夹具的注入错误让它恒 1，页面自身的破口又从不计入）：
+    #   real / empty —— 页面与空态必须干净，任何一项计数或 console 错误 → 退出 1
+    #   worst / one  —— 负样本，故意注入破图与溢出。它们的 404 是预期，不算失败；
+    #                  反过来，若一行都没检出，说明检查器失去灵敏度 → 退出 1
     bad = 0
+    INTENTIONAL = {"worst", "one"}
     for r in results:
         if "error" in r:
             print(f"[FAIL] {r['label']}: {r['error']}")
             bad += 1
             continue
-        print(f"[{r['label']}] 降级提示={r['stale_notice']} ({r['stale_text'][:30]})")
+        label = r["label"]
+        print(f"[{label}] 降级提示={r['stale_notice']} ({r['stale_text'][:30]})")
         if r["errors"]:
-            print(f"   运行时错误 {len(r['errors'])}: {r['errors'][:2]}")
-            bad += 1
+            if label in INTENTIONAL:
+                print(f"   console 错误 {len(r['errors'])}（夹具注入破图，预期）")
+            else:
+                print(f"   运行时错误 {len(r['errors'])}: {r['errors'][:2]}")
+                bad += 1
+        flagged_rows = 0
         for row in r["rows"]:
             flags = []
             if row["hOverflow"] > 0:
@@ -205,7 +226,16 @@ def main():
                 flags.append(f'元素溢出 {len(row["overflowEls"])} 处')
             if row["undefinedText"]:
                 flags.append(f'undefined/NaN 字面量 {row["undefinedText"]} 处')
+            if flags:
+                flagged_rows += 1
             print(f'   {row["viewport"]:8s} {row["w"]}px  ' + ("；".join(flags) if flags else "✓ 无破口"))
+        if label in INTENTIONAL:
+            if not flagged_rows:
+                print("   [FAIL] 负样本一行都未检出 → 检查器灵敏度丢失")
+                bad += 1
+        elif flagged_rows:
+            print(f"   [FAIL] {label} 有 {flagged_rows} 个视口报出破口")
+            bad += 1
     return 1 if bad else 0
 
 

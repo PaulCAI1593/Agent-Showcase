@@ -16,7 +16,7 @@ make_thumbs_webp.py — 从 PNG 源图生成卡片用 WebP 缩略图
   python3 tools/make_thumbs_webp.py --force    # 全部重新生成
 """
 
-import os, sys, glob
+import argparse, os, sys, glob
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, '_private', 'thumbs-src')
@@ -42,7 +42,13 @@ def convert_one(src_path, quality=QUALITY):
 
 
 def main():
-    force = '--force' in sys.argv
+    # argparse：原 `in sys.argv` 判定会把 --help 等未知参数静默当正常执行，
+    # 而本脚本会覆盖写 WebP 缩略图。
+    ap = argparse.ArgumentParser(
+        prog='make_thumbs_webp.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--force', action='store_true', help='忽略「已够新」判断，全部重新生成')
+    force = ap.parse_args().force
     try:
         from PIL import Image
     except ImportError:

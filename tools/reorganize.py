@@ -28,7 +28,7 @@ reorganize.py — 把展厅归一成唯一目录规范，并把「作品」与�
   python3 tools/reorganize.py && python3 tools/build_manifest.py && ./tools/autopublish.sh
 """
 
-import json, os, re, shutil, sys, collections
+import argparse, json, os, re, shutil, sys, collections
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOOLS = os.path.dirname(os.path.abspath(__file__))
@@ -96,7 +96,13 @@ def is_canonical(rel):
 
 
 def main():
-    dry = '--dry-run' in sys.argv
+    # argparse：原 `in sys.argv` 判定会把 --help 等未知参数静默当正常执行，
+    # 而本脚本会移动作品文件 —— 诊断命令变成改目录结构。
+    ap = argparse.ArgumentParser(
+        prog='reorganize.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--dry-run', action='store_true', help='只预览要做的移动，不落盘')
+    dry = ap.parse_args().dry_run
     types = current_types()
 
     # 收集磁盘上全部作品 html（用生成器的同一套排除规则）

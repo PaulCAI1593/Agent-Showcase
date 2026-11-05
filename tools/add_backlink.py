@@ -18,7 +18,7 @@ add_backlink.py — 给作品页注入「返回展厅」悬浮链接
   python3 tools/add_backlink.py --remove     # 撤掉注入的链接
 """
 
-import json, os, re, sys, time
+import argparse, json, os, re, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANIFEST = os.path.join(ROOT, 'manifest.json')
@@ -305,8 +305,15 @@ def load_works():
 
 
 def main():
-    dry = '--dry-run' in sys.argv
-    remove = '--remove' in sys.argv
+    # argparse：原 `in sys.argv` 判定会把 --help 等未知参数静默当正常执行，
+    # 而本脚本会写作品 HTML —— 诊断命令直接落盘。写盘工具必须先过 argparse。
+    ap = argparse.ArgumentParser(
+        prog='add_backlink.py', description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--dry-run', action='store_true', help='只预览，不写作品 HTML')
+    ap.add_argument('--remove', action='store_true', help='移除已注入的返回链与档案条')
+    a = ap.parse_args()
+    dry, remove = a.dry_run, a.remove
     works = load_works()
     changed = skipped = already = 0
 
