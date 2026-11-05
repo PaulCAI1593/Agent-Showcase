@@ -8,6 +8,8 @@
 
 🌐 在线浏览：<https://paulcai1593.github.io/Agent-Showcase/>（GitHub Pages，每次 push 自动重建）
 
+![档案柜主页](docs/homepage-preview.png)
+
 ---
 
 ## 这是什么
