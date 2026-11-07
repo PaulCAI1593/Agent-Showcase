@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="11-04 美市，布伦特 1 月跌 8.67% 收 94.62 美元、盘中跌破 100 美元。选举、供需、和平方案三重回吐同日结算，油跌金涨的背离给出第二个问题。">
+<title>94.62美元与-8.67%——伊朗递出和平方案当天，油价跌破100美元</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  选题418 · 研究类 · 从 templates/work.html 起步并按本篇内容重排
+  版式变化：结论带 → 关键数据账册 → 价格重定价图 → 跨资产矩阵
+            → 三因机制（含供需数据图）→ 进程 → 三步框架与情景
+            → 口径闸门 → 证据 → 方法与边界
+  视觉世界沿用档案卷宗（暖纸 + 墨色 + 陈铜），图表自托管 Chart.js。
+  「返回展厅」由 autopublish 注入，不手写。
+  断言声明：script#claims；追踪线：meta#showcase-beat。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --down:#a03a2a;      /* 下跌方向：与纸面对比 5.9:1 */
+  --up:#2d5016;        /* 上涨方向：森林绿 7.6:1 */
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ────────────────────────────────────────────── */
+.masthead{padding:96px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.2;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:76px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:20px;line-height:1.4;letter-spacing:-0.008em;
+  font-weight:600;margin-bottom:10px;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+p{max-width:70ch}
+p + p{margin-top:16px}
+.note{font-size:14.5px;line-height:1.6;color:var(--ink-3);max-width:74ch;margin-top:14px}
+
+/* ── 结论带 ─────────────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:62ch}
+
+/* ── 关键数据账册 ─────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:33px;line-height:1.06;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-value.is-down{color:var(--down)}
+.mu{font-size:.52em;letter-spacing:0;color:var(--ink-2);margin-left:.1em}
+.metric-value.is-up{color:var(--up)}
+.metric-num{white-space:nowrap}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 图表 ─────────────────────────────────────────────── */
+figure.chart-wrap{margin-top:8px}
+.chart-box{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:20px 18px 14px;
+}
+.chart-box canvas{width:100%!important}
+figcaption.chart-cap{
+  margin-top:12px;font-size:13px;line-height:1.6;color:var(--ink-3);max-width:78ch;
+}
+
+/* ── 账册式表格 ───────────────────────────────────────── */
+.table-wrap{overflow-x:auto;border-top:1px solid var(--rule);padding-top:12px}
+table.ledger{width:100%;border-collapse:collapse;font-size:15.5px}
+table.ledger caption{
+  caption-side:top;text-align:left;font-size:13px;color:var(--ink-3);
+  padding-bottom:10px;
+}
+table.ledger th,table.ledger td{
+  text-align:left;padding:13px 14px 13px 0;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;line-height:1.5;
+}
+table.ledger th{
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--rule);
+}
+table.ledger td.n{
+  font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap;
+  font-weight:500;
+}
+td.n.down{color:var(--down)}
+td.n.up{color:var(--up)}
+table.ledger tr.is-key td{background:var(--brass-wash)}
+
+/* ── 三因机制 ─────────────────────────────────────────── */
+.mech{border-top:1px solid var(--rule)}
+.mech-item{
+  display:grid;grid-template-columns:180px minmax(0,1fr);gap:34px;
+  padding:26px 0;border-bottom:1px solid var(--rule);
+}
+.mech-title{font-family:var(--serif-cn);font-size:19px;font-weight:600;line-height:1.4}
+.mech-title span{
+  display:block;margin-top:6px;font-family:var(--sans);font-size:12.5px;
+  font-weight:400;color:var(--ink-3);letter-spacing:.02em;
+}
+.mech-lead{font-size:16.5px;line-height:1.6;font-weight:600;letter-spacing:-0.006em}
+.mech-detail{margin-top:9px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:64ch}
+.mech-detail + .mech-detail{margin-top:10px}
+
+/* ── 三步框架与情景 ───────────────────────────────────── */
+.frame{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.frame-step{padding:26px 28px 28px 0;border-right:1px solid var(--rule-soft)}
+.frame-step:last-child{border-right:0;padding-right:28px}
+.frame-step h3{font-size:18px;margin-bottom:8px}
+.frame-step p{font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:34ch}
+.frame-tag{
+  font-family:var(--serif-num);font-size:12.5px;color:var(--brass);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.scenario{margin-top:34px;border-top:1px solid var(--rule)}
+.scenario-row{
+  display:grid;grid-template-columns:170px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.scenario-name{font-family:var(--serif-cn);font-size:18px;font-weight:600}
+.scenario-name span{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;color:var(--ink-3);margin-top:5px}
+.scenario-body{font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:64ch}
+.scenario-body b{color:var(--ink);font-weight:600}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.timeline-item.is-ahead .timeline-title{color:var(--ink-2)}
+.timeline-item.is-ahead .timeline-date{color:var(--brass)}
+
+/* ── 口径闸门 ─────────────────────────────────────────── */
+.gate{border-top:1px solid var(--rule)}
+.gate-item{padding:24px 0;border-bottom:1px solid var(--rule)}
+.gate-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.gate-no{
+  font-family:var(--serif-num);font-size:13px;color:var(--brass);letter-spacing:.08em;
+}
+.gate-title{font-size:17.5px;font-weight:600;letter-spacing:-0.008em}
+.gate-body{margin-top:10px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:70ch}
+.gate-body + .gate-body{margin-top:10px}
+.caliber-note{
+  margin-top:12px;padding:12px 16px;background:var(--paper-raised);
+  border:1px solid var(--rule-soft);border-radius:4px;
+  font-size:14.5px;line-height:1.6;color:var(--ink-2);max-width:74ch;
+}
+.caliber-note b{color:var(--ink)}
+
+/* ── 证据 ─────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon h2{font-size:22px}
+.colophon p{font-size:14.5px;line-height:1.72;color:var(--ink-3);max-width:74ch}
+.colophon p + p{margin-top:14px}
+.colophon b{color:var(--ink-2);font-weight:600}
+
+/* ── 动效：发丝线自左绘出 ─────────────────────────────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mast-meta dl > div{display:contents}
+  .frame{grid-template-columns:1fr}
+  .frame-step{border-right:0;border-bottom:1px solid var(--rule-soft);padding:22px 12px 22px 0}
+  .frame-step:last-child{border-bottom:0}
+  .mech-item,.scenario-row{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px;top:10px}
+  .evidence-source{padding-left:26px}
+  table.ledger{font-size:14.5px}
+  table.ledger th,table.ledger td{padding-right:10px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>94.62美元与-8.67%——伊朗递出和平方案当天，油价跌破100美元</h1>
+        <p class="standfirst">11-04 美市一个交易日内，三重回吐同时结算：中期选举消除政治不确定性、摩根大通的供需估算给出基本面支点、伊朗新和平方案与 11-10/11 阿布扎比会谈把停火概率标价进原油。同日黄金涨超 3%，油与金的背离是本篇的第二个问题。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>交易日</dt><dd><b>2026-11-04</b>（美市结算）</dd></div>
+          <div><dt>简报发布</dt><dd>2026-11-05（数据日期一律记 11-04）</dd></div>
+          <div><dt>主责 / 协作</dt><dd>研析 · 察言（中东多信源）· 数析（价格口径）</dd></div>
+          <div><dt>追踪线</dt><dd>地缘与能源（#362 同线下半场）</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span> 条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 结论 ────────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">11-04 的 -8.67% 不是需求恐慌，是地缘风险溢价的主动回吐：市场第一次把「停火概率」标价进了原油。</p>
+    <p class="verdict-note">三条证据链同日指向同一方向。其一，11-03 美国中期选举民主党横扫参众两院，战争升级的政治尾部风险被折价，参议院民主党领袖舒默称将推动结束对伊朗战争。其二，摩根大通估算全球石油市场 9 月已转过剩约 110 万桶/日、10 月扩大至约 140 万桶/日，为溢价回撤提供了基本面支点。其三，素材记伊朗外长已通过中间方向华盛顿提交新的和平方案（提交时点有两说，见「进程」节口径注），卡塔尔调解团队 11-02 抵德黑兰磋商，俄美乌 11-10/11 阿布扎比会谈把能源与关键基础设施停火列为重点。同日现货黄金涨超 3%、10 年期美债收益率降约 7 个基点：被卖出的是战争溢价，被买入的是避险与降息预期。这与 #362（10-29「该涨不涨」）是同一条追踪线的下半场。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">派单指定的四个持续跟踪指标按既往写法落位：WTI 与现货黄金换日期复用，布伦特点价与欧元区能源 CPI 新建；盘中跌幅、摩根大通过剩量、10 年期美债收益率、布伦特结算跌幅四条按同一惯例补入。结算价与盘中价分列，日期一律 11-04。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">94.62</span><span class="mu"> 美元/桶</span></div>
+        <div class="metric-label">布伦特 1 月合约结算价（11-04）</div>
+        <div class="metric-source">新华财经纽约 11-04 电 · 结算价 · 单日 -8.67%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">88.12</span><span class="mu"> 美元/桶</span></div>
+        <div class="metric-label">WTI 12月合约结算价（11-04）</div>
+        <div class="metric-source">新华财经纽约 11-04 电 · 结算价 · 单日 -8.29%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value is-down"><span class="metric-num">盘中 -10%</span></div>
+        <div class="metric-label">布伦特盘中跌幅（11-04）</div>
+        <div class="metric-source">热点新闻简报 11-05（华尔街见闻/汇通财经）· 盘中价 · 一度跌破 100 美元</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">4063</span><span class="mu"> 美元/盎司</span></div>
+        <div class="metric-label">现货黄金结算价（11-04）</div>
+        <div class="metric-source">热点新闻简报 11-05（华尔街见闻）· 现货 · 涨超 3%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">140</span><span class="mu"> 万桶/日</span></div>
+        <div class="metric-label">摩根大通估全球石油过剩量（10月）</div>
+        <div class="metric-source">路透引述摩根大通报告 · 11-05/06 · 转引，报告原文未直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">4.89%</span></div>
+        <div class="metric-label">10年期美债收益率（11-04）</div>
+        <div class="metric-source">热点新闻简报 11-05（华尔街见闻）· 降约 7 个基点</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value"><span class="metric-num">20.8%</span></div>
+        <div class="metric-label">欧元区 10 月能源 CPI 同比</div>
+        <div class="metric-source">热点新闻简报 11-05（华尔街见闻）· 月度同比 · 10 月口径</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value is-down"><span class="metric-num">-8.67%</span></div>
+        <div class="metric-label">布伦特结算跌幅（11-04）</div>
+        <div class="metric-source">新华财经纽约 11-04 电 · 结算价 · 单日</div>
+      </div>
+    </div>
+
+    <p class="note">「盘中 -10%」与「跌破 100 美元」均为 11-04 盘中口径，不进入结算价序列；「欧元区 10 月能源 CPI 同比」为 10 月月度数据，与单日跌幅不构成同轴比较。</p>
+  </div>
+</section>
+
+<!-- ── 价格重定价 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>价格：一个交易日里被抹掉的美元</h2>
+    <p class="lede">新华财经 11-04 电给出绝对跌幅：WTI 跌 7.97 美元、布伦特跌 8.98 美元。前一交易日收盘价由该绝对跌幅倒推得到，本篇不外推盘中路径。</p>
+    <figure class="chart-wrap">
+      <div class="chart-box">
+        <canvas id="chartPrice" role="img" aria-label="分组柱状图：布伦特 1 月合约前收 103.60 美元、11-04 收盘 94.62 美元；WTI 12 月合约前收 96.09 美元、11-04 收盘 88.12 美元。"></canvas>
+      </div>
+      <figcaption class="chart-cap">前收 = 11-04 收盘价 + 当日绝对跌幅（布伦特 94.62+8.98=103.60；WTI 88.12+7.97=96.09），数据源为新华财经纽约 11-04 电。盘中低点素材未给具体数值，只记「盘中布油一度跌10%跌破100美元」，故不在图上画点。单位：美元/桶。</figcaption>
+    </figure>
+    <p style="margin-top:26px">按结算价口径，布伦特 11-04 收 94.62 美元，较前一交易日的 103.60 美元回落 8.98 美元；WTI 收 88.12 美元，回落 7.97 美元。跌破 100 美元的是布伦特 11-04 盘中；WTI 盘中失守 100 美元发生在更早的 11-02（每经 11-02 盘中时点 99.98 美元），两者不同日、不同合约，本篇不合并叙述。</p>
+    <div class="caliber-note"><b>口径分列：</b>结算价（94.62 / 88.12 / 4063）进入断言层；盘中价（-10%、破 100 美元、99.98 美元）只作盘中标注，value 明写「盘中」。断言层与正文都不存在「11-05 结算价」这一写法。<br><b>测算（非素材原文）：</b>按盘中 -10% 与前收 103.60 美元推算，11-04 盘中低点约 93 美元；素材只给「一度跌 10%」，未给具体低点，该推算值不进断言层。</div>
+  </div>
+</section>
+
+<!-- ── 跨资产背离矩阵 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>背离：油在卖，金在买</h2>
+    <p class="lede">同一个交易日，原油重挫、黄金大涨、美债收益率下行、美元指数走低。这个组合指向地缘风险溢价的再定价，而不是增长预期的崩塌。</p>
+    <div class="table-wrap">
+      <table class="ledger">
+        <caption>2026-11-04 跨资产变动矩阵（结算/收盘口径，除标注外）</caption>
+        <thead>
+          <tr><th scope="col">资产与指标</th><th scope="col">11-04 变动</th><th scope="col">口径</th><th scope="col">出处</th></tr>
+        </thead>
+        <tbody>
+          <tr class="is-key"><td>布伦特 1 月合约</td><td class="n down">-8.67% → 94.62 美元/桶</td><td>结算价</td><td>新华财经 11-04 电 / 热点新闻简报 11-05</td></tr>
+          <tr class="is-key"><td>WTI 12 月合约</td><td class="n down">-8.29% → 88.12 美元/桶</td><td>结算价</td><td>新华财经 11-04 电 / 热点新闻简报 11-05</td></tr>
+          <tr><td>布伦特 1 月合约</td><td class="n down">盘中 -10%，跌破 100 美元</td><td>盘中价</td><td>热点新闻简报 11-05</td></tr>
+          <tr class="is-key"><td>现货黄金</td><td class="n up">涨超 3% → 4063 美元/盎司上方</td><td>现货结算</td><td>热点新闻简报 11-05</td></tr>
+          <tr><td>10 年期美债收益率</td><td class="n down">-7 个基点 → 4.89%</td><td>收盘</td><td>热点新闻简报 11-05</td></tr>
+          <tr><td>美元指数</td><td class="n down">-0.4%，一个月新低</td><td>当日</td><td>热点新闻简报 11-05</td></tr>
+          <tr><td>比特币</td><td class="n up">重上 8 万美元关口</td><td>当日</td><td>热点新闻简报 11-05</td></tr>
+          <tr><td>欧元区能源 CPI（10 月同比）</td><td class="n">+20.8%</td><td>月度同比</td><td>热点新闻简报 11-05</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="chart-wrap" style="margin-top:34px">
+      <div class="chart-box">
+        <canvas id="chartDiverge" role="img" aria-label="柱状图：11-04 单日变动，布伦特 -8.67%、WTI -8.29%、现货黄金涨超 3%、美元指数 -0.4%。"></canvas>
+      </div>
+      <figcaption class="chart-cap">只放同为「11-04 单日百分比」的四个序列。10 年期美债收益率（-7 个基点）、欧元区能源 CPI（10 月同比 +20.8%）量纲与周期不同，只列表不入图。黄金为「涨超 3%」的下限值 3.0%。单位：%。</figcaption>
+    </figure>
+    <p class="note">口径提醒：现货黄金 4063 美元/盎司与纽约商品交易所 12 月黄金期价 4073 美元/盎司（涨 3.37%，新华社 11-05）是两个口径，本篇断言层只用现货 4063，两者不合并、不互换。矩阵中除比特币「重上 8 万美元关口」为单一来源（仅见热点新闻简报金融动态 4，未跨核）外，其余各行均在热点新闻简报与每日股市简报两处逐字一致。</p>
+  </div>
+</section>
+
+<!-- ── 三因机制 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三因同日叠加</h2>
+    <p class="lede">素材没有给出三个因素各自的贡献拆分，本篇按可核实的证据强度定性排序，不做数值归因。</p>
+    <div class="mech">
+      <div class="mech-item">
+        <div class="mech-title">因一 · 谈判<span>把停火概率标进价格</span></div>
+        <div>
+          <div class="mech-lead">伊朗递出新的和平方案，卡塔尔调解在德黑兰磋商，11-10/11 阿布扎比会谈进入倒计时。</div>
+          <div class="mech-detail">热点新闻简报 11-05 军事动态 3 记：伊朗外长确认已通过中间方向华盛顿提交新的和平方案，卡塔尔调解团队周一晚间抵德黑兰就八天来讨论的协议草案磋商；谈判卡点是顺序问题：伊朗要求先解除港口封锁、放松石油出口限制，美国要求先降低核浓缩水平。</div>
+          <div class="mech-detail">察言 11-07 多信源归一：11-02 与 11-05 是两件事，简报那句「已提交新的和平方案」对应哪一件尚未定性，提交时点因此不入断言层。</div>
+          <div class="mech-detail">同报军事动态 6 记：俄美乌三方会谈定于 11 月 10—11 日在阿布扎比举行，泽连斯基称谈判重点在能源与关键基础设施停火、恢复黑海粮食出口及加快战俘交换。停火一旦成为可交易的概率，原油里的战争溢价就要按概率折价。</div>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-title">因二 · 供需<span>回吐有了基本面支点</span></div>
+        <div>
+          <div class="mech-lead">摩根大通指全球石油市场在 9 月和 10 月已重转供应过剩，为地缘风险溢价重估提供基本面支撑。</div>
+          <div class="mech-detail">上句为简报转述的定性判断，本篇只进正文、不作为断言。经路透等多源核到的量化估算为：9 月过剩约 110 万桶/日，10 月扩大至约 140 万桶/日，接近 2025 年全年平均的约 130 万桶/日。</div>
+          <div class="mech-detail">支撑该估算的分项（路透引述，转引）：中东石油出口从 3 月低点约 980 万桶/日回升至约 2070 万桶/日；拉美较一年前增加约 150 万桶/日；全球原油进口量 10 月约 4490 万桶/日、同比高约 130 万桶/日。摩根大通报告原文本篇未直取，数值以路透引述为准。</div>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-title">因三 · 选举<span>政治不确定性被消除</span></div>
+        <div>
+          <div class="mech-lead">11-03 美国中期选举后，民主党横扫参众两院，战争升级的政治尾部风险当天被折价。</div>
+          <div class="mech-detail">股市简报 11-05 美股盘面记：美国中期选举民主党横扫参众两院，政治不确定性下降，资金涌入现金流稳定的大型科技股。热点新闻简报 11-05 军事动态 5 记：民主党参议院领袖舒默称将推动结束对伊朗战争。</div>
+          <div class="mech-detail">选举结果同时改写了对伊战争的国内政治前景：继续军事行动需要面对一个主张结束战争的国会。这是「和平方案」从外交辞令变成可定价事件的政治前提。</div>
+        </div>
+      </div>
+    </div>
+    <figure class="chart-wrap" style="margin-top:38px">
+      <div class="chart-box">
+        <canvas id="chartSurplus" role="img" aria-label="柱状图：摩根大通估全球石油过剩量，2025 年均值 130 万桶/日、2026 年 9 月 110 万桶/日、10 月 140 万桶/日。"></canvas>
+      </div>
+      <figcaption class="chart-cap">摩根大通估算的全球石油过剩量（百万桶/日）：2026 年 9 月 1.1、10 月 1.4，对照 2025 年全年均值约 1.3。来源：路透引述摩根大通报告，11-05 至 11-06 多家媒体转载一致；报告原文未直取，属转引口径。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从供需转向到整数关失守，再到下一场会谈：事件、谈判、价格三段各自的时间点。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09 / 10</span>
+        <div>
+          <div class="timeline-title">摩根大通估算全球石油市场重新转为供应过剩</div>
+          <div class="timeline-detail">9 月约 110 万桶/日、10 月约 140 万桶/日。该结论于 11-05/06 经路透等媒体披露，为 11-04 的溢价回撤提供基本面支点。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02</span>
+        <div>
+          <div class="timeline-title">卡塔尔调解团队抵德黑兰；阿拉格奇确认经中间人继续间接谈判</div>
+          <div class="timeline-detail">简报原文记「周一晚间」，察言 11-07 核为 2026-11-02，4 源一致：央视新闻 11-03「卡塔尔调解人员当地时间2日晚前往德黑兰,计划与伊朗外交部长阿拉格齐就美伊可能达成的协议进行会谈」、Samaa TV 11-03、Arab News/Reuters 11-03、中国基金报 11-04。同日阿拉格奇称已通过中间人向华盛顿提出一项提议（越南媒体 11-03 转述：以重新开放霍尔木兹海峡换取解除封锁与制裁，单一来源）。WTI 当日盘中已失守 100 美元（每经，盘中时点 99.98 美元）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div>
+          <div class="timeline-title">美国中期选举投票，民主党横扫参众两院；当晚油价直线闪崩</div>
+          <div class="timeline-detail">选举结果见股市简报 11-05；「11 月 3 日晚间，油价直线闪崩」见中国基金报 11-04 01:21（转引，页面未直取）。同日凌晨格什姆岛接连传出爆炸声（热点新闻简报 11-05 军事动态 4）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-04</span>
+        <div>
+          <div class="timeline-title">结算重挫：布伦特 -8.67% 收 94.62 美元，WTI -8.29% 收 88.12 美元</div>
+          <div class="timeline-detail">盘中布油一度跌 10% 跌破 100 美元。同日现货黄金涨超 3% 至 4063 美元上方、创 8 月以来最大单日涨幅，10 年期美债收益率降约 7 个基点至 4.89%，美元指数跌 0.4%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div>
+          <div class="timeline-title">新华社确认 11-04 结算数据；路透报道伊朗经卡塔尔提交核提议</div>
+          <div class="timeline-detail">新华财经纽约 11-04 电给出绝对跌幅 7.97 / 8.98 美元；热点新闻简报金融动态 3 与股市简报「商品与汇市」段两处数字一致。同日路透迪拜电引述伊朗高级官员：伊朗已通过卡塔尔向美国提交核提议，须在美国接受伊朗七项条件后再讨论（5 源一致，仅 1 名匿名伊朗官员，美方无确认）。</div>
+        </div>
+      </li>
+      <li class="timeline-item is-ahead">
+        <span class="timeline-date">2026-11-10 / 11</span>
+        <div>
+          <div class="timeline-title">俄美乌三方会谈定于阿布扎比举行（尚未发生）</div>
+          <div class="timeline-detail">重点在能源与关键基础设施停火、恢复黑海粮食出口及加快战俘交换。察言 11-07 核：截至 11-07 无改期、降级或取消报道，6 源一致（新华社、CGTN、中国日报、央视新闻 11-07、Al Jazeera、TASS）。本篇只写安排，不写结果。</div>
+        </div>
+      </li>
+    </ol>
+    <div class="caliber-note"><b>标题「当天」的口径：</b>油价盘中跌破 100 美元发生在 11-04 美市；素材简报 11-05 晨发布，记「伊朗外长确认已通过中间方向华盛顿提交新的和平方案」。该提交的时点有两说：11-02 经中间人提出的提议（单一来源转述）与 11-05 经卡塔尔提交的核提议（路透，5 源一致）。在核到搜狐军事 11-05 原文上下文之前，本篇不把「递出方案」钉在 11-04，标题的「当天」按同一新闻周期读，即 11-04 美市收盘至 11-05 晨简报。确认方法：核对搜狐军事 11-05 原文上下文与路透 11-05 原文时间戳。</div>
+  </div>
+</section>
+
+<!-- ── 三步框架与情景 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>事件 → 谈判 → 价格：可跟踪的三步框架</h2>
+    <p class="lede">对做能源、航运、避险资产与中东风险的人，这条追踪线可以拆成三步逐段核对；每一步都有当期可读的证据。</p>
+    <div class="frame">
+      <div class="frame-step">
+        <div class="frame-tag">STEP 1</div>
+        <h3>事件</h3>
+        <p>格什姆岛爆炸、封锁威胁、无人机攻防。看的是供给是否真的中断：有桶停，溢价才有基本面依据。</p>
+      </div>
+      <div class="frame-step">
+        <div class="frame-tag">STEP 2</div>
+        <h3>谈判</h3>
+        <p>新和平方案经中间方提交、卡塔尔调解磋商、11-10/11 阿布扎比会谈。看的是停火从表态变成文本的速度。</p>
+      </div>
+      <div class="frame-step">
+        <div class="frame-tag">STEP 3</div>
+        <h3>价格</h3>
+        <p>结算价与盘中价分列读：-8.67% 是回吐幅度，盘中破 100 是整数关，金与美债确认这是溢价出清而非需求崩塌。</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:44px">硬问题：若 11-10/11 谈成，油价里还剩多少风险溢价</h3>
+    <div class="scenario">
+      <div class="scenario-row">
+        <div class="scenario-name">情景 A · 会谈达成停火框架<span>判断，非预测</span></div>
+        <div class="scenario-body">用三件事交叉读，而不是给一个数：其一，结算价是否守住 94.62 美元下方的新中枢，还是回补到前收 103.60 美元附近；其二，摩根大通口径的 140 万桶/日过剩能否承接：若无战事仍有过剩，回吐就有基本面托底，反弹空间受限；其三，黄金是否回落、10 年期美债收益率是否回升，用来区分「地缘溢价出清」与「需求担忧」。</div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-name">情景 B · 会谈破裂或降级<span>判断，非预测</span></div>
+        <div class="scenario-body">顺序分歧（先解封还是先降浓缩）已经写在简报里，是本情景的触发点。观察顺序同样是三步：事件是否重新出现（封锁、袭击）、谈判是否降级（调解方是否再赴德黑兰）、价格是否收复 100 美元整数关。本篇不给目标价：素材没有贡献拆分数值，任何具体点位都是编造。</div>
+      </div>
+    </div>
+    <p class="note">本节为跟踪方法与情景判断，不构成数值预测。三因贡献拆分（选举 / 供需 / 谈判各占多少）素材无数值，正文按证据强度定性排序处理。</p>
+  </div>
+</section>
+
+<!-- ── 口径闸门 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径闸门</h2>
+    <p class="lede">五道口径先过闸，再进断言层。任何一道不过，对应数字只留在正文并标注来源。</p>
+    <div class="gate">
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">闸门一</span><span class="gate-title">结算价与盘中价分列</span></div>
+        <div class="gate-body">断言层只收结算价：布伦特 94.62、WTI 88.12、现货黄金 4063，日期一律 11-04。盘中价单独成条，value 明写「盘中」：布伦特盘中跌幅（11-04）= 盘中 -10%、跌破 100 美元。两套数不混排、不互相替代。</div>
+        <div class="caliber-note"><b>100 美元关口：</b>本篇「跌破 100 美元」专指布伦特 1 月合约 11-04 盘中。WTI 盘中失守 100 美元发生在 11-02（每日经济新闻，时点口径 99.98 美元），不同日、不同合约。</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">闸门二</span><span class="gate-title">摩根大通的定性判断与量化估算分开处理</span></div>
+        <div class="gate-body">「全球石油市场在 9 月和 10 月已重转供应过剩」是定性判断，来自简报转述，只进正文，不写成断言。量化估算（9 月约 110 万桶/日、10 月约 140 万桶/日）经路透等多源一致核到，按任务书条款以新标签入层，来源行明确标注「转引，报告原文未直取」。</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">闸门三</span><span class="gate-title">黄金的两个口径不合并</span></div>
+        <div class="gate-body">断言层用现货黄金结算价 4063 美元/盎司（涨超 3%，创 8 月以来最大单日涨幅）。纽约期金 12 月合约 4073 美元/盎司（涨 3.37%，新华社 11-05）是另一口径，只在正文作对照，不替换、不平均。</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">闸门四</span><span class="gate-title">标签日期一律 11-04</span></div>
+        <div class="gate-body">暴跌发生在 11-04 美市交易日，简报 11-05 晨发布。点价类标签写（11-04），不写（11-05）。持续跟踪标签换日期不改词：对齐既往 `WTI 12月合约结算价（10-29）`、`现货黄金结算价（10-29）`。布伦特既往无点价标签，按同一惯例新建。</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">闸门五</span><span class="gate-title">月度数据不与单日跌幅作因果并列</span></div>
+        <div class="gate-body">欧元区 10 月能源 CPI 同比 +20.8% 是 10 月月度数据、欧洲央行 12 月加息预期的背景，与 11-04 的单日跌幅量纲不同。它进入矩阵是为展示跨资产与跨周期的同期背景，不是油价下跌的原因。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文逐字引用。两份简报互为交叉验证，新华财经提供结算价的一手确认。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">油价重挫：WTI 12月跌8.29%收88.12美元/桶，布伦特1月跌8.67%收94.62美元，盘中布油一度跌10%跌破100美元；摩根大通指全球石油市场在9月和10月已重转供应过剩，为地缘风险溢价重估提供基本面支撑。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-05 · 金融动态 3（华尔街见闻/汇通财经，11-05）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">谈判卡在顺序：伊朗要求先解除港口封锁、放松石油出口限制，美国要求先降低核浓缩水平；伊朗外长确认已通过中间方向华盛顿提交新的和平方案，卡塔尔调解团队周一晚间抵德黑兰就八天来讨论的协议草案磋商。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-05 · 军事动态 3（搜狐军事，11-05）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">俄美乌会谈倒计时：三方会谈定于11月10—11日在阿布扎比举行；白宫称美总统夫人梅拉尼娅将于5日在白宫邀请俄乌代表会谈，泽连斯基称阿布扎比谈判重点在能源与关键基础设施停火、恢复黑海粮食出口及加快战俘交换。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-05 · 军事动态 6（央视新闻，11-04）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">截至当天收盘，纽约商品交易所12月交货的轻质原油期货价格下跌7.97美元，收于每桶88.12美元，跌幅为8.29%；1月交货的伦敦布伦特原油期货价格下跌8.98美元，收于每桶94.62美元，跌幅为8.67%。</p>
+        <cite class="evidence-source">新华财经（中国金融信息网）· 纽约 11-04 电 · 2026-11-05 发布 · 页面直取成功（HTTP 200）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">债汇金齐升：10年期美债收益率降约7个基点至4.89%、创两个月低点，2年期降约5个基点至4.58%；美元指数跌0.4%创一个月新低；现货黄金涨超3%至4063美元上方、创8月以来最大单日涨幅，期银收涨超5%；比特币重上8万美元关口。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-05 · 金融动态 4（华尔街见闻，11-05）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">欧元区通胀再抬头：10月CPI同比涨4.0%创三年新高，能源价格涨20.8%，欧洲央行12月加息预期强化。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-05 · 金融动态 6（华尔街见闻，11-05）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">商品与汇市：布伦特原油跌8.67%收94.62美元/桶、WTI跌8.29%收88.12美元/桶，盘中布油一度跌10%跌破100美元；10年期美债收益率降约7个基点至4.89%、创两个月低点；美元指数跌0.4%；现货黄金涨超3%至4063美元上方。</p>
+        <cite class="evidence-source">每日股市简报 2026-11-05 · 商品与汇市段（华尔街见闻，11-05），与热点新闻简报金融动态 3、4 两处一致</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">盘面：美国中期选举民主党横扫参众两院，政治不确定性下降，资金涌入现金流稳定的大型科技股</p>
+        <cite class="evidence-source">每日股市简报 2026-11-05 · 美股盘面（华尔街见闻/中经网，11-05）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">卡塔尔调解人员当地时间2日晚前往德黑兰,计划与伊朗外交部长阿拉格齐就美伊可能达成的协议进行会谈。</p>
+        <cite class="evidence-source">央视新闻 11-03 · 经察言 11-07 抓原页核字 · 用于确认简报「周一晚间」= 2026-11-02</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Iran has sent the United States a nuclear proposal via Qatar, to be discussed only after Washington meets Tehran's seven demands, a senior Iranian official told Reuters on Thursday.</p>
+        <cite class="evidence-source">路透（DUBAI, Nov 5）· 经察言 11-07 核原句 · 5 源一致，单一名匿名伊朗官员，美方无确认</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h2>方法、来源与边界</h2>
+    <p><b>方法：</b>本篇以 2026-11-05 版三份简报（热点新闻简报 / 每日股市简报）为素材底本，用新华财经纽约 11-04 电确认结算价与绝对跌幅，用路透等多源核摩根大通的过剩量估算，用公开报道核调解时间线。所有进入断言层的数字都可在本页正文逐字找到。</p>
+    <p><b>已验证：</b>结算价 94.62 / 88.12 / 4063、单日跌幅 -8.67% / -8.29%、盘中 -10% 破 100 美元、10 年期美债 4.89%、欧元区能源 CPI 20.8%、阿布扎比会谈日期 11-10/11，均在两份简报或新华财经原文中逐字存在，并经跨源比对一致。</p>
+    <p><b>未确认：</b>伊朗方案的提交时点有两说（11-02 经中间人的提议为单一来源转述；11-05 经卡塔尔提交的核提议为路透 5 源一致但仅 1 名匿名官员、美方无确认），简报那句对应哪一件尚未定性，需核搜狐军事 11-05 原文；摩根大通报告原文未直取，过剩量数值以路透引述为准；三因贡献拆分无数值；11-10/11 会谈尚未发生，本篇不写结果。</p>
+    <p><b>不做的事：</b>不给目标价，不做盘中路径外推，不把盘中价写进结算价序列，不把月度 CPI 与单日跌幅作因果并列，不把定性判断写成断言。本页为研究记录，不构成投资建议。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 拒绝该条。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "94.62 美元/桶",
+    "label": "布伦特 1 月合约结算价（11-04）",
+    "quote": "布伦特1月跌8.67%收94.62美元"
+  },
+  {
+    "value": "88.12 美元/桶",
+    "label": "WTI 12月合约结算价（11-04）",
+    "quote": "WTI 12月跌8.29%收88.12美元/桶"
+  },
+  {
+    "value": "4063 美元/盎司",
+    "label": "现货黄金结算价（11-04）",
+    "quote": "现货黄金涨超3%至4063美元上方、创8月以来最大单日涨幅"
+  },
+  {
+    "value": "盘中 -10%，跌破 100 美元",
+    "label": "布伦特盘中跌幅（11-04）",
+    "quote": "盘中布油一度跌10%跌破100美元"
+  },
+  {
+    "value": "140 万桶/日",
+    "label": "摩根大通估全球石油过剩量（10月）",
+    "quote": "9 月过剩约 110 万桶/日、10 月扩大至约 140 万桶/日"
+  },
+  {
+    "value": "4.89%",
+    "label": "10年期美债收益率（11-04）",
+    "quote": "10年期美债收益率降约7个基点至4.89%、创两个月低点"
+  },
+  {
+    "value": "20.8%",
+    "label": "欧元区 10 月能源 CPI 同比",
+    "quote": "10月CPI同比涨4.0%创三年新高，能源价格涨20.8%"
+  },
+  {
+    "value": "-8.67%",
+    "label": "布伦特结算跌幅（11-04）",
+    "quote": "布伦特1月跌8.67%收94.62美元"
+  }
+]
+</script>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js"></script>
+<script>
+// 图表：只画能逐字回到出处的点。尊重 prefers-reduced-motion。
+(function(){
+  if(typeof Chart==='undefined'){return;}
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var INK='#171a18',INK2='#4f5551',RULE='#d2d8d4',BRASS='#7d5a1c',
+      DOWN='#a03a2a',UP='#2d5016',RAISED='#f4f6f4';
+  var base={
+    animation:reduce?false:{duration:600,easing:'easeOutQuart'},
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#121513',titleColor:'#eef0ee',bodyColor:'#eef0ee',
+        displayColors:false,cornerRadius:4,padding:10
+      }
+    },
+    scales:{
+      x:{grid:{display:false},border:{color:RULE},
+         ticks:{color:INK2,font:{size:12.5,family:'-apple-system,BlinkMacSystemFont,PingFang SC,sans-serif'},maxRotation:0,autoSkip:false}},
+      y:{grid:{color:RULE,drawTicks:false},border:{display:false},
+         ticks:{color:INK2,font:{size:12.5,family:'-apple-system,BlinkMacSystemFont,PingFang SC,sans-serif'},padding:8}}
+    }
+  };
+  function px(id,h){var c=document.getElementById(id);if(c){c.parentElement.style.height=h+'px';}return c;}
+
+  // 图1：前收 vs 收盘
+  var c1=px('chartPrice',320);
+  if(c1){
+    new Chart(c1,{
+      type:'bar',
+      data:{
+        labels:['布伦特 1 月 · 前收','布伦特 1 月 · 11-04 收盘','WTI 12 月 · 前收','WTI 12 月 · 11-04 收盘'],
+        datasets:[{
+          data:[103.60,94.62,96.09,88.12],
+          backgroundColor:[BRASS,DOWN,BRASS,DOWN],
+          borderRadius:2,borderSkipped:false,barPercentage:.66,categoryPercentage:.72
+        }]
+      },
+      options:Object.assign({},base,{
+        plugins:{legend:{display:false},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){return ctx.parsed.y.toFixed(2)+' 美元/桶';}}
+          })},
+        scales:Object.assign({},base.scales,{
+          y:Object.assign({},base.scales.y,{suggestedMin:80,suggestedMax:110,
+            ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v;}})})
+        })
+      })
+    });
+  }
+
+  // 图2：跨资产单日变动
+  var c2=px('chartDiverge',300);
+  if(c2){
+    new Chart(c2,{
+      type:'bar',
+      data:{
+        labels:['布伦特 1 月','WTI 12 月','现货黄金（涨超）','美元指数'],
+        datasets:[{
+          data:[-8.67,-8.29,3.0,-0.4],
+          backgroundColor:function(ctx){var v=ctx.raw;return v<0?DOWN:UP;},
+          borderRadius:2,borderSkipped:false,barPercentage:.6,categoryPercentage:.7
+        }]
+      },
+      options:Object.assign({},base,{
+        plugins:{legend:{display:false},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){var v=ctx.parsed.y;
+              return (v>0?'+':'')+v+'%'+(ctx.dataIndex===2?'（下限值）':'');}}
+          })},
+        scales:Object.assign({},base.scales,{
+          y:Object.assign({},base.scales.y,{suggestedMin:-10,suggestedMax:4,
+            ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v+'%';}})})
+        })
+      })
+    });
+  }
+
+  // 图3：摩根大通过剩量估算
+  var c3=px('chartSurplus',300);
+  if(c3){
+    new Chart(c3,{
+      type:'bar',
+      data:{
+        labels:['2025 年全年均值','2026 年 9 月（估）','2026 年 10 月（估）'],
+        datasets:[{
+          data:[1.3,1.1,1.4],
+          backgroundColor:[RULE,BRASS,DOWN],
+          borderRadius:2,borderSkipped:false,barPercentage:.55,categoryPercentage:.7
+        }]
+      },
+      options:Object.assign({},base,{
+        plugins:{legend:{display:false},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){return ctx.parsed.y.toFixed(1)+' 百万桶/日';}}
+          })},
+        scales:Object.assign({},base.scales,{
+          y:Object.assign({},base.scales.y,{suggestedMin:0,suggestedMax:1.7,
+            ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v.toFixed(1);}})})
+        })
+      })
+    });
+  }
+})();
+
+// 唯一的一次性动效：区块发丝线自左绘出。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

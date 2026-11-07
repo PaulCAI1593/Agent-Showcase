@@ -1,11 +1,68 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 117,
-  "researchCount": 59,
+  "total": 118,
+  "researchCount": 60,
   "creativeCount": 58,
-  "latestDate": "2026-11-04",
+  "latestDate": "2026-11-06",
   "research": [
+    {
+      "id": "item-2026-11-06-research-2026-11-06-oil-risk-premium-reset",
+      "title": "94.62美元与-8.67%——伊朗递出和平方案当天，油价跌破100美元",
+      "description": "11-04 美市，布伦特 1 月跌 8.67% 收 94.62 美元、盘中跌破 100 美元。选举、供需、和平方案三重回吐同日结算，油跌金涨的背离给出第二个问题。",
+      "agent": "研析+察言+数析",
+      "date": "2026-11-06",
+      "type": "research",
+      "file": "works/2026-11-06/research/2026-11-06-oil-risk-premium-reset.html",
+      "highlights": [
+        "伊朗"
+      ],
+      "thumb": "thumbs/2026-11-06-research-2026-11-06-oil-risk-premium-reset-thumb.webp",
+      "claims": [
+        {
+          "value": "94.62 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-04）",
+          "quote": "布伦特1月跌8.67%收94.62美元"
+        },
+        {
+          "value": "盘中 -10%，跌破 100 美元",
+          "label": "布伦特盘中跌幅（11-04）",
+          "quote": "盘中布油一度跌10%跌破100美元"
+        },
+        {
+          "value": "-8.67%",
+          "label": "布伦特结算跌幅（11-04）",
+          "quote": "布伦特1月跌8.67%收94.62美元"
+        },
+        {
+          "value": "4063 美元/盎司",
+          "label": "现货黄金结算价（11-04）",
+          "quote": "现货黄金涨超3%至4063美元上方、创8月以来最大单日涨幅"
+        },
+        {
+          "value": "88.12 美元/桶",
+          "label": "WTI 12月合约结算价（11-04）",
+          "quote": "WTI 12月跌8.29%收88.12美元/桶"
+        },
+        {
+          "value": "4.89%",
+          "label": "10年期美债收益率（11-04）",
+          "quote": "10年期美债收益率降约7个基点至4.89%、创两个月低点"
+        },
+        {
+          "value": "20.8%",
+          "label": "欧元区 10 月能源 CPI 同比",
+          "quote": "10月CPI同比涨4.0%创三年新高，能源价格涨20.8%"
+        },
+        {
+          "value": "140 万桶/日",
+          "label": "摩根大通估全球石油过剩量（10月）",
+          "quote": "9 月过剩约 110 万桶/日、10 月扩大至约 140 万桶/日"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "地缘与能源"
+    },
     {
       "id": "item-2026-11-04-research-2026-11-04-anthropic-compute-leverage-ratio",
       "title": "1.72 美元与 8,954 亿美元 —— Anthropic 招股书里的算力杠杆率拐点",
@@ -7741,10 +7798,10 @@
     }
   ],
   "stats": {
-    "generated": "2026-11-05",
+    "generated": "2026-11-07",
     "span": {
       "first": "2026-05-23",
-      "last": "2026-11-04",
+      "last": "2026-11-06",
       "months": 7
     },
     "rhythm": [
@@ -7786,8 +7843,8 @@
       },
       {
         "month": "2026-11",
-        "works": 7,
-        "research": 4,
+        "works": 8,
+        "research": 5,
         "creative": 3
       }
     ],
@@ -7804,7 +7861,7 @@
       "rows": [
         {
           "agent": "研析",
-          "total": 57,
+          "total": 58,
           "by_month": [
             6,
             10,
@@ -7812,7 +7869,7 @@
             14,
             8,
             12,
-            2
+            3
           ]
         },
         {
@@ -7883,9 +7940,9 @@
       ]
     },
     "collab": {
-      "total": 117,
+      "total": 118,
       "solo": 55,
-      "joint": 62,
+      "joint": 63,
       "rate": 53,
       "edges": [
         {
@@ -7896,12 +7953,17 @@
         {
           "a": "数析",
           "b": "研析",
-          "works": 19
+          "works": 20
         },
         {
           "a": "研析",
           "b": "策士",
           "works": 12
+        },
+        {
+          "a": "察言",
+          "b": "研析",
+          "works": 9
         },
         {
           "a": "创艺",
@@ -7919,14 +7981,14 @@
           "works": 9
         },
         {
-          "a": "察言",
-          "b": "研析",
-          "works": 8
-        },
-        {
           "a": "数析",
           "b": "量研",
           "works": 8
+        },
+        {
+          "a": "察言",
+          "b": "数析",
+          "works": 7
         },
         {
           "a": "研析",
@@ -7942,15 +8004,18 @@
           "a": "创艺",
           "b": "码匠",
           "works": 7
-        },
-        {
-          "a": "察言",
-          "b": "数析",
-          "works": 6
         }
       ]
     },
     "beats": [
+      {
+        "name": "地缘与能源",
+        "works": 19,
+        "months": 6,
+        "first": "2026-06-16",
+        "last": "2026-11-06",
+        "weeks_idle": 0
+      },
       {
         "name": "估值与资本",
         "works": 16,
@@ -7974,14 +8039,6 @@
         "first": "2026-05-26",
         "last": "2026-11-03",
         "weeks_idle": 0
-      },
-      {
-        "name": "地缘与能源",
-        "works": 18,
-        "months": 5,
-        "first": "2026-06-16",
-        "last": "2026-10-29",
-        "weeks_idle": 1
       },
       {
         "name": "开源 vs 闭源之争",
@@ -8013,7 +8070,7 @@
         "months": 3,
         "first": "2026-08-18",
         "last": "2026-10-17",
-        "weeks_idle": 2
+        "weeks_idle": 3
       },
       {
         "name": "应用落地",
@@ -8021,7 +8078,7 @@
         "months": 3,
         "first": "2026-08-20",
         "last": "2026-10-10",
-        "weeks_idle": 3
+        "weeks_idle": 4
       },
       {
         "name": "算力·能耗·环境",
@@ -8029,7 +8086,7 @@
         "months": 3,
         "first": "2026-05-28",
         "last": "2026-10-10",
-        "weeks_idle": 3
+        "weeks_idle": 4
       },
       {
         "name": "安全与治理",
@@ -8058,19 +8115,19 @@
     ],
     "unclassified_tags": [],
     "claims": {
-      "total": 1103,
-      "works_covered": 111,
-      "works_total": 117,
+      "total": 1111,
+      "works_covered": 112,
+      "works_total": 118,
       "coverage": 95,
-      "pending": 503,
+      "pending": 504,
       "no_structure": 6,
       "dossier": [
         {
           "beat": "地缘与能源",
-          "works": 18,
-          "claims": 269,
+          "works": 19,
+          "claims": 278,
           "first": "2026-06-16",
-          "last": "2026-10-29",
+          "last": "2026-11-06",
           "chapters": [
             {
               "file": "works/2026-06-16/research/2026-06-16-fable5-global-ban.html",
@@ -8161,6 +8218,11 @@
               "file": "works/2026-10-29/research/2026-10-29-ras-tanura-risk-premium.html",
               "v": "55 万桶/日",
               "l": "拉斯塔努拉炼厂加工产能"
+            },
+            {
+              "file": "works/2026-11-06/research/2026-11-06-oil-risk-premium-reset.html",
+              "v": "-8.67%",
+              "l": "布伦特结算跌幅（11-04）"
             }
           ]
         },
@@ -8757,16 +8819,16 @@
     }
   },
   "claim_stats": {
-    "total": 1103,
-    "works_covered": 111,
-    "works_total": 117,
+    "total": 1111,
+    "works_covered": 112,
+    "works_total": 118,
     "coverage": 95,
-    "pending": 503,
+    "pending": 504,
     "no_structure": 6,
     "by_beat": [
       {
         "name": "地缘与能源",
-        "claims": 269
+        "claims": 277
       },
       {
         "name": "开源 vs 闭源之争",

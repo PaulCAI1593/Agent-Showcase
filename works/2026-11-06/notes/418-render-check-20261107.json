@@ -1,0 +1,272 @@
+{
+  "file": "2026-11-06/research/2026-11-06-oil-risk-premium-reset.html",
+  "checks": [
+    {
+      "name": "无 console error",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无 pageerror",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无资源 404 / 失败请求",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无 {{ }} 模板占位",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "正文无外链 http(s)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "词汇 .metrics = 1",
+      "ok": true,
+      "detail": "实测 1"
+    },
+    {
+      "name": "词汇 .metric = 8",
+      "ok": true,
+      "detail": "实测 8"
+    },
+    {
+      "name": "词汇 .metric-value = 8",
+      "ok": true,
+      "detail": "实测 8"
+    },
+    {
+      "name": "词汇 .metric-label = 8",
+      "ok": true,
+      "detail": "实测 8"
+    },
+    {
+      "name": "词汇 .metric-source = 8",
+      "ok": true,
+      "detail": "实测 8"
+    },
+    {
+      "name": "词汇 .verdict = 1",
+      "ok": true,
+      "detail": "实测 1"
+    },
+    {
+      "name": "词汇 .timeline = 1",
+      "ok": true,
+      "detail": "实测 1"
+    },
+    {
+      "name": "词汇 .timeline-item = 6",
+      "ok": true,
+      "detail": "实测 6"
+    },
+    {
+      "name": "词汇 .evidence = 1",
+      "ok": true,
+      "detail": "实测 1"
+    },
+    {
+      "name": "词汇 .evidence-item = 10",
+      "ok": true,
+      "detail": "实测 10"
+    },
+    {
+      "name": "showcase-beat = 地缘与能源",
+      "ok": true,
+      "detail": "地缘与能源"
+    },
+    {
+      "name": "<title> 为派单标题",
+      "ok": true,
+      "detail": "94.62美元与-8.67%——伊朗递出和平方案当天，油价跌破100美元"
+    },
+    {
+      "name": "claims 条数 = 8",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "claims 三元组与预期一致",
+      "ok": true,
+      "detail": "['布伦特 1 月合约结算价（11-04）', 'WTI 12月合约结算价（11-04）', '现货黄金结算价（11-04）', '布伦特盘中跌幅（11-04）', '摩根大通估全球石油过剩量（10月）', '10年期美债收益率（11-04）', '欧元区 10 月能源 CPI 同比', '布伦特结算跌幅（11-04）']"
+    },
+    {
+      "name": "quote 逐字命中：布伦特 1 月合约结算价（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：WTI 12月合约结算价（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：现货黄金结算价（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：布伦特盘中跌幅（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：摩根大通估全球石油过剩量（10月）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：10年期美债收益率（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：欧元区 10 月能源 CPI 同比",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quote 逐字命中：布伦特结算跌幅（11-04）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "三张图表均已绘制",
+      "ok": true,
+      "detail": "[67998, 68942, 61766]"
+    },
+    {
+      "name": "Chart.js 已加载",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "标签日期无 11-05",
+      "ok": true,
+      "detail": "['布伦特 1 月合约结算价（11-04）', 'WTI 12月合约结算价（11-04）', '布伦特盘中跌幅（11-04）', '现货黄金结算价（11-04）', '摩根大通估全球石油过剩量（10月）', '10年期美债收益率（11-04）', '欧元区 10 月能源 CPI 同比', '布伦特结算跌幅（11-04）']"
+    },
+    {
+      "name": "八个标签中无句末标点",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "四个持续跟踪标签写法正确",
+      "ok": true,
+      "detail": "['布伦特 1 月合约结算价（11-04）', 'WTI 12月合约结算价（11-04）', '布伦特盘中跌幅（11-04）', '现货黄金结算价（11-04）']"
+    },
+    {
+      "name": "盘中条 value 含「盘中」",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JPM 定性判断在正文（非断言）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "结算价与盘中价分列措辞存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "未把 11-05 写成交易日（正文无「11-05 结算价」）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无近似转写的假引文（Samaa 旧写法已清除）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "标题「当天」口径注存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "伊朗方案两说已分列",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "现货金与期金两口径分开表述",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "375px 横向溢出 = 0",
+      "ok": true,
+      "detail": "0px"
+    },
+    {
+      "name": "截图 418-preview-01-masthead.png",
+      "ok": true,
+      "detail": "222518 bytes"
+    },
+    {
+      "name": "截图 418-preview-02-verdict.png",
+      "ok": true,
+      "detail": "291269 bytes"
+    },
+    {
+      "name": "截图 418-preview-03-metrics.png",
+      "ok": true,
+      "detail": "306853 bytes"
+    },
+    {
+      "name": "截图 418-preview-04-price.png",
+      "ok": true,
+      "detail": "337513 bytes"
+    },
+    {
+      "name": "截图 418-preview-05-diverge.png",
+      "ok": true,
+      "detail": "436203 bytes"
+    },
+    {
+      "name": "截图 418-preview-06-mech.png",
+      "ok": true,
+      "detail": "666075 bytes"
+    },
+    {
+      "name": "截图 418-preview-07-timeline.png",
+      "ok": true,
+      "detail": "722167 bytes"
+    },
+    {
+      "name": "截图 418-preview-08-frame.png",
+      "ok": true,
+      "detail": "453763 bytes"
+    },
+    {
+      "name": "截图 418-preview-09-gates.png",
+      "ok": true,
+      "detail": "441302 bytes"
+    },
+    {
+      "name": "截图 418-preview-10-evidence.png",
+      "ok": true,
+      "detail": "972069 bytes"
+    }
+  ],
+  "shots": [
+    "418-preview-01-masthead.png",
+    "418-preview-02-verdict.png",
+    "418-preview-03-metrics.png",
+    "418-preview-04-price.png",
+    "418-preview-05-diverge.png",
+    "418-preview-06-mech.png",
+    "418-preview-07-timeline.png",
+    "418-preview-08-frame.png",
+    "418-preview-09-gates.png",
+    "418-preview-10-evidence.png"
+  ]
+}
