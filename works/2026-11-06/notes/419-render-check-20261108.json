@@ -1,0 +1,152 @@
+{
+  "total": 29,
+  "pass": 29,
+  "fail": 0,
+  "results": [
+    {
+      "name": "<title> 含作品名",
+      "ok": true,
+      "detail": "三个季度涨近 4 倍——AI 吃掉的存储，最后写进你的 iPhone 价签"
+    },
+    {
+      "name": "showcase-beat = 成本与普惠",
+      "ok": true,
+      "detail": "成本与普惠"
+    },
+    {
+      "name": "无 console error",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无 pageerror",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "无资源加载失败",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "零远程依赖",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "claims 条数 3~8",
+      "ok": true,
+      "detail": "6"
+    },
+    {
+      "name": "quote 命中（正文+文件）: AI需求在三个季度内使存储芯片价格翻了近四倍",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "quote 命中（正文+文件）: 推出至少五款新iPhone并准备1000万台折叠",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "quote 命中（正文+文件）: 推出至少五款新iPhone并准备1000万台折叠",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "quote 命中（正文+文件）: 存储股希捷跌8.13%",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "quote 命中（正文+文件）: 美光跌7.00%",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "quote 命中（正文+文件）: 升级至1TB版本时,物料成本增量约为192美元,",
+      "ok": true,
+      "detail": "{'dom': True, 'file': True}"
+    },
+    {
+      "name": "claims 与交付清单一致",
+      "ok": true,
+      "detail": "[('近 4 倍', '存储芯片价格三个季度涨幅', 'AI需求在三个季度内使存储芯片价格翻了近四倍'), ('至少五款', '苹果计划新 iPhone 款数', '推出至少五款新iPhone并准备1000万台折叠屏机')]"
+    },
+    {
+      "name": "价格图 SVG 已绘制",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "三季柱已生成",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "仪表盘切换到五股跌幅",
+      "ok": true,
+      "detail": "[869, 815, 668, 584, 371]"
+    },
+    {
+      "name": "备货点阵动画点亮 100 点",
+      "ok": true,
+      "detail": "100"
+    },
+    {
+      "name": "传导链节点 5 展开、节点 1 收起",
+      "ok": true,
+      "detail": "{'d5': True, 'd1': True}"
+    },
+    {
+      "name": "滑块推演联动且标注非断言",
+      "ok": true,
+      "detail": "{'before': '+5.6%', 'after': '+9.9%'}"
+    },
+    {
+      "name": "爆炸图合上/点选图层切换详情",
+      "ok": true,
+      "detail": "主板 · SoC"
+    },
+    {
+      "name": "账单逐行打印 + 盖章",
+      "ok": true,
+      "detail": "{'shown': 7, 'total': 7, 'stamped': True}"
+    },
+    {
+      "name": "边界未引用: 2025Q4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "边界未引用: 34%",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "边界未引用: 物料成本中的占比",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "边界未引用: 涨超 40%",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "边界未引用: +40%",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "375px 无横向溢出",
+      "ok": true,
+      "detail": "375"
+    },
+    {
+      "name": "reduced-motion 下页面可用",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

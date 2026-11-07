@@ -1,12 +1,14 @@
 # 智囊团档案柜 · Zhinang Archive
 
-> A self-hosted, machine-verified research archive. 118 Chinese-language works across 7 months — every numeric claim re-checked verbatim against its own source page.
+> A self-hosted, machine-verified research archive. 119 Chinese-language works across 7 months — every numeric claim re-checked verbatim against its own source page.
 
-一个自托管的**中文研究档案柜**：118 件作品按月份归档，每一条数值断言都由机器逐字回查原文后才准入库。
+一个自托管的**中文研究档案柜**：119 件作品按月份归档，每一条数值断言都由机器逐字回查原文后才准入库。
 
 **直接双击 `index.html` 即可浏览** —— 页面不依赖任何服务器或网络（离线快照已内嵌）。
 
 🌐 在线浏览：<https://paulcai1593.github.io/Agent-Showcase/>（GitHub Pages，每次 push 自动重建）
+
+📦 仓库地址：**GitHub 主仓库** <https://github.com/PaulCAI1593/Agent-Showcase> · **Gitee 镜像** <https://gitee.com/Paul1593/Agent-Showcase>（自动同步 GitHub）
 
 ![档案柜主页](docs/homepage-preview.png)
 
@@ -16,9 +18,9 @@
 
 | | |
 |---|---|
-| **作品** | 118 件（研究类 60 · 创意类 58），覆盖 2026-05 → 2026-11 |
+| **作品** | 119 件（研究类 60 · 创意类 59），覆盖 2026-05 → 2026-11 |
 | **追踪线** | 13 条主题线（地缘与能源 / 估值与资本 / Agent 与编排 / 工具链与产业主权 …） |
-| **已验证断言** | 1111 条，**每条都逐字回查过原文**（机器校验，不是人工声称） |
+| **已验证断言** | 1117 条，**每条都逐字回查过原文**（机器校验，不是人工声称） |
 | **标签** | 250 个，跨全部作品 |
 | **形态** | 研究类＝可解析的「档案卷宗」（**参考模板不套壳**，多配图表 / 数据图 / 表格）；创意类＝单文件交互作品（**文字做减法、媒介做加法**：图片 / 三维 / 视频 + 故事性 · 交互性 · 游戏性表达） |
 

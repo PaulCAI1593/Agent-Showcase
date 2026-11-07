@@ -1,9 +1,9 @@
 {
   "version": "3.0",
   "generatedBy": "build_manifest.py",
-  "total": 118,
+  "total": 119,
   "researchCount": 60,
-  "creativeCount": 58,
+  "creativeCount": 59,
   "latestDate": "2026-11-06",
   "research": [
     {
@@ -4595,6 +4595,55 @@
   ],
   "creative": [
     {
+      "id": "item-2026-11-06-creative-2026-11-06-memory-price-apple-pass-through",
+      "title": "三个季度涨近 4 倍——AI 吃掉的存储，最后写进你的 iPhone 价签",
+      "description": "AI 需求三个季度把存储价格推到近 4 倍，苹果提价、五款新机、1000 万台折叠屏备货，成本第一次落到普通人的零售价签上。",
+      "agent": "创艺",
+      "date": "2026-11-06",
+      "type": "creative",
+      "file": "works/2026-11-06/creative/2026-11-06-memory-price-apple-pass-through.html",
+      "highlights": [
+        "存储",
+        "苹果",
+        "零售"
+      ],
+      "thumb": "thumbs/2026-11-06-creative-2026-11-06-memory-price-apple-pass-through-thumb.webp",
+      "claims": [
+        {
+          "value": "近 4 倍",
+          "label": "存储芯片价格三个季度涨幅",
+          "quote": "AI需求在三个季度内使存储芯片价格翻了近四倍"
+        },
+        {
+          "value": "1000 万台",
+          "label": "折叠屏 iPhone 备货量",
+          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+        },
+        {
+          "value": "至少五款",
+          "label": "苹果计划新 iPhone 款数",
+          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+        },
+        {
+          "value": "600 美元",
+          "label": "iPhone 18 Pro 256GB→1TB 终端加价（美版）",
+          "quote": "升级至1TB版本时,物料成本增量约为192美元,终端售价加价600美元"
+        },
+        {
+          "value": "-8.13%",
+          "label": "希捷单日跌幅（11-04）",
+          "quote": "存储股希捷跌8.13%"
+        },
+        {
+          "value": "-7.00%",
+          "label": "美光单日跌幅（11-04）",
+          "quote": "美光跌7.00%"
+        }
+      ],
+      "beat_declared": true,
+      "beat": "成本与普惠"
+    },
+    {
       "id": "item-2026-11-04-creative-2026-11-04-gdpx-agent-capability-ceiling",
       "title": "13 个模型，没有一个完成五分之一 —— GDPx 给「能力」画的第一条天花板",
       "description": "SemiAnalysis GDPx 智能体基准：206 项任务、11 个行业、13 个模型，最高完成率 12.0%，无人触及五分之一。",
@@ -7843,9 +7892,9 @@
       },
       {
         "month": "2026-11",
-        "works": 8,
+        "works": 9,
         "research": 5,
-        "creative": 3
+        "creative": 4
       }
     ],
     "capacity": {
@@ -7874,7 +7923,7 @@
         },
         {
           "agent": "创艺",
-          "total": 40,
+          "total": 41,
           "by_month": [
             1,
             16,
@@ -7882,7 +7931,7 @@
             0,
             6,
             11,
-            2
+            3
           ]
         },
         {
@@ -7940,8 +7989,8 @@
       ]
     },
     "collab": {
-      "total": 118,
-      "solo": 55,
+      "total": 119,
+      "solo": 56,
       "joint": 63,
       "rate": 53,
       "edges": [
@@ -8097,27 +8146,27 @@
         "weeks_idle": 7
       },
       {
+        "name": "成本与普惠",
+        "works": 4,
+        "months": 3,
+        "first": "2026-06-11",
+        "last": "2026-11-06",
+        "weeks_idle": 0
+      },
+      {
         "name": "就业与劳动",
         "works": 4,
         "months": 2,
         "first": "2026-06-27",
         "last": "2026-10-27",
         "weeks_idle": 1
-      },
-      {
-        "name": "成本与普惠",
-        "works": 3,
-        "months": 2,
-        "first": "2026-06-11",
-        "last": "2026-10-27",
-        "weeks_idle": 1
       }
     ],
     "unclassified_tags": [],
     "claims": {
-      "total": 1111,
-      "works_covered": 112,
-      "works_total": 118,
+      "total": 1117,
+      "works_covered": 113,
+      "works_total": 119,
       "coverage": 95,
       "pending": 504,
       "no_structure": 6,
@@ -8766,10 +8815,10 @@
         },
         {
           "beat": "成本与普惠",
-          "works": 3,
-          "claims": 15,
+          "works": 4,
+          "claims": 20,
           "first": "2026-06-11",
-          "last": "2026-10-27",
+          "last": "2026-11-06",
           "chapters": [
             {
               "file": "works/2026-06-11/research/2026-06-11-wwdc-apple-ai.html",
@@ -8785,6 +8834,11 @@
               "file": "works/2026-10-27/research/2026-10-27-three-prices-of-one-token.html",
               "v": "1美元",
               "l": "全球开源编码模型输出价上限（每百万token）"
+            },
+            {
+              "file": "works/2026-11-06/creative/2026-11-06-memory-price-apple-pass-through.html",
+              "v": "4 倍",
+              "l": "存储芯片三个季度涨到近"
             }
           ]
         },
@@ -8819,9 +8873,9 @@
     }
   },
   "claim_stats": {
-    "total": 1111,
-    "works_covered": 112,
-    "works_total": 118,
+    "total": 1117,
+    "works_covered": 113,
+    "works_total": 119,
     "coverage": 95,
     "pending": 504,
     "no_structure": 6,
@@ -8872,7 +8926,7 @@
       },
       {
         "name": "成本与普惠",
-        "claims": 16
+        "claims": 22
       },
       {
         "name": "安全与治理",
