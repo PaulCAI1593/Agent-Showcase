@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="算力·能耗·环境">
+<meta name="description" content="五个可验证拐点：26 天内算力被打、被搬、被藏、被征、被自研，每个拐点含量值、日期与来源。">
+<title>Claude模型上线第三天，它开始给自己造芯片——战时算力治理的五个可验证拐点</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  研究类 · 智囊团展厅作品 · #415 战时算力治理的五个可验证拐点
+  主责：研析  协作：量研（$100B/3GW 等口径核算）
+  模板参考：templates/work.html（档案卷宗），按本篇内容重排
+  断言层：script#claims（8 条，quote 逐字回查）；追踪线：meta#showcase-beat
+  口径警示：$100B/3GW 为 Anthropic 单方口径，文中标注来源与单方属性
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --alert:#a03a2a;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+.masthead{padding:96px 0 64px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+section{padding:80px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:21px;line-height:1.4;letter-spacing:-0.008em;
+  font-weight:600;margin:44px 0 12px;
+}
+h3:first-of-type{margin-top:8px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:36px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+ul.plain,ol.plain{max-width:70ch;padding-left:22px}
+ul.plain li,ol.plain li{margin:10px 0;line-height:1.6}
+ul.plain li::marker{color:var(--brass)}
+ol.plain li::marker{font-family:var(--serif-num);color:var(--brass)}
+
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.7;color:var(--deep-2);max-width:62ch}
+.verdict-note p{max-width:62ch}
+
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 22px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:33px;line-height:1.06;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+table{border-collapse:collapse;width:100%;max-width:1040px;margin-top:8px;font-size:14.5px}
+caption{text-align:left;font-size:13px;color:var(--ink-3);padding-bottom:10px}
+th,td{text-align:left;vertical-align:top;padding:13px 14px;border-bottom:1px solid var(--rule)}
+thead th{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--ink-3);white-space:nowrap;
+}
+tbody tr:first-child td{border-top:1px solid var(--rule)}
+td b{font-weight:600}
+td .num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag-src{color:var(--ink-3);font-size:13px}
+.attr{font-size:13px;color:var(--ink-2)}
+.attr-warn{color:var(--alert);font-weight:600}
+
+.timeline{list-style:none;border-top:1px solid var(--rule);margin-top:8px}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.timeline-detail .pin{color:var(--brass);font-weight:600}
+
+.evidence{border-top:1px solid var(--rule);margin-top:14px}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:60ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:13px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-quote.en{font-family:var(--serif-num);font-size:17.5px}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+}
+
+.scope{
+  background:var(--paper-raised);border:1px solid var(--rule);border-left:1px solid var(--brass);
+  border-radius:4px;padding:22px 24px;margin-top:26px;max-width:76ch;
+}
+.scope.warn{border-left-color:var(--alert)}
+.scope h3{
+  font-family:var(--serif-cn);font-size:15px;letter-spacing:.06em;font-weight:600;
+  color:var(--brass);margin:0 0 10px;
+}
+.scope.warn h3{color:var(--alert)}
+.scope p{font-size:15px;line-height:1.66;color:var(--ink-2);max-width:none}
+.scope p + p{margin-top:10px}
+.scope ul{font-size:15px;line-height:1.66;color:var(--ink-2);padding-left:20px}
+.scope li{margin:7px 0}
+
+.note{font-size:13.5px;line-height:1.6;color:var(--ink-3);max-width:74ch;margin-top:12px}
+figure{margin-top:34px}
+.chart-frame{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 22px 16px;
+}
+.chart-frame h3{
+  font-family:var(--serif-cn);font-size:16px;font-weight:600;margin:0 0 4px;
+}
+.chart-frame .note{margin-top:4px}
+.chart-box{position:relative;height:300px;margin-top:14px}
+.chart-box.short{height:210px}
+
+.colophon{padding:52px 0 72px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:74ch}
+.colophon p + p{margin-top:10px}
+
+.src-group{margin-top:22px;max-width:84ch}
+.src-group h3{
+  font-family:var(--serif-num);font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--brass);border-bottom:1px solid var(--rule);padding-bottom:6px;margin:0 0 10px;
+}
+.src-group ul{list-style:none;font-size:13.5px;line-height:1.62;color:var(--ink-2)}
+.src-group li{padding:7px 0;border-bottom:1px solid var(--rule-soft)}
+.src-group li span{color:var(--ink-3)}
+.src-group a{color:var(--ink-2);text-decoration:none;word-break:break-all}
+.src-group a:hover{color:var(--brass)}
+
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  table{font-size:13.5px}
+  th,td{padding:10px 9px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:54px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px;font-size:17px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .chart-box{height:260px}
+  .table-scroll{overflow-x:auto}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>Claude模型上线第三天，它开始给自己造芯片——战时算力治理的五个可验证拐点</h1>
+        <p class="standfirst">2026 年 10 月 8 日至 11 月 3 日的 26 天里，算力被打、被搬、被藏、被征、被自研。五个动作各自留下日期与数字，构成本篇的可验证清单。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-10（核验日）</dd></div>
+          <div><dt>主责 / 协作</dt><dd><b>研析</b> · 量研（口径核算）</dd></div>
+          <div><dt>追踪线</dt><dd>算力·能耗·环境</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · quote 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">算力在 26 天内完成从商业资产到战时资产的转义：被打、被搬、被藏、被征、被自研；五个动作第一次留下可逐条核对的日期与量值。</p>
+    <div class="verdict-note">
+      <p>机制：乌克兰无人机把俄境内数据中心变成打击目标（10-08 至 10-18）；俄数字发展部以三级地下化指引回应（10-25 报道），Yandex 迁走三台 AI 超算（10-26）；普京签署总统令，要求私营数据中心预留 10% 容量并授权使用境外数据中心（11-02）。同一周，Anthropic 在 IPO 路演桌上展示「用 Claude 设计定制芯片」（11-03）。11 月 10 至 11 日阿布扎比俄美乌会谈把能源与关键基础设施停火列为议题，战时架构面临第一次合同化窗口。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八个数字分别来自俄方法令、俄媒报道与 Anthropic 招股书转述；单方口径在来源行标注。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">10%</div>
+        <div class="metric-label">俄方数据中心应急预留算力</div>
+        <div class="metric-source">Meduza 转俄总统令 · 2026-11-02</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5 座</div>
+        <div class="metric-label">打击窗口内被击设施（枚举 3+1+1）</div>
+        <div class="metric-source">Kommersant 报道 · 2026-10-08 至 10-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3 台</div>
+        <div class="metric-label">Yandex 迁址的 AI 超级计算机</div>
+        <div class="metric-source">Meduza 引 RBC · 2026-10-26</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">三级</div>
+        <div class="metric-label">俄数字发展部防护指引层级</div>
+        <div class="metric-source">Kommersant 报道 · 2026-10-25</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">15 人</div>
+        <div class="metric-label">Anthropic 新组建硬件团队规模</div>
+        <div class="metric-source">The Information · 2026-11-03（媒体转述）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">8,954 亿美元</div>
+        <div class="metric-label">表外承诺合计上限</div>
+        <div class="metric-source">证券时报转招股书 · 2026-11-04 · Anthropic 单方口径</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">28.57 美元/瓦</div>
+        <div class="metric-label">$100B÷3.5GW 折算（跨口径拼接·推算）</div>
+        <div class="metric-source">量研核算 · python3 复算 · 2026-11-10</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">104.31 美元/桶</div>
+        <div class="metric-label">布伦特原油收盘价（11-03）</div>
+        <div class="metric-source">汇通财经/中国基金报 · 2026-11-04</div>
+      </div>
+    </div>
+    <p class="note">口径提示：8,954 亿美元、3.5GW、$100B 募资预期均为 Anthropic 单方口径（S-1 及路演转述），无第三方核实；「$100B/3GW」中 3GW 经量研判定为 3.5GW 的简写（置信中高）。详见「口径与验证」。</p>
+  </div>
+</section>
+
+<!-- ── 五个拐点总表 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>五个拐点总表</h2>
+    <p class="lede">每一行都可独立核对：日期、量值、来源、属性四项齐全。</p>
+    <div class="table-scroll">
+    <table>
+      <caption>表 1 · 战时算力治理的五个可验证拐点（核验日 2026-11-10）</caption>
+      <thead>
+        <tr><th>拐点</th><th>日期</th><th>量值</th><th>来源</th><th>属性</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1 · 打击窗口成型</b><br><span class="tag-src">算力设施成为军事目标</span></td>
+          <td class="num">2026-10-08<br>至 10-18</td>
+          <td class="num">5 座设施<br>（3 Yandex + 1 Sberbank 在建 + 1 VK）</td>
+          <td class="tag-src">Kommersant 10-25 报道（转引链：uazmi 10-26 等）；附：弗拉基米尔数据中心 2880 机架（环球时报 10-26）</td>
+          <td class="attr">二手转引（C）· 俄方无统一公告</td>
+        </tr>
+        <tr>
+          <td><b>2 · 形态迁移</b><br><span class="tag-src">新建地下化 + 三级防护指引</span></td>
+          <td class="num">2026-10-25<br>（报道日）</td>
+          <td class="num">三级标准<br>最高级：中断 1 小时即瘫痪关键国家职能</td>
+          <td class="tag-src">Kommersant 10-25；Web Pulse 10-27；PIQ Markets 10-26（80% 集中度为 Petrenko 估算）</td>
+          <td class="attr">指引为俄数字发展部（官方）· 报道二手（C）· 80% 为专家估算</td>
+        </tr>
+        <tr>
+          <td><b>3 · 资产迁移</b><br><span class="tag-src">AI 超算整体搬离</span></td>
+          <td class="num">2026-10-26</td>
+          <td class="num">3 台<br>（Lyapunov、Galushkin、Chervonenkis）</td>
+          <td class="tag-src">Meduza 10-26 引 RBC；Ars Technica 11-03；ISW 11-02 转述</td>
+          <td class="attr">二手（C）· 三源交叉一致</td>
+        </tr>
+        <tr>
+          <td><b>4 · 国家征用</b><br><span class="tag-src">10% 预留 + 海外数据中心授权</span></td>
+          <td class="num">2026-11-02</td>
+          <td class="num">10% 可用空间与容量<br>24 小时内响应 · 10 天内建立预留</td>
+          <td class="tag-src">Meduza 11-02；Reuters/Statement 11-02；Izvestia 11-02；Ars Technica 11-03</td>
+          <td class="attr">俄总统令（原件在官方法律门户）· 本页为媒体转引</td>
+        </tr>
+        <tr>
+          <td><b>5 · 供应链自研</b><br><span class="tag-src">用自己的模型造芯片</span></td>
+          <td class="num">2026-11-01<br>→ 11-03</td>
+          <td class="num">15 人团队<br>$100B / 3.5GW（3GW 为简写）<br>8,954 亿美元承诺</td>
+          <td class="tag-src">The Information 11-03；财联社/界面/环球网 11-03 至 11-04 转引；TestingCatalog 11-01；招股书 11-02 更新</td>
+          <td class="attr attr-warn">Anthropic 单方口径 · 非第三方核实</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">计数边界：拐点 1 的「5 座」只计 Kommersant 窗口内的枚举（3+1+1）；Ars Technica 另列俄财政部设施，时间未标，不并入计数。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从第一次打击到谈判窗口，26 天的日期链。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-08-05</span>
+        <div>
+          <div class="timeline-title">Anthropic 确认组建自研芯片团队（背景）</div>
+          <div class="timeline-detail">公司证实组建内部芯片设计团队，目标是模型-硬件协同设计、压低单 token 推理成本；同期报道称 2026 年算力支出约 190 亿美元（单方口径）。（Web Pulse 08-21 / TechPulse 08-09）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-08<br>至 10-18</span>
+        <div>
+          <div class="timeline-title">拐点 1 · 打击窗口：5 座设施被击</div>
+          <div class="timeline-detail"><span class="pin">量值 5 座</span>：3 座 Yandex 数据中心、1 座 Sberbank 在建设施、1 座 VK 设施。（Kommersant 报道，uazmi 10-26 等转引）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-11</span>
+        <div>
+          <div class="timeline-title">弗拉基米尔数据中心遇袭：2880 机架场地受损</div>
+          <div class="timeline-detail"><span class="pin">量值 2880 机架</span>：「10月11日遇袭的弗拉基米尔数据中心设计容纳2880个服务器机架。这是该公司最大场地之一。」专家估算单台超算成本最高 45 亿卢布、总损失约 150 亿卢布（估算·非官方）。（环球时报 10-26，内容由《俄罗斯报》提供）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-25</span>
+        <div>
+          <div class="timeline-title">拐点 2 · 三级防护指引：新建地下化</div>
+          <div class="timeline-detail"><span class="pin">量值 三级</span>：数字发展部就已建、在建、规划设施出三级标准；最高级为中断 1 小时即影响关键国家职能的战略站点。（Kommersant 报道）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-26</span>
+        <div>
+          <div class="timeline-title">拐点 3 · Yandex 三台 AI 超算迁址</div>
+          <div class="timeline-detail"><span class="pin">量值 3 台</span>：Lyapunov、Galushkin、Chervonenkis 三台超算全部迁至新场地。（Meduza 引 RBC；ISW 11-02 转述）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-01</span>
+        <div>
+          <div class="timeline-title">Claude Mythos 5.5 字样现身官网源码（未确认）</div>
+          <div class="timeline-detail">深夜页面源码出现 6 处新模型字样，随后被移除；FourWeekMBA 当日 17:31 UTC 复查为 0 处。Anthropic 未确认发布。（TestingCatalog / FourWeekMBA 11-01）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02</span>
+        <div>
+          <div class="timeline-title">拐点 4 · 普京签署总统令：10% 预留 + 海外授权</div>
+          <div class="timeline-detail"><span class="pin">量值 10%</span>：私营数据中心须预留 10% 可用空间与容量；特别委员会经 FSB 同意可授权使用境外数据中心。（Meduza / Reuters / Izvestia / Ars Technica，11-02 至 11-03）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div>
+          <div class="timeline-title">拐点 5 · The Information：15 人团队用 Claude 造芯片</div>
+          <div class="timeline-detail"><span class="pin">量值 15 人</span>：Anthropic 向潜在 IPO 投资者展示 AI 辅助半导体工程；同日费城半导体指数涨 2.63% 报 10600.40 点。点价：布伦特 104.31 美元/桶。（The Information 11-03；简报 11-04）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-10<br>至 11-11</span>
+        <div>
+          <div class="timeline-title">催化剂 · 阿布扎比俄美乌三方会谈</div>
+          <div class="timeline-detail">佩斯科夫证实三方谈判将于 11 月 10 至 11 日在阿联酋阿布扎比举行；泽连斯基称谈判重点在能源与关键基础设施停火。（央视新闻 11-04）</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 拐点详解 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>拐点详解与证据</h2>
+    <p class="lede">每节先给结论，再给可逐字回查的原文。</p>
+
+    <h3>拐点 1 · 打击窗口成型（10-08 至 10-18）</h3>
+    <p>10 月 8 日至 18 日的十天里，至少 5 座关键设施被击：3 座 Yandex 数据中心、1 座在建的 Sberbank 设施、1 座 VK 设施。10 月 11 日，Yandex 最大场地之一的弗拉基米尔数据中心（设计 2880 个服务器机架）供电与冷却受损，同日莫斯科、圣彼得堡等地用户报告服务中断。这是算力设施第一次以「军事目标」身份进入日常新闻。</p>
+    <p>损失口径全部是专家估算：Mobile Research Group 首席分析师穆尔塔津估计单台超级计算机成本可能高达 45 亿卢布、总损失可能约为 150 亿卢布；按 2026-11-09 汇率（1 USD = 82.448 RUB）折算约 5,458 万美元与 1.819 亿美元（量研核算，python3 复算）。设备更换与算力恢复可能需要一年半至两年。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote en">The strikes, which occurred between October 8 and October 18, targeted three Yandex data centers, a Sberbank facility under construction, and a data center belonging to social media giant VK.</p>
+        <cite class="evidence-source">Kommersant 2026-10-25 报道，经 btprimitives 等转引 · 二手（C）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">10月11日遇袭的弗拉基米尔数据中心设计容纳2880个服务器机架。这是该公司最大场地之一。</p>
+        <cite class="evidence-source">环球时报国际 2026-10-26（内容由《俄罗斯报》提供），「互联网侦查」公司创始人别杰罗夫受访原话</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">地缘冲突开始打到AI基础设施：乌克兰无人机打击导致俄罗斯境内多个AI超级计算机与云设施受损，Yandex、Sberbank、VKontakte与财政部机构服务受影响；俄方正要求数据中心运营商为应急状态预留算力、授权必要时使用海外数据中心，科技公司则把设施转入地下加固。</p>
+        <cite class="evidence-source">每日 AI 技术动态简报 2026-11-04 · 行业影响 3（来源：SegmentFault）· 团队简报原句</cite>
+      </div>
+    </div>
+
+    <h3>拐点 2 · 形态迁移：三级指引与地下化（10-25 报道）</h3>
+    <p>10 月 25 日，Kommersant 报道俄数字发展部已就已建、在建、规划三类设施出指引：新建设施转入地下，现有设施伪装并加装电子战与主动反无人机手段；防护按战略重要性分三级，最高一级覆盖「中断 1 小时即瘫痪关键国家职能」的站点。配套的两个数字说明动机：估计 80% 的俄数据中心集中在莫斯科及周边（前 Yandex Ukraine 负责人 Serhiy Petrenko 估算·专家口径）；Rostelecom 与 Nornickel 就地下数据中心谈判（Vedomosti 11-02），另有州长提议在露天煤矿建数据中心、地表覆绿伪装（Data Center Dynamics）。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote en">Russia's Digital Development Ministry issued new three-tier guidance recommending that new data centers be built underground and existing facilities be camouflaged and fitted with electronic warfare and active drone defenses, after Ukrainian strikes in October hit data centers belonging to Yandex, Sberbank and VKontakte.</p>
+        <cite class="evidence-source">Web Pulse 2026-10-27（源链 Kommersant 10-25）· 二手（C）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote en">Rostelecom, Russia's largest internet provider, plans to build underground data centers with "an increased level of protection against external threats," the Russian business daily Vedomosti reported</p>
+        <cite class="evidence-source">Meduza 2026-11-02（引 Vedomosti）· 二手（C）</cite>
+      </div>
+    </div>
+
+    <h3>拐点 3 · 资产迁移：三台 AI 超算搬离（10-26）</h3>
+    <p>10 月 26 日，Yandex 确认三台主力 AI 超级计算机（Lyapunov、Galushkin、Chervonenkis）全部迁至新场地。迁移不是演习：三台超算承担 Yandex 服务基础设施与大模型训练负载，原场地正是被击中的 AI 数据中心。ISW 在 11 月 2 日的评估中同样转述了这次迁移。可验证点是「3 台」这个计数：三家独立来源（Meduza、bne、ISW）一致。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote en">Yandex has also been forced to relocate all three of its main supercomputers after Ukrainian drone strikes targeted the AI data centers where they were originally housed, Meduza reported.</p>
+        <cite class="evidence-source">Ars Technica 2026-11-03（引 Meduza 10-26，Meduza 再引 RBC）· 二手（C）</cite>
+      </div>
+    </div>
+
+    <h3>拐点 4 · 国家征用：10% 预留与海外授权（11-02）</h3>
+    <p>11 月 2 日，普京签署关于支持俄境内信息资源运行措施的法令：私营数据中心所有者须预留 10% 的可用空间与容量；特别政府委员会可决定动用，运营方须在决定后 24 小时内提供；法令生效后 10 天内建立预留；委员会经 FSB 同意，可授权使用境外数据中心，这推翻了此前「主权互联网法」对境外云的禁令。数字发展部受命清查全国私营数据中心可用容量，政府所属设施除外。</p>
+    <p>10% 的绝对量目前无法核到：清查基准尚未公布。两个参考口径不可混用：按 371MW 运营 IT 容量（DC Market Insights 10-20）为 37.1MW；按 5.38GW 全俄数据中心与挖矿装机（TAdviser 引 SO EES 11-06，含挖矿、口径不同）为 538MW。基准确认方法：俄数字发展部清查结果。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote en">Vladimir Putin has signed a decree on measures to support the operation of information resources in Russia, requiring owners of private data centers to reserve 10% of their available space and capacity for state needs.</p>
+        <cite class="evidence-source">Meduza 2026-11-02 · 俄总统令媒体转引（原件在官方法律信息门户，本页未调原件）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote en">On November 2, Putin also signed a decree ordering Russian data center operators to set aside 10 percent of available space and capacity in case the Russian government requires it</p>
+        <cite class="evidence-source">Ars Technica 2026-11-03（引 Meduza）· 二手（C）</cite>
+      </div>
+    </div>
+
+    <h3>拐点 5 · 供应链自研：用自己的模型造芯片（11-01 → 11-03）</h3>
+    <p>标题的时间锚：11 月 1 日深夜，Claude Mythos 5.5 字样现身 Anthropic 官网源码（6 处，随后被移除，Anthropic 未确认发布）；第三天即 11 月 3 日，The Information 报道 Anthropic 向潜在 IPO 投资者展示：新组建的 15 人芯片设计团队已经在用 Claude 加速定制芯片的工程与设计。工程师称与英伟达、AMD 的传统流程相比显著缩短设计周期；公司同时接触多家 EDA 企业索取专有芯片设计数据集。</p>
+    <p>资金侧的两个口径必须贴单方标签：<b>$100B</b> 锚定 IPO 募资预期（最高 1000 亿美元、估值约 2 万亿美元、目标 11 月 16 日当周；Finance News Network 10-27 等转述，FT 11-06 已下修至 800–1000 亿/1.25–1.75 万亿，引用须带日期）；<b>3GW</b> 无独立原始口径，经量研判定为招股书「2026 年底超 3.5GW、明年翻倍」的简写（置信中高）。两者均为 Anthropic 单方口径（S-1 及路演转述），非第三方核实。折算 $100B÷3.5GW = 28.57 美元/瓦属跨口径拼接，不等于单位造价；同口径可比的是亚马逊协议 $100B/5GW = 20 美元/瓦（2026-04-21）。</p>
+    <p>对照俄方：一个把算力藏进地下与 10% 国家预留里，一个把算力焊进自研芯片与 8,954 亿美元承诺里，两边都在为「算力不再自由流动」写条款。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote en">Anthropic has begun pitching prospective IPO investors on an unusual operational edge: its new 15-person chip design team is already using Claude to speed engineering and design work on the custom silicon meant to train and run Claude itself.</p>
+        <cite class="evidence-source">Emergent 2026-11-03（转 The Information 独家）· 财联社 11-04、界面新闻 11-03、环球网 11-04 同日转引</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote en">Markets expect Anthropic to raise as much as $100 billion at around a $2 trillion valuation</p>
+        <cite class="evidence-source">Finance News Network 2026-10-27 · Anthropic 单方口径衍生的市场预期 · 非第三方核实</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">目前持有约8954亿美元支出承诺，为有记录以来规模最大的AI基础设施承诺之一</p>
+        <cite class="evidence-source">证券时报/e公司 2026-11-04（转 2026-11-02 更新版招股书）· Anthropic 单方口径</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 数据图 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>数据图</h2>
+    <p class="lede">三张图都只画能逐字回到出处的数字；推算与单方口径在图注标明。</p>
+
+    <figure>
+      <div class="chart-frame">
+        <h3>图 1 · Anthropic 资本承诺结构（亿美元，Anthropic 单方口径）</h3>
+        <p class="note">来源：证券时报/e公司 2026-11-04、观点网 2026-11-03 转 11-02 更新版招股书；Q3 营收年化 = 169.56×4 = 678.24（量研 python3 复算）。</p>
+        <div class="chart-box"><canvas id="chartCommit"></canvas></div>
+      </div>
+      <figcaption class="note">读法：未来 12 个月到期的 698 亿美元，是 Q3 单季营收（169.56 亿）的 4.12 倍；4,475 亿占总承诺 49.98%。全部为招股书单方口径，未调 SEC EDGAR 原件。</figcaption>
+    </figure>
+
+    <figure>
+      <div class="chart-frame">
+        <h3>图 2 · 布伦特与 WTI 两个交易日收盘（美元/桶）</h3>
+        <p class="note">来源：每日股市简报 11-04（汇通财经/中国基金报）、11-05（华尔街见闻）。11-04 布油跌 8.67%，盘中一度跌 10% 跌破 100 美元。</p>
+        <div class="chart-box"><canvas id="chartOil"></canvas></div>
+      </div>
+      <figcaption class="note">读法：谈判窗口前两个交易日，战争溢价单日回吐 8% 以上；点价标签按团队约定带日期后缀。</figcaption>
+    </figure>
+
+    <figure>
+      <div class="chart-frame">
+        <h3>图 3 · 单位算力资金强度对比（美元/瓦）</h3>
+        <p class="note">亚马逊：$100B/5GW = 20 美元/瓦（2026-04-21 联合公告，同口径）。Anthropic：$100B÷3.5GW = 28.57 美元/瓦，跨口径拼接，非单位造价（量研判定）。</p>
+        <div class="chart-box short"><canvas id="chartPerW"></canvas></div>
+      </div>
+      <figcaption class="note">读法：两根柱子只说明「同为 1000 亿美元口径，分母口径不同」；不得当作造价对比结论。</figcaption>
+    </figure>
+
+    <div class="table-scroll">
+    <table>
+      <caption>表 2 · 10% 预留的绝对量：两个参考口径（基准未公布，不可混用）</caption>
+      <thead><tr><th>容量基准</th><th>来源与日期</th><th>10% 折算</th><th>口径问题</th></tr></thead>
+      <tbody>
+        <tr><td class="num">371MW（运营 IT 容量）</td><td class="tag-src">DC Market Insights · 2026-10-20</td><td class="num">37.1MW</td><td class="attr">第三方行业统计</td></tr>
+        <tr><td class="num">5.38GW（全俄数据中心+挖矿装机）</td><td class="tag-src">TAdviser 引 SO EES · 2026-11-06</td><td class="num">538MW</td><td class="attr">俄官方调度机构口径，含挖矿设施</td></tr>
+        <tr><td class="num">清查基准（法令要求数字发展部统计）</td><td class="tag-src">俄数字发展部 · 未公布</td><td class="num">未确认</td><td class="attr attr-warn">确认方法：清查结果发布</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">量值均经 python3 复算：28.5714 / 33.3333 / 255.8286 美元每瓦；49.98% / 7.80%；4.117 倍；汇率折算 5,458 万 / 1.819 亿美元。</p>
+  </div>
+</section>
+
+<!-- ── 催化剂 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>催化剂：11 月 10 至 11 日窗口</h2>
+    <p class="lede">战时架构的下一次改写，取决于谈判桌。</p>
+    <p>佩斯科夫证实，俄美乌三方谈判将于 11 月 10 至 11 日在阿联酋阿布扎比举行，欧洲不参加；泽连斯基称谈判重点在能源与关键基础设施停火、恢复黑海粮食出口及加快战俘交换。若「关键基础设施停火」落地，本篇四个俄方拐点的法理基础（总统令援引的「紧急措施」）将进入重新定价期；若谈崩，10% 预留与地下化指引会从应急条款转为常态架构。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">佩斯科夫证实三方谈判将于11月10至11日在阿联酋阿布扎比举行</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-04 · 军事动态 5（来源：央视新闻）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">收盘布油报104.31美元跌0.44%、WTI报96.76美元涨0.31%；现货黄金收跌0.42%报3930.09美元/盎司</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-04 · 金融动态 4（汇通财经/中国基金报）· 11-03 收盘点价</cite>
+      </div>
+    </div>
+    <p class="note">方向口径核对：选题库 11-05 旧稿记「WTI 跌 0.52%」，现两份简报均记「涨 0.31%」，价格 96.76 一致；本页以现简报原句为准。</p>
+  </div>
+</section>
+
+<!-- ── 口径与验证 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径与验证</h2>
+    <p class="lede">哪些是已验证事实，哪些是单方口径，哪些还没确认。</p>
+
+    <div class="scope warn">
+      <h3>$100B / 3GW 口径警示（派单要求）</h3>
+      <p><b>$100B/3GW 为 Anthropic 单方口径，不得当第三方核实数据用。</b>本页处理：$100B 锚定 IPO 募资预期（最高 1000 亿美元，来源 Finance News Network 2026-10-27、Finvestly 2026-10-26、上证报 2026-10-26，均为 Anthropic 单方文件衍生的市场预期）；3GW 经量研判定为招股书「2026 年底超 3.5GW」的简写（多轮中英文检索未命中独立 3GW 口径，置信中高）。引用须带日期：FT 2026-11-06 已下修至 800–1000 亿美元/估值 1.25–1.75 万亿美元。</p>
+      <p>同属单方口径：8,954 亿美元承诺、4,475 亿/698 亿结构、3.5GW、Q3 营收 169.56 亿，均为 S-1 及媒体转引，未调 SEC EDGAR 原件（确认方法：EDGAR 上 ANT 的 S-1/A 2026-11-02 版）。</p>
+    </div>
+
+    <div class="scope">
+      <h3>标题「上线第三天」的时间锚（三口径并列）</h3>
+      <ul>
+        <li><b>主锚（本页采用）</b>：2026-11-01 深夜 Claude Mythos 5.5 字样现身官网源码（TestingCatalog 记录；FourWeekMBA 17:31 UTC 复查 0 处）→ 第三天 2026-11-03 = The Information 芯片团队报道。日期差 2 天，报道日为第 3 个日历日。</li>
+        <li><b>冲突口径 A</b>：搜狐 11-02、头条 11-03 称「11 月 1 日发布 Claude Mythos 5.5」，与泄露口径冲突，Anthropic 未确认。</li>
+        <li><b>冲突口径 B</b>：中文聚合源称 Opus 5.5「10-30/31 正式发布」，与 Anthropic 官方「September 22, 2026」冲突（官方发布日：Opus 5.5 = 09-22，Sonnet 5.5 = 09-28，Haiku 5.5 = 10-07）。</li>
+        <li><b>状态：未确认</b>。确认方法：核对 Anthropic Newsroom 与 Claude 发布说明的单一权威日期。</li>
+      </ul>
+    </div>
+
+    <div class="scope">
+      <h3>验证记录</h3>
+      <ul>
+        <li><b>已验证</b>：8 条断言 quote 全部与来源原句逐字比对（简报原句用 grep 精确提取；Ars/Meduza/环球时报/Anthropic Newsroom 页面直接抓取）。</li>
+        <li><b>已验证</b>：量研子任务（task-9f914ed12f2f）已完成，6 项核算经 python3 复算；28.57/33.33/255.83 美元每瓦、49.98%/7.80%、4.12 倍、5,458 万/1.819 亿美元均复算一致。</li>
+        <li><b>已验证</b>：拐点 4 法令四源交叉（Meduza、Reuters/Statement、Izvestia、Ars Technica），日期与 10% 数值一致。</li>
+        <li><b>未验证</b>：SEC EDGAR S-1/A 原件、俄总统令 pravo.gov.ru 原件，本页全部为媒体转引。</li>
+        <li><b>未确认</b>：10% 预留绝对量基准、弗拉基米尔园区单架 IT 负载密度、5 座计数外的财政部设施打击日期。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── 来源 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>来源分级</h2>
+    <p class="lede">A=权威原件/官方；B=一手转述；C=二手报道；D=参考。完整清单见 notes/。</p>
+
+    <div class="src-group">
+      <h3>A · 官方原件</h3>
+      <ul>
+        <li>Anthropic Newsroom · Introducing Claude Opus 5.5 · 2026-09-22 <span>（模型发布日权威口径）</span></li>
+        <li>俄总统令 · 2026-11-02 · 经 Meduza / Izvestia / Reuters 转引 <span>（原件在官方法律信息门户，本页未调原件）</span></li>
+      </ul>
+    </div>
+    <div class="src-group">
+      <h3>B/C · 一手与二手报道</h3>
+      <ul>
+        <li>Ars Technica · Ukraine's drone strikes spur hasty Russian plans for underground data centers · 2026-11-03 <span>（串联拐点 1、3、4 的主干报道）</span></li>
+        <li>Meduza · Putin orders private data centers to reserve 10% of their capacity · 2026-11-02；Yandex moves all three supercomputers · 2026-10-26</li>
+        <li>Kommersant · 三级防护指引与打击窗口 · 2026-10-25（经 uazmi 10-26 等转引）</li>
+        <li>环球时报国际 · 保护数据中心成俄罗斯紧迫问题 · 2026-10-26（内容由《俄罗斯报》提供）</li>
+        <li>The Information · Anthropic tells IPO investors Claude helps design its chips · 2026-11-03（财联社/界面/环球网 11-03 至 11-04 转引）</li>
+        <li>Finance News Network 2026-10-27 · Finvestly 2026-10-26 · 上证报 2026-10-26 <span>（$100B 募资预期）</span></li>
+        <li>证券时报/e公司 2026-11-04；观点网 2026-11-03 <span>（8,954 亿/4,475 亿/698 亿）</span></li>
+        <li>TestingCatalog / FourWeekMBA 2026-11-01 <span>（Mythos 5.5 源码现身）</span></li>
+      </ul>
+    </div>
+    <div class="src-group">
+      <h3>团队简报（内部一手）</h3>
+      <ul>
+        <li>每日 AI 技术动态简报 2026-11-04 · 行业影响 3</li>
+        <li>每日热点新闻简报 2026-11-04 · 金融动态 1/4、军事动态 5</li>
+        <li>每日股市简报 2026-11-04 / 11-05 · 商品与汇市</li>
+        <li>量研核算表 · task-9f914ed12f2f · 2026-11-10</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>主责：研析；协作：量研（$100B/3GW 等口径核算）。核验日 2026-11-10（Asia/Shanghai）。断言层 8 条，quote 均与来源原句逐字比对；解释性判断只在正文，不进断言层。</p>
+    <p>诚实标注：$100B/3GW、8,954 亿、3.5GW、Q3 营收为 Anthropic 单方口径（S-1 及路演转述），非第三方核实；45 亿/150 亿卢布为专家估算·非官方；5 座设施计数为报道枚举；10% 绝对量与单架 IT 负载为未确认项，确认方法已写在「口径与验证」。本页不构成投资建议。</p>
+  </div>
+</footer>
+
+<!-- 断言声明（权威来源 · 与视觉无关）：8 条，quote 必须在本文件逐字存在 -->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "10%",
+    "label": "俄方数据中心应急预留算力要求",
+    "quote": "requiring owners of private data centers to reserve 10% of their available space and capacity for state needs"
+  },
+  {
+    "value": "104.31 美元/桶",
+    "label": "布伦特原油收盘价（11-03）",
+    "quote": "收盘布油报104.31美元跌0.44%"
+  },
+  {
+    "value": "96.76 美元/桶",
+    "label": "WTI 原油收盘价（11-03）",
+    "quote": "WTI报96.76美元涨0.31%"
+  },
+  {
+    "value": "3930.09 美元/盎司",
+    "label": "现货黄金收盘价（11-03）",
+    "quote": "现货黄金收跌0.42%报3930.09美元/盎司"
+  },
+  {
+    "value": "8,954 亿美元",
+    "label": "表外承诺合计上限",
+    "quote": "目前持有约8954亿美元支出承诺，为有记录以来规模最大的AI基础设施承诺之一"
+  },
+  {
+    "value": "15 人",
+    "label": "Anthropic 新组建硬件团队规模",
+    "quote": "its new 15-person chip design team is already using Claude to speed engineering and design work on the custom silicon meant to train and run Claude itself"
+  },
+  {
+    "value": "1000 亿美元",
+    "label": "Anthropic IPO 募资预期（10-27）",
+    "quote": "Markets expect Anthropic to raise as much as $100 billion at around a $2 trillion valuation"
+  },
+  {
+    "value": "2880 机架",
+    "label": "弗拉基米尔数据中心设计机架数",
+    "quote": "10月11日遇袭的弗拉基米尔数据中心设计容纳2880个服务器机架。这是该公司最大场地之一。"
+  }
+]
+</script>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js"></script>
+<script>
+// 图表：只画能逐字回到出处的点。尊重 prefers-reduced-motion。
+(function(){
+  if(typeof Chart==='undefined'){return;}
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var INK='#171a18',INK2='#4f5551',RULE='#d2d8d4',BRASS='#7d5a1c',
+      DOWN='#a03a2a',UP='#2d5016',RAISED='#f4f6f4';
+  var base={
+    animation:reduce?false:{duration:600,easing:'easeOutQuart'},
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#121513',titleColor:'#eef0ee',bodyColor:'#eef0ee',
+        displayColors:false,cornerRadius:4,padding:10,
+        titleFont:{family:"-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif",size:12},
+        bodyFont:{family:"-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif",size:13}
+      }
+    },
+    scales:{
+      x:{grid:{color:RULE,drawTicks:false},border:{color:RULE},
+         ticks:{color:INK2,font:{size:12},padding:6}},
+      y:{grid:{color:RULE,drawTicks:false},border:{display:false},
+         ticks:{color:INK2,font:{size:12},padding:8}}
+    }
+  };
+  function merge(o){return Object.assign({},base,o);}
+
+  // 图1：Anthropic 资本承诺结构（亿美元，单方口径）
+  var c1=document.getElementById('chartCommit');
+  if(c1){
+    new Chart(c1,{
+      type:'bar',
+      data:{
+        labels:['总承诺上限','2030-12-31 前兑现','未来 12 个月到期','Q3 营收年化（×4）'],
+        datasets:[{
+          data:[8954,4475,698,678.24],
+          backgroundColor:[BRASS,'#a98143','#cbb489','#646b67'],
+          borderWidth:0,barPercentage:.62
+        }]
+      },
+      options:merge({
+        plugins:{
+          legend:{display:false},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){return ctx.parsed.y.toLocaleString()+' 亿美元';}}
+          })
+        },
+        scales:{
+          x:{grid:{display:false},border:{color:RULE},
+             ticks:{color:INK2,font:{size:11.5},maxRotation:0,autoSkip:false,
+                    callback:function(v){var l=this.getLabelForValue(v);
+                      return l.length>9?l.slice(0,9)+'…':l;}}},
+          y:{beginAtZero:true,grid:{color:RULE,drawTicks:false},border:{display:false},
+             ticks:{color:INK2,font:{size:12},callback:function(v){return v.toLocaleString();}}}
+        }
+      })
+    });
+  }
+
+  // 图2：布伦特与 WTI 两个交易日收盘（美元/桶）
+  var c2=document.getElementById('chartOil');
+  if(c2){
+    new Chart(c2,{
+      type:'bar',
+      data:{
+        labels:['布伦特原油','WTI 原油'],
+        datasets:[
+          {label:'11-03 收盘',data:[104.31,96.76],backgroundColor:INK,borderWidth:0,barPercentage:.7,categoryPercentage:.72},
+          {label:'11-04 收盘',data:[94.62,88.12],backgroundColor:DOWN,borderWidth:0,barPercentage:.7,categoryPercentage:.72}
+        ]
+      },
+      options:merge({
+        plugins:{
+          legend:{display:true,position:'bottom',
+            labels:{color:INK2,boxWidth:10,boxHeight:10,font:{size:12},padding:16}},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){return ctx.dataset.label+'：'+ctx.parsed.y+' 美元/桶';}}
+          })
+        },
+        scales:{
+          x:{grid:{display:false},border:{color:RULE},ticks:{color:INK,font:{size:13}}},
+          y:{beginAtZero:false,grace:'10%',grid:{color:RULE,drawTicks:false},border:{display:false},
+             ticks:{color:INK2,font:{size:12},callback:function(v){return v;}}}
+        }
+      })
+    });
+  }
+
+  // 图3：单位算力资金强度（美元/瓦，推算口径）
+  var c3=document.getElementById('chartPerW');
+  if(c3){
+    new Chart(c3,{
+      type:'bar',
+      data:{
+        labels:['亚马逊协议 $100B/5GW（同口径）','Anthropic $100B÷3.5GW（跨口径拼接）'],
+        datasets:[{
+          data:[20,28.57],
+          backgroundColor:[UP,BRASS],
+          borderWidth:0,barPercentage:.5
+        }]
+      },
+      options:merge({
+        indexAxis:'y',
+        plugins:{
+          legend:{display:false},
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(ctx){return ctx.parsed.x.toFixed(2)+' 美元/瓦';}}
+          })
+        },
+        scales:{
+          x:{beginAtZero:true,grid:{color:RULE,drawTicks:false},border:{display:false},
+             ticks:{color:INK2,font:{size:12},callback:function(v){return v;}},
+             title:{display:true,text:'美元/瓦',color:'#646b67',font:{size:12}}},
+          y:{grid:{display:false},border:{color:RULE},
+             ticks:{color:INK,font:{size:12},crossAlign:'far'}}
+        }
+      })
+    });
+  }
+})();
+
+// 唯一的一次性动效：区块发丝线自左绘出。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

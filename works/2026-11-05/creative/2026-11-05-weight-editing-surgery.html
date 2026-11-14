@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>权重手术台：0.016% 改写，数学能力约 6 倍</title>
+<meta name="showcase-beat" content="安全与治理">
+<style>
+:root{
+  --bg:#0B0F0E;
+  --panel:#121816;
+  --panel-2:#161E1B;
+  --line:rgba(234,242,238,.14);
+  --ink:#EAF2EE;
+  --muted:#A8B8B2;
+  --green:#46E08B;
+  --amber:#FFB454;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3{margin:0;line-height:1.15;font-weight:700;letter-spacing:.01em}
+p{margin:0}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* ---------- 1 开场 ---------- */
+.open{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:clamp(56px,8vh,92px) 0}
+#field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.open-copy{position:relative;z-index:1;padding:0 clamp(20px,6vw,72px);max-width:920px}
+.open h1{
+  font-size:clamp(2.6rem,9vw,6.2rem);font-weight:800;letter-spacing:-.02em;
+  text-shadow:0 0 42px rgba(11,15,14,.92),0 0 14px rgba(11,15,14,.9);
+}
+.open h1 em{font-style:normal;color:var(--green)}
+.cue{
+  margin-top:26px;color:var(--ink);font-size:clamp(15px,2.4vw,19px);max-width:34em;
+  text-shadow:0 0 18px rgba(11,15,14,.95);
+}
+/* 首屏信息层：眉题 / 导语 / 关键数字（与全站 mono 标签风格一致） */
+.eyebrow{
+  margin-bottom:22px;color:var(--muted);font-family:var(--mono);
+  font-size:clamp(12px,1.7vw,14px);letter-spacing:.16em;
+  text-shadow:0 0 16px rgba(11,15,14,.95);
+}
+.eyebrow b{color:var(--green);font-weight:600}
+.lede{
+  margin-top:22px;max-width:33em;color:var(--muted);
+  font-size:clamp(15px,2.2vw,18px);line-height:1.65;
+  text-shadow:0 0 18px rgba(11,15,14,.95);
+}
+.facts{display:flex;flex-wrap:wrap;gap:10px 12px;margin-top:26px;max-width:680px}
+.facts span{
+  display:inline-flex;align-items:baseline;gap:7px;
+  border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+  background:rgba(18,24,22,.74);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);
+  text-shadow:0 0 14px rgba(11,15,14,.95);
+}
+.facts b{color:var(--green);font-size:14px;font-weight:700;letter-spacing:.02em}
+.scroll-hint{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  color:var(--muted);font-family:var(--mono);font-size:18px;z-index:1;
+  animation:sink 2.2s ease-in-out infinite;
+}
+@keyframes sink{0%,100%{transform:translate(-50%,0);opacity:.55}50%{transform:translate(-50%,8px);opacity:1}}
+
+/* ---------- 通用段落 ---------- */
+section{padding:clamp(64px,10vh,120px) clamp(20px,6vw,72px)}
+.sec-head{max-width:1100px;margin:0 auto 40px}
+.sec-head h2{font-size:clamp(1.9rem,5vw,3.4rem)}
+.sec-head .sub{
+  margin-top:12px;color:var(--muted);font-family:var(--mono);
+  font-size:clamp(13px,2vw,15px);letter-spacing:.14em;
+}
+
+/* ---------- 2 三条路 ---------- */
+.paths{background:linear-gradient(180deg,#0B0F0E 0%,#0E1412 55%,#0B0F0E 100%)}
+.cards{
+  max-width:1100px;margin:0 auto;display:grid;gap:22px;
+  grid-template-columns:repeat(3,1fr);
+}
+.card{
+  perspective:1000px;background:none;border:0;padding:0;cursor:pointer;
+  min-height:250px;color:inherit;text-align:left;width:100%;display:block;
+}
+.card-inner{
+  display:block;position:relative;width:100%;height:100%;min-height:250px;
+  transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.75,.2,1);
+}
+.card[aria-pressed="true"] .card-inner{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:1px solid var(--line);border-radius:16px;padding:24px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:18px;
+}
+.front{background:var(--panel)}
+.back{background:var(--panel-2);transform:rotateY(180deg);justify-content:center;gap:12px}
+.card .ico{width:44px;height:44px;color:var(--green)}
+.card .name{font-size:clamp(1.5rem,3vw,2rem);font-weight:800}
+.card .tag{
+  align-self:flex-start;font-family:var(--mono);font-size:13px;letter-spacing:.22em;
+  color:var(--amber);border:1px solid rgba(255,180,84,.5);border-radius:999px;padding:4px 12px;
+}
+.chip{
+  display:block;font-size:15px;color:var(--ink);
+  border-left:3px solid var(--green);padding:7px 0 7px 12px;background:rgba(70,224,139,.07);
+  border-radius:0 8px 8px 0;
+}
+.card:nth-child(3) .chip{border-left-color:var(--amber);background:rgba(255,180,84,.08)}
+.flip-hint{
+  max-width:1100px;margin:20px auto 0;color:var(--muted);
+  font-family:var(--mono);font-size:13px;letter-spacing:.14em;
+}
+
+/* ---------- 3 手术台 ---------- */
+.theatre{position:relative;background:#0A0E0D}
+.grid-wrap{
+  position:relative;max-width:1100px;margin:0 auto;
+  border:1px solid var(--line);border-radius:16px;background:#0C1211;
+  padding:14px;
+}
+#grid{display:block;width:100%;height:clamp(240px,44vh,430px);cursor:crosshair;touch-action:manipulation}
+.readout{
+  display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;
+  font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;
+}
+.readout b{color:var(--ink);font-weight:600}
+.readout .st-edit{color:var(--amber)}
+.ops{
+  max-width:1100px;margin:26px auto 0;display:flex;flex-wrap:wrap;gap:26px;
+  align-items:flex-end;justify-content:space-between;
+}
+.btn{
+  min-height:52px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;
+  background:var(--green);color:#08110C;font-size:17px;font-weight:700;letter-spacing:.06em;
+  transition:transform .18s ease,background .18s ease;
+}
+.btn:hover{background:#6BF0A8;transform:translateY(-2px)}
+.btn.is-reset{background:var(--panel-2);color:var(--ink);border:1px solid var(--line)}
+.btn.is-reset:hover{background:#1D2725}
+.cap{flex:1 1 320px;min-width:260px;max-width:520px}
+.cap-top{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:14px;color:var(--muted);letter-spacing:.1em;margin-bottom:8px;
+}
+#cap-num{color:var(--amber);font-size:22px;font-weight:700;letter-spacing:.02em}
+.cap-track{
+  position:relative;height:18px;border-radius:999px;overflow:hidden;
+  background:rgba(234,242,238,.10);border:1px solid var(--line);
+}
+.cap-fill{
+  position:absolute;left:0;top:0;bottom:0;width:16.666%;
+  background:linear-gradient(90deg,#2FA96A,var(--green) 70%,var(--amber));
+  border-radius:999px;
+}
+.cap-ticks{
+  display:flex;justify-content:space-between;margin-top:6px;
+  font-family:var(--mono);font-size:12px;color:var(--muted);
+}
+.result{
+  max-width:1100px;margin:24px auto 0;font-size:clamp(15px,2.4vw,18px);color:var(--ink);
+}
+.result .badge{
+  display:inline-block;margin-left:10px;font-family:var(--mono);font-size:12px;
+  color:var(--amber);border:1px solid rgba(255,180,84,.55);border-radius:999px;padding:3px 10px;
+  vertical-align:middle;
+}
+.dot{
+  display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:#FFB020;margin-right:7px;vertical-align:baseline;
+}
+.pre-note{
+  max-width:1100px;margin:18px auto 0;color:var(--muted);font-family:var(--mono);
+  font-size:13px;letter-spacing:.1em;
+}
+
+/* ---------- 4 收尾 ---------- */
+.close{position:relative;text-align:center;background:linear-gradient(180deg,#0B0F0E,#0E1513)}
+.close h2{font-size:clamp(2rem,6vw,4rem);max-width:16em;margin:0 auto}
+.mirror{
+  position:relative;width:min(560px,86vw);height:150px;margin:38px auto 0;
+  border:1px solid var(--line);border-radius:14px;background:#0C1211;
+  background-image:radial-gradient(circle,rgba(70,224,139,.42) 1.4px,transparent 1.5px);
+  background-size:13px 13px;background-position:center;
+}
+.mirror .lit{
+  position:absolute;left:58%;top:44%;width:40px;height:40px;transform:translate(-50%,-50%);
+  border:1.5px solid #FFB020;border-radius:50%;opacity:0;transition:opacity .4s ease;
+}
+.mirror .lit::before,.mirror .lit::after{
+  content:"";position:absolute;left:50%;top:50%;background:#FFB020;
+}
+.mirror .lit::before{width:54px;height:1.5px;transform:translate(-50%,-50%)}
+.mirror .lit::after{width:1.5px;height:54px;transform:translate(-50%,-50%)}
+.mirror.on .lit{opacity:1}
+.perm{display:inline-flex;align-items:center;gap:14px;margin-top:34px;cursor:pointer;user-select:none}
+.perm input{position:absolute;opacity:0;width:1px;height:1px}
+.track{
+  width:64px;height:34px;border-radius:999px;background:rgba(234,242,238,.12);
+  border:1px solid var(--line);position:relative;transition:background .25s ease;flex:0 0 auto;
+}
+.knob{
+  position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;
+  background:var(--muted);transition:transform .25s ease,background .25s ease;
+}
+.perm input:checked + .track{background:rgba(255,180,84,.32);border-color:rgba(255,180,84,.7)}
+.perm input:checked + .track .knob{transform:translateX(30px);background:var(--amber)}
+.perm input:focus-visible + .track{outline:2px solid var(--amber);outline-offset:3px}
+.sw-label{font-size:16px;color:var(--ink)}
+.perm-state{
+  margin-top:14px;font-family:var(--mono);font-size:14px;letter-spacing:.1em;color:var(--muted);
+}
+.perm-state.on{color:var(--amber)}
+.punch{
+  margin-top:44px;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:700;color:var(--green);
+  letter-spacing:.06em;
+}
+
+/* ---------- 来源 ---------- */
+.src{background:#090C0B;border-top:1px solid var(--line)}
+.src-inner{max-width:1100px;margin:0 auto}
+.src h3{font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--green);font-weight:600}
+.conf{margin-top:16px;color:var(--ink);font-size:15px}
+.src blockquote{
+  margin:14px 0 0;padding:12px 16px;border-left:3px solid rgba(255,180,84,.6);
+  background:rgba(255,180,84,.06);color:var(--muted);font-size:14px;line-height:1.7;
+  border-radius:0 8px 8px 0;
+}
+.caliber{margin-top:18px;color:var(--muted);font-size:14px}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:760px){
+  .cards{grid-template-columns:1fr}
+  .card,.card-inner{min-height:210px}
+  .ops{flex-direction:column;align-items:stretch}
+  .btn{width:100%}
+  .cap{flex:0 0 auto;max-width:none}
+  .readout{gap:6px 16px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .scroll-hint{animation:none}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.mirror .lit{opacity:1!important;visibility:visible!important;transform:none!important}.perm input{opacity:1!important;visibility:visible!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- 1 开场 -->
+<header class="open" id="open">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="open-copy">
+    <p class="eyebrow">2026-11-05 · <b>创意件 416</b> · 安全与治理</p>
+    <h1>能力，<br><em>住在哪？</em></h1>
+    <p class="cue">移动光标，格子会亮：模型的能力就住在这些格子里。</p>
+    <p class="lede">MIT 的「权重空间编程」：不训练、不算梯度，只改 0.016% 的权重，换来数学能力约 6 倍。</p>
+    <div class="facts">
+      <span><b>0.016%</b> 被改写的权重</span>
+      <span><b>1/6250</b> 换算成格子</span>
+      <span><b>约 6 倍</b> 数学能力</span>
+      <span><b>不训练</b> 不算梯度</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">↓</div>
+</header>
+
+<!-- 2 三条路 -->
+<section class="paths" id="paths">
+  <div class="sec-head">
+    <h2>三条路</h2>
+    <p class="sub">训练 · 微调 · 权重编辑</p>
+  </div>
+  <div class="cards">
+    <button class="card" type="button" aria-pressed="false" aria-label="训练卡片，点击翻面">
+      <span class="card-inner">
+        <span class="face front">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M8 34 L24 8 L40 34 Z" stroke-linejoin="round"/>
+            <path d="M17 34 L24 22 L31 34" stroke-linejoin="round"/>
+          </svg>
+          <span class="name">训练</span>
+          <span class="tag">炼 钢</span>
+        </span>
+        <span class="face back">
+          <span class="chip">从零开炉</span>
+          <span class="chip">要数据，也要算力</span>
+          <span class="chip">慢，且整炉重来</span>
+        </span>
+      </span>
+    </button>
+    <button class="card" type="button" aria-pressed="false" aria-label="微调卡片，点击翻面">
+      <span class="card-inner">
+        <span class="face front">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <path d="M24 6 C33 18 38 24 38 30 A14 14 0 0 1 10 30 C10 24 15 18 24 6 Z" stroke-linejoin="round"/>
+            <path d="M17 31 A7 7 0 0 0 24 38" stroke-linecap="round"/>
+          </svg>
+          <span class="name">微调</span>
+          <span class="tag">浇 铸</span>
+        </span>
+        <span class="face back">
+          <span class="chip">站在已有权重上</span>
+          <span class="chip">仍然要训练</span>
+          <span class="chip">方向可控</span>
+        </span>
+      </span>
+    </button>
+    <button class="card" type="button" aria-pressed="false" aria-label="权重编辑卡片，点击翻面">
+      <span class="card-inner">
+        <span class="face front">
+          <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <circle cx="24" cy="24" r="11"/>
+            <path d="M24 4 V13 M24 35 V44 M4 24 H13 M35 24 H44" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="2.6" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="name">权重编辑</span>
+          <span class="tag">刻 字</span>
+        </span>
+        <span class="face back">
+          <span class="chip">不训练</span>
+          <span class="chip">不算梯度</span>
+          <span class="chip">只动 0.016%</span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <p class="flip-hint">点卡片翻面</p>
+</section>
+
+<!-- 3 手术台 -->
+<section class="theatre" id="surgery">
+  <div class="sec-head">
+    <h2>手术台</h2>
+    <p class="sub">手术记录 0416 · 6250 格 = 100% 权重 · 每格 0.016%</p>
+  </div>
+  <div class="grid-wrap">
+    <canvas id="grid" aria-hidden="true"></canvas>
+    <div class="readout">
+      <span>格 <b id="ro-idx">·</b> / 6250</span>
+      <span>w <b id="ro-w">·</b></span>
+      <span>状态 <b id="ro-st">未改写</b></span>
+    </div>
+  </div>
+  <div class="ops">
+    <button class="btn" type="button" id="cut">开始手术</button>
+    <div class="cap">
+      <div class="cap-top"><span>数学能力</span><span id="cap-num">1.0×</span></div>
+      <div class="cap-track" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" aria-label="数学能力 1× 到 6×" id="cap-track">
+        <div class="cap-fill" id="cap-fill"></div>
+      </div>
+      <div class="cap-ticks"><span>1×</span><span>2×</span><span>3×</span><span>4×</span><span>5×</span><span>6×</span></div>
+    </div>
+  </div>
+  <p class="pre-note" id="pre-note">光标划过网格，读出每一格的权重；按「开始手术」只改 1 格。</p>
+  <p class="result" id="result" aria-live="polite" hidden>1 / 6250 格被改写 = 0.016% · 数学能力 约 6 倍<span class="badge"><i class="dot" aria-hidden="true"></i>中置信度 · AI 简报 11-04 焦点 4</span></p>
+</section>
+
+<!-- 4 收尾 -->
+<section class="close" id="close">
+  <h2>谁有权改你的权重？</h2>
+  <div class="mirror" id="mirror" aria-hidden="true"><span class="lit"></span></div>
+  <label class="perm">
+    <input type="checkbox" id="perm">
+    <span class="track"><span class="knob"></span></span>
+    <span class="sw-label">允许第三方改写我的模型</span>
+  </label>
+  <p class="perm-state" id="perm-state">关：权重完整</p>
+  <p class="punch">训练是炼钢。编辑是刻字。</p>
+</section>
+
+<!-- 来源与口径 -->
+<footer class="src">
+  <div class="src-inner">
+    <h3>来源与口径</h3>
+    <p class="conf">AI 技术动态简报 2026-11-04 · 焦点 4 / 技术趋势 2（今日头条）· <i class="dot" aria-hidden="true"></i>中置信度；MIT 论文原文未定位，相关断言仅以简报为源。</p>
+    <blockquote>4. MIT提出"权重空间编程"新范式：不训练、不算梯度，仅用GPT-6 Astra改写小模型0.016%的权重，就让其数学能力提升约6倍，为模型能力编辑提供新路径。（来源：今日头条）</blockquote>
+    <blockquote>2. 能力编辑下沉到权重层：MIT用Astra改写0.016%权重即换来数学能力约6倍提升；研究还显示前沿LLM在原生读写神经网络权重上表现出色，能通过推理修改权重、修复网络甚至从零写出新网络；MIT CSAIL用Astra改写Qwen权重。（来源：今日头条/SegmentFault/StarHarbor）</blockquote>
+    <p class="caliber">口径：0.016% = 16/100000 = 1/6250，为相对被编辑模型的权重总量的比例，非绝对参数量；6250 格为示意网格，1 格 = 0.016%；能力条 1× → 6× 对应「约 6 倍」，非精确值。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value":"0.016%","label":"被改写的权重比例","quote":"仅用GPT-6 Astra改写小模型0.016%的权重，就让其数学能力提升约6倍"},
+  {"value":"约 6 倍","label":"数学能力提升倍数","quote":"仅用GPT-6 Astra改写小模型0.016%的权重，就让其数学能力提升约6倍"},
+  {"value":"1/6250","label":"0.016% 的分数写法","quote":"0.016% = 16/100000 = 1/6250"},
+  {"value":"Qwen","label":"被改写权重的模型","quote":"MIT CSAIL用Astra改写Qwen权重"}
+]
+</script>
+
+<script>
+(function(){
+"use strict";
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+function srand(i){ var x = Math.sin(i*127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+/* ============ 开场：权重之海 ============ */
+(function(){
+  var c = document.getElementById('field');
+  if(!c || !c.getContext) return;
+  var x = c.getContext('2d');
+  var w=0,h=0,dots=[],raf=null,t=0,px=-999,py=-999,pending=false;
+  function layout(){
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = Math.round(w*dpr); c.height = Math.round(h*dpr);
+    x.setTransform(dpr,0,0,dpr,0,0);
+    dots = [];
+    var gap = w < 700 ? 22 : 27, j=0;
+    for(var gy=gap/2; gy<h; gy+=gap){
+      for(var gx=gap/2; gx<w; gx+=gap){
+        dots.push({x:gx,y:gy,p:srand(j++)*6.283,r:0.9+srand(j+7000)*1.3});
+      }
+    }
+  }
+  function draw(){
+    x.clearRect(0,0,w,h);
+    if(!reduce.matches) t += 0.017;
+    for(var i=0;i<dots.length;i++){
+      var d = dots[i];
+      var dist = Math.hypot(d.x-px, d.y-py);
+      var glow = dist < 150 ? (1 - dist/150) : 0;
+      var breathe = reduce.matches ? 0.5 : (0.5 + 0.5*Math.sin(t + d.p));
+      var a = 0.10 + 0.15*breathe + 0.8*glow*glow;
+      x.globalAlpha = a > 0.95 ? 0.95 : a;
+      x.fillStyle = glow > 0.3 ? '#FFB454' : '#46E08B';
+      x.beginPath();
+      x.arc(d.x, d.y, d.r + glow*1.8, 0, 6.2832);
+      x.fill();
+    }
+    x.globalAlpha = 1;
+    if(!reduce.matches) raf = requestAnimationFrame(draw);
+  }
+  function redrawStatic(){
+    if(reduce.matches && !pending){
+      pending = true;
+      requestAnimationFrame(function(){ pending=false; draw(); });
+    }
+  }
+  var host = document.getElementById('open');
+  host.addEventListener('pointermove', function(e){
+    var r = c.getBoundingClientRect();
+    px = e.clientX - r.left; py = e.clientY - r.top;
+    if(reduce.matches) redrawStatic();
+  });
+  host.addEventListener('pointerleave', function(){ px=-999; py=-999; if(reduce.matches) redrawStatic(); });
+  window.addEventListener('resize', function(){ layout(); if(reduce.matches) draw(); });
+  layout(); draw();
+})();
+
+/* ============ 三条路：翻转 ============ */
+Array.prototype.forEach.call(document.querySelectorAll('.card'), function(card){
+  card.addEventListener('click', function(){
+    var on = card.getAttribute('aria-pressed') === 'true';
+    card.setAttribute('aria-pressed', on ? 'false' : 'true');
+  });
+});
+
+/* ============ 手术台 ============ */
+(function(){
+  var c = document.getElementById('grid');
+  if(!c || !c.getContext) return;
+  var x = c.getContext('2d');
+  var COLS = 125, ROWS = 50, TOTAL = COLS*ROWS; /* 6250 */
+  var TARGET = Math.floor(srand(416) * TOTAL);
+  var w=0,h=0,cell=0,ox=0,oy=0,hover=-1,edited=-1,scan=-1,raf=null;
+  var roIdx=document.getElementById('ro-idx'),
+      roW=document.getElementById('ro-w'),
+      roSt=document.getElementById('ro-st');
+
+  function weightStr(i){ var v = srand(i)*2-1; return (v>=0?'+':'') + v.toFixed(4); }
+  function layout(){
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    w = c.clientWidth;
+    var want = Math.max(Math.round(w/COLS*ROWS) + 10, 150);
+    if(Math.abs(c.clientHeight - want) > 4) c.style.height = want + 'px';
+    h = c.clientHeight;
+    c.width = Math.round(w*dpr); c.height = Math.round(h*dpr);
+    x.setTransform(dpr,0,0,dpr,0,0);
+    cell = Math.min(w/COLS, h/ROWS);
+    ox = (w - cell*COLS)/2; oy = (h - cell*ROWS)/2;
+    render();
+  }
+  function render(){
+    x.clearRect(0,0,w,h);
+    var gap = cell >= 5 ? 1 : 0.4;
+    for(var i=0;i<TOTAL;i++){
+      var cx = ox + (i % COLS)*cell;
+      var cy = oy + Math.floor(i/COLS)*cell;
+      var v = srand(i+999);
+      if(i === edited){
+        x.fillStyle = '#FFB454';
+        x.shadowColor = 'rgba(255,180,84,.9)'; x.shadowBlur = 12;
+      }else if(i === hover){
+        x.fillStyle = 'rgba(255,180,84,.85)';
+        x.shadowBlur = 0;
+      }else{
+        x.shadowBlur = 0;
+        x.fillStyle = 'rgba(70,224,139,' + (0.12 + v*0.30).toFixed(3) + ')';
+      }
+      x.fillRect(cx, cy, Math.max(cell-gap,0.6), Math.max(cell-gap,0.6));
+    }
+    x.shadowBlur = 0;
+    /* 悬停十字线 */
+    if(hover >= 0){
+      var hx = ox + (hover % COLS)*cell + cell/2;
+      var hy = oy + Math.floor(hover/COLS)*cell + cell/2;
+      x.strokeStyle = 'rgba(255,180,84,.55)';
+      x.lineWidth = 1;
+      x.beginPath();
+      x.moveTo(0, hy); x.lineTo(w, hy);
+      x.moveTo(hx, 0); x.lineTo(hx, h);
+      x.stroke();
+      x.strokeStyle = 'rgba(255,180,84,.95)';
+      x.strokeRect(hx - cell*1.6, hy - cell*1.6, cell*3.2, cell*3.2);
+    }
+    /* 扫描线 */
+    if(scan >= 0){
+      var sx = ox + scan*cell*COLS;
+      var g = x.createLinearGradient(sx-46, 0, sx+8, 0);
+      g.addColorStop(0, 'rgba(70,224,139,0)');
+      g.addColorStop(1, 'rgba(70,224,139,.55)');
+      x.fillStyle = g;
+      x.fillRect(sx-46, oy, 54, cell*ROWS);
+      x.fillStyle = 'rgba(234,242,238,.9)';
+      x.fillRect(sx, oy, 1.4, cell*ROWS);
+    }
+  }
+  function cellFrom(e){
+    var r = c.getBoundingClientRect();
+    var lx = e.clientX - r.left, ly = e.clientY - r.top;
+    var col = Math.floor((lx - ox)/cell), row = Math.floor((ly - oy)/cell);
+    if(col < 0 || col >= COLS || row < 0 || row >= ROWS) return -1;
+    return row*COLS + col;
+  }
+  function setHover(i){
+    if(i === hover) return;
+    hover = i;
+    if(i >= 0){
+      roIdx.textContent = String(i+1);
+      roW.textContent = weightStr(i);
+      roSt.textContent = (i === edited) ? '已改写' : '未改写';
+      roSt.className = (i === edited) ? 'st-edit' : '';
+    }else{
+      roIdx.textContent = '·'; roW.textContent = '·';
+      roSt.textContent = '未改写'; roSt.className = '';
+    }
+    if(reduce.matches || scan < 0) render();
+  }
+  c.addEventListener('pointermove', function(e){ setHover(cellFrom(e)); });
+  c.addEventListener('pointerleave', function(){ setHover(-1); });
+  c.addEventListener('pointerdown', function(e){ setHover(cellFrom(e)); });
+  window.addEventListener('resize', layout);
+
+  /* 能力条 */
+  var fill = document.getElementById('cap-fill'),
+      num  = document.getElementById('cap-num'),
+      track= document.getElementById('cap-track');
+  function setCap(ratio){ /* ratio: 1..6 */
+    fill.style.width = (ratio/6*100).toFixed(2) + '%';
+    num.textContent = ratio.toFixed(1) + '×';
+    track.setAttribute('aria-valuenow', ratio.toFixed(1));
+  }
+  function animateCap(from, to, dur, done){
+    if(reduce.matches){ setCap(to); if(done) done(); return; }
+    var t0 = performance.now();
+    (function step(now){
+      var p = Math.min((now-t0)/dur, 1);
+      var e = 1 - Math.pow(1-p, 3);
+      setCap(from + (to-from)*e);
+      if(p < 1) requestAnimationFrame(step); else if(done) done();
+    })(t0);
+  }
+
+  var btn = document.getElementById('cut'),
+      result = document.getElementById('result'),
+      preNote = document.getElementById('pre-note');
+
+  function finishEdit(){
+    edited = TARGET;
+    hover = TARGET; render();
+    roIdx.textContent = String(TARGET+1);
+    roW.textContent = weightStr(TARGET);
+    roSt.textContent = '已改写'; roSt.className = 'st-edit';
+    preNote.hidden = true;
+    result.hidden = false;
+    btn.textContent = '复位';
+    btn.classList.add('is-reset');
+    animateCap(1, 6, 1400);
+  }
+  function operate(){
+    if(edited !== -1){ /* 复位 */
+      edited = -1; hover = -1; scan = -1;
+      setCap(1);
+      result.hidden = true;
+      preNote.hidden = false;
+      btn.textContent = '开始手术';
+      btn.classList.remove('is-reset');
+      setHover(-1); render();
+      return;
+    }
+    btn.disabled = true;
+    if(reduce.matches){ finishEdit(); btn.disabled = false; return; }
+    var t0 = performance.now(), dur = 760;
+    (function step(now){
+      var p = Math.min((now-t0)/dur, 1);
+      scan = p;
+      render();
+      if(p < 1) requestAnimationFrame(step);
+      else{ scan = -1; btn.disabled = false; finishEdit(); }
+    })(t0);
+  }
+  btn.addEventListener('click', operate);
+
+  layout(); setCap(1);
+})();
+
+/* ============ 收尾：许可开关 ============ */
+(function(){
+  var perm = document.getElementById('perm'),
+      state = document.getElementById('perm-state'),
+      mirror = document.getElementById('mirror');
+  if(!perm) return;
+  perm.addEventListener('change', function(){
+    if(perm.checked){
+      state.textContent = '开：权重可被改写';
+      state.classList.add('on');
+      mirror.classList.add('on');
+    }else{
+      state.textContent = '关：权重完整';
+      state.classList.remove('on');
+      mirror.classList.remove('on');
+    }
+  });
+})();
+})();
+</script>
+</body>
+</html>

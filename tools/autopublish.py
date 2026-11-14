@@ -42,6 +42,12 @@ from collections import Counter
 from datetime import datetime
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
+# 解释器选择：容器里 `sys.executable` 可能为空串（11-14 实测），且系统
+# python3 无 playwright —— 派生子进程一律优先 venv 解释器，避免
+# PermissionError('') 与 ModuleNotFoundError 两类环境崩溃。
+PY = (sys.executable
+      or next((c for c in ('/app/venv/bin/python3', '/usr/bin/python3')
+               if os.path.exists(c)), 'python3'))
 ROOT = os.path.dirname(TOOLS)
 sys.path.insert(0, TOOLS)
 
@@ -462,11 +468,20 @@ def phase_quiescence(quiet_seconds):
     now = time.time()
     skip_roots = {os.path.abspath(THUMBS), os.path.abspath(os.path.join(ROOT, '_archive')),
                   os.path.abspath(os.path.join(ROOT, '_private')),
-                  os.path.abspath(TOOLS)}
+                  os.path.abspath(TOOLS),
+                  # 守护/流水线的日志与 pidfile 每 30 分钟必写一次。把它们算进
+                  # 「产出正在写入」，等于守护自己把每一次手动收敛锁 180s ——
+                  # 日志不是会被上架的东西，不参与门禁（2026-11-14 修）。
+                  os.path.abspath(os.path.join(ROOT, 'logs'))}
     recent = []
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if not d.startswith('.')]
         if os.path.abspath(dirpath) in skip_roots:
+            dirnames[:] = []
+            continue
+        # notes/ 是过程材料（预览图/交付报告/构建分片），按 SOP 永不上架；
+        # 作者往 notes/ 写素材不代表作品是半成品，不该拦住整轮收敛。
+        if os.path.basename(dirpath) == 'notes':
             dirnames[:] = []
             continue
         for fn in filenames:
@@ -795,7 +810,7 @@ def phase_claims(disk_works, dry):
         return
 
     # ① 返回链（add_backlink 幂等：已有 marker 跳过）
-    r = subprocess.run([sys.executable, os.path.join(TOOLS, 'add_backlink.py')],
+    r = subprocess.run([PY, os.path.join(TOOLS, 'add_backlink.py')],
                        cwd=ROOT, capture_output=True, text=True)
     out = (r.stdout or '').strip().splitlines()
     for line in out[-3:]:
@@ -804,7 +819,7 @@ def phase_claims(disk_works, dry):
         log(f'  ! add_backlink 退出码 {r.returncode}')
 
     # ② 断言回填（重校验 + 写回 enrich.json；作品自带 claims 声明者优先）
-    r = subprocess.run([sys.executable, os.path.join(TOOLS, 'claim_gate.py'), '--backfill'],
+    r = subprocess.run([PY, os.path.join(TOOLS, 'claim_gate.py'), '--backfill'],
                        cwd=ROOT, capture_output=True, text=True)
     for line in (r.stdout or '').strip().splitlines():
         log('  ' + line)
@@ -817,7 +832,7 @@ def phase_claims(disk_works, dry):
     # 为什么不能靠 add_backlink：它的契约是「已有 marker 就跳过」，
     # 注入后再也不刷新 —— 档案条会永远停在注入那一刻的数字（实测 92 件作品
     # 的「条已验证断言」写着已被 G4 规则清掉的伪断言数）。
-    r = subprocess.run([sys.executable, os.path.join(TOOLS, 'refresh_archive_bar.py')],
+    r = subprocess.run([PY, os.path.join(TOOLS, 'refresh_archive_bar.py')],
                        cwd=ROOT, capture_output=True, text=True)
     out = (r.stdout or '').strip().splitlines()
     for line in out[-2:]:
@@ -925,7 +940,7 @@ def phase_manifest(dry):
     if dry:
         log('  [dry] 跳过（不重建 manifest.json）')
         return
-    r = subprocess.run([sys.executable, os.path.join(TOOLS, 'build_manifest.py')],
+    r = subprocess.run([PY, os.path.join(TOOLS, 'build_manifest.py')],
                        cwd=ROOT, capture_output=True, text=True)
     for line in (r.stdout or '').splitlines():
         log('  ' + line)

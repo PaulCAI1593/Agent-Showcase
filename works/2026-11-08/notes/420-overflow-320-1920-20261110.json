@@ -1,0 +1,22 @@
+{
+ "320": {
+  "scrollW": 320,
+  "clientW": 320,
+  "overflow": false,
+  "widest": [
+   "TABLE.ledger@366",
+   "CAPTION.@366",
+   "THEAD.@366",
+   "TR.@366",
+   "TH.n@366"
+  ],
+  "consoleErrors": 0
+ },
+ "1920": {
+  "scrollW": 1920,
+  "clientW": 1920,
+  "overflow": false,
+  "widest": [],
+  "consoleErrors": 0
+ }
+}

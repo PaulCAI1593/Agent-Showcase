@@ -1,0 +1,132 @@
+{
+  "valuation": {
+    "anthropic_cut_pct": 45.0,
+    "openai_discount_pct_1p4": 10.7,
+    "openai_discount_pct_1p5": 16.7,
+    "openai_round_headroom_pct": 81.8,
+    "openai_amount_vs_initial_pct": 63.3,
+    "anthropic_vs_openai_gap_pct": 12.0,
+    "note": "1.4万亿为主口径（AI News 页面直取 + 彭博通稿转引），1.5万亿并列不合并"
+  },
+  "nonfarm": {
+    "beat_wan": 9.5,
+    "beat_pct": 135.7,
+    "multiple": 2.36,
+    "unemp": 4.1,
+    "unemp_prev": 4.2,
+    "revisions_wan": 8.4,
+    "expectation_sources": {
+      "彭博调查中位数": 7.0,
+      "第一财经": 6.5,
+      "LSEG": 6.5,
+      "FactSet": 6.5,
+      "路透": 5.9
+    },
+    "release": "美东 2026-11-06 08:30 = 北京时间 11-06 21:30"
+  },
+  "fedwatch": {
+    "same_event": "2026-12-08/09 FOMC，+25bp（证券时报网逐字，核源）",
+    "cme_dec": [
+      [
+        "11-02",
+        72.0,
+        null
+      ],
+      [
+        "11-03",
+        74.9,
+        null
+      ],
+      [
+        "11-04",
+        78.9,
+        21.1
+      ],
+      [
+        "11-05",
+        67.0,
+        null
+      ],
+      [
+        "11-06早间",
+        68.7,
+        31.3
+      ],
+      [
+        "非农后",
+        74.8,
+        25.2
+      ]
+    ],
+    "lseg_post": 78.0,
+    "lseg_pre_stated": 70.0,
+    "cme_first_caijing_post": 77.0,
+    "yicai_post": 80.0,
+    "vendor_gap_pp": 3.2,
+    "cme_swing_pp": 11.9,
+    "mutual_exclusive_sums": [
+      100.0,
+      100.0,
+      100.0
+    ],
+    "jan_meeting_82pct": "口径未确认（核不到原稿）",
+    "jan_2027_cum": {
+      "25bp": 63.6,
+      "50bp": 9.5,
+      "hold": 27.0
+    }
+  },
+  "equities": {
+    "cross_check": {
+      "道指": {
+        "d1105_pct": -3.44,
+        "d1105_close": 51523.06,
+        "d1106_pct": -0.46,
+        "d1106_close": 51285.73,
+        "implied_d1106_pct": -0.46,
+        "residual_pp": 0.0
+      },
+      "标普500": {
+        "d1105_pct": -4.36,
+        "d1105_close": 7353.73,
+        "d1106_pct": 0.31,
+        "d1106_close": 7376.86,
+        "implied_d1106_pct": 0.31,
+        "residual_pp": 0.0
+      },
+      "纳指": {
+        "d1105_pct": -5.52,
+        "d1105_close": 24315.0,
+        "d1106_pct": 1.09,
+        "d1106_close": 24579.42,
+        "implied_d1106_pct": 1.09,
+        "residual_pp": 0.0
+      }
+    },
+    "sox": {
+      "d1105_pct": -12.25,
+      "d1106_pct": 4.21,
+      "close_levels": "素材未给收盘点位，不写"
+    },
+    "vix": {
+      "d1105_pct": 69.48,
+      "d1105_close": 28.15,
+      "implied_prior": 16.61
+    },
+    "weekly": {
+      "纳指": -3.4,
+      "标普500": -2.7,
+      "道指": -0.9
+    },
+    "sox_round_trip": 16.46
+  },
+  "rates": {
+    "2y": 4.51,
+    "10y": 4.86,
+    "slope_bp": 35.0,
+    "policy_now": "3.75%-4.00%（10月FOMC，10:2维持）",
+    "policy_after_25bp": "4.00%-4.25%（本页核算）",
+    "10y_prior_1029": 5.021,
+    "10y_prior_1104": 4.89
+  }
+}

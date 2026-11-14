@@ -89,5 +89,229 @@
     "label": "公司总营收",
     "quote": "5家公司总营收",
     "reason": "跨元素错位：记录值 5家，原文该指标为 value 被错切成「5家」，原文是计数行不是指标值"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "9009 亿",
+    "label": "算力与基础设施承诺总额，对应 904 亿融资",
+    "quote": "9009 亿 算力与基础设施承诺总额，对应 904 亿融资",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "260 亿",
+    "label": "私募配售，7 家认购方，其中 5 家同时是算力对手方",
+    "quote": "260 亿 私募配售，7 家认购方，其中 5 家同时是算力对手方",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "10.0%",
+    "label": "本次融资覆盖承诺总额的比例（904 ÷ 9009）",
+    "quote": "10.0% 本次融资覆盖承诺总额的比例（904 ÷ 9009）",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "9.80%",
+    "label": "硬件供应协议，全额承诺超 200 亿美元（2027 首批",
+    "quote": "9.80% 硬件供应协议，全额承诺超 200 亿美元（2027 首批",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "4.63 倍",
+    "label": "协议上限相当于配售规模的 4.63 倍",
+    "quote": "4.63 倍 协议上限相当于配售规模的 4.63 倍",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "39.22%",
+    "label": "云服务承诺 ≥1145 亿美元（2026-04 至 20",
+    "quote": "39.22% 云服务承诺 ≥1145 亿美元（2026-04 至 20",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "3.92%",
+    "label": "云服务承诺 ≥449 亿美元（2026-11 至 203",
+    "quote": "3.92% 云服务承诺 ≥449 亿美元（2026-11 至 203",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "168.89 美元",
+    "label": "断言层取中央社·澎湃口径的 168.89 美元与 -5.",
+    "quote": "168.89 美元 断言层取中央社·澎湃口径的 168.89 美元与 -5.",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "39.22%",
+    "label": "其 GPU 经 SpaceX.AI 供给，协议上限 12",
+    "quote": "39.22% 其 GPU 经 SpaceX.AI 供给，协议上限 12",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "3.92%",
+    "label": "五年期设备租赁，租金总额约 1612 亿美元（用于谷歌 ",
+    "quote": "3.92% 五年期设备租赁，租金总额约 1612 亿美元（用于谷歌 ",
+    "reason": "标签被硬截断（机器抽取超长单元格），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "1.49 倍",
+    "label": "此前讨论上限 2 万亿美元",
+    "quote": "1.49 倍 此前讨论上限 2 万亿美元",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "260 亿",
+    "label": "超额配售权 1.2375 亿股",
+    "quote": "260 亿 超额配售权 1.2375 亿股",
+    "reason": "值 260 亿错配（原文超额配售权约 96.53 亿），标签为半句"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "3.92%",
+    "label": "已披露承诺明细中无单列直连合同",
+    "quote": "3.92% 已披露承诺明细中无单列直连合同",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "1.92%",
+    "label": "已披露承诺明细中无单列直连合同",
+    "quote": "1.92% 已披露承诺明细中无单列直连合同",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "40680 亿美元",
+    "label": "约 4.078 万亿美元",
+    "quote": "40680 亿美元 约 4.078 万亿美元",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "2.04 倍",
+    "label": "基本市值 1.02 万亿美元",
+    "quote": "2.04 倍 基本市值 1.02 万亿美元",
+    "reason": "机器自动抽取，标签为表格碎片且未逐条回原文核对"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "2.92 倍",
+    "label": "口径限定",
+    "quote": "2.92 倍 口径限定",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "260 亿",
+    "label": "下沿 + 全额配售",
+    "quote": "下沿 + 全额配售 260 亿",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "10年",
+    "label": "期美债收益率（11-10收盘口径",
+    "quote": "10年期美债收益率（11-10收盘口径）",
+    "reason": "标签被硬截断（原表为 10年期美债收益率），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "2年",
+    "label": "期美债收益率（11-10收盘口径",
+    "quote": "2年期美债收益率（11-10收盘口径）",
+    "reason": "标签被硬截断（原表为 10年期美债收益率），不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "5 亿",
+    "label": "认购标的是 Class N 普通股，",
+    "quote": "5 亿 认购标的是 Class N 普通股，",
+    "reason": "标签为半句（非指标）"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "168.796 美元",
+    "label": "单日跌幅",
+    "quote": "168.796 美元 单日跌幅",
+    "reason": "值 168.796 美元属收盘价口径，标签错配为跌幅"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "8.61%",
+    "label": "占估值",
+    "quote": "占估值 8.61%",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "-5.47%",
+    "label": "两日累计",
+    "quote": "-5.47% 两日累计",
+    "reason": "表列名被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "11.81%",
+    "label": "占基本市值",
+    "quote": "占基本市值 11.81%",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "8.61%",
+    "label": "占估值 8.61%",
+    "quote": "8.61% 占估值 8.61%",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "11.81%",
+    "label": "占基本市值 11.81%",
+    "quote": "11.81% 占基本市值 11.81%",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "100 亿",
+    "label": "AMD",
+    "quote": "100 亿 AMD",
+    "reason": "跨元素错位：机器抽取把英伟达 100 亿错挂到 AMD，原文 AMD 为 25 亿"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "4300 亿美元",
+    "label": "「两日市值损失",
+    "quote": "「两日市值损失 4300 亿美元」",
+    "reason": "标签被硬截断，原文限定词为「两日市值损失 4300 亿美元」，不成标签"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "1.33 倍",
+    "label": "一个数量级内可比",
+    "quote": "1.33 倍 一个数量级内可比",
+    "reason": "表注词被抽成标签，非指标"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "10 亿",
+    "label": "台积电相关实体 TSMC Partners",
+    "quote": "10 亿 台积电相关实体 TSMC Partners",
+    "reason": "跨元素错位：机器抽取记 10 亿，原文 TSMC Partners 为 5 亿"
+  },
+  {
+    "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+    "value": "1612 亿",
+    "label": "谷歌 · 云服务（2026-04 至 2033-07）",
+    "quote": "1612 亿 谷歌 · 云服务（2026-04 至 2033-07）",
+    "reason": "跨元素错位：1612 亿属博通五年期设备租赁，原文谷歌云服务为 ≥1145 亿"
   }
 ]

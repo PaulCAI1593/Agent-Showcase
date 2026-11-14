@@ -1,0 +1,10 @@
+# design_scan 原始输出 · 2026-11-14 10:0x Asia/Shanghai
+# 命令: $ python3 tools/design_scan.py --scope file:works/2026-11-13/research/2026-11-13-fed-hike-full-pricing.html
+# cwd: /app/working/shared/showcase
+
+扫描 1 件作品 · findings 0 条 · 涉及 0 件
+严重度分布: {}
+规则 Top:
+
+（非全量扫描：只报告，不比棘轮）
+[退出码 0]

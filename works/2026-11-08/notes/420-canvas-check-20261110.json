@@ -1,0 +1,81 @@
+{
+ "note": "blank=true 表示画布无任何非零像素（空白）；blank=false 表示已绘制",
+ "1440": [
+  {
+   "id": "chartVal",
+   "cssW": 986,
+   "cssH": 352,
+   "blank": false,
+   "nonzeroPixels": 271446,
+   "total": 1388288
+  },
+  {
+   "id": "chartProb",
+   "cssW": 986,
+   "cssH": 469,
+   "blank": false,
+   "nonzeroPixels": 51196,
+   "total": 1849736
+  },
+  {
+   "id": "chartIdx",
+   "cssW": 986,
+   "cssH": 493,
+   "blank": false,
+   "nonzeroPixels": 218942,
+   "total": 1944392
+  }
+ ],
+ "1024": [
+  {
+   "id": "chartVal",
+   "cssW": 930,
+   "cssH": 332,
+   "blank": false,
+   "nonzeroPixels": 237453,
+   "total": 1235040
+  },
+  {
+   "id": "chartProb",
+   "cssW": 930,
+   "cssH": 442,
+   "blank": false,
+   "nonzeroPixels": 49329,
+   "total": 1644240
+  },
+  {
+   "id": "chartIdx",
+   "cssW": 930,
+   "cssH": 465,
+   "blank": false,
+   "nonzeroPixels": 197365,
+   "total": 1729800
+  }
+ ],
+ "390": [
+  {
+   "id": "chartVal",
+   "cssW": 324,
+   "cssH": 115,
+   "blank": false,
+   "nonzeroPixels": 23401,
+   "total": 149040
+  },
+  {
+   "id": "chartProb",
+   "cssW": 324,
+   "cssH": 154,
+   "blank": false,
+   "nonzeroPixels": 26292,
+   "total": 199584
+  },
+  {
+   "id": "chartIdx",
+   "cssW": 324,
+   "cssH": 162,
+   "blank": false,
+   "nonzeroPixels": 32867,
+   "total": 209952
+  }
+ ]
+}

@@ -6712,57 +6712,6 @@
       ]
     },
     {
-      "file": "works/2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
-      "claims": [
-        {
-          "value": "Aa3",
-          "label": "穆迪法国主权评级",
-          "quote": "Aa3 穆迪法国主权评级"
-        },
-        {
-          "value": "4.93%",
-          "label": "10 年期 OAT 收益率",
-          "quote": "4.93% 10 年期 OAT 收益率"
-        },
-        {
-          "value": "155 bp",
-          "label": "OAT-Bund 利差",
-          "quote": "155 bp OAT-Bund 利差"
-        },
-        {
-          "value": "81 bp",
-          "label": "法国 5 年期 CDS 利差",
-          "quote": "81 bp 法国 5 年期 CDS 利差"
-        },
-        {
-          "value": "121.7%",
-          "label": "法国公共债务占 GDP（2027 年预测）",
-          "quote": "121.7% 法国公共债务占 GDP（2027 年预测）"
-        },
-        {
-          "value": "2.9%",
-          "label": "利息支出占 GDP（2027 年预测）",
-          "quote": "2.9% 利息支出占 GDP（2027 年预测）"
-        },
-        {
-          "value": "3,400 亿欧元",
-          "label": "2027 年中长期净发行",
-          "quote": "3,400 亿欧元 2027 年中长期净发行"
-        },
-        {
-          "value": "729 亿欧元",
-          "label": "2027 年国家债务还本付息",
-          "quote": "729 亿欧元 2027 年国家债务还本付息"
-        }
-      ],
-      "agent": "策士+量研",
-      "description": "穆迪 10-23 维持 Aa3 与负面展望并未下调；法国主权重定价由 2027 年创纪录的 3400 亿欧元净发行与 ECB 到期不续作驱动。",
-      "highlights": [
-        "「穆迪没有下调」",
-        "11"
-      ]
-    },
-    {
       "file": "works/2026-11-03/creative/2026-11-03-ai-accelerator-crown-shift.html",
       "claims": [
         {
@@ -6816,54 +6765,54 @@
       "agent": "创艺"
     },
     {
-      "file": "works/2026-11-04/research/2026-11-04-anthropic-compute-leverage-ratio.html",
-      "description": "修订稿首次披露约 8,954 亿美元采购与租赁承诺，付款期至 2045 年；单位算力收入产出率由 2.08 回落至 1.72 美元。",
-      "highlights": [
-        "算力",
-        "Anthropic"
-      ],
-      "agent": "研析+察言",
+      "file": "works/2026-11-03/research/2026-11-03-france-sovereign-repricing.html",
       "claims": [
         {
-          "value": "8,954 亿美元",
-          "label": "表外承诺合计上限",
-          "quote": "8,954 亿美元 表外承诺合计上限"
+          "value": "Aa3",
+          "label": "穆迪法国主权评级",
+          "quote": "Aa3 穆迪法国主权评级"
         },
         {
-          "value": "1.72 美元",
-          "label": "单位算力收入产出率",
-          "quote": "1.72 美元 单位算力收入产出率"
+          "value": "4.93%",
+          "label": "10 年期 OAT 收益率",
+          "quote": "4.93% 10 年期 OAT 收益率"
         },
         {
-          "value": "2.08 美元",
-          "label": "单位算力收入产出率",
-          "quote": "2.08 美元 单位算力收入产出率"
+          "value": "155 bp",
+          "label": "OAT-Bund 利差",
+          "quote": "155 bp OAT-Bund 利差"
         },
         {
-          "value": "169.56 亿美元",
-          "label": "公司总营收",
-          "quote": "169.56 亿美元 公司总营收"
+          "value": "81 bp",
+          "label": "法国 5 年期 CDS 利差",
+          "quote": "81 bp 法国 5 年期 CDS 利差"
         },
         {
-          "value": "98.63 亿美元",
-          "label": "算力与基础设施支出",
-          "quote": "98.63 亿美元 算力与基础设施支出"
+          "value": "121.7%",
+          "label": "法国公共债务占 GDP（2027 年预测）",
+          "quote": "121.7% 法国公共债务占 GDP（2027 年预测）"
         },
         {
-          "value": "5.67 亿美元",
-          "label": "会计口径经营亏损",
-          "quote": "5.67 亿美元 会计口径经营亏损"
+          "value": "2.9%",
+          "label": "利息支出占 GDP（2027 年预测）",
+          "quote": "2.9% 利息支出占 GDP（2027 年预测）"
         },
         {
-          "value": "232.91 亿美元",
-          "label": "单季净亏损",
-          "quote": "232.91 亿美元 单季净亏损"
+          "value": "3,400 亿欧元",
+          "label": "2027 年中长期净发行",
+          "quote": "3,400 亿欧元 2027 年中长期净发行"
         },
         {
-          "value": "192.40 亿美元",
-          "label": "研发支出",
-          "quote": "192.40 亿美元 研发支出"
+          "value": "729 亿欧元",
+          "label": "2027 年国家债务还本付息",
+          "quote": "729 亿欧元 2027 年国家债务还本付息"
         }
+      ],
+      "agent": "策士+量研",
+      "description": "穆迪 10-23 维持 Aa3 与负面展望并未下调；法国主权重定价由 2027 年创纪录的 3400 亿欧元净发行与 ECB 到期不续作驱动。",
+      "highlights": [
+        "「穆迪没有下调」",
+        "11"
       ]
     },
     {
@@ -6918,6 +6867,228 @@
       "agent": "创艺+绘界"
     },
     {
+      "file": "works/2026-11-04/research/2026-11-04-anthropic-compute-leverage-ratio.html",
+      "description": "修订稿首次披露约 8,954 亿美元采购与租赁承诺，付款期至 2045 年；单位算力收入产出率由 2.08 回落至 1.72 美元。",
+      "highlights": [
+        "算力",
+        "Anthropic"
+      ],
+      "agent": "研析+察言",
+      "claims": [
+        {
+          "value": "8,954 亿美元",
+          "label": "表外承诺合计上限",
+          "quote": "8,954 亿美元 表外承诺合计上限"
+        },
+        {
+          "value": "1.72 美元",
+          "label": "单位算力收入产出率",
+          "quote": "1.72 美元 单位算力收入产出率"
+        },
+        {
+          "value": "2.08 美元",
+          "label": "单位算力收入产出率",
+          "quote": "2.08 美元 单位算力收入产出率"
+        },
+        {
+          "value": "169.56 亿美元",
+          "label": "公司总营收",
+          "quote": "169.56 亿美元 公司总营收"
+        },
+        {
+          "value": "98.63 亿美元",
+          "label": "算力与基础设施支出",
+          "quote": "98.63 亿美元 算力与基础设施支出"
+        },
+        {
+          "value": "5.67 亿美元",
+          "label": "会计口径经营亏损",
+          "quote": "5.67 亿美元 会计口径经营亏损"
+        },
+        {
+          "value": "232.91 亿美元",
+          "label": "单季净亏损",
+          "quote": "232.91 亿美元 单季净亏损"
+        },
+        {
+          "value": "192.40 亿美元",
+          "label": "研发支出",
+          "quote": "192.40 亿美元 研发支出"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-05/creative/2026-11-05-weight-editing-surgery.html",
+      "description": "模型的能力住在权重里。移动光标，一格格点亮它；再问一句：谁有权改你的权重？——MIT 权重编辑把智能体从「调用 API」推进到「动手术刀」。",
+      "highlights": [
+        "权重手术台"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "0.016%",
+          "label": "被改写的权重比例",
+          "quote": "仅用GPT-6 Astra改写小模型0.016%的权重，就让其数学能力提升约6倍"
+        },
+        {
+          "value": "约 6 倍",
+          "label": "数学能力提升倍数",
+          "quote": "仅用GPT-6 Astra改写小模型0.016%的权重，就让其数学能力提升约6倍"
+        },
+        {
+          "value": "1/6250",
+          "label": "0.016% 的分数写法",
+          "quote": "0.016% = 16/100000 = 1/6250"
+        },
+        {
+          "value": "Qwen",
+          "label": "被改写权重的模型",
+          "quote": "MIT CSAIL用Astra改写Qwen权重"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-05/research/2026-11-05-wartime-compute-governance.html",
+      "description": "五个可验证拐点：26 天内算力被打、被搬、被藏、被征、被自研，每个拐点含量值、日期与来源。",
+      "highlights": [
+        "模型",
+        "算力",
+        "治理"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "10%",
+          "label": "俄方数据中心应急预留算力要求",
+          "quote": "requiring owners of private data centers to reserve 10% of their available space and capacity for state needs"
+        },
+        {
+          "value": "104.31 美元/桶",
+          "label": "布伦特原油收盘价（11-03）",
+          "quote": "收盘布油报104.31美元跌0.44%"
+        },
+        {
+          "value": "96.76 美元/桶",
+          "label": "WTI 原油收盘价（11-03）",
+          "quote": "WTI报96.76美元涨0.31%"
+        },
+        {
+          "value": "3930.09 美元/盎司",
+          "label": "现货黄金收盘价（11-03）",
+          "quote": "现货黄金收跌0.42%报3930.09美元/盎司"
+        },
+        {
+          "value": "8,954 亿美元",
+          "label": "表外承诺合计上限",
+          "quote": "目前持有约8954亿美元支出承诺，为有记录以来规模最大的AI基础设施承诺之一"
+        },
+        {
+          "value": "15 人",
+          "label": "Anthropic 新组建硬件团队规模",
+          "quote": "its new 15-person chip design team is already using Claude to speed engineering and design work on the custom silicon meant to train and run Claude itself"
+        },
+        {
+          "value": "1000 亿美元",
+          "label": "Anthropic IPO 募资预期（10-27）",
+          "quote": "Markets expect Anthropic to raise as much as $100 billion at around a $2 trillion valuation"
+        },
+        {
+          "value": "2880 机架",
+          "label": "弗拉基米尔数据中心设计机架数",
+          "quote": "10月11日遇袭的弗拉基米尔数据中心设计容纳2880个服务器机架。这是该公司最大场地之一。"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-06/creative/2026-11-06-memory-price-apple-pass-through.html",
+      "description": "AI 需求三个季度把存储价格推到近 4 倍，苹果提价、五款新机、1000 万台折叠屏备货，成本第一次落到普通人的零售价签上。",
+      "highlights": [
+        "存储",
+        "苹果",
+        "零售"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "近 4 倍",
+          "label": "存储芯片价格三个季度涨幅",
+          "quote": "AI需求在三个季度内使存储芯片价格翻了近四倍"
+        },
+        {
+          "value": "至少五款",
+          "label": "苹果计划新 iPhone 款数",
+          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+        },
+        {
+          "value": "1000 万台",
+          "label": "折叠屏 iPhone 备货量",
+          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+        },
+        {
+          "value": "-8.13%",
+          "label": "希捷单日跌幅（11-04）",
+          "quote": "存储股希捷跌8.13%"
+        },
+        {
+          "value": "-7.00%",
+          "label": "美光单日跌幅（11-04）",
+          "quote": "美光跌7.00%"
+        },
+        {
+          "value": "600 美元",
+          "label": "iPhone 18 Pro 256GB→1TB 终端加价（美版）",
+          "quote": "升级至1TB版本时,物料成本增量约为192美元,终端售价加价600美元"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-06/research/2026-11-06-midterm-ai-repricing.html",
+      "description": "11-04 选后美市两面定价：道指涨 1569.40 点创最佳单日，费半跌 3.13% 创六个月低点；同周 OpenAI 按 1.25 万亿美元折价落定、Anthropic 估值讨论区间降至 1.2 至 1.3 万亿。AI 基础设施的中期账本被选举与 OpenAI 两场定价同时改写。",
+      "highlights": [
+        "OpenAI",
+        "Anthropic",
+        "估值"
+      ],
+      "agent": "数析",
+      "claims": [
+        {
+          "value": "1569.40 点",
+          "label": "道琼斯指数单日涨幅（11-04）",
+          "quote": "道指涨1569.40点、涨3.03%报53356.12点"
+        },
+        {
+          "value": "53356.12 点",
+          "label": "道琼斯指数收盘点位（11-04）",
+          "quote": "道指涨1569.40点、涨3.03%报53356.12点"
+        },
+        {
+          "value": "10270.85 点",
+          "label": "费城半导体指数收盘点位（11-04）",
+          "quote": "费城半导体指数跌3.11%报10270.85点、创六个月低点"
+        },
+        {
+          "value": "48.42 美元",
+          "label": "CoreWeave 收盘价（11-04）",
+          "quote": "CoreWeave跌9.90%至48.42美元创上市新低"
+        },
+        {
+          "value": "-12.25%",
+          "label": "费城半导体指数 · 11/05 单日跌幅",
+          "quote": "费城半导体指数暴跌12.25%"
+        },
+        {
+          "value": "1.25万亿美元",
+          "label": "OpenAI最新估值",
+          "quote": "估值约1.25万亿美元"
+        },
+        {
+          "value": "78%",
+          "label": "CME 12月会议加息25个基点概率（11-09口径）",
+          "quote": "12月加息25bp概率78%"
+        }
+      ]
+    },
+    {
       "file": "works/2026-11-06/research/2026-11-06-oil-risk-premium-reset.html",
       "description": "11-04 美市，布伦特 1 月跌 8.67% 收 94.62 美元、盘中跌破 100 美元。选举、供需、和平方案三重回吐同日结算，油跌金涨的背离给出第二个问题。",
       "highlights": [
@@ -6968,44 +7139,777 @@
       ]
     },
     {
-      "file": "works/2026-11-06/creative/2026-11-06-memory-price-apple-pass-through.html",
-      "description": "AI 需求三个季度把存储价格推到近 4 倍，苹果提价、五款新机、1000 万台折叠屏备货，成本第一次落到普通人的零售价签上。",
+      "file": "works/2026-11-08/creative/2026-11-08-hormuz-chokepoint.html",
+      "description": "霍尔木兹海峡调度屏：点击探索点位、拖动时间轴，亲历凌晨两枚导弹、七项条件、周跌13.32%与11月10日阿布扎比会谈倒计时。",
       "highlights": [
-        "存储",
-        "苹果",
-        "零售"
+        "霍尔木兹"
+      ],
+      "agent": "创艺+量研",
+      "claims": [
+        {
+          "value": "两枚导弹",
+          "label": "格什姆岛凌晨遇袭",
+          "quote": "伊朗格什姆岛凌晨遭两枚导弹击中"
+        },
+        {
+          "value": "七项条件",
+          "label": "伊朗重开海峡条件数",
+          "quote": "伊朗称重开霍尔木兹海峡的唯一条件是美国接受伊方七项条件"
+        },
+        {
+          "value": "11月10日",
+          "label": "俄美乌阿布扎比会谈日期",
+          "quote": "俄美乌三方会谈11月10日在阿布扎比举行"
+        },
+        {
+          "value": "90.83美元",
+          "label": "WTI收盘价",
+          "quote": "WTI收90.83美元/桶（周跌12.76%）"
+        },
+        {
+          "value": "-13.32%",
+          "label": "布伦特原油周跌幅",
+          "quote": "布伦特98.32美元/桶（周跌13.32%，创2020年以来最大周跌幅）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-08/research/2026-11-08-ai-valuation-meets-hikes.html",
+      "description": "非农16.5万人把12月加息概率推到78%，OpenAI估值定在1.25万亿美元，本篇把估值、概率、点位放进同一张表，并标出三处口径打架。",
+      "highlights": [
+        "OpenAI",
+        "融资",
+        "估值",
+        "加息"
+      ],
+      "agent": "数析+研析",
+      "claims": [
+        {
+          "value": "110亿美元",
+          "label": "OpenAI新一轮融资金额",
+          "quote": "OpenAI完成约110亿美元新融资"
+        },
+        {
+          "value": "1.25万亿美元",
+          "label": "OpenAI最新估值",
+          "quote": "估值约1.25万亿美元"
+        },
+        {
+          "value": "1.1万亿",
+          "label": "Anthropic IPO传闻估值",
+          "quote": "Anthropic IPO 传闻估值降至 1.1 万亿"
+        },
+        {
+          "value": "16.5万人",
+          "label": "美国10月非农新增就业",
+          "quote": "新增就业16.5万人（预期7万）"
+        },
+        {
+          "value": "78%",
+          "label": "LSEG 12月会议加息25个基点概率（非农后口径）",
+          "quote": "12月加息25bp概率78%"
+        },
+        {
+          "value": "4.51%",
+          "label": "2年期美债收益率（11-07）",
+          "quote": "2年期美债收益率升至4.51%"
+        },
+        {
+          "value": "-12.25%",
+          "label": "费城半导体指数 · 11/05 单日跌幅",
+          "quote": "费城半导体指数暴跌12.25%"
+        },
+        {
+          "value": "+4.21%",
+          "label": "费城半导体指数 · 11/06 单日涨幅",
+          "quote": "费半指数涨4.21%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-08/research/2026-11-08-open-weights-600b-wave.html",
+      "description": "594B 的 Inkling 2 Small 下周以 Apache 2.0 落盘，同周 770B、560B、280B、2.8 万亿四款模型发布或开放；本页把两份简报的汇总口径逐条对回官方原文，改掉「12T token 68 小时」的合并口径，并把 Ling-3.2-flash 从「开源阵营」降级为仅 API。",
+      "highlights": [
+        "开源",
+        "闭源",
+        "开放权重",
+        "访问控制"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "594B",
+          "label": "Inkling 2 Small参数量",
+          "quote": "a Mixture-of-Experts model with 594B total parameters, 17B active"
+        },
+        {
+          "value": "68 小时",
+          "label": "Inkling 2 Small 预训练H1时长",
+          "quote": "It ran for 68 hours on NVIDIA GB300 NVL72 racks, which enabled high expert parallelism."
+        },
+        {
+          "value": "560B",
+          "label": "Ling-3.2-flash总参数",
+          "quote": "拥有 560B 总参数、25B 激活参数"
+        },
+        {
+          "value": "100 万 token",
+          "label": "Ling-3.2-flash上下文长度",
+          "quote": "100 万 token 上下文，支持图、文、视频输入"
+        },
+        {
+          "value": "Critical",
+          "label": "GPT-6 Cyber网络安全能力等级",
+          "quote": "Critical in Cybersecurity"
+        },
+        {
+          "value": "IP 允许列表",
+          "label": "Daybreak Red API默认访问控制",
+          "quote": "we require IP allowlisting for Daybreak Red API access by default"
+        },
+        {
+          "value": "770B",
+          "label": "混元 Hy4正式版总参数",
+          "quote": "Hy4 系列达到 770B"
+        },
+        {
+          "value": "33.5万亿 token",
+          "label": "ERNIE-5.5-Flash-Base训练token",
+          "quote": "参数280B，激活14B，33.5万亿token，FP8/BF16双格式"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-09/creative/2026-11-09-model-codenamedecryption.html",
+      "description": "深夜破译室：五张代号卡挂上红线墙，点击翻出来源与传闻徽章，指纹比对推演到上线时刻。素材为2026-11-08 AI技术动态简报。",
+      "highlights": [
+        "模型"
+      ],
+      "agent": "创艺+研析",
+      "claims": [
+        {
+          "value": "Qoduck",
+          "label": "Qoder神秘模型代号",
+          "quote": "Qoder 上线神秘模型 Qoduck"
+        },
+        {
+          "value": "V4.1 Pro",
+          "label": "DeepSeek疑似灰度版本",
+          "quote": "DeepSeek V4.1 Pro 疑似灰度启动"
+        },
+        {
+          "value": "Cactus、Kraken",
+          "label": "OpenAI被曝模型代号",
+          "quote": "OpenAI 被曝 Cactus、Kraken 两代号"
+        },
+        {
+          "value": "Claude-Donut-EAP",
+          "label": "Anthropic疑遭泄露代号",
+          "quote": "Anthropic 代号 Claude-Donut-EAP 疑遭泄露"
+        },
+        {
+          "value": "27B",
+          "label": "腾讯DSpine模型参数",
+          "quote": "腾讯在 Hugging Face 发布 Qwen 系 27B 模型 DSpine"
+        },
+        {
+          "value": "Lyra 2.0",
+          "label": "英伟达开源3D场景模型",
+          "quote": "英伟达开源 Lyra 2.0"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-09/research/2026-11-09-ai-investment-ledger.html",
+      "description": "毕马威调研125名中国CEO，76%把AI列为未来三年优先投资；雅诗兰黛进博首发80款新品。本篇把意愿与行动拆成三笔账逐条对账，标出能互证与不能互证的部分。",
+      "highlights": [
+        "76%与80款"
+      ],
+      "agent": "数析+研析",
+      "claims": [
+        {
+          "value": "76%",
+          "label": "中国CEO将AI列为未来三年优先投资",
+          "quote": "76%中国CEO将AI列为未来三年优先投资"
+        },
+        {
+          "value": "17个百分点",
+          "label": "中国CEO优先投资比例较去年提高",
+          "quote": "较去年提高17个百分点"
+        },
+        {
+          "value": "80款",
+          "label": "雅诗兰黛进博首发新品数",
+          "quote": "进博首发80款新品"
+        },
+        {
+          "value": "8-12周",
+          "label": "绿色算力舱AI数据中心部署周期",
+          "quote": "8-12周完成AI数据中心部署"
+        },
+        {
+          "value": "45%",
+          "label": "三星LPDDR6传输带宽较上一代提升",
+          "quote": "传输带宽较上一代提升45%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-09/research/2026-11-09-datacenter-permit-vs-deploy.html",
+      "description": "美国中期选举 41 项数据中心公投中 40 项通过，欧洲抗议与选后预警抬高否决权；绿色算力舱 8-12 周、英伟达旧楼改造最早 2027 年一季度压低工期。两条曲线对撞：算力落地的瓶颈在墙里还是在工地。",
+      "highlights": [
+        "算力",
+        "英伟达",
+        "数据中心"
+      ],
+      "agent": "研析+数析",
+      "claims": [
+        {
+          "value": "41 项",
+          "label": "美国中期选举数据中心公投总数",
+          "quote": "41 项数据中心公投中 40 项通过"
+        },
+        {
+          "value": "40 项",
+          "label": "支持限制的公投数",
+          "quote": "41 项数据中心公投中 40 项通过"
+        },
+        {
+          "value": "8-12 周",
+          "label": "英特尔绿色算力舱部署周期",
+          "quote": "8-12周完成AI数据中心部署"
+        },
+        {
+          "value": "约 2 年",
+          "label": "传统土建数据中心工期",
+          "quote": "较传统两年工期大幅缩短"
+        },
+        {
+          "value": "2027 年一季度",
+          "label": "英伟达Vera Rubin服务器最早上线时间",
+          "quote": "最早2027年一季度上线"
+        },
+        {
+          "value": "23%",
+          "label": "数据中心占爱尔兰计量用电比例",
+          "quote": "2025 年数据中心占爱尔兰全国计量电力消耗的 23%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-10/research/2026-11-10-ai-hogging-fabs.html",
+      "description": "Microchip 标准产品交期从 4—8 周拉到 6-32 周，同一周 Marvell 用全股票付掉 1150 亿美元买下 Lumentum：瓶颈从排队等产能变成产能归谁。附交期口径矩阵、并购结构表与国产光刻机、存储带宽两条对冲线。",
+      "highlights": [
+        "存储"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "6-32 周",
+          "label": "Microchip 标准产品交期",
+          "quote": "标准产品交期延长至6-32周"
+        },
+        {
+          "value": "4—8 周",
+          "label": "Microchip 标准产品交期历史基线",
+          "quote": "过去标准产品通常只需要4—8周交货"
+        },
+        {
+          "value": "1150 亿美元",
+          "label": "Marvell 收购 Lumentum 交易企业价值",
+          "quote": "Marvell 抛出 1150 亿美元收购 Lumentum 的光互连交易"
+        },
+        {
+          "value": "23.9%",
+          "label": "Marvell 收购 Lumentum 交易溢价",
+          "quote": "溢价约23.9%"
+        },
+        {
+          "value": "45%",
+          "label": "三星LPDDR6传输带宽较上一代提升",
+          "quote": "传输带宽较上代提升45%至125GB/s"
+        },
+        {
+          "value": "125GB/s",
+          "label": "三星LPDDR6传输带宽",
+          "quote": "至125GB/s"
+        },
+        {
+          "value": "21%",
+          "label": "三星LPDDR6能效较LPDDR5X提升",
+          "quote": "能效比LPDDR5X提升约21%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-11/creative/2026-11-11-iran-two-voices-eight-months.html",
+      "description": "2026-11-10 同一天，伊朗与美国各说了两句：一句要收场，一句要动手。战事已持续八个月，账本却往反方向走。双轨对照叙事与三只市场仪表。",
+      "highlights": [
+        "伊朗"
       ],
       "agent": "创艺",
       "claims": [
         {
-          "value": "近 4 倍",
-          "label": "存储芯片价格三个季度涨幅",
-          "quote": "AI需求在三个季度内使存储芯片价格翻了近四倍"
+          "value": "近 10 部",
+          "label": "伊朗革命卫队称摧毁的美方先进雷达数（单方宣称）",
+          "quote": "摧毁近10部美国先进雷达"
         },
         {
-          "value": "至少五款",
-          "label": "苹果计划新 iPhone 款数",
-          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+          "value": "20 倍",
+          "label": "特朗普对伊朗的打击力度威胁倍数（威胁表述，未发生）",
+          "quote": "比以往猛烈20倍的打击"
         },
         {
-          "value": "1000 万台",
-          "label": "折叠屏 iPhone 备货量",
-          "quote": "推出至少五款新iPhone并准备1000万台折叠屏机"
+          "value": "八个月",
+          "label": "美伊战事持续时长（自 2026-02-28 起算）",
+          "quote": "持续八个月战事"
         },
         {
-          "value": "-8.13%",
-          "label": "希捷单日跌幅（11-04）",
-          "quote": "存储股希捷跌8.13%"
+          "value": "2026年2月28日",
+          "label": "美以对伊朗战争起点（八个月起算基准）",
+          "quote": "2026年2月28日美以对伊朗战争"
         },
         {
-          "value": "-7.00%",
-          "label": "美光单日跌幅（11-04）",
-          "quote": "美光跌7.00%"
+          "value": "每桶 94 美元",
+          "label": "布伦特原油快照（11-09 深夜）",
+          "quote": "布伦特原油跌至每桶94美元"
         },
         {
-          "value": "600 美元",
-          "label": "iPhone 18 Pro 256GB→1TB 终端加价（美版）",
-          "quote": "升级至1TB版本时,物料成本增量约为192美元,终端售价加价600美元"
+          "value": "盘中 -6%，触及 90 美元",
+          "label": "布伦特盘中跌幅（11-09）",
+          "quote": "布伦特原油跌近6%、盘中触及90美元"
+        },
+        {
+          "value": "4100 美元",
+          "label": "现货黄金收复价（11-09）",
+          "quote": "现货黄金收复4100美元"
+        },
+        {
+          "value": "4.87%",
+          "label": "10年期美债收益率（11-09）",
+          "quote": "10年期美债收益率仍在4.87%附近"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-11/research/2026-11-11-anthropic-ipo-pricing-window.html",
+      "description": "11-11 定价区间落地（70 至 78 美元/股、11-19 挂牌），定价窗口落在被 CPI 推高的利率市场之间；四套估值口径、三套募资口径、五种加息概率口径逐一对回时间戳。",
+      "highlights": [
+        "Anthropic",
+        "IPO",
+        "定价窗口"
+      ],
+      "agent": "数析+研析+量研",
+      "claims": [
+        {
+          "value": "1.1万亿",
+          "label": "Anthropic IPO传闻估值",
+          "quote": "Anthropic IPO 传闻估值降至 1.1 万亿"
+        },
+        {
+          "value": "78%",
+          "label": "CME 12月会议加息25个基点概率（11-09口径）",
+          "quote": "12月加息25bp概率78%"
+        },
+        {
+          "value": "91.49 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-11）",
+          "quote": "1月布伦特跌1.17%收91.49美元/桶"
+        },
+        {
+          "value": "+6.85%",
+          "label": "费城半导体指数 · 11/09 单日涨幅",
+          "quote": "费城半导体指数飙涨6.85%"
+        },
+        {
+          "value": "9998.33 点",
+          "label": "费城半导体指数收盘点位（11-10）",
+          "quote": "费城半导体指数跌0.35%报9998.33点"
+        },
+        {
+          "value": "-0.35%",
+          "label": "费城半导体指数 · 11/10 单日跌幅",
+          "quote": "费城半导体指数跌0.35%"
+        },
+        {
+          "value": "4.99%",
+          "label": "10年期美债收益率（11-10收盘口径）",
+          "quote": "10年期收益率盘中一度触及5%，收于4.99%"
+        },
+        {
+          "value": "4.74%",
+          "label": "2年期美债收益率（11-10收盘口径）",
+          "quote": "两年期美债收益率单日跳涨19个基点至4.74%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-10/creative/2026-11-10-openrouter-token-race.html",
+      "description": "OpenRouter 11 月 2-8 日周榜的翻页榜墙：210 万亿 Token 逐字写入，中国厂商 116.18 万亿、美国厂商 13.98 万亿，第三台计数器没有字模——残差 79.84 万亿是推算，原文未给出来源；前五席里三席留空。",
+      "highlights": [
+        "Token消耗",
+        "大模型",
+        "OpenRouter"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "210 万亿",
+          "label": "全球大模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "全球大模型调用量 210 万亿 Token"
+        },
+        {
+          "value": "116.18 万亿",
+          "label": "中国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "中国大模型周调用量 116.18 万亿 Token、连续 28 周超美国"
+        },
+        {
+          "value": "13.98 万亿",
+          "label": "美国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "美国周量 13.98 万亿、环比下滑 32.4%"
+        },
+        {
+          "value": "4.37 万亿",
+          "label": "Kimi K3.1 Pro 单模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "周调用 4.37 万亿、环比增 91%"
+        },
+        {
+          "value": "+91%",
+          "label": "Kimi K3.1 Pro 周调用环比增幅（环比上周同指标 · 11 月 2-8 日）",
+          "quote": "环比增 91%"
+        },
+        {
+          "value": "-32.4%",
+          "label": "美国厂商合计周调用环比降幅（环比上周同指标 · 11 月 2-8 日）",
+          "quote": "环比下滑 32.4%"
+        },
+        {
+          "value": "28 周",
+          "label": "中国厂商合计连续超美国周数（截至 11 月 2-8 日）",
+          "quote": "连续 28 周超美国"
+        },
+        {
+          "value": "3 周",
+          "label": "DeepSeek 连续领跑周数（OpenRouter 周榜 · 截至 11 月 2-8 日）",
+          "quote": "连续三周领跑"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-12/research/2026-11-12-anthropic-ipo-capital-loop.html",
+      "description": "Anthropic IPO 定价结果与资金结构：260 亿美元私募配售的 7 家名单、1205 亿美元英伟达 GPU 算力协议、9009 亿美元算力承诺与 904 亿融资之间的十倍缺口。",
+      "highlights": [
+        "算力",
+        "GPU",
+        "Anthropic",
+        "英伟达"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "70 至 78 美元/股",
+          "label": "Anthropic IPO 定价区间（11-11）",
+          "quote": "Anthropic IPO 定价区间出炉：每股 70 至 78 美元，目标完全摊薄估值 1.4 万亿美元"
+        },
+        {
+          "value": "260 亿美元",
+          "label": "Anthropic IPO 私募配售规模（11-11）",
+          "quote": "另有260亿美元私募配售"
+        },
+        {
+          "value": "1.4 万亿美元",
+          "label": "Anthropic IPO 目标完全摊薄估值（11-11）",
+          "quote": "完全稀释约1.4万亿美元"
+        },
+        {
+          "value": "1205 亿美元",
+          "label": "Anthropic—SpaceXAI 算力服务协议金额上限",
+          "quote": "we agreed to spend an aggregate of up to $120.5 billion over terms extending into 2029"
+        },
+        {
+          "value": "168.89 美元",
+          "label": "英伟达 11-10 收盘价",
+          "quote": "英伟达跌5.53%收168.89美元创近半年新低"
+        },
+        {
+          "value": "9998.33 点",
+          "label": "费城半导体指数收盘点位（11-10）",
+          "quote": "费城半导体指数跌0.35%报9998.33点"
+        },
+        {
+          "value": "4.99%",
+          "label": "10年期美债收益率（11-10收盘口径）",
+          "quote": "10年期收益率盘中一度触及5%，收于4.99%"
+        },
+        {
+          "value": "1.1万亿",
+          "label": "Anthropic IPO传闻估值",
+          "quote": "Anthropic IPO 传闻估值降至 1.1 万亿"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-12/creative/2026-11-12-robot-two-tracks.html",
+      "description": "GR00T 2 的示范次数与成功率曲线，和 ASIMOV-jailbreak 的一句对抗指令，放在同一间车间里对照。",
+      "highlights": [
+        "车间双轨"
+      ],
+      "agent": "绘界+创艺+量研",
+      "claims": [
+        {
+          "value": "40%",
+          "label": "GR00T 2 零示范 50 项任务平均成功率",
+          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
+        },
+        {
+          "value": "71%",
+          "label": "GR00T 2 一次示范 50 项任务平均成功率",
+          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
+        },
+        {
+          "value": "95%",
+          "label": "GR00T 2 五次示范 50 项任务平均成功率",
+          "quote": "One teleoperated episode per task lifts success to 71%, and five episodes, under three minutes of robot data, lift it to 95%, with 37 of the 50 tasks succeeding in every trial."
+        },
+        {
+          "value": "80%",
+          "label": "五次示范任务入选的成功率门槛",
+          "quote": "The 50 tasks were chosen among those the model learns with five episodes (at least 80% success), so the five-episode rate is high partly by construction."
+        },
+        {
+          "value": "99.5%",
+          "label": "Gemini 4 Argon 越狱抵御率",
+          "quote": "Argon achieves a 99.5% jailbreak resistance — a significant improvement over the 82% rate of our previous baseline, Gemini Robotics ER 2"
+        },
+        {
+          "value": "82%",
+          "label": "Gemini Robotics ER 2 官方前基线越狱抵御率",
+          "quote": "the 82% rate of our previous baseline, Gemini Robotics ER 2"
+        },
+        {
+          "value": "96%",
+          "label": "Gemini Robotics 2.5 奔驰产线试点成功率",
+          "quote": "During a real-world proof-of-concept on Mercedes-Benz production lines, our models helped Apptronik's Apollo 2 humanoid pick and pack automotive parts with a 96% success rate."
+        },
+        {
+          "value": "3连板",
+          "label": "机器人概念 3 连板（11-11 午盘口径）",
+          "quote": "机器人概念活跃（锋龙股份、光洋股份3连板，风语筑2连板，日发精机、汉王科技涨停）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-13/creative/2026-11-13-token-zero-output.html",
+      "description": "谷歌 Gemini Decision 1 把输出定价为 0 元，百度词元所给 Token 建了信用评级和交易所，双 11 货架上 Token 成交额首日环比 +450%。这是一间夜间交易所：先计价，再上架，最后输出归零。",
+      "highlights": [
+        "Token",
+        "谷歌",
+        "百度"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "0.10 美元",
+          "label": "Gemini Decision 1 每百万输入 Token 价格",
+          "quote": "每百万输入Token仅0.10美元、输出0元"
+        },
+        {
+          "value": "0 元",
+          "label": "Gemini Decision 1 输出 Token 价格",
+          "quote": "每百万输入Token仅0.10美元、输出0元"
+        },
+        {
+          "value": "1000 个",
+          "label": "Gemini Decision 1 单次前向传播可评分问题上限",
+          "quote": "以单次前向传播对文本、图像、音频、视频、PDF中最多1000个问题评分"
+        },
+        {
+          "value": "92.2%",
+          "label": "Gemini Decision 1 测试最高准确率",
+          "quote": "9项测试拿下7项第一，准确率最高92.2%"
+        },
+        {
+          "value": "7000 亿",
+          "label": "百度词元所日均调用 Token（上线一个月口径）",
+          "quote": "上线一个月入驻供应资源超100个，日均调用次数突破5000万，日均调用Token超7000亿"
+        },
+        {
+          "value": "+450%",
+          "label": "天猫 AI 空间站 Token 成交额首日环比",
+          "quote": "天猫AI空间站Token成交额首日环比增450%"
+        },
+        {
+          "value": "三分之二",
+          "label": "推理占 AI 计算支出比重（InfoQ 年底预测）",
+          "quote": "预计到今年底推理将占AI计算支出的三分之二左右"
+        },
+        {
+          "value": "88.6%",
+          "label": "万格智元同等任务硬件成本降幅",
+          "quote": "硬件成本降低约88.6%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-13/research/2026-11-13-nvidia-succession-power-shift.html",
+      "description": "11-12 英伟达换帅当日的价格、供应商投票与五层权力台账：谁在英伟达缺席时接单。",
+      "highlights": [
+        "英伟达"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "166.19 美元",
+          "label": "英伟达 11-12 收盘价",
+          "quote": "收盘跌幅收窄至4.34%，报166.19美元，市值4.01万亿美元"
+        },
+        {
+          "value": "148.80 美元",
+          "label": "英伟达 11-12 盘中新低",
+          "quote": "英伟达盘初一度急跌14.35%，低见148.80美元"
+        },
+        {
+          "value": "10,506.67 点",
+          "label": "费城半导体指数收盘点位（11-12）",
+          "quote": "费城半导体指数报10,506.67点，跌0.54%"
+        },
+        {
+          "value": "-0.54%",
+          "label": "费城半导体指数 · 11/12 单日跌幅",
+          "quote": "半导体板块内部明显分化，费城半导体指数跌0.54%"
+        },
+        {
+          "value": "5.11%",
+          "label": "10年期美债收益率（11-12收盘口径）",
+          "quote": "10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"
+        },
+        {
+          "value": "4.86%",
+          "label": "2年期美债收益率（11-12收盘口径）",
+          "quote": "2年期报4.8645%，上行12.68个基点"
+        },
+        {
+          "value": "51%",
+          "label": "英伟达要求云伙伴为非中国企业保留的服务能力下限",
+          "quote": "英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少51%的服务提供给非中国企业"
+        },
+        {
+          "value": "1 万亿~1.2 万亿美元",
+          "label": "机构估算的「被罢免」情形市值蒸发区间",
+          "quote": "若黄仁勋被罢免，市值或再蒸发1万亿~1.2万亿美元"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-12/research/2026-11-12-hollow-core-fiber-1000km.html",
+      "description": "千公里空芯光纤验证的单位、口径与 3.43 毫秒时延核算，剑桥科技 100 万支/月与 1000 万支/年扩产公告核对，11-11 两地资金流。",
+      "highlights": [
+        "空芯光纤",
+        "光模块",
+        "剑桥科技",
+        "光通信",
+        "算力"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "1007.48 公里",
+          "label": "空芯光纤验证线路长度",
+          "quote": "在1007.48公里空芯光纤链路上，实现扩展C+L波段单波800Gb/s（PCS-16QAM调制）单纤双向传输，总容量达128Tb/s（太比特每秒）"
+        },
+        {
+          "value": "128Tb/s",
+          "label": "空芯光纤单纤双向总容量",
+          "quote": "总容量达128Tb/s（太比特每秒）"
+        },
+        {
+          "value": "100 万支/月",
+          "label": "剑桥科技 月设计产能（9 月初）",
+          "quote": "截至2026年9月初，公司已基本形成月设计产能约100万支的生产能力"
+        },
+        {
+          "value": "至少 1000 万支/年",
+          "label": "剑桥科技 年产能再扩充量（2027 年底前）",
+          "quote": "公司拟于2027年底前，在现有产能基础上将高速光模块产品年产能再扩充至少1000万支"
+        },
+        {
+          "value": "3.43 毫秒",
+          "label": "空芯光纤单程传输时延",
+          "quote": "单程传输仅3.43毫秒"
+        },
+        {
+          "value": ">50%",
+          "label": "剑桥科技 高速光模块收入占比（9 月末）",
+          "quote": "截至2026年9月末，高速光模块业务收入占公司营业收入的比例已超过50%"
+        },
+        {
+          "value": "109.92 亿元",
+          "label": "CPO概念 主力资金净流入（11-11·午间收盘）",
+          "quote": "CPO概念获主力资金净流入109.92亿元"
+        },
+        {
+          "value": "49.21 亿元",
+          "label": "剑桥科技 前三季度营业收入（2026）",
+          "quote": "2026年前三季度，公司实现营业收入49.21亿元，同比增长46.46%"
+        },
+        {
+          "value": "23.08%",
+          "label": "剑桥科技 港股 收盘涨跌幅（11-11）",
+          "quote": "截至收盘，剑桥科技(06166.HK)涨23.08%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-13/research/2026-11-13-fed-hike-full-pricing.html",
+      "description": "CME 12月加息概率打满100%（25bp 86.8%/50bp 13.2%）的口径日里，美元指数创19个月新高、黄金失守3900、布油结算反弹、LME铝溢价30年最高——四张价格表逐条回源。",
+      "highlights": [
+        "12月加息概率打满100%",
+        "美元指数创19个月新高",
+        "黄金跌破3900美元",
+        "布伦特1月合约92.76美元",
+        "LME铝溢价30年最高"
+      ],
+      "agent": "数析",
+      "claims": [
+        {
+          "value": "100%",
+          "label": "CME 12月会议加息总概率（11-12口径）",
+          "quote": "美联储12月加息概率100%，其中加息25个基点概率86.8%、加息50个基点概率13.2%"
+        },
+        {
+          "value": "86.8%",
+          "label": "CME 12月会议加息25个基点概率（11-12口径）",
+          "quote": "加息25个基点概率86.8%、加息50个基点概率13.2%"
+        },
+        {
+          "value": "5.11%",
+          "label": "10年期美债收益率（11-12收盘口径）",
+          "quote": "10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"
+        },
+        {
+          "value": "102.908",
+          "label": "美元指数收盘点位（11-11）",
+          "quote": "美元指数涨0.66%报102.908，创2025年4月以来最高"
+        },
+        {
+          "value": "92.76 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-12）",
+          "quote": "布伦特1月合约涨1.39%报92.76美元/桶"
+        },
+        {
+          "value": "3876.62 美元/盎司",
+          "label": "现货黄金结算价（11-12）",
+          "quote": "现货黄金收跌2.79%，报3876.62美元/盎司"
+        },
+        {
+          "value": "147 美元/吨",
+          "label": "LME铝现货对三个月期货溢价（11-11）",
+          "quote": "现货对三个月期货溢价一度升至每吨147美元、逾30年最高"
+        },
+        {
+          "value": "+5.66%",
+          "label": "费城半导体指数 · 11/11 单日涨幅",
+          "quote": "费城半导体指数大涨：11日涨5.66%，成分股全部走高"
         }
       ]
     }

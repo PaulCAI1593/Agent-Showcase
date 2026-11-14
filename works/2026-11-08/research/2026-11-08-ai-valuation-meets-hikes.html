@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="非农16.5万人把12月加息概率推到78%，OpenAI估值定在1.25万亿美元，本篇把估值、概率、点位放进同一张表，并标出三处口径打架。">
+<title>1.25万亿与78%——OpenAI折价融资落定，AI估值第一次撞上加息定价</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  选题420 · 研究类 · 从 templates/work.html 起步并按本篇内容重排
+  版式：结论带 → 关键数据账册（8 条断言）→ 三线对撞总览
+        → 一级估值矩阵 → 宏观费率与概率矩阵 → 二级点位矩阵
+        → 传导机制 → 进程 → 口径闸门 → 证据 → 方法与边界
+  视觉世界沿用档案卷宗（冷纸 + 墨色 + 陈铜），图表用自托管 Chart.js。
+  「返回展厅」由 autopublish 注入，不手写。
+  断言声明：script#claims；追踪线：meta#showcase-beat。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --down:#a03a2a;
+  --up:#2d5016;
+  --series-b:#1f5f8b;
+  --series-c:#b85c00;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ────────────────────────────────────────────── */
+.masthead{padding:96px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.2;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:46ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:76px 0;position:relative}
+section + section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--rule);transform:scaleX(0);transform-origin:left center;
+}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;text-wrap:balance;
+}
+h3{font-family:var(--serif-cn);font-size:20px;line-height:1.4;letter-spacing:-0.008em;
+  font-weight:600;margin-bottom:10px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-bottom:34px}
+p{max-width:70ch}
+p + p{margin-top:16px}
+.note{font-size:14.5px;line-height:1.6;color:var(--ink-3);max-width:76ch;margin-top:14px}
+.note b{color:var(--ink-2);font-weight:600}
+.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums}
+.down{color:var(--down);font-weight:600}
+.up{color:var(--up);font-weight:600}
+
+/* ── 结论带 ───────────────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:66ch}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据账册 ─────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(206px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 22px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:34px;line-height:1.06;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-value.neg{color:var(--down)}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 三线对撞总览 ─────────────────────────────────────── */
+.frame{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.frame-step{padding:26px 28px 28px 0;border-right:1px solid var(--rule-soft)}
+.frame-step:last-child{border-right:0;padding-right:28px}
+.frame-step h3{font-size:18px;margin-bottom:8px}
+.frame-step p{font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:34ch}
+.frame-step p + p{margin-top:10px}
+.frame-tag{
+  font-family:var(--serif-num);font-size:12.5px;color:var(--brass);
+  letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:10px;
+}
+.frame-step .n{font-family:var(--serif-num);font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+
+/* ── 表格 ─────────────────────────────────────────────── */
+.table-wrap{overflow-x:auto;border-top:1px solid var(--rule);padding-top:12px;margin-top:8px}
+table.ledger{width:100%;border-collapse:collapse;font-size:15.5px}
+table.ledger caption{
+  caption-side:top;text-align:left;font-size:13px;color:var(--ink-3);padding-bottom:10px;
+}
+table.ledger th,table.ledger td{
+  text-align:left;padding:12px 14px 12px 0;border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;line-height:1.5;
+}
+table.ledger th{
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--rule);
+}
+table.ledger td.n,table.ledger th.n{
+  font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+table.ledger td.n{font-weight:500}
+table.ledger tr.is-key td{background:var(--brass-wash)}
+table.ledger tr.is-split td{border-top:1px solid var(--rule)}
+table.ledger .src{font-size:13px;color:var(--ink-3);display:block;margin-top:4px;line-height:1.45}
+table.ledger tr.is-key td .src{color:var(--ink-2)}
+
+/* ── 图 ───────────────────────────────────────────────── */
+.chart-box{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:20px 18px 14px;margin-top:26px;
+}
+.chart-box canvas{width:100%!important}
+figcaption.chart-cap{
+  margin-top:12px;font-size:13px;line-height:1.6;color:var(--ink-3);max-width:80ch;
+}
+.chart-cap b{color:var(--ink-2);font-weight:600}
+.legend-note{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin-top:10px}
+.legend-note span{display:inline-flex;align-items:center;gap:7px}
+.legend-note i{width:16px;height:3px;display:inline-block;border-radius:2px}
+
+/* ── 传导机制 ─────────────────────────────────────────── */
+.mech{border-top:1px solid var(--rule)}
+.mech-item{
+  display:grid;grid-template-columns:190px minmax(0,1fr);gap:34px;
+  padding:26px 0;border-bottom:1px solid var(--rule);
+}
+.mech-title{font-family:var(--serif-cn);font-size:19px;font-weight:600;line-height:1.4}
+.mech-title span{
+  display:block;margin-top:6px;font-family:var(--sans);font-size:12.5px;
+  font-weight:400;color:var(--ink-3);letter-spacing:.02em;
+}
+.mech-lead{font-size:16.5px;line-height:1.6;font-weight:600;letter-spacing:-0.006em}
+.mech-detail{margin-top:9px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:66ch}
+.mech-detail + .mech-detail{margin-top:10px}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:136px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:66ch}
+
+/* ── 口径闸门 ─────────────────────────────────────────── */
+.gate{border-top:1px solid var(--rule)}
+.gate-item{padding:24px 0;border-bottom:1px solid var(--rule)}
+.gate-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.gate-no{font-family:var(--serif-num);font-size:13px;color:var(--brass);letter-spacing:.08em}
+.gate-title{font-size:17.5px;font-weight:600;letter-spacing:-0.008em}
+.gate-body{margin-top:10px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:72ch}
+.gate-body + .gate-body{margin-top:10px}
+.caliber-note{
+  margin-top:16px;padding:12px 16px;background:var(--paper-raised);
+  border:1px solid var(--rule-soft);border-radius:4px;
+  font-size:14.5px;line-height:1.62;color:var(--ink-2);max-width:78ch;
+}
+.caliber-note b{color:var(--ink)}
+
+/* ── 证据 ─────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:60ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon h2{font-size:22px}
+.colophon p{font-size:14.5px;line-height:1.72;color:var(--ink-3);max-width:76ch}
+.colophon p + p{margin-top:14px}
+.colophon b{color:var(--ink-2);font-weight:600}
+
+/* ── 动效：区块分隔发丝线自左绘出（页面唯一的一次性动作）── */
+section + section.drawn::before{
+  transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  section + section::before{transform:none;transition:none}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mast-meta dl > div{display:contents}
+  .frame{grid-template-columns:1fr}
+  .frame-step{border-right:0;border-bottom:1px solid var(--rule-soft);padding:22px 12px 22px 0}
+  .frame-step:last-child{border-bottom:0}
+  .mech-item{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px;top:10px}
+  .evidence-source{padding-left:26px}
+  table.ledger{font-size:14.5px}
+  table.ledger th,table.ledger td{padding-right:10px}
+  .chart-box{padding:16px 12px 12px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>1.25万亿与78%——OpenAI折价融资落定，AI估值第一次撞上加息定价</h1>
+        <p class="standfirst">周五的非农把 12 月加息概率推到 78%，周六的融资稿把 OpenAI 定在 1.25 万亿美元。同一周里，一级估值、宏观概率、二级点位第一次被放进同一张表。本篇逐条核对这三列数字，并标出三处口径打架的地方。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd><b>2026-11-08</b></dd></div>
+          <div><dt>主责</dt><dd><b>数析</b>（研析协作核源）</dd></div>
+          <div><dt>追踪线</dt><dd><b>估值与资本</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 结论 ────────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>钱变贵的那一周，AI 的估值没有变贵</h2>
+    <p class="verdict">12 月加息概率从 67% 走到 78% 的同一周，OpenAI 定在 1.25 万亿美元、低于此前预期，Anthropic 的 IPO 目标从 2 万亿降到 1.1 万亿，费半先跌 12.25% 再弹 4.21%。</p>
+    <p class="verdict-note">支撑这句话的三组数，全部来自 11-06 至 11-07 的两份简报：<b>宏观</b>：美国 10 月非农新增就业 16.5 万人（预期 7 万），12 月加息 25bp 概率非农后 78%（LSEG 口径，周四约 67%），2 年期美债收益率升至 4.51%、10 年期升至 4.86%。<b>一级</b>：OpenAI 完成约 110 亿美元新融资、估值约 1.25 万亿美元，Anthropic IPO 传闻估值降至 1.1 万亿、原目标 2 万亿。<b>二级</b>：费城半导体指数 11-05 单日 -12.25%（2020 年 3 月以来最大），11-06 反弹 +4.21%；纳指连续第四周下跌，较 10 月 6 日历史高点回撤逾 10% 进入技术性回调。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八个数、三条线：前四个是一级与宏观的落点，后四个是同一周的利率与点位。每条都标注了出处与口径。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">110亿美元</div>
+        <div class="metric-label">OpenAI新一轮融资金额</div>
+        <div class="metric-source">彭博社/腾讯新闻 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1.25万亿美元</div>
+        <div class="metric-label">OpenAI最新估值</div>
+        <div class="metric-source">彭博社/腾讯新闻 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1.1万亿</div>
+        <div class="metric-label">Anthropic IPO传闻估值</div>
+        <div class="metric-source">AI News · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">16.5万人</div>
+        <div class="metric-label">美国10月非农新增就业</div>
+        <div class="metric-source">美国劳工统计局/第一财经 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">78%</div>
+        <div class="metric-label">LSEG 12月会议加息25个基点概率（非农后口径）</div>
+        <div class="metric-source">LSEG · 非农后 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.51%</div>
+        <div class="metric-label">2年期美债收益率（11-07）</div>
+        <div class="metric-source">美国劳工统计局/第一财经 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-12.25%</div>
+        <div class="metric-label">费城半导体指数 · 11/05 单日跌幅</div>
+        <div class="metric-source">华尔街见闻 · 2026-11-06 报道</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value up">+4.21%</div>
+        <div class="metric-label">费城半导体指数 · 11/06 单日涨幅</div>
+        <div class="metric-source">财联社 · 2026-11-07 报道</div>
+      </div>
+    </div>
+    <p class="note"><b>标签口径</b>：费城半导体指数既有两条断言标签：「费城半导体指数」（半年涨幅 62.1%，2026-11-03 篇）与「费城半导体指数 · 10/12–10/16 周跌」（2026-10-22 篇）。本篇新增单日涨跌幅口径，沿用「指数 · 日期 + 口径」的既有写法另立两条标签，不复用旧标签、不加「推算 / 得分 / V2」类后缀。</p>
+  </div>
+</section>
+
+<!-- ── 三线对撞总览 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三列数字，一周之内</h2>
+    <p class="lede">同一份 11-07 简报同时收录了融资稿与非农稿；前一周的股市简报给出了点位。三列数字此前各走各的追踪线，这一周第一次需要对齐着读。</p>
+    <div class="frame">
+      <div class="frame-step">
+        <span class="frame-tag">第一列 · 一级市场</span>
+        <h3>估值与资本</h3>
+        <p>OpenAI 完成约 <span class="n">110</span> 亿美元新融资，估值约 <span class="n">1.25</span> 万亿美元；整轮规模最高或扩至 <span class="n">200</span> 亿美元，资金投向芯片、数据中心与光网络。</p>
+        <p>Anthropic 的 IPO 传闻估值降到 <span class="n">1.1</span> 万亿，原目标 <span class="n">2</span> 万亿。</p>
+      </div>
+      <div class="frame-step">
+        <span class="frame-tag">第二列 · 宏观</span>
+        <h3>利率定价</h3>
+        <p>10 月非农新增 <span class="n">16.5</span> 万人、预期 <span class="n">7</span> 万，失业率降至 <span class="n">4.1%</span>；12 月加息 25bp 概率非农后 <span class="n">78%</span>（LSEG 口径）。</p>
+        <p>2 年期美债收益率升至 <span class="n">4.51%</span>、10 年期升至 <span class="n">4.86%</span>；三位美联储官员同周放鹰。</p>
+      </div>
+      <div class="frame-step">
+        <span class="frame-tag">第三列 · 二级市场</span>
+        <h3>点位与波动</h3>
+        <p>费城半导体指数 <span class="n">11-05</span> 单日 <span class="down">-12.25%</span>，创 2020 年 3 月以来最大单日跌幅；<span class="n">11-06</span> 反弹 <span class="up">+4.21%</span>。</p>
+        <p>纳指 11-05 单日 <span class="down">-5.52%</span>、19 个月最大跌幅，周跌 <span class="n">3.4%</span>，连续第四周下跌。</p>
+      </div>
+    </div>
+    <p class="note"><b>三列怎么对上</b>：第二列是第一列与第三列之间的传导项：非农超预期抬升短端利率定价，短端定价抬升长久期资产的贴现率，于是一级融资在估值上让步、二级点位先杀后弹。机制一节把这条链拆成四步。</p>
+  </div>
+</section>
+
+<!-- ── 一级：估值矩阵 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>第一列：折价落在哪两个数上</h2>
+    <p class="lede">这一列只有两个主体、四个数：已落定的融资额、落定的估值、传闻中的 IPO 估值、以及协作核源后拿到的「此前预期」。</p>
+
+    <div class="table-wrap">
+      <table class="ledger">
+        <caption>表 1 · 一级市场估值矩阵（2026-11-07 口径）</caption>
+        <thead>
+          <tr>
+            <th scope="col">主体</th>
+            <th scope="col">口径</th>
+            <th scope="col" class="n">数值</th>
+            <th scope="col">对照</th>
+            <th scope="col" class="n">核算变化</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="is-key">
+            <td>OpenAI</td>
+            <td>新一轮融资（已落定）</td>
+            <td class="n">110 亿美元</td>
+            <td>整轮规模最高或扩至 200 亿美元</td>
+            <td class="n">+81.8%</td>
+          </tr>
+          <tr>
+            <td>OpenAI</td>
+            <td>最新估值</td>
+            <td class="n">1.25 万亿美元</td>
+            <td>此前预期 1.4 万亿美元（另有 1.5 万亿早期口径）</td>
+            <td class="n">-10.7%</td>
+          </tr>
+          <tr>
+            <td>Anthropic</td>
+            <td>IPO 传闻估值</td>
+            <td class="n">1.1 万亿美元</td>
+            <td>原目标 2 万亿美元</td>
+            <td class="n">-45.0%</td>
+          </tr>
+          <tr>
+            <td>Anthropic</td>
+            <td>IPO 目标口径</td>
+            <td class="n">2 万亿美元</td>
+            <td>传闻估值 1.1 万亿</td>
+            <td class="n">目标缩水近半</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>核算说明</b>：+81.8% = (200 − 110) ÷ 110；-10.7% = (1.4 − 1.25) ÷ 1.4；-45.0% = (2.0 − 1.1) ÷ 2.0。三式均为本页计算，输入值与来源层级见下方口径说明与 notes/calc_420_matrices.py。</p>
+
+    <figure class="chart-box">
+      <canvas id="chartVal" height="150" role="img"
+        aria-label="条形图：Anthropic IPO 原目标 2.0 万亿美元、OpenAI 最新估值 1.25 万亿美元、Anthropic IPO 传闻 1.1 万亿美元"></canvas>
+      <figcaption class="chart-cap"><b>图 1 · 一级估值三条口径</b>（单位：万亿美元）。灰色为目标口径、未实现；铜色为已落定估值；红色为传闻口径。OpenAI 与 Anthropic 的横向对比只在同一周的报道口径下成立，不是同一时点的公允价值。</figcaption>
+    </figure>
+
+    <div class="caliber-note">
+      <b>「折价」的原始预期（协作核源后可写）</b>：派单规定「原始预期值核不到就不写折价幅度」。核源已核到：AI News 逐字 <i>OpenAI raises at $1.25T, well short of the $1.4T it wanted.</i>（ai0.news 2026-11-07 日报，页面直取），彭博通稿同口径 <i>OpenAI initially set out to raise $30 billion or more at a $1.4 trillion valuation, Bloomberg News has reported</i>（搜索摘要转引）。本页因此写 <b>-10.7%</b>（1.25 对 1.4 万亿）。另有彭博 10-23 与路透口径称最初为 1.5 万亿，本页并列不合并。金额口径同步核到：最初目标 ≥300 亿美元，首笔约 110 亿美元已到账，整轮目标已削减至约 200 亿美元。
+    </div>
+    <div class="caliber-note">
+      <b>资金用途的归属</b>：素材把「资金将投向芯片、数据中心与光网络扩张」整句挂在彭博社名下。核源判定：数字是彭博的，用途判断是《通信世界》（腾讯新闻转载）的产业分析，彭博通稿段落不含用途表述。本页在证据区保留简报原注，但不把用途写成彭博原文明示。
+    </div>
+  </div>
+</section>
+
+<!-- ── 宏观：费率与概率矩阵 ────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>第二列：16.5 万人之后，费率与概率一起动</h2>
+    <p class="lede">非农是这周唯一的硬数据输入。它同时改动了两个东西：政策利率的路径预期，以及市场自己给出的概率。</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">+9.5万人</div>
+        <div class="metric-label">非农较预期的超出量</div>
+        <div class="metric-source">本页核算 · 16.5 万 − 7 万</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2.36倍</div>
+        <div class="metric-label">实际新增相当于预期的倍数</div>
+        <div class="metric-source">本页核算 · 16.5 ÷ 7</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3.75%–4.00%</div>
+        <div class="metric-label">当前联邦基金利率区间</div>
+        <div class="metric-source">10月FOMC · 10比2维持不变</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.00%–4.25%</div>
+        <div class="metric-label">12月若加息25bp后的利率区间</div>
+        <div class="metric-source">本页核算 · 现行区间 +25bp</div>
+      </div>
+    </div>
+    <p class="note"><b>核算说明</b>：+9.5 万人、2.36 倍、4.00%–4.25% 三项为本页计算，输入值分别是简报中的 16.5 万、7 万与 3.75%–4.00%。政策利率区间取自 10 月 FOMC（投票 10:2 维持不变，洛根称至少还需两次 25bp 加息）。</p>
+    <p class="note"><b>核源补三项</b>：① 「预期 7 万」为<b>彭博调查 70 余位经济学家中位数</b>（核源页面直取），第一财经原稿写 6.5 万、LSEG 与 FactSet 同为 6.5 万、路透 5.9 万，本页并列不合并。② 「前两个月上修」可补数：8 月上修 5.3 万至 18.6 万、9 月上修 3.1 万至 6.0 万，<b>合计上修 8.4 万人</b>（搜索摘要转引）。③ 失业率由 9 月 4.2% 降至 <b>4.1%</b>；发布时点为美东 11-06 周五 8:30（北京时间 11-06 21:30），素材标 11-07 是稿件日期。</p>
+
+    <h3 style="margin-top:44px">概率矩阵：同一个「12 月加息」，两家数据商、七个时点</h3>
+    <p class="lede" style="margin-bottom:0">78% 不是这一周唯一的读数。协作核源判定：这些读数对应<b>同一场会议</b>（2026-12-08/09 FOMC）、同一动作（+25bp），差异来自<b>数据商</b>与<b>快照时点</b>，不是不同事件。素材把 78% 标为「CME FedWatch 数据」属混标。</p>
+
+    <div class="table-wrap">
+      <table class="ledger">
+        <caption>表 2 · 12 月与 2027 年 1 月加息概率矩阵（素材转述 + 协作核源，CME 与 LSEG 官方页面均未直取）</caption>
+        <thead>
+          <tr>
+            <th scope="col">时点</th>
+            <th scope="col">数据商 / 引源</th>
+            <th scope="col" class="n">加息 25bp</th>
+            <th scope="col" class="n">维持不变</th>
+            <th scope="col">出处 · 层级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="n">11-02</td><td>CME（财联社/新华财经引）</td><td class="n">72.0%</td><td class="n">未给</td><td>股市简报 11-06<span class="src">趋势序列 · 素材</span></td></tr>
+          <tr><td class="n">11-03</td><td>CME（财联社/新华财经引）</td><td class="n">74.9%</td><td class="n">未给</td><td>股市简报 11-06<span class="src">趋势序列 · 素材</span></td></tr>
+          <tr class="is-key"><td class="n">11-04</td><td>CME（财联社引）</td><td class="n">78.9%</td><td class="n">21.1%</td><td>股市简报 11-06<span class="src">11-04 最新可得 · 素材</span></td></tr>
+          <tr class="is-split"><td class="n">11-05（周四）</td><td>CME（财联社/证券时报引）</td><td class="n">67.0%</td><td class="n">未给</td><td>热点新闻 11-07<span class="src">「高于周四的 67%」· 核源补数据商</span></td></tr>
+          <tr><td class="n">11-06 06:05</td><td>CME（格隆汇引）</td><td class="n">68.7%</td><td class="n">31.3%</td><td>热点新闻 11-07<span class="src">非农前快照 · 素材</span></td></tr>
+          <tr class="is-key"><td class="n">非农后</td><td><b>LSEG</b></td><td class="n">78.0%</td><td class="n">未给</td><td>热点新闻 11-07<span class="src">本页主用口径 · 核源页面直取</span></td></tr>
+          <tr><td class="n">非农后 22:12</td><td>CME（格隆汇引）</td><td class="n">74.8%</td><td class="n">25.2%</td><td>热点新闻 11-07<span class="src">同日另一读数 · 素材</span></td></tr>
+          <tr><td class="n">非农后 22:48</td><td>CME（财联社引）</td><td class="n">77.0%</td><td class="n">未给</td><td>协作核源<span class="src">搜索摘要转引 · 素材未收</span></td></tr>
+          <tr><td class="n">非农后</td><td>第一财经</td><td class="n">80.0%</td><td class="n">未给</td><td>协作核源<span class="src">报告前约 75% · 素材标注不符</span></td></tr>
+          <tr><td class="n">11-06 报道</td><td>未标数据商</td><td class="n">&gt;80%</td><td class="n">未给</td><td>股市简报 11-06<span class="src">中国基金报/新浪财经 · 素材</span></td></tr>
+          <tr class="is-split"><td class="n">1 月会议</td><td>华尔街情报圈</td><td class="n">82.0%</td><td class="n">未给</td><td>热点新闻 11-07<span class="src">口径未确认 · 核不到原稿</span></td></tr>
+          <tr><td class="n">至 2027-01</td><td>CME（格隆汇引）</td><td class="n">63.6% / 9.5%</td><td class="n">27.0%</td><td>热点新闻 11-07<span class="src">累计 +25bp / +50bp · 素材</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>互斥校验（已验证）</b>：CME 三组 12 月读数两两相加均为 <span class="num">100.0%</span>（78.9+21.1、68.7+31.3、74.8+25.2），说明它们是同一互斥事件的两端定价，可以放进同一张表。</p>
+
+    <figure class="chart-box">
+      <canvas id="chartProb" height="230" role="img"
+        aria-label="折线图：CME口径的12月加息25bp概率从11-02的72%升到11-04的78.9%，11-05回落到67%，11-06早间68.7%，非农后回升到74.8%；LSEG非农后读数为78%"></canvas>
+      <div class="legend-note" aria-hidden="true">
+        <span><i style="background:#171a18"></i>CME 序列（财联社/格隆汇等转述）</span>
+        <span><i style="background:#1f5f8b"></i>LSEG 非农后读数</span>
+      </div>
+      <figcaption class="chart-cap"><b>图 2 · 一条 CME 序列加一个 LSEG 读数</b>（纵轴 60%–85%，单位：%）。CME 序列在 11-04 到 11-05 之间摆动 <b>11.9 个百分点</b>，非农后回到 74.8%；LSEG 非农后给 78%，与 CME 相差 <b>3.2 个百分点</b>。LSEG 另有「此前约 70%」的表述，但未标时点，图上不落点。</figcaption>
+    </figure>
+
+    <div class="caliber-note">
+      <b>口径拆解（协作核源）</b>：<b>同一会议</b>＝2026-12-08/09 FOMC、同一动作＝+25bp（证券时报网逐字「美联储12月8日至9日会议加息25个基点的概率约为80%，高于周四的约67%」）。差异有两层——<b>数据商</b>：非农后 LSEG 78%、CME 74.8~77%，差 2~4 个百分点；<b>时点</b>：CME 自身 11-04 的 78.9% 到 11-05 的约 67% 摆动 11.9 个百分点。素材把 78% 标注为「CME FedWatch 数据」属混标，核源判定 78% 为 LSEG（金融界/FX168 页面直取「根据LSEG数据…升至约78%」），67% 为 CME 口径。跨数据商 10 个百分点以上的差距有先例：10 月中旬 Polymarket 较 CME 低 10 个百分点以上。本页因此不合并序列。
+    </div>
+  </div>
+</section>
+
+<!-- ── 二级：点位矩阵 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>第三列：先跌 12.25%，再弹 4.21%</h2>
+    <p class="lede">这一列是同一周里唯一给出方向与幅度的一列。四个指数、两个交易日、一条周线，全部来自两份简报的收盘口径。</p>
+
+    <div class="table-wrap">
+      <table class="ledger">
+        <caption>表 3 · 美股点位矩阵（11-05 与 11-06 收盘口径，周线为 11-07 简报口径）</caption>
+        <thead>
+          <tr>
+            <th scope="col">指数</th>
+            <th scope="col" class="n">11-05 单日</th>
+            <th scope="col" class="n">11-05 收盘点位</th>
+            <th scope="col" class="n">11-06 单日</th>
+            <th scope="col" class="n">11-06 收盘点位</th>
+            <th scope="col" class="n">周线</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>道琼斯工业指数</td>
+            <td class="n down">-3.44%</td><td class="n">51523.06</td>
+            <td class="n down">-0.46%</td><td class="n">51285.73</td>
+            <td class="n">-0.9%</td>
+          </tr>
+          <tr>
+            <td>标普500</td>
+            <td class="n down">-4.36%</td><td class="n">7353.73</td>
+            <td class="n up">+0.31%</td><td class="n">7376.86</td>
+            <td class="n">-2.7%</td>
+          </tr>
+          <tr>
+            <td>纳斯达克综合指数</td>
+            <td class="n down">-5.52%</td><td class="n">24315</td>
+            <td class="n up">+1.09%</td><td class="n">24579.42</td>
+            <td class="n">-3.4%</td>
+          </tr>
+          <tr class="is-key">
+            <td>费城半导体指数</td>
+            <td class="n down">-12.25%</td><td class="n">素材未给</td>
+            <td class="n up">+4.21%</td><td class="n">素材未给</td>
+            <td class="n">素材未给</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>点位口径</b>：费城半导体指数本篇只写涨跌幅，不写收盘点位。11-06《存储涨价》篇已记录费半点位两源不一致，本页同样不引用。周线三项（道指 -0.9%、标普 -2.7%、纳指 -3.4%）出自 11-07 简报的「本周美股全线下跌」段。</p>
+
+    <figure class="chart-box">
+      <canvas id="chartIdx" height="250" role="img"
+        aria-label="分组柱状图：11-05 四个指数全线下跌，费城半导体指数跌12.25%最深；11-06 三个指数转涨、费城半导体指数涨4.21%"></canvas>
+      <div class="legend-note" aria-hidden="true">
+        <span><i style="background:#a03a2a"></i>11-05 单日涨跌幅</span>
+        <span><i style="background:#2d5016"></i>11-06 单日涨跌幅</span>
+      </div>
+      <figcaption class="chart-cap"><b>图 3 · 两个交易日的四个指数</b>（单位：%）。11-05 的抛售集中在超大盘 AI 权重股：标普500等权重指数当日逆势涨 1.86% 创收盘历史新高，VIX 单日 +69.48% 报 28.15，「七巨头」单日市值蒸发 1 万亿美元。</figcaption>
+    </figure>
+
+    <div class="caliber-note">
+      <b>交叉核验（已验证）</b>：用两份简报各自的收盘点位反推 11-06 单日涨跌幅，与简报所写的涨跌幅<b>逐项一致</b>：道指 51285.73 ÷ 51523.06 − 1 = -0.46%，标普 7376.86 ÷ 7353.73 − 1 = +0.31%，纳指 24579.42 ÷ 24315 − 1 = +1.09%，残差均为 0.00 个百分点。说明 11-06 股市简报的 11-05 收盘与 11-07 热点简报的 11-06 收盘互洽，两个来源可以放进同一张表。
+    </div>
+  </div>
+</section>
+
+<!-- ── 传导机制 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>把三列接起来：四步传导</h2>
+    <p class="lede">这一节是本页的解释层，不是断言层。下面四步是基于上面三张表的机制推演，读者可以逐条反驳。</p>
+    <div class="mech">
+      <div class="mech-item">
+        <div class="mech-title">供给端<span>非农 16.5 万人 · 预期 7 万</span></div>
+        <div>
+          <p class="mech-lead">超预期 9.5 万人，为预期的 2.36 倍；失业率降至 4.1%，前两个月上修。</p>
+          <p class="mech-detail">这是本周唯一的硬数据。它排除了「就业市场正在快速降温」这条路径，把 12 月会议重新推回「要不要再加一次」的问题上。</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-title">定价端<span>概率与美债</span></div>
+        <div>
+          <p class="mech-lead">12 月加息 25bp 概率非农后 LSEG 78%、CME 74.8%（周四约 67%）；2 年期美债 4.51%、10 年期 4.86%。</p>
+          <p class="mech-detail">短端先动：至 2027 年 1 月累计加息 25bp 概率 63.6%、累计 50bp 概率 9.5%、维持不变 27.0%。现行政策利率 3.75%–4.00%，若 12 月加息 25bp，区间变为 4.00%–4.25%（本页核算）。</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-title">沟通端<span>三位官员同周放鹰</span></div>
+        <div>
+          <p class="mech-lead">戴利称仍需进一步加息遏制通胀；威廉姆斯称通胀过高须确保回归 2%。</p>
+          <p class="mech-detail">穆萨莱姆的表述对本篇最要紧：警惕 AI 基建短期加剧通胀。这句话把 AI 资本开支放进了通胀项：同一笔支出，在一级市场是估值故事，在央行口径里是加息理由。</p>
+        </div>
+      </div>
+      <div class="mech-item">
+        <div class="mech-title">回流端<span>贴现率反噬估值</span></div>
+        <div>
+          <p class="mech-lead">贴现率上行 → 一级让价、二级先杀后弹。</p>
+          <p class="mech-detail">一级：OpenAI 1.25 万亿「低于此前预期」，Anthropic IPO 目标从 2 万亿降到 1.1 万亿（-45.0%，本页核算）。二级：费半两日 -12.25% 与 +4.21%，纳指连续第四周下跌并进入技术性回调。三条线在这一周闭合成一个环。</p>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>为什么叫「第一次撞上」</b>：不是说历史上 AI 估值第一次遇到加息，而是本档案柜里两条各自独立的追踪线（#406 美联储沟通带宽、#417 选后重定价）第一次在同一周同时给出可核数，得以把折价融资与加息概率放进同一张表。「第一次」指的是本篇的合并口径，不是市场史。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从纳指历史高点到 12 月会议，中间是六个可以回查的时点。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-06</span>
+        <div>
+          <div class="timeline-title">纳指创历史高点</div>
+          <div class="timeline-detail">到 11-05，纳指较 10 月 6 日历史高点回落逾 10%，进入技术性回调。这是本篇点位矩阵的起点。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02 → 11-04</span>
+        <div>
+          <div class="timeline-title">概率序列 A 连续三日抬升：72% → 74.9% → 78.9%</div>
+          <div class="timeline-detail">财联社/新华财经口径，11-04 时点维持不变概率 21.1%。同周另有 11-06 报道称市场定价 12 月加息概率高于 80%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div>
+          <div class="timeline-title">美股单日暴跌，费半 -12.25%</div>
+          <div class="timeline-detail">道指 -3.44%、标普 -4.36%、纳指 -5.52% 创 19 个月最大单日跌幅；VIX +69.48% 报 28.15；标普500等权重指数逆势 +1.86% 创收盘历史新高。同日概率口径 B、C 分别为 67.0% 与 68.7%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-06（周五）</span>
+        <div>
+          <div class="timeline-title">非农 16.5 万人，概率抬到 78%</div>
+          <div class="timeline-detail">新增就业 16.5 万人（预期 7 万），失业率降至 4.1%，前两月上修；2 年期美债升至 4.51%、10 年期 4.86%。美股反弹：费半 +4.21%、纳指 +1.09% 报 24579.42、标普 +0.31% 报 7376.86、道指 -0.46% 报 51285.73。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-06 当周</span>
+        <div>
+          <div class="timeline-title">周线全线下跌</div>
+          <div class="timeline-detail">纳指周跌 3.4%（连续第四周）、标普周跌 2.7%（一年多最差单周）、道指周跌 0.9%；周四「七巨头」单日市值蒸发 1 万亿美元。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-07（周六）</span>
+        <div>
+          <div class="timeline-title">OpenAI 融资稿见报，估值 1.25 万亿美元</div>
+          <div class="timeline-detail">彭博社/腾讯新闻：约 110 亿美元新融资，整轮最高或扩至 200 亿美元。同日 AI News 转述 Anthropic IPO 传闻估值降至 1.1 万亿、原目标 2 万亿；三位美联储官员密集放鹰。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-12-08/09</span>
+        <div>
+          <div class="timeline-title">FOMC 会议（未发生）</div>
+          <div class="timeline-detail">非农后口径下 12 月加息 25bp 概率为 LSEG 78%、CME 74.8%；素材另给「1 月加息概率 82%」，核源核不到原稿，标为口径未确认。会议结果未发生，本页不做预测，只登记当前定价。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 口径闸门 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径闸门：三处不能合并的地方</h2>
+    <p class="lede">这三处如果合并，结论会变好看，但会失真。本页选择分列并标注。</p>
+    <div class="gate">
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">G-1</span><span class="gate-title">两个「此前预期」口径并列，不合并</span></div>
+        <p class="gate-body">派单规定「原始预期值核不到就不写折价幅度」。核源已核到两个口径：1.4 万亿美元（AI News 日报逐字 <i>well short of the $1.4T it wanted</i>，页面直取；彭博通稿同口径，搜索摘要转引）与 1.5 万亿美元（彭博 10-23、路透，搜索摘要转引）。本页以 1.4 万亿为主口径写 -10.7%，1.5 万亿并列不合并、不取平均。确认方法：直取彭博 11-06 原文（付费墙）核对最初目标估值。</p>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">G-2</span><span class="gate-title">两家数据商的读数并列，不合成一条序列</span></div>
+        <p class="gate-body">非农后 LSEG 78%、CME 74.8~77%，相差 2~4 个百分点；CME 自身 11-04 到 11-05 摆动 11.9 个百分点。素材把 78% 标为「CME FedWatch 数据」属混标，核源判定 78% 为 LSEG 口径、67% 为 CME 口径。合成一条会同时抹掉数据商与时点两层差异。确认方法：直取 CME FedWatch 与 LSEG 同一会议合约的逐日读数对齐（本机直连 CME 返回 000，未连通）。</p>
+      </div>
+      <div class="gate-item">
+        <div class="gate-head"><span class="gate-no">G-3</span><span class="gate-title">费城半导体指数不写收盘点位</span></div>
+        <p class="gate-body">本篇素材只给了涨跌幅，没有给点位；既往作品已记录费半点位两源不一致。本页因此只写 -12.25% 与 +4.21%，不写点位、不写「据点位推算的回撤」。确认方法：取 Nasdaq 官方指数历史 API 的 11-05、11-06 收盘。</p>
+      </div>
+    </div>
+    <div class="caliber-note">
+      <b>素材引用偏差一处</b>：派单把 OpenAI 融资稿记为「热点新闻 11-07 金融动态 2」，实际位置是<b>科技动态 2</b>（金融动态 2 是「本周美股全线下跌」）。本页按实际位置标注出处，数字本身不受影响。
+    </div>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">下面每一段都是素材原文的逐字片段，页面底部的断言声明逐条对应。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">OpenAI完成约110亿美元新融资 — 估值约1.25万亿美元，整轮规模最高或扩至200亿美元，资金将投向芯片、数据中心与光网络扩张。</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 科技动态 2（彭博社/腾讯新闻 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Anthropic IPO 传闻估值降至 1.1 万亿，原目标 2 万亿</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-07 · 今日焦点 7（AI News）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">新增就业16.5万人（预期7万），前两个月上修，失业率降至4.1%</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 金融动态 3（美国劳工统计局/第一财经 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">12月加息25bp概率78% — 非农公布后CME FedWatch数据，高于周四的67%</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 利率预期 1（LSEG/第一财经 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">2年期美债收益率升至4.51%、10年期升至4.86%</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 金融动态 3（第一财经 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">费城半导体指数暴跌12.25%，创2020年3月以来最大单日跌幅</p>
+        <cite class="evidence-source">每日股市简报 2026-11-06 · 美股 2（华尔街见闻 11-06 报道，11-05 收盘）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">费半指数涨4.21%，AMD涨11.04%、英特尔涨7.71%、美光涨5.12%</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 金融动态 1（财联社 11-07，11-06 收盘）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">穆萨莱姆：警惕AI基建短期加剧通胀</p>
+        <cite class="evidence-source">每日热点新闻简报 2026-11-07 · 金融动态 4（陆家嘴财经早餐 11-07）</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h2>方法、来源与边界</h2>
+    <p><b>数据来源</b>：《每日热点新闻简报》2026-11-07（科技动态 2、金融动态 1/2/3/4、利率预期 1–5）、《每日AI技术动态简报》2026-11-07（今日焦点 7、行业影响 1）、《每日股市简报》2026-11-06（美股段、利率预期 1–4）。采集时间以各简报页脚标注为准。</p>
+    <p><b>本页核算</b>：OpenAI 折价 -10.7%（1.25 对 1.4 万亿）、整轮上限空间 +81.8%、Anthropic 目标缩水 -45.0%、非农超预期 +9.5 万人与 2.36 倍、前两月合计上修 8.4 万人、加息后利率区间 4.00%–4.25%、概率差 11.9 与 3.2 个百分点、CME 三组 12 月读数两两相加 100.0%、两简报收盘点位互洽残差 0.00 个百分点。计算脚本与结果见 <span class="num">works/2026-11-08/notes/calc_420_matrices.py</span> 与 <span class="num">420-matrices.json</span>。</p>
+    <p><b>已验证</b>：8 条断言的 quote 经 claim_gate 逐字回查（1117/1117 通过）；点位矩阵的交叉核验已实算；CME 互斥读数相加已实算。 <b>未验证</b>：CME FedWatch 与 LSEG 官方页面未直取（本机直连分别返回 000 与未连通），概率为简报转述加核源检索；彭博社融资原文在付费墙后，未直取。 <b>未确认</b>：「1 月加息概率 82%」的原稿（核不到）、OpenAI 本轮是否含 SPV 或信贷结构、Polymarket 当日数值、费半收盘点位，确认方法已列入口径闸门与核源记录。</p>
+    <p><b>后续跟踪</b>：整轮是否从 110 亿美元扩至 200 亿美元；最初目标按 1.4 万亿还是 1.5 万亿定稿；Anthropic 招股书里的估值落点（当前讨论区间 1.2–1.3 万亿、下探 1.1 万亿）；12 月 8–9 日会议前 LSEG 与 CME 两套读数是否收敛；费半能否收复 11-05 的 12.25%。</p>
+    <p><b>边界</b>：本页只登记「谁、何时、报了什么数」，不做利率预测、不构成投资建议。解释性判断集中在「传导机制」一节，不进入断言层。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  8 条，解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {"value": "110亿美元", "label": "OpenAI新一轮融资金额", "quote": "OpenAI完成约110亿美元新融资"},
+  {"value": "1.25万亿美元", "label": "OpenAI最新估值", "quote": "估值约1.25万亿美元"},
+  {"value": "1.1万亿", "label": "Anthropic IPO传闻估值", "quote": "Anthropic IPO 传闻估值降至 1.1 万亿"},
+  {"value": "16.5万人", "label": "美国10月非农新增就业", "quote": "新增就业16.5万人（预期7万）"},
+  {"value": "78%", "label": "LSEG 12月会议加息25个基点概率（非农后口径）", "quote": "12月加息25bp概率78%"},
+  {"value": "4.51%", "label": "2年期美债收益率（11-07）", "quote": "2年期美债收益率升至4.51%"},
+  {"value": "-12.25%", "label": "费城半导体指数 · 11/05 单日跌幅", "quote": "费城半导体指数暴跌12.25%"},
+  {"value": "+4.21%", "label": "费城半导体指数 · 11/06 单日涨幅", "quote": "费半指数涨4.21%"}
+]
+</script>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if(typeof Chart==='undefined'){return;}
+  var INK='#171a18', INK2='#4f5551', RULE='#d2d8d4', BRASS='#7d5a1c',
+      DOWN='#a03a2a', UP='#2d5016', B='#1f5f8b';
+  Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  Chart.defaults.font.size=12;
+  Chart.defaults.color=INK2;
+
+  // 数值标签：柱图写在柱端外侧，折线写在点上方
+  var valueLabels={
+    id:'valueLabels',
+    afterDatasetsDraw:function(chart){
+      var horizontal = chart.options.indexAxis==='y';
+      var ctx=chart.ctx;
+      ctx.save();
+      ctx.font='600 12px '+Chart.defaults.font.family;
+      chart.data.datasets.forEach(function(ds,i){
+        var meta=chart.getDatasetMeta(i);
+        if(meta.hidden)return;
+        meta.data.forEach(function(el,j){
+          var v=ds.data[j];
+          if(v===null||v===undefined||isNaN(v))return;
+          var txt;
+          if(chart.canvas.id==='chartVal'){
+            txt=String(parseFloat(v.toFixed(2)))+' 万亿美元';
+          }else if(chart.config.type==='line'){
+            txt=v.toFixed(1)+'%';
+          }else{
+            var s=(Math.abs(v)<1)?v.toFixed(2):String(parseFloat(v.toFixed(2)));
+            txt=(v>0?'+':'')+s+'%';
+          }
+          if(horizontal){
+            var bg=Array.isArray(ds.backgroundColor)?ds.backgroundColor[j]:ds.backgroundColor;
+            ctx.textAlign='right';ctx.textBaseline='middle';
+            ctx.fillStyle=(bg==='#d2d8d4')?INK:'#ffffff';
+            ctx.fillText(txt, el.x-8, el.y);
+          }else if(chart.config.type==='line'){
+            ctx.fillStyle=INK;
+            ctx.textAlign='center';ctx.textBaseline='bottom';
+            ctx.fillText(txt, el.x, el.y-9);
+          }else{
+            ctx.fillStyle=INK;
+            var neg = el.y > el.base;
+            ctx.textAlign='center';
+            ctx.textBaseline = neg ? 'top' : 'bottom';
+            ctx.fillText(txt, el.x, el.y + (neg ? 6 : -6));
+          }
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  var grid={color:RULE,drawTicks:false};
+  var base={
+    responsive:true,
+    animation:{duration:600,easing:'easeOutQuart'},
+    plugins:{legend:{display:false},
+      tooltip:{backgroundColor:'#121513',padding:10,cornerRadius:4,displayColors:true,
+        callbacks:{label:function(c){return ' '+(c.dataset.label||'')+': '+(typeof c.parsed.y==='number'?c.parsed.y:c.parsed.x);}}}},
+    scales:{x:{grid:{display:false},border:{color:RULE}},
+            y:{grid:grid,border:{display:false},ticks:{padding:6}}}
+  };
+
+  // 图 1 · 一级估值
+  var c1=document.getElementById('chartVal');
+  if(c1){
+    new Chart(c1,{
+      type:'bar',
+      data:{
+        labels:['Anthropic IPO 原目标','OpenAI 最新估值','Anthropic IPO 传闻'],
+        datasets:[{
+          data:[2.0,1.25,1.1],
+          backgroundColor:['#d2d8d4',BRASS,DOWN],
+          borderRadius:2,borderSkipped:false,barPercentage:.6,categoryPercentage:.72
+        }]
+      },
+      options:Object.assign({},base,{
+        indexAxis:'y',aspectRatio:2.8,
+        scales:{
+          x:Object.assign({},base.scales.x,{min:0,max:2.5,ticks:{stepSize:0.5,padding:6,
+            callback:function(v){return v.toFixed(1);}}}),
+          y:Object.assign({},base.scales.y,{grid:{display:false}})
+        },
+        plugins:Object.assign({},base.plugins,{
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(c){return ' '+c.parsed.x.toFixed(2)+' 万亿美元';}}})
+        })
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  // 图 2 · 概率矩阵
+  var c2=document.getElementById('chartProb');
+  if(c2){
+    new Chart(c2,{
+      type:'line',
+      data:{
+        labels:['11-02','11-03','11-04','11-05','11-06早间','非农后'],
+        datasets:[
+          {label:'CME 序列（财联社/格隆汇等转述）',data:[72,74.9,78.9,67,68.7,74.8],
+           borderColor:INK,backgroundColor:INK,pointStyle:'circle',pointRadius:5,
+           borderWidth:2,tension:.25,spanGaps:false},
+          {label:'LSEG 非农后读数',data:[null,null,null,null,null,78],
+           borderColor:B,backgroundColor:B,pointStyle:'rectRot',pointRadius:8,
+           borderWidth:2,showLine:false,spanGaps:false}
+        ]
+      },
+      options:Object.assign({},base,{
+        aspectRatio:2.1,
+        scales:{
+          x:Object.assign({},base.scales.x),
+          y:Object.assign({},base.scales.y,{min:60,max:85,
+            ticks:{stepSize:5,padding:6,callback:function(v){return v+'%';}}})
+        },
+        plugins:Object.assign({},base.plugins,{
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(c){return ' '+c.dataset.label+': '+c.parsed.y+'%';}}})
+        })
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  // 图 3 · 点位矩阵
+  var c3=document.getElementById('chartIdx');
+  if(c3){
+    new Chart(c3,{
+      type:'bar',
+      data:{
+        labels:['道指','标普500','纳指','费城半导体指数'],
+        datasets:[
+          {label:'11-05 单日涨跌幅',data:[-3.44,-4.36,-5.52,-12.25],
+           backgroundColor:DOWN,borderRadius:2,borderSkipped:false,barPercentage:.72,categoryPercentage:.66},
+          {label:'11-06 单日涨跌幅',data:[-0.46,0.31,1.09,4.21],
+           backgroundColor:UP,borderRadius:2,borderSkipped:false,barPercentage:.72,categoryPercentage:.66}
+        ]
+      },
+      options:Object.assign({},base,{
+        aspectRatio:2.0,
+        scales:{
+          x:Object.assign({},base.scales.x),
+          y:Object.assign({},base.scales.y,{min:-14,max:6,
+            ticks:{stepSize:2,padding:6,callback:function(v){return v+'%';}}})
+        },
+        plugins:Object.assign({},base.plugins,{
+          tooltip:Object.assign({},base.plugins.tooltip,{
+            callbacks:{label:function(c){return ' '+c.dataset.label+': '+c.parsed.y+'%';}}})
+        })
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  // 唯一的一次性动效：区块发丝线自左绘出。
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

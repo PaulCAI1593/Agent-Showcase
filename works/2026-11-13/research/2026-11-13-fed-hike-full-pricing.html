@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加息满值与 3900 美元 —— 12 月 100% 加息概率下的美元、黄金、原油与铝四张价格表</title>
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="CME 12月加息概率打满100%（25bp 86.8%/50bp 13.2%）的口径日里，美元指数创19个月新高、黄金失守3900、布油结算反弹、LME铝溢价30年最高——四张价格表逐条回源。">
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+:root{
+  --paper:#eaedea; --paper-raised:#f4f6f4; --ink:#171a18; --ink-2:#4f5551; --ink-3:#646b67;
+  --rule:#d2d8d4; --rule-soft:#dfe4e0; --brass:#7d5a1c; --brass-wash:#efe4cc;
+  --deep:#121513; --deep-ink:#eef0ee; --deep-2:#b3bbb6;
+  --down:#8c2f2f; --up:#2f6b3e; --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.62;letter-spacing:-0.008em;-webkit-font-smoothing:antialiased}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+.masthead{padding:92px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:48px;align-items:start}
+h1{font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;letter-spacing:-0.012em;font-weight:600;text-wrap:balance}
+.standfirst{margin-top:22px;font-size:19px;line-height:1.58;color:var(--ink-2);max-width:44ch}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);padding-top:12px;border-top:1px solid var(--rule)}
+.mast-meta dd{padding-bottom:12px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+section{padding:76px 0}
+section+section{border-top:1px solid var(--rule)}
+h2{font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.01em;font-weight:600;margin-bottom:16px}
+h3{font-family:var(--serif-cn);font-size:20px;font-weight:600;margin:34px 0 10px}
+.lede{font-size:17.5px;line-height:1.66;color:var(--ink-2);max-width:60ch;margin-bottom:30px}
+p{max-width:70ch}
+p+p{margin-top:14px}
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink)}
+.verdict{font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.45;letter-spacing:-0.008em;font-weight:600;max-width:33ch}
+.verdict-note{margin-top:20px;font-size:16px;line-height:1.66;color:var(--deep-2);max-width:62ch}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(206px,1fr));background:var(--rule-soft);border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{font-family:var(--serif-num);font-size:31px;line-height:1.08;letter-spacing:-0.018em;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink)}
+.metric-label{margin-top:10px;font-size:13.5px;line-height:1.45;color:var(--ink);font-weight:600}
+.metric-source{margin-top:6px;font-size:12px;line-height:1.5;color:var(--ink-3)}
+.fig{margin-top:26px;background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:22px 20px 14px}
+.fig svg{width:100%;height:auto;display:block}
+.fig-note{margin-top:10px;font-size:12.5px;line-height:1.6;color:var(--ink-3)}
+.tblwrap{overflow-x:auto;margin-top:20px;border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);padding:8px}
+table.tbl{border-collapse:collapse;width:100%;min-width:640px;font-size:14px;line-height:1.55}
+table.tbl caption{caption-side:top;text-align:left;font-family:var(--serif-cn);font-weight:600;font-size:16.5px;padding:14px 16px 10px;color:var(--ink)}
+table.tbl th{font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--ink-2);text-align:left;font-weight:600;padding:8px 14px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--rule-soft);white-space:nowrap}
+table.tbl td{padding:9px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink)}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl td.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.q{font-size:12.5px;color:var(--ink-2);max-width:340px}
+table.tbl td.src{font-size:12px;color:var(--ink-3);white-space:nowrap}
+table.tbl td.warn{color:var(--down)}
+table.tbl td .tag{display:inline-block;font-size:11.5px;letter-spacing:.05em;border:1px solid var(--rule);border-radius:3px;padding:0 5px;color:var(--ink-2);margin-left:6px;white-space:nowrap}
+table.tbl td .tag.mid{border-color:var(--brass);color:var(--brass)}
+.timeline{margin-top:24px;border-left:2px solid var(--rule);padding-left:26px;display:grid;gap:22px}
+.timeline-item{position:relative}
+.timeline-item::before{content:"";position:absolute;left:-33px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--brass);border:2px solid var(--paper)}
+.timeline-date{font-family:var(--serif-num);font-size:13px;letter-spacing:.05em;color:var(--brass);font-weight:600}
+.timeline-title{font-family:var(--serif-cn);font-size:17px;font-weight:600;margin-top:3px}
+.timeline-detail{font-size:14.5px;color:var(--ink-2);margin-top:4px;max-width:62ch}
+.evidence{margin-top:24px;display:grid;gap:14px}
+.evidence-item{background:var(--paper-raised);border:1px solid var(--rule);border-left:3px solid var(--brass);border-radius:3px;padding:16px 18px}
+.evidence-quote{font-family:var(--serif-cn);font-size:15.5px;line-height:1.66;color:var(--ink)}
+.evidence-source{margin-top:8px;font-size:12.5px;color:var(--ink-3)}
+.caliber{margin-top:22px;background:var(--brass-wash);border:1px solid #dcc48f;border-radius:4px;padding:18px 20px;font-size:14px;line-height:1.7;color:#5a4310;max-width:76ch}
+footer{padding:56px 0 88px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-3);line-height:1.8}
+footer b{color:var(--ink-2);font-weight:600}
+@media (max-width:820px){.mast-grid{grid-template-columns:1fr;gap:28px}.masthead{padding-top:64px}section{padding:56px 0}.shell{padding:0 20px}}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell mast-grid">
+    <div>
+      <h1>加息满值与 3900 美元<br>四张价格表，四种互不共振的定价</h1>
+      <p class="standfirst">12 月加息概率在口径日打满 100%：美元创 19 个月新高，黄金却失守 4000 乃至 3900；布油结算逆势连涨，铝的现货溢价涨到 30 年最高。同一天，避险、地缘与供给挤压各算各的账。</p>
+    </div>
+    <div class="mast-meta">
+      <dl>
+        <dt>追踪线</dt><dd>宏观利率与股市 · 2026-11-13 研究件 · #436</dd>
+        <dt>口径日</dt><dd><b>2026-11-12</b>（美东 11-11 / 11-12 两个日历日 · 美债现券 11-11 休市 + 11-13 亚洲早盘边沿）</dd>
+        <dt>断言</dt><dd><span class="claim-n">8 条</span>全部带逐字引文与来源</dd>
+        <dt>主责 / 协作</dt><dd>数析（四表与口径核算）· 研析（原文核源）· 量研（概率定价测算）</dd>
+        <dt>与 #429 的接续</dt><dd>25bp 概率 84.2%（11-10 快照）→ 86.8%（11-12 口径日），两点分列不同步</dd>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">满值概率没有把四张价格表推向同一个方向：美元与金价同步走强的是利率，油价逆着美元反弹靠的是地缘，铝溢价 147 美元/吨谁都不理：避险交易先失效，实物挤压接棒。</p>
+    <p class="verdict-note">这是一个可被反驳的判断：若 11 月余下交易日里金价与美元指数重新同涨（避险恢复），或布油脱离霍尔木兹消息回落，则「三种交易各算各的账」不成立。数据窗口只取美东 11-11 / 11-12 两个交易日与 11-13 亚洲早盘，不复述 #429 / #432 的 AI 估值叙事，不给任何资产估值结论。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>关键数据 · 八条断言</h2>
+    <p class="lede">八个持续跟踪指标读数，各自带口径日期与时点类型；引文逐字回原文（文末 claims 声明块为权威来源）。</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-value">100%</div><div class="metric-label">CME 12月会议加息总概率（11-12口径）</div><div class="metric-source">CME FedWatch · 华尔街见闻 11-12 转述</div></div>
+      <div class="metric"><div class="metric-value">86.8%</div><div class="metric-label">CME 12月会议加息25个基点概率（11-12口径）</div><div class="metric-source">CME FedWatch · 华尔街见闻 11-12 · 50bp 为 13.2%</div></div>
+      <div class="metric"><div class="metric-value">5.11%</div><div class="metric-label">10年期美债收益率（11-12收盘口径）</div><div class="metric-source">美东 11-12 尾盘 · 报 5.1129% · 与 #435 同标签同值</div></div>
+      <div class="metric"><div class="metric-value">102.908</div><div class="metric-label">美元指数收盘点位（11-11）</div><div class="metric-source">华尔街见闻 / 云财经 11-12 · 创 2025 年 4 月以来最高</div></div>
+      <div class="metric"><div class="metric-value">92.76<span style="font-size:18px"> 美元/桶</span></div><div class="metric-label">布伦特 1 月合约结算价（11-12）</div><div class="metric-source">华尔街见闻 11-12 · 括号日期=归属简报日（见表③口径行）</div></div>
+      <div class="metric"><div class="metric-value">3876.62<span style="font-size:18px"> 美元/盎司</span></div><div class="metric-label">现货黄金结算价（11-12）</div><div class="metric-source">上海证券报 11-13 · 收跌 2.79% · 盘中低 3852.21</div></div>
+      <div class="metric"><div class="metric-value">147<span style="font-size:18px"> 美元/吨</span></div><div class="metric-label">LME铝现货对三个月期货溢价（11-11）</div><div class="metric-source">陆家嘴财经早餐 / 华尔街见闻 11-12 · 一度升至 · 逾 30 年最高</div></div>
+      <div class="metric"><div class="metric-value">+5.66%</div><div class="metric-label">费城半导体指数 · 11/11 单日涨幅</div><div class="metric-source">华尔街见闻 / 第一财经 11-12 · 11/12 收跌 0.54%</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>概率定价轴：12 月会议的满值是怎么打上去的</h2>
+    <p class="lede">CME FedWatch 读数逐时点连线：25bp 概率走到 11-12 口径日的 86.8%，50bp 由 11-10 的 0% 升至 13.2%。25bp 回落与 50bp 上移同时发生：满值内部在变鹰，不是变松。</p>
+    <div class="fig">
+      <svg viewBox="0 0 960 430" role="img" aria-label="折线图：CME 12月会议加息概率逐时点。25个基点概率：11-09口径78%、11-10早间84.2%、11-10晚84.7%、11-11盘前88.5%、11-11另一时点89.6%、11-12口径86.8%。50个基点概率：11-10下午11.8%、11-11盘前11.5%、11-11另一时点10.4%、11-12口径13.2%、汇通财经11-11读数15%。总概率100%水平线为满值线。隐含幅度：88.5/11.5对应27.9个基点、89.6/10.4对应27.6、86.8/13.2对应28.3。">
+        <line x1="70" y1="340" x2="930" y2="340" stroke="#d2d8d4"/>
+        <line x1="70" y1="265" x2="930" y2="265" stroke="#d2d8d4" stroke-dasharray="2 4"/>
+        <line x1="70" y1="190" x2="930" y2="190" stroke="#d2d8d4" stroke-dasharray="2 4"/>
+        <line x1="70" y1="115" x2="930" y2="115" stroke="#d2d8d4" stroke-dasharray="2 4"/>
+        <line x1="70" y1="40"  x2="930" y2="40"  stroke="#7d5a1c" stroke-width="1.6" stroke-dasharray="6 5"/>
+        <text x="934" y="44"  font-size="12" fill="#7d5a1c" text-anchor="end">100% 满值线</text>
+        <text x="60" y="344" font-size="12" fill="#646b67" text-anchor="end">0</text>
+        <text x="60" y="269" font-size="12" fill="#646b67" text-anchor="end">25</text>
+        <text x="60" y="194" font-size="12" fill="#646b67" text-anchor="end">50</text>
+        <text x="60" y="119" font-size="12" fill="#646b67" text-anchor="end">75</text>
+        <text x="60" y="44"  font-size="12" fill="#646b67" text-anchor="end">100%</text>
+        <polyline points="110,106 260,87.4 410,85.9 560,74.5 710,71.2 860,79.6" fill="none" stroke="#171a18" stroke-width="2.2"/>
+        <circle cx="110" cy="106" r="4.5" fill="#171a18"/><circle cx="260" cy="87.4" r="4.5" fill="#171a18"/><circle cx="410" cy="85.9" r="4.5" fill="#171a18"/><circle cx="560" cy="74.5" r="4.5" fill="#171a18"/><circle cx="710" cy="71.2" r="4.5" fill="#171a18"/><circle cx="860" cy="79.6" r="5.5" fill="#7d5a1c"/>
+        <text x="110" y="94"  font-size="13" fill="#171a18" text-anchor="middle" font-weight="600">78</text>
+        <text x="260" y="75"  font-size="13" fill="#171a18" text-anchor="middle" font-weight="600">84.2</text>
+        <text x="410" y="73"  font-size="13" fill="#171a18" text-anchor="middle" font-weight="600">84.7</text>
+        <text x="560" y="62"  font-size="13" fill="#171a18" text-anchor="middle" font-weight="600">88.5</text>
+        <text x="710" y="58"  font-size="13" fill="#171a18" text-anchor="middle" font-weight="600">89.6</text>
+        <text x="860" y="67"  font-size="13.5" fill="#7d5a1c" text-anchor="middle" font-weight="700">86.8</text>
+        <polyline points="335,304.6 560,305.5 710,308.8 860,300.4" fill="none" stroke="#8c2f2f" stroke-width="1.8" stroke-dasharray="5 4"/>
+        <circle cx="335" cy="304.6" r="4" fill="none" stroke="#8c2f2f" stroke-width="1.8"/><circle cx="560" cy="305.5" r="4" fill="none" stroke="#8c2f2f" stroke-width="1.8"/><circle cx="710" cy="308.8" r="4" fill="none" stroke="#8c2f2f" stroke-width="1.8"/><circle cx="860" cy="300.4" r="5" fill="#8c2f2f"/>
+        <text x="335" y="326" font-size="12.5" fill="#8c2f2f" text-anchor="middle">11.8</text>
+        <text x="560" y="327" font-size="12.5" fill="#8c2f2f" text-anchor="middle">11.5</text>
+        <text x="710" y="330" font-size="12.5" fill="#8c2f2f" text-anchor="middle">10.4</text>
+        <text x="860" y="322" font-size="13" fill="#8c2f2f" text-anchor="middle" font-weight="700">13.2</text>
+        <circle cx="620" cy="295" r="4" fill="none" stroke="#8c2f2f" stroke-width="1.4" stroke-dasharray="2 2"/>
+        <text x="620" y="285" font-size="11.5" fill="#8c2f2f" text-anchor="middle" opacity="0.85">15（汇通 11-11）</text>
+        <text x="110" y="368" font-size="12" fill="#646b67" text-anchor="middle">11-09 口径</text>
+        <text x="260" y="368" font-size="12" fill="#646b67" text-anchor="middle">11-10 早间</text>
+        <text x="410" y="368" font-size="12" fill="#646b67" text-anchor="middle">11-10 22:03</text>
+        <text x="560" y="368" font-size="12" fill="#646b67" text-anchor="middle">11-11 盘前</text>
+        <text x="710" y="368" font-size="12" fill="#646b67" text-anchor="middle">11-11 另时点</text>
+        <text x="860" y="368" font-size="12" fill="#7d5a1c" text-anchor="middle" font-weight="600">11-12 口径日</text>
+        <text x="110" y="388" font-size="11" fill="#4f5551" text-anchor="middle">隐含无</text>
+        <text x="260" y="388" font-size="11" fill="#4f5551" text-anchor="middle">无</text>
+        <text x="410" y="388" font-size="11" fill="#4f5551" text-anchor="middle">≈28bp（CPI后定价）</text>
+        <text x="560" y="388" font-size="11" fill="#4f5551" text-anchor="middle">27.9bp</text>
+        <text x="710" y="388" font-size="11" fill="#4f5551" text-anchor="middle">27.6bp</text>
+        <text x="860" y="388" font-size="11" fill="#7d5a1c" text-anchor="middle" font-weight="600">28.3bp</text>
+      </svg>
+      <p class="fig-note">图 1｜实心黑线=加息 25 个基点概率；红虚线=加息 50 个基点概率；横轴为读数时点（北京/美东随来源标注，快照类型不同点间不严格等距）。隐含幅度 = 25×p25 + 50×p50（数析复算：22.125+5.75=27.9 ✅；22.4+5.2=27.6 ✅；21.7+6.6=28.3 ✅），系线性折算而非机构报价；量研复核因 MiniMax 2056 配额耗尽未交付（见交付报告阻塞节）。11-10 22:03 点沿用 #429 台账（总概率首见 100%）。12 月会议定于 12 月 8 日至 9 日（德银报告经 11-12 转述）。</p>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <caption>概率读数底表（时点类型逐条标注 · 不同口径日不并列为同一序列点）</caption>
+        <thead><tr><th>读数时点</th><th>25bp</th><th>50bp</th><th>维持不变</th><th>隐含幅度（测算）</th><th>来源 · 时点类型</th></tr></thead>
+        <tbody>
+          <tr><td>11-09 口径</td><td class="num">78%</td><td class="num">无</td><td class="num">无</td><td class="num">无</td><td class="src">每日股市简报 · 收盘口径</td></tr>
+          <tr><td>11-10 06:28 快照</td><td class="num">84.2%</td><td class="num">无</td><td class="num">15.8%</td><td class="num">无</td><td class="src">CME · #429 作品在案 · 快照</td></tr>
+          <tr><td>11-10 22:03（CPI 公布后）</td><td class="num">84.7%</td><td class="num">无</td><td class="num">0%（总概率 100%）</td><td class="num">≈28bp</td><td class="src">#429 台账 · 盘中 · 满值首见</td></tr>
+          <tr><td>11-10 下午</td><td class="num">无</td><td class="num">0→11.8%</td><td class="num">无</td><td class="num">无</td><td class="src">新华社 / LSEG · 盘中</td></tr>
+          <tr><td>11-11 盘前</td><td class="num">88.5%</td><td class="num">11.5%</td><td class="num">0%</td><td class="num">27.9bp</td><td class="src">格隆汇 · CME 观察 11-11 18:00 UTC 转述</td></tr>
+          <tr><td>11-11 另一时点</td><td class="num">89.6%</td><td class="num">10.4%</td><td class="num">无</td><td class="num">27.6bp</td><td class="src">云财经 · 盘中</td></tr>
+          <tr><td>11-11（汇通财经）</td><td class="num">无</td><td class="num">15%</td><td class="num">0%</td><td class="num">无</td><td class="src">汇通财经 11-11 · 盘中</td></tr>
+          <tr><td>11-11（Polymarket 收盘）</td><td class="num">85.5%</td><td class="num">10.7%（及以上）</td><td class="num">无</td><td class="num">无</td><td class="src">Cappnotes Closing Look · 预测市场口径，不与 CME 连线</td></tr>
+          <tr><td><b>11-12（本篇口径日）</b></td><td class="num"><b>86.8%</b></td><td class="num"><b>13.2%</b></td><td class="num"><b>0%</b></td><td class="num"><b>28.3bp</b></td><td class="src">华尔街见闻 · CME FedWatch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>口径日时间线 · 从 CPI 到满值后的第二个收盘</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-date">11-10 下午 → 22:03（北京时间）</div><div class="timeline-title">50bp 概率由 0% 跳至 11.8%；10 月 CPI 公布后总概率首见 100%</div><div class="timeline-detail">美国 10 月 CPI 环比 +0.4%（高于预期 0.3%）、核心 CPI 环比 +0.3%（与前月持平）（财联社 11-12）。CPI 公布后市场对 12 月加息幅度的定价达到 28 个基点（新华社 / LSEG 11-11）。</div></div>
+      <div class="timeline-item"><div class="timeline-date">美东 11-11</div><div class="timeline-title">美元 19 个月新高 · 金价收破 4000 · 费半 +5.66%</div><div class="timeline-detail">美元指数涨 0.66% 收 102.908；美债现券因退伍军人节全天休市，无 10 年期收盘读数（期货照常交易）；现货黄金收报 3987.242 美元/盎司跌破 4000 关口；费城半导体指数 +5.66% 收 10,564.11 点；布伦特 1 月结算 92.76 美元/桶（+1.39%）。</div></div>
+      <div class="timeline-item"><div class="timeline-date">11-11（LME 场内）</div><div class="timeline-title">铝现货溢价一度 147 美元/吨 · 逾 30 年最高</div><div class="timeline-detail">LME 铝库存跌至 1990 年以来最低，两名交易商多头合计占交易所现成库存 60%-80%；LME 期铜收 13,817 美元/吨（+138）（陆家嘴财经早餐 / 华尔街见闻 11-12）。</div></div>
+      <div class="timeline-item"><div class="timeline-date">美东 11-12</div><div class="timeline-title">满值口径日：黄金失守 3900、布油结算 +3.30%、美元三连涨</div><div class="timeline-detail">盘中金价跌破 3900、低见 3852.21 美元/盎司（24K99 / FX168 11-12 23:55 北京时点）；收跌 2.79% 报 3876.62（上海证券报）；布伦特 1 月结算 95.82 美元/桶（+3.06 美元 / +3.30%）；美元指数收 103.174；10 年期收 5.11%（期货 11-12 22:55 GMT 报 5.1129%，#435 同逐字引文）；同日 CNBC 口径尾盘读数 5.125%（+逾 13 个基点）属跨源读数，不作收盘登记值。</div></div>
+      <div class="timeline-item"><div class="timeline-date">11-13 亚洲早盘</div><div class="timeline-title">序列前沿：PPI 公布后 10 年期报 5.125%（盘中）</div><div class="timeline-detail">东方财富 Choice 电报：10 年期美债收益率最新上涨 3.42 个基点，报 5.125%。盘中读数，不与 11-12 收盘混作同一点；日元在 159.58 附近逼近 160 关口（金十数据 11-12 13:00 北京时点）。</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>四张价格表之一：美元与利率，满值的第一个收盘</h2>
+    <p class="lede">口径日 2026-11-12 前，利率市场先交出了两个收盘：美元 11-11 创 19 个月新高；美债现券 11-11 因退伍军人节休市，10 年期在 11-12 复市后一次性站上 5%。表内只写点位；单日变动（bp）与源间分歧一律进台账，不入正文（436-口径裁定 §3A/B）。</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <caption>表① 美元 · 美债 · 股指锚（收盘口径，美东交易日）</caption>
+        <thead><tr><th>指标</th><th>11-10 收盘</th><th>11-11 收盘（美债休市）</th><th>11-12 收盘</th><th>11-13 亚洲早盘</th><th>引文 / 来源</th></tr></thead>
+        <tbody>
+          <tr><td>美元指数</td><td class="num">无</td><td class="num"><b>102.908</b></td><td class="num"><b>103.174</b></td><td class="num">无</td><td class="q">「美元指数涨0.66%报102.908，创2025年4月以来最高」（华尔街见闻/云财经 11-12）；11-12 值：「美元指数收于103.174，涨0.26%」（中新经纬·风口财经 11-13）</td></tr>
+          <tr><td>2 年期美债收益率</td><td class="num">4.74%</td><td class="num">休市</td><td class="num">4.86%</td><td class="num">无</td><td class="q">11-10/#429 在案；11-12=「2年期报4.8645%」（#435 在案引文）。11-11 美债现券因退伍军人节休市，无收盘读数（研析台账 §2-E/F/G 三源）；4.879% 为 11-12 尾盘 CNBC 口径读数，不作收盘登记值</td></tr>
+          <tr><td>10 年期美债收益率</td><td class="num">4.99%</td><td class="num">休市</td><td class="num"><b>5.11%</b><span class="tag">与#435对齐</span></td><td class="num">5.125%<span class="tag mid">盘中·PPI后</span></td><td class="q">11-10 收盘 4.99%（#429 在案）；11-11 美债现券因退伍军人节休市，无收盘值（研析台账 §2-E/F/G 三源）；11-12：「10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方」（期货 11-12 22:55 GMT，#435 同逐字引文）；同日 CNBC 口径尾盘读数 5.125%（QCP 周报经 PANews 11-13 转述，「10年期美债收益率上升13个基点至5.125%」）属跨源读数，不作收盘登记值；源间分歧 5.133% 记台账 §2-E；11-13：「10年期美债收益率最新上涨3.42个基点，报5.125%」（东方财富 Choice）</td></tr>
+          <tr><td>费城半导体指数收盘点位</td><td class="num">9,998.33</td><td class="num"><b>10,564.11</b></td><td class="num">10,506.67</td><td class="num">无</td><td class="q">11-11 值由 11-12 电稿「前收盘 10564.11」回算闭合（10564.11−57.44=10506.67 ✅；9998.33×1.0566≈10564.2 ✅）；11-10/11-12 均既往作品在案</td></tr>
+          <tr><td>美国 10 月 CPI <span class="tag">11-10 发布</span></td><td class="num" colspan="3">环比 +0.4%（预期 +0.3%）· 核心环比 +0.3%</td><td class="num">无</td><td class="q">「美国10月CPI环比+0.4%（高于预期0.3%）、核心CPI环比+0.3%（与前月持平）」（财联社 11-12）。概率轴上游，不占断言槽（裁定单 §2 落选处置）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>黄金：失守 4000，再失守 3900</h3>
+    <p>加息满值 + 实际利率上行 + 美元新高的组合里，黄金没有避险，只有跟跌：口径日三连跌到 3900 下方。11-11 收盘取简报在案值 3987.242（中新经纬/第一财经），金十 3987.93、财联社 3987.29 两口径记台账 §2-D，不取平均、不混用。</p>
+    <p>口径说明（只此一句）：现货黄金日度收报价沿用既往 `现货黄金结算价（MM-DD）` 家族标签（族内在案：10-29 = 4068.76、11-04 = 4063，引文同为「现货黄金…报 X 美元/盎司」式日度收报），本篇续点为 11-12 = 3876.62；盘中读数（3931.54、盘低 3852.21）与跨源值（3987.93 / 3987.29）不并入该序列。</p>
+    <div class="fig">
+      <svg viewBox="0 0 960 360" role="img" aria-label="折线图：现货黄金美元每盎司。11-03收盘3930.09、11-09收复4100、11-11结算价3987.242、11-12结算价3876.62；11-12盘中低见3852.21，0912 GMT报3931.54。参考线4000与3900。">
+        <line x1="90" y1="162.5" x2="930" y2="162.5" stroke="#8c2f2f" stroke-dasharray="4 4" opacity="0.45"/>
+        <text x="926" y="156" font-size="12" fill="#8c2f2f" text-anchor="end">4000 关口</text>
+        <line x1="90" y1="250" x2="930" y2="250" stroke="#8c2f2f" stroke-dasharray="4 4" opacity="0.45"/>
+        <text x="926" y="266" font-size="12" fill="#8c2f2f" text-anchor="end">3900 关口</text>
+        <polyline points="140,223.67 380,75 610,173.66 830,270.46" fill="none" stroke="#171a18" stroke-width="2.2"/>
+        <circle cx="140" cy="223.67" r="4" fill="#4f5551"/><text x="140" y="247" font-size="12" fill="#4f5551" text-anchor="middle">3930.09（11-03 收）</text>
+        <circle cx="380" cy="75" r="4" fill="#2f6b3e"/><text x="380" y="64" font-size="12" fill="#2f6b3e" text-anchor="middle">4100（11-09 收复价）</text>
+        <circle cx="610" cy="173.66" r="4" fill="#171a18"/><text x="610" y="160" font-size="12.5" fill="#171a18" text-anchor="middle" font-weight="600">3987.242（11-11 收）</text>
+        <line x1="830" y1="270.46" x2="830" y2="291.82" stroke="#8c2f2f" stroke-width="2"/>
+        <circle cx="830" cy="270.46" r="5.5" fill="#7d5a1c"/><text x="830" y="258" font-size="13" fill="#7d5a1c" text-anchor="middle" font-weight="700">3876.62（11-12 收）</text>
+        <text x="830" y="308" font-size="11.5" fill="#8c2f2f" text-anchor="middle">盘中低 3852.21</text>
+        <circle cx="760" cy="222.4" r="4" fill="none" stroke="#4f5551" stroke-dasharray="2 2"/><text x="742" y="212" font-size="11" fill="#4f5551" text-anchor="end">0912GMT 3931.54（盘中）</text>
+        <text x="90" y="345" font-size="11.5" fill="#646b67">实线=日度收报（结算价）口径（美东）；空心点与竖线=盘中时点，不并入日度序列。</text>
+      </svg>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <caption>表② 黄金 · 时点分列（结算价 / 收盘 / 盘中不得同格）</caption>
+        <thead><tr><th>时点</th><th>读数</th><th>类型</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>美东 11-11</td><td class="num">3987.242 美元/盎司</td><td>结算价<span class="tag">跌破4000</span></td><td class="src">中新经纬/第一财经 11-12：「现货黄金跌穿4000美元关口，收报3987.242美元/盎司」</td></tr>
+          <tr><td>美东 11-12 09:12 GMT</td><td class="num">3931.54 美元/盎司</td><td>盘中<span class="tag mid">跌1.4%</span></td><td class="src">cruxinvestor 11-12：三连跌、11 月 4 日以来最低（原文时点 0912 GMT）</td></tr>
+          <tr><td>美东 11-12 日内</td><td class="num">低见 3852.21 美元/盎司</td><td>盘中<span class="tag mid">跌破3900</span></td><td class="src">24K99 / FX168 11-12 23:55（北京时点）：「此前金价已跌破3900美元关口，最低触及3852.21美元/盎司」</td></tr>
+          <tr><td>美东 11-12</td><td class="num"><b>3876.62 美元/盎司</b></td><td>结算价<span class="tag">−2.79%</span></td><td class="src">上海证券报 11-13：「现货黄金收跌2.79%，报3876.62美元/盎司」（EBC 口径 3876.94 记源间差异）</td></tr>
+          <tr><td>美东 11-11</td><td class="num">COMEX 11 月期金 3992.00 美元/盎司</td><td>收盘</td><td class="src">「COMEX 11月期金跌28.70美元（-0.71%）报3992.00美元/盎司」（热点简报 11-12 在案）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>原油：满值利率下唯一逆美元走强的价格</h3>
+    <p>口径说明（只此一句）：表③布油标签括号日期为归属简报发布日、数值为该简报所引最近一个美东结算日的结算价（总指挥裁定一，映射表见台账 §4）。</p>
+    <div class="fig">
+      <svg viewBox="0 0 960 330" role="img" aria-label="折线图：布伦特1月合约结算价美元每桶，按简报归属日期：11-04为94.62、11-11为91.49、11-12为92.76、11-13为95.82。对应结算日依次为美东11-03、11-10、11-11、11-12。参考线90。本月累计下跌约21%。">
+        <line x1="90" y1="152" x2="930" y2="152" stroke="#d2d8d4" stroke-dasharray="2 4"/><text x="84" y="156" font-size="11.5" fill="#646b67" text-anchor="end">90</text>
+        <line x1="90" y1="82" x2="930" y2="82" stroke="#d2d8d4" stroke-dasharray="2 4"/><text x="84" y="86" font-size="11.5" fill="#646b67" text-anchor="end">95</text>
+        <polyline points="130,87.3 370,131.1 620,113.4 860,70.5" fill="none" stroke="#171a18" stroke-width="2.2"/>
+        <circle cx="130" cy="87.3" r="4" fill="#4f5551"/><text x="130" y="72" font-size="12" fill="#4f5551" text-anchor="middle">94.62（11-04）</text>
+        <circle cx="370" cy="131.1" r="4" fill="#4f5551"/><text x="370" y="152" font-size="12" fill="#4f5551" text-anchor="middle">91.49（11-11）</text>
+        <circle cx="620" cy="113.4" r="5" fill="#171a18"/><text x="620" y="99" font-size="12.5" fill="#171a18" text-anchor="middle" font-weight="600">92.76（11-12）</text>
+        <circle cx="860" cy="70.5" r="5.5" fill="#7d5a1c"/><text x="860" y="56" font-size="13" fill="#7d5a1c" text-anchor="middle" font-weight="700">95.82（11-13）</text>
+        <text x="130" y="188" font-size="11.5" fill="#646b67" text-anchor="middle">结算 11-03</text>
+        <text x="370" y="188" font-size="11.5" fill="#646b67" text-anchor="middle">结算 11-10</text>
+        <text x="620" y="188" font-size="11.5" fill="#646b67" text-anchor="middle">结算 11-11 · +1.39%</text>
+        <text x="860" y="188" font-size="11.5" fill="#646b67" text-anchor="middle">结算 11-12 · +3.06 美元 / +3.30%</text>
+        <text x="90" y="250" font-size="11.5" fill="#4f5551">两日连涨（自洽：91.49×1.0139=92.76 ✅；92.76+3.06=95.82 ✅），但本月累计仍约 −21%（华尔街见闻 11-12）。</text>
+        <text x="90" y="272" font-size="11.5" fill="#4f5551">驱动：「我们不需要和伊朗达成协议」表态（环球市场播报 11-12 22:31 盘中已站上 94）+ EIA 原油库存超预期累库 465.7 万桶被地缘消息吞掉。</text>
+      </svg>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <caption>表③ 原油 · 结算序列与供给面（结算 / 收盘 / 盘中分列）</caption>
+        <thead><tr><th>对象 · 时点</th><th>读数</th><th>类型</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>布伦特 1 月合约 · 结算（简报 11-11 系）</td><td class="num">91.49 美元/桶</td><td>结算<span class="tag">#429 在案</span></td><td class="src">「1月布伦特跌1.17%收91.49美元/桶」</td></tr>
+          <tr><td>布伦特 1 月合约 · <b>（11-12）</b></td><td class="num"><b>92.76 美元/桶</b></td><td>结算<span class="tag">+1.39%</span></td><td class="src">华尔街见闻 11-12：「布伦特1月合约涨1.39%报92.76美元/桶」</td></tr>
+          <tr><td>布伦特 1 月合约 · <b>（11-13）</b></td><td class="num"><b>95.82 美元/桶</b></td><td>结算<span class="tag">+3.30%</span></td><td class="src">富途牛牛 11-12 22:55 GMT：「布伦特原油1月合约结算于95.82美元/桶，上涨3.06美元、涨幅3.30%」</td></tr>
+          <tr><td>WTI 12 月合约 · 美东 11-11</td><td class="num">86.53 美元/桶</td><td>收盘<span class="tag">+0.57%</span></td><td class="src">华尔街见闻 11-12（热点简报在案）</td></tr>
+          <tr><td>WTI 12 月合约 · 美东 11-12</td><td class="num">88.74 美元/桶</td><td>结算<span class="tag">+2.55%</span></td><td class="src">上海证券报 11-13；富途牛牛同报（+2.21 美元、区间 85.20–89.14）</td></tr>
+          <tr><td>布油本月累计</td><td class="num">约 −21%</td><td>月度</td><td class="src">「布伦特本月累计下跌约21%」（华尔街见闻 11-12）</td></tr>
+          <tr><td>沙特 10 月日均产量</td><td class="num">1056 万桶 · 环比 +26%</td><td>OPEC 月报<span class="tag">10月口径</span></td><td class="src">「沙特10月日均产量升至1056万桶、环比激增26%，仅比2月开战前低数十万桶，略高于其OPEC配额上限」（华尔街见闻 11-12）；伊拉克约 490 万桶战时新高同条</td></tr>
+          <tr><td>霍尔木兹航运风险</td><td class="num">130+ 起袭击 / 至少 25 名海员死亡</td><td>IMO 统计<span class="tag">2-28 以来</span></td><td class="src">「自2月28日以来已核实霍尔木兹海峡发生130多起针对国际贸易商船的袭击事件，造成至少25名海员死亡」（飞马防务 / IMO 11-12）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-3)">机构观点（非数据点）：摩根大通认为美伊若达成协议、布油或跌至 70 美元中段（华尔街见闻 11-12）。与结算两连涨并存，恰是「地缘折价 vs 地缘升水」的分歧本身。</p>
+
+    <h3>铝与铜：不理汇率与利率的第三种账</h3>
+    <p>同一周的工业金属给出第三个方向：不是需求变好，是现货拿不到了：溢价、库存、持仓三条独立事实同时指向供给挤压。</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <caption>表④ 铝 · 铜（LME · 11-11/11-12）</caption>
+        <thead><tr><th>事实</th><th>读数</th><th>口径</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>现货对 3 个月期货溢价</td><td class="num"><b>一度升至每吨 147 美元</b></td><td>场内时点<span class="tag">逾30年最高</span></td><td class="src">「现货对三个月期货溢价一度升至每吨147美元、逾30年最高」（陆家嘴财经早餐 / 华尔街见闻 11-12）</td></tr>
+          <tr><td>LME 铝库存</td><td class="num">1990 年以来最低</td><td>独立事实</td><td class="src">「LME铝库存跌至1990年以来最低」（同上条）</td></tr>
+          <tr><td>持仓集中度</td><td class="num">两名交易商多头占现成库存 60%-80%</td><td>独立事实</td><td class="src">「两名交易商多头合计占交易所现成库存60%-80%」（同上条）。三条断言各自取句，不合并为一个「挤压指数」</td></tr>
+          <tr><td>LME 期铜</td><td class="num">13,817 美元/吨（+138）</td><td>收盘</td><td class="src">「LME期铜涨138美元报13817美元/吨」（同上条）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-3)">注：溢价「一度升至」为盘中峰值口径，非收盘结算；铝族标签 `LME铝现货对三个月期货溢价（11-11）` 定名即冻结（裁定单 §2 第 7 条），后续作品续线时用同族写法、换括号日期。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>传导图：三个上游，三种价格，一个成本侧</h2>
+    <div class="fig">
+      <svg viewBox="0 0 960 640" role="img" aria-label="传导图：三个上游驱动汇聚到三张价格表再到成本侧。上游一：12月加息概率满值，总概率100%，25个基点86.8%、50个基点13.2%，10月CPI环比+0.4%；经美元指数102.908到103.174与10年期5.11%（11-12收盘）传导。上游二：霍尔木兹130多起袭击与沙特10月日均产量1056万桶环比+26%；对应布伦特1月结算95.82美元每桶涨3.30%。上游三：LME铝库存1990年以来最低、两名交易商多头占现成库存60%到80%；对应铝现货对三个月期货溢价147美元每吨。价格：黄金结算价3876.62美元每盎司跌2.79%、布油95.82、铝溢价147与期铜13817。三个价格与10年期站上5%共同汇到成本侧：金属料与资金价格。">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4f5551"/></marker>
+        </defs>
+        <g font-family="inherit">
+          <rect x="34" y="52" width="252" height="120" rx="6" fill="#f4f6f4" stroke="#7d5a1c" stroke-width="1.4"/>
+          <text x="52" y="82" font-size="14" font-weight="700" fill="#171a18">上游一 · 利率满值</text>
+          <text x="52" y="106" font-size="12.5" fill="#4f5551">总概率 100%（11-12口径）</text>
+          <text x="52" y="126" font-size="12.5" fill="#4f5551">25bp 86.8% · 50bp 13.2%</text>
+          <text x="52" y="146" font-size="12.5" fill="#4f5551">10月 CPI 环比 +0.4%</text>
+          <rect x="34" y="252" width="252" height="120" rx="6" fill="#f4f6f4" stroke="#d2d8d4" stroke-width="1.2"/>
+          <text x="52" y="282" font-size="14" font-weight="700" fill="#171a18">上游二 · 地缘与配额</text>
+          <text x="52" y="306" font-size="12.5" fill="#4f5551">霍尔木兹 130+ 起袭击（IMO）</text>
+          <text x="52" y="326" font-size="12.5" fill="#4f5551">沙特 10 月 1056 万桶/日 · +26%</text>
+          <text x="52" y="346" font-size="12.5" fill="#4f5551">OPEC 月报口径（10 月）</text>
+          <rect x="34" y="452" width="252" height="120" rx="6" fill="#f4f6f4" stroke="#d2d8d4" stroke-width="1.2"/>
+          <text x="52" y="482" font-size="14" font-weight="700" fill="#171a18">上游三 · 供给与持仓</text>
+          <text x="52" y="506" font-size="12.5" fill="#4f5551">LME 铝库存 1990 年以来最低</text>
+          <text x="52" y="526" font-size="12.5" fill="#4f5551">两交易商多头占现成库存</text>
+          <text x="52" y="546" font-size="12.5" fill="#4f5551">60% - 80%</text>
+          <rect x="384" y="40" width="270" height="146" rx="6" fill="#121513"/>
+          <text x="402" y="68" font-size="13" fill="#b3bbb6">价格一 · 金（表②）</text>
+          <text x="402" y="98" font-size="24" font-family="Newsreader,Georgia,serif" fill="#eef0ee" font-weight="600">3876.62 美元/盎司</text>
+          <text x="402" y="122" font-size="12.5" fill="#b3bbb6">现货黄金结算价（11-12）· 收跌 2.79%</text>
+          <text x="402" y="142" font-size="12.5" fill="#d9a13a">盘中低 3852.21 · 跌破 3900</text>
+          <text x="402" y="164" font-size="12.5" fill="#b3bbb6">避险失效：与美元同向下跌利率定价</text>
+          <rect x="384" y="242" width="270" height="140" rx="6" fill="#f4f6f4" stroke="#171a18" stroke-width="1.3"/>
+          <text x="402" y="270" font-size="13" fill="#646b67">价格二 · 油（表③）</text>
+          <text x="402" y="300" font-size="24" font-family="Newsreader,Georgia,serif" fill="#171a18" font-weight="600">95.82 美元/桶</text>
+          <text x="402" y="324" font-size="12.5" fill="#4f5551">布伦特 1 月合约结算价（11-13）</text>
+          <text x="402" y="344" font-size="12.5" fill="#4f5551">+3.06 美元 / +3.30% · 月累计仍约 −21%</text>
+          <text x="402" y="364" font-size="12.5" fill="#4f5551">地缘升水回归，与美元逆向往</text>
+          <rect x="384" y="444" width="270" height="140" rx="6" fill="#f4f6f4" stroke="#171a18" stroke-width="1.3"/>
+          <text x="402" y="472" font-size="13" fill="#646b67">价格三 · 铝铜（表④）</text>
+          <text x="402" y="502" font-size="24" font-family="Newsreader,Georgia,serif" fill="#171a18" font-weight="600">147 美元/吨</text>
+          <text x="402" y="526" font-size="12.5" fill="#4f5551">LME铝现货对三个月期货溢价（11-11）</text>
+          <text x="402" y="546" font-size="12.5" fill="#4f5551">一度升至 · 逾 30 年最高</text>
+          <text x="402" y="566" font-size="12.5" fill="#4f5551">同期 LME 期铜 13,817 美元/吨（+138）</text>
+          <rect x="742" y="150" width="184" height="340" rx="6" fill="#efe4cc" stroke="#7d5a1c" stroke-width="1.2"/>
+          <text x="760" y="180" font-size="13" font-weight="700" fill="#7d5a1c">成本侧汇聚</text>
+          <text x="760" y="208" font-size="12" fill="#5a4310">金属料：铝=机架/散热板材，</text>
+          <text x="760" y="226" font-size="12" fill="#5a4310">铜=电力与母排（溢价与</text>
+          <text x="760" y="244" font-size="12" fill="#5a4310">期铜价同向抬升采购成本）</text>
+          <text x="760" y="272" font-size="12" fill="#5a4310">能源：布油结算两连涨</text>
+          <text x="760" y="290" font-size="12" fill="#5a4310">抬升电力与运输价</text>
+          <text x="760" y="318" font-size="12" fill="#5a4310">资金：10 年期 5.11%</text>
+          <text x="760" y="336" font-size="12" fill="#5a4310">（11-12 收盘）· 站回 5% 上方</text>
+          <text x="760" y="364" font-size="12" fill="#5a4310">本图不给任何资产估值结论；</text>
+          <text x="760" y="382" font-size="12" fill="#5a4310">资本开支事件线在 #435，</text>
+          <text x="760" y="400" font-size="12" fill="#5a4310">估值与 IPO 在 #429 / #432。</text>
+          <line x1="286" y1="112" x2="380" y2="100" stroke="#4f5551" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="292" y="84" font-size="11" fill="#8c2f2f">表①通道：美元指数 102.908→103.174 · 10Y 5.11%</text>
+          <line x1="286" y1="312" x2="380" y2="310" stroke="#4f5551" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="286" y1="512" x2="380" y2="512" stroke="#4f5551" stroke-width="1.5" marker-end="url(#arr)"/>
+          <path d="M654,112 C700,112 710,190 738,220" fill="none" stroke="#4f5551" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path d="M654,312 C700,312 712,290 738,290" fill="none" stroke="#4f5551" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path d="M654,512 C700,512 712,392 738,368" fill="none" stroke="#4f5551" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path d="M160,172 C160,210 300,236 738,258" fill="none" stroke="#8c2f2f" stroke-width="1.1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+          <text x="182" y="608" font-size="11.5" fill="#646b67">实线=同表数据点的直接对应；红虚线=资金价格通道（表①→成本侧）。节点数值与表①②③④逐一对齐。</text>
+        </g>
+      </svg>
+      <p class="fig-note">图 3｜「AI 资本开支第一次被放进一轮真正的紧缩里定价」是本期素材侧判断，本文只把其成本侧三要素（金属料、能源、资金价格）画成事实传导，估值叙事不复述。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>逐字证据 · 断言回原文</h2>
+    <div class="evidence">
+      <div class="evidence-item"><p class="evidence-quote">「CME FedWatch：美联储12月加息概率100%，其中加息25个基点概率86.8%、加息50个基点概率13.2%。」</p><p class="evidence-source">据 FedWatch · 华尔街见闻 11-12（每日热点新闻简报 2026-11-12 · 利率预期 1）。支撑断言 1、2</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方。」</p><p class="evidence-source">期货 11-12 22:55 GMT（#435 同逐字引文）。支撑断言 3：同标签、同数值、同引文，与 #435 序列对齐；「上行12.09个基点」为原句组成部分，正文不复述 bp（裁定单 §3A）</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「美国10年期美债收益率上升13个基点至5.125%。」（原句主语为 10 年期美债收益率）</p><p class="evidence-source">QCP 周报 · PANews 11-13 转述（报告口径为 11-12 单日）。跨源尾盘读数，不作收盘登记值、不占断言槽，只入表①出处列</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「美元指数涨0.66%报102.908，创2025年4月以来最高。」</p><p class="evidence-source">华尔街见闻 / 云财经 11-12（每日热点新闻简报 2026-11-12 · 金融动态 7）。支撑断言 4</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「布伦特1月合约涨1.39%报92.76美元/桶。」</p><p class="evidence-source">华尔街见闻 11-12（每日热点新闻简报 2026-11-12 · 金融动态 6）。支撑断言 5</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「伦敦现货黄金收跌2.79%，报3876.62美元/盎司。」</p><p class="evidence-source">上海证券报 11-13）。支撑断言 6；EBC 报 3876.94（−2.78%）记源间差异（台账 §2-D）</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「现货对三个月期货溢价一度升至每吨147美元、逾30年最高。」</p><p class="evidence-source">陆家嘴财经早餐 / 华尔街见闻 11-12（每日热点新闻简报 2026-11-12 · 金融动态 8）。支撑断言 7</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「费城半导体指数大涨：11日涨5.66%，成分股全部走高。」</p><p class="evidence-source">华尔街见闻 / 第一财经 11-12（每日热点新闻简报 2026-11-12 · 科技动态 3）。支撑断言 8</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「11月10日下午，CME美联储观察显示12月加息50个基点概率由前一日0%升至11.8%；CPI公布后市场对12月加息幅度的定价达到28个基点。」</p><p class="evidence-source">新华社 / LSEG 11-11（每日热点新闻简报 2026-11-12 · 利率预期 3）。概率轴 50bp 起点与 CPI 后隐含幅度旁证</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「10月CPI公布后，12月加息概率由此前约84%升至100%，一次性加息50个基点的预期同步升温。」</p><p class="evidence-source">FX168 11-11（每日股市简报 2026-11-12 · 利率预期 2）。满值首见时点旁证（#429 台账 11-10 22:03）</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「布伦特原油1月合约结算于95.82美元/桶，上涨3.06美元、涨幅3.30%。」</p><p class="evidence-source">富途牛牛 11-12 22:55 GMT。表③（11-13）续点；绝对变动与百分比并存原句（裁定单 §3F）</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「此前金价已跌破3900美元关口，最低触及3852.21美元/盎司。」</p><p class="evidence-source">24K99 / FX168 11-12 23:55 北京时点。盘中口径，与收盘价分列（表②）</p></div>
+      <div class="evidence-item"><p class="evidence-quote">「美国10月CPI环比+0.4%（高于预期0.3%）、核心CPI环比+0.3%（与前月持平）。」</p><p class="evidence-source">财联社 11-12 11:38（每日股市简报 2026-11-12 · 利率预期 4）。表①注，不占断言槽</p></div>
+    </div>
+    <div class="caliber"><b>口径总说明</b>：① 布油标签括号日期=归属简报发布日、数值=该简报所引最近美东结算日结算价（台账 §4）；② 收盘/结算/盘中/快照四类时点在标签与表内显式分列，盘中读数不并入收盘序列；③ 11-12 的 10Y/2Y 收盘以 #435 在案断言值（5.11%/4.86%）入表，源间分歧值（5.133%/4.881% 与 CNBC 口径 5.125%）只记台账与出处列，不作收盘登记值；④ 11-11 美债现券因退伍军人节休市，无 10Y/2Y 收盘读数（研析台账 §2-E/F/G 三源），表内该格写「休市」；⑤ 现货黄金日度收报价沿用 `现货黄金结算价（MM-DD）` 家族标签（族内在案 10-29 / 11-04），本篇续点 11-12 = 3876.62，盘中读数不并入该序列；⑥ 概率隐含幅度为线性折算（数析复算），非机构报价；⑦ 本文不含资产估值结论，与 #429/#428 的差异即「去 AI、只留宏观与实物商品」。</div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <p><b>#436 加息满值与 3900 美元</b> · 宏观利率与股市 · 研究件 · 口径日 2026-11-12</p>
+    <p>主责：数析（四张价格表与概率口径核算）· 协作：研析（美联储表态与商品行情原文核源，回报追记台账 §6）；量研任务（概率定价复核与历史可比）因 MiniMax 2056 配额耗尽失败，隐含幅度由数析复算兜底，历史可比项本篇未引用</p>
+    <p>数据截止：2026-11-14 03:3x（Asia/Shanghai）· 过程材料：notes/436-口径台账-数析.md · 436-核源台账-研析.md · 交付报告见同名 .md（量研台账未交付）</p>
+    <p>本文为公开报道口径的行情整理与核算，不构成投资建议。所有数字可沿引文回查原电稿；源间分歧均已注明，未取平均。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value":"100%","label":"CME 12月会议加息总概率（11-12口径）","quote":"美联储12月加息概率100%，其中加息25个基点概率86.8%、加息50个基点概率13.2%"},
+  {"value":"86.8%","label":"CME 12月会议加息25个基点概率（11-12口径）","quote":"加息25个基点概率86.8%、加息50个基点概率13.2%"},
+  {"value":"5.11%","label":"10年期美债收益率（11-12收盘口径）","quote":"10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"},
+  {"value":"102.908","label":"美元指数收盘点位（11-11）","quote":"美元指数涨0.66%报102.908，创2025年4月以来最高"},
+  {"value":"92.76 美元/桶","label":"布伦特 1 月合约结算价（11-12）","quote":"布伦特1月合约涨1.39%报92.76美元/桶"},
+  {"value":"3876.62 美元/盎司","label":"现货黄金结算价（11-12）","quote":"现货黄金收跌2.79%，报3876.62美元/盎司"},
+  {"value":"147 美元/吨","label":"LME铝现货对三个月期货溢价（11-11）","quote":"现货对三个月期货溢价一度升至每吨147美元、逾30年最高"},
+  {"value":"+5.66%","label":"费城半导体指数 · 11/11 单日涨幅","quote":"费城半导体指数大涨：11日涨5.66%，成分股全部走高"}
+]
+</script>
+</body>
+</html>

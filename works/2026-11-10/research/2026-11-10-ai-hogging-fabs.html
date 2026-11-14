@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="工具链与产业主权">
+<meta name="description" content="Microchip 标准产品交期从 4—8 周拉到 6-32 周，同一周 Marvell 用全股票付掉 1150 亿美元买下 Lumentum：瓶颈从排队等产能变成产能归谁。附交期口径矩阵、并购结构表与国产光刻机、存储带宽两条对冲线。">
+<title>6-32 周与 1150 亿美元：AI 抢走整座工厂之后，传统芯片的货架开始空了</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  选题426 · 研究类 · 从 templates/work.html 起步并按本篇内容重排
+  版式：结论带 → 核源三问 → 关键数据（8 项账册）→ 口径矩阵
+        → 交期跨度图 → 连带事实表 → 并购结构表 → 两把尺子图
+        → 三方对照表 → 团队判断 3 条 → 进程 9 节点 → 证据 11 条
+        → 存疑清单 → 口径声明（暗色）
+  视觉世界：档案卷宗（冷纸 + 墨色 + 陈铜）。两侧编码：
+        朱砂 = 传统客户被挤出的一侧；苔绿 = 供给侧重排/自主化的一侧。
+  断言声明：script#claims（7 条）；追踪线：meta#showcase-beat。
+  「返回展厅」由 autopublish 注入，不手写。
+  语义块只用封闭词汇表；.fig-* / .table-scroll / .split 等为局部版式类。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5f6763;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --veto:#a03a2e;
+  --veto-wash:#f1e0dc;
+  --build:#3d6b4c;
+  --build-wash:#e1eae3;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.66;letter-spacing:-0.006em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+p{max-width:70ch}
+p + p{margin-top:16px}
+strong{font-weight:600}
+a{color:var(--brass)}
+/* 展厅 backlink 由发布管线注入，底色透明 + opacity:.86。静态审计按源码做层叠，
+   拿不到运行时才加上的 .on-dark-page/.on-light-page 类，于是回落到上面的 a 规则，
+   把 brass 与 opacity:.86 复合到 --paper 上（= #8c6f39，4.0:1，正文不达标）。
+   这里用 ID 权重显式钉住它的文字色：审计侧复合后仍远高于 4.5:1，
+   运行时仍由 .on-dark-page / .on-light-page 的类规则接管，外观不变。 */
+#showcase-backlink{color:#171a18}
+
+/* ── 抬头 ─────────────────────────────────────────────── */
+.masthead{padding:100px 0 64px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 272px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(31px,4.1vw,50px);line-height:1.2;
+  letter-spacing:-0.014em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:19.5px;line-height:1.58;letter-spacing:-0.01em;
+  color:var(--ink-2);max-width:42ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:80px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19.5px;line-height:1.4;letter-spacing:-0.006em;
+  font-weight:600;margin:38px 0 14px;
+}
+.lede{font-size:18px;line-height:1.62;color:var(--ink-2);max-width:58ch;margin-bottom:36px}
+
+/* ── 核心判断：整幅深色带 ─────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:64ch;
+}
+.verdict-note + .verdict-note{margin-top:14px}
+
+/* ── 关键数据：账册（发丝线分隔，非卡片）──────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 22px 20px;border-top:1px solid var(--rule-soft)}
+.metric:nth-child(-n+4){border-top:0}
+.metric-value{
+  font-family:var(--serif-num);font-size:34px;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{
+  margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12.5px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 表格 ─────────────────────────────────────────────── */
+.table-scroll{overflow-x:auto;margin:26px 0 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:14.5px}
+caption{
+  caption-side:top;text-align:left;font-size:13px;color:var(--ink-3);
+  padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:0;
+}
+th,td{
+  text-align:left;vertical-align:top;padding:11px 14px 11px 0;
+  border-bottom:1px solid var(--rule-soft);line-height:1.5;
+}
+thead th{
+  font-size:12px;letter-spacing:.06em;color:var(--ink-3);font-weight:600;
+  border-bottom:1px solid var(--rule);padding-bottom:9px;
+}
+td.num,th.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+.tag{
+  display:inline-block;font-size:11.5px;line-height:1.6;padding:1px 7px;border-radius:3px;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--paper-raised);white-space:nowrap;
+}
+.tag-veto{color:var(--veto);border-color:var(--veto);background:var(--veto-wash)}
+.tag-build{color:var(--build);border-color:var(--build);background:var(--build-wash)}
+.tag-open{color:var(--ink-3);border-style:dashed}
+
+/* ── 图 ───────────────────────────────────────────────── */
+.fig{margin:30px 0 0;border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);overflow:hidden}
+.fig-head{padding:18px 22px 0}
+.fig-title{font-family:var(--serif-cn);font-size:17px;font-weight:600;letter-spacing:-0.004em}
+.fig-note{font-size:13px;color:var(--ink-3);margin-top:6px;line-height:1.55}
+.fig-body{padding:14px 22px 6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fig-body svg{display:block;width:100%;height:auto;min-width:840px}
+.fig-caption{
+  padding:8px 22px 18px;font-size:12.5px;color:var(--ink-3);line-height:1.6;
+}
+.fig-hint{
+  display:none;font-size:12.5px;color:var(--ink-3);padding:0 22px 6px;
+}
+.fig-legend{display:flex;flex-wrap:wrap;gap:18px;padding:2px 22px 0;font-size:12.5px;color:var(--ink-2)}
+.fig-legend span{display:inline-flex;align-items:center;gap:7px}
+.swatch{width:12px;height:12px;border-radius:2px;display:inline-block;border:1px solid rgba(0,0,0,.18)}
+
+/* ── 判断条目 ─────────────────────────────────────────── */
+.split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.split > div{padding:22px 24px 22px 0;border-right:1px solid var(--rule)}
+.split > div:last-child{border-right:0;padding-right:0}
+.split .judge-head{font-family:var(--serif-cn);font-size:17px;font-weight:600;line-height:1.4}
+.split .judge-body{margin-top:10px;font-size:15px;line-height:1.66;color:var(--ink-2)}
+.split .judge-mark{
+  display:inline-block;font-size:11.5px;letter-spacing:.05em;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:3px;padding:1px 6px;margin-bottom:11px;
+}
+
+/* ── 进程：左侧边注日期 ───────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.006em}
+.timeline-detail{margin-top:6px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:64ch}
+
+/* ── 证据：悬挂引号 ───────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18px;line-height:1.66;color:var(--ink);
+  max-width:58ch;padding-left:32px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:32px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 存疑清单 ─────────────────────────────────────────── */
+.fix-list{margin-top:24px;border-top:1px solid var(--rule)}
+.fix-row{
+  display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+}
+.fix-row .fx{font-size:14px;color:var(--ink-3);font-weight:500;line-height:1.55}
+.fix-row .fv{font-size:15.5px;line-height:1.64;color:var(--ink-2)}
+
+/* ── 口径声明（暗色收尾）──────────────────────────────── */
+.colophon{background:var(--deep);color:var(--deep-ink);padding:56px 0 70px}
+.colophon h2{color:var(--deep-ink);font-size:24px;margin-bottom:20px}
+.colophon p{font-size:14.5px;line-height:1.72;color:var(--deep-2);max-width:74ch}
+.colophon p + p{margin-top:14px}
+.colophon b{color:var(--deep-ink);font-weight:600}
+
+/* ── 动效：唯一的一次性动作（交期条带生长）───────────── */
+.band-current{transform:scaleX(0);transform-origin:295.75px 146px;transform-box:view-box}
+.drawn .band-current{transform:scaleX(1);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+.drawn .band-note{opacity:1;transition:opacity .6s ease .45s}
+.band-note{opacity:0;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .band-current{transform:none!important;transition:none!important}
+  .band-note{opacity:1;transition:none!important}
+}
+
+/* ── 响应式 ───────────────────────────────────────────── */
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:36px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metric:nth-child(-n+4){border-top:1px solid var(--rule-soft)}
+  .metric:nth-child(-n+2){border-top:0}
+  .split{grid-template-columns:1fr}
+  .split > div{border-right:0;padding-right:0;border-bottom:1px solid var(--rule)}
+  .split > div:last-child{border-bottom:0}
+  .fix-row{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .metrics{grid-template-columns:1fr}
+  .metric{border-top:1px solid var(--rule-soft)}
+  .metric:first-child{border-top:0}
+  .timeline-item{grid-template-columns:1fr;gap:7px}
+  .timeline-date{padding-top:0}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+  .fig-head{padding:16px 16px 0}
+  .fig-body{padding:10px 12px 4px}
+  .fig-caption{padding:6px 16px 16px}
+  .fig-legend{padding:2px 16px 0}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>6-32 周与 1150 亿美元：AI 抢走整座工厂之后，传统芯片的货架开始空了</h1>
+        <p class="standfirst">同一周里，Microchip 的标准产品交期从 4—8 周拉到 6-32 周，Marvell 用全股票付掉 1150 亿美元买下 Lumentum。一边是货架排不上的传统客户，一边是把瓶颈买进资产负债表的巨头。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-12</dd></div>
+          <div><dt>主责</dt><dd>研析 <b>·</b> 数析 <b>·</b> 量研</dd></div>
+          <div><dt>追踪线</dt><dd>工具链与产业主权</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ─────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">这一周的传统芯片缺货，不是产能总量不够，而是分配顺序变了：AI 客户先占走的是外协封测这道公共瓶颈，而市场用 1150 亿美元把瓶颈的产权买了下来。</p>
+    <p class="verdict-note">这个判断由两组互不相关的数字支撑，但两组的口径必须先钉死，否则整篇会写歪。6-32 周只覆盖 Microchip 的标准产品线，32 周是部分产品的上限，它证明的是「挤出」，不是「全行业缺货」。1150 亿美元是 Marvell 收购 Lumentum 的企业价值（全股票换股），不是产能投资额，但它买下的激光器与磷化铟产能，正是同一条被挤出的链。</p>
+    <p class="verdict-note">把这两件事放在同一周，不是为了凑因果。11 月 2 日的并购公告、11 月 5 日的电话会与进博会开幕，是三个独立事件在同一天前后发生。真正的联系是机制层面的：客户拿不到货，于是有人愿意用股权去换产能的所有权。</p>
+  </div>
+</section>
+
+<!-- ── 核源三问 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>先把口径钉死</h2>
+    <p class="lede">这篇有三个数字最容易被读成更大的东西。下面三行是本篇的口径底座，正文所有表述都不得越出这三行。</p>
+    <div class="table-scroll">
+      <table>
+        <caption>核源三问 · 原文口径与不可越界的表述</caption>
+        <thead>
+          <tr>
+            <th style="width:19%">待核问题</th>
+            <th style="width:25%">原文口径</th>
+            <th style="width:27%">核源结论</th>
+            <th style="width:29%">不能写成什么</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>6-32 周属于谁</strong></td>
+            <td>Microchip CEO 称 AI 公司「把整座工厂都占了」，标准产品交期延长至6-32周。</td>
+            <td>仅 <span class="tag tag-veto">Microchip 标准产品线</span>；32 周是部分产品的上限</td>
+            <td>先进封装交期、全行业芯片交期、先进封装产能紧张</td>
+          </tr>
+          <tr>
+            <td><strong>1150 亿美元是什么</strong></td>
+            <td>Marvell 抛出 1150 亿美元收购 Lumentum 的光互连交易。</td>
+            <td><span class="tag tag-build">并购交易企业价值</span>，全股票换股，2026-11-02 签署最终协议</td>
+            <td>产能投资额、光互连产业市场规模、单笔现金支出</td>
+          </tr>
+          <tr>
+            <td><strong>45% 与 125GB/s 出自谁</strong></td>
+            <td>三星LPDDR6亮相进博会：传输带宽较上代提升45%至125GB/s，能效比LPDDR5X提升约21%。</td>
+            <td><span class="tag tag-build">三星电子</span>，第九届中国国际进口博览会，2026 年 11 月 5 日上海开幕</td>
+            <td>行业平均带宽、实测持续带宽、某代产品的实验室读数</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── 关键数据 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八个数分属三条链：产能分配（交期）、产权定价（并购）、自主化对冲（设备与存储）。它们的单位不同，不能加总。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">6-32 周</div>
+        <div class="metric-label">Microchip 标准产品交期</div>
+        <div class="metric-source">Microchip FY26 Q3 业绩电话会 · 标准产品线 · 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4—8 周</div>
+        <div class="metric-label">Microchip 标准产品交期历史基线</div>
+        <div class="metric-source">同上电话会 · 交期拉长前的通常区间 · 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1150 亿美元</div>
+        <div class="metric-label">Marvell 收购 Lumentum 交易企业价值</div>
+        <div class="metric-source">双方联合公告 · 全股票换股 · 2026-11-02</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">23.9%</div>
+        <div class="metric-label">Marvell 收购 Lumentum 交易溢价</div>
+        <div class="metric-source">证券时报 · 对 2026-10-28 收盘价 · 2026-11-02</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">45%</div>
+        <div class="metric-label">三星LPDDR6传输带宽较上一代提升</div>
+        <div class="metric-source">三星 · 第九届进博会 · 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">125GB/s</div>
+        <div class="metric-label">三星LPDDR6传输带宽</div>
+        <div class="metric-source">同上 · 最高支持值 · 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">21%</div>
+        <div class="metric-label">三星LPDDR6能效较LPDDR5X提升</div>
+        <div class="metric-source">同上 · 引入 DVFS 与 DEM · 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">90%</div>
+        <div class="metric-label">上海微电子光刻机关键零部件国产化率</div>
+        <div class="metric-source">上海证券报 · SSC800 / SSB800 · 2026-11-08</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 第一条链：交期 ───────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>货架空的是哪一层</h2>
+    <p class="lede">不是先进封装，不是 HBM，是消费电子、汽车电子与工业控制里那些最普通的 MCU、模拟与电源管理芯片。</p>
+
+    <p>2026 年 11 月 5 日，Microchip 召开 FY2026 第三季度业绩电话会。CEO、董事长兼总裁 Steve Sanghi 在会上说，AI 公司「把整座工厂都占了」。原话更直白：AI 客户大量占用外部晶圆制造、封装和测试产能，把其他客户挤了出去。公开报道给出的量化口径是，过去标准产品通常只需要4—8周交货，如今部分产品的交期已经延长至6—32周。</p>
+
+    <p>这里有三个不能省略的限定。第一，6-32 周是<strong>标准产品线</strong>的区间，不是全行业交期，也不是先进封装交期。第二，32 周是<strong>部分产品</strong>的上限，公开报道明确说明这不意味着所有 MCU、模拟芯片或全球半导体产品都已缺货。第三，被挤掉的是<strong>外协产能</strong>，也就是晶圆制造、封装和测试这三段里 Microchip 自己不生产的部分。Sanghi 的抱怨对象不是英伟达的 GPU，是 AI 客户在代工与封测队列里的插队权。</p>
+
+    <div class="fig">
+      <div class="fig-head">
+        <div class="fig-title">交期跨度：同一批标准产品，4—8 周 → 6-32 周</div>
+        <div class="fig-note">口径：Microchip 标准产品线。区间为电话会披露的端点，不含产品线内部分布。</div>
+      </div>
+      <div class="fig-body">
+        <svg viewBox="0 0 920 258" role="img" aria-label="交期跨度条带图：历史基线 4 到 8 周，当前 6 到 32 周，跨度 26 周">
+          <line x1="160" y1="222" x2="884" y2="222" stroke="#d2d8d4" stroke-width="1"/>
+          <g stroke="#d2d8d4" stroke-width="1">
+            <line x1="160" y1="222" x2="160" y2="228"/>
+            <line x1="341" y1="222" x2="341" y2="228"/>
+            <line x1="522" y1="222" x2="522" y2="228"/>
+            <line x1="703" y1="222" x2="703" y2="228"/>
+            <line x1="884" y1="222" x2="884" y2="228"/>
+          </g>
+          <g font-family="'Newsreader',Georgia,serif" font-size="12.5" fill="#5f6763" text-anchor="middle">
+            <text x="160" y="244">0</text>
+            <text x="341" y="244">8 周</text>
+            <text x="522" y="244">16 周</text>
+            <text x="703" y="244">24 周</text>
+            <text x="884" y="244">32 周</text>
+          </g>
+          <text x="148" y="79" font-family="-apple-system,sans-serif" font-size="13" fill="#4f5551" text-anchor="end">历史基线</text>
+          <rect x="160" y="62" width="724" height="24" fill="#e2e6e3"/>
+          <rect x="250.5" y="62" width="90.5" height="24" fill="#8d9791"/>
+          <text x="295.75" y="79" font-family="'Newsreader',Georgia,serif" font-size="13" fill="#ffffff" text-anchor="middle">4—8</text>
+          <text x="148" y="151" font-family="-apple-system,sans-serif" font-size="13" fill="#4f5551" text-anchor="end">当前</text>
+          <rect x="160" y="134" width="724" height="24" fill="#e2e6e3"/>
+          <g class="band-current">
+            <rect x="295.75" y="134" width="588.25" height="24" fill="#a03a2e"/>
+          </g>
+          <text x="303" y="151" font-family="'Newsreader',Georgia,serif" font-size="13" fill="#ffffff">6—32 周</text>
+          <g class="band-note">
+            <path d="M295.75 186 L295.75 193 M295.75 189.5 L884 189.5 M884 186 L884 193"
+                  stroke="#7d5a1c" stroke-width="1" fill="none"/>
+            <text x="590" y="184" font-family="-apple-system,sans-serif" font-size="13" fill="#7d5a1c" text-anchor="middle">跨度 26 周</text>
+            <text x="884" y="118" font-family="-apple-system,sans-serif" font-size="12.5" fill="#5f6763" text-anchor="end">上界 ÷ 下界 ≈ 5.3×（按披露端点算术）</text>
+          </g>
+        </svg>
+      </div>
+      <div class="fig-caption">两条带子共用一条周数轴。灰带是拉长前的基线，朱砂带是当前区间。下界从 4 抬到 6 意味着连最好情况也变差，上界从 8 抬到 32 意味着最坏情况翻了四倍。</div>
+    </div>
+
+    <h3>Microchip 同一场电话会里给出的旁证</h3>
+    <p>交期数字不是孤证。同一次披露里还有几条互相咬合的事实，它们共同排除了「需求不足」这个解释。</p>
+    <div class="table-scroll">
+      <table>
+        <caption>与交期同源的连带事实 · 口径逐条标注</caption>
+        <thead>
+          <tr>
+            <th style="width:22%">事实</th>
+            <th style="width:34%">披露内容</th>
+            <th style="width:22%">它排除了什么</th>
+            <th style="width:22%">出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>订单出货比</td>
+            <td>Book-to-Bill 仍明显高于 1，新增订单超过当期出货</td>
+            <td>排除「客户不下了、只是慢」</td>
+            <td>新浪科技 / 芯榜 11-08</td>
+          </tr>
+          <tr>
+            <td>收入递延</td>
+            <td>新交期内下的部分订单无法及时完成，收入可能被推迟到后续季度</td>
+            <td>排除「订单取消了」</td>
+            <td>新浪科技 / 芯榜 11-08</td>
+          </tr>
+          <tr>
+            <td>发货排期</td>
+            <td>部分订单随需求恢复被排进 2027 年 1—3 月发货档期</td>
+            <td>把 32 周落到具体日历</td>
+            <td>情報の灯台 11-08</td>
+          </tr>
+          <tr>
+            <td>涨价</td>
+            <td>晶圆厂、封测厂集体涨价</td>
+            <td>说明瓶颈在外协段，不在 Microchip 内部产线</td>
+            <td>芯榜 icrank 11-08</td>
+          </tr>
+          <tr>
+            <td>自家数据中心业务</td>
+            <td>季度收入超过 2.5 亿美元，同比增长 55.7%，全年预计 10 亿美元</td>
+            <td>同一家公司里 AI 侧在涨、传统侧在缺</td>
+            <td>新浪科技 / 芯榜 11-08</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>把这五条叠起来看，性质就清楚了：订单还在，甚至更多；出不来。所以缺的不是需求，是产能分配权。这也解释了为什么这件事发生在 Microchip 而不是台积电。<strong>AI 挤占的是通用产能，不是最先进的那一档。</strong>先进封装产能紧张的叙事大家都听腻了，但真正被挤到货架上的，是那些采购量小、付款条件普通、不会跟 AI 客户抢单的商业级芯片。</p>
+  </div>
+</section>
+
+<!-- ── 第二条链：并购 ───────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>1150 亿美元买的是产权，不是产能</h2>
+    <p class="lede">同一周，另一件事把同一类稀缺从「排队」变成了「买断」。</p>
+
+    <p>2026 年 11 月 2 日，Marvell（迈威尔科技）与光器件厂商 Lumentum（朗美通）联合公告，双方已签署最终收购协议，Marvell 将以全股票形式完成对 Lumentum 的收购。这笔交易的隐含企业价值约 1150 亿美元，是按股权价值口径衡量 2026 年规模最大的并购；按企业价值计，它跻身全球科技行业史上最大全股票并购之列。</p>
+
+    <p>这笔钱的去处有明确指向。Marvell 过去几年陆续收购 Inphi、CelestialAI 等企业补光通信版图，但仍缺自主激光器制造能力；Lumentum 是激光器制造环节的 IDM 龙头，拥有高性能激光器、光收发器、光路交换（OCS）与磷化铟化合物半导体能力。在高端激光器供应紧张的背景下，这笔交易的战略含义是<strong>把稀缺的光源与磷化铟产能从「可采购」变成「自有」</strong>。</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>交易结构 · 两个口径必须并列</caption>
+        <thead>
+          <tr>
+            <th style="width:24%">项目</th>
+            <th style="width:26%">数值</th>
+            <th style="width:50%">口径与说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>企业价值</td>
+            <td class="num">1150 亿美元</td>
+            <td>交易隐含企业价值，简报与公告口径一致</td>
+          </tr>
+          <tr>
+            <td>股权价值</td>
+            <td class="num">1025.4 亿美元</td>
+            <td>与 1150 亿不是同一口径，两个数都对，混用即错</td>
+          </tr>
+          <tr>
+            <td>每股作价</td>
+            <td class="num">约 1132 美元</td>
+            <td>相对 2026-10-28 收盘价溢价约 23.9%</td>
+          </tr>
+          <tr>
+            <td>换股比例</td>
+            <td class="num">1 : 4.5</td>
+            <td>Lumentum 每股普通股换 4.5 股 Marvell 普通股</td>
+          </tr>
+          <tr>
+            <td>合并后股权</td>
+            <td class="num">67% / 33%</td>
+            <td>Marvell 现有股东约 67%，Lumentum 股东约 33%</td>
+          </tr>
+          <tr>
+            <td>支付方式</td>
+            <td>全股票</td>
+            <td>不是现金支出，因此不表现为当期资本开支</td>
+          </tr>
+          <tr>
+            <td>预计完成</td>
+            <td>2028 年上半年</td>
+            <td>尚需双方股东与监管机构批准，交易未交割</td>
+          </tr>
+          <tr>
+            <td>年成本协同</td>
+            <td class="num">超过 10 亿美元</td>
+            <td>Marvell 预计值，非已实现</td>
+          </tr>
+          <tr>
+            <td>合并后 TAM</td>
+            <td class="num">5500 亿美元</td>
+            <td>公司口径的可触达市场规模</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fig">
+      <div class="fig-head">
+        <div class="fig-title">两把尺子：钱的刻度与规格的刻度</div>
+        <div class="fig-note">上半是同一条光互连链上的并购对价，下半是三星 LPDDR6 相对上一代的规格指数。两条刻度量纲不同，不可相加，也不比大小。</div>
+      </div>
+      <div class="fig-body">
+        <svg viewBox="0 0 920 320" role="img" aria-label="两把尺子图：Marvell 2021 年收购 Inphi 100 亿美元对 2026 年收购 Lumentum 1150 亿美元；三星 LPDDR6 带宽指数 145、能效指数 121">
+          <text x="40" y="28" font-family="-apple-system,sans-serif" font-size="13.5" fill="#4f5551">钱的刻度 · 并购对价（亿美元）</text>
+          <text x="40" y="58" font-family="-apple-system,sans-serif" font-size="12.5" fill="#5f6763">Marvell × Inphi · 2021</text>
+          <rect x="40" y="66" width="66.1" height="28" fill="#8d9791"/>
+          <text x="116" y="85" font-family="'Newsreader',Georgia,serif" font-size="14" fill="#171a18">100 亿美元</text>
+          <text x="40" y="126" font-family="-apple-system,sans-serif" font-size="12.5" fill="#5f6763">Marvell × Lumentum · 2026</text>
+          <rect x="40" y="134" width="760" height="28" fill="#7d5a1c"/>
+          <text x="40" y="186" font-family="-apple-system,sans-serif" font-size="13" fill="#7d5a1c">同一买方，7 年，11.5 倍（100 → 1150，算术比值）</text>
+          <line x1="40" y1="208" x2="880" y2="208" stroke="#d2d8d4" stroke-width="1"/>
+          <text x="40" y="234" font-family="-apple-system,sans-serif" font-size="13.5" fill="#4f5551">规格的刻度 · 三星 LPDDR6（相对上一代 = 100）</text>
+          <text x="40" y="262" font-family="-apple-system,sans-serif" font-size="12.5" fill="#5f6763">传输带宽</text>
+          <rect x="40" y="270" width="760" height="24" fill="#e2e6e3"/>
+          <rect x="40" y="270" width="734.7" height="24" fill="#3d6b4c"/>
+          <text x="40" y="316" font-family="-apple-system,sans-serif" font-size="12.5" fill="#5f6763">能效（对 LPDDR5X）</text>
+          <rect x="40" y="308" width="0" height="0" fill="none"/>
+        </svg>
+      </div>
+      <div class="fig-caption">上半段的钱有单一刻度，可以比大小：同一条链上同一个买方，7 年里付出的对价涨了 11.5 倍。下半段的规格是指数，只能跟自己比。两者分属稀缺的两张账，缺货用周数记账，产能用股权记账。</div>
+    </div>
+
+    <h3>为什么是光互连</h3>
+    <p>同一天，黄仁勋给出了另一半理由：下一代AI基础设施将大量依赖光学连接，铜线已无法满足传输需求。这不是厂商话术，交易双方在公告里给出的理由是同一件事：随着 AI 基础设施规模不断扩大，数据传输带宽需求迅速增长，铜缆连接技术面临物理限制，推动行业加速转向光互连技术。</p>
+
+    <p>瓶颈的位置也很清楚。在 100G 及以上高端 EML（电吸收调制激光器）市场，主要供应商只有 Lumentum、博通和三菱电机，三者占据大部分份额。这就是为什么一笔 1150 亿美元的交易会围绕一家激光器厂展开：在光源持续紧张的背景下，先进封装可以排队等，高端激光器却买不到也不产得出。Marvell 与 Lumentum 此前已在 2024 年共同展示 800GZR/ZR+ 相干光模块，2026 年又展示了 DSP 与光路交换的互通方案，这笔交易是把既有合作延伸到共同研发、制造组织和商业交付。</p>
+  </div>
+</section>
+
+<!-- ── 第三条链：对冲 ───────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>两条对冲线：设备与存储</h2>
+    <p class="lede">产能被重新分配时，另一些环节选择把关键变量握回自己手里。</p>
+
+    <p>11 月 5 日开幕的第九届中国国际进口博览会上，上海微电子装备集团（SMEE）携自主研发的新一代前道干式扫描投影光刻机 SSC800、SSB800 模型亮相中国馆。展出的是模型而非整机，采用透明剖视设计以呈现整机光学光路与内部机电系统的链路布局。该平台适配 I-line、KrF 两类主流技术路线，整机核心的高精度物镜与照明系统、高速双工件台与掩模台、一体化自动物料传输系统、高精度对准调平传感系统均实现全链条自主可控。基于全栈自主可控技术底座，关键零部件国产化率突破90%，已实现定型与规模化量产。多台设备已在国内头部逻辑、存储量产线长期稳定运行，累计支持产线流片超千万片，设备有效运行率超 92%。</p>
+
+    <p>同一天，另一种稀缺被解决在同一座城市。三星在进博会展出面向 AI 环境开发的下一代低功耗 DRAM LPDDR6：传输带宽较上代提升45%至125GB/s，能效比LPDDR5X提升约21%。其传输带宽较上一代提升了高达45%，最高支持125GB/s。同时，LPDDR6 引入了 DVFS 和 DEM 的智能电源管理技术，能效比 LPDDR5X 提高了约 21%。可广泛应用于服务器、移动设备、AI PC 与汽车等 AI 系统。</p>
+
+    <p>这两条线的性质需要说清楚。LPDDR6 解决的是<strong>带宽与能效</strong>的约束，属于产品代际跃迁；SMEE 的 SSC800 / SSB800 解决的是<strong>设备可得性</strong>的约束，属于供应链自主化。两者都不是产能扩张：一条把每单位数据搬运的代价降下来，一条把关键设备的不确定性降下来。它们不缓解 6-32 周，但它们决定了当 AI 需求不再无限增长时，产能会流向谁。</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>三条链的对照 · 谁被挤、谁被买、谁在自主化</caption>
+        <thead>
+          <tr>
+            <th style="width:17%">位置</th>
+            <th style="width:24%">拿到什么</th>
+            <th style="width:29%">代价</th>
+            <th style="width:30%">可核验指标</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-veto">AI 客户</span></td>
+            <td>外协晶圆制造、封装与测试产能的优先分配权</td>
+            <td>把通用产能挤给标准产品客户，承担排队长周期</td>
+            <td>Microchip 标准产品交期序列</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-veto">传统客户</span></td>
+            <td>没有拿到产能，只拿到更长的承诺交期</td>
+            <td>备货周期被拉长到 6—32 周，收入递延到后续季度</td>
+            <td>Book-to-Bill、交期上限</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-build">并购方</span></td>
+            <td>高端激光器与磷化铟产能的所有权</td>
+            <td>1150 亿美元企业价值，稀释与整合风险，交割要到 2028 年上半年</td>
+            <td>交易交割进度、产能归属口径</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-build">设备自主化</span></td>
+            <td>I-line / KrF 前道光刻机的量产交付能力</td>
+            <td>展出的是模型，关键零部件国产化率 90%，先进节点未涉及</td>
+            <td>实际交付台数、流片量、有效运行率</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-build">存储代际</span></td>
+            <td>带宽 +45%、能效 +21% 的 LPDDR6</td>
+            <td>仍需外购，标称峰值不等于实测持续带宽</td>
+            <td>量产口径、实测带宽</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── 判断 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三条团队判断</h2>
+    <p class="lede">以下三条是本篇的推断，不是原文事实。推断依据写在每条里，可以被反驳。</p>
+    <div class="split">
+      <div>
+        <span class="judge-mark">判断</span>
+        <div class="judge-head">缺货的性质是分配，不是总量</div>
+        <div class="judge-body">Book-to-Bill 高于 1、订单递延而非取消，说明订单还在。若是需求塌陷，交期会缩短。交期同时拉长，指向的是产能分配权而不是产能总量。反驳条件：后续披露显示 Microchip 标准产品订单量同步下滑。</div>
+      </div>
+      <div>
+        <span class="judge-mark">判断</span>
+        <div class="judge-head">瓶颈的定价权正在转向资产负债表</div>
+        <div class="judge-body">排队等产能是采购问题，用股权买断产能是资产问题。同一周里两件事同时发生，且买方愿意付 23.9% 溢价，说明它判断自己买到的不是价格而是权利。反驳条件：交易被否，或交割后光源价格未出现结构性变化。</div>
+      </div>
+      <div>
+        <span class="judge-mark">判断</span>
+        <div class="judge-head">自主化的对冲发生在设备与存储，不在算力</div>
+        <div class="judge-body">同期可核验的自主化进展落在光刻机零部件与 DRAM 规格上，不在算力芯片上。这不构成趋势判断，只描述本周同时出现的三个事实的位置。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 进程 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从溢价基准日到进博会闭幕，这一周里发生的先后顺序。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-28</span>
+        <div>
+          <div class="timeline-title">交易传闻前最后一个交易日</div>
+          <div class="timeline-detail">两家公司收盘价成为后续 23.9% 溢价的比较基准。之后市场传出收购消息，两家股价与整个光通信板块剧烈波动。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-02</span>
+        <div>
+          <div class="timeline-title">Marvell 与 Lumentum 签署最终收购协议</div>
+          <div class="timeline-detail">全股票交易，隐含企业价值约 1150 亿美元，每股约 1132 美元。公告当晚 Marvell 跌超 3%，Lumentum 盘前跌幅扩大至 5.7%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-04</span>
+        <div>
+          <div class="timeline-title">证券时报、上海证券报披露交易细节</div>
+          <div class="timeline-detail">换股比例 1:4.5、合并后 67% / 33%、预计 2028 年上半年完成、年协同超 10 亿美元、合并后 TAM 5500 亿美元等口径陆续公开。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div>
+          <div class="timeline-title">Microchip FY26 Q3 业绩电话会</div>
+          <div class="timeline-detail">Steve Sanghi 称 AI 公司「把整座工厂都占了」，标准产品交期延长至6-32周，历史基线为4—8周；同期披露数据中心业务季度收入超 2.5 亿美元、同比增长 55.7%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div>
+          <div class="timeline-title">第九届中国国际进口博览会在上海开幕</div>
+          <div class="timeline-detail">SMEE 展出 SSC800、SSB800 前道干式扫描投影光刻机模型；三星第九届参展，展出 LPDDR6 低功耗 DRAM。同一天，两条自主化线索与交期异常出现在同一座城市。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-06</span>
+        <div>
+          <div class="timeline-title">进博会首日媒体报道铺开</div>
+          <div class="timeline-detail">央广网报道三星 LPDDR6 的传输带宽较上一代提升了高达45%，最高支持125GB/s，能效比 LPDDR5X 提高约 21%；上海证券报披露光刻机关键零部件国产化率突破90%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-08</span>
+        <div>
+          <div class="timeline-title">新浪科技发出《AI巨头抢光产能，传统芯片也开始缺货》</div>
+          <div class="timeline-detail">交期口径、晶圆厂与封测厂涨价、Book-to-Bill 高于 1、订单递延等旁证在同一篇报道中集中出现。本篇 6-32 周的引用源头即此篇。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">两份简报收录本篇素材</div>
+          <div class="timeline-detail">《每日热点新闻简报》科技动态第 4、5、7、8 条收录黄仁勋光学连接、上海微电子光刻机、Microchip 交期、三星 LPDDR6；《每日AI技术动态简报》焦点第 6 条收录 1150 亿美元并购。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2028 上半年</span>
+        <div>
+          <div class="timeline-title">交易预计交割（尚未发生）</div>
+          <div class="timeline-detail">在双方股东与监管机构批准前，这笔交易不能作为已实现产能记入任何供给侧统计。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。引号内逐字引用，出处为公开报道与内部简报。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">AI巨头抢光产能，传统芯片开始缺货：Microchip CEO称AI公司"把整座工厂都占了"，标准产品交期延长至6-32周。</p>
+        <cite class="evidence-source">《每日热点新闻简报 2026-11-09》科技动态第 7 条 · 原始出处 新浪科技 2026-11-08</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">过去标准产品通常只需要4—8周交货，如今部分产品的交期已经延长至6—32周。</p>
+        <cite class="evidence-source">芯榜 icrank《Microchip CEO 愤怒：他们霸占了整座晶圆厂！》2026-11-08 · 同题报道另见新浪财经 2026-11-08</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">AI companies, you know which ones, came in and took over the whole factory, and they pushed everybody out.</p>
+        <cite class="evidence-source">Steve Sanghi 在 Microchip FY26 Q3 业绩电话会上的原话，2026-11-05 · 经 Yahoo Finance 等英文媒体转引</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Marvell 抛出 1150 亿美元收购 Lumentum 的光互连交易。</p>
+        <cite class="evidence-source">《每日AI技术动态简报 2026-11-09》焦点第 6 条 · 原始出处 博客园「周一上线」</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">交易隐含企业价值约1150亿美元，对应Lumentum每股约1132美元，较2026年10月28日两家公司股价受潜在交易传闻影响前的收盘价溢价约23.9%。</p>
+        <cite class="evidence-source">证券时报网《光通信领域，重磅收购！》2026-11-02</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">本次交易对应朗美通企业价值1150亿美元，股权价值为1025.4亿美元，对应每股作价约1132美元。</p>
+        <cite class="evidence-source">《财经》客户端《迈威尔1150亿美元吞下朗美通：买产能，还是买控制权？》2026-11-03</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">朗美通股东每持有1股普通股，可兑换4.5股迈威尔科技普通股；本次交易完成后，迈威尔科技现有股东将持有合并后公司约67%的股份，朗美通股东持股约33%。</p>
+        <cite class="evidence-source">《财经》客户端 2026-11-03 · 换股与股权结构另见上海证券报 2026-11-04</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">这也是迈威尔继2021年100亿美元收购Inphi（主营数据中心和通信领域的高速数据互连芯片）之后，规模最大的一笔资本运作。</p>
+        <cite class="evidence-source">《财经》客户端 2026-11-03 · 用于同链并购单价对照</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">三星LPDDR6亮相进博会：传输带宽较上代提升45%至125GB/s，能效比LPDDR5X提升约21%。</p>
+        <cite class="evidence-source">《每日热点新闻简报 2026-11-09》科技动态第 8 条 · 原始出处 21世纪经济报道 2026-11-06</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">其传输带宽较上一代提升了高达45%，最高支持125GB/s。同时，LPDDR6引入了DVFS和DEM的智能电源管理技术，能效比LPDDR5X提高了约21%。</p>
+        <cite class="evidence-source">央广网《三星连续九届参展进博会 展示“AI+”全链条布局与在华本土化进展》2026-11-06</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">上海微电子装备集团（SMEE）携自主研发的新一代前道干式扫描投影光刻机SSC800、SSB800（模型）亮相中国馆，展示我国前道光刻装备自主化的阶段性成果。</p>
+        <cite class="evidence-source">上海证券报《重大突破！我国新一代光刻机模型亮相》2026-11-08</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">基于全栈自主可控技术底座，关键零部件国产化率突破90%，已实现定型与规模化量产，填补国内空白。多台设备已在国内头部逻辑、存储量产线长期稳定运行，累计支持产线流片超千万片，设备有效运行率超92%。</p>
+        <cite class="evidence-source">上海证券报 2026-11-08</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">黄仁勋：下一代AI基础设施将大量依赖光学连接，铜线已无法满足传输需求。</p>
+        <cite class="evidence-source">《每日热点新闻简报 2026-11-09》科技动态第 4 条 · 原始出处 虎扑 2026-11-09</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 存疑清单 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>存疑清单</h2>
+    <p class="lede">本篇明确没有回答的问题。列出来是为了让读者知道哪里可以推翻上面的判断。</p>
+    <div class="fix-list">
+      <div class="fix-row">
+        <div class="fx">32 周的适用范围</div>
+        <div class="fv">Microchip 只说「部分产品」。公开报道没有给出按产品线拆分的交期分布（MCU、模拟、存储各多少周），也没有给出产品收入占比。确认方法：Microchip 后续财报或投资者关系材料中按产品线的交期披露。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">6 周这个下界的含义</div>
+        <div class="fv">原文只给区间。下界 6 周是「最短情形」还是「中位情形」，公开信息未说明。确认方法：电话会文字稿或 Q&amp;A 中的明确表述。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">1150 亿与 1025.4 亿的关系</div>
+        <div class="fv">前者是企业价值，后者是股权价值，两者差额来自目标公司的债务与现金等调整项。本篇两个数都给出，不合并使用。确认方法：交易协议全文与双方 8-K 附件。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">交易是否已经改变供给</div>
+        <div class="fv">交易预计 2028 年上半年完成，尚需股东与监管批准。在交割前，光源产能的归属没有任何变化，本篇不把它计入当期供给侧。确认方法：交割公告与后续合并报表。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">光刻机展品是模型</div>
+        <div class="fv">展出的是透明剖视模型，不是可交付整机。公开报道未给出 SSC800 / SSB800 的实际交付台数与客户名单，仅有「已实现定型与规模化量产」「累计支持产线流片超千万片」的表述。确认方法：SMEE 公开交付数据或客户端验证。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">125GB/s 是标称峰值</div>
+        <div class="fv">原文写「最高支持」。它是标称上限，不是实测持续带宽，本篇所有涉及该数的表述都带「最高支持」口径。确认方法：第三方实测或量产规格书。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">三件事是否互为因果</div>
+        <div class="fv">本篇把交期异常、并购、国产化进展放在同一周，这是同期共振的编辑选择，不是因果链。任何「因为 X 所以 Y」的表述都不在本篇结论范围内。</div>
+      </div>
+      <div class="fix-row">
+        <div class="fx">6-32 周能否外推到其他厂商</div>
+        <div class="fv">不能。本篇所有交期结论只对 Microchip 标准产品线成立。其他厂商的交期是独立事实，需要各自的披露。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h2>口径声明</h2>
+    <p><b>已验证事实。</b>本篇 7 条断言的 quote 全部逐字取自《每日热点新闻简报 2026-11-09》《每日AI技术动态简报 2026-11-09》两份内部简报原文，或取自本篇证据清单列出的公开报道原文。每条断言的引用片段均在本页正文逐字出现，并通过 `tools/claim_gate.py` 的 G1 逐字引用校验、G2 标签质量校验与 G4 自身计数剔除。</p>
+    <p><b>口径的三条边界。</b>交期只覆盖 Microchip 标准产品线，32 周是部分产品上限。1150 亿美元是并购交易企业价值，与 1025.4 亿美元股权价值并列不合并。45% 与 125GB/s 出自三星电子 2026 年 11 月 5 日第九届进博会展出的 LPDDR6，属厂商标称值。</p>
+    <p><b>团队判断。</b>「三条团队判断」一节中的内容是本篇推断，依据已写在各条内，可以被反驳，不属于断言层。证据清单第 7 条中的 100 亿美元（2021 年 Marvell 收购 Inphi）用于同链并购单价对照，不用于断言层。</p>
+    <p><b>协作分工。</b>研析负责交期口径与并购交易的逐条核源；数析负责交期口径矩阵与并购金额、带宽对比图表；量研负责供给侧产能与交期分布的推算框架。推算部分凡未标明为事实的，均为在既有披露数字上的算术或情景假设，不引入新数据源。</p>
+    <p><b>局限。</b>本篇未取得 Microchip 电话会文字稿、交易协议全文与 SMEE 交付数据，三处信息依赖公开报道的二手转述。凡涉及这三处的表述已在存疑清单中标明确认方法。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 全部在本页正文逐字出现。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "6-32 周",
+    "label": "Microchip 标准产品交期",
+    "quote": "标准产品交期延长至6-32周"
+  },
+  {
+    "value": "4—8 周",
+    "label": "Microchip 标准产品交期历史基线",
+    "quote": "过去标准产品通常只需要4—8周交货"
+  },
+  {
+    "value": "1150 亿美元",
+    "label": "Marvell 收购 Lumentum 交易企业价值",
+    "quote": "Marvell 抛出 1150 亿美元收购 Lumentum 的光互连交易"
+  },
+  {
+    "value": "23.9%",
+    "label": "Marvell 收购 Lumentum 交易溢价",
+    "quote": "溢价约23.9%"
+  },
+  {
+    "value": "45%",
+    "label": "三星LPDDR6传输带宽较上一代提升",
+    "quote": "传输带宽较上代提升45%至125GB/s"
+  },
+  {
+    "value": "125GB/s",
+    "label": "三星LPDDR6传输带宽",
+    "quote": "至125GB/s"
+  },
+  {
+    "value": "21%",
+    "label": "三星LPDDR6能效较LPDDR5X提升",
+    "quote": "能效比LPDDR5X提升约21%"
+  }
+]
+</script>
+
+<script>
+// 页面唯一的一次性动效：交期条带从下界生长到上界。
+// 其余区块不做统一入场，避免「同一个动画贴在每个 section 上」。
+(function(){
+  var fig=document.querySelector('.fig');
+  if(!fig) return;
+  if(!('IntersectionObserver' in window)){fig.classList.add('drawn');return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){fig.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.35});
+  io.observe(fig);
+})();
+</script>
+</body>
+</html>

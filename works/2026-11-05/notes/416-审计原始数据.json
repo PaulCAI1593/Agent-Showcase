@@ -1,0 +1,91 @@
+{
+ "desktop": {
+  "scrollW": 1440,
+  "innerW": 1440,
+  "title": "权重手术台：0.016% 改写，数学能力约 6 倍",
+  "beat": "安全与治理",
+  "claims": 4,
+  "contrastChecked": 39,
+  "contrastFails": [],
+  "smallTargets": [
+   {
+    "id": "perm",
+    "w": 1,
+    "h": 1
+   }
+  ],
+  "headings": [
+   "H1:能力，住在哪？",
+   "H2:三条路",
+   "H2:手术台",
+   "H2:谁有权改你的权重？",
+   "H3:来源与口径"
+  ],
+  "remoteRefs": []
+ },
+ "tab_order": [
+  "BUTTON#.card",
+  "BUTTON#.card",
+  "BUTTON#.card",
+  "BUTTON#cut.btn",
+  "INPUT#perm.",
+  "BODY#.",
+  "BUTTON#.card",
+  "BUTTON#.card"
+ ],
+ "flip_on": "true",
+ "flip_off": "false",
+ "hover_readout": {
+  "idx": "3188",
+  "w": "-0.8327",
+  "st": "未改写"
+ },
+ "after_surgery": {
+  "cap": "6.0×",
+  "fill": "100%",
+  "aria_now": "6.0",
+  "result_visible": true,
+  "result_text": "1 / 6250 格被改写 = 0.016% · 数学能力 约 6 倍中置信度 · AI 简报 11-04 焦点 4",
+  "btn": "复位",
+  "ro_st": "已改写"
+ },
+ "after_reset": {
+  "cap": "1.0×",
+  "result_visible": false,
+  "btn": "开始手术"
+ },
+ "perm_on": "开：权重可被改写",
+ "perm_checked": true,
+ "mirror_on": true,
+ "perm_off": "关：权重完整",
+ "mobile": {
+  "scrollW": 375,
+  "innerW": 375,
+  "title": "权重手术台：0.016% 改写，数学能力约 6 倍",
+  "beat": "安全与治理",
+  "claims": 4,
+  "contrastChecked": 39,
+  "contrastFails": [],
+  "smallTargets": [
+   {
+    "id": "perm",
+    "w": 1,
+    "h": 1
+   }
+  ],
+  "headings": [
+   "H1:能力，住在哪？",
+   "H2:三条路",
+   "H2:手术台",
+   "H2:谁有权改你的权重？",
+   "H3:来源与口径"
+  ],
+  "remoteRefs": []
+ },
+ "reduced_motion": {
+  "cap_immediate": "6.0×",
+  "result_visible": true,
+  "scroll_hint_animation": "none",
+  "card_transition": "1e-06s"
+ }
+}

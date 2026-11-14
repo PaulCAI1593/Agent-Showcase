@@ -1,0 +1,94 @@
+{
+  "console_errors": [],
+  "failed_requests": [],
+  "smoke_interactions": "card/tab/scan/gobtn 已点击，无异常",
+  "contrast_failures": [
+    {
+      "ratio": 1,
+      "need": 3,
+      "size": 26,
+      "color": "rgb(36, 30, 22)",
+      "bg": "rgb(36, 30, 22)",
+      "text": "QODUCK"
+    },
+    {
+      "ratio": 1,
+      "need": 4.5,
+      "size": 18.5,
+      "color": "rgb(36, 30, 22)",
+      "bg": "rgb(36, 30, 22)",
+      "text": "CLAUDE-DONUT-EAP"
+    },
+    {
+      "ratio": 2.48,
+      "need": 4.5,
+      "size": 11.5,
+      "color": "rgb(158, 43, 34)",
+      "bg": "rgb(23, 19, 14)",
+      "text": "灰度观察 · 传闻"
+    },
+    {
+      "ratio": 1.12,
+      "need": 4.5,
+      "size": 15,
+      "color": "rgb(36, 30, 22)",
+      "bg": "rgb(23, 19, 14)",
+      "text": "DeepSeek V4.1 Pro 疑似灰度启动，实测能力暴涨"
+    },
+    {
+      "ratio": 2.18,
+      "need": 4.5,
+      "size": 11.5,
+      "color": "rgb(87, 75, 58)",
+      "bg": "rgb(23, 19, 14)",
+      "text": "来源：简报 11-08 · 焦点2"
+    }
+  ],
+  "contrast_total_text_nodes": 72,
+  "overflow": [
+    {
+      "viewport": "375x812",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow_px": 0,
+      "offenders": [
+        "SPAN.match-stamp right=405"
+      ]
+    },
+    {
+      "viewport": "768x1024",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "overflow_px": 0,
+      "offenders": [
+        "SPAN.match-stamp right=781"
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflow_px": 0,
+      "offenders": []
+    }
+  ],
+  "reduced_motion": {
+    "before": {
+      "codename_text": "QODUCK",
+      "opacity": "1",
+      "match_stamp_opacity": "0"
+    },
+    "after_scan_click": {
+      "match": true,
+      "stamp_opacity": "1",
+      "btn": "再比一次",
+      "scroll_behavior": "auto",
+      "transition_dur": "1e-05s"
+    },
+    "after_card_click": {
+      "pressed": "true",
+      "tease_opacity": "1",
+      "pread": "1 / 5"
+    }
+  }
+}

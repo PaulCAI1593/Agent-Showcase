@@ -1,0 +1,128 @@
+{
+  "url": "file:///app/working/shared/showcase/works/2026-11-08/research/2026-11-08-ai-valuation-meets-hikes.html",
+  "viewports": [
+    {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "canvases": [
+        {
+          "id": "chartVal",
+          "w": 986,
+          "h": 352,
+          "blank": false
+        },
+        {
+          "id": "chartProb",
+          "w": 986,
+          "h": 469,
+          "blank": false
+        },
+        {
+          "id": "chartIdx",
+          "w": 986,
+          "h": 493,
+          "blank": false
+        }
+      ],
+      "h1": 1,
+      "sections": 10,
+      "claims": 8,
+      "beat": "估值与资本",
+      "viewport": "desktop",
+      "overflow_x": false
+    },
+    {
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "canvases": [
+        {
+          "id": "chartVal",
+          "w": 930,
+          "h": 332,
+          "blank": false
+        },
+        {
+          "id": "chartProb",
+          "w": 930,
+          "h": 442,
+          "blank": false
+        },
+        {
+          "id": "chartIdx",
+          "w": 930,
+          "h": 465,
+          "blank": false
+        }
+      ],
+      "h1": 1,
+      "sections": 10,
+      "claims": 8,
+      "beat": "估值与资本",
+      "viewport": "desktop-mid",
+      "overflow_x": false
+    },
+    {
+      "scrollWidth": 800,
+      "clientWidth": 800,
+      "canvases": [
+        {
+          "id": "chartVal",
+          "w": 706,
+          "h": 252,
+          "blank": false
+        },
+        {
+          "id": "chartProb",
+          "w": 706,
+          "h": 336,
+          "blank": false
+        },
+        {
+          "id": "chartIdx",
+          "w": 706,
+          "h": 353,
+          "blank": false
+        }
+      ],
+      "h1": 1,
+      "sections": 10,
+      "claims": 8,
+      "beat": "估值与资本",
+      "viewport": "desktop-low",
+      "overflow_x": false
+    },
+    {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "canvases": [
+        {
+          "id": "chartVal",
+          "w": 648,
+          "h": 231,
+          "blank": false
+        },
+        {
+          "id": "chartProb",
+          "w": 648,
+          "h": 308,
+          "blank": false
+        },
+        {
+          "id": "chartIdx",
+          "w": 648,
+          "h": 324,
+          "blank": false
+        }
+      ],
+      "h1": 1,
+      "sections": 10,
+      "claims": 8,
+      "beat": "估值与资本",
+      "viewport": "mobile",
+      "overflow_x": false
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "failed_requests": []
+}

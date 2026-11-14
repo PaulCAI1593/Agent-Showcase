@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="应用落地">
+<meta name="description" content="毕马威调研125名中国CEO，76%把AI列为未来三年优先投资；雅诗兰黛进博首发80款新品。本篇把意愿与行动拆成三笔账逐条对账，标出能互证与不能互证的部分。">
+<title>76%与80款：AI投资从展会话术走进研发链的账本</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  选题423 · 研究类 · 从 templates/work.html 起步并按本篇内容重排
+  版式：结论带 → 关键数据账册（5 条断言）→ 三笔账口径表
+        → 意愿账（图1）→ 行动账 → 支撑账（图2、图3）
+        → 口径核对 → 进程 → 证据 → 方法与边界
+  视觉世界沿用档案卷宗（冷纸 + 墨色 + 陈铜），图表用自托管 Chart.js。
+  「返回展厅」由 autopublish 注入，不手写。
+  断言声明：script#claims；追踪线：meta#showcase-beat。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --blue:#1f5f8b;
+  --amber:#b85c00;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ────────────────────────────────────────────── */
+.masthead{padding:96px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.2;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:20px;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:46ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:76px 0;position:relative}
+section + section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--rule);transform:scaleX(0);transform-origin:left center;
+}
+.drawn + section::before,section.drawn::before{transform:scaleX(1)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;text-wrap:balance;
+}
+h3{font-family:var(--serif-cn);font-size:20px;line-height:1.4;letter-spacing:-0.008em;
+  font-weight:600;margin-bottom:10px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-bottom:34px}
+p{max-width:70ch}
+p + p{margin-top:16px}
+.note{font-size:14.5px;line-height:1.6;color:var(--ink-3);max-width:78ch;margin-top:14px}
+.note b{color:var(--ink-2);font-weight:600}
+.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums}
+.calc{color:var(--brass);font-weight:600}
+.tbd{color:var(--ink-3);font-style:normal}
+
+/* ── 结论带 ───────────────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:66ch}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据账册 ─────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:30px;line-height:1.08;letter-spacing:-0.02em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap;
+}
+.metric-label{margin-top:12px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 账册表 ───────────────────────────────────────────── */
+.ledger{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55}
+.ledger caption{text-align:left;font-size:14px;color:var(--ink-3);padding-bottom:12px}
+.ledger th,.ledger td{
+  text-align:left;vertical-align:top;padding:16px 18px 16px 0;
+  border-bottom:1px solid var(--rule);
+}
+.ledger thead th{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--ink-3);
+}
+.ledger tbody th{
+  font-family:var(--serif-cn);font-size:16.5px;font-weight:600;white-space:nowrap;
+  padding-right:26px;
+}
+.ledger td b{font-weight:600}
+.ledger .cell-num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;font-weight:500}
+.ledger tr:last-child th,.ledger tr:last-child td{border-bottom:1px solid var(--ink-3)}
+.ledger-scroll{overflow-x:auto}
+
+/* ── 三环节（行动账内部结构）─────────────────────────── */
+.chain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--rule);border-top:1px solid var(--ink-3);margin-top:8px}
+.chain-item{background:var(--paper);padding:22px 24px 24px}
+.chain-step{font-family:var(--serif-num);font-size:12.5px;letter-spacing:.08em;color:var(--brass)}
+.chain-name{font-family:var(--serif-cn);font-size:19px;font-weight:600;margin-top:6px}
+.chain-detail{font-size:15px;line-height:1.6;color:var(--ink-2);margin-top:8px}
+
+/* ── 核对清单 ─────────────────────────────────────────── */
+.checklist{border-top:1px solid var(--ink-3);margin-top:6px}
+.check-item{display:grid;grid-template-columns:180px minmax(0,1fr);gap:30px;
+  padding:22px 0;border-bottom:1px solid var(--rule)}
+.check-what{font-family:var(--serif-cn);font-size:16.5px;font-weight:600;line-height:1.5}
+.check-how{font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.check-how b{color:var(--ink);font-weight:600}
+
+/* ── 图表 ─────────────────────────────────────────────── */
+.chart-box{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:6px;
+  padding:22px 22px 16px;margin-top:8px;
+}
+.chart-box canvas{width:100%!important}
+figcaption.chart-cap{
+  font-size:13.5px;line-height:1.62;color:var(--ink-3);margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--rule-soft);max-width:74ch;
+}
+figcaption.chart-cap b{color:var(--ink-2);font-weight:600}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--ink-3)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+
+/* ── 证据 ─────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--ink-3)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────── */
+.colophon{
+  padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:74ch}
+.colophon p + p{margin-top:12px}
+.colophon b{color:var(--ink-2);font-weight:600}
+.colophon h2{font-size:22px;margin-bottom:14px}
+
+/* ── 动效：区块发丝线自左绘出（全页唯一一次动作）──────── */
+section.drawn::before{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  section::before{transform:scaleX(1)!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .chart-row{grid-template-columns:1fr}
+  .chain{grid-template-columns:1fr}
+  .check-item{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:25px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .ledger tbody th{white-space:normal}
+  .chart-box{padding:16px 12px 12px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>76%与80款：AI投资从展会话术走进研发链的账本</h1>
+        <p class="standfirst">同一周、同一个展会，一边是125名中国CEO的问卷选择，一边是一家公司的新品交付。本篇把两者拆成三笔账，逐条对账。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-09</dd></div>
+          <div><dt>主责</dt><dd>数析</dd></div>
+          <div><dt>追踪线</dt><dd>应用落地</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">5</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 结论带 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>对账结论</h2>
+    <p class="verdict">意愿账与行动账方向一致、量纲不同：76%与80款能证明同一条链的两端，但不能互相验算。</p>
+    <p class="verdict-note">76%记的是125名CEO对未来三年的问卷选择，80款记的是雅诗兰黛一家公司在进博会节点的交付数量。中间还隔着两笔供给侧的账：部署周期与部件带宽。<b>能对上的是方向</b>——AI从表态进入研发流程；<b>对不上的是数值</b>——没有任何一个算式能把百分点换算成款。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">五条数值，两笔账：前三条来自需求侧与交付侧，后两条是供给侧的支撑证据。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">76%</div>
+        <div class="metric-label">中国CEO将AI列为未来三年优先投资</div>
+        <div class="metric-source">毕马威《2026年中国CEO展望》 · 125名中国CEO · 2026年8-9月调研</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">17个百分点</div>
+        <div class="metric-label">中国CEO优先投资比例较去年提高</div>
+        <div class="metric-source">毕马威《2026年中国CEO展望》 · 同口径对比 · 2026-11-06发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">80款</div>
+        <div class="metric-label">雅诗兰黛进博首发新品数</div>
+        <div class="metric-source">雅诗兰黛集团×阿里云 · 第九届进博会 · 2026-11-06展台</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">8-12周</div>
+        <div class="metric-label">绿色算力舱AI数据中心部署周期</div>
+        <div class="metric-source">英特尔 · 中国证券报 · 2026-11-07</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">45%</div>
+        <div class="metric-label">三星LPDDR6传输带宽较上一代提升</div>
+        <div class="metric-source">三星 · 中国证券报 · 2026-11-07</div>
+      </div>
+    </div>
+    <p class="note"><b>口径提示：</b>76%这一读数的分母是125名中国CEO，必须与样本量一起读。毕马威同份报告里，全球样本为1400名CEO，中国样本是其中的125名。</p>
+  </div>
+</section>
+
+<!-- ── 三笔账的口径 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三笔账的口径</h2>
+    <p class="lede">同一周的三条新闻记在三本不同的账上。先把口径固定，再谈印证。</p>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <caption>表 1 · 意愿账、行动账、支撑账的记账口径（2026-11-05 至 11-07 进博会窗口）</caption>
+        <thead>
+          <tr><th scope="col">账目</th><th scope="col">记什么</th><th scope="col">数值</th><th scope="col">样本与范围</th><th scope="col">能和谁比</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">意愿账</th>
+            <td>问卷里「未来三年的优先投资事项」选择</td>
+            <td class="cell-num">76%（较去年提高17个百分点）</td>
+            <td>毕马威调研125名中国CEO，2026年8-9月</td>
+            <td>只能与同口径的往年读数比</td>
+          </tr>
+          <tr>
+            <th scope="row">行动账</th>
+            <td>进博会节点的新品交付</td>
+            <td class="cell-num">80款新品</td>
+            <td>雅诗兰黛集团17个在华品牌，2026-11-06展台</td>
+            <td>只能与该公司往届参展比</td>
+          </tr>
+          <tr>
+            <th scope="row">支撑账 A</th>
+            <td>AI数据中心的部署周期</td>
+            <td class="cell-num">8-12周（传统两年左右）</td>
+            <td>英特尔绿色算力舱，2026-11-07报道</td>
+            <td>支撑「落地提速」这个方向</td>
+          </tr>
+          <tr>
+            <th scope="row">支撑账 B</th>
+            <td>内存传输带宽的代际提升</td>
+            <td class="cell-num">45%</td>
+            <td>三星LPDDR6，2026-11-07报道</td>
+            <td>支撑「部件就绪」这个方向</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>能对账的部分：</b>四条线索都落在2026年11月5日至7日的进博会窗口，都指向AI从表态转向落地。<b>不能对账的部分：</b>单位不同（百分点、款、周、百分比），分母不同（125人问卷对1家公司交付），时间窗不同（未来三年对单日展台）。</p>
+  </div>
+</section>
+
+<!-- ── 意愿账 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>意愿账：76%记的是意向，不是预算</h2>
+    <p class="lede">问卷问的是「优先投资事项」，不是已拨付的预算。这一层的账只能证明意向的浓度。</p>
+    <p>毕马威《2026年中国CEO展望》调研125名中国CEO，76%将AI列为未来三年优先投资，较去年提高17个百分点，增幅高于全球水平。报告整合2026年8月至9月的全球调研成果，于11月6日在第九届进博会现场发布。</p>
+    <p>按同口径倒算，去年的比例是<span class="calc">59%</span>（本篇推算：76% − 17个百分点 = 59%）。报道只给今年读数与增幅，没有直接给出去年数值，所以这条推算标在正文，不进断言层。</p>
+    <p>同一份报告里还有两个读数，说明意向与能力之间有落差：86%的受访中国CEO计划在未来两至五年重新设计岗位、职业发展路径与团队结构以体现人机协作；53%的受访中国CEO对通过培训提升员工人工智能技能感到担忧（中国青年报，2026-11-06）。报告自己的判断是，个人效率提升尚未充分转化为组织整体效能改善。</p>
+
+    <figure class="chart-box">
+      <canvas id="chartIntent" height="200" role="img"
+        aria-label="柱状图：将AI列为未来三年优先投资的中国CEO比例，2025年为本篇推算的59%，2026年为76%"></canvas>
+      <figcaption class="chart-cap"><b>图 1 · 意愿账的两个读数</b>（单位：%）。2026年为毕马威直接给出的76%；2025年为本篇由「较去年提高17个百分点」倒算的59%，报道未直接给出，图中以灰色区分。两个读数同口径、不同年份，可以相减；不能与行动账、支撑账的交付数量放在同一坐标上。</figcaption>
+    </figure>
+
+    <p class="note"><b>时间差：</b>意愿账的数据采集于2026年8-9月，行动账发生在11月6日，中间隔约两个月。调查与交付之间没有可核验的执行记录，因此本篇不把76%写成80款的原因。</p>
+  </div>
+</section>
+
+<!-- ── 行动账 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>行动账：80款新品记的是交付，AI记在研发链里</h2>
+    <p class="lede">行动账的价值在于它有具体位置：AI不是被提及，而是被写进三个研发环节。</p>
+    <p>雅诗兰黛联手阿里云，进博首发80款新品，把AI嵌入成分筛选、配方预测与功效评价研发链。同场，集团与阿里云智能集团签署战略合作备忘录，围绕AI基础设施与模型底座、统一数据平台与AI智能决策、消费者洞察与全域营销智能、通义千问美妆AI联合创新四个领域展开合作（雅诗兰黛集团，2026-11-06）。</p>
+
+    <div class="chain">
+      <div class="chain-item">
+        <div class="chain-step">环节一</div>
+        <div class="chain-name">成分筛选</div>
+        <div class="chain-detail">AI加速成分发现与筛选，把候选范围的搜索成本压下来。这是研发链最上游的一格。</div>
+      </div>
+      <div class="chain-item">
+        <div class="chain-step">环节二</div>
+        <div class="chain-name">配方预测</div>
+        <div class="chain-detail">AI预测产品配方表现，让部分实验在进入实验室之前先算一遍。</div>
+      </div>
+      <div class="chain-item">
+        <div class="chain-step">环节三</div>
+        <div class="chain-name">功效评价</div>
+        <div class="chain-detail">AI支撑功效评价与注册合规流程，把研发结果推向可上市状态。</div>
+      </div>
+    </div>
+
+    <p class="note"><b>口径提醒：</b>简报记「80款」；多家媒体记「超过80款」「80余款」（新浪上海、上观新闻，2026-11-06）。差异是表述精度，指向同一批新品，本篇断言层沿用简报口径80款。<b>未确认：</b>80款中由AI参与研发的具体款数，公开报道没有给出。</p>
+
+    <p class="note"><b>研发链三环节的表述来源：</b>新华财经2026-11-06报道引雅诗兰黛集团中国区公共事务副总裁刘薇称，AI能够加速成分发现与筛选、预测产品配方表现，并为产品注册与合规流程提供支持。简报把这组动作概括为「成分筛选、配方预测与功效评价研发链」。</p>
+  </div>
+</section>
+
+<!-- ── 支撑账 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>支撑账：供给侧给的是时间与带宽</h2>
+    <p class="lede">两笔支撑账不直接证明需求，但决定需求方能不能把意向变成产线动作。</p>
+    <p>英特尔的集装箱形态绿色算力舱支持算力、储能模块按需配置，8-12周完成AI数据中心部署，较传统两年工期大幅缩短（新华社／中国证券报，2026-11-07）。同场，三星展出LPDDR6，传输带宽较上一代提升45%，覆盖服务器、手机、汽车AI系统（中证报，2026-11-07）。</p>
+
+    <div class="chart-row">
+      <figure class="chart-box">
+        <canvas id="chartDeploy" height="230" role="img"
+          aria-label="条形图：绿色算力舱部署周期下限8周、上限12周，传统土建工期折算104周"></canvas>
+        <figcaption class="chart-cap"><b>图 2 · 部署周期的对照</b>（单位：周）。8周与12周是绿色算力舱的区间上下限；传统工期按报道的「两年左右」折算为104周，属本篇为同坐标比较做的换算，不是报道原文数字。</figcaption>
+      </figure>
+      <figure class="chart-box">
+        <canvas id="chartBand" height="230" role="img"
+          aria-label="条形图：以上一代传输带宽记为100，LPDDR6为145"></canvas>
+        <figcaption class="chart-cap"><b>图 3 · 带宽的代际指数</b>（上一代 = 100）。由报道的「较上一代提升45%」换算为145，属指数化表达，不是新增数据。代际提升只说明部件就绪，不说明哪款新品用了它。</figcaption>
+      </figure>
+    </div>
+
+    <p class="note"><b>两笔支撑账与前两本账的关系：</b>它们回答的是「能不能做快、做出来」，不回答「谁投了钱、做了几款」。把它们与76%或80款直接相加，是口径混用。</p>
+  </div>
+</section>
+
+<!-- ── 口径核对 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径核对：三处对不上的地方</h2>
+    <p class="lede">百分点与调研口径先算清，再判断两笔账能不能互证。以下四项都是本篇的核对动作。</p>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-what">百分点换算</div>
+        <div class="check-how">76% − 17个百分点 = <b>59%</b>，即去年同口径读数为59%。<b>本篇推算</b>：报道只给今年读数与增幅，未给去年数值。</div>
+      </div>
+      <div class="check-item">
+        <div class="check-what">样本换算</div>
+        <div class="check-how">125名 × 76% ≈ <b>95名</b>。<b>本篇推算</b>：按报道口径直接相乘，未加权；报道未给出加权方式与行业分布。</div>
+      </div>
+      <div class="check-item">
+        <div class="check-what">展会口径差</div>
+        <div class="check-how">简报记「80款」，媒体记「超过80款」「80余款」。同一批新品，表述精度不同；断言层取简报口径。</div>
+      </div>
+      <div class="check-item">
+        <div class="check-what">三处不能互证</div>
+        <div class="check-how"><b>分母不同</b>：125人问卷对1家公司交付。<b>时间窗不同</b>：2026年8-9月采集对11月6日单日展台。<b>主体不同</b>：雅诗兰黛是否在125名样本内，公开报道未披露，<span class="tbd">未确认</span>。</div>
+      </div>
+    </div>
+
+    <p class="note"><b>对账判定：</b>两笔账在方向上互相印证——问卷里升高的优先级，同一周里出现了对应的交付与供应链动作；在数值上不互相印证——两组数字没有共同分母，任何换算都是口径混用。这条判定是本篇的解释性判断，不进断言层。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从调研采集到本篇对账，六步，全部落在四个月内。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-08 至 09</span>
+        <div>
+          <div class="timeline-title">毕马威完成全球调研</div>
+          <div class="timeline-detail">整合8月至9月的全球调研成果，汇聚1400名全球CEO，其中125名来自中国。76%这一读数的采集窗口在此。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div>
+          <div class="timeline-title">第九届进博会开幕</div>
+          <div class="timeline-detail">英特尔绿色算力舱、三星LPDDR6、雅诗兰黛集团展台同场亮相，供给侧与交付侧的证据在同一天出现。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-06</span>
+        <div>
+          <div class="timeline-title">意愿账与行动账同日落地</div>
+          <div class="timeline-detail">毕马威发布《2026年中国首席执行官展望》，给出76%与17个百分点；雅诗兰黛展台启幕，进博首发80款新品并签署阿里云合作备忘录。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-07</span>
+        <div>
+          <div class="timeline-title">供给侧两笔账被报道</div>
+          <div class="timeline-detail">中国证券报报道绿色算力舱8-12周部署与LPDDR6带宽提升45%，支撑账补齐。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-08</span>
+        <div>
+          <div class="timeline-title">四条线索进入同一份简报</div>
+          <div class="timeline-detail">《每日热点新闻简报》科技动态第1、2、5、7条收录四条线索，本篇的原始素材在此归档。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">本篇完成对账</div>
+          <div class="timeline-detail">5条断言逐字回查原文，两处推算标注为本篇推算，三处不能互证的口径写明。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">断言层5条的原文出处，全部来自素材原文，逐字未改。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">76%中国CEO将AI列为未来三年优先投资：毕马威《2026年中国CEO展望》调研125名CEO，较去年提高17个百分点。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-08 · 科技动态7（中青报·进博会 11-06）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">雅诗兰黛联手阿里云：进博首发80款新品，把AI嵌入成分筛选、配方预测与功效评价研发链。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-08 · 科技动态5（11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">集装箱形态算力+储能模块按需配置，8-12周完成AI数据中心部署，较传统两年工期大幅缩短。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-08 · 科技动态1（新华社／中国证券报 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">三星展出LPDDR6：适配AI场景的下一代低功耗DRAM，传输带宽较上一代提升45%，覆盖服务器、手机、汽车AI系统。</p>
+        <cite class="evidence-source">热点新闻简报 2026-11-08 · 科技动态2（中证报·进博会 11-07）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">报告对125名中国CEO进行了调研</p>
+        <cite class="evidence-source">中国青年报客户端 · 2026-11-06（公开报道检索核源）</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h2>方法与边界</h2>
+    <p><b>断言层：</b>5条断言的 quote 全部逐字取自《每日热点新闻简报 2026-11-08》科技动态第1、2、5、7条原文，第5条取自中国青年报公开报道。2026-11-09 以公开报道交叉核源：毕马威报告发布、雅诗兰黛展台与阿里云合作、绿色算力舱部署周期、LPDDR6带宽提升四项各找到第二来源。</p>
+    <p><b>推算两处：</b>去年59%、约95名。两处均为本篇由报道数值直接换算，已在正文与核对清单中标注「本篇推算」，不进断言层。图2的104周、图3的145指数同属坐标换算。</p>
+    <p><b>未确认三项：</b>雅诗兰黛是否在125名CEO样本内；80款新品中由AI参与研发的具体款数；调研的行业分布与加权口径。三项均需毕马威报告原文或企业披露才能确认。</p>
+    <p><b>解释性判断：</b>「方向互相印证、数值不能互相验算」是本篇的判断，不是原文断言。所有原文数值见断言层与证据区。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  本篇 5 条。解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {"value": "76%", "label": "中国CEO将AI列为未来三年优先投资", "quote": "76%中国CEO将AI列为未来三年优先投资"},
+  {"value": "17个百分点", "label": "中国CEO优先投资比例较去年提高", "quote": "较去年提高17个百分点"},
+  {"value": "80款", "label": "雅诗兰黛进博首发新品数", "quote": "进博首发80款新品"},
+  {"value": "8-12周", "label": "绿色算力舱AI数据中心部署周期", "quote": "8-12周完成AI数据中心部署"},
+  {"value": "45%", "label": "三星LPDDR6传输带宽较上一代提升", "quote": "传输带宽较上一代提升45%"}
+]
+</script>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js"></script>
+<script>
+// 图表：三张，全部自托管 Chart.js，离线可用。
+(function(){
+  if(typeof Chart==='undefined'){return;}
+  var INK='#171a18', INK2='#4f5551', RULE='#d2d8d4', BRASS='#7d5a1c',
+      GREY='#c7cec9', BLUE='#1f5f8b', AMBER='#b85c00';
+  Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  Chart.defaults.font.size=12;
+  Chart.defaults.color=INK2;
+
+  var valueLabels={
+    id:'valueLabels',
+    afterDatasetsDraw:function(chart){
+      var horizontal = chart.options.indexAxis==='y';
+      var ctx=chart.ctx;
+      ctx.save();
+      ctx.font='600 12px '+Chart.defaults.font.family;
+      chart.data.datasets.forEach(function(ds,di){
+        var meta=chart.getDatasetMeta(di);
+        if(meta.hidden)return;
+        meta.data.forEach(function(el,j){
+          var v=ds.data[j];
+          if(v===null||v===undefined||isNaN(v))return;
+          var unit = chart.canvas.id==='chartDeploy' ? ' 周'
+                   : (chart.canvas.id==='chartIntent' ? '%' : '');
+          var txt = String(v)+unit;
+          ctx.fillStyle=INK;
+          if(horizontal){
+            ctx.textAlign='left';ctx.textBaseline='middle';
+            ctx.fillText(txt, el.x+8, el.y);
+          }else{
+            ctx.textAlign='center';ctx.textBaseline='bottom';
+            ctx.fillText(txt, el.x, el.y-8);
+          }
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  var gridX={grid:{color:RULE,drawTicks:false},border:{display:false},ticks:{padding:6}};
+  var noGrid={grid:{display:false},border:{display:false}};
+  // ⚠️ 不要用 maintainAspectRatio:false —— 容器高度 auto 时会与 canvas 高度
+  // 形成反馈回路，实测把图画到 5536px。统一用 aspectRatio 定高。
+  var baseOpts={responsive:true,aspectRatio:2.6,
+    animation:{duration:600,easing:'easeOutQuart'},
+    plugins:{legend:{display:false},tooltip:{enabled:false}}};
+
+  var c1=document.getElementById('chartIntent');
+  if(c1){
+    new Chart(c1,{
+      type:'bar',
+      data:{
+        labels:['2025（本篇推算）','2026（毕马威）'],
+        datasets:[{data:[59,76],backgroundColor:[GREY,BRASS],borderRadius:3,barPercentage:.52,categoryPercentage:.62}]
+      },
+      options:Object.assign({},baseOpts,{
+        indexAxis:'y',aspectRatio:3.2,
+        scales:{
+          x:Object.assign({},gridX,{min:0,max:100,ticks:{stepSize:20,callback:function(v){return v+'%'},padding:6}}),
+          y:Object.assign({},noGrid,{ticks:{font:{size:13},color:INK,padding:4}})
+        },
+        plugins:{legend:{display:false},tooltip:{enabled:false},
+          title:{display:true,text:'将AI列为未来三年优先投资的中国CEO比例',color:INK2,font:{size:12.5,weight:'600'},padding:{bottom:14}}}
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  var c2=document.getElementById('chartDeploy');
+  if(c2){
+    new Chart(c2,{
+      type:'bar',
+      data:{
+        labels:['绿色算力舱 下限','绿色算力舱 上限','传统土建工期（两年折算）'],
+        datasets:[{data:[8,12,104],backgroundColor:[BLUE,BLUE,GREY],borderRadius:3,barPercentage:.55,categoryPercentage:.66}]
+      },
+      options:Object.assign({},baseOpts,{
+        indexAxis:'y',aspectRatio:1.8,
+        scales:{
+          x:Object.assign({},gridX,{min:0,max:120,ticks:{stepSize:24,callback:function(v){return v+'周'},padding:6}}),
+          y:Object.assign({},noGrid,{ticks:{font:{size:12.5},color:INK,padding:4}})
+        },
+        plugins:{legend:{display:false},tooltip:{enabled:false},
+          title:{display:true,text:'AI数据中心部署周期（周）',color:INK2,font:{size:12.5,weight:'600'},padding:{bottom:14}}}
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  var c3=document.getElementById('chartBand');
+  if(c3){
+    new Chart(c3,{
+      type:'bar',
+      data:{
+        labels:['上一代（记为100）','LPDDR6'],
+        datasets:[{data:[100,145],backgroundColor:[GREY,AMBER],borderRadius:3,barPercentage:.52,categoryPercentage:.62}]
+      },
+      options:Object.assign({},baseOpts,{
+        indexAxis:'y',aspectRatio:1.8,
+        scales:{
+          x:Object.assign({},gridX,{min:0,max:180,ticks:{stepSize:60,padding:6}}),
+          y:Object.assign({},noGrid,{ticks:{font:{size:12.5},color:INK,padding:4}})
+        },
+        plugins:{legend:{display:false},tooltip:{enabled:false},
+          title:{display:true,text:'传输带宽代际指数',color:INK2,font:{size:12.5,weight:'600'},padding:{bottom:14}}}
+      }),
+      plugins:[valueLabels]
+    });
+  }
+
+  // 窄屏改用更方的纵横比，否则横条图会被压成一条线。
+  var RATIOS={chartIntent:3.2,chartDeploy:1.8,chartBand:1.8};
+  var RATIOS_SM={chartIntent:1.5,chartDeploy:1.1,chartBand:1.2};
+  function fitCharts(){
+    var small=window.innerWidth<640;
+    Object.keys(RATIOS).forEach(function(id){
+      var ch=Chart.getChart(document.getElementById(id));
+      if(!ch)return;
+      var r=small?RATIOS_SM[id]:RATIOS[id];
+      if(ch.options.aspectRatio!==r){ch.options.aspectRatio=r;ch.update();}
+    });
+  }
+  var rt;
+  window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fitCharts,150);});
+  fitCharts();
+})();
+</script>
+
+<script>
+// 全页唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(function(t){t.classList.add('drawn');});
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

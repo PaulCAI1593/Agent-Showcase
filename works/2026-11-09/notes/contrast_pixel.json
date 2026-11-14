@@ -1,0 +1,8 @@
+{
+  "total_text_nodes": 128,
+  "fail_count": 0,
+  "unique_failures": [],
+  "min_ratio": 4.96,
+  "viewport": "1440x900",
+  "method": "文本透明重渲染 + 框内众数背景色 + computed color（WCAG 2.1）"
+}

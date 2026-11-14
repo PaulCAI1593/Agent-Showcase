@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>594B 下周落盘：开源冲刺能力上限，闭源收紧访问控制的分水岭周</title>
+<meta name="showcase-beat" content="开源 vs 闭源之争">
+<style>
+:root{
+  --paper:#eaedea;          /* 冷调档案纸 */
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-soft:#4f5551;       /* 次要文字 6.9:1 */
+  --ink-3:#646b67;          /* 三级文字 5.1:1 */
+  --rule:#d2d8d4;
+  --warn-red:#a8443a;
+  --warn-green:#3f6b4a;
+  --near-black:#121513;
+  --serif:"Source Serif 4","Noto Serif SC","Songti SC",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.62;
+  letter-spacing:0;
+  text-rendering:optimizeLegibility;
+}
+.shell{max-width:980px;margin:0 auto;padding:0 28px}
+
+a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px}
+
+.masthead{padding:88px 0 34px;border-bottom:1px solid var(--rule)}
+h1{
+  font-size:clamp(34px,5.2vw,56px);font-weight:600;line-height:1.08;letter-spacing:-.022em;
+  margin:0 0 24px;max-width:20em;
+}
+.dek{font-size:19px;line-height:1.56;color:var(--ink-soft);max-width:44em;margin:0 0 30px}
+.mast-meta{
+  display:flex;flex-wrap:wrap;gap:8px 26px;
+  font-family:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+  font-size:12px;letter-spacing:.6px;color:var(--ink-soft);
+  border-top:1px solid var(--rule);padding-top:16px;
+}
+
+section{padding:56px 0;border-bottom:1px solid var(--rule);position:relative}
+section::after{
+  content:"";position:absolute;left:28px;right:28px;bottom:-1px;height:1px;background:var(--ink);
+  transform:scaleX(0);transform-origin:left;
+}
+section.drawn::after{transform:scaleX(1);transition:transform 1.6s cubic-bezier(.16,1,.3,1) .1s}
+
+h2{font-size:clamp(26px,3.2vw,34px);font-weight:600;letter-spacing:-.018em;line-height:1.14;margin:0 0 18px;max-width:24em}
+h3{font-size:20px;font-weight:600;letter-spacing:-.01em;margin:34px 0 10px}
+p{max-width:46em;margin:0 0 16px}
+.lede{font-size:18px;color:var(--ink-soft);max-width:44em}
+b,strong{font-weight:600}
+code,.mono{font-family:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;font-size:.88em;letter-spacing:0}
+
+.verdict-band{background:var(--near-black);color:#eef0ee;border-bottom:none}
+.verdict-band::after{background:#eef0ee}
+.verdict-band h2{color:#eef0ee}
+.verdict-band .lede{color:#b3bbb6}
+.verdict{
+  font-size:clamp(21px,2.4vw,27px);line-height:1.42;font-weight:600;letter-spacing:-.01em;
+  max-width:34em;margin:0 0 18px;color:#eef0ee;
+}
+.verdict-note{color:#b3bbb6;max-width:46em}
+
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0 6px;
+}
+.metric{background:var(--paper);padding:20px 18px 16px}
+.metric-value{font-size:31px;line-height:1.1;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric-label{font-family:var(--mono);font-size:13px;letter-spacing:.2px;color:var(--ink-2,#4f5551);margin-top:9px;line-height:1.45}
+.metric-source{font-size:12.5px;color:var(--ink-3);margin-top:7px;line-height:1.5}
+
+.fig{margin:30px 0 6px;border-top:1px solid var(--rule);padding-top:22px}
+.fig-head{
+  font-family:var(--mono);
+  font-size:12.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;
+}
+.fig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px}
+.fig svg{width:100%;height:auto;display:block}
+.fig-cap{font-size:13.5px;color:var(--ink-soft);line-height:1.5;margin-top:14px;max-width:52em}
+text{font-family:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace}
+
+.matrix-wrap{overflow-x:auto;margin:26px 0 8px;padding:12px 0 16px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:960px;font-size:14.5px}
+caption{text-align:left;font-family:var(--mono);font-size:12.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-soft);padding:14px 0 10px}
+th,td{text-align:left;padding:13px 14px 13px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.5px;font-weight:500;color:var(--ink-soft);text-transform:uppercase}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.row-open td:first-child{border-left:2px solid var(--warn-green);padding-left:12px}
+.row-closed td:first-child{border-left:2px solid var(--warn-red);padding-left:12px}
+.row-pending td:first-child{border-left:2px solid var(--ink-3);padding-left:12px}
+.tag{
+  display:inline-block;font-family:var(--mono);
+  font-size:12px;letter-spacing:.4px;padding:2px 8px;border:1px solid var(--rule);white-space:nowrap;
+}
+.tag-open{border-color:var(--warn-green);color:var(--warn-green)}
+.tag-closed{border-color:var(--warn-red);color:var(--warn-red)}
+
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:38px;margin-top:26px}
+.split-col{border-top:2px solid var(--ink);padding-top:16px}
+.split-col.alt{border-top-color:var(--warn-red)}
+.split-col h3{margin:0 0 6px;font-size:18px}
+.split-col .side-note{font-family:var(--mono);font-size:12.5px;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:14px}
+.split-col ul{margin:0;padding-left:1.1em}
+.split-col li{margin-bottom:11px;max-width:38em}
+
+.fix-list{counter-reset:fix;margin:24px 0 0;padding:0;list-style:none}
+.fix-list li{counter-increment:fix;position:relative;padding:0 0 20px 52px;max-width:48em;border-bottom:1px solid var(--rule);margin-bottom:20px}
+.fix-list li:last-child{border-bottom:none}
+.fix-list li::before{
+  content:counter(fix);position:absolute;left:0;top:2px;
+  font-family:var(--mono);font-size:13px;color:var(--ink-3);
+}
+.fix-list h3{margin:0 0 6px;font-size:17.5px}
+.fix-list p{margin:0 0 8px;font-size:15.5px;color:var(--ink-soft)}
+.fix-list p b{color:var(--ink)}
+
+.calc{border:1px solid var(--ink);padding:22px 24px;margin:26px 0 6px;background:var(--paper-raised);overflow-x:auto}
+.calc .fig-head{margin-bottom:14px}
+.calc table{min-width:0;font-size:14px}
+.calc th,.calc td{padding:9px 12px 9px 0}
+
+.timeline{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid var(--ink)}
+.timeline-item{padding:18px 0 18px 132px;border-bottom:1px solid var(--rule);position:relative;min-height:56px}
+.timeline-item::before{content:"";position:absolute;left:118px;top:26px;width:7px;height:7px;background:var(--ink);border-radius:50%}
+.timeline-date{
+  position:absolute;left:0;top:19px;width:106px;text-align:right;
+  font-family:var(--mono);font-size:13px;letter-spacing:.4px;color:var(--ink-3);
+}
+.timeline-title{font-weight:600;margin-bottom:4px}
+.timeline-body{font-size:15.5px;color:var(--ink-soft);max-width:46em}
+.timeline-item.pending::before{background:var(--warn-red)}
+.timeline-item.pending .timeline-date{color:var(--warn-red)}
+
+.evidence{margin-top:24px;border-top:1px solid var(--ink)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule)}
+.evidence-quote{font-size:16px;line-height:1.6;margin:0 0 9px;max-width:52em}
+.evidence-quote[lang="en"]{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-style:italic}
+.evidence-source{
+  display:block;font-style:normal;
+  font-family:var(--mono);
+  font-size:12.5px;letter-spacing:.2px;color:var(--ink-3);line-height:1.6;max-width:56em;
+}
+.evidence-item.downgraded .evidence-source{color:var(--warn-red)}
+
+.colophon{background:var(--near-black);color:#b3bbb6;padding:52px 0 60px;border-bottom:none}
+.colophon::after{display:none}
+.colophon h2{color:#eef0ee;font-size:22px;margin-bottom:20px}
+.colophon p{max-width:52em;font-size:14.5px;line-height:1.66;color:#b3bbb6}
+.colophon b{color:#eef0ee}
+.colophon code{color:#dfe4e0}
+
+.foot-nav{
+  font-family:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+  font-size:12px;letter-spacing:.5px;padding:26px 0 60px;color:var(--ink-soft);
+  display:flex;gap:26px;flex-wrap:wrap;
+}
+.foot-nav a{color:var(--ink-soft)}
+
+@media (max-width:640px){
+  .shell{padding:0 18px}
+  .masthead::after,section::after{left:18px;right:18px}
+  .timeline-item{padding-left:0}
+  .timeline-item::before{display:none}
+  .timeline-date{position:static;width:auto;text-align:left;display:block;margin-bottom:6px}
+  .fix-list li{padding-left:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .masthead::after,section::after{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<a id="top"></a>
+
+<header class="masthead">
+  <div class="shell">
+    <h1>594B 下周落盘：开源冲刺能力上限，闭源收紧访问控制的分水岭周</h1>
+    <p class="dek">2026 年 11 月 4 日至 8 日，五款模型在五天内发布或开放：混元 Hy4 正式版、Inkling 2 Small、Ling-3.2-flash、ERNIE-5.5-Flash-Base、Kimi K3.1 Pro。同一天，OpenAI 给 GPT-6 Cyber 装上了 IP 允许列表。本页把两份简报的汇总口径逐条对回官方原文，并标出哪些「开源」其实还没开。</p>
+    <div class="mast-meta">
+      <span>制作：研析 · 成本与参数口径核算：量研</span>
+      <span>一手核源：Thinking Machines Lab、OpenAI、蚂蚁百灵开发者文档、中国经济网转官方发布稿</span>
+      <span>核源日期：2026-11-08</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 结论 ─────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">分水岭不在能力高低，而在通道宽窄：开源侧把 594B 到 2.8 万亿参数的权重推向可下载，闭源侧把旗舰模型的分发收进「获批组织 + IP 允许列表」，两侧同时把安全评估前置成放行条件。</p>
+    <p class="verdict-note">五天里的两条反向曲线可以各自验证。开源一侧，Inkling 2 Small 官方写明 Apache 2.0 权重要「经外部安全测试与红队测试完成后」下周放出，混元 Hy4 正式版写「将于近期开源模型权重，发布模型系统卡片」，而 Ling-3.2-flash 只开 API、官方文档没有写权重开放；也就是说，这一周真正挂上「已开源」标签的只有 ERNIE-5.5-Flash-Base 与 Kimi K3.1 Pro。闭源一侧，OpenAI 的 GPT-6 Cyber 系统卡把网络安全能力标为 Critical，并写明 Daybreak Red API 默认要求 IP 允许列表、模型只对获批用户与组织开放。能力在扩散，通道在收窄，两边的闸门都往前挪了一步。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八条断言，全部对应本页证据节的逐字原文；来源等级在每条下方写明。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">594B</div>
+        <div class="metric-label">Inkling 2 Small参数量</div>
+        <div class="metric-source">官方公告 thinkingmachines.ai（11-05 直取）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">68 小时</div>
+        <div class="metric-label">Inkling 2 Small 预训练H1时长</div>
+        <div class="metric-source">官方公告：H1 阶段 8.4T token</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">560B</div>
+        <div class="metric-label">Ling-3.2-flash总参数</div>
+        <div class="metric-source">蚂蚁百灵开发者文档（11-08 直取）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">100 万 token</div>
+        <div class="metric-label">Ling-3.2-flash上下文长度</div>
+        <div class="metric-source">简报汇总口径，官方文档写 1M</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">Critical</div>
+        <div class="metric-label">GPT-6 Cyber网络安全能力等级</div>
+        <div class="metric-source">OpenAI 部署安全系统卡（11-08 直取）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">IP 允许列表</div>
+        <div class="metric-label">Daybreak Red API默认访问控制</div>
+        <div class="metric-source">OpenAI 部署安全系统卡</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">770B</div>
+        <div class="metric-label">混元 Hy4正式版总参数</div>
+        <div class="metric-source">中国经济网转官方发布稿（11-04）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">33.5万亿 token</div>
+        <div class="metric-label">ERNIE-5.5-Flash-Base训练token</div>
+        <div class="metric-source">简报汇总口径，媒体交叉一致</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 核源 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>核源：两处升级，两处修正</h2>
+    <p class="lede">简报是汇总转述，本页把它逐条对回一手原文。四条候选断言里，两条来源升级，两条口径要改。</p>
+    <ol class="fix-list">
+      <li>
+        <h3>594B：从「汇总口径」升为官方公告</h3>
+        <p>简报焦点3 写的是汇总转述。本页直接取到 Thinking Machines Lab 官方公告页，原文给出 <b>594B 总参数、17B 激活、1M 上下文</b>，并说明是带图像输入与可变推理努力的 MoE。</p>
+        <p>结论：该数字为<b>官方公告</b>，来源等级升级。</p>
+      </li>
+      <li>
+        <h3>「12T token 68 小时」：两个口径被合并了</h3>
+        <p>官方公告里，<b>68 小时只对应 H1 阶段的 8.4T token</b>，跑在 NVIDIA GB300 NVL72 机架上。全预训练分四段：8.4T + 3.8T + 约 320B + 约 34B ≈ <b>12.55T token</b>，官方没有给后三段的时长；此外主强化学习 run 另跑 <b>9 天</b>、2048 GPU、超过 4×10²³ FLOPs、3T 以上 token。</p>
+        <p>结论：简报「12T token 仅用 68 小时训完」把总训练量与单阶段时长合并了。页面把该断言改写为<b>预训练 H1 阶段 8.4T token 用 68 小时</b>。</p>
+      </li>
+      <li>
+        <h3>Ling-3.2-flash：参数核实，「开源」标签降级</h3>
+        <p>蚂蚁百灵开发者文档（2026-11-05 更新）确认 <b>560B 总参数、25B 激活、1M 上下文</b>，与简报「5600 亿总参、250 亿激活、100 万 token」一致。但同一份文档没有写 3.2-flash 的权重开放；文中明确写已开源的是 Ling-3.0-flash-VL，多家媒体也核到本轮未见 3.2-flash 的开源权重页。</p>
+        <p>结论：参数口径<b>官方核实</b>；开放状态按<b>仅 API</b> 记录，不计入已开源。</p>
+      </li>
+      <li>
+        <h3>GPT-6 Cyber：从单一来源升为官方系统卡</h3>
+        <p>候选断言原标「单一来源（BYOBot AI Daily）」。本页取到 OpenAI 部署安全系统卡，<b>Critical 网络安全评级</b>与 <b>Daybreak Red API 默认 IP 允许列表</b>两句均为原文，另有「模型只对获批 Daybreak Red 用户与组织开放」。</p>
+        <p>结论：两条断言<b>来源升级为官方系统卡</b>，可入 claims。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 对照矩阵 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>五款模型 + 一个闭源对照：规格与开放状态</h2>
+    <p class="lede">同一张表里，参数规模与开放状态是两件事。总参数最大的那一个，权重已经可下载；紧随其后的那一个，只开了 API。</p>
+
+    <div class="matrix-wrap">
+      <table>
+        <caption>2026-11-04 至 11-05 发布或开放的模型 · 开放状态按官方原文判定</caption>
+        <thead>
+          <tr>
+            <th>模型</th><th>发布日</th><th>总参数</th><th>激活参数</th><th>上下文</th><th>开放状态</th><th>许可或访问控制</th><th>来源等级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-open">
+            <td><b>Kimi K3.1 Pro</b></td>
+            <td class="num">11-05</td>
+            <td class="num">2.8 万亿</td>
+            <td class="num">1040 亿</td>
+            <td class="num">100 万 token</td>
+            <td><span class="tag tag-open">已开放权重</span></td>
+            <td>近 MIT 自定义许可，对年收入超 2000 万美元的服务商加条件</td>
+            <td>媒体交叉一致，未直取仓库</td>
+          </tr>
+          <tr class="row-open">
+            <td><b>ERNIE-5.5-Flash-Base</b></td>
+            <td class="num">11-05</td>
+            <td class="num">280B</td>
+            <td class="num">14B</td>
+            <td class="num">训练 128K / 推理 1M</td>
+            <td><span class="tag tag-open">已开源</span></td>
+            <td>自定义许可，媒体称排除欧盟、英国、韩国</td>
+            <td>简报汇总 + 媒体交叉，未直取仓库</td>
+          </tr>
+          <tr class="row-pending">
+            <td><b>Inkling 2 Small</b></td>
+            <td class="num">11-05</td>
+            <td class="num">594B</td>
+            <td class="num">17B</td>
+            <td class="num">1M</td>
+            <td><span class="tag">承诺下周开源</span></td>
+            <td>先经 Tinker 闭源提供，Apache 2.0 权重待外部安全测试与红队完成</td>
+            <td>官方公告，页面直取</td>
+          </tr>
+          <tr class="row-pending">
+            <td><b>混元 Hy4 正式版</b></td>
+            <td class="num">11-04</td>
+            <td class="num">770B</td>
+            <td class="num">49B（preview 口径）</td>
+            <td class="num">1M（preview 口径）</td>
+            <td><span class="tag">承诺近期开源</span></td>
+            <td>官方稿称同步发布模型系统卡片，重点关注网络与生物安全</td>
+            <td>官方发布稿（中国经济网转），页面直取</td>
+          </tr>
+          <tr class="row-closed">
+            <td><b>Ling-3.2-flash</b></td>
+            <td class="num">11-05</td>
+            <td class="num">560B</td>
+            <td class="num">25B</td>
+            <td class="num">1M</td>
+            <td><span class="tag tag-closed">仅 API</span></td>
+            <td>上线前两周限时免费，官方文档未写权重开放</td>
+            <td>官方文档，页面直取</td>
+          </tr>
+          <tr class="row-closed">
+            <td><b>GPT-6 Cyber</b>（闭源对照）</td>
+            <td class="num">11-05</td>
+            <td class="num">未披露</td>
+            <td class="num">未披露</td>
+            <td class="num">未披露</td>
+            <td><span class="tag tag-closed">名单制分发</span></td>
+            <td>仅获批用户与组织，Daybreak Red API 默认 IP 允许列表</td>
+            <td>OpenAI 部署安全系统卡，页面直取</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-cap">口径说明：混元 Hy4 正式版官方发布稿未重复激活参数与上下文，表中两项取 Hy4 preview（2026-08-28）口径并就地标注。ERNIE-5.5-Flash-Base 的 33.5 万亿 token 训练量与 Kimi K3.1 Pro 的仓库体积未能直取 Hugging Face（本机网络受限），按媒体交叉一致记录。</p>
+  </div>
+</section>
+
+<!-- ── 图表 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>两张图：规模在涨，闸门在分档</h2>
+    <p class="lede">左图看总参数，右图看每 token 激活参数。两者相差 35 倍以上，这正是下面成本口径分歧的来源。</p>
+
+    <div class="fig">
+      <div class="fig-head">图 1 · 五款模型的总参数与激活参数（单位：十亿）</div>
+      <div class="fig-grid">
+        <div>
+          <svg viewBox="0 0 560 236" role="img" aria-label="总参数条形图">
+            <text x="0" y="16" font-size="12" fill="#66635c" letter-spacing="1">总参数</text>
+            <g font-size="12.5" fill="#1d1d1f">
+              <text x="0" y="52">Kimi K3.1 Pro</text>
+              <text x="0" y="90">混元 Hy4</text>
+              <text x="0" y="128">Inkling 2 Small</text>
+              <text x="0" y="166">Ling-3.2-flash</text>
+              <text x="0" y="204">ERNIE-5.5</text>
+            </g>
+            <g fill="#1d1d1f">
+              <rect x="128" y="36" width="360" height="20"></rect>
+              <rect x="128" y="74" width="99" height="20"></rect>
+              <rect x="128" y="112" width="76" height="20"></rect>
+              <rect x="128" y="150" width="72" height="20"></rect>
+              <rect x="128" y="188" width="36" height="20"></rect>
+            </g>
+            <g font-size="12.5" fill="#1d1d1f" text-anchor="start">
+              <text x="494" y="51">2,800</text>
+              <text x="233" y="89">770</text>
+              <text x="210" y="127">594</text>
+              <text x="206" y="165">560</text>
+              <text x="170" y="203">280</text>
+            </g>
+            <line x1="128" y1="220" x2="520" y2="220" stroke="#c9c4b8" stroke-width="1"></line>
+          </svg>
+        </div>
+        <div>
+          <svg viewBox="0 0 560 236" role="img" aria-label="激活参数条形图">
+            <text x="0" y="16" font-size="12" fill="#66635c" letter-spacing="1">每 token 激活参数</text>
+            <g font-size="12.5" fill="#1d1d1f">
+              <text x="0" y="52">Kimi K3.1 Pro</text>
+              <text x="0" y="90">混元 Hy4</text>
+              <text x="0" y="128">Ling-3.2-flash</text>
+              <text x="0" y="166">Inkling 2 Small</text>
+              <text x="0" y="204">ERNIE-5.5</text>
+            </g>
+            <g fill="#66635c">
+              <rect x="128" y="36" width="360" height="20"></rect>
+              <rect x="128" y="74" width="170" height="20"></rect>
+              <rect x="128" y="112" width="86" height="20"></rect>
+              <rect x="128" y="150" width="59" height="20"></rect>
+              <rect x="128" y="188" width="48" height="20"></rect>
+            </g>
+            <g font-size="12.5" fill="#1d1d1f" text-anchor="start">
+              <text x="494" y="51">104</text>
+              <text x="304" y="89">49</text>
+              <text x="220" y="127">25</text>
+              <text x="193" y="165">17</text>
+              <text x="182" y="203">14</text>
+            </g>
+            <line x1="128" y1="220" x2="520" y2="220" stroke="#c9c4b8" stroke-width="1"></line>
+          </svg>
+        </div>
+      </div>
+      <p class="fig-cap">数据取自各模型官方公告或官方文档；混元 Hy4 的激活参数为 preview 口径。左右两图比例尺不同：左图满格 2,800，右图满格 104。</p>
+    </div>
+
+    <div class="fig">
+      <div class="fig-head">图 2 · 同一周里的五款模型，按开放状态分四档</div>
+      <svg viewBox="0 0 960 128" role="img" aria-label="开放状态四档分布">
+        <g>
+          <rect x="0" y="10" width="384" height="46" fill="#3f6b4a"></rect>
+          <rect x="384" y="10" width="192" height="46" fill="#8a867d"></rect>
+          <rect x="576" y="10" width="192" height="46" fill="#b6b1a6"></rect>
+          <rect x="768" y="10" width="192" height="46" fill="#a8443a"></rect>
+        </g>
+        <g font-size="13" fill="#1d1d1f">
+          <text x="12" y="40" fill="#eef0ee">已开源 · 2 款</text>
+          <text x="396" y="40">承诺下周 · 1 款</text>
+          <text x="588" y="40">承诺近期 · 1 款</text>
+          <text x="780" y="40" fill="#eef0ee">仅 API · 1 款</text>
+        </g>
+        <g font-size="12" fill="#66635c">
+          <text x="12" y="78">Kimi K3.1 Pro、ERNIE-5.5-Flash-Base</text>
+          <text x="396" y="78">Inkling 2 Small</text>
+          <text x="588" y="78">混元 Hy4 正式版</text>
+          <text x="780" y="78">Ling-3.2-flash</text>
+        </g>
+        <g font-size="11.5" fill="#66635c">
+          <text x="12" y="102">权重可下载，许可各有附加条件</text>
+          <text x="396" y="102">条件：外部安全测试与红队</text>
+          <text x="588" y="102">条件：同步发布系统卡片</text>
+          <text x="780" y="102">前两周限时免费</text>
+        </g>
+      </svg>
+      <p class="fig-cap">分档依据是各官方原文的开放状态表述，不按厂商自述的「开源阵营」归类。按此口径，这一周真正可下载的权重只有 2 款。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 两侧分析 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>两侧其实在做同一件事：把闸门前移</h2>
+    <p class="lede">开源侧的闸门管的是权重何时放出，闭源侧的闸门管的是用户如何进入。位置不同，动作一致：先评估，后分发。</p>
+
+    <div class="split">
+      <div class="split-col">
+        <h3>开源侧：冲刺能力上限</h3>
+        <div class="side-note">能力规格 · 训练规模 · 权重状态</div>
+        <ul>
+          <li>规格上探：2.8 万亿、770B、594B、560B、280B，全部为 MoE，每 token 激活 14B 至 104B。</li>
+          <li>上下文 1M 成为新基线：五款里四款标称 1M，ERNIE 训练 128K、推理支持 1M。</li>
+          <li>训练量披露集中在两家：ERNIE-5.5-Flash-Base 33.5 万亿 token，Inkling 2 Small 全预训练约 12.55 万亿 token，另加 9 天强化学习。</li>
+          <li>但「开源」被拆成四档：已开源 2 款、承诺下周 1 款、承诺近期 1 款、仅 API 1 款。</li>
+          <li>闸门前移的证据：Inkling 权重要等外部安全测试与红队；Hy4 同步发系统卡片并写「更负责任的开源」；Kimi 与 ERNIE 都用自定义许可加条件。</li>
+        </ul>
+      </div>
+      <div class="split-col alt">
+        <h3>闭源侧：收紧访问控制</h3>
+        <div class="side-note">评级 · 名单 · 网络边界</div>
+        <ul>
+          <li>能力评级先行：OpenAI 系统卡把 GPT-6 Cyber 的网络安全能力标为 Critical，与 GPT-6 Astra 同级，生物与化学领域标为 High。</li>
+          <li>分发三层收紧：只对获批用户与组织开放、Daybreak Red 名单制、API 默认要求 IP 允许列表。</li>
+          <li>官方给出的理由是降低被盗凭证的可用性，把请求来源限制在获批网络内。</li>
+          <li>结果是能力上探与通道收窄发生在同一周：模型更强，能拿到模型的人更少。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="calc">
+      <div class="fig-head">训练成本与参数口径 · 量研核算，团队推算，未验证</div>
+      <table>
+        <thead>
+          <tr><th>口径</th><th>理论 FLOPs（6×N×D，D=8.4T）</th><th>隐含算力（68 小时）</th><th>折算 GB300 NVL72</th><th>成本区间</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>按总参 594B</td>
+            <td class="num">≈ 3.0×10²⁵</td>
+            <td class="num">≈ 122 EFLOP/s</td>
+            <td class="num">≈ 111 机架</td>
+            <td class="num">约 109 万~326 万美元</td>
+          </tr>
+          <tr>
+            <td>按激活参 17B</td>
+            <td class="num">≈ 8.6×10²³</td>
+            <td class="num">≈ 3.5 EFLOP/s</td>
+            <td class="num">≈ 3~8 机架（216~576 卡）</td>
+            <td class="num">约 7.8 万~23.5 万美元</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="fig-cap">假设：单机架 FP8 训练峰值 ≈ 1.1 EFLOP/s（厂商公开口径，未独立验证），MFU 取 40%~100%；租赁单价 2~6 美元每卡时，不含电费、存储与失败重跑。两口径相差 35 倍（594÷17），按总参口径估算成本会系统性高估。官方未披露机架数与卡数，此表只用于说明量级。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 进程 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程：从 11 月 4 日到下周落盘</h2>
+    <p class="lede">11 月 4 日至 8 日的七条按官方原文记录；最后三条是下周需要盯的窗口。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-date">11-04</div>
+        <div class="timeline-title">腾讯混元发布 Hy4 正式版</div>
+        <div class="timeline-body">770B MoE，首次引入视觉理解与电脑操作。官方稿写明「Hy4 将于近期开源模型权重，发布模型系统卡片」，并坦承与顶尖闭源模型仍有较大差距。API 定价与 preview 持平。</div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">11-05</div>
+        <div class="timeline-title">Thinking Machines Lab 发布 Inkling 2 Small</div>
+        <div class="timeline-body">594B 总参数、17B 激活、1M 上下文。先经 Tinker 以闭权重提供；官方写明打算在外部安全测试与红队完成后，下周以 Apache 2.0 放出完整权重。</div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">11-05</div>
+        <div class="timeline-title">蚂蚁百灵上线 Ling-3.2-flash</div>
+        <div class="timeline-body">560B 总参数、25B 激活、1M 上下文，原生图像与视频输入，API 兼容 OpenAI 与 Anthropic 协议，上线前两周限时免费。官方文档未写权重开放。</div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">11-05</div>
+        <div class="timeline-title">百度开源 ERNIE-5.5-Flash-Base，月之暗面开放 Kimi K3.1 Pro 权重</div>
+        <div class="timeline-body">前者为预训练结束时的 base 检查点，280B 总参、14B 激活、33.5 万亿 token，后训练版另行推出；后者为 2.8 万亿总参、1040 亿激活的开放权重模型，配套近 MIT 自定义许可。</div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">11-05</div>
+        <div class="timeline-title">OpenAI 公布 GPT-6 Cyber 部署安全系统卡</div>
+        <div class="timeline-body">网络安全能力标为 Critical；Daybreak Red API 默认要求 IP 允许列表，模型只对获批用户与组织开放。</div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">11-07</div>
+        <div class="timeline-title">两份简报汇总本周发布</div>
+        <div class="timeline-body">每日AI技术动态简报焦点 3、4、5 与技术趋势 2，每日热点新闻简报科技动态 3。本页所有断言以这两份素材为线索，回查一手原文后定稿。</div>
+      </li>
+      <li class="timeline-item pending">
+        <div class="timeline-date">11-08</div>
+        <div class="timeline-title">本页核源完成</div>
+        <div class="timeline-body">四条候选断言全部处理：两条来源升级为官方原文，两条口径修正。ERNIE 与 Kimi 的仓库页面因网络受限未能直取，按媒体交叉记录。</div>
+      </li>
+      <li class="timeline-item pending">
+        <div class="timeline-date">11-09~11-15</div>
+        <div class="timeline-title">Inkling 2 Small 权重落盘窗口</div>
+        <div class="timeline-body">官方口径为「下周」，未给出具体日期，前置条件是外部安全测试与红队测试完成。落盘后应核对许可证文本与实际权重分片。</div>
+      </li>
+      <li class="timeline-item pending">
+        <div class="timeline-date">下周起</div>
+        <div class="timeline-title">混元 Hy4 正式版权重与系统卡片</div>
+        <div class="timeline-body">官方只写「将于近期」。若落盘，需核对正式版是否重复披露激活参数与上下文，本页表中两项仍是 preview 口径。</div>
+      </li>
+      <li class="timeline-item pending">
+        <div class="timeline-date">11-19 前后</div>
+        <div class="timeline-title">Ling-3.2-flash 限免期结束</div>
+        <div class="timeline-body">上线前两周限时免费，到期后按官方价格页计费；同时观察是否出现权重开放公告，若有则本页开放状态需要改写。</div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。英文段落取自官方页面直取，中文段落取自官方发布稿与简报素材，逐字照录。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">It is a Mixture-of-Experts model with 594B total parameters, 17B active, and supports image inputs and variable effort.</p>
+        <cite class="evidence-source">Thinking Machines Lab《Inkling 2 Small》官方公告 · thinkingmachines.ai/news/inkling-2-small/ · 2026-11-08 直取 · 原文照录，594B 与 17B 的一手出处</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">It ran for 68 hours on NVIDIA GB300 NVL72 racks, which enabled high expert parallelism.</p>
+        <cite class="evidence-source">Thinking Machines Lab《Inkling 2 Small》官方公告 · 2026-11-08 直取 · 原文照录，68 小时只对应 H1 阶段的 8.4T token，不是全部 12.55T</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">We intend to make the full weights available under an Apache 2.0 license next week after the completion of external safety testing and red-teaming.</p>
+        <cite class="evidence-source">Thinking Machines Lab《Inkling 2 Small》官方公告 · 2026-11-08 直取 · 原文照录，下周落盘的两个前置条件写在同一句里</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">拥有 560B 总参数、25B 激活参数</p>
+        <cite class="evidence-source">蚂蚁百灵开发者文档《Ling》 · developer.ant-ling.com/zh-CN/docs/models/ling/ · 页面标注 2026-11-05 更新 · 2026-11-08 直取 · 原文照录</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">模型上下文窗口为 1M，原生支持多模态理解</p>
+        <cite class="evidence-source">蚂蚁百灵开发者文档《Ling》 · 2026-11-08 直取 · 原文照录，与简报「100 万 token」为同一口径的两种写法</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">100 万 token 上下文，支持图、文、视频输入</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-07 焦点 4 · 汇总转述，来源标为 AIGC日报 · 与官方文档 1M 一致，来源等级：汇总口径</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">we give GPT-6 Cyber the same capability designations as GPT-6 Astra: Critical in Cybersecurity</p>
+        <cite class="evidence-source">OpenAI GPT-6 Cyber 部署安全系统卡 · deploymentsafety.openai.com/gpt-6-cyber · 2026-11-08 直取 · 原文照录，取代原候选断言的单一来源</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">we require IP allowlisting for Daybreak Red API access by default</p>
+        <cite class="evidence-source">OpenAI GPT-6 Cyber 部署安全系统卡 · 2026-11-08 直取 · 原文照录，官方给出的理由是降低被盗凭证的可用性</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote" lang="en">Like past models, GPT-6 Cyber is available only to approved Daybreak Red users and organizations.</p>
+        <cite class="evidence-source">OpenAI GPT-6 Cyber 部署安全系统卡 · 2026-11-08 直取 · 原文照录，名单制分发的直接表述</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Hy4 将于近期开源模型权重，发布模型系统卡片</p>
+        <cite class="evidence-source">中国经济网《腾讯混元发布 Hy4，首次成为最强开源模型之一》 · scitech.ce.cn · 2026-11-04 18:29 · 2026-11-08 直取 · 转官方发布稿原文照录</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Hy3 系列参数不到 300B，Hy4 系列达到 770B</p>
+        <cite class="evidence-source">中国经济网转腾讯混元官方发布稿 · 2026-11-04 · 2026-11-08 直取 · 原文照录，正式版总参数的一手口径</cite>
+      </div>
+      <div class="evidence-item downgraded">
+        <p class="evidence-quote">参数280B，激活14B，33.5万亿token，FP8/BF16双格式</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-07 焦点 5 · 来源标为 CSDN AI日报 · Hugging Face 仓库本机未能直取（网络受限），多家媒体参数一致 · 来源等级：汇总口径 + 媒体交叉</cite>
+      </div>
+      <div class="evidence-item downgraded">
+        <p class="evidence-quote">总参数2.8万亿，激活参数1040亿，上下文窗口100万token，采用近MIT自定义许可证</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-07 焦点 2 · 来源标为 CSDN AI日报 · Hugging Face 仓库本机未能直取，21 世纪经济报道与虎嗅参数一致 · 来源等级：汇总口径 + 媒体交叉</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon">
+  <div class="shell">
+    <h2>口径声明</h2>
+    <p><b>开放状态分档。</b>「已开源」指权重已可下载；「承诺下周开源」「承诺近期开源」指官方写明了开源意图但权重尚未放出；「仅 API」指只提供接口调用。分档依据是官方原文，不采用厂商自述的阵营归类。按此口径，2026-11-04 至 11-05 这一批里已开源的是 ERNIE-5.5-Flash-Base 与 Kimi K3.1 Pro。</p>
+    <p><b>训练量口径。</b>Inkling 2 Small 的 68 小时只对应 H1 阶段 8.4T token；全预训练按官方四段相加约 12.55T token（8.4 + 3.8 + 0.32 + 0.034），官方未披露后三段时长；另有主强化学习 run 9 天、2048 GPU、超过 4×10²³ FLOPs。简报「12T token 仅用 68 小时训完」为合并口径，本页不采用。</p>
+    <p><b>参数口径与成本。</b>成本表为团队推算，公式 6×N×D，D 取 H1 的 8.4T token；总参口径与激活参口径相差 35 倍。单机架算力与租赁单价均为公开假设，官方未披露机架数与卡数，因此成本只表示量级，<b>不得读作官方披露或实际支出</b>。核算由量研完成，本页按其回复录入并修正其中与官方冲突的一处（Inkling 2 Small 上下文，以官方 1M 为准）。</p>
+    <p><b>来源层级。</b>A 级（官方页面直取）：Thinking Machines Lab 公告、OpenAI 部署安全系统卡、蚂蚁百灵开发者文档、中国经济网转官方发布稿，均于 2026-11-08 直取。B 级（团队推算）：训练 FLOPs、隐含算力、机架与成本区间。C 级（汇总或媒体转述）：简报两份素材的焦点条目、ERNIE 与 Kimi 的参数与许可细节、混元 Hy4 正式版的激活参数与上下文（preview 口径）。</p>
+    <p><b>已核与未核。</b>已核：四条候选断言的原始出处与逐字原文、Hy4 开放状态表述、GPT-6 Cyber 三层访问控制、Ling-3.2-flash 的参数与开放状态。未核：Hugging Face 上 ERNIE-5.5-Flash-Base 与 Kimi K3.1 Pro 的仓库页面（本机到 huggingface.co 的请求未成功），未复现任何基准分数，未实测任何模型推理。</p>
+    <p><b>局限。</b>（1）所有分数均为厂商自报或榜单转述，本页未复现；（2）混元 Hy4 正式版的激活参数与上下文仍是 preview 口径，正式版披露后需回填；（3）Inkling 2 Small 权重落盘日期以官方「下周」为准，未见具体日程；（4）成本区间依赖未验证的硬件假设，只用于量级说明。</p>
+    <p><b>免责。</b>本页为研究记录，非投资建议，不构成对任何模型、许可或供应商的推荐。所有前瞻性表述（含「下周落盘」）均以官方后续公告为准。</p>
+  </div>
+</footer>
+
+<nav class="shell foot-nav">
+  <a href="#top">↑ 回到顶部</a>
+  <span>过程材料：works/2026-11-08/notes/2026-11-08-open-weights-600b-wave-notes.md</span>
+</nav>
+
+</main>
+
+<script type="application/json" id="claims">
+[
+  {
+    "value": "594B",
+    "label": "Inkling 2 Small参数量",
+    "quote": "a Mixture-of-Experts model with 594B total parameters, 17B active"
+  },
+  {
+    "value": "68 小时",
+    "label": "Inkling 2 Small 预训练H1时长",
+    "quote": "It ran for 68 hours on NVIDIA GB300 NVL72 racks, which enabled high expert parallelism."
+  },
+  {
+    "value": "560B",
+    "label": "Ling-3.2-flash总参数",
+    "quote": "拥有 560B 总参数、25B 激活参数"
+  },
+  {
+    "value": "100 万 token",
+    "label": "Ling-3.2-flash上下文长度",
+    "quote": "100 万 token 上下文，支持图、文、视频输入"
+  },
+  {
+    "value": "Critical",
+    "label": "GPT-6 Cyber网络安全能力等级",
+    "quote": "Critical in Cybersecurity"
+  },
+  {
+    "value": "IP 允许列表",
+    "label": "Daybreak Red API默认访问控制",
+    "quote": "we require IP allowlisting for Daybreak Red API access by default"
+  },
+  {
+    "value": "770B",
+    "label": "混元 Hy4正式版总参数",
+    "quote": "Hy4 系列达到 770B"
+  },
+  {
+    "value": "33.5万亿 token",
+    "label": "ERNIE-5.5-Flash-Base训练token",
+    "quote": "参数280B，激活14B，33.5万亿token，FP8/BF16双格式"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section, .masthead');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

@@ -107,6 +107,10 @@ def scan_works():
             if fn.startswith('.'):
                 # 隐藏分片（.part1.html / .part2.html 等）= 构建中间产物，非作品
                 continue
+            if fn.startswith('__'):
+                # impeccable detect 的探针文件（__detect_probe_bad.html）
+                # = 门禁工具的校准产物，瞬态存在，非作品（2026-11-10 例会加固）
+                continue
             if fn in EXCLUDE_FILES or BACKUP_RE.search(fn):
                 continue
             full = os.path.join(dirpath, fn)

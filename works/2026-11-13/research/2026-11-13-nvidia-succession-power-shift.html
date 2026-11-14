@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>33 年的掌舵，14 个点的崩跌 —— 黄仁勋辞任后，谁在英伟达缺席时接单</title>
+
+<!--
+  智囊团 · 研究类作品 · 选题435（追踪线：厂商与算力权力）
+  版式自 shared/showcase/templates/work.html 起步，结构按本篇内容重排：
+  时间轴 / 供应商对照表 / 权力层级图 / 接单者清单。
+  契约：承载数据的语义块使用封闭词汇表
+    .metrics > .metric > (.metric-value / .metric-label / .metric-source)
+    .verdict
+    .timeline > .timeline-item > (.timeline-date / .timeline-title / .timeline-detail)
+    .evidence > .evidence-item > (.evidence-quote / .evidence-source)
+  表格与层级图使用本篇结构性样式类（tbl / fig / ladder / rung），不承载断言语义。
+-->
+
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="description" content="11-12 英伟达换帅当日的价格、供应商投票与五层权力台账：谁在英伟达缺席时接单。">
+
+<style>
+/* ── 自托管衬线 ──────────────────────────────────────────── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,
+                 U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;          /* 冷调档案纸（账簿灰绿） */
+  --paper-raised:#f4f6f4;   /* 抬起面（账册带） */
+  --ink:#171a18;
+  --ink-2:#4f5551;          /* 次要文字 6.9:1 */
+  --ink-3:#646b67;          /* 三级文字 4.6:1 */
+  --rule:#d2d8d4;           /* 发丝线 */
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;          /* 陈铜强调（冷底上的暖调） 5.3:1 */
+  --brass-wash:#efe4cc;
+  --down:#a23b2d;           /* 跌（深朱砂） 5.1:1 */
+  --deep:#121513;           /* 深色带 */
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ────────────────────────────────────────────────── */
+.masthead{padding:96px 0 64px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 272px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:24px;font-size:19.5px;line-height:1.58;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────────── */
+section{padding:78px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:16px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.4;letter-spacing:-0.006em;
+  font-weight:600;margin:34px 0 12px;
+}
+.lede{font-size:17.5px;line-height:1.62;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+p{max-width:70ch}
+p + p{margin-top:14px}
+.note{
+  margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-soft);
+  font-size:13.5px;line-height:1.7;color:var(--ink-3);max-width:74ch;
+}
+.note b{color:var(--ink-2);font-weight:600}
+
+/* ── 核心判断：深色带（页面唯一的高对比时刻）────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,30px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:62ch;
+}
+
+/* ── 关键数据：账册（发丝线分隔，非卡片）────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:29px;line-height:1.14;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);word-break:keep-all;
+}
+.metric-label{
+  margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 进程：左侧边注日期 ────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:136px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:66ch}
+
+/* ── 表格 ─────────────────────────────────────────────────── */
+.fig{margin-top:30px}
+.fig-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;margin-bottom:10px}
+.fig-title{font-family:var(--serif-cn);font-size:16.5px;font-weight:600;letter-spacing:-0.006em}
+.fig-unit{font-size:12px;color:var(--ink-3);font-family:var(--serif-num)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;min-width:660px}
+.tbl caption{caption-side:top;text-align:left;font-family:var(--serif-cn);font-size:15px;
+  font-weight:600;color:var(--ink);padding-bottom:11px}
+.tbl th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;padding:0 14px 8px 0;border-bottom:1px solid var(--ink-3);
+  vertical-align:bottom}
+.tbl td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule-soft);color:var(--ink-2);
+  line-height:1.6;vertical-align:top}
+.tbl td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+.tbl td.num{color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num.up{color:var(--brass);font-weight:600}
+.tbl td.num.down{color:var(--down);font-weight:600}
+.tbl tr.mark td{background:var(--brass-wash)}
+.tbl tr.mark td:first-child{font-weight:600}
+.cap{margin-top:13px;font-size:13.5px;line-height:1.68;color:var(--ink-2);max-width:76ch}
+.cap b{color:var(--ink)}
+
+/* ── 权力层级图：五层台账（左侧脊线 + 右侧事实）────────── */
+.ladder{margin-top:26px;border-top:1px solid var(--rule)}
+.rung{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:30px;
+  padding:24px 0;border-bottom:1px solid var(--rule);position:relative;
+}
+.rung-key{border-left:2px solid var(--brass);padding-left:14px}
+.rung-cn{
+  display:block;font-family:var(--serif-cn);font-size:25px;font-weight:600;
+  letter-spacing:.06em;color:var(--ink);line-height:1.15;
+}
+.rung-sub{
+  display:block;margin-top:6px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  letter-spacing:.02em;
+}
+.rung-lead{
+  font-family:var(--serif-cn);font-size:17px;line-height:1.5;font-weight:600;
+  color:var(--ink);margin-bottom:9px;
+}
+.rung-line{margin-top:7px;font-size:15px;line-height:1.68;color:var(--ink-2);max-width:66ch}
+.rung-line .src{color:var(--ink-3);font-size:13px}
+
+/* ── 证据：悬挂引号 ─────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.64;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 页脚 ────────────────────────────────────────────────── */
+.colophon{
+  padding:52px 0 72px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon h3{margin-top:0;margin-bottom:12px}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:76ch}
+.colophon p b{color:var(--ink-2);font-weight:600}
+.colophon ul{margin:0 0 14px;padding-left:20px;max-width:76ch}
+.colophon li{font-size:13.5px;line-height:1.72;color:var(--ink-3);margin-bottom:7px}
+.colophon li b{color:var(--ink-2);font-weight:600}
+
+/* ── 动效：发丝线自左绘出（页面唯一的一次性动作）──────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:980px){
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  h3{font-size:17px;margin-top:28px}
+  .timeline-item{grid-template-columns:1fr;gap:7px}
+  .timeline-date{padding-top:0}
+  .rung{grid-template-columns:1fr;gap:12px}
+  .rung-key{border-left:none;padding-left:0;border-bottom:1px solid var(--rule-soft);padding-bottom:8px}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px;font-size:17px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>33 年的掌舵，14 个点的崩跌</h1>
+        <p class="standfirst">黄仁勋辞任后，谁在英伟达缺席时接单。11 月 12 日美东收盘，英伟达在同一天换掉 CEO、新设董事会主席，股价从盘初 -14.35% 走到收盘 -4.34%。这一天被重新定价的不是股票，是签字权。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-13</dd></div>
+          <div><dt>主责</dt><dd>研析 · 数析协作行情核对</dd></div>
+          <div><dt>追踪线</dt><dd>厂商与算力权力</dd></div>
+          <div><dt>口径</dt><dd>美东 11-12 收盘</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">11 月 12 日被重新定价的不是英伟达的股票，而是英伟达的签字权：市场把「黄仁勋的判断」换算成「一张采购名单」来定价——名单上的替代算力标的被买走，深度绑定英伟达订单与算力信贷的环节先掉了链子。</p>
+    <p class="verdict-note">三条机制支撑这一读法。其一，英伟达在同一天换掉 CEO、新设首位董事会主席，第一次把执行与监督拆给两个人，也第一次公开承认接班人尚不存在。其二，董事会启动全球遴选的同时，11 月 17 日的财报必须由临时 CEO 定价，指引口径本身成了变量。其三，决定下一代机架长什么样的是采购约束，不只英伟达一家：要求云伙伴为非中国企业保留至少 51% 服务能力、SpaceX 跳过 L6 计算板，两条都发生在辞任公告之前。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">下面八个数分属四条线：价格（英伟达与费半）、利率（10 年与 2 年）、采购约束（51%），以及公告之前市场对最坏情形的定价。每条都标注了口径与出处。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">166.19 美元</div>
+        <div class="metric-label">英伟达 11-12 收盘价</div>
+        <div class="metric-source">美东 11-12 收盘 · 财华社 11-13（当日 -4.34%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">148.80 美元</div>
+        <div class="metric-label">英伟达 11-12 盘中新低</div>
+        <div class="metric-source">美东 11-12 盘初 · 财华社 11-13（盘中一度 -14.35%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">10,506.67 点</div>
+        <div class="metric-label">费城半导体指数收盘点位（11-12）</div>
+        <div class="metric-source">美东 11-12 收盘 · 期货 11-12 · investing.com</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">-0.54%</div>
+        <div class="metric-label">费城半导体指数 · 11/12 单日跌幅</div>
+        <div class="metric-source">美东 11-12 收盘 · 澎湃新闻 11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.11%</div>
+        <div class="metric-label"><span>10</span>年期美债收益率（11-12收盘口径）</div>
+        <div class="metric-source">美东 11-12 尾盘。报 5.1129%，+12.09bp（期货 11-12）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.86%</div>
+        <div class="metric-label"><span>2</span>年期美债收益率（11-12收盘口径）</div>
+        <div class="metric-source">美东 11-12 尾盘。报 4.8645%，+12.68bp（期货 11-12）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">51%</div>
+        <div class="metric-label">英伟达要求云伙伴为非中国企业保留的服务能力下限</div>
+        <div class="metric-source">据《金融时报》11 月初报道 · 新浪新闻 11-12</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1 万亿~1.2 万亿美元</div>
+        <div class="metric-label">机构估算的「被罢免」情形市值蒸发区间</div>
+        <div class="metric-source">分析师 Dan Ives 警告 · 财闻引《福布斯》11-12（公告前的情景预期）</div>
+      </div>
+    </div>
+    <p class="note"><b>口径说明：</b>「1 万亿~1.2 万亿美元」是 11-12 公告之前、针对「被罢免」情形的机构估算，与当日实际发生的「已辞任」不是同一件事。本篇正文的事实基准是辞任已生效、即时生效；该估算只作为市场在公告前定价的最坏情形登记，实际收盘跌幅远小于该区间。</p>
+    <p class="note"><b>收益率跨源差异：</b>11-11 美国债券市场因退伍军人节休市，11-12 复市把 10 月 CPI 的影响一次性计入。同一天的收盘读数在不同数据商之间相差 1~3 个基点：10 年期有 5.103%、5.1129%、5.133%~5.134% 三种记录，2 年期有 4.8645%、4.881%、4.89% 三种记录。本篇断言取所引原文的读数（5.1129% 与 4.8645%，四舍五入为 5.11% 与 4.86%），不取平均；完整跨源区间由数析行情核对表登记，成因未确认。</p>
+  </div>
+</section>
+
+<!-- ── 时间轴 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>四天：从一封道歉信到一次换帅</h2>
+    <p class="lede">这不是一次计划中的交接。丑闻曝光、独立调查、董事会表决、临时安排、盘后公告，全部压在 11-08 到 11-12 这五个交易日里。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-29</span>
+        <div>
+          <div class="timeline-title">丑闻首次曝光，市值基准在 5.159 万亿美元</div>
+          <div class="timeline-detail">黄仁勋私生活丑闻首次被曝出。据环球市场播报 11-12 的回溯口径，这一天英伟达市值约 5.159 万亿美元；10 月 6 日创下的历史高价是 243.37 美元（21 世纪经济报道 11-13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-08</span>
+        <div>
+          <div class="timeline-title">一封道歉信与一份调查声明同日落地</div>
+          <div class="timeline-detail">英伟达官网挂出《致公司全体同仁的一封信》，黄仁勋承认「我对妻子不忠」。同日董事会声明：由独立董事组成委员会、外部独立律师协助，审查黄仁勋是否成为外国情报行动的目标；声明同时称没有理由相信国家安全或公司机密遭到泄露。当晚美股夜盘跌超 4%，市值蒸发约 1800 亿美元（虎嗅 11-09）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">收盘跌 4.27%，收盘五分钟后被集体诉讼</div>
+          <div class="timeline-detail">英伟达收跌 4.27%，报 178.67 美元，市值缩水约 1930 亿美元，创七个月新低。美股收盘五分钟后，英伟达与黄仁勋遭股东集体诉讼，指控其涉嫌欺诈股东（央视财经 / 新浪财经 11-10）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-11</span>
+        <div>
+          <div class="timeline-title">反弹与罢免传闻发生在同一天</div>
+          <div class="timeline-detail">英伟达反弹 2.87% 收 173.73 美元，费城半导体指数涨 5.66%（新浪财经 11-12）。同一天《福布斯》报道董事会准备罢免任职 33 年的 CEO 并可能即将开会，11-11 盘后交易中股价再跌超 8%；继美银之后，摩根士丹利也把英伟达移出首选股名单（华尔街见闻 / 财联社 11-12）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12 盘前</span>
+        <div>
+          <div class="timeline-title">辞任公告：三个任命，同一晚</div>
+          <div class="timeline-detail">英伟达宣布：公司董事会已批准黄仁勋辞去公司总裁、首席执行官及董事职务，即刻生效。现任执行副总裁兼首席财务官科莱特·克雷斯（Colette Kress）出任临时 CEO 并继续担任 CFO，直至正式继任者确定；董事会启动新任 CEO 遴选程序，同时考虑内部及外部候选人；哈维·C·琼斯（Harvey C. Jones）出任公司首任董事会主席（21 世纪经济报道 11-12 22:49）。盘前跌超 13%，纳斯达克 100 指数期货下跌 1.2%，AMD 与博通盘前各涨约 3%（21 世纪经济报道 11-13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12 开盘</span>
+        <div>
+          <div class="timeline-title">盘初重挫超 14%，一度跌到 148.80 美元</div>
+          <div class="timeline-detail">开盘后一度急跌 14.35%，低见 148.80 美元，较 10 月 6 日历史高点 243.37 美元跌去近 40%，盘中市值一度蒸发超过 6000 亿美元，跌至美股市值第三位（财华社 11-13 / 21 世纪经济报道 11-13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12 收盘</span>
+        <div>
+          <div class="timeline-title">跌幅收窄到 4.34%，市值 4.01 万亿美元</div>
+          <div class="timeline-detail">英伟达收跌 4.34%，报 166.19 美元，市值 4.01 万亿美元，单日缩水约 1820 亿美元（财华社 11-13）。当日成交额约 1219.4 亿美元，创历史纪录（镜周刊 11-12）。费城半导体指数收报 10,506.67 点，跌 0.54%；标普 500 报 7,592.4 点跌 0.35%，纳斯达克综合指数报 25,366.09 点跌 0.39%，道琼斯工业平均指数报 52,297.09 点跌 0.36%（澎湃新闻 11-13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12 盘后</span>
+        <div>
+          <div class="timeline-title">机构下调评级，散户逆势买入</div>
+          <div class="timeline-detail">Truist Securities 的 William Stein 把英伟达评级从买入下调至持有，目标价从 346 美元降至 174 美元；Bernstein 目标价从 400 美元下调至 200 美元；KeyBanc、Melius、William Blair、Oppenheimer 也先后下调。方向相反的是散户：开盘后半小时内净买入价值 1.11 亿美元的英伟达股票，创下该股有记录以来最大的开盘买入额，Fidelity 平台上的买入订单数量接近卖出订单的五倍（21 世纪经济报道 11-13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">两个日期已经排定：11-17 财报与 11-18 国会简报</div>
+          <div class="timeline-detail">11 月 17 日（下周二）英伟达将发布 2027 财年第三季度财务业绩并举行财报电话会，分析师一致预期营收约 1090 亿美元，同比增长逾 90%（21 世纪经济报道 11-13）；公司此前给出的指引为 1080 亿美元（福布斯 11-12）。另一条线：众议院外交事务、情报、美中战略竞争三个委员会要求黄仁勋于 11 月 18 日赴国会出席闭门简报（香港 01 11-10）。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 供应商与客户反应对照表 ──────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>一天的投票：谁涨，谁跌</h2>
+    <p class="lede">把 11-12 收盘的涨跌按「与英伟达的关系」重排，市场的选择立刻显形：被当作替代供应选项的芯片标的上涨，深度绑定英伟达订单与算力信贷的环节下跌，存储与代工跟跌但不跟崩。</p>
+
+    <div class="fig">
+      <div class="fig-head">
+        <span class="fig-title">表一 · 美东 11-12 收盘涨跌幅对照</span>
+        <span class="fig-unit">口径：美东 11-12 常规交易时段收盘</span>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <caption>标的一律按 11-12 收盘涨跌排序；「关系与读法」写的是当日市场给出的定价理由，不是订单已经转移的证据。</caption>
+          <thead>
+            <tr>
+              <th scope="col">标的</th>
+              <th scope="col">11-12 收盘（涨跌幅 · 收盘价）</th>
+              <th scope="col">关系与读法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="mark">
+              <td>AMD</td>
+              <td class="num up">+5.86%（585.30 美元）</td>
+              <td>被视为英伟达 AI 芯片的替代供应选项，与博通合计几乎抵消了英伟达对标普 500 的拖累。</td>
+            </tr>
+            <tr>
+              <td>博通</td>
+              <td class="num up">+5.54%（364.36 美元）</td>
+              <td>定制 ASIC 与网络方案，同属替代供应选项。</td>
+            </tr>
+            <tr>
+              <td>高通</td>
+              <td class="num up">+0.32%（177.14 美元）</td>
+              <td>手机与边缘 AI 芯片，不在数据中心替代叙事的主线上。简报所载「高通 +2%」属 11-11 交易日，不可与本表同日混列。</td>
+            </tr>
+            <tr>
+              <td>Cerebras</td>
+              <td class="num">常规时段跌超 3%，延长交易时段涨超 18%</td>
+              <td>盘后公布业绩。延长交易时段的涨幅与常规收盘涨跌不可混列；另有「盘后大涨超 19%」口径。</td>
+            </tr>
+            <tr>
+              <td>西部数据</td>
+              <td class="num down">-0.67%</td>
+              <td>存储与硬盘供应商，跌幅明显小于闪迪。</td>
+            </tr>
+            <tr>
+              <td>甲骨文</td>
+              <td class="num down">-0.99%（127.11 美元）</td>
+              <td>云与数据库，是英伟达的买方而非替代方。简报所载「甲骨文跌 4%」为盘前快照，本表不采用。</td>
+            </tr>
+            <tr>
+              <td>美光</td>
+              <td class="num down">-1.59%（798.44 美元）</td>
+              <td>存储供应商，与 SK 海力士同步走弱，属板块内部回吐。</td>
+            </tr>
+            <tr>
+              <td>安谋</td>
+              <td class="num down">-1.76%（199.78 美元）</td>
+              <td>架构授权方。其 CEO 伦·哈斯曾在英伟达工作约 7 年，被媒体列为外部候选，但股价当日并未因此获得溢价。</td>
+            </tr>
+            <tr>
+              <td>台积电</td>
+              <td class="num down">-1.9%</td>
+              <td>先进制程代工，是英伟达的供应端而非替代端。</td>
+            </tr>
+            <tr>
+              <td>SK 海力士 ADR</td>
+              <td class="num down">-3.19%（137.71 美元）</td>
+              <td>存储供应商。韩股主体的 11-12 收盘涨跌幅未取到带明确日期的来源，本表只用 ADR 口径。</td>
+            </tr>
+            <tr>
+              <td>闪迪</td>
+              <td class="num down">-4.1%（937.46 美元）</td>
+              <td>存储与系统盘供应商。「跌超 4%」与「约跌 5%」为同源不同表述，本表取上海证券报的 4.1%。</td>
+            </tr>
+            <tr>
+              <td>CoreWeave</td>
+              <td class="num down">-6.86%</td>
+              <td>英伟达参投的云服务商，深度绑定英伟达订单与算力信贷生态。</td>
+            </tr>
+            <tr>
+              <td>超微电脑</td>
+              <td class="num down">-11.30%</td>
+              <td>服务器整机，订单直接绑定英伟达机架。</td>
+            </tr>
+            <tr>
+              <td>Nebius</td>
+              <td class="num down">-16.84%</td>
+              <td>AI 云厂商，创 7 月份以来最差单日表现；另有「跌近 17%」口径。</td>
+            </tr>
+            <tr class="mark">
+              <td>英伟达</td>
+              <td class="num down">-4.34%（166.19 美元）</td>
+              <td>自身。盘初一度 -14.35%、低见 148.80 美元，收盘大幅收窄，市值 4.01 万亿美元。</td>
+            </tr>
+            <tr>
+              <td>费城半导体指数</td>
+              <td class="num down">-0.54%（10,506.67 点）</td>
+              <td>板块口径。当日开盘 10,174.12 点即全天最低，盘中最高 10,688.24 点，走出与英伟达同形的 V。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cap"><b>口径与出处：</b>AMD、博通、高通与各家收盘价取自 21 世纪经济报道 11-13、老虎证券成分股页与财华社 11-13，由数析 11-14 行情核对表交叉复核；CoreWeave、超微电脑、台积电、美光、安谋取自 21 世纪经济报道 11-13；闪迪取上海证券报 11-13；Nebius 与 Cerebras 常规时段口径取自澎湃新闻 11-13 与京报网 11-13；指数与点位取自期货 11-12 与英为财情。简报 11-13 中的「AMD 与博通盘前涨约 2%」「甲骨文跌 4%」「Neocloud 盘前大跌 20%」三条为盘前快照，其中两条未找到原始出处，本表一律不采用。</p>
+    </div>
+
+    <p>读法要克制。这张表证明的是<strong>当天的相对定价</strong>，不是订单已经转移：没有任何一份公告说某家云厂商把订单给了博通，也没有数据说明 GPU 份额发生了位移。能说的是，市场在创始人离场的第二天，给「替代供应选项」与「深度绑定环节」这两组资产定了完全相反的价格。这是一种关于未来的投票，不是关于已发生事实的记录。</p>
+  </div>
+</section>
+
+<!-- ── 权力层级图 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>权力层级：签字权往下走了五层</h2>
+    <p class="lede">把 11-12 这一天摊开看，换帅不是一件事，而是一条自上而下的权力链被逐层重新定价：谁签字、钱往哪去、谁下单、谁供货、谁能禁止。</p>
+
+    <div class="ladder">
+      <div class="rung">
+        <div class="rung-key">
+          <span class="rung-cn">人</span>
+          <span class="rung-sub">谁签字</span>
+        </div>
+        <div>
+          <p class="rung-lead">临时 CEO 兼 CFO 科莱特·克雷斯 · 首位董事会主席哈维·C·琼斯</p>
+          <p class="rung-line">11-12 晚，黄仁勋辞去总裁、CEO 及董事职务并即刻生效；克雷斯出任临时 CEO 并继续兼任 CFO，直至正式继任者确定；董事会启动全球遴选，同时考虑内部与外部候选人；琼斯出任公司首任董事会主席，此前公司没有这个职位。</p>
+          <p class="rung-line">制度上这一步并不难。黄仁勋持股约 3.58%、不享有超级投票权，董事会 11 名董事中 10 名为独立董事，他是唯一的非独立董事。此前直接向他汇报的高管超过 60 人，公司没有明确的二把手。<span class="src">（21 世纪经济报道 11-13）</span></p>
+          <p class="rung-line"><strong>缺口：</strong>正式接班人尚不存在，而 11-17 的财报必须由临时 CEO 定价。</p>
+        </div>
+      </div>
+
+      <div class="rung">
+        <div class="rung-key">
+          <span class="rung-cn">股权</span>
+          <span class="rung-sub">钱往哪去</span>
+        </div>
+        <div>
+          <p class="rung-lead">机构下调目标价，散户在开盘半小时净买入 1.11 亿美元</p>
+          <p class="rung-line">Truist Securities 把评级从买入下调至持有，目标价从 346 美元降至 174 美元；Bernstein 目标价从 400 美元下调至 200 美元；KeyBanc、Melius、William Blair、Oppenheimer 随后跟进。另一侧是散户：开盘后半小时净买入价值 1.11 亿美元，创该股有记录以来最大的开盘买入额。<span class="src">（21 世纪经济报道 11-13）</span></p>
+          <p class="rung-line">英伟达参投的云服务商 CoreWeave 当日收跌 6.86%，Nebius 收跌 16.84%；英伟达第三财季营收指引为 1080 亿美元，分析师一致预期约 1090 亿美元。</p>
+          <p class="rung-line"><strong>缺口：</strong>估值锚从「一个人的判断」挪向「一张采购名单」，而名单本身还没写完。</p>
+        </div>
+      </div>
+
+      <div class="rung">
+        <div class="rung-key">
+          <span class="rung-cn">采购</span>
+          <span class="rung-sub">谁下单</span>
+        </div>
+        <div>
+          <p class="rung-lead">51% 的服务能力下限 · SpaceX 跳过 L6 计算板</p>
+          <p class="rung-line">据《金融时报》11 月初报道，英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少 51% 的服务提供给非中国企业；The Information 随后称这项安排属于非强制指导，针对未来合同，不触及存量租约。<span class="src">（新浪新闻 11-12）</span></p>
+          <p class="rung-line">同期 SemiAnalysis 报道，SpaceX 计划跳过英伟达 L6 计算板，PCB、连接器、供电、散热由「英伟达指定」改为「SpaceX 自选」；该机构称之为机架层的去英伟达化。<span class="src">（财联社 11-12）</span></p>
+          <p class="rung-line"><strong>缺口：</strong>谁定义下一代机架的长相，答案不再只由英伟达给出。</p>
+        </div>
+      </div>
+
+      <div class="rung">
+        <div class="rung-key">
+          <span class="rung-cn">产能</span>
+          <span class="rung-sub">谁供货</span>
+        </div>
+        <div>
+          <p class="rung-lead">替代标的上涨，绑定环节下跌，存储与代工跟跌不跟崩</p>
+          <p class="rung-line">11-12 收盘，AMD 涨 5.86%、博通涨 5.54%；美光跌 1.59%、SK 海力士 ADR 跌 3.19%、闪迪跌 4.1%、西部数据跌 0.67%、台积电跌 1.9%；超微电脑跌 11.30%、CoreWeave 跌 6.86%、Nebius 跌 16.84%。</p>
+          <p class="rung-line">同期的产能侧背景发生在另外两天：阿里 11-10 公告拟分拆旗下 AI 芯片公司平头哥赴港交所主板独立上市，真武系列 AI 芯片截至 2026 年 4 月累计出货 56 万片、企业客户超 650 家；美团以 MIT 协议全量开源 1.6 万亿参数模型，全程基于国产算力集群训练。<span class="src">（AI 技术动态简报 11-12）</span></p>
+          <p class="rung-line"><strong>缺口：</strong>替代产能的交付能力仍待验证，份额变化不是一天的收盘价能证明的。</p>
+        </div>
+      </div>
+
+      <div class="rung">
+        <div class="rung-key">
+          <span class="rung-cn">管制</span>
+          <span class="rung-sub">谁能禁止</span>
+        </div>
+        <div>
+          <p class="rung-lead">限制从芯片延伸到服务、合同与高管</p>
+          <p class="rung-line">11-10，多名美国议员再呼吁收紧中国获取先进 AI 芯片的渠道；51% 的服务能力要求把对华限制写进了云服务的合同条款。11-13 披露的另一条线是国会民主党人启动对英伟达的调查并致信质询黄仁勋与特朗普政府的往来，中国外交部回应称美方应停止编造所谓间谍叙事。<span class="src">（TechCrunch / 华尔街见闻 11-13）</span></p>
+          <p class="rung-line"><strong>缺口：</strong>董事会把调查交给外部律所，国会同时启动问询，两条线会落在同一位新任 CEO 头上。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 谁在接单 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>谁在接单：三种接单必须分开读</h2>
+    <p class="lede">「接单」这个词在 11-12 有三层完全不同的含义。混着读，会把一句政治表态当成一次人事任命。</p>
+
+    <div class="fig">
+      <div class="fig-head">
+        <span class="fig-title">表二 · 接单者清单与各自的口径边界</span>
+        <span class="fig-unit">截至 2026-11-13</span>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <caption>董事会尚未公布任何候选人名单，以下全部是外部声音或市场定价，不能等同于遴选结果。</caption>
+          <thead>
+            <tr>
+              <th scope="col">接单类型</th>
+              <th scope="col">谁</th>
+              <th scope="col">谁提出的</th>
+              <th scope="col">口径边界</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="mark">
+              <td>治理接班</td>
+              <td>苹果前首席执行官蒂姆·库克</td>
+              <td>特朗普公开点名，称其为唯一人选，并说「一位传奇接替另一位传奇」。</td>
+              <td>是政治表态，不是董事会遴选结果。</td>
+            </tr>
+            <tr>
+              <td>治理接班</td>
+              <td>马斯克</td>
+              <td>回应网友「聘请黄仁勋」的喊话，称「那将是我的荣幸」。</td>
+              <td>没有提出任何正式邀约。</td>
+            </tr>
+            <tr>
+              <td>治理接班</td>
+              <td>Arm 首席执行官伦·哈斯</td>
+              <td>媒体整理的外部人选名单，其曾在英伟达工作约 7 年。</td>
+              <td>名单来自媒体整理，非公司程序。</td>
+            </tr>
+            <tr>
+              <td>治理接班</td>
+              <td>施密特、苏姿丰</td>
+              <td>治理领域专家在评论中的「擅自提名」。</td>
+              <td>专家提名，无机构程序支撑。</td>
+            </tr>
+            <tr>
+              <td>订单接单</td>
+              <td>AMD、博通</td>
+              <td>市场定价，而非公司公告。</td>
+              <td>11-12 收盘涨 5.86% 与 5.54%，属于价格信号。</td>
+            </tr>
+            <tr>
+              <td>订单接单</td>
+              <td>SpaceX</td>
+              <td>公司自选机架部件。</td>
+              <td>跳过 L6 计算板，其余部件改为自选。</td>
+            </tr>
+            <tr>
+              <td>订单接单</td>
+              <td>云与数据中心伙伴</td>
+              <td>合同层面。</td>
+              <td>承接「至少 51% 服务能力给非中国企业」的要求。</td>
+            </tr>
+            <tr>
+              <td>生态接单</td>
+              <td>散户与机构分化</td>
+              <td>开盘后的真实成交。</td>
+              <td>散户半小时净买入 1.11 亿美元，机构下调目标价。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cap"><b>出处：</b>库克、马斯克与散户买入数据取自 21 世纪经济报道 11-13；哈斯与专家提名名单取自维科号 11-13；SpaceX 与 51% 分别取自财联社 11-12 与新浪新闻 11-12。</p>
+    </div>
+
+    <p>把这张表读通，结论是清楚的：<strong>治理接班这件事，11-12 还没有名单</strong>。董事会启动的是程序，不是决定；外部只有三种声音——政治点名、社交喊话、媒体整理的专家名单。三者都没有制度效力，但三者都会被市场当成「候选池」来交易，这正是 11-12 盘初 14 个点的一部分来源。</p>
+
+    <p>而订单层面的接单已经发生，且不依赖任何人表态：替代供应选项在收盘价上被买走，绑定环节被卖出。所以这篇的落点不是「谁会当 CEO」，而是<strong>在正式 CEO 到位之前，英伟达生态的采购决定权正在向合同条款和机架自选权转移</strong>——转移的速度由客户决定，不由董事会决定。</p>
+  </div>
+</section>
+
+<!-- ── 接下来看什么 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>接下来看三件事</h2>
+    <p class="lede">这三件事都在未来四十八小时内到期，也都在英伟达缺席的状态下发生。</p>
+
+    <h3>11 月 17 日：财报由临时 CEO 定价</h3>
+    <p>分析师一致预期营收约 1090 亿美元，同比增长逾 90%，公司指引为 1080 亿美元。分析师 Dan Niles 在事件前警告，临时 CEO 很可能倾向于设定一个较低的业绩指引；而分析师对 2028 财年每股收益的预期已经从 4.77 美元推高到 15.91 美元。如果克雷斯选择保守指引，市场的第一反应未必是「利空出尽」。</p>
+    <p>高盛策略师 Chris Hussey 拿 2011 年乔布斯病休到辞世期间的苹果做参照：估值从约 17 倍 NTM 市盈率压缩到 12 倍、一度低至 9 倍，此后随着执行连续性逐步被验证才回到 15 倍。他的结论是，仅因创始人离职而卖出并非明智之举，但估值何时修复高度依赖公司能否持续证明执行力。</p>
+
+    <h3>11 月 18 日：黄仁勋赴国会闭门简报</h3>
+    <p>众议院外交事务、情报、美中战略竞争三个委员会要求黄仁勋出席闭门简报，说明英伟达的防谍机制以及他与相关人员的互动情形。简报在换帅之后的第二天进行，这意味着董事会已经把外部问询和内部遴选放在同一张时间表上。</p>
+
+    <h3>持续观察：采购名单上的两个变量</h3>
+    <p>一是 51% 的服务能力要求是否从「非强制指导」变成合同硬约束。The Information 的说法是它目前只针对未来合同、不触及存量租约。二是 SpaceX 式「机架层去英伟达化」是否从个案变成多家云厂商的共同做法。前者决定管制层还能走多远，后者决定采购层的话语权落在谁手里。</p>
+
+    <p class="note"><b>同期背景（不同日期，非本事件链的因果环节）：</b>阿里 11-10 公告拟分拆平头哥赴港上市，真武系列 AI 芯片截至 2026 年 4 月累计出货 56 万片、企业客户超 650 家，IDC 显示其国产 AI 加速卡出货量仅次于华为昇腾，美银初估估值 300 亿至 750 亿美元（AI 技术动态简报 11-12）。美团 LongCat-2.5 为 1.6 万亿参数、MIT 协议、全程基于国产算力集群训练（同上）。台积电拟 10 亿美元入股 OpenAI 与 Anthropic（Ars Technica 11-12）。这三条与英伟达换帅同期发生，但每条都有各自的公告与日期，不能并入英伟达事件链当作因果。</p>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。数字全部来自下列报道，价格类一律为美东 11-12 收盘口径。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">当地时间11月12日，英伟达宣布，公司董事会已批准黄仁勋辞去公司总裁、首席执行官及董事职务，即刻生效。</p>
+        <cite class="evidence-source">21 世纪经济报道 · 2026-11-13 10:37 ·《33年黄仁勋时代结束，市场为英伟达重新定价》</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">公司现任执行副总裁兼首席财务官科莱特·克雷斯（Colette Kress）出任临时CEO，并继续担任CFO，直至正式继任者确定。董事会将启动新任CEO遴选程序，同时考虑内部及外部候选人。</p>
+        <cite class="evidence-source">21 世纪经济报道 · 2026-11-13 10:37</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达董事会还任命哈维·琼斯（Harvey C. Jones）担任公司首任董事会主席，琼斯曾任新思科技CEO兼执行董事长。</p>
+        <cite class="evidence-source">21 世纪经济报道 · 2026-11-13 10:37</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达盘初一度急跌14.35%，低见148.80美元，但很快收复部分失地，收盘跌幅收窄至4.34%，报166.19美元，市值4.01万亿美元。</p>
+        <cite class="evidence-source">财华社（经期货转载） · 2026-11-13 08:38 ·《黄仁勋辞职：AI产业链估值逻辑需要重估？》</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">半导体板块内部明显分化，费城半导体指数跌0.54%。AMD、博通均涨逾5%，部分抵消英伟达下跌的影响。</p>
+        <cite class="evidence-source">澎湃新闻 · 2026-11-13 08:33 ·《美股三大指数收跌：英伟达跌超4%，黄金失守3900美元关口》</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">费城半导体指数报10,506.67点，跌0.54%。</p>
+        <cite class="evidence-source">期货（futunn） · 2026-11-12 22:55 ·《美股收盘 | AI央行大地震》</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方。2年期报4.8645%，上行12.68个基点。</p>
+        <cite class="evidence-source">期货（futunn） · 2026-11-12 22:55</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">此前，英国《金融时报》援引知情人士报道称，英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少51%的服务提供给非中国企业。</p>
+        <cite class="evidence-source">新浪新闻 · 2026-11-12 16:01 ·《美国收紧对华AI芯片限制，中国为何反而打开技术大门？》</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Wedbush分析师Dan Ives警告，若黄仁勋被罢免，市值或再蒸发1万亿~1.2万亿美元。</p>
+        <cite class="evidence-source">财闻（引《福布斯》） · 2026-11-12 · 公告前的情景估算，非已发生结果</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">半导体研究机构SemiAnalysis称SpaceX计划直接向英伟达采购芯片封装，其余部件自行采购，跳过英伟达L6计算板，PCB、连接器、供电、散热由“英伟达指定”改为“SpaceX自选”。</p>
+        <cite class="evidence-source">财联社 · 2026-11-12 ·《SpaceX机架层“去英伟达化”》</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h3>方法、口径与局限</h3>
+    <ul>
+      <li><b>事实基准：</b>全文按 11-12 晚英伟达官网公告的「已辞任、即时生效」写。11-12 三份简报中的「拟罢免」表述不采用，标题里的「14 个点」指盘初 -14.35% 这一可核跌幅，不指任何时长。</li>
+      <li><b>辞任原因：</b>官方公告未披露原因。婚外情与国家安全调查属媒体与公司声明口径，本篇只引述，不写成已认定事实；董事会声明本身称没有理由相信国家安全或公司机密遭到泄露。</li>
+      <li><b>价格口径：</b>11-12 英伟达有三个价格口径：盘初 -14.35%、低见 148.80 美元；财联社 11-12 的 165.880 美元与 4.00 万亿美元属盘中口径；收盘口径为 166.19 美元与 4.01 万亿美元。断言与图表一律用收盘口径，盘初值只用于时间轴叙述。</li>
+      <li><b>指数与债市口径：</b>三大指数采用澎湃新闻 11-13 的收盘值；热点新闻简报 11-13 的「道指 +0.11%、标普 500 -0.76%、纳指 -1.40%」经数析判定为 11-12 开盘快照，不用于收盘叙述。11-11 美债休市，11-12 复市补跌，10 年期与 2 年期均为 11-12 纽约尾盘报价，数据商之间存在 1~3 个基点分歧，成因未确认（确认方法：查 WSJ TMUBMUSD10Y 与 MarketWatch 的 11-12 收盘行，或用 Bloomberg／Refinitiv 单一终端复核）。</li>
+      <li><b>标签沿用：</b>费城半导体指数收盘点位、费城半导体指数单日涨跌幅、10 年期与 2 年期美债收益率、英伟达收盘价五组标签与既往作品逐字一致，未改写、未新造同义 label。</li>
+      <li><b>不在本篇范围：</b>Anthropic IPO 的定价日历、配售名单与资金闭环结构由另篇处理，本篇只在股权层保留必要的一处引用。</li>
+      <li><b>局限：</b>正式接班人尚不存在，外部名单均为表态或整理；「谁接单」是当天的价格读数，不是订单转移的证据；机构对「被罢免」的市值估算发布于公告之前。</li>
+    </ul>
+    <p>本篇为团队研究作品，数据均来自公开报道并逐条标注出处与日期；分析判断由研析负责，可能出错。行情数据以交易所与行情终端口径为准。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性 / 因果性判断不写成断言。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "166.19 美元",
+    "label": "英伟达 11-12 收盘价",
+    "quote": "收盘跌幅收窄至4.34%，报166.19美元，市值4.01万亿美元"
+  },
+  {
+    "value": "148.80 美元",
+    "label": "英伟达 11-12 盘中新低",
+    "quote": "英伟达盘初一度急跌14.35%，低见148.80美元"
+  },
+  {
+    "value": "10,506.67 点",
+    "label": "费城半导体指数收盘点位（11-12）",
+    "quote": "费城半导体指数报10,506.67点，跌0.54%"
+  },
+  {
+    "value": "-0.54%",
+    "label": "费城半导体指数 · 11/12 单日跌幅",
+    "quote": "半导体板块内部明显分化，费城半导体指数跌0.54%"
+  },
+  {
+    "value": "5.11%",
+    "label": "10年期美债收益率（11-12收盘口径）",
+    "quote": "10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"
+  },
+  {
+    "value": "4.86%",
+    "label": "2年期美债收益率（11-12收盘口径）",
+    "quote": "2年期报4.8645%，上行12.68个基点"
+  },
+  {
+    "value": "51%",
+    "label": "英伟达要求云伙伴为非中国企业保留的服务能力下限",
+    "quote": "英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少51%的服务提供给非中国企业"
+  },
+  {
+    "value": "1 万亿~1.2 万亿美元",
+    "label": "机构估算的「被罢免」情形市值蒸发区间",
+    "quote": "若黄仁勋被罢免，市值或再蒸发1万亿~1.2万亿美元"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

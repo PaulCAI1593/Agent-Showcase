@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="算力·能耗·环境">
+<meta name="description" content="美国中期选举 41 项数据中心公投中 40 项通过，欧洲抗议与选后预警抬高否决权；绿色算力舱 8-12 周、英伟达旧楼改造最早 2027 年一季度压低工期。两条曲线对撞：算力落地的瓶颈在墙里还是在工地。">
+<title>否决权上行，工期下行：算力落地的墙与工地</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  选题424 · 研究类 · 从 templates/work.html 起步并按本篇内容重排
+  版式：结论带 → 关键数据（8 项）→ 曲线一：否决权上行（点阵 + 核源表 + 抗议表）
+        → 曲线二：工期下行（算力舱参数 + 工期图 + 英伟达方案表）
+        → 三条路径对撞表 → 判断 → 进程 → 证据 → 存疑清单（四类）→ 口径声明
+  视觉世界：档案卷宗（冷纸 + 墨色），两侧编码用否决红 / 部署绿。
+  断言声明：script#claims；追踪线：meta#showcase-beat。
+  「返回展厅」由 autopublish 注入，不手写。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --veto:#a8443a;
+  --veto-wash:#f2e2df;
+  --build:#3f6b4a;
+  --build-wash:#e2eae4;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+main{display:block}
+
+/* ── 抬头 ────────────────────────────────────────────── */
+.masthead{padding:92px 0 56px;border-bottom:1px solid var(--rule)}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(31px,4.1vw,48px);line-height:1.22;
+  letter-spacing:-0.01em;font-weight:600;max-width:20em;
+}
+.dek{
+  margin-top:22px;max-width:37em;font-size:17.5px;line-height:1.72;
+  color:var(--ink-2);
+}
+.mast-meta{
+  display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:30px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.2px;color:var(--ink-3);
+}
+.mast-meta span{position:relative}
+
+/* ── 结论带 ──────────────────────────────────────────── */
+.verdict-band{
+  background:var(--paper-raised);border-bottom:1px solid var(--rule);
+  padding:44px 0 46px;
+}
+.verdict-band h2{margin-bottom:14px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(20px,2.3vw,26px);line-height:1.6;
+  font-weight:600;max-width:33em;letter-spacing:-0.005em;
+}
+.verdict-note{
+  margin-top:18px;max-width:47em;font-size:16.5px;line-height:1.75;color:var(--ink-2);
+}
+
+/* ── 章节 ────────────────────────────────────────────── */
+section{padding:64px 0 4px;position:relative}
+h2{
+  font-family:var(--serif-cn);font-size:clamp(24px,2.7vw,31px);line-height:1.3;
+  font-weight:600;letter-spacing:-0.008em;max-width:24em;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19.5px;line-height:1.45;font-weight:600;
+  margin-bottom:8px;
+}
+.lede{
+  margin-top:16px;max-width:44em;font-size:17px;line-height:1.72;color:var(--ink-2);
+}
+p{max-width:46em;margin-top:14px;line-height:1.72}
+p b{font-weight:600;color:var(--ink)}
+strong{font-weight:600}
+em{font-style:normal;font-family:var(--mono);font-size:.94em;letter-spacing:.1px}
+
+/* 章节发丝线：本页唯一的成组动效 */
+.section-rule{display:block;width:100%;height:1px;margin-top:14px;overflow:visible}
+.section-rule line{
+  stroke:var(--rule);stroke-width:1;
+  transform:scaleX(0);transform-origin:left center;
+  animation:draw .42s cubic-bezier(.2,.8,.3,1) forwards;
+  animation-play-state:paused;
+}
+.seen .section-rule line{animation-play-state:running}
+@keyframes draw{to{transform:scaleX(1)}}
+.seen{--i:0}
+section:nth-of-type(2) .section-rule line{animation-delay:.06s}
+section:nth-of-type(3) .section-rule line{animation-delay:.08s}
+
+/* ── 关键数据 ────────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  margin-top:26px;
+}
+.metric{background:var(--paper);padding:20px 20px 18px}
+.metric-value{
+  font-family:var(--serif-num);font-size:clamp(30px,3.4vw,40px);line-height:1.05;
+  font-weight:600;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;
+}
+.metric-label{margin-top:9px;font-size:14.5px;line-height:1.5;font-weight:600}
+.metric-source{
+  margin-top:7px;font-family:var(--mono);font-size:12.5px;line-height:1.55;
+  letter-spacing:.2px;color:var(--ink-3);
+}
+
+/* ── 图 ──────────────────────────────────────────────── */
+.fig-figure{margin:34px 0 0}
+.fig-body{
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);
+  padding:24px 0 22px;background:transparent;
+}
+.fig-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:18px;flex-wrap:wrap;margin-bottom:16px;
+}
+.fig-head h3{margin:0}
+.fig-tag{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.6px;color:var(--ink-3);
+}
+.fig-caption{
+  margin-top:12px;font-family:var(--mono);font-size:12px;line-height:1.7;
+  letter-spacing:.15px;color:var(--ink-3);max-width:64em;
+}
+.fig-caption b{color:var(--ink-2);font-weight:600}
+
+/* 点阵 */
+.matrix-wrap{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+.matrix{flex:0 0 auto}
+.matrix circle{transition:opacity .2s}
+.matrix-legend{
+  list-style:none;font-family:var(--mono);font-size:12.5px;line-height:1.6;
+  color:var(--ink-2);letter-spacing:.15px;padding-top:6px;
+}
+.matrix-legend li{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.swatch{width:13px;height:13px;border-radius:50%;flex:0 0 auto}
+.swatch.filled{background:var(--veto)}
+.swatch.hollow{border:2px solid var(--veto)}
+
+/* 视角切换（有状态交互） */
+.seg{display:inline-flex;border:1px solid var(--ink);background:var(--paper-raised)}
+.seg button{
+  font:inherit;font-size:13px;letter-spacing:.02em;padding:7px 15px;
+  background:transparent;border:0;color:var(--ink-2);cursor:pointer;
+  font-family:var(--sans);
+}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#f4f6f4}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]:hover{color:#f4f6f4}
+
+.chart-box{position:relative;max-width:860px}
+.chart-box canvas{width:100%!important}
+
+/* ── 表 ──────────────────────────────────────────────── */
+.table-scroll{overflow-x:auto;margin-top:26px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.6}
+th,td{
+  text-align:left;vertical-align:top;padding:13px 16px 13px 0;
+  border-bottom:1px solid var(--rule-soft);min-width:132px;
+}
+thead th{
+  border-bottom:1px solid var(--ink);font-size:12.5px;letter-spacing:.3px;
+  font-family:var(--mono);font-weight:500;color:var(--ink-2);text-transform:uppercase;
+}
+tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+td.num,th.num{
+  font-family:var(--serif-num);font-variant-numeric:tabular-nums;
+  font-weight:600;white-space:nowrap;
+}
+td .sub{display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-top:5px;letter-spacing:.15px}
+.grade{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.4px;
+  padding:2px 7px;border:1px solid var(--rule);white-space:nowrap;color:var(--ink-2);
+}
+.grade.a{border-color:var(--build);color:var(--build)}
+.grade.d{border-color:var(--veto);color:var(--veto)}
+.flag{color:var(--veto);font-weight:600}
+.ok{color:var(--build);font-weight:600}
+
+/* ── 两栏 ────────────────────────────────────────────── */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:38px;margin-top:26px}
+.split h3{margin-bottom:10px}
+.split p{margin-top:0;font-size:15.5px;color:var(--ink-2);max-width:34em}
+.split .side{border-top:2px solid var(--ink);padding-top:16px}
+.split .side.veto{border-top-color:var(--veto)}
+.split .side.build{border-top-color:var(--build)}
+.side-tag{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.7px;color:var(--ink-3);
+  display:block;margin-bottom:7px;
+}
+
+/* ── 判断 ────────────────────────────────────────────── */
+.fix-list{list-style:none;margin-top:26px;counter-reset:fix;padding:0}
+.fix-list li{
+  counter-increment:fix;position:relative;padding:0 0 22px 52px;
+  max-width:48em;border-bottom:1px solid var(--rule);margin-bottom:22px;
+}
+.fix-list li:last-child{border-bottom:none}
+.fix-list li::before{
+  content:counter(fix);position:absolute;left:0;top:3px;
+  font-family:var(--mono);font-size:13px;color:var(--ink-3);
+}
+.fix-list h3{margin-bottom:6px}
+.fix-list p{margin-top:0;font-size:15.5px;color:var(--ink-2)}
+.fix-list p+p{margin-top:9px}
+.fix-list .ev{
+  display:block;margin-top:10px;font-family:var(--mono);font-size:12.5px;
+  line-height:1.6;color:var(--ink-3);letter-spacing:.15px;
+}
+
+/* ── 进程 ────────────────────────────────────────────── */
+.timeline{list-style:none;margin-top:26px;padding:0;border-top:1px solid var(--ink)}
+.timeline-item{
+  padding:18px 0 18px 132px;border-bottom:1px solid var(--rule-soft);
+  position:relative;min-height:56px;
+}
+.timeline-item::before{
+  content:"";position:absolute;left:118px;top:26px;width:7px;height:7px;
+  background:var(--ink);border-radius:50%;
+}
+.timeline-date{
+  position:absolute;left:0;top:19px;width:106px;text-align:right;
+  font-family:var(--mono);font-size:13px;letter-spacing:.4px;color:var(--ink-3);
+}
+.timeline-title{font-weight:600;margin-bottom:4px;font-size:16px}
+.timeline-body{font-size:15.5px;color:var(--ink-2);max-width:46em}
+.timeline-item.pending::before{background:var(--veto)}
+.timeline-item.pending .timeline-date{color:var(--veto)}
+
+/* ── 存疑清单 ────────────────────────────────────────── */
+.doubt{margin-top:26px;border-top:1px solid var(--ink)}
+.doubt-group{padding:22px 0;border-bottom:1px solid var(--rule-soft)}
+.doubt-group h3{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.doubt-count{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.4px;color:var(--ink-3);
+  font-weight:400;
+}
+.doubt-group ul{list-style:none;margin-top:12px}
+.doubt-group li{
+  position:relative;padding:0 0 11px 20px;font-size:15.5px;
+  line-height:1.68;color:var(--ink-2);max-width:47em;
+}
+.doubt-group li::before{
+  content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:var(--ink-3);
+}
+.doubt-group li b{color:var(--ink);font-weight:600}
+
+/* ── 证据 ────────────────────────────────────────────── */
+.evidence{margin-top:26px;border-top:1px solid var(--ink)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule-soft)}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:16.5px;line-height:1.72;
+  margin:0 0 10px;max-width:52em;
+}
+.evidence-quote[lang="en"]{
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;font-style:italic;
+}
+.evidence-source{
+  display:block;font-style:normal;font-family:var(--mono);font-size:12px;
+  letter-spacing:.2px;color:var(--ink-3);line-height:1.65;max-width:58em;
+}
+.evidence-item.downgraded .evidence-source{color:var(--veto)}
+
+/* ── 口径声明 ────────────────────────────────────────── */
+.colophon{
+  background:var(--deep);color:#b3bbb6;padding:52px 0 60px;margin-top:64px;
+}
+.colophon h2{color:#eef0ee;font-size:24.5px;margin-bottom:18px;max-width:none}
+.colophon h3{color:#eef0ee;font-size:15.5px;margin-top:26px;margin-bottom:8px}
+.colophon p{max-width:54em;font-size:14.5px;line-height:1.7;color:#b3bbb6}
+.colophon b{color:#eef0ee}
+.colophon .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.2px;color:#8f9792}
+.colophon ul{list-style:none;margin-top:10px;max-width:54em}
+.colophon li{
+  font-size:14.5px;line-height:1.7;color:#b3bbb6;padding-left:16px;position:relative;
+  margin-bottom:7px;
+}
+.colophon li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:#5c635e}
+.colophon li b{color:#eef0ee}
+
+.disclaimer{
+  max-width:52em;margin-top:30px;font-size:13.5px;line-height:1.7;color:var(--ink-3);
+  border-top:1px solid var(--rule);padding-top:18px;
+}
+.foot-nav{
+  font-family:var(--mono);font-size:12px;letter-spacing:.5px;padding:26px 0 62px;
+  color:var(--ink-2);display:flex;gap:26px;flex-wrap:wrap;
+}
+.foot-nav a{color:var(--ink-2)}
+
+@media (max-width:640px){
+  .shell{padding:0 18px}
+  .masthead{padding:64px 0 44px}
+  section{padding-top:52px}
+  .timeline-item{padding-left:0}
+  .timeline-item::before{display:none}
+  .timeline-date{position:static;width:auto;text-align:left;display:block;margin-bottom:6px}
+  .fix-list li{padding-left:34px}
+  th,td{padding-right:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .section-rule line{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<a id="top"></a>
+
+<header class="masthead">
+  <div class="shell">
+    <h1>否决权上行，工期下行：算力落地的墙与工地</h1>
+    <p class="dek">美国中期选举 41 项数据中心公投中 40 项通过、要求施加更多限制；欧洲多国 11 月 8 日持续举行「Stop Dirty Data Centres」抗议；美媒预警得州、俄亥俄、佐治亚监管趋严。另一侧，绿色算力舱把 8-12 周完成 AI 数据中心部署写进官方口径，英伟达把推理网络推进既有电信机房、配套 Vera Rubin 服务器最早 2027 年一季度上线。两条曲线在同一个月对撞，本页只回答一个问题：算力落地的真实瓶颈，在墙里还是在工地。</p>
+    <div class="mast-meta">
+      <span>制作：研析 · 断言 6 条，全部声明于文末</span>
+      <span>追踪线：算力·能耗·环境</span>
+      <span>素材：每日AI技术动态简报 / 每日热点新闻简报 2026-11-08</span>
+      <span>补搜核源：5 路 · 核源日期：2026-11-09</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 结论 ─────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">两年土建被压到 8-12 周，否决权被选举计票制度化成 40/41 的通过率：算力落地的边际瓶颈，已经从工地挪到墙里。</p>
+    <p class="verdict-note">三条证据链并列。第一条，地方公投把否决变成常规工具：41 项里 40 项通过限制，覆盖 10 个州，俄亥俄一州占 21 项。第二条，同一周欧洲 15 国 100 多个组织在 11 月 7 日至 8 日同步行动，都柏林约 2,000 人上街。第三条，供给侧给出三条压缩工期的路径——工厂定制的绿色算力舱、旧楼改造的分布式推理网络、贴近绿电的分阶段部署——全部把工期从年改写成周，但没有一条绕开地方许可：英伟达方案自己写明仍需冷却升级、电力升级与地方许可。工期不再是边际瓶颈，许可与同意才是；这一句是团队判断，不是任何一方的官方结论。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">八项数字分属两侧：计票与抗议规模的读数在墙里，工期与容量的读数在工地。每项下方写明出处与等级。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">41 项</div>
+        <div class="metric-label">美国中期选举数据中心公投总数</div>
+        <div class="metric-source">Ballotpedia 分析转 CNBC 等 · 覆盖 10 个州 · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">40 项</div>
+        <div class="metric-label">支持限制的公投数</div>
+        <div class="metric-source">三源一致（CNBC / Futurum / dig.watch）· 通过率 97.6% 折算 · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">8-12 周</div>
+        <div class="metric-label">英特尔绿色算力舱部署周期</div>
+        <div class="metric-source">英特尔官方新闻稿 2026-11-05 · 工厂定制口径 · A 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 2 年</div>
+        <div class="metric-label">传统土建数据中心工期</div>
+        <div class="metric-source">中国证券报 2026-11-07 转官方 · 折合 104 周 · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2027 年一季度</div>
+        <div class="metric-label">英伟达Vera Rubin服务器最早上线时间</div>
+        <div class="metric-source">鉅亨网 2026-11-08 转 The Information · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1 吉瓦</div>
+        <div class="metric-label">Brightspeed场址可用电力</div>
+        <div class="metric-source">The Information 2026-11-05 · 经多源转述未取原文 · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">23%</div>
+        <div class="metric-label">数据中心占爱尔兰计量用电比例</div>
+        <div class="metric-source">爱尔兰官方统计 2025 年 · 经凤凰网转彭博 · C 级</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2,000 人</div>
+        <div class="metric-label">都柏林数据中心抗议人数</div>
+        <div class="metric-source">RTé / 彭博 2026-11-07 · 经财联社、IT之家转 · C 级</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 曲线一 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>曲线一：否决权在选票里加速</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">11 月 3 日至 8 日，选举与抗议给出三组数字，指向同一件事：对数据中心的否决正在从零散反对变成常规工具。本节只写已核到出处的项，核不到的逐项明细留在存疑清单。</p>
+
+    <!-- 图 1 · 点阵 -->
+    <figure class="fig-figure">
+      <div class="fig-body">
+        <div class="fig-head">
+          <h3>41 项地方公投的逐项结果</h3>
+          <span class="fig-tag">点阵 · 一格一项 · 截至 2026-11-06</span>
+        </div>
+        <div class="matrix-wrap">
+          <svg class="matrix" width="252" height="136" viewBox="0 0 252 136" role="img"
+               aria-label="41 个方格中 40 个实心表示支持限制，1 个空心表示例外项">
+            <g fill="#a8443a">
+              <circle cx="16" cy="18" r="6.5"/><circle cx="40" cy="18" r="6.5"/>
+              <circle cx="64" cy="18" r="6.5"/><circle cx="88" cy="18" r="6.5"/>
+              <circle cx="112" cy="18" r="6.5"/><circle cx="136" cy="18" r="6.5"/>
+              <circle cx="160" cy="18" r="6.5"/><circle cx="184" cy="18" r="6.5"/>
+              <circle cx="208" cy="18" r="6.5"/><circle cx="232" cy="18" r="6.5"/>
+              <circle cx="16" cy="42" r="6.5"/><circle cx="40" cy="42" r="6.5"/>
+              <circle cx="64" cy="42" r="6.5"/><circle cx="88" cy="42" r="6.5"/>
+              <circle cx="112" cy="42" r="6.5"/><circle cx="136" cy="42" r="6.5"/>
+              <circle cx="160" cy="42" r="6.5"/><circle cx="184" cy="42" r="6.5"/>
+              <circle cx="208" cy="42" r="6.5"/><circle cx="232" cy="42" r="6.5"/>
+              <circle cx="16" cy="66" r="6.5"/><circle cx="40" cy="66" r="6.5"/>
+              <circle cx="64" cy="66" r="6.5"/><circle cx="88" cy="66" r="6.5"/>
+              <circle cx="112" cy="66" r="6.5"/><circle cx="136" cy="66" r="6.5"/>
+              <circle cx="160" cy="66" r="6.5"/><circle cx="184" cy="66" r="6.5"/>
+              <circle cx="208" cy="66" r="6.5"/><circle cx="232" cy="66" r="6.5"/>
+              <circle cx="16" cy="90" r="6.5"/><circle cx="40" cy="90" r="6.5"/>
+              <circle cx="64" cy="90" r="6.5"/><circle cx="88" cy="90" r="6.5"/>
+              <circle cx="112" cy="90" r="6.5"/><circle cx="136" cy="90" r="6.5"/>
+              <circle cx="160" cy="90" r="6.5"/><circle cx="184" cy="90" r="6.5"/>
+              <circle cx="208" cy="90" r="6.5"/><circle cx="232" cy="90" r="6.5"/>
+            </g>
+            <circle cx="16" cy="114" r="6.5" fill="none" stroke="#a8443a" stroke-width="2"/>
+            <text x="34" y="118" font-family="JetBrains Mono, monospace" font-size="12"
+                  fill="#a8443a" letter-spacing="0.4">唯一的例外</text>
+          </svg>
+          <ul class="matrix-legend">
+            <li><span class="swatch filled"></span>支持限制或否决扩建：40 项</li>
+            <li><span class="swatch hollow"></span>例外：北达科他州哈伍德市否决章程修正案：1 项</li>
+            <li>覆盖范围：10 个州；俄亥俄一州 21 项</li>
+            <li>通过率：97.6%（40 ÷ 41，团队折算）</li>
+          </ul>
+        </div>
+      </div>
+      <figcaption class="fig-caption">图 1 · 41 项地方数据中心公投的逐项结果。<b>数据</b>：Ballotpedia 分析（2026-11-06 发布）经 CNBC、Futurum Group、dig.watch 转述，三源一致；等级 C，未取 Ballotpedia 原文。<b>口径</b>：本页用 41 项 / 40 项（11-08 素材口径），与既往作品 #417 的 38/44（11-06 素材口径）是两个统计，分立标签、不混用。</figcaption>
+    </figure>
+
+    <!-- 表 1 -->
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">事实</th><th scope="col" class="num">数值</th><th scope="col">出处</th><th scope="col">等级</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>地方数据中心公投总数</td>
+            <td class="num">41 项<span class="sub">10 个州</span></td>
+            <td>Ballotpedia 分析（11-06 发布）经 CNBC、Futurum、dig.watch 转述</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>支持限制的公投</td>
+            <td class="num">40 项<span class="sub">97.6% 折算</span></td>
+            <td>三源一致；选举日 2026-11-03</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>例外项</td>
+            <td class="num">1 项</td>
+            <td>北达科他州哈伍德市否决城市章程修正案（UA.NEWS 转 CNBC）</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>俄亥俄州集中度</td>
+            <td class="num">21 项<span class="sub">51% 折算</span></td>
+            <td>UA.NEWS 转 CNBC 2026-11-04</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>选民态度</td>
+            <td class="num">56%</td>
+            <td>称数据中心是其决定性或重要因素；CNBC 经 UA.NEWS 转</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>政党分野</td>
+            <td class="num">70% / 57%</td>
+            <td>2026 年 9 月民调：民主党人 / 共和党人支持严格限制；WVAL 转述</td>
+            <td><span class="grade d">D · 未确认</span></td>
+          </tr>
+          <tr>
+            <td>得州容量</td>
+            <td class="num">约 27%</td>
+            <td>占美国数据中心规划容量；Van Data 经 UA.NEWS 转</td>
+            <td><span class="grade d">D · 未确认</span></td>
+          </tr>
+          <tr>
+            <td>选后预警</td>
+            <td class="num">3 州</td>
+            <td>民主党新增议员多承诺限制「耗电巨兽」，得州、俄亥俄、佐治亚监管或趋严；美联社 11-07 经简报转述</td>
+            <td><span class="grade">C · 未取原文</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-caption">表 1 · 公投与选后预警的核源口径。<span class="flag">红</span> 表示单一来源或未取原文，正文不作为断言使用。</p>
+
+    <!-- 图 2 -->
+    <figure class="fig-figure">
+      <div class="fig-body">
+        <div class="fig-head">
+          <h3>欧洲抗议的两处已核规模</h3>
+          <span class="fig-tag">横向条形 · 单位：参与人数</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="chartProtest" height="150" role="img"
+            aria-label="条形图：都柏林约 2000 人，赫尔辛基约 1300 人"></canvas>
+        </div>
+      </div>
+      <figcaption class="fig-caption">图 2 · 已核到具体人数的两处集会。<b>数据</b>：都柏林约 2,000 人（RTé / 彭博）、赫尔辛基约 1,300 人（Yle / 彭博），均经财联社、IT之家转述，等级 C。<b>口径隔离</b>：另有一组数（来自 15 个国家的 100 多个民间组织参与联合行动）是组织数与国家数，量纲不同，不进同一坐标轴；阿姆斯特丹的规模只有「数百人」的模糊表述，也不入图。</figcaption>
+    </figure>
+
+    <!-- 表 2 -->
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">日期</th><th scope="col">地点</th><th scope="col">行动与规模</th><th scope="col">出处</th><th scope="col">等级</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>11-06 晚</td>
+            <td>阿姆斯特丹<span class="sub">荷兰</span></td>
+            <td>数百人进入微软数据中心工地，防暴警察清场；<span class="flag">逮捕人数 200+ 与 1 人两个口径冲突，不采信</span></td>
+            <td>新华社 11-07 转 NOS ／ 彭博 11-08</td>
+            <td><span class="grade d">冲突</span></td>
+          </tr>
+          <tr>
+            <td>11-07</td>
+            <td>都柏林<span class="sub">爱尔兰</span></td>
+            <td>约 2,000 人游行，数据中心能耗与住房成本同场</td>
+            <td>RTé、彭博（经财联社、IT之家转）</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>11-07</td>
+            <td>赫尔辛基<span class="sub">芬兰</span></td>
+            <td>约 1,300 人集会</td>
+            <td>Yle、彭博</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>11-07 至 11-08</td>
+            <td>苏格兰、西班牙、法国、丹麦等地</td>
+            <td>多地同步参与</td>
+            <td>彭博、财联社</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>11-07 至 11-08</td>
+            <td>跨国 15 国</td>
+            <td>100 多个民间组织与权益团体，主题 Stop Dirty Data Centres</td>
+            <td>财联社 2026-11-08</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td>11-08</td>
+            <td>爱尔兰、芬兰等</td>
+            <td>抗议持续，欧盟面临最强烈的反对声音之一</td>
+            <td>每日热点新闻简报 2026-11-08 科技动态 2</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-caption">表 2 · 欧洲「Stop Dirty Data Centres」抗议场次（已核到出处的 6 条）。核不到的场次不补写。</p>
+  </div>
+</section>
+
+<!-- ── 曲线二 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>曲线二：工期在集装箱里压缩</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">同一周，供给侧给出压缩工期的具体口径：施工从工地搬进工厂，交付从年改写成周。两条口径一条来自企业官方，一条来自媒体转述，等级分别标注。</p>
+
+    <!-- 表 3 -->
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">项</th><th scope="col">口径</th><th scope="col">出处</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>形态</td><td>标准化集装箱，算力与储能模块按需配置，「绿色计算舱」</td><td>中国证券报 / 新华社 11-07</td></tr>
+          <tr><td>单舱容量</td><td class="num">12 个标准机柜</td><td>同上</td></tr>
+          <tr><td>功率密度</td><td class="num">100 千瓦 — 数兆瓦级</td><td>同上</td></tr>
+          <tr><td>工厂定制</td><td>整套装备在工厂内完成定制，周期约为 8—12 周</td><td><span class="grade a">A</span> 英特尔官方新闻稿 11-05</td></tr>
+          <tr><td>到场投运</td><td>设备到场后最快一周内即可投入运营，并支持整体迁移</td><td><span class="grade a">A</span> 同上</td></tr>
+          <tr><td>部署位置</td><td>贴近绿电（光伏电站旁）或贴近需求方（办公楼宇、产业园区）</td><td>中国证券报 11-07 转官方</td></tr>
+          <tr><td>扩容方式</td><td>模块化、按需扩容、分阶段建设</td><td>同上</td></tr>
+          <tr><td>对照口径</td><td>传统建筑方式两年左右工期，折合 104 周</td><td>新京报 11-06 · 折算为团队计算</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-caption">表 3 · 英特尔绿色算力舱参数。<b>关键</b>：8—12 周是<span class="ok">工厂定制</span>口径，官方未披露用地、并网、土建所需时间；这部分时间不在这 8-12 周里（未确认）。</p>
+
+    <!-- 图 3 -->
+    <figure class="fig-figure">
+      <div class="fig-body">
+        <div class="fig-head">
+          <h3>同一段部署链的三个时间刻度</h3>
+          <div class="seg" role="group" aria-label="切换工期图的显示口径">
+            <button type="button" id="btnWeeks" aria-pressed="true">按周数</button>
+            <button type="button" id="btnPct" aria-pressed="false">占传统工期比例</button>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="chartCycle" height="176" role="img"
+            aria-label="条形图：传统土建 104 周，绿色算力舱工厂定制 8 至 12 周，到场后最快 1 周投运"></canvas>
+        </div>
+      </div>
+      <figcaption class="fig-caption">图 3 · 工期刻度对比（浮动条形表示区间）。<b>数据</b>：两年工期折合 104 周；工厂定制 8—12 周（英特尔官方 A 级）；到场后最快 1 周投运（A 级）。<b>折算</b>：比例口径由团队计算，10 ÷ 104 ≈ 9.6%，区间 7.7%–11.5%，1 周 ≈ 1.0%。<b>未含</b>：用地、并网、土建时间官方未披露，不计入此图。</figcaption>
+    </figure>
+
+    <!-- 表 4 -->
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">项</th><th scope="col">口径</th><th scope="col">出处与等级</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>模式</td><td>把既有电信楼宇改造成小型 AI 数据中心，组成分布式推理网络</td><td>The Information 11-05 经多源转述 · <span class="grade">C</span></td></tr>
+          <tr><td>规模</td><td class="num">130 多栋楼宇<span class="sub">最多 20 个州</span></td><td>同上 · <span class="grade">C</span></td></tr>
+          <tr><td>可用电力</td><td class="num">约 1 吉瓦</td><td>同上 · <span class="grade">C</span></td></tr>
+          <tr><td>节奏</td><td>11-04 提交书面提案；Vera Rubin 机架最快 2027 年一季度部署</td><td>华尔街见闻、腾讯等转述 · <span class="grade">C</span></td></tr>
+          <tr><td>仍需</td><td>冷却系统升级、电力升级、地方许可（预计障碍少于新建）</td><td>同上 · <span class="grade">C</span></td></tr>
+          <tr><td>状态</td><td><span class="flag">未定案</span>：报道时双方仍在讨论</td><td>同上 · <span class="grade">C</span></td></tr>
+          <tr><td>机架窗口</td><td>配套 Vera Rubin 服务器最早 2027 年一季度上线</td><td>鉅亨网 11-08 · <span class="grade">C</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-caption">表 4 · 英伟达 Brightspeed 分布式推理网络方案。<b>边界</b>：全部细节来自 The Information 报道的转述，本页未取到原文；方案未定案，工期未披露，不折算成周数。</p>
+  </div>
+</section>
+
+<!-- ── 对撞 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三条落地路径，同一个约束</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">把两条曲线放进同一张表：时间口径在压缩，审批暴露没有消失。三条路径的差别不在要不要许可，而在要许可的部分有多大。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">路径</th><th scope="col">时间口径</th><th scope="col">审批暴露</th>
+            <th scope="col">电力与位置</th><th scope="col">已知约束</th><th scope="col">等级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>新建土建</b></td>
+            <td class="num">约 2 年<span class="sub">104 周折算</span></td>
+            <td><span class="flag">全量</span>：地方公投可否决</td>
+            <td>可新建、可选绿电</td>
+            <td>40/41 公投通过限制；三州监管趋严预警</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+          <tr>
+            <td><b>集装箱快建</b><span class="sub">绿色算力舱</span></td>
+            <td class="num">9–13 周<span class="sub">工厂 8–12 周 + 到场 1 周</span></td>
+            <td>用地与并网仍归地方，官方未披露所需时间</td>
+            <td>可贴绿电或园区</td>
+            <td>单舱 12 机柜；商用落地案例未披露（未确认）</td>
+            <td><span class="grade a">A</span></td>
+          </tr>
+          <tr>
+            <td><b>旧楼改造</b><span class="sub">Brightspeed 推理网络</span></td>
+            <td class="num">工期未披露<span class="sub">机架最快 2027Q1</span></td>
+            <td>改造与并网许可仍需，预计少于新建</td>
+            <td>复用既有约 1 吉瓦</td>
+            <td>冷却与电力升级；方案未定案</td>
+            <td><span class="grade">C</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-caption">表 5 · 三条路径对照。<b>共同点</b>：三条路径都在压缩新建施工，没有一条能免于地方许可。<b>9–13 周</b>为团队折算（8+1 至 12+1）。</p>
+
+    <div class="split">
+      <div class="side veto">
+        <span class="side-tag">墙的一侧</span>
+        <h3>否决权变成了计票结果</h3>
+        <p>41 项公投里 40 项通过限制，不是四次偶然否决，而是十个州同时给出的默认答案。选后预警把同一方向延伸到立法与行政：民主党新增议员多承诺限制「耗电巨兽」，得州、俄亥俄、佐治亚被点名。欧洲一侧，15 国 100 多个组织把抗议排进了选举同一周。</p>
+      </div>
+      <div class="side build">
+        <span class="side-tag">工地的一侧</span>
+        <h3>工期被搬出工地</h3>
+        <p>绿色算力舱把整套装备放进工厂定制，到场一周投运；分布式推理网络不再新建机房，直接改造既有电信楼宇。施工时间被压缩到月级，甚至周级，但两条路径的说明栏里都还写着「地方许可」。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 判断 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>判断：瓶颈在墙里，工地没有变空</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">以下是团队分析，不是任何机构的官方结论。三条判断各自绑定本页证据，反面证据一并写在条目里。</p>
+    <ol class="fix-list">
+      <li>
+        <h3>短期关键路径在墙里</h3>
+        <p>选后 12 个月内，新项目的前置条件是地方同意，而不是施工队排期。公投 40/41、三州监管趋严预警、欧洲 15 国同步行动，三者指向同一个结构性变化：否决权已经制度化，每次否决的边际成本在下降。</p>
+        <p><b>反面证据</b>：哈伍德市否决了限制条款——否决权本身也会被否决，它不是单向的墙，而是必须逐次赢得的程序。</p>
+        <span class="ev">证据：图 1、表 1、表 2、证据 1–5</span>
+      </li>
+      <li>
+        <h3>工地侧的瓶颈换了位置，没有消失</h3>
+        <p>施工时间从两年压到 9–13 周，但用地、并网、冷却改造、地方许可仍在链条上。英伟达方案的说明栏里写着仍需冷却系统升级、电力升级与地方许可；绿色算力舱的 8-12 周是工厂定制口径，官方没有披露用地与并网要花多久。</p>
+        <p><b>反面证据</b>：三条路径确实都在绕开新建审批——如果墙完全不起作用，改造与集装箱两条路就没有出现的理由。</p>
+        <span class="ev">证据：表 3、表 4、表 5、证据 7–8</span>
+      </li>
+      <li>
+        <h3>谁先落地，取决于两边同时满足</h3>
+        <p>得州约 27% 的规划容量（单一来源，未确认）与俄亥俄 21 项公投说明：容量最集中的地方，否决权也最集中。把算力放在既有电力与既有建筑的一侧，比放在新土地上更少暴露于否决权，这正是三条新路径共同的指向。</p>
+        <p><b>代价</b>：旧楼改造受既有电力上限约束，集装箱受单舱 12 机柜的规模约束。绕开墙的路径，各自带着自己的天花板。</p>
+        <span class="ev">证据：表 1、表 4、表 5</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 进程 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <ul class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-03</span>
+        <div class="timeline-title">美国中期选举投票日</div>
+        <div class="timeline-body">10 个州的 41 项地方数据中心公投同日举行。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-04</span>
+        <div class="timeline-title">公投结果见诸媒体，英伟达提交提案</div>
+        <div class="timeline-body">CNBC 等披露 41 项中 40 项支持限制；英伟达向 Brightspeed 提交书面提案。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-05</span>
+        <div class="timeline-title">绿色算力舱进博首秀，英伟达方案见报</div>
+        <div class="timeline-body">第九届进博会开幕，英特尔绿色计算舱完成中国首秀；同日 The Information 报道 1 吉瓦分布式推理网络方案。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-06</span>
+        <div class="timeline-title">工厂定制口径写入官方新闻稿</div>
+        <div class="timeline-body">英特尔官方新闻稿给出「周期约为 8—12 周」；Ballotpedia 分析正式发布；当晚阿姆斯特丹微软数据中心工地发生冲突。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-07</span>
+        <div class="timeline-title">选后预警与欧洲抗议首个周末</div>
+        <div class="timeline-body">美联社预警民主党议员限制「耗电巨兽」；都柏林约 2,000 人、赫尔辛基约 1,300 人集会；绿色算力舱参数经中国证券报、新华社披露。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-08</span>
+        <div class="timeline-title">抗议持续，两份简报汇总素材</div>
+        <div class="timeline-body">欧洲多国继续 Stop Dirty Data Centres；15 国 100 多个组织联合行动；本页素材底稿形成。</div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div class="timeline-title">本页核源完成</div>
+        <div class="timeline-body">5 路补搜核源，断言 6 条声明于文末，存疑 6 类条目收进存疑清单。</div>
+      </li>
+      <li class="timeline-item pending">
+        <span class="timeline-date">2027 Q1</span>
+        <div class="timeline-title">英伟达 Vera Rubin 机架最快部署窗口</div>
+        <div class="timeline-body">未发生：最早 2027 年一季度上线，取决于方案定案、冷却与电力升级、地方许可三项。</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── 证据 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">逐字引用，11 条。前 6 条支撑文末声明的断言，第 7、8 条补官方口径，第 9 条支撑用电比例，第 10 条支撑机架窗口；第 11 条为降级引用，只作背景，不入断言。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">「41 项数据中心公投中 40 项通过、要求施加更多限制」</p>
+        <span class="evidence-source">来源：每日AI技术动态简报 2026-11-08 · 技术趋势 1 · 转 TechCrunch / 鉅亨网（2026-11-08）· 等级 C · 汇总口径，已由 CNBC、Futurum、dig.watch 三源交叉</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「十个州的选民在41场地方投票中的40场支持限制数据中心建设」</p>
+        <span class="evidence-source">来源：UA.NEWS 转 CNBC 报道 · 2026-11-04 · 等级 C · 未取 Ballotpedia 原文</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「唯一的例外是北达科他州哈伍德市」</p>
+        <span class="evidence-source">来源：UA.NEWS 转 CNBC 报道 · 2026-11-04 · 等级 C</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「爱尔兰都柏林约2000人走上街头，芬兰赫尔辛基约1300人集会」</p>
+        <span class="evidence-source">来源：华尔街见闻转 Bloomberg · 2026-11-08 · 等级 C</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「来自欧洲15个国家的100多个民间组织和权益团体参与了此次联合行动」</p>
+        <span class="evidence-source">来源：财联社 · 2026-11-08 · 等级 C</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「8-12周完成AI数据中心部署，较传统两年工期大幅缩短」</p>
+        <span class="evidence-source">来源：每日热点新闻简报 2026-11-08 · 科技动态 1 · 转中国证券报 / 新华社（2026-11-07）· 等级 C · 同一事实由英特尔官方新闻稿（A 级）独立支持</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「整套装备可在工厂内完成定制，周期约为8—12周」</p>
+        <span class="evidence-source">来源：英特尔官方新闻稿 · intel.com · 2026-11-05（经检索命中）· 等级 A</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「设备到场后最快一周内即可投入运营」</p>
+        <span class="evidence-source">来源：英特尔官方新闻稿 · intel.com · 2026-11-05 · 等级 A</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「配套 Vera Rubin 服务器最早 2027 年一季度上线」</p>
+        <span class="evidence-source">来源：每日AI技术动态简报 2026-11-08 · 焦点 7 · 转鉅亨网（2026-11-08）· 等级 C · 底层为 The Information 报道，未取原文</span>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">「2025 年数据中心占爱尔兰全国计量电力消耗的 23%」</p>
+        <span class="evidence-source">来源：凤凰网转 Bloomberg · 2026-11-08 · 引爱尔兰官方统计机构数据 · 等级 C（转述官方）</span>
+      </div>
+      <div class="evidence-item downgraded">
+        <p class="evidence-quote">「民主党新增议员多承诺限制「耗电巨兽」，得州、俄亥俄、佐治亚等数据中心重镇监管或趋严」</p>
+        <span class="evidence-source">来源：每日热点新闻简报 2026-11-08 · 科技动态 3 · 原始出处美联社 2026-11-07 · 未取美联社原文，降级为背景引用，不入断言</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 存疑清单 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>存疑清单</h2>
+    <svg class="section-rule" aria-hidden="true"><line x1="0" y1="0.5" x2="100%" y2="0.5"/></svg>
+    <p class="lede">按四类收口：未找到权威来源、口径冲突、来源质量偏低、口径提醒。每条写明确认方法。</p>
+    <div class="doubt">
+      <div class="doubt-group">
+        <h3>未找到权威来源 <span class="doubt-count">2 条</span></h3>
+        <ul>
+          <li><b>41 项公投的逐项分州清单</b>：只核到俄亥俄 21 项与哈伍德 1 项，其余 19 项分布未核到。确认方法：取 Ballotpedia 2026-11-06 原始分析页逐项核对。</li>
+          <li><b>绿色算力舱的用地与并网时间</b>：官方未披露。确认方法：查英特尔后续官方发布或商用项目披露。</li>
+        </ul>
+      </div>
+      <div class="doubt-group">
+        <h3>口径冲突 <span class="doubt-count">3 条</span></h3>
+        <ul>
+          <li><b>阿姆斯特丹逮捕人数</b>：NOS / 新华社称 200 余人，彭博 / IT之家称 1 人。两口径都不采信，正文只写「数百人进入工地」。确认方法：取 NOS 与彭博原文对照。</li>
+          <li><b>公投票数两个口径</b>：本页 41 项 / 40 项（11-08 素材）与既往作品 #417 的 38/44（11-06 素材）不是同一统计，分立标签、禁止混用、不加版本后缀。展厅全文检索「38/44」零命中，#417 原文未确认；确认方法：调取 #417 作品与 11-06 素材。</li>
+          <li><b>组织数与人数</b>：15 国 100 多个组织是组织口径，2,000 人与 1,300 人是参与人数口径，不进同一坐标轴。</li>
+        </ul>
+      </div>
+      <div class="doubt-group">
+        <h3>来源质量偏低 <span class="doubt-count">4 条</span></h3>
+        <ul>
+          <li><b>9 月民调 70% / 57%</b>：WVAL 单一来源，未交叉。确认方法：取原始民调机构发布。</li>
+          <li><b>得州约 27% 规划容量与州长暂停令</b>：Van Data 单一来源。确认方法：取州级规划数据或官方表态。</li>
+          <li><b>英伟达方案全部细节</b>：The Information 报道的转述，未取原文，方案未定案。确认方法：取 The Information 2026-11-05 原文或双方正式公告。</li>
+          <li><b>选后三州监管预警</b>：美联社 2026-11-07，经简报转述，未取原文。确认方法：取美联社原文。</li>
+        </ul>
+      </div>
+      <div class="doubt-group">
+        <h3>口径提醒 <span class="doubt-count">4 条</span></h3>
+        <ul>
+          <li><b>8-12 周</b>是工厂定制口径，不含用地、并网、土建。</li>
+          <li><b>9–13 周、104 周、97.6%、51%、9.6%</b> 均为团队折算，公式写在对应图注。</li>
+          <li><b>1 吉瓦、130 多栋、20 个州</b>是提案阶段的规划数，不是已建成容量。</li>
+          <li><b>23%</b>是爱尔兰 2025 年计量电力口径，不等于全国总发电量占比。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 口径声明 ─────────────────────────────────────────── -->
+<section class="colophon">
+  <div class="shell">
+    <h2>口径、来源与免责</h2>
+    <h3>公投票数口径（第一红线）</h3>
+    <p>本页使用 <b>41 项 / 40 项</b>，来自 2026-11-08 两份简报与 Ballotpedia 分析的媒体转述（分析发布于 2026-11-06）。既往作品 <b>#417</b> 使用 <b>38/44</b>（2026-11-06 素材口径）。两者是不同统计，本页为自己的口径单立标签，<b>不加 V2 后缀、不与 38/44 混用</b>；同名标签只允许同一口径。</p>
+    <ul>
+      <li>断言标签：<b>美国中期选举数据中心公投总数</b>、<b>支持限制的公投数</b>、<b>英特尔绿色算力舱部署周期</b>、<b>传统土建数据中心工期</b>、<b>英伟达Vera Rubin服务器最早上线时间</b>、<b>数据中心占爱尔兰计量用电比例</b>。</li>
+      <li>断言与 quote 的对应关系见文末 <code style="font-family:var(--mono);font-size:12.5px">script#claims</code>，quote 已在本页正文逐字命中。</li>
+    </ul>
+    <h3>来源分级</h3>
+    <ul>
+      <li><b>A 级</b>：企业官方新闻稿与官方文档（本页 2 条证据，绿色算力舱参数）。</li>
+      <li><b>C 级</b>：新闻转述（本页绝大多数条目，均已交叉或标注未取原文）。</li>
+      <li><b>D 级</b>：单一来源未交叉（9 月民调、得州容量），正文标未确认，不入断言。</li>
+    </ul>
+    <h3>修订记录</h3>
+    <p class="mono">v1 · 2026-11-09 · 初次核源交付：素材 2 份 + 5 路补搜 · 断言 6 条 · 证据 10 条 · 存疑 13 条。</p>
+    <p>本页为研究简报，不构成投资建议。判断章节为团队分析，非官方结论；未取原文的条目已在正文与证据节就地标注。</p>
+  </div>
+</section>
+
+<p class="disclaimer shell">研究简报 · 主责：研析 · 2026-11-09 · 追踪线：算力·能耗·环境 · 全部数字的出处、时点与口径见存疑清单与证据节；争议数字只在纠错与口径声明语境中出现。</p>
+
+<nav class="foot-nav shell">
+  <a href="../../../index.html">← 回到展厅</a>
+  <span>2026-11-09 · 选题424 · 研究类</span>
+  <a href="#top">回到页首</a>
+</nav>
+
+</main>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.1_dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  var INK='#171a18', RULE='#d2d8d4', VETO='#a8443a', BUILD='#3f6b4a', GREY='#b9c0bb';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var grid = {color:'#dfe4e0', drawTicks:false};
+  var tick  = {font:{family:"'JetBrains Mono',monospace", size:12}, color:'#646b67', padding:6};
+  var label = {font:{family:"-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif", size:13}, color:'#171a18'};
+
+  var valueLabels = {
+    id:'valueLabels',
+    afterDatasetsDraw:function(c){
+      if(!c.$fmt) return;
+      var ctx=c.ctx; ctx.save();
+      ctx.font='600 12px "JetBrains Mono", monospace';
+      ctx.fillStyle=INK; ctx.textBaseline='middle'; ctx.textAlign='left';
+      c.data.datasets.forEach(function(ds,di){
+        var meta=c.getDatasetMeta(di); if(meta.hidden) return;
+        meta.data.forEach(function(el,i){
+          var v=ds.data[i], txt='';
+          if(typeof v==='number') txt=c.$fmt(v);
+          else if(Object.prototype.toString.call(v)==='[object Array]') txt=c.$fmt(v[0])+'–'+c.$fmt(v[1]);
+          if(txt) ctx.fillText(txt, el.x+9, el.y);
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  function baseOpts(){
+    return {
+      responsive:true, maintainAspectRatio:true, aspectRatio:2.6,
+      animation: reduce ? false : {duration:600, easing:'easeOutQuart'},
+      plugins:{legend:{display:false},
+        tooltip:{backgroundColor:'#121513', padding:10, cornerRadius:4, displayColors:false,
+          titleFont:{family:"'JetBrains Mono',monospace", size:12},
+          bodyFont:{size:13},
+          callbacks:{label:function(c){
+            var v=c.parsed.x!==undefined?c.parsed.x:c.parsed.y;
+            return ' '+c.label+'：'+(c.chart.$fmt?c.chart.$fmt(v):v);
+          }}}}
+    };
+  }
+
+  /* 图 2 · 欧洲抗议规模 */
+  var cp=document.getElementById('chartProtest');
+  var cProtest=null;
+  if(cp && window.Chart){
+    cProtest=new Chart(cp,{
+      type:'bar',
+      data:{
+        labels:['都柏林（11-07）','赫尔辛基（11-07）'],
+        datasets:[{data:[2000,1300], backgroundColor:[VETO,'#c4756c'],
+          borderRadius:2, borderSkipped:false, barPercentage:.6, categoryPercentage:.7}]
+      },
+      options:Object.assign({},baseOpts(),{
+        indexAxis:'y', aspectRatio:3.4,
+        scales:{
+          x:{beginAtZero:true, max:2400, grid:grid, border:{display:false},
+             ticks:Object.assign({stepSize:500, callback:function(v){return v.toLocaleString();}},tick)},
+          y:{grid:{display:false}, border:{color:RULE}, ticks:label}
+        },
+        plugins:Object.assign({},baseOpts().plugins,{
+          tooltip:Object.assign({},baseOpts().plugins.tooltip,{
+            callbacks:{label:function(c){return ' '+c.label+'：约 '+c.parsed.x.toLocaleString()+' 人';}}})
+        })
+      }),
+      plugins:[valueLabels]
+    });
+    cProtest.$fmt=function(v){return v.toLocaleString()+' 人';};
+    cProtest.update();
+  }
+
+  /* 图 3 · 工期刻度（可切换口径） */
+  var cc=document.getElementById('chartCycle');
+  var chart=null;
+  var weeks=[104,[8,12],1];
+  var pct=[100,[7.7,11.5],1.0];
+  function fmtWeeks(v){ return (Math.round(v*10)/10)+' 周'; }
+  function fmtPct(v){ return (Math.round(v*10)/10)+'%'; }
+
+  if(cc && window.Chart){
+    chart=new Chart(cc,{
+      type:'bar',
+      data:{
+        labels:['传统土建（两年折算）','绿色算力舱工厂定制','到场后最快投运'],
+        datasets:[{data:weeks.slice(), backgroundColor:[GREY,BUILD,'#7fa38b'],
+          borderRadius:2, borderSkipped:false, barPercentage:.62, categoryPercentage:.72}]
+      },
+      options:Object.assign({},baseOpts(),{
+        indexAxis:'y', aspectRatio:3.0,
+        scales:{
+          x:{beginAtZero:true, max:130, grid:grid, border:{display:false},
+             ticks:Object.assign({stepSize:20, callback:function(v){return v;}},tick)},
+          y:{grid:{display:false}, border:{color:RULE}, ticks:label}
+        },
+        plugins:Object.assign({},baseOpts().plugins,{
+          tooltip:Object.assign({},baseOpts().plugins.tooltip,{
+            callbacks:{label:function(c){
+              var v=c.parsed.x;
+              var t=(Object.prototype.toString.call(v)==='[object Array]')
+                ? (c.chart.$fmt(v[0])+' – '+c.chart.$fmt(v[1])) : c.chart.$fmt(v);
+              return ' '+c.label+'：'+t;
+            }}})
+        })
+      }),
+      plugins:[valueLabels]
+    });
+    chart.$fmt=fmtWeeks;
+    chart.update();
+  }
+
+  function bindSeg(btn, mode){
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      if(!chart) return;
+      var isPct = (mode==='pct');
+      document.getElementById('btnWeeks').setAttribute('aria-pressed', String(!isPct));
+      document.getElementById('btnPct').setAttribute('aria-pressed', String(isPct));
+      chart.$fmt = isPct ? fmtPct : fmtWeeks;
+      chart.data.datasets[0].data = (isPct ? pct : weeks).slice();
+      chart.options.scales.x.max = isPct ? 118 : 130;
+      chart.options.scales.x.ticks.callback = isPct
+        ? function(v){return v+'%';}
+        : function(v){return v;};
+      chart.update();
+    });
+  }
+  bindSeg(document.getElementById('btnWeeks'),'weeks');
+  bindSeg(document.getElementById('btnPct'),'pct');
+
+  /* 章节发丝线：进入视口再画一次 */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target);} });
+    },{rootMargin:'0px 0px -12% 0px', threshold:0.05});
+    Array.prototype.forEach.call(document.querySelectorAll('section'), function(s){ io.observe(s); });
+  } else {
+    Array.prototype.forEach.call(document.querySelectorAll('section'), function(s){ s.classList.add('seen'); });
+  }
+})();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value":"41 项","label":"美国中期选举数据中心公投总数","quote":"41 项数据中心公投中 40 项通过"},
+  {"value":"40 项","label":"支持限制的公投数","quote":"41 项数据中心公投中 40 项通过"},
+  {"value":"8-12 周","label":"英特尔绿色算力舱部署周期","quote":"8-12周完成AI数据中心部署"},
+  {"value":"约 2 年","label":"传统土建数据中心工期","quote":"较传统两年工期大幅缩短"},
+  {"value":"2027 年一季度","label":"英伟达Vera Rubin服务器最早上线时间","quote":"最早2027年一季度上线"},
+  {"value":"23%","label":"数据中心占爱尔兰计量用电比例","quote":"2025 年数据中心占爱尔兰全国计量电力消耗的 23%"}
+]
+</script>
+
+</body>
+</html>

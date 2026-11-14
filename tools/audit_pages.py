@@ -80,17 +80,23 @@ def audit_one(pg, rel):
     #     → 用 Element.checkVisibility（浏览器原生）
     #  ② 只看**首屏内**（截图只拍首屏，屏外的不可见不算问题）
     try:
+        # 口径（2026-11-13 修正）：判「首屏有没有可见内容」不能只看**叶子节点**——
+        # 标题常被内层 span 包裹（hero__title 内是 span），叶子口径会把「标题可见」
+        # 误判成「首屏空白」。改为：视口内**有可见文本的元素**都算（自身直接文本非空
+        # 或含可见后代），并排除 fixed 定位（HUD 等演示区控件本就不该出现在首屏）。
         vis = pg.evaluate("""() => {
             const vh = window.innerHeight;
-            const leaves = [...document.querySelectorAll('body *')].filter(
-                e => e.children.length === 0 && (e.textContent || '').trim().length);
-            const shown = leaves.filter(e => {
+            const text = e => (e.textContent || '').trim();
+            const cands = [...document.querySelectorAll('body *')].filter(e => {
+                if (!text(e)) return false;
+                const hasTextChild = [...e.childNodes].some(
+                    n => n.nodeType === 3 && (n.textContent || '').trim().length);
+                const hasVisibleChild = [...e.children].some(c => text(c));
+                if (!hasTextChild && !hasVisibleChild) return false;
                 const r = e.getBoundingClientRect();
                 if (r.height <= 2 || r.width <= 2) return false;
                 if (r.bottom <= 0 || r.top >= vh) return false;
-                if (typeof e.checkVisibility === 'function') {
-                    return e.checkVisibility({opacityProperty: true, visibilityProperty: true});
-                }
+                if (getComputedStyle(e).position === 'fixed') return false;
                 let op = 1, el = e;
                 while (el && el !== document.body) {
                     const cs = getComputedStyle(el);
@@ -100,8 +106,8 @@ def audit_one(pg, rel):
                 }
                 return op > 0.05;
             });
-            return {len: shown.length, leaves: leaves.length,
-                    sample: (shown[0] ? shown[0].textContent : '').trim().slice(0, 40)};
+            return {len: cands.length, leaves: cands.length,
+                    sample: (cands[0] ? cands[0].textContent : '').trim().slice(0, 40)};
         }""")
     except Exception:
         vis = {"len": -1, "leaves": -1, "sample": ""}
@@ -135,7 +141,7 @@ def audit_one(pg, rel):
         real = [u for u in failed if "favicon" not in u]
         if real:
             problems.append(f"资源加载失败 ×{len(real)}: {real[0]}")
-    if 0 <= vis["len"] < 8:
+    if 0 <= vis["len"] < 4:   # 2026-11-13：阈值 8→4（极简首屏也会被判空白）
         problems.append(f"首屏几乎没有可见内容（可见叶子 {vis['len']} / 总叶子 {vis.get('leaves','?')}）"
                         f" —— 典型的「死规则把内容永久隐藏」")
     if hidden > 0:

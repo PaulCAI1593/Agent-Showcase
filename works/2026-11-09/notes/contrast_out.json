@@ -1,0 +1,401 @@
+{
+  "initial": {
+    "total_text_nodes": 66,
+    "fail_count": 14,
+    "unique_failures": [
+      {
+        "text": "回到档案柜",
+        "size": 13,
+        "color": "rgb(20, 19, 15)",
+        "bg": "rgb(23,19,14)",
+        "ratio": 1.01,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "五个代号一间破译室",
+        "size": 62,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 62,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "模型上线前的情报战。",
+        "size": 17.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "点开每张卡，翻出它的线索。",
+        "size": 17.5,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "破译进度",
+        "size": 12.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "0 / 5",
+        "size": 15,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻 · 锁定",
+        "size": 11.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "已官宣",
+        "size": 13,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "2",
+        "size": 13,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻",
+        "size": 42,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "发布前情报战白热化：Qoduck、Cactus、Kraken、Donut",
+        "size": 18.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "厂商未发布社区先破案。",
+        "size": 44,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 44,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      }
+    ],
+    "min_ratio_all": 1
+  },
+  "after_flip": {
+    "total_text_nodes": 67,
+    "fail_count": 14,
+    "unique_failures": [
+      {
+        "text": "回到档案柜",
+        "size": 13,
+        "color": "rgb(20, 19, 15)",
+        "bg": "rgb(23,19,14)",
+        "ratio": 1.01,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "五个代号一间破译室",
+        "size": 62,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 62,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "模型上线前的情报战。",
+        "size": 17.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "点开每张卡，翻出它的线索。",
+        "size": 17.5,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "破译进度",
+        "size": 12.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "1 / 5",
+        "size": 15,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻 · 锁定",
+        "size": 11.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "已官宣",
+        "size": 13,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "2",
+        "size": 13,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻",
+        "size": 42,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "发布前情报战白热化：Qoduck、Cactus、Kraken、Donut",
+        "size": 18.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "厂商未发布社区先破案。",
+        "size": 44,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 44,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      }
+    ],
+    "min_ratio_all": 1
+  },
+  "after_match": {
+    "total_text_nodes": 67,
+    "fail_count": 14,
+    "unique_failures": [
+      {
+        "text": "回到档案柜",
+        "size": 13,
+        "color": "rgb(20, 19, 15)",
+        "bg": "rgb(23,19,14)",
+        "ratio": 1.01,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "五个代号一间破译室",
+        "size": 62,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 62,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "模型上线前的情报战。",
+        "size": 17.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "点开每张卡，翻出它的线索。",
+        "size": 17.5,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "破译进度",
+        "size": 12.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "1 / 5",
+        "size": 15,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻 · 锁定",
+        "size": 11.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "已官宣",
+        "size": 13,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "2",
+        "size": 13,
+        "color": "rgb(217, 164, 65)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "上线时刻",
+        "size": 42,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "发布前情报战白热化：Qoduck、Cactus、Kraken、Donut",
+        "size": 18.5,
+        "color": "rgb(172, 159, 138)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.16,
+        "need": 4.5,
+        "pass": false
+      },
+      {
+        "text": "厂商未发布社区先破案。",
+        "size": 44,
+        "color": "rgb(241, 233, 218)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.86,
+        "need": 3,
+        "pass": false
+      },
+      {
+        "text": "，",
+        "size": 44,
+        "color": "rgb(240, 112, 91)",
+        "bg": "rgb(217,164,65)",
+        "ratio": 1.3,
+        "need": 3,
+        "pass": false
+      }
+    ],
+    "min_ratio_all": 1
+  }
+}

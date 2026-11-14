@@ -46,14 +46,23 @@ import time
 # 本文件在 shared/showcase/tools/ 下 → ROOT 就是展厅目录
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHOWCASE = ROOT
+
 WORKSPACE = os.path.normpath(os.path.join(ROOT, '..', '..', 'workspaces', 'default'))
 STATE_DIR = os.path.join(WORKSPACE, 'state')
+# 解释器选择：容器里 `sys.executable` 可能为空串（11-14 实测），且系统
+# python3 无 playwright —— 派生子进程一律优先 venv 解释器，避免
+# PermissionError('') 与 ModuleNotFoundError 两类环境崩溃。
+PY = (sys.executable
+      or next((c for c in ('/app/venv/bin/python3', '/usr/bin/python3')
+               if os.path.exists(c)), 'python3'))
 STATE_FILE = os.path.join(STATE_DIR, 'auto_maintain.json')
 HEARTBEAT_STATUS = os.path.join(WORKSPACE, 'HEARTBEAT_STATUS.md')
 LOG_DIR = os.path.join(ROOT, 'logs')
 LOG_FILE = os.path.join(LOG_DIR, 'auto_maintain.log')
 # 心跳 TODO 区块只保留最近这么多行 —— 否则守护每 30 分钟加一批，会无限膨胀
 MAX_TODO_ROWS = 24
+# 已处置行保留条数（未处置行不再受此上限约束，见 write_heartbeat）
+MAX_SETTLED_ROWS = 12
 
 # cron 间隔的粗略映射（分钟）—— 用于判断「该跑了却没跑」
 CRON_INTERVAL_HINT = {
@@ -63,11 +72,20 @@ CRON_INTERVAL_HINT = {
     '0 14 * * mon-fri': 1440,
     '0 2 * * tue,thu,sat': 4320,
     '0 0 1 * *': 43200,
+    # 周度发布（每周日 02:00）——2026-11-10 补：缺此键时回落 1440，
+    # 2.5×24h=60h 后把健康的周度 cron 误报成「已 60 小时未跑（应每 24 小时）」
+    '0 2 * * sun': 10080,
 }
 
 
+def bj_now():
+    """北京时间（Asia/Shanghai）。容器本地时区是 UTC，直接用 now() 会让
+    日志与 HEARTBEAT_STATUS.md 的时间戳比北京时间晚 8 小时，与心跳协议口径不一致。"""
+    return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+
+
 def log(msg):
-    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    ts = bj_now().strftime('%Y-%m-%d %H:%M:%S')
     line = f'{ts} {msg}'
     print(line, flush=True)
     try:
@@ -130,8 +148,12 @@ def parse_json(text):
 
 # ── ① 展厅收敛 ────────────────────────────────────────────
 def converge_showcase():
-    rc, out, err = run(['bash', os.path.join(SHOWCASE, 'tools', 'autopublish.sh'),
-                       '--quiet-seconds', '0'], cwd=SHOWCASE, timeout=1800)
+    # 不再传 --quiet-seconds 0：强制绕过门禁会把**作者正在写的初稿**直接
+    # 索引上架并截图（11-12 实测 #426/#431 落盘数分钟即入馆）。守护改为
+    # 尊重默认 180s 静默窗——本轮有写入就跳过，下一轮再收敛；
+    # 「交付即上架」与「不上半成品」不再只能二选一。
+    rc, out, err = run(['bash', os.path.join(SHOWCASE, 'tools', 'autopublish.sh')],
+                       cwd=SHOWCASE, timeout=1800)
     ok = (rc == 0)
     detail = ''
     if not ok:
@@ -182,6 +204,12 @@ def check_crons():
         jid = j.get('id')
         name = j.get('name', '?')
         cron = (j.get('schedule') or {}).get('cron', '')
+        # 已禁用的 cron 不参与健康判定 —— 否则它会永远顶着一句「上次状态 error」
+        # 的 🔴（例：11-12 例会禁用月度备份后，11-01 那条 429 记录会永久误报）。
+        if not j.get('enabled', True):
+            results.append({'name': name, 'status': '已禁用', 'age_min': None,
+                            'ok': True, 'note': '已禁用（职责已移交，不再判定）'})
+            continue
         rc2, out2, err2 = run(['qwenpaw', 'cron', 'state', jid, '--agent-id', 'default'], timeout=60)
         st = parse_json(out2) or {}
         status = st.get('last_status', '?')
@@ -214,9 +242,11 @@ def check_crons():
         # 判定：失败，或超过 2.5 倍间隔还没跑
         interval = CRON_INTERVAL_HINT.get(cron, 1440)
         late = age_min is not None and age_min > interval * 2.5
-        ok = (status in ('success', 'ok', '未首次运行')) and not late
+        # running = 此刻正在执行。它会被**自己**判成 🔴 —— 例会跑起来时
+        # 守护同时在记「例会 cron 异常」，每 30 分钟污染一次 TODO 表。
+        ok = (status in ('success', 'ok', '未首次运行', 'running')) and not late
         note = ''
-        if status not in ('success', 'ok', '未首次运行'):
+        if status not in ('success', 'ok', '未首次运行', 'running'):
             note = err or f'上次状态 {status}'
         elif late:
             note = f'已 {age_min/60:.0f} 小时未跑（应每 {interval/60:.0f} 小时）'
@@ -234,7 +264,7 @@ def check_claim_layer():
       ② 断言总数相对基线是否跌幅 >20%（抽取回归）
       ③ 覆盖率是否低于 60%（新作品没用模板）
     """
-    rc, out, err = run([sys.executable, os.path.join(SHOWCASE, 'tools', 'claim_gate.py'),
+    rc, out, err = run([PY, os.path.join(SHOWCASE, 'tools', 'claim_gate.py'),
                         '--verify'], cwd=SHOWCASE, timeout=600)
     ok = (rc == 0)
     note = ''
@@ -262,12 +292,45 @@ def check_claim_layer():
     return ok, note
 
 
+def check_monthly_backup():
+    """月度频道聊天记录备份（纯脚本，从 agent cron 迁来）。
+
+    为什么迁：11-01 该任务在 agent cron 里以 429 RateLimitError 失败 ——
+    它的正文只是「跑一个 python 脚本」，根本不需要 LLM，却让额度决定
+    备份做不做。同 auto_maintain 的设计初衷：机械维护移出 agent 循环。
+
+    判据：看本月备份目录里有没有当月的备份文件；没有就说明本月没做，
+    补跑一次。备份脚本自带幂等（同一份数据重复备份也安全）。
+    """
+    script = os.path.join(WORKSPACE, 'scripts', 'backup-and-clear-channels.py')
+    if not os.path.exists(script):
+        return True, '备份脚本不存在，跳过'
+    root = os.path.normpath(os.path.join(SHOWCASE, '..', 'backups', 'channel-history'))
+    ym = datetime.datetime.now().strftime('%Y-%m')
+    month_dir = os.path.join(root, ym)
+    try:
+        existing = [f for f in os.listdir(month_dir) if f.endswith('.json')]
+    except OSError:
+        existing = []
+    if existing:
+        note = f'本月（{ym}）已备份 {len(existing)} 个频道文件'
+        log(f'月度备份: ✓ {note}')
+        return True, note
+    rc, out, err = run(['python3', script], timeout=900)
+    ok = (rc == 0)
+    n = sum(1 for l in out.splitlines() if '✅' in l)
+    note = (f'已补跑，{n} 个频道完成' if ok
+            else (out.strip().splitlines()[-1][:110] if out.strip() else '补跑失败'))
+    log(f'月度备份: {"✓" if ok else "✗"} {note}')
+    return ok, note
+
+
 def check_runtime(pages=None):
     """作品页运行时巡检（从例会 Step 4.9 迁来）。
 
     全量 108 件约 4 分钟；守护里每 N 轮跑一次全量太重 → 默认抽样。
     """
-    cmd = [sys.executable, os.path.join(SHOWCASE, 'tools', 'audit_pages.py')]
+    cmd = [PY, os.path.join(SHOWCASE, 'tools', 'audit_pages.py')]
     if pages:
         cmd += ['--sample', str(pages)]
     rc, out, err = run(cmd, cwd=SHOWCASE, timeout=1800)
@@ -295,7 +358,7 @@ def check_design(full=False):
     full=False 只扫近 30 天改动的作品（快，用于日常巡检，不比棘轮）。
     """
     scope = 'all' if full else 'recent:30'
-    cmd = [sys.executable, os.path.join(SHOWCASE, 'tools', 'design_scan.py'),
+    cmd = [PY, os.path.join(SHOWCASE, 'tools', 'design_scan.py'),
            '--scope', scope]
     rc, out, err = run(cmd, cwd=SHOWCASE, timeout=3600)
     if rc == 2:
@@ -365,7 +428,7 @@ def write_heartbeat(crons, showcase_ok, showcase_detail, extra=None):
         s = open(HEARTBEAT_STATUS, encoding='utf-8').read()
     except OSError:
         return
-    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    ts = bj_now().strftime('%Y-%m-%d %H:%M')
     bad = [c for c in crons if not c['ok']]
     lines = []
     if not showcase_ok:
@@ -388,8 +451,31 @@ def write_heartbeat(crons, showcase_ok, showcase_detail, extra=None):
     # 前两行是表头与分隔行（分隔行格式未必是 |---|...|，别写死）
     head = blines[:2] if len(blines) >= 2 else blines
     rows_txt = [l for l in blines[len(head):] if l.strip()]
-    keep = rows_txt[-MAX_TODO_ROWS:]
-    new = '\n'.join(head + keep + [row]) + '\n'
+    # 截尾按「状态」而非行数：未处置项（待处理 / 🚄处理中）必须全部保留，
+    # 否则写在中段的持久条目会被后续巡检轮次挤掉（2026-11-12 实测 31 行→末 24 行）。
+    pending = [l for l in rows_txt if not l.rstrip().endswith('✅已处置 |')]
+    settled = [l for l in rows_txt if l.rstrip().endswith('✅已处置 |')]
+    # 去重：同一「问题」的重复登记只留最后一条 —— 守护每 30min 会把同一个
+    # cron 失败按**当前时间**重写成新行（2026-11-13 22:20→23:28 刷了 15 行，
+    # 撑破 100 行上限且淹没真异常）。按「问题列」归并即可。
+    def _prob(l):
+        parts = [x.strip() for x in l.split('|')]
+        return parts[3] if len(parts) > 3 else l.strip()
+    # 把本轮新行与旧行放在一起按「问题列」归并，**只留最新一条**：
+    # 这样同一 cron 失败不会每 30min 刷一行，把真异常淹没、撑破 100 行上限。
+    new_rows = [l for l in lines if l.strip()]
+    def _prob(l):
+        parts = [x.strip() for x in l.split('|')]
+        return parts[3] if len(parts) > 3 else l.strip()
+    order, latest = [], {}
+    for l in pending + new_rows:
+        k = _prob(l)
+        if k not in latest:
+            order.append(k)
+        latest[k] = l
+    merged = [latest[k] for k in order]
+    keep = merged + settled[-MAX_SETTLED_ROWS:]
+    new = '\n'.join(head + keep) + '\n'   # 本轮新行已并入 merged，不重复追加
     s = s.replace(block, new, 1)
     try:
         with open(HEARTBEAT_STATUS, 'w', encoding='utf-8') as f:
@@ -405,7 +491,7 @@ def write_state(crons, showcase_ok, showcase_detail):
         os.makedirs(STATE_DIR, exist_ok=True)
         with open(STATE_FILE, 'w', encoding='utf-8') as f:
             json.dump({
-                'updated_at': datetime.datetime.now().isoformat(timespec='seconds'),
+                'updated_at': bj_now().isoformat(timespec='seconds'),
                 'showcase_ok': showcase_ok,
                 'showcase_detail': showcase_detail,
                 'crons': crons,
@@ -423,6 +509,8 @@ def tick(do_audit=False):
     extra.append(('素材侧（每日简报）', brief_ok, brief_note))
     claim_ok, claim_note = check_claim_layer()
     extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+    backup_ok, backup_note = check_monthly_backup()
+    extra.append(('月度频道备份', backup_ok, backup_note))
     if do_audit:
         audit_ok, audit_note = check_runtime()
         extra.append(('作品页运行时巡检', audit_ok, audit_note))
@@ -454,6 +542,8 @@ def main():
         extra.append(('素材侧（每日简报）', brief_ok, brief_note))
         claim_ok, claim_note = check_claim_layer()
         extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+        backup_ok, backup_note = check_monthly_backup()
+        extra.append(('月度频道备份', backup_ok, backup_note))
         if args.audit:
             audit_ok, audit_note = check_runtime(args.pages)
             extra.append(('作品页运行时巡检', audit_ok, audit_note))
@@ -481,6 +571,8 @@ def main():
             extra = []
             claim_ok, claim_note = check_claim_layer()
             extra.append(('断言层巡检', claim_ok, claim_note or '引用全部有效'))
+            backup_ok, backup_note = check_monthly_backup()
+            extra.append(('月度频道备份', backup_ok, backup_note))
             if do_audit:
                 audit_ok, audit_note = check_runtime()
                 extra.append(('作品页运行时巡检（每3小时全量）', audit_ok, audit_note))

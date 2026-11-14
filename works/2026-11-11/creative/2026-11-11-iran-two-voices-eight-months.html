@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="2026-11-10 同一天，伊朗与美国各说了两句：一句要收场，一句要动手。战事已持续八个月，账本却往反方向走。双轨对照叙事与三只市场仪表。">
+<title>八个月的两张嘴：伊朗「结束不战不和」与美方「20 倍打击」威胁</title>
+<style>
+:root{
+  --ink:#07090E; --panel:#0E121A; --panel2:#151B26; --line:#222A38; --line2:#2E3949;
+  --text:#EAEFF8; --dim:#A3B0C4; --faint:#7E8CA3;
+  --de:#42D8C3; --esc:#FF9152; --gold:#F5C64B; --threat:#FF6B8A; --solo:#9CBBFF;
+  --sans:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif CJK SC",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ink); color:var(--text); font-family:var(--sans);
+  font-size:16px; line-height:1.5; overflow-x:hidden;
+  background-image:radial-gradient(1200px 620px at 50% -12%, #131A26 0%, rgba(7,9,14,0) 62%);
+}
+.wrap{width:min(1180px,100% - 32px); margin-inline:auto}
+::selection{background:rgba(66,216,195,.28)}
+.grain{position:fixed; inset:0; pointer-events:none; z-index:9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size:180px 180px; opacity:.42; mix-blend-mode:overlay;}
+.vig{position:fixed; inset:0; pointer-events:none; z-index:8; box-shadow:inset 0 0 220px rgba(0,0,0,.72);}
+.eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint);
+  display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center}
+.eyebrow b{color:var(--dim); font-weight:500}
+h1,h2,h3{font-family:var(--serif); font-weight:400; margin:0; letter-spacing:.01em}
+.sec{padding:56px 0; border-top:1px solid var(--line)}
+.sec__head{display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:22px}
+.sec__title{font-size:26px}
+.sec__title small{display:block; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint); margin-top:7px}
+.hint{font-size:16px; line-height:1.55; color:var(--faint); margin:0}
+.masthead{padding:44px 0 10px}
+.masthead__grid{display:grid; grid-template-columns:1.35fr .95fr; gap:44px; align-items:end; padding:26px 0 34px}
+.masthead h1{font-size:clamp(44px,8.4vw,88px); line-height:.98}
+.lede{margin:20px 0 0; font-family:var(--serif); font-size:clamp(16px,2vw,20px); line-height:1.62; color:var(--dim); max-width:46ch}
+.lede b{color:var(--text); font-weight:400}
+.lede .up{color:var(--esc)} .lede .dn{color:var(--de)}
+.meters-h{display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint); margin-bottom:7px}
+.meter{display:flex; gap:3px; align-items:flex-end; height:82px; padding:10px 0; border-block:1px solid var(--line)}
+.meter i{flex:1 1 0; background:var(--line2); border-radius:1px; transform-origin:bottom; animation:rise .9s var(--ease) both}
+.meter--b i{animation-delay:.12s}
+.meter.is-live i{background:var(--gold)}
+@keyframes rise{from{transform:scaleY(.04); opacity:.2} to{transform:scaleY(1); opacity:1}}
+.meter__wrap{margin-bottom:16px}
+.console{border-top:1px solid var(--line); padding:38px 0 46px}
+.ctrlbar{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px}
+.seg{display:inline-flex; border:1px solid var(--line2); border-radius:999px; overflow:hidden}
+.seg button{appearance:none; border:0; background:transparent; color:var(--dim); cursor:pointer;
+  font-family:var(--mono); font-size:13px; letter-spacing:.04em; padding:8px 15px; transition:background .18s,color .18s}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button:hover{color:var(--text); background:rgba(255,255,255,.04)}
+.seg button[aria-pressed="true"]{background:var(--gold); color:#1A1405; font-weight:700}
+.legend{display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--faint)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.swatch{width:11px; height:11px; border-radius:2px; display:inline-block}
+.swatch--de{background:var(--de)} .swatch--esc{background:var(--esc)}
+.rail{display:grid; grid-template-columns:1fr 58px 1fr; align-items:stretch}
+.track{display:flex; flex-direction:column; min-width:0}
+.track__head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--line2)}
+.track__who{font-family:var(--serif); font-size:22px; color:var(--text)}
+.track__tally{font-family:var(--mono); font-size:12px; color:var(--faint); margin-left:auto; letter-spacing:.04em}
+.track__tally .de{color:var(--de)} .track__tally .esc{color:var(--esc)}
+.lane{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding-top:12px}
+.pulse{position:relative; display:block; width:100%; text-align:left; cursor:pointer;
+  background:var(--panel); border:1px solid var(--line); border-left-width:3px; border-radius:3px;
+  padding:12px 13px 13px; color:var(--text); font:inherit;
+  transition:border-color .22s, background .22s, transform .22s var(--ease)}
+.pulse--de{border-left-color:var(--de)}
+.pulse--esc{border-left-color:var(--esc)}
+.pulse:hover{background:var(--panel2); transform:translateY(-2px)}
+.pulse:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.pulse.is-active{background:var(--panel2); border-color:var(--line2)}
+.pulse.is-active.pulse--de{border-left-color:var(--de); box-shadow:inset 0 0 0 1px rgba(66,216,195,.35)}
+.pulse.is-active.pulse--esc{border-left-color:var(--esc); box-shadow:inset 0 0 0 1px rgba(255,145,82,.35)}
+.pulse.is-counter::after{content:""; position:absolute; inset:-1px; border:1px dashed var(--gold); border-radius:3px; pointer-events:none}
+.pulse__who{display:block; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint); margin-bottom:7px}
+.pulse__q{display:block; font-family:var(--serif); font-size:16px; line-height:1.45; color:var(--text)}
+.pulse__full{display:none; font-family:var(--serif); font-size:16px; line-height:1.6; color:var(--dim); margin-top:9px;
+  padding-top:9px; border-top:1px dashed var(--line2)}
+.pulse.is-active .pulse__full{display:block}
+.pulse__src{display:none; font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:8px; letter-spacing:.03em}
+.pulse.is-active .pulse__src{display:block}
+.pulse__tags{display:none; gap:6px; flex-wrap:wrap; margin-top:9px}
+.pulse.is-active .pulse__tags{display:flex}
+.tag{font-family:var(--mono); font-size:12px; letter-spacing:.04em; padding:3px 8px; border-radius:2px;
+  border:1px solid currentColor; color:var(--faint)}
+.tag--single{color:var(--solo)} .tag--threat{color:var(--threat)}
+.tag--delay{color:var(--esc)} .tag--de{color:var(--de)} .tag--esc{color:var(--esc)}
+.seam{position:relative; display:flex; justify-content:center}
+.seam__line{position:absolute; top:34px; bottom:12px; width:1px;
+  background:linear-gradient(180deg, rgba(245,198,75,0) 0%, rgba(245,198,75,.55) 14%, rgba(245,198,75,.55) 86%, rgba(245,198,75,0) 100%)}
+.seam__needle{position:absolute; top:50%; left:50%; width:13px; height:13px; margin:-6.5px 0 0 -6.5px;
+  background:var(--gold); transform:rotate(45deg) translateX(0);
+  transition:transform .55s var(--ease), background .3s; box-shadow:0 0 0 4px rgba(245,198,75,.12)}
+.seam.is-de .seam__needle{transform:rotate(45deg) translateX(-20px); background:var(--de); box-shadow:0 0 0 4px rgba(66,216,195,.12)}
+.seam.is-esc .seam__needle{transform:rotate(45deg) translateX(20px); background:var(--esc); box-shadow:0 0 0 4px rgba(255,145,82,.12)}
+.seam__label{position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint); white-space:nowrap}
+.seam__label.is-de{color:var(--de)} .seam__label.is-esc{color:var(--esc)}
+.steps{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:24px; padding-top:18px; border-top:1px solid var(--line)}
+.steps__btn{appearance:none; border:1px solid var(--line2); background:var(--panel); color:var(--dim);
+  width:34px; height:30px; border-radius:3px; cursor:pointer; font-size:14px; line-height:1}
+.steps__btn:hover{color:var(--text); border-color:var(--dim)}
+.steps__btn:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.steps__now{font-family:var(--mono); font-size:12px; color:var(--dim); letter-spacing:.05em}
+.steps__now b{color:var(--gold)}
+.rail8{display:grid; grid-template-columns:repeat(9,1fr); gap:0; position:relative; margin-top:6px}
+.rail8__m{border-left:1px solid var(--line); padding:0 6px 0 9px; min-width:0}
+.rail8__m:first-child{border-left:0; padding-left:0}
+.rail8__mlab{font-family:var(--mono); font-size:12px; color:var(--faint); padding:8px 0 10px; letter-spacing:.04em}
+.rail8__m.is-on .rail8__mlab{color:var(--gold)}
+.node{display:block; width:100%; text-align:left; cursor:pointer; position:relative;
+  background:transparent; border:1px solid var(--line2); border-radius:3px; color:var(--dim);
+  padding:9px 10px; margin-bottom:8px; font:inherit; transition:border-color .2s, background .2s}
+.node:hover{border-color:var(--dim); background:var(--panel)}
+.node:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.node.is-on{border-color:var(--gold); background:var(--panel2)}
+.node__d{font-family:var(--mono); font-size:12px; color:var(--faint); display:block; letter-spacing:.04em}
+.node.is-on .node__d{color:var(--gold)}
+.node__t{font-family:var(--serif); font-size:16px; color:var(--text); display:block; margin-top:3px; line-height:1.35}
+.node__q{display:none; font-family:var(--serif); font-size:16px; color:var(--dim); line-height:1.55; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line2)}
+.node.is-on .node__q{display:block}
+.node__s{display:none; font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:7px}
+.node.is-on .node__s{display:block}
+.slider{width:100%; margin:4px 0 0; appearance:none; background:transparent; cursor:pointer; height:26px}
+.slider::-webkit-slider-runnable-track{height:2px; background:var(--line2)}
+.slider::-moz-range-track{height:2px; background:var(--line2)}
+.slider::-webkit-slider-thumb{appearance:none; width:15px; height:15px; margin-top:-6.5px; border-radius:50%; background:var(--gold); border:0}
+.slider::-moz-range-thumb{width:15px; height:15px; border-radius:50%; background:var(--gold); border:0}
+.slider:focus-visible{outline:2px solid var(--gold); outline-offset:4px}
+.bet{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start}
+.bet__q{font-family:var(--serif); font-size:clamp(20px,2.6vw,30px); line-height:1.38; color:var(--text); margin:0 0 10px}
+.bet__sub{font-size:16px; line-height:1.55; color:var(--faint); margin:0 0 26px; max-width:42ch}
+.bet__scale{display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; letter-spacing:.04em; margin-bottom:8px}
+.bet__scale .l{color:var(--esc)} .bet__scale .r{color:var(--de)}
+.bet__slider{width:100%; margin:0 0 20px; appearance:none; background:transparent; cursor:pointer; height:30px}
+.bet__slider::-webkit-slider-runnable-track{height:3px; background:linear-gradient(90deg,var(--esc),var(--line2) 50%,var(--de))}
+.bet__slider::-moz-range-track{height:3px; background:linear-gradient(90deg,var(--esc),var(--line2) 50%,var(--de))}
+.bet__slider::-webkit-slider-thumb{appearance:none; width:22px; height:22px; margin-top:-9.5px; border-radius:50%; background:var(--gold); border:3px solid var(--ink); box-shadow:0 0 0 1px var(--gold)}
+.bet__slider::-moz-range-thumb{width:22px; height:22px; border-radius:50%; background:var(--gold); border:3px solid var(--ink); box-shadow:0 0 0 1px var(--gold)}
+.bet__slider:focus-visible{outline:2px solid var(--gold); outline-offset:4px}
+.btn{appearance:none; cursor:pointer; font-family:var(--mono); font-size:14px; letter-spacing:.04em;
+  padding:13px 26px; border-radius:3px; border:1px solid var(--gold); background:var(--gold); color:#1A1405; font-weight:700;
+  transition:transform .18s var(--ease), background .18s}
+.btn:hover{transform:translateY(-2px); background:#FFD963}
+.btn:focus-visible{outline:2px solid var(--text); outline-offset:3px}
+.btn--ghost{background:transparent; color:var(--dim); border-color:var(--line2); font-weight:500}
+.btn--ghost:hover{background:var(--panel2); color:var(--text); border-color:var(--dim)}
+.bet__verdict{border:1px solid var(--line2); border-left:3px solid var(--gold); background:var(--panel);
+  padding:24px; border-radius:3px; min-height:100%}
+.bet__verdict h3{font-size:20px; margin-bottom:14px}
+.bet__verdict p{margin:0 0 14px; font-size:16px; line-height:1.65; color:var(--dim)}
+.bet__verdict q{font-family:var(--serif); font-size:16px; color:var(--text); display:block; margin:12px 0}
+.verdict__row{display:flex; gap:10px; align-items:center; font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:6px; flex-wrap:wrap}
+.verdict__pill{border:1px solid var(--line2); border-radius:999px; padding:3px 10px; color:var(--dim)}
+.verdict__pill--same{color:var(--esc); border-color:var(--esc)}
+.verdict__pill--other{color:var(--de); border-color:var(--de)}
+.is-hidden{display:none !important}
+.gauges{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.gauge-card{background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:20px 18px 18px}
+.gauge-card__name{font-family:var(--serif); font-size:17px; color:var(--text)}
+.gauge-card__unit{font-family:var(--mono); font-size:12px; color:var(--faint); margin-left:7px}
+.gauge{display:block; width:100%; height:auto; margin:6px 0 2px}
+.gauge__arc{fill:none; stroke:var(--line2); stroke-width:2}
+.gauge__ticks line{stroke:var(--line2); stroke-width:1.4}
+.gauge__scale{fill:var(--faint); font-family:var(--mono); font-size:12px}
+.gauge__needle{transform-box:view-box; transform-origin:120px 124px; transform:rotate(var(--deg,0deg));
+  transition:transform 1.25s var(--ease); opacity:0}
+.gauge.is-live .gauge__needle{opacity:1}
+.gauge__needleShape{stroke:var(--gold); stroke-width:2.6; stroke-linecap:round; fill:none}
+.gauge__hub{fill:var(--panel2); stroke:var(--gold); stroke-width:2}
+.gauge__readout{fill:var(--text); font-family:var(--mono); font-size:17px}
+.gauge__pins{display:none}
+.gauge.is-live .gauge__pins{display:block}
+.gauge__pin circle{fill:var(--gold)}
+.gauge__pin line{stroke:var(--gold); stroke-width:1.2; stroke-dasharray:2 2}
+.gauge__pin text{fill:var(--gold); font-family:var(--mono); font-size:12px}
+.gauge-card__cap{font-family:var(--serif); font-size:16px; line-height:1.55; color:var(--dim); margin:10px 0 0}
+.gauge-card__cap em{font-style:normal; color:var(--faint); font-family:var(--mono); font-size:12px; display:block; margin-top:6px}
+.snap{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.snap__b{border:1px solid var(--line2); border-radius:2px; padding:4px 9px; font-family:var(--mono); font-size:12px; color:var(--dim)}
+.snap__b b{color:var(--gold); font-weight:600}
+.ledger{display:grid; grid-template-columns:1fr 1.15fr; gap:38px; align-items:start}
+.led{list-style:none; margin:0; padding:0}
+.led li{display:grid; grid-template-columns:1fr auto; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line)}
+.led__k{font-size:16px; color:var(--text)}
+.led__v{font-family:var(--mono); font-size:12.5px; color:var(--esc); white-space:nowrap}
+.led__v--up{color:var(--de)}
+.led__v--na{color:var(--faint)}
+.ledquote{font-family:var(--serif); font-size:16px; line-height:1.6; color:var(--text); margin:0 0 12px}
+.ledquote em{font-style:normal; color:var(--faint); font-family:var(--mono); font-size:12px; display:block; margin-top:8px}
+.colophon{border-top:1px solid var(--line); padding:44px 0 64px}
+.srcs{list-style:none; margin:0; padding:0; columns:2; column-gap:34px}
+.srcs li{break-inside:avoid; font-family:var(--mono); font-size:12px; line-height:1.7; color:var(--faint); padding:5px 0; border-bottom:1px solid var(--line)}
+.srcs b{color:var(--dim); font-weight:500}
+.notes{margin:34px 0 0; padding:0; list-style:none; border-left:2px solid var(--line2)}
+.notes li{font-size:16px; line-height:1.65; color:var(--faint); padding:7px 0 7px 14px}
+.notes b{color:var(--dim); font-weight:500}
+.colophon__end{margin-top:30px; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--faint);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+@media (max-width:920px){
+  .masthead__grid{grid-template-columns:1fr; gap:28px}
+  .bet{grid-template-columns:1fr; gap:26px}
+  .ledger{grid-template-columns:1fr; gap:26px}
+  .gauges{grid-template-columns:1fr; max-width:420px}
+  .srcs{columns:1}
+}
+@media (max-width:720px){
+  .rail{grid-template-columns:1fr}
+  .seam{height:46px; justify-content:flex-start; align-items:center}
+  .seam__line{top:50%; bottom:auto; left:0; right:0; width:auto; height:1px;
+    background:linear-gradient(90deg, rgba(245,198,75,0), rgba(245,198,75,.55) 12%, rgba(245,198,75,.55) 88%, rgba(245,198,75,0))}
+  .seam__needle{top:50%; left:50%}
+  .seam.is-de .seam__needle{transform:rotate(45deg) translateX(-14px)}
+  .seam.is-esc .seam__needle{transform:rotate(45deg) translateX(14px)}
+  .seam__label{position:static; transform:none; margin-left:16px}
+  .lane{grid-template-columns:1fr}
+  .rail8{grid-template-columns:repeat(9,64px); overflow-x:auto; padding-bottom:10px}
+  .sec{padding:40px 0}
+  .wrap{width:min(1180px,100% - 24px)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; scroll-behavior:auto !important}
+  .gauge__needle{transition:none}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vig" aria-hidden="true"></div>
+
+<main class="wrap">
+
+<header class="masthead">
+  <div class="eyebrow">
+    <b>地缘与能源</b><span>素材版本 2026-11-10</span><span>战事时长 八个月</span><span>双轨对照</span>
+  </div>
+  <div class="masthead__grid">
+    <div>
+      <h1>八个月，<br>两张嘴</h1>
+      <p class="lede">
+        同一天，两方各说了两句：<span class="up">一句要动手</span>，<span class="dn">一句要收场</span>。<br>
+        而账本<b>在往反方向走</b>。
+      </p>
+    </div>
+    <div class="meter__wrap">
+      <div class="meters-h"><span>TRACK A · 伊朗</span><span>TRACK B · 美国</span></div>
+      <div class="meter meter--a" id="mA" aria-hidden="true"></div>
+      <div class="meter meter--b" id="mB" aria-hidden="true"></div>
+      <p class="hint" style="margin-top:10px">电平表为氛围图形，非数据。</p>
+    </div>
+  </div>
+</header>
+
+<section class="console" aria-labelledby="cTitle">
+  <div class="ctrlbar">
+    <h2 class="sec__title" id="cTitle">同一枚麦克风，两条轨<small>当日表态 · 2026-11-10</small></h2>
+    <div class="legend">
+      <span><i class="swatch swatch--de"></i>降级</span>
+      <span><i class="swatch swatch--esc"></i>升级</span>
+      <span class="hint">分色为编辑判读</span>
+    </div>
+  </div>
+
+  <div class="rail">
+    <div class="track" id="trackA">
+      <div class="track__head">
+        <span class="track__who">伊朗</span>
+        <span class="track__tally"><span class="de">降级 1</span> · <span class="esc">升级 3</span></span>
+      </div>
+      <div class="lane">
+        <button class="pulse pulse--de" type="button" data-id="iran_president" data-pair="0" aria-pressed="false">
+          <span class="pulse__who">伊朗总统 佩泽希齐扬</span>
+          <span class="pulse__q">结束与美"不战不和"状态</span>
+          <span class="pulse__full">伊朗总统：最高领袖指示结束与美"不战不和"状态：佩泽希齐扬称将在保证自身尊严前提下开展对话、平等谈判解决争端，但不向强权屈服。</span>
+          <span class="pulse__src">财联社 / 央视新闻 11-10 · 军事动态 1</span>
+          <span class="pulse__tags"><span class="tag tag--de">降级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="iran_doctrine" data-pair="1" aria-pressed="false">
+          <span class="pulse__who">伊朗军方 发言人阿克拉米-尼亚</span>
+          <span class="pulse__q">学说转向进攻</span>
+          <span class="pulse__full">伊朗军方宣布学说转向进攻：发言人阿克拉米-尼亚称最高领袖要求军事行动"快速回应、有效、不设地理范围"，从防御威慑转向进攻性方向。</span>
+          <span class="pulse__src">澎湃新闻 / 中评网 11-10 · 军事动态 2</span>
+          <span class="pulse__tags"><span class="tag tag--esc">升级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="iran_radar" data-pair="2" aria-pressed="false">
+          <span class="pulse__who">伊朗革命卫队 发言人纳伊尼</span>
+          <span class="pulse__q">摧毁近10部美国先进雷达</span>
+          <span class="pulse__full">伊朗革命卫队：摧毁近10部美国先进雷达：发言人纳伊尼称击落大量昂贵无人机，"结束战争的主动权掌握在伊朗手中"，并称正在霍尔木兹海峡等待美军"福特"号航母。</span>
+          <span class="pulse__src">新华社 11-10 · 军事动态 3</span>
+          <span class="pulse__tags"><span class="tag tag--single">单方宣称</span><span class="tag tag--esc">升级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="iran_fm" data-pair="3" aria-pressed="false">
+          <span class="pulse__who">伊朗外长 阿拉格齐</span>
+          <span class="pulse__q">"地狱般的毁灭性打击"</span>
+          <span class="pulse__full">伊朗外长发出最后通牒：阿拉格齐警告若美国再度发动袭击，德黑兰将降下"地狱般的毁灭性打击"，力图结束两国持续八个月战事。</span>
+          <span class="pulse__src">半岛电视台 / 澎湃新闻 11-10 · 军事动态 5</span>
+          <span class="pulse__tags"><span class="tag tag--threat">最后通牒</span><span class="tag tag--esc">升级</span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="seam" id="seam">
+      <span class="seam__line" aria-hidden="true"></span>
+      <span class="seam__needle" aria-hidden="true"></span>
+      <span class="seam__label" id="seamLabel">中缝 · 待选</span>
+    </div>
+
+    <div class="track" id="trackB">
+      <div class="track__head">
+        <span class="track__who">美国</span>
+        <span class="track__tally"><span class="de">降级 1</span> · <span class="esc">升级 3</span></span>
+      </div>
+      <div class="lane">
+        <button class="pulse pulse--de" type="button" data-id="trump_deal" data-pair="0" aria-pressed="false">
+          <span class="pulse__who">特朗普</span>
+          <span class="pulse__q">仍希望达成"有意义、有效"的协议</span>
+          <span class="pulse__full">特朗普：仍希望达成"有意义、有效"的协议：但指责伊朗谈判代表"一直在拖延敷衍"。</span>
+          <span class="pulse__src">澎湃新闻 11-10 · 军事动态 6</span>
+          <span class="pulse__tags"><span class="tag tag--de">降级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="trump_soon" data-pair="3" aria-pressed="false">
+          <span class="pulse__who">特朗普</span>
+          <span class="pulse__q">对伊军事行动会"很快"结束但不会在本周结束</span>
+          <span class="pulse__full">对伊军事行动会"很快"结束但不会在本周结束</span>
+          <span class="pulse__src">新华社 / 北京日报 11-10 · 军事动态 4 · 节选</span>
+          <span class="pulse__tags"><span class="tag tag--delay">拖延</span><span class="tag tag--esc">升级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="trump_20x" data-pair="2" aria-pressed="false">
+          <span class="pulse__who">特朗普</span>
+          <span class="pulse__q">比以往猛烈20倍的打击</span>
+          <span class="pulse__full">威胁若伊朗阻断霍尔木兹海峡石油运输，美方将施以"比以往猛烈20倍的打击"。</span>
+          <span class="pulse__src">新华社 / 北京日报 11-10 · 军事动态 4</span>
+          <span class="pulse__tags"><span class="tag tag--threat">威胁 · 未发生</span><span class="tag tag--esc">升级</span></span>
+        </button>
+        <button class="pulse pulse--esc" type="button" data-id="trump_delay" data-pair="1" aria-pressed="false">
+          <span class="pulse__who">特朗普</span>
+          <span class="pulse__q">指责伊朗谈判代表"一直在拖延敷衍"</span>
+          <span class="pulse__full">但指责伊朗谈判代表"一直在拖延敷衍"。</span>
+          <span class="pulse__src">澎湃新闻 11-10 · 军事动态 6 · 节选</span>
+          <span class="pulse__tags"><span class="tag tag--delay">僵局</span><span class="tag tag--esc">升级</span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <button class="steps__btn" type="button" id="prev" aria-label="上一组对照">‹</button>
+    <span class="steps__now">对照 <b id="pairNo">1</b> / 4 · <span id="pairName">谈收场</span></span>
+    <button class="steps__btn" type="button" id="next" aria-label="下一组对照">›</button>
+    <span class="hint">点任一条表态看原文；点另一条可换组。</span>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="tTitle">
+  <div class="sec__head">
+    <h2 class="sec__title" id="tTitle">八个月<small>2026-02-28 → 2026-11-10</small></h2>
+    <p class="hint">拖动滑轨扫过这八个月。空格是素材里没有节点的日子，不是没有发生。</p>
+  </div>
+  <div class="rail8" id="rail8">
+    <div class="rail8__m" data-m="0"><div class="rail8__mlab">2月</div>
+      <button class="node" type="button" data-m="0">
+        <span class="node__d">02-28</span><span class="node__t">战争起点</span>
+        <span class="node__q">2026年2月28日美以对伊朗战争</span>
+        <span class="node__s">热点新闻简报 06-25 · 节选</span>
+      </button>
+    </div>
+    <div class="rail8__m" data-m="1"><div class="rail8__mlab">3月</div></div>
+    <div class="rail8__m" data-m="2"><div class="rail8__mlab">4月</div></div>
+    <div class="rail8__m" data-m="3"><div class="rail8__mlab">5月</div></div>
+    <div class="rail8__m" data-m="4"><div class="rail8__mlab">6月</div>
+      <button class="node" type="button" data-m="4">
+        <span class="node__d">06-18</span><span class="node__t">谅解备忘录</span>
+        <span class="node__q">始于6月18日谅解备忘录签署，6月21日启动首轮正式谈判</span>
+        <span class="node__s">热点新闻简报 06-25</span>
+      </button>
+    </div>
+    <div class="rail8__m" data-m="5"><div class="rail8__mlab">7月</div>
+      <button class="node" type="button" data-m="5">
+        <span class="node__d">07-09</span><span class="node__t">备忘录"已终结"</span>
+        <span class="node__q">美伊谅解备忘录"已终结"</span>
+        <span class="node__s">热点新闻简报 07-09</span>
+      </button>
+    </div>
+    <div class="rail8__m" data-m="6"><div class="rail8__mlab">8月</div>
+      <button class="node" type="button" data-m="6">
+        <span class="node__d">08-12</span><span class="node__t">商船遇袭</span>
+        <span class="node__q">胡塞武装袭击曼德海峡商船，6死10伤</span>
+        <span class="node__s">热点新闻简报 08-12</span>
+      </button>
+    </div>
+    <div class="rail8__m" data-m="7"><div class="rail8__mlab">9月</div></div>
+    <div class="rail8__m" data-m="8"><div class="rail8__mlab">10月</div>
+      <button class="node" type="button" data-m="8">
+        <span class="node__d">10-23</span><span class="node__t">新一轮制裁</span>
+        <span class="node__q">美国还对伊朗实施新一轮制裁（涉律所、船代及9艘船只）</span>
+        <span class="node__s">热点新闻简报 10-23</span>
+      </button>
+    </div>
+  </div>
+  <input class="slider" type="range" min="0" max="8" step="1" value="0" id="monthSlider" aria-label="八个月时间轴">
+  <p class="hint" style="margin-top:10px" id="monthNote">2026-02-28 起算 · 战事已持续八个月</p>
+</section>
+
+<section class="sec" aria-labelledby="bTitle">
+  <div class="sec__head">
+    <h2 class="sec__title" id="bTitle">你的判断<small>先猜，再揭晓</small></h2>
+  </div>
+  <div class="bet">
+    <div>
+      <p class="bet__q">两张嘴都在放狠话。<br>市场读的是哪一边？</p>
+      <p class="bet__sub">拖动滑块给出你的判断，然后揭晓当日市场读数。你不需要读解释，账本会自己说话。</p>
+      <div class="bet__scale"><span class="l">升级</span><span class="r">降级</span></div>
+      <input class="bet__slider" type="range" min="-100" max="100" step="1" value="0" id="betSlider" aria-label="市场会读哪一边">
+      <div class="bet__row" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn" type="button" id="reveal">揭晓市场读数</button>
+        <span class="verdict__pill" id="yourGuess">你的判断：未选择</span>
+      </div>
+    </div>
+    <div class="bet__verdict" id="verdict" aria-live="polite">
+      <h3>读数在前，嘴在后</h3>
+      <p>当日市场读数发生在美东 11-09 收盘时段；八条表态是 11-10 的事。先把方向押上，再看账本。</p>
+      <p class="hint">提示：三个读数互相独立，其中一个的时间点与另两个不同。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="gTitle">
+  <div class="sec__head">
+    <h2 class="sec__title" id="gTitle">账本<small>美股前一交易日 · 11-09</small></h2>
+    <p class="hint">指针为素材读数，非推算值。布伦特两个快照分列，不合并。</p>
+  </div>
+  <div class="gauges">
+    <div class="gauge-card">
+      <span class="gauge-card__name">布伦特原油</span><span class="gauge-card__unit">美元 / 桶</span>
+      <svg class="gauge" viewBox="0 0 240 152" role="img" aria-label="布伦特原油仪表，指针读数 90 美元每桶">
+        <path class="gauge__arc" d="M34 124 A86 86 0 0 1 206 124"/>
+        <g class="gauge__ticks">
+          <line x1="40" y1="124" x2="34" y2="124"/>
+          <line x1="63.4" y1="67.4" x2="59.2" y2="63.2"/>
+          <line x1="120" y1="44" x2="120" y2="38"/>
+          <line x1="176.6" y1="67.4" x2="180.8" y2="63.2"/>
+          <line x1="200" y1="124" x2="206" y2="124"/>
+        </g>
+        <text class="gauge__scale" x="30" y="141" text-anchor="start">80</text>
+        <text class="gauge__scale" x="120" y="30" text-anchor="middle">100</text>
+        <text class="gauge__scale" x="212" y="141" text-anchor="end">120</text>
+        <g class="gauge__pins">
+          <g class="gauge__pin"><circle cx="80.9" cy="47.4" r="4"/><line x1="80.9" y1="47.4" x2="73.7" y2="33.2"/><text x="73.7" y="30" text-anchor="middle">94</text></g>
+        </g>
+        <g class="gauge__needle" style="--deg:135deg">
+          <path class="gauge__needleShape" d="M120 124 L115.4 112 L124.6 112 Z"/>
+          <line class="gauge__needleShape" x1="120" y1="124" x2="120" y2="56"/>
+        </g>
+        <circle class="gauge__hub" cx="120" cy="124" r="7.5"/>
+        <text class="gauge__readout" x="120" y="148" text-anchor="middle">— —</text>
+      </svg>
+      <p class="gauge-card__cap">布伦特原油跌近6%、盘中触及90美元<em>腾讯新闻 11-10 · 股市简报 美股 5（美东 11-09 收盘时段）</em></p>
+      <div class="snap">
+        <span class="snap__b"><b>94</b> 美元 · 11-09 深夜</span>
+        <span class="snap__b"><b>90</b> 美元 · 11-09 盘中低点</span>
+      </div>
+      <p class="gauge-card__cap" style="margin-top:8px">布伦特原油跌至每桶94美元<em>中国基金报 11-09 · 热点新闻简报 金融动态 2（深夜快照）</em></p>
+    </div>
+
+    <div class="gauge-card">
+      <span class="gauge-card__name">现货黄金</span><span class="gauge-card__unit">美元 / 盎司</span>
+      <svg class="gauge" viewBox="0 0 240 152" role="img" aria-label="现货黄金仪表，指针读数 4100 美元每盎司">
+        <path class="gauge__arc" d="M34 124 A86 86 0 0 1 206 124"/>
+        <g class="gauge__ticks">
+          <line x1="40" y1="124" x2="34" y2="124"/>
+          <line x1="63.4" y1="67.4" x2="59.2" y2="63.2"/>
+          <line x1="120" y1="44" x2="120" y2="38"/>
+          <line x1="176.6" y1="67.4" x2="180.8" y2="63.2"/>
+          <line x1="200" y1="124" x2="206" y2="124"/>
+        </g>
+        <text class="gauge__scale" x="30" y="141" text-anchor="start">3800</text>
+        <text class="gauge__scale" x="120" y="30" text-anchor="middle">4050</text>
+        <text class="gauge__scale" x="212" y="141" text-anchor="end">4300</text>
+        <g class="gauge__needle" style="--deg:72deg">
+          <path class="gauge__needleShape" d="M120 124 L115.4 112 L124.6 112 Z"/>
+          <line class="gauge__needleShape" x1="120" y1="124" x2="120" y2="56"/>
+        </g>
+        <circle class="gauge__hub" cx="120" cy="124" r="7.5"/>
+        <text class="gauge__readout" x="120" y="148" text-anchor="middle">— —</text>
+      </svg>
+      <p class="gauge-card__cap">现货黄金收复4100美元<em>腾讯新闻 11-10 · 股市简报 美股 5（美东 11-09 收盘时段）</em></p>
+      <div class="snap"><span class="snap__b"><b>4100</b> 美元 · 11-09</span></div>
+    </div>
+
+    <div class="gauge-card">
+      <span class="gauge-card__name">10 年期美债收益率</span><span class="gauge-card__unit">%</span>
+      <svg class="gauge" viewBox="0 0 240 152" role="img" aria-label="10年期美债收益率仪表，指针读数 4.87%">
+        <path class="gauge__arc" d="M34 124 A86 86 0 0 1 206 124"/>
+        <g class="gauge__ticks">
+          <line x1="40" y1="124" x2="34" y2="124"/>
+          <line x1="63.4" y1="67.4" x2="59.2" y2="63.2"/>
+          <line x1="120" y1="44" x2="120" y2="38"/>
+          <line x1="176.6" y1="67.4" x2="180.8" y2="63.2"/>
+          <line x1="200" y1="124" x2="206" y2="124"/>
+        </g>
+        <text class="gauge__scale" x="30" y="141" text-anchor="start">4.2</text>
+        <text class="gauge__scale" x="120" y="30" text-anchor="middle">4.7</text>
+        <text class="gauge__scale" x="212" y="141" text-anchor="end">5.2</text>
+        <g class="gauge__needle" style="--deg:59.4deg">
+          <path class="gauge__needleShape" d="M120 124 L115.4 112 L124.6 112 Z"/>
+          <line class="gauge__needleShape" x1="120" y1="124" x2="120" y2="56"/>
+        </g>
+        <circle class="gauge__hub" cx="120" cy="124" r="7.5"/>
+        <text class="gauge__readout" x="120" y="148" text-anchor="middle">— —</text>
+      </svg>
+      <p class="gauge-card__cap">10年期美债收益率仍在4.87%附近<em>腾讯新闻 11-10 · 股市简报 美股 5（美东 11-09 收盘时段）</em></p>
+      <div class="snap"><span class="snap__b"><b>4.87%</b> · 11-09</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="lTitle">
+  <div class="sec__head">
+    <h2 class="sec__title" id="lTitle">板块账本<small>11-10 午盘</small></h2>
+  </div>
+  <div class="ledger">
+    <ul class="led">
+      <li><span class="led__k">航空（南航）</span><span class="led__v led__v--up">大涨超 8%</span></li>
+      <li><span class="led__k">三桶油</span><span class="led__v">齐挫</span></li>
+      <li><span class="led__k">海运 · 煤炭</span><span class="led__v">普跌</span></li>
+      <li><span class="led__k">A 股 油气开采及服务</span><span class="led__v led__v--na">领跌 · 幅度未给</span></li>
+      <li><span class="led__k">A 股 煤炭开采加工</span><span class="led__v led__v--na">领跌 · 幅度未给</span></li>
+      <li><span class="led__k">A 股 港口航运</span><span class="led__v led__v--na">领跌 · 幅度未给</span></li>
+    </ul>
+    <div>
+      <p class="ledquote">隔夜油价大跌，航空股走强，南航大涨超8%，三桶油齐挫，海运、煤炭股普跌。<em>中新经纬 / 格隆汇 11-10 · 股市简报 港股 4</em></p>
+      <p class="ledquote">油气开采及服务（中海油服、中国海油、中曼石油跌居前）、保险、煤炭开采加工（晋控煤业、广汇能源跌居前）、港口航运、医疗美容、券商。<em>汇通财经 / 腾讯新闻 11-10 · 股市简报 A股 6</em></p>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon">
+  <div class="sec__head" style="margin-bottom:16px">
+    <h2 class="sec__title" style="font-size:20px">出处与口径<small>全部引语逐字取自素材简报</small></h2>
+  </div>
+  <ul class="srcs">
+    <li><b>热点新闻简报 2026-11-10</b> · 军事动态 1-6（伊朗总统 / 伊朗军方 / 革命卫队 / 特朗普威胁 / 伊朗外长 / 特朗普协议）· 金融动态 2</li>
+    <li><b>股市简报 2026-11-10</b> · 美股 5（布伦特 / 黄金 / 美债）· 美股 6（市场逻辑）· 港股 4 · A股 6</li>
+    <li><b>热点新闻简报 2026-06-25</b> · 战争起点与首轮谈判</li>
+    <li><b>热点新闻简报 2026-07-09</b> · 谅解备忘录"已终结"</li>
+    <li><b>热点新闻简报 2026-08-12</b> · 曼德海峡商船遇袭</li>
+    <li><b>热点新闻简报 2026-10-23</b> · 新一轮制裁</li>
+  </ul>
+  <ul class="notes">
+    <li><b>布伦特两个快照分列。</b>11-09 深夜 94 美元与 11-09 盘中低点 90 美元是同一交易日的两个时点，标签各带日期与出处，未合并成一条读数。</li>
+    <li><b>「20 倍」是威胁表述。</b>原文明写「威胁若伊朗阻断霍尔木兹海峡石油运输」，页面按威胁渲染，未标为已发生。</li>
+    <li><b>「摧毁近 10 部雷达」为单方宣称。</b>该表述出自伊朗革命卫队发言人，页面标注「单方宣称」，未写成已核实事实。</li>
+    <li><b>「八个月」的起算点。</b>战事起点按简报记为 2026-02-28（2026-06-25 与 08-12 两处均称「2026年2月」开战），至 11-10 为八个月，与原表述自洽。</li>
+    <li><b>分色为编辑判读。</b>「降级 / 升级」是本作品对表态方向的分类，不是原文措辞；原文措辞一律以引号内逐字引语呈现。</li>
+    <li><b>电平表为氛围图形。</b>非数据，不承载任何读数。</li>
+  </ul>
+  <div class="colophon__end">
+    <span>地缘与能源 · 2026-11-11</span>
+    <span>八个月的两张嘴</span>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── 氛围电平表（确定性伪随机，仅作图形） ── */
+  function buildMeter(el, seed){
+    var s = seed, html = '', i, v;
+    for(i=0;i<42;i++){
+      s = (s*1103515245 + 12345) % 2147483648;
+      v = s / 2147483648;
+      s = (s*1103515245 + 12345) % 2147483648;
+      v = v*0.6 + (s/2147483648)*0.4;
+      html += '<i style="height:' + (18 + v*74).toFixed(1) + '%"></i>';
+    }
+    el.innerHTML = html;
+  }
+  var mA = document.getElementById('mA'), mB = document.getElementById('mB');
+  if(mA) buildMeter(mA, 7);
+  if(mB) buildMeter(mB, 19);
+
+  /* ── 对照组 ── */
+  var PAIRS = [
+    {n:'谈收场', dir:'de', a:'iran_president', b:'trump_deal'},
+    {n:'谈僵',   dir:'esc', a:'iran_doctrine', b:'trump_delay'},
+    {n:'见血',   dir:'esc', a:'iran_radar', b:'trump_20x'},
+    {n:'拖住',   dir:'esc', a:'iran_fm', b:'trump_soon'}
+  ];
+  var pulses = Array.prototype.slice.call(document.querySelectorAll('.pulse'));
+  var seam = document.getElementById('seam');
+  var seamLabel = document.getElementById('seamLabel');
+  var pairNo = document.getElementById('pairNo');
+  var pairName = document.getElementById('pairName');
+  var cur = 0;
+
+  function paint(idx){
+    cur = idx;
+    var p = PAIRS[idx];
+    pulses.forEach(function(el){
+      var on = (el.getAttribute('data-id') === p.a || el.getAttribute('data-id') === p.b);
+      var isCounter = on && el.getAttribute('data-id') !== (el.getAttribute('data-pair') === String(idx) ? p.a : p.a);
+      el.classList.toggle('is-active', on);
+      el.classList.remove('is-counter');
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var other = document.getElementById(p.b);
+    if(other) other.classList.add('is-counter');
+    seam.classList.remove('is-de','is-esc');
+    seam.classList.add(p.dir === 'de' ? 'is-de' : 'is-esc');
+    seamLabel.classList.remove('is-de','is-esc');
+    seamLabel.classList.add(p.dir === 'de' ? 'is-de' : 'is-esc');
+    seamLabel.textContent = p.dir === 'de' ? '中缝 · 降级' : '中缝 · 升级';
+    pairNo.textContent = String(idx+1);
+    pairName.textContent = p.n;
+    var live = (p.dir === 'de') ? 'mA' : 'mB';
+    if(mA) mA.classList.toggle('is-live', live === 'mA');
+    if(mB) mB.classList.toggle('is-live', live === 'mB');
+  }
+
+  pulses.forEach(function(el){
+    el.addEventListener('click', function(){
+      paint(parseInt(el.getAttribute('data-pair'), 10));
+    });
+  });
+  document.getElementById('prev').addEventListener('click', function(){ paint((cur + PAIRS.length - 1) % PAIRS.length); });
+  document.getElementById('next').addEventListener('click', function(){ paint((cur + 1) % PAIRS.length); });
+  paint(0);
+
+  /* ── 八个月滑轨 ── */
+  var slider = document.getElementById('monthSlider');
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.rail8__m'));
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.node'));
+  var note = document.getElementById('monthNote');
+  var MONTHS = ['2月','3月','4月','5月','6月','7月','8月','9月','10月'];
+  function scrub(m, keepNode){
+    cells.forEach(function(c,i){ c.classList.toggle('is-on', i === m); });
+    nodes.forEach(function(n){
+      var on = parseInt(n.getAttribute('data-m'),10) === m && keepNode;
+      n.classList.toggle('is-on', on);
+    });
+    var cell = cells[m];
+    var nd = cell ? cell.querySelector('.node') : null;
+    if(nd && !keepNode) nd.classList.add('is-on');
+    note.textContent = (m === 0)
+      ? '2026-02-28 起算 · 战事已持续八个月'
+      : MONTHS[m] + ' · 素材内节点 ' + (nd ? '1' : '0') + ' 条';
+  }
+  slider.addEventListener('input', function(){ scrub(parseInt(slider.value,10), false); });
+  nodes.forEach(function(n){
+    n.addEventListener('click', function(){
+      var m = parseInt(n.getAttribute('data-m'),10);
+      slider.value = m; scrub(m, true);
+    });
+  });
+  scrub(0, true);
+
+  /* ── 押注 ── */
+  var bet = document.getElementById('betSlider');
+  var guess = document.getElementById('yourGuess');
+  var verdict = document.getElementById('verdict');
+  var revealBtn = document.getElementById('reveal');
+  var gauges = Array.prototype.slice.call(document.querySelectorAll('.gauge'));
+  var readouts = Array.prototype.slice.call(document.querySelectorAll('.gauge__readout'));
+  var revealed = false;
+
+  function showGuess(){
+    var v = parseInt(bet.value,10);
+    var label, cls;
+    if(v > 12){ label = '升级'; cls = 'verdict__pill--same'; }
+    else if(v < -12){ label = '降级'; cls = 'verdict__pill--other'; }
+    else { label = '说不清'; cls = ''; }
+    guess.textContent = '你的判断：' + label;
+    guess.className = 'verdict__pill ' + cls;
+  }
+  bet.addEventListener('input', showGuess);
+  showGuess();
+
+  revealBtn.addEventListener('click', function(){
+    if(revealed){ return; }
+    revealed = true;
+    gauges.forEach(function(g){ g.classList.add('is-live'); });
+    readouts[0].textContent = '90 美元';
+    readouts[1].textContent = '4100 美元';
+    readouts[2].textContent = '4.87%';
+    verdict.innerHTML =
+      '<h3>账本读的是降级</h3>' +
+      '<p>布伦特原油跌近6%、盘中触及90美元；现货黄金收复4100美元；10年期美债收益率仍在4.87%附近。三个读数都指向同一个方向：战争风险溢价在往下走。</p>' +
+      '<q>美伊局势缓和信号+油价大跌缓解通胀担忧+AI链超跌修复</q>' +
+      '<p>这是股市简报给出的市场逻辑，出处：腾讯新闻 / 中国基金报 11-10。</p>' +
+      '<div class="verdict__row"><span class="verdict__pill">你的判断</span><span id="finalGuess"></span><span class="verdict__pill">账本：降级</span></div>' +
+      '<p style="margin-top:14px;font-size:16px;line-height:1.6;color:var(--faint)">时间差提醒：这三个读数对应美东 11-09 收盘时段，两张嘴是 11-10 的表态。嘴在后，账本在前。</p>';
+    var v = parseInt(bet.value,10);
+    var fg = document.getElementById('finalGuess');
+    if(v > 12){ fg.textContent = '升级 · 与两张嘴同向'; fg.className = 'verdict__pill verdict__pill--same'; }
+    else if(v < -12){ fg.textContent = '降级 · 与账本同向'; fg.className = 'verdict__pill verdict__pill--other'; }
+    else { fg.textContent = '说不清'; fg.className = 'verdict__pill'; }
+    revealBtn.textContent = '已揭晓';
+    revealBtn.setAttribute('disabled','disabled');
+    revealBtn.style.opacity = '.55';
+  });
+})();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value":"近 10 部","label":"伊朗革命卫队称摧毁的美方先进雷达数（单方宣称）","quote":"摧毁近10部美国先进雷达"},
+  {"value":"20 倍","label":"特朗普对伊朗的打击力度威胁倍数（威胁表述，未发生）","quote":"比以往猛烈20倍的打击"},
+  {"value":"八个月","label":"美伊战事持续时长（自 2026-02-28 起算）","quote":"持续八个月战事"},
+  {"value":"2026年2月28日","label":"美以对伊朗战争起点（八个月起算基准）","quote":"2026年2月28日美以对伊朗战争"},
+  {"value":"每桶 94 美元","label":"布伦特原油快照（11-09 深夜）","quote":"布伦特原油跌至每桶94美元"},
+  {"value":"盘中 -6%，触及 90 美元","label":"布伦特盘中跌幅（11-09）","quote":"布伦特原油跌近6%、盘中触及90美元"},
+  {"value":"4100 美元","label":"现货黄金收复价（11-09）","quote":"现货黄金收复4100美元"},
+  {"value":"4.87%","label":"10年期美债收益率（11-09）","quote":"10年期美债收益率仍在4.87%附近"}
+]
+</script>
+</body>
+</html>
