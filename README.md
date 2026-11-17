@@ -60,7 +60,7 @@ showcase/
 ├── index.html            # 档案柜首页（双击即开，含离线快照）
 ├── manifest.json         # 作品清单（生成物，已入库作为发布快照）
 ├── enrich.json           # 人工维护的描述/标签/署名（生成器保留这些字段）
-├── works/                # ★ 作品本体：70 个日期目录
+├── works/                # ★ 作品本体：69 个日期目录
 │   └── YYYY-MM-DD/
 │       ├── research/     # 研究类：YYYY-MM-DD-<slug>.html
 │       ├── creative/     # 创意类：单文件交互作品

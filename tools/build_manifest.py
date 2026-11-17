@@ -26,6 +26,11 @@ try:
     import claim_gate as gate
 except ImportError:                                    # 闸门缺失时降级但不崩
     gate = None
+# README「现在时」计数的唯一写入器（见 tools/readme_sync.py）
+try:
+    import readme_sync
+except ImportError:                                    # 缺失时降级：只校验不改写
+    readme_sync = None
 
 # ── 追踪线主题族（人工可编辑；关键词子串匹配标签）──
 # 跨族标签会重复计入，这是刻意取舍：追踪线要的是"这条主题覆盖了多少作品"，
@@ -982,6 +987,11 @@ def main():
         json.dump(manifest, f, ensure_ascii=False, indent=2)
     print(f'\n已写入 {MANIFEST}')
     sync_embedded(manifest)
+    # README 计数同步必须在 guardrails() 之前：README 是生成器的输出之一，
+    # 计数由机器改写（根因修复 2026-11-16：人手改导致差 1 → CI 红）。
+    if readme_sync is not None:
+        for _n in readme_sync.sync_readme_counts(manifest):
+            print('   README:', _n)
     # 写盘+同步之后再校验，报告才是本次落盘的真实状态
     probs = guardrails(manifest)
     if gate is not None:
