@@ -23,6 +23,33 @@ ROOT = os.path.dirname(TOOLS)
 README_PATH = os.path.join(ROOT, 'README.md')
 
 
+def date_dirs_with_works():
+    """日期目录真值：只数「真的有作品」的目录。
+
+    判据 = `works/<date>/{research,creative}/` 下至少有一个 .html。
+
+    为什么不能直接数 os.listdir：git **不跟踪空目录**。派单时预建的空脚手架
+    （如 `works/2026-11-14/{creative,notes}`）在本地存在，在 CI checkout 后消失，
+    于是本地按磁盘写进 README 的计数比 CI 的校验真值多 1 —— 2026-11-22 CI
+    run 44935646865 就是这么红的（README 76 vs CI 75）。
+    口径必须与 build_manifest.guardrails() 完全一致，两边都调本函数。
+    """
+    works_root = os.path.join(ROOT, 'works')
+    if not os.path.isdir(works_root):
+        return []
+    out = []
+    for d in sorted(os.listdir(works_root)):
+        full = os.path.join(works_root, d)
+        if not os.path.isdir(full):
+            continue
+        if any(os.path.isfile(os.path.join(full, sub, fn)) and fn.endswith('.html')
+               for sub in ('research', 'creative')
+               for fn in (os.listdir(os.path.join(full, sub))
+                          if os.path.isdir(os.path.join(full, sub)) else [])):
+            out.append(d)
+    return out
+
+
 def sync_readme_counts(manifest):
     """按 manifest + 磁盘真值改写 README 计数。返回改写说明列表。"""
     if not os.path.exists(README_PATH):
@@ -33,11 +60,7 @@ def sync_readme_counts(manifest):
     except OSError as exc:
         return [f'README.md 读取失败：{exc}']
 
-    works_root = os.path.join(ROOT, 'works')
-    works_dirs = []
-    if os.path.isdir(works_root):
-        works_dirs = sorted(d for d in os.listdir(works_root)
-                            if os.path.isdir(os.path.join(works_root, d)))
+    works_dirs = date_dirs_with_works()
 
     research = manifest.get('research') or []
     creative = manifest.get('creative') or []

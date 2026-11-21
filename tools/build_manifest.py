@@ -355,8 +355,17 @@ def guardrails(manifest):
     rp = os.path.join(ROOT, 'README.md')
     if os.path.exists(rp):
         rd = open(rp, encoding='utf-8').read()
-        works_dirs = sorted(d for d in os.listdir(os.path.join(ROOT, 'works'))
-                            if os.path.isdir(os.path.join(ROOT, 'works', d)))
+        # 口径与 readme_sync.date_dirs_with_works() 必须一致：只数真的有作品的日期目录，
+        # 否则本地空脚手架会让 CI（git 不跟踪空目录）与本地差 1。
+        if readme_sync is not None:
+            works_dirs = readme_sync.date_dirs_with_works()
+        else:
+            works_dirs = [d for d in sorted(os.listdir(os.path.join(ROOT, 'works')))
+                          if any(fn.endswith('.html')
+                                 for sub in ('research', 'creative')
+                                 for fn in (os.listdir(os.path.join(ROOT, 'works', d, sub))
+                                            if os.path.isdir(os.path.join(ROOT, 'works', d, sub))
+                                            else []))]
         rd_checks = [
             (r'(\d+)\s*Chinese-language works across\s*(\d+)\s*months',
              (manifest['total'], len({d[:7] for d in works_dirs})), '英文副标题'),
