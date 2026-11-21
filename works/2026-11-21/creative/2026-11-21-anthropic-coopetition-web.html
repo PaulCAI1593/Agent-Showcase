@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>28%的竞合网络：Anthropic 与它的「竞争者投资人」</title>
+<meta name="showcase-beat" content="厂商与算力权力">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070a; --panel:#0d0d12; --ink:#f2f2f5; --muted:#a6a6b2;
+  --amber:#f5a524; --green:#34d399; --violet:#a78bfa; --red:#ff6b6b; --sky:#38bdf8;
+  --lbg:#f5f5f7; --link:#1d1d1f; --lcap:#3a3a42; --cred:#c44536;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--amber);color:#07070a}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- hero ---------- */
+#hero{position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;
+  padding:80px 0 60px;overflow:hidden}
+#hero .stars{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+#hero .veil{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 70% 30%, rgba(245,165,36,.07), transparent 60%)}
+#hero .wrap{position:relative;width:100%}
+h1{font-size:clamp(36px,7.2vw,80px);line-height:1.08;letter-spacing:-.03em;font-weight:700;max-width:15ch}
+h1 .l{display:block;clip-path:inset(0 0 110% 0);transform:translateY(.35em);
+  transition:clip-path .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.loaded h1 .l{clip-path:inset(0 0 -20% 0);transform:none}
+.loaded h1 .l:nth-child(2){transition-delay:.12s}
+.hero-sub{margin-top:26px;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.6;max-width:34ch;
+  opacity:0;transform:translateY(14px);transition:opacity .8s .5s,transform .8s .5s}
+.loaded .hero-sub{opacity:1;transform:none}
+.hero-cue{margin-top:54px;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;
+  opacity:0;transition:opacity .8s .9s}
+.loaded .hero-cue{opacity:1}
+.hero-cue svg{animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ---------- network ---------- */
+#net{padding:70px 0 90px}
+.sec-h{font-size:clamp(26px,4vw,42px);letter-spacing:-.02em;font-weight:700;line-height:1.15}
+.sec-s{margin-top:12px;color:var(--muted);font-size:15px;line-height:1.6}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 8px}
+.chip{font:inherit;font-size:13px;color:var(--ink);background:transparent;
+  border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:background .25s,border-color .25s,color .25s}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--c,#fff)}
+.chip:hover{border-color:rgba(255,255,255,.5)}
+.chip.on{background:var(--amber);border-color:var(--amber);color:#07070a;font-weight:600}
+.chip.on .dot{background:#07070a}
+.netgrid{display:grid;grid-template-columns:1fr 320px;gap:26px;align-items:start;margin-top:10px}
+.netbox{background:#0a0a0f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:8px;min-width:0}
+#netSvg{display:block;width:100%;height:auto}
+.arc{fill:none;stroke-width:2.4;opacity:.72;transition:opacity .3s,stroke-width .3s}
+.arc.dim{opacity:.07}
+.arc.hi{opacity:1;stroke-width:3.6}
+.node{cursor:pointer}
+.node .bd{fill:#101018;stroke:rgba(255,255,255,.42);stroke-width:1.6;transition:stroke .25s,fill .25s}
+.node .ab{fill:var(--ink);font-size:25px;font-weight:700;text-anchor:middle;pointer-events:none}
+.node .nm{fill:var(--ink);font-size:26px;font-weight:600;text-anchor:middle;pointer-events:none;letter-spacing:.02em}
+.node:hover .bd{stroke:var(--amber);fill:#16121a}
+.node.on .bd{stroke:var(--amber);stroke-width:2.4;fill:#16121a}
+.node.on .nm,.node.on .ab{fill:var(--amber)}
+.node.dim{opacity:.16}
+.node:focus{outline:none}
+.node:focus-visible .bd{stroke:var(--amber);stroke-width:3}
+.core-bd{fill:#0c0c11;stroke:rgba(245,165,36,.85);stroke-width:2}
+.core-pulse{fill:none;stroke:rgba(245,165,36,.4);stroke-width:1.5;transform-origin:center;
+  animation:pulse 3.2s ease-out infinite}
+@keyframes pulse{0%{r:66;opacity:.75}70%{r:92;opacity:0}100%{r:92;opacity:0}}
+.core-t{fill:var(--ink);font-size:24px;font-weight:700;text-anchor:middle;letter-spacing:.01em}
+.core-s{fill:var(--muted);font-size:13px;text-anchor:middle;letter-spacing:.28em}
+
+/* dossier */
+.dossier{position:relative;background:var(--panel);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:24px 22px 26px;min-height:320px}
+.dclose{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
+  background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--ink);cursor:pointer;
+  display:none;align-items:center;justify-content:center}
+.dclose:hover{border-color:var(--amber);color:var(--amber)}
+.dossier.filled .dclose{display:inline-flex}
+.hint-k{color:var(--muted);font-size:14px;line-height:1.7}
+.hint-k b{color:var(--ink);font-weight:600}
+.dossier h3{font-size:30px;letter-spacing:-.01em;font-weight:700;padding-right:36px}
+.rchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.rchip{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;color:var(--c);
+  background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 42%,transparent)}
+.ev{margin-top:16px;font-size:15px;line-height:1.7;color:var(--ink)}
+.money{margin-top:16px;border-top:1px solid rgba(255,255,255,.12)}
+.money>div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.money dt{color:var(--muted);font-size:13px;flex:none}
+.money dd{font-size:15px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.foot{margin-top:14px;font-size:13px;line-height:1.7;color:var(--muted)}
+.foot b{color:var(--amber);font-weight:600}
+
+/* ---------- climax ---------- */
+#climax{background:var(--lbg);color:var(--link);padding:96px 0 88px}
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.num{font-weight:800;letter-spacing:-.04em;line-height:.92;font-variant-numeric:tabular-nums;
+  font-size:clamp(74px,15vw,190px);white-space:nowrap}
+.num em{font-style:normal;font-size:clamp(24px,5vw,64px);font-weight:700;letter-spacing:-.01em;margin-left:.1em}
+.num .u{color:var(--cred)}
+.cap{margin-top:16px;font-size:14px;line-height:1.6;color:var(--lcap);max-width:26ch;word-break:keep-all}
+.seven{margin-top:56px;font-size:clamp(17px,2.4vw,22px);font-weight:700;letter-spacing:-.01em}
+.seven b{color:var(--cred)}
+.seven-names{margin-top:12px;font-size:15px;line-height:1.9;color:var(--lcap)}
+.seven-names .tag{display:inline-block;margin-left:8px;font-size:12px;color:var(--cred);
+  border:1px solid rgba(196,69,54,.4);border-radius:999px;padding:1px 9px;vertical-align:1px}
+.climax-line{margin-top:44px;font-size:clamp(19px,3vw,27px);font-weight:700;letter-spacing:-.015em;
+  line-height:1.5;max-width:24ch}
+
+/* ---------- timeline ---------- */
+#time{padding:88px 0 70px}
+.readout{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 20px;margin-top:34px}
+.rd-t{font-size:14px;color:var(--muted);letter-spacing:.14em}
+.rd-p{font-size:clamp(44px,7vw,72px);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.rd-n{font-size:15px;color:var(--amber);font-weight:600}
+.chart{position:relative;margin-top:18px;background:#0a0a0f;border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:10px}
+#tSvg{display:block;width:100%;height:auto}
+.grid-l{stroke:rgba(255,255,255,.16);stroke-width:1;stroke-dasharray:5 6}
+.tpath{fill:none;stroke:var(--amber);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.tarea{fill:rgba(245,165,36,.09)}
+.tdot{fill:#0a0a0f;stroke:var(--amber);stroke-width:3}
+.tlab{fill:var(--muted);font-size:16px;text-anchor:middle}
+#head{stroke:rgba(255,255,255,.5);stroke-width:1.5}
+#headDot{fill:var(--amber);stroke:#0a0a0f;stroke-width:3}
+.anno{position:absolute;transform:translate(-50%,-150%);font-size:clamp(11px,1.5vw,14px);
+  font-weight:700;color:var(--ink);white-space:nowrap;pointer-events:none;font-variant-numeric:tabular-nums}
+.anno.mut{color:var(--muted);font-weight:500}
+.anno.dn{color:var(--red)}
+#scrub{-webkit-appearance:none;appearance:none;width:100%;height:28px;margin-top:14px;background:transparent;cursor:grab}
+#scrub:active{cursor:grabbing}
+#scrub::-webkit-slider-runnable-track{height:4px;background:rgba(255,255,255,.18);border-radius:2px}
+#scrub::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--amber);border:3px solid #07070a;margin-top:-12px;box-shadow:0 0 0 1px rgba(245,165,36,.5)}
+#scrub::-moz-range-track{height:4px;background:rgba(255,255,255,.18);border-radius:2px}
+#scrub::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--amber);border:3px solid #07070a}
+.scrub-hint{margin-top:10px;font-size:13px;color:var(--muted)}
+.closing{margin-top:70px;padding-top:44px;border-top:1px solid rgba(255,255,255,.14)}
+.closing p{font-size:clamp(24px,4.4vw,44px);font-weight:700;letter-spacing:-.025em;line-height:1.3;max-width:20ch}
+.closing .src{margin-top:22px;font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0;max-width:64ch}
+
+/* ---------- ledger ---------- */
+#ledger{padding:46px 0 90px}
+#ledger h2{font-size:14px;letter-spacing:.3em;color:var(--muted);font-weight:600}
+.led{margin-top:16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;line-height:2.1;color:#b9b9c4;word-break:break-word}
+.led div{padding:2px 0}
+
+
+@media (max-width:860px){
+  .netgrid{grid-template-columns:1fr}
+  .dossier{position:fixed;left:0;right:0;bottom:0;z-index:60;border-radius:18px 18px 0 0;
+    border:none;border-top:1px solid rgba(255,255,255,.16);max-height:64vh;overflow:auto;
+    transform:translateY(105%);transition:transform .38s cubic-bezier(.16,1,.3,1);
+    box-shadow:0 -18px 50px rgba(0,0,0,.66);min-height:0;padding-bottom:34px}
+  .dossier.open{transform:none}
+  .dossier .dclose{display:inline-flex}
+  .figs{grid-template-columns:1fr;gap:34px}
+  .tlab{font-size:30px}
+  .num{font-size:clamp(84px,26vw,150px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  h1 .l{clip-path:none;transform:none}
+  .hero-sub,.hero-cue{opacity:1;transform:none}
+}
+</style>
+<noscript><style>h1 .l{clip-path:none;transform:none}.hero-sub,.hero-cue{opacity:1}</style></noscript>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 */.node .sel{opacity:1!important;visibility:visible!important}/* reveal */ .rv{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86;color:#fafafa;background:rgba(20,19,15,.92);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<script>requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add("loaded");});});</script>
+<header id="hero">
+  <svg class="stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="rgba(255,255,255,.14)" stroke-width="1" fill="none">
+      <path d="M120,180 L340,120 L520,240 L760,160 L980,300 L1240,200 L1360,340"/>
+      <path d="M80,620 L280,700 L470,560 L700,660 L920,540 L1160,640 L1380,520"/>
+      <path d="M340,120 L280,700 M520,240 L470,560 M760,160 L700,660 M980,300 L920,540 M1240,200 L1160,640"/>
+      <path d="M120,180 L80,620 M1360,340 L1380,520"/>
+    </g>
+    <g fill="rgba(245,165,36,.55)">
+      <circle cx="340" cy="120" r="3.5"/><circle cx="760" cy="160" r="3.5"/>
+      <circle cx="1240" cy="200" r="3.5"/><circle cx="280" cy="700" r="3.5"/>
+      <circle cx="700" cy="660" r="3.5"/><circle cx="1160" cy="640" r="3.5"/>
+      <circle cx="470" cy="560" r="2.5"/><circle cx="920" cy="540" r="2.5"/>
+      <circle cx="520" cy="240" r="2.5"/><circle cx="980" cy="300" r="2.5"/>
+    </g>
+  </svg>
+  <div class="veil"></div>
+  <div class="wrap">
+    <h1><span class="l">你的投资人，</span><span class="l">正在卖你的竞品。</span></h1>
+    <p class="hero-sub">Anthropic 上市第 2 天。八家巨头同时坐在牌桌两侧——点开这张网，看谁在投你，谁在卖你。</p>
+    <div class="hero-cue">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M7 1v11M2.5 7.5 7 12l4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>往下，进网络</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="net">
+  <div class="wrap">
+    <h2 class="sec-h">五种身份，同时成立。</h2>
+    <p class="sec-s">点开任意一家，看它站在哪几条线上。</p>
+    <div class="chips" id="chips" role="group" aria-label="按身份筛选网络"></div>
+    <div class="netgrid">
+      <div class="netbox">
+        <svg id="netSvg" viewBox="0 0 640 660" role="img" aria-label="以 Anthropic 为中心、八家公司环绕的关系网络图"></svg>
+      </div>
+      <aside class="dossier" id="dossier" aria-live="polite">
+        <button class="dclose" id="dclose" aria-label="关闭详情">
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div id="dbody">
+          <p class="hint-k"><b>点开网络里的任意一家。</b><br>八家都押了注——有人同时在供算力、转卖模型、自研竞品。</p>
+        </div>
+      </aside>
+    </div>
+    <noscript><p class="sec-s">网络需要 JavaScript 才能点开。</p></noscript>
+  </div>
+</section>
+
+<section id="climax">
+  <div class="wrap">
+    <div class="figs">
+      <div class="fig">
+        <div class="num"><span data-count="28" data-suffix="%">28%</span></div>
+        <div class="cap">亚马逊与谷歌 IPO 后合计持股（11-20）</div>
+      </div>
+      <div class="fig">
+        <div class="num"><span data-count="2600" data-suffix="">2600</span><em class="u">亿美元</em></div>
+        <div class="cap">亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）</div>
+      </div>
+    </div>
+    <p class="seven">七家以同一价格入场 · <b>83 美元</b></p>
+    <p class="seven-names">谷歌 · 英伟达 · AMD · 博通 · 美光 · 微软 · 台积电<span class="tag">谷歌两头都在</span></p>
+    <p class="climax-line">招股文件把这称为：难以完全预判或缓解的冲突。</p>
+  </div>
+</section>
+
+<section id="time">
+  <div class="wrap">
+    <h2 class="sec-h">两天。</h2>
+    <p class="sec-s">拨动时间，看它怎么走。</p>
+    <div class="readout" aria-live="polite">
+      <span class="rd-t" id="rdT">11-18 定价</span>
+      <span class="rd-p" id="rdP">83 美元</span>
+      <span class="rd-n" id="rdN">发行价基准</span>
+    </div>
+    <div class="chart" id="chart">
+      <svg id="tSvg" viewBox="0 0 800 340" role="img" aria-label="Anthropic 上市两日股价走势：开盘 111.50、盘中 115.10、收盘 97.17、盘后再跌逾 3%"></svg>
+    </div>
+    <input type="range" id="scrub" min="0" max="100" value="0" step="0.5" aria-label="拨动两日股价时间轴">
+    <p class="scrub-hint">拖动滑块 · 或用左右方向键</p>
+
+    <div class="closing">
+      <p>你的投资人，正在卖你的竞品。</p>
+      <p class="src">素材：《每日AI技术动态简报》2026-11-20（财联社 / 网易科技 / Fortune）· 本页不使用网络检索</p>
+    </div>
+  </div>
+</section>
+
+<section id="ledger">
+  <div class="wrap">
+    <h2>口径</h2>
+    <div class="led">
+      <div>83 美元 Anthropic IPO 定价（11-18）</div>
+      <div>1.5 万亿美元 Anthropic 完全稀释估值（11-18）</div>
+      <div>1073 亿美元 Anthropic 合计募资额（11-18）</div>
+      <div>约 28% 亚马逊与谷歌 IPO 后合计持股（11-20）</div>
+      <div>约 2600 亿美元 亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）</div>
+      <div>97.17 美元 Anthropic 上市首日收盘价（11-19）</div>
+      <div>111.50 美元 Anthropic 上市首日开盘价（11-19）</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+"use strict";
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ data ============ */
+var ROLES = {
+  invest:   {name:'投资人',   c:'#f5a524'},
+  customer: {name:'客户',     c:'#34d399'},
+  distribute:{name:'分销伙伴', c:'#a78bfa'},
+  compete:  {name:'竞争对手', c:'#ff6b6b'},
+  supply:   {name:'供货方',   c:'#38bdf8'}
+};
+var PM = [['入场','83 美元（与 IPO 同价）'],['份额','260 亿美元私募 · 七家合计']];
+var NODES = [
+ {id:'google', name:'谷歌', ab:'谷', roles:['invest','customer','distribute','compete'],
+  ev:'供算力、Vertex 转售 Claude，Gemini 同场',
+  money:[['持股','与亚马逊合计约 28%'],['浮盈','合计约 2600 亿美元'],['私募','七家之一 · 83 美元入场']],
+  foot:'招股文件：四重身份冲突<b>难以完全预判或缓解</b>'},
+ {id:'amazon', name:'亚马逊', ab:'亚', roles:['invest','customer','distribute','compete'],
+  ev:'供算力、Bedrock 转售 Claude，也自研模型与芯片',
+  money:[['持股','与谷歌合计约 28%'],['浮盈','合计约 2600 亿美元']],
+  foot:'招股文件：四重身份冲突<b>难以完全预判或缓解</b>'},
+ {id:'nvidia', name:'英伟达', ab:'英', roles:['invest','supply'],
+  ev:'没有它的 GPU，Anthropic 跑不动', money:PM},
+ {id:'microsoft', name:'微软', ab:'微', roles:['invest','distribute','compete'],
+  ev:'Azure 托管 Claude，另一只手握着 OpenAI', money:PM},
+ {id:'tsmc', name:'台积电', ab:'台', roles:['invest','supply'],
+  ev:'所有人的芯片从这里出发', money:PM},
+ {id:'micron', name:'美光', ab:'美', roles:['invest','supply'],
+  ev:'HBM 的卖家，也在 83 美元入场', money:PM},
+ {id:'broadcom', name:'博通', ab:'博', roles:['invest','supply'],
+  ev:'定制芯片与互联，站在扩产同一侧', money:PM},
+ {id:'amd', name:'AMD', ab:'AMD', roles:['invest','supply'],
+  ev:'替补上场的 GPU，同时是股东', money:PM}
+];
+var CX=320, CY=330, R=225, NR=40, CR=66;
+var NS='http://www.w3.org/2000/svg';
+function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+/* ============ build network ============ */
+var svg=document.getElementById('netSvg');
+var arcs=[], gs={};
+NODES.forEach(function(n,i){
+  var ang=(-90+i*45)*Math.PI/180, ux=Math.cos(ang), uy=Math.sin(ang);
+  var nx=CX+R*ux, ny=CY+R*uy;
+  n._ux=ux; n._uy=uy; n._nx=nx; n._ny=ny;
+  var k=n.roles.length;
+  n.roles.forEach(function(role,j){
+    var off=(j-(k-1)/2)*20;
+    var sx=CX+ux*(CR+2), sy=CY+uy*(CR+2);
+    var ex=CX+ux*(R-NR-3), ey=CY+uy*(R-NR-3);
+    var mx=(sx+ex)/2, my=(sy+ey)/2;
+    var cx=mx-uy*off, cy=my+ux*off;
+    var p=el('path',{d:'M'+sx.toFixed(1)+','+sy.toFixed(1)+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+ex.toFixed(1)+','+ey.toFixed(1),
+      'class':'arc','stroke':ROLES[role].c});
+    p.dataset.role=role; p.dataset.node=n.id;
+    svg.appendChild(p); arcs.push(p);
+  });
+});
+/* center */
+var core=el('g',{transform:'translate('+CX+','+CY+')'});
+core.appendChild(el('circle',{r:74,'class':'core-pulse'}));
+core.appendChild(el('circle',{r:CR,'class':'core-bd'}));
+var ct=el('text',{y:-3,'class':'core-t'}); ct.setAttribute('dy','.35em'); ct.textContent='Anthropic';
+var cs=el('text',{y:24,'class':'core-s'}); cs.setAttribute('dy','.35em'); cs.textContent='竞合网络';
+core.appendChild(ct); core.appendChild(cs);
+svg.appendChild(core);
+/* nodes */
+NODES.forEach(function(n){
+  var g=el('g',{'class':'node',transform:'translate('+n._nx.toFixed(1)+','+n._ny.toFixed(1)+')',
+    tabindex:'0',role:'button','data-id':n.id,
+    'aria-label':n.name+'，'+n.roles.map(function(r){return ROLES[r].name;}).join('、')+'，点开查看'});
+  g.appendChild(el('circle',{r:NR,'class':'bd'}));
+  var t=el('text',{'class':'ab',y:0}); t.setAttribute('dy','.35em'); t.textContent=n.ab;
+  var l=el('text',{'class':'nm',y:(n._uy<0?-(NR+26):NR+30)}); l.setAttribute('dy','.35em'); l.textContent=n.name;
+  g.appendChild(t); g.appendChild(l);
+  svg.appendChild(g); gs[n.id]=g;
+  g.addEventListener('click',function(){select(n.id);});
+  g.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();select(n.id);}
+  });
+});
+
+/* ============ chips (对比切换) ============ */
+var chips=document.getElementById('chips');
+var counts={all:NODES.length};
+NODES.forEach(function(n){n.roles.forEach(function(r){counts[r]=(counts[r]||0)+1;});});
+function mkChip(role,label){
+  var b=document.createElement('button');
+  b.className='chip'+(role==='all'?' on':''); b.dataset.role=role;
+  b.setAttribute('aria-pressed',role==='all'?'true':'false');
+  if(role!=='all'){var d=document.createElement('span');d.className='dot';d.style.setProperty('--c',ROLES[role].c);b.appendChild(d);}
+  b.appendChild(document.createTextNode(label+' · '+counts[role]));
+  b.addEventListener('click',function(){setFilter(role);});
+  chips.appendChild(b);
+}
+mkChip('all','全部');
+Object.keys(ROLES).forEach(function(r){mkChip(r,ROLES[r].name);});
+var filter='all';
+function setFilter(role){
+  filter=(filter===role&&role!=='all')?'all':role;
+  Array.prototype.forEach.call(chips.children,function(b){
+    var on=b.dataset.role===filter;
+    b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false');
+  });
+  NODES.forEach(function(n){
+    var match=filter==='all'||n.roles.indexOf(filter)>-1;
+    gs[n.id].classList.toggle('dim',!match);
+  });
+  arcs.forEach(function(a){
+    var match=filter==='all'||a.dataset.role===filter;
+    a.classList.toggle('dim',!match);
+    a.classList.toggle('hi',filter!=='all'&&match);
+  });
+}
+
+/* ============ dossier ============ */
+var dossier=document.getElementById('dossier'), dbody=document.getElementById('dbody');
+var dclose=document.getElementById('dclose'), current=null;
+function select(id){
+  var n=NODES.filter(function(x){return x.id===id;})[0]; if(!n)return;
+  current=id;
+  NODES.forEach(function(x){gs[x.id].classList.toggle('on',x.id===id);});
+  arcs.forEach(function(a){a.classList.toggle('hi',a.dataset.node===id||(filter!=='all'&&a.dataset.role===filter));});
+  var html='<h3>'+n.name+'</h3><div class="rchips">'+
+    n.roles.map(function(r){return '<span class="rchip" style="--c:'+ROLES[r].c+'">'+ROLES[r].name+'</span>';}).join('')+
+    '</div><p class="ev">'+n.ev+'</p><dl class="money">'+
+    n.money.map(function(m){return '<div><dt>'+m[0]+'</dt><dd>'+m[1]+'</dd></div>';}).join('')+
+    '</dl>'+(n.foot?'<p class="foot">'+n.foot+'</p>':'');
+  dbody.innerHTML=html;
+  dossier.classList.add('filled','open','in');
+  if(window.matchMedia('(max-width:860px)').matches){
+    dossier.scrollIntoView({behavior:RM?'auto':'smooth',block:'end'});
+  }
+}
+function closeD(){
+  current=null;
+  NODES.forEach(function(x){gs[x.id].classList.remove('on');});
+  arcs.forEach(function(a){a.classList.toggle('hi',filter!=='all'&&a.dataset.role===filter);});
+  dbody.innerHTML='<p class="hint-k"><b>点开网络里的任意一家。</b><br>八家都押了注——有人同时在供算力、转卖模型、自研竞品。</p>';
+  dossier.classList.remove('filled','open');
+}
+dclose.addEventListener('click',closeD);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&current)closeD();});
+
+/* ============ timeline ============ */
+var stops=[
+ {x:70,  p:83,    disp:'83 美元',  t:'11-18 定价', n:'发行价基准',  a:'发行价 83', cls:'mut'},
+ {x:210, p:111.50,disp:'111.50 美元', t:'11-19 开盘', n:'较发行价 +34.3%', a:'+34.3%', cls:''},
+ {x:380, p:115.10,disp:'115.10 美元', t:'11-19 盘中', n:'一度涨约 39%', a:'115.10', cls:''},
+ {x:560, p:97.17, disp:'97.17 美元', t:'11-19 收盘', n:'收涨 17.07%', a:'+17.07%', cls:''},
+ {x:740, p:94.2,  disp:'−3%', t:'11-20 盘后', n:'较收盘再跌逾 3%', a:'盘后 −3%', cls:'dn'}
+];
+function yFor(p){return 300-(p-80)/40*260;}
+var tsvg=document.getElementById('tSvg'), chart=document.getElementById('chart');
+/* grid + issue line */
+var y83=yFor(83);
+var gl=el('line',{x1:40,y1:y83,x2:776,y2:y83,'class':'grid-l'}); tsvg.appendChild(gl);
+/* area + path */
+var dArea='M'+stops[0].x+','+yFor(stops[0].p);
+stops.slice(1).forEach(function(s){dArea+=' L'+s.x+','+yFor(s.p);});
+var area=el('path',{d:dArea+' L740,320 L70,320 Z','class':'tarea'}); tsvg.appendChild(area);
+var line=el('path',{d:dArea,'class':'tpath',id:'tpath'}); tsvg.appendChild(line);
+stops.forEach(function(s){
+  tsvg.appendChild(el('circle',{cx:s.x,cy:yFor(s.p),r:7,'class':'tdot'}));
+  var tx=el('text',{x:s.x,y:332,'class':'tlab'}); tx.textContent=s.t.replace(/^11-\d+ /,'');
+  tsvg.appendChild(tx);
+});
+/* playhead */
+var head=el('line',{id:'head',y1:36,y2:314,x1:70,x2:70}); tsvg.appendChild(head);
+var headDot=el('circle',{id:'headDot',cx:70,cy:yFor(83),r:9}); tsvg.appendChild(headDot);
+var pathEl=document.getElementById('tpath');
+var len=pathEl.getTotalLength();
+/* annotations (HTML overlay => readable at 375px) */
+stops.forEach(function(s){
+  var a=document.createElement('span');
+  a.className='anno '+s.cls; a.textContent=s.a;
+  a.style.left=(s.x/800*100)+'%'; a.style.top=(yFor(s.p)/340*100)+'%';
+  chart.appendChild(a);
+});
+var rdT=document.getElementById('rdT'), rdP=document.getElementById('rdP'), rdN=document.getElementById('rdN');
+function fmt(v){return (Math.round(v*100)/100).toString();}
+function setT(t){
+  t=Math.max(0,Math.min(100,t));
+  var pt=pathEl.getPointAtLength(len*t/100);
+  head.setAttribute('x1',pt.x); head.setAttribute('x2',pt.x);
+  headDot.setAttribute('cx',pt.x); headDot.setAttribute('cy',pt.y);
+  var best=stops[0], bd=1e9;
+  stops.forEach(function(s){var d=Math.abs(s.x-pt.x); if(d<bd){bd=d;best=s;}});
+  rdT.textContent=best.t;
+  rdP.textContent=best.disp;
+  rdN.textContent=best.n;
+}
+var scrub=document.getElementById('scrub');
+scrub.addEventListener('input',function(){setT(parseFloat(scrub.value));});
+setT(0);
+
+/* ============ reveals & authored moments ============ */
+function once(node,fn,thr){
+  if(!('IntersectionObserver' in window)){fn();return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){fn();io.disconnect();}});
+  },{threshold:thr||0.25});
+  io.observe(node);
+}
+/* network arcs draw-in */
+once(document.getElementById('net'),function(){
+  if(RM)return;
+  arcs.forEach(function(a,i){
+    var L=a.getTotalLength();
+    a.style.strokeDasharray=L; a.style.strokeDashoffset=L;
+    a.style.transition='stroke-dashoffset .9s cubic-bezier(.16,1,.3,1) '+(i*0.055)+'s, opacity .3s, stroke-width .3s';
+    requestAnimationFrame(function(){a.style.strokeDashoffset=0;});
+  });
+},0.2);
+/* counters */
+document.querySelectorAll('[data-count]').forEach(function(n){
+  var target=parseFloat(n.dataset.count), suf=n.dataset.suffix||'';
+  once(n,function(){
+    if(RM){n.textContent=target+suf;return;}
+    var t0=null, dur=1500;
+    function step(ts){
+      if(!t0)t0=ts;
+      var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3);
+      n.textContent=Math.round(target*e)+suf;
+      if(k<1)requestAnimationFrame(step);
+    }
+    n.textContent='0'+suf; requestAnimationFrame(step);
+  },0.5);
+});
+/* timeline: path draw + autoplay once */
+once(document.getElementById('time'),function(){
+  if(RM){setT(100);scrub.value=100;return;}
+  pathEl.style.strokeDasharray=len; pathEl.style.strokeDashoffset=len;
+  pathEl.style.transition='stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1)';
+  requestAnimationFrame(function(){pathEl.style.strokeDashoffset=0;});
+  var delay=setTimeout(function(){
+    var t0=null, dur=3400;
+    function step(ts){
+      if(!t0)t0=ts;
+      var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,2.2);
+      var v=e*100; scrub.value=v; setT(v);
+      if(k<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  },900);
+  scrub.addEventListener('input',function(){clearTimeout(delay);},{once:true});
+},0.3);
+
+})();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value":"83 美元","label":"Anthropic IPO 定价（11-18）","quote":"83 美元 Anthropic IPO 定价（11-18）"},
+  {"value":"1.5 万亿美元","label":"Anthropic 完全稀释估值（11-18）","quote":"1.5 万亿美元 Anthropic 完全稀释估值（11-18）"},
+  {"value":"1073 亿美元","label":"Anthropic 合计募资额（11-18）","quote":"1073 亿美元 Anthropic 合计募资额（11-18）"},
+  {"value":"约 28%","label":"亚马逊与谷歌 IPO 后合计持股（11-20）","quote":"约 28% 亚马逊与谷歌 IPO 后合计持股（11-20）"},
+  {"value":"约 2600 亿美元","label":"亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）","quote":"约 2600 亿美元 亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）"},
+  {"value":"97.17 美元","label":"Anthropic 上市首日收盘价（11-19）","quote":"97.17 美元 Anthropic 上市首日收盘价（11-19）"},
+  {"value":"111.50 美元","label":"Anthropic 上市首日开盘价（11-19）","quote":"111.50 美元 Anthropic 上市首日开盘价（11-19）"}
+]
+</script>
+</body>
+</html>

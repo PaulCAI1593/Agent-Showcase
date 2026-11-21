@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>峰会前夜：霍尔木兹、破位金价与 96.8% 的加息定价 —— 三边会晤前的三条可证伪读数</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  智囊团 · 研究类作品 · 选题454（追踪线：地缘与能源）
+  ═══════════════════════════════════════════════════════════════════
+
+  视觉身份：峰会前夜 · 态势卷宗。沿用「档案卷宗」骨架的冷调档案纸 +
+  墨色 + 陈铜，按本篇内容重排版式：报头之后先立「待验证清单」（会晤
+  成果未发生），再下核心判断带；正文按三条互不依赖的线并列（战场与
+  军援 / 能源与商品 / 利率与美元），配两幅数据图与四张口径表；冲突
+  读数独立成节，不择一采信。
+
+  契约：封闭语义词汇表（语义块只用这些，不自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（必填，带单位）
+          .metric-label      指标名（必填，一行名词短语）
+          .metric-source     出处（必填，机构 · 口径 · 日期）
+      .verdict-band > .verdict / .verdict-note
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  其余 class 均为版式（shell / sec / mast / lede / duel / tbl / fig /
+  gaps / note 等），不承载语义断言。
+
+  断言声明在文件底部 script#claims（7 条），quote 逐字取自本文件正文。
+  「返回展厅」链接由 autopublish 阶段 5.5 自动注入，不手写。
+
+  素材依据：每日热点新闻简报 2026-11-18（军事动态 / 利率预期节）＋
+  每日股市简报 2026-11-18（港股节 / 利率预期节）＋ 每日AI技术动态简报
+  2026-11-18（费城半导体指数读数）。为补 11-17 现货黄金收盘原值做了
+  两次检索（minimax 额度耗尽 → Tavily 兜底），结果与差异见正文与
+  「口径未确认清单」。
+
+  跨作品沿用标签（逐字一致，未同义分叉）：
+    CME 12月会议加息25个基点概率（11-18口径）   ← 既有系列 11-12/11-13/11-16
+    10年期美债收益率（11-17收盘口径）           ← 既有系列 11-10/11-12/11-13
+    现货黄金收盘价（11-17）                     ← 既有系列 10-29/11-03/11-04/
+                                                   11-09/11-12/11-13
+  新增口径标签：现货黄金亚市盘中低点（11-18）（盘中≠收盘，另立口径）
+  布伦特 1 月合约结算价：本期素材无新结算价数值，不复用、不编造。
+-->
+
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="会晤未开，读数先到：伊朗方面称海峡关闭、现货黄金盘中破 3800、12 月加息 25bp 定价 96.8%——三件事三条机制，会晤成果全部列为待验证。">
+
+<style>
+/* ── 基础 ────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scrollbar-color:#646b67 #eaedea}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",
+         "Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+  font-size:17px;line-height:1.7;letter-spacing:-0.006em;
+  -webkit-font-smoothing:antialiased;
+}
+:root{
+  --paper:#eaedea;          /* 冷调档案纸 */
+  --paper-raised:#f4f6f4;   /* 抬起面 */
+  --ink:#171a18;
+  --ink-2:#4f5551;          /* 次要文字 ≈6.5:1 */
+  --ink-3:#646b67;          /* 三级文字 ≈4.6:1 */
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;          /* 陈铜强调 ≈5.3:1（纸上） */
+  --brass-wash:#efe4cc;
+  --deep:#121513;           /* 深色带 */
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:"Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong",
+         "SimSun",serif;
+  --serif-num:Georgia,"Times New Roman","Times",serif;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:#9aa39d;border:3px solid var(--paper);border-radius:6px}
+a{color:var(--brass);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ────────────────────────────────────────────────── */
+.masthead{padding:96px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+.mast-kicker{
+  font-size:12.5px;letter-spacing:.16em;color:var(--brass);
+  font-weight:600;margin-bottom:20px;
+}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;margin:0;
+}
+.standfirst{
+  margin-top:24px;font-size:19px;line-height:1.62;letter-spacing:-0.01em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13.5px;line-height:1.5}
+.mast-meta dl{display:grid;gap:0;margin:0}
+.mast-meta dt{
+  font-family:inherit;font-size:11px;letter-spacing:.14em;color:var(--ink-3);
+  padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{
+  margin:0;padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink);
+}
+.mast-meta dd b{font-weight:600}
+.claim-n{
+  font-family:var(--serif-num);font-size:24px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px;
+}
+
+/* ── 区块 ────────────────────────────────────────────────── */
+section{padding:78px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.01em;
+  font-weight:600;margin:0 0 16px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:20px;line-height:1.4;letter-spacing:-0.008em;
+  font-weight:600;margin:38px 0 12px;
+}
+h3:first-of-type{margin-top:8px}
+.lede{font-size:17.5px;line-height:1.62;color:var(--ink-2);max-width:58ch;margin:0 0 32px}
+p{max-width:70ch;margin:0}
+p + p{margin-top:15px}
+.sec-note{
+  margin-top:18px;font-size:14.5px;line-height:1.66;color:var(--ink-2);
+  max-width:72ch;padding:14px 18px;background:var(--paper-raised);
+  border:1px solid var(--rule);border-radius:4px;
+}
+.sec-note b{color:var(--ink);font-weight:600}
+
+/* ── 待验证清单：并列对照 ────────────────────────────────── */
+.duel{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+  background:var(--paper-raised);margin-bottom:26px;
+}
+.duel-pane{padding:26px 26px 22px}
+.duel-pane + .duel-pane{border-left:1px solid var(--rule)}
+.duel-who{
+  font-size:12px;letter-spacing:.13em;color:var(--brass);font-weight:600;
+  margin-bottom:12px;
+}
+.duel-say{
+  font-family:var(--serif-cn);font-size:20px;line-height:1.55;color:var(--ink);
+  font-weight:600;letter-spacing:-0.006em;
+}
+.duel-src{margin-top:14px;font-size:12.5px;line-height:1.55;color:var(--ink-3)}
+.duel-foot{
+  grid-column:1 / -1;border-top:1px solid var(--rule);padding:14px 26px;
+  font-size:14px;color:var(--ink-2);background:#f0f2f0;
+}
+.duel-foot b{color:var(--ink);font-weight:600}
+
+/* ── 核心判断 ────────────────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.45;
+  letter-spacing:-0.006em;font-weight:600;max-width:32ch;margin:0;
+}
+.verdict em{font-style:normal;color:#f0d9a8}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.7;color:var(--deep-2);
+  max-width:62ch;
+}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据 ────────────────────────────────────────────── */
+.metrics{
+  display:flex;flex-wrap:wrap;gap:1px;
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{flex:1 1 212px;background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:33px;line-height:1.14;letter-spacing:-0.016em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+  word-break:keep-all;
+}
+.metric-label{
+  margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);
+  font-weight:500;word-break:keep-all;
+}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 表格 ────────────────────────────────────────────────── */
+.tbl-wrap{
+  overflow-x:auto;border:1px solid var(--rule);border-radius:4px;
+  background:var(--rule-soft);padding:12px;
+}
+table.tbl{border-collapse:collapse;width:100%;min-width:640px;font-size:15px;background:var(--paper-raised)}
+table.tbl caption{
+  caption-side:top;text-align:left;padding:14px 16px 0;font-size:13px;
+  color:var(--ink-3);line-height:1.55;
+}
+table.tbl th{
+  background:var(--deep);color:var(--deep-ink);text-align:left;font-weight:600;
+  font-size:13.5px;letter-spacing:.04em;padding:12px 15px;white-space:nowrap;
+}
+table.tbl td{
+  padding:13px 15px;border-top:1px solid var(--rule);vertical-align:top;
+  line-height:1.6;color:var(--ink);
+}
+table.tbl tbody tr:nth-child(even) td{background:#eef1ee}
+table.tbl td.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl td.src{font-size:13px;color:var(--ink-3);line-height:1.55}
+table.tbl tr.flag td{background:var(--brass-wash)}
+.tag{
+  display:inline-block;font-size:12px;font-weight:600;letter-spacing:.06em;
+  color:var(--brass);border:1px solid var(--brass);border-radius:3px;
+  padding:1px 7px;margin-right:7px;vertical-align:1px;
+}
+.tag-open{color:#7a2e12;border-color:#7a2e12}
+
+/* ── 图 ──────────────────────────────────────────────────── */
+figure.fig{
+  margin:30px 0 0;padding:22px 22px 18px;background:var(--paper-raised);
+  border:1px solid var(--rule);border-radius:4px;
+}
+figure.fig svg{display:block;width:100%;height:auto}
+figcaption{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:13px;line-height:1.65;color:var(--ink-3);max-width:76ch;
+}
+figcaption b{color:var(--ink-2);font-weight:600}
+.fig-legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+.fig-legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dot-solid{background:var(--brass)}
+.dot-hollow{background:transparent;border:2px solid var(--brass)}
+
+/* ── 进程 ────────────────────────────────────────────────── */
+.timeline{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:126px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;padding-top:3px;
+}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.006em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:64ch}
+.timeline-detail + .timeline-detail{margin-top:8px}
+
+/* ── 证据 ────────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.66;color:var(--ink);
+  max-width:58ch;padding-left:34px;margin:0;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:15px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  display:block;margin-top:11px;padding-left:34px;font-size:12.5px;
+  line-height:1.55;color:var(--ink-3);font-style:normal;
+}
+
+/* ── 未确认清单 ──────────────────────────────────────────── */
+.gaps{list-style:none;counter-reset:g;margin:0;padding:0;border-top:1px solid var(--rule)}
+.gaps li{
+  counter-increment:g;position:relative;padding:18px 0 18px 46px;
+  border-bottom:1px solid var(--rule);font-size:15.5px;line-height:1.66;
+  color:var(--ink);max-width:74ch;
+}
+.gaps li::before{
+  content:counter(g);position:absolute;left:0;top:18px;
+  font-family:var(--serif-num);font-size:14px;color:var(--brass);
+  border:1px solid var(--rule);border-radius:50%;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;background:var(--paper-raised);
+}
+.gaps li b{font-weight:600}
+.gaps li .how{display:block;margin-top:6px;font-size:14px;color:var(--ink-2)}
+
+/* ── 页脚 ────────────────────────────────────────────────── */
+.colophon{padding:52px 0 74px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.75;color:var(--ink-2);max-width:66ch}
+.colophon p + p{margin-top:12px}
+.colophon b{color:var(--ink);font-weight:600}
+
+/* ── 动效：唯一的一次性动作（图1 折线自左绘出）─────────── */
+.js .draw-line{stroke-dasharray:1;stroke-dashoffset:1}
+.js figure.drawn .draw-line{
+  stroke-dashoffset:0;
+  transition:stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .draw-line{stroke-dashoffset:0!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .mast-meta dt{grid-row:1}
+  .mast-meta dd{grid-row:2}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:58px 0 42px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .standfirst{font-size:17.5px}
+  .duel{grid-template-columns:1fr}
+  .duel-pane + .duel-pane{border-left:0;border-top:1px solid var(--rule)}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .timeline-date{padding-top:0}
+  .metric{flex:1 1 100%}
+  .evidence-quote{padding-left:26px;font-size:17px}
+  .evidence-quote::before{font-size:32px;top:13px}
+  .evidence-source{padding-left:26px}
+  figure.fig{padding:16px 14px 14px}
+}
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86;color:#5f4d1e}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <div class="mast-kicker">研究 · 选题 454 · 追踪线：地缘与能源</div>
+        <h1>峰会前夜：霍尔木兹、破位金价与 96.8% 的加息定价</h1>
+        <p class="standfirst">11-20 的美中俄三边会晤还没有开始。本篇把会晤写成待验证清单，把会前已经落地的读数写成三条互不依赖的线：战场与军援、能源与商品、利率与美元。三件事各自可被一条新闻单独证伪。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-19</dd></div>
+          <div><dt>主责</dt><dd>策士</dd></div>
+          <div><dt>追踪线</dt><dd>地缘与能源</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">96.8% 的加息定价已经落地，三边会晤的成果还没有：峰会前夜，市场充分定价的是<em>利率</em>，不是和平。</p>
+    <p class="verdict-note">三个读数来自三个互不依赖的机制。<b>96.8%</b> 是 CME FedWatch 的 12 月会议期货定价（11-18 口径，50 个基点概率 3.2%）；<b>跌破 3,800 美元/盎司</b> 发生在 11-18 亚市盘中的现货成交，为 2025-09-30 以来首次；<b>「海峡关闭」</b> 目前只有伊朗方面一处表态（11-18，素材未具名具体发言人）。会晤要到 11-20 才召开，任何会晤成果在本篇都不作结论，一律列入待验证清单。这三件事若被推翻，各自只需要一条新闻。</p>
+  </div>
+</section>
+
+<!-- ── 峰会：待验证清单 ───────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>峰会：待验证清单，不是结论</h2>
+    <p class="lede">会晤前的公开表态只有两路，且方向不一致。本篇并列呈现，不替读者裁决哪一路对应真实议程。</p>
+
+    <div class="duel">
+      <div class="duel-pane">
+        <div class="duel-who">表态 A · 特朗普 · 11-16 启程</div>
+        <p class="duel-say">启程时表示「会谈乌克兰」。</p>
+        <p class="duel-src">来源：France 24，11-16（每日热点新闻简报 2026-11-18 军事动态 3）</p>
+      </div>
+      <div class="duel-pane">
+        <div class="duel-who">表态 B · 美方官员 · 11-16</div>
+        <p class="duel-say">俄乌战争不在会谈重点之列。</p>
+        <p class="duel-src">来源：Scripps News，11-16（同上）</p>
+      </div>
+      <div class="duel-foot"><b>并列规则：</b>两路表态同日、同场，素材未提供可判定优先级的证据。本篇不择一采信，议程重点以会后文件为准。</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>会晤相关口径一览（截至 11-18，全部为会前表态与转述，无一项已发生）</caption>
+        <thead>
+          <tr><th>口径方</th><th>表态要点</th><th>时点</th><th>来源</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>特朗普</td>
+            <td>启程称「会谈乌克兰」</td>
+            <td class="num">11-16</td>
+            <td class="src">France 24，11-16</td>
+          </tr>
+          <tr>
+            <td>美方官员</td>
+            <td>俄乌战争不在会谈重点之列</td>
+            <td class="num">11-16</td>
+            <td class="src">Scripps News，11-16</td>
+          </tr>
+          <tr>
+            <td>普京</td>
+            <td>停战条件：北约把部署回退到 1997 年边界</td>
+            <td class="num">11-16</td>
+            <td class="src">Scripps News，11-16</td>
+          </tr>
+          <tr>
+            <td>俄方（阿布扎比三方会谈）</td>
+            <td>提出远超和平方案范围的要求，拒绝冻结现有战线</td>
+            <td class="num">上周</td>
+            <td class="src">Al Jazeera，11-16</td>
+          </tr>
+          <tr>
+            <td>分析评论（非官方）</td>
+            <td>警告「中东雅尔塔时刻」，以色列或独自面对伊朗</td>
+            <td class="num">11-17</td>
+            <td class="src">Ynetnews 观点版，11-17</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>待验证清单（11-20 之后逐条核销）</h3>
+    <ol class="gaps">
+      <li><b>会晤是否如期举行、出席规格与形式。</b>素材截至 11-18，会晤未发生。
+        <span class="how">确认方法：三方官方日程与会后通稿。</span></li>
+      <li><b>议程重点是乌克兰还是其他议题。</b>「会谈乌克兰」与「不在重点」两路表态并列，未裁决。
+        <span class="how">确认方法：会晤后的联合文件或三方记者会实录。</span></li>
+      <li><b>是否出现停火框架或新的条件清单</b>，含普京提出的 1997 年边界条件是否被正式提出。
+        <span class="how">确认方法：克里姆林宫与中方发布会实录。</span></li>
+      <li><b>会晤是否触及中东与海峡议题。</b>素材只有评论版分析，无官方口径。
+        <span class="how">确认方法：会后公报与三方表态原文。</span></li>
+      <li><b>会晤前后油价、金价的反应是否与本篇三条读数同源。</b>
+        <span class="how">确认方法：11-20 当日行情与消息面逐条比对。</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">七条读数分属三个机制：利率定价、商品价格、战场与拨款。标签沿用跨作品序列，括号内为口径日期；盘中与收盘分列，不混入同一序列。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">96.8%</div>
+        <div class="metric-label">CME 12月会议加息25个基点概率（11-18口径）</div>
+        <div class="metric-source">港股午评转引 CME · 11-18 12:13 · 同口径 50bp 概率 3.2%（见图 2）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.103%</div>
+        <div class="metric-label">10<span>年期美债收益率（11-17收盘口径）</span></div>
+        <div class="metric-source">投资导航 · 11-17 收盘 · 11-18 播发</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3847.4 美元/盎司</div>
+        <div class="metric-label">现货黄金收盘价（11-17）</div>
+        <div class="metric-source">中新经纬（凤凰网转载）· 当地时间 11-17 收盘 · 跌 0.12% · 本轮检索补得</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">跌破 3,800 美元/盎司</div>
+        <div class="metric-label">现货黄金亚市盘中低点（11-18）</div>
+        <div class="metric-source">港股午评 · 11-18 12:13 · 2025-09-30 以来首次</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1336 架</div>
+        <div class="metric-label">单夜拦截乌克兰无人机数（11-16，俄国防部口径）</div>
+        <div class="metric-source">France 24 / 美联社 · 11-16 · 其中约 600 架飞向莫斯科地区</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">17.1 亿欧元</div>
+        <div class="metric-label">欧盟对乌军事采购拨付款（11-17）</div>
+        <div class="metric-source">Army Technology · 11-17 · 约 18.8 亿美元（折算）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 4.6%</div>
+        <div class="metric-label">黄金期货当周跌幅（11-17口径）</div>
+        <div class="metric-source">汇通财经 fx678 · 11-17 · 素材未写明「当周」起讫日</div>
+      </div>
+    </div>
+    <p class="sec-note"><b>标签纪律：</b>前三条为跨作品既有序列的续点（CME 25bp 概率、10 年期美债、现货黄金收盘价），写法逐字沿用；「现货黄金亚市盘中低点（11-18）」是盘中新口径，与收盘序列分列；「布伦特 1 月合约结算价」本期素材无新结算价数值，不复用、不编造。</p>
+  </div>
+</section>
+
+<!-- ── 三条线 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三条线：各自成立，互不折算</h2>
+    <p class="lede">同一夜的三个价格信号，驱动机制不同。本节按线分述，不做跨线因果推断。</p>
+
+    <h3>线一 · 战场与军援</h3>
+    <p>俄国防部称，11-16 一夜拦截 1336 架乌克兰无人机，其中约 600 架飞向莫斯科地区，为近五年战争以来基辅最大规模空袭之一（France 24 / 美联社，11-16）。同日，无人机损伤刻赤大桥，公路交通短暂中断；克里姆林宫称防空系统「无法做到 100% 防护」（美联社，11-16）。普京提出的停战条件是北约把部署回退到 1997 年边界（Scripps News，11-16）。欧盟委员会已向乌克兰拨付 17.1 亿欧元（约 18.8 亿美元）用于军事采购，涵盖无人机、弹药与防空（Army Technology，11-17）。</p>
+    <p class="sec-note"><b>口径提示：</b>拦截数为俄国防部口径，拨付额为欧盟委员会口径，两者不同源、不可折算为同一张「战场账」。刻赤大桥袭击与防空说法各有一方来源，本篇不作独立核实（见口径未确认清单第 7 条）。</p>
+
+    <h3>线二 · 能源与商品</h3>
+    <p>11-18 亚市，港股午评转引的一条消息写道：「伊朗方面称霍尔兹海峡目前处于关闭状态」，同一句里 WTI 原油在 11-18 亚市早盘小幅反弹修复（来源：港股午评，11-18 12:13）。这句话目前只有这一处来源，素材未具名具体发言人；素材用词「霍尔兹海峡」与通称的霍尔木兹海峡是否同指，也未核对（见口径未确认清单第 2 条）。同日亚市盘中，现货黄金一度跌破 3,800 美元/盎司，为 2025-09-30 以来首次；11-17 收盘读数为 3847.4 美元/盎司，跌 0.12%（中新经纬，11-18 播发）。美元刷新 19 个月新高（汇通财经 fx678，11-17）。</p>
+
+    <figure class="fig" id="fig-gold">
+      <svg viewBox="0 0 960 400" role="img" aria-label="点位图：现货黄金五个时点读数。11-16 收盘 3856.24、11-16 盘中低 3832.36、11-17 亚市早盘盘中约 3855、11-17 收盘 3847.4、11-18 亚市盘中跌破 3800。3800 关口为虚线参考线。">
+        <rect x="0" y="0" width="960" height="400" fill="#f4f6f4"/>
+        <!-- 网格 -->
+        <g stroke="#d2d8d4" stroke-width="1">
+          <line x1="90" y1="330" x2="930" y2="330"/>
+          <line x1="90" y1="270" x2="930" y2="270"/>
+          <line x1="90" y1="210" x2="930" y2="210"/>
+          <line x1="90" y1="150" x2="930" y2="150"/>
+          <line x1="90" y1="90" x2="930" y2="90"/>
+          <line x1="90" y1="50" x2="930" y2="50"/>
+        </g>
+        <!-- 纵轴刻度 -->
+        <g font-family="Georgia,serif" font-size="12.5" fill="#646b67" text-anchor="end">
+          <text x="78" y="334">3,780</text>
+          <text x="78" y="274">3,800</text>
+          <text x="78" y="214">3,820</text>
+          <text x="78" y="154">3,840</text>
+          <text x="78" y="94">3,860</text>
+          <text x="78" y="54">3,870</text>
+        </g>
+        <text x="90" y="30" font-size="12.5" fill="#646b67" font-family="-apple-system,PingFang SC,sans-serif">单位：美元/盎司 · 纵轴 3,780–3,870（截断）</text>
+        <!-- 3800 参考线 -->
+        <line x1="90" y1="270" x2="930" y2="270" stroke="#7a2e12" stroke-width="1.6" stroke-dasharray="7 5"/>
+        <text x="930" y="263" font-size="12.5" fill="#7a2e12" text-anchor="end" font-weight="700" font-family="-apple-system,PingFang SC,sans-serif">3,800 关口（11-18 亚市盘中跌破）</text>
+        <!-- 垂线 -->
+        <g stroke="#d2d8d4" stroke-width="1">
+          <line x1="170" y1="101" x2="170" y2="330"/>
+          <line x1="345" y1="173" x2="345" y2="330"/>
+          <line x1="520" y1="105" x2="520" y2="330"/>
+          <line x1="695" y1="128" x2="695" y2="330"/>
+          <line x1="870" y1="270" x2="870" y2="330"/>
+        </g>
+        <!-- 点位 -->
+        <circle cx="170" cy="101" r="7" fill="#7d5a1c"/>
+        <circle cx="345" cy="173" r="7" fill="#f4f6f4" stroke="#7d5a1c" stroke-width="2.5"/>
+        <circle cx="520" cy="105" r="7" fill="#f4f6f4" stroke="#7d5a1c" stroke-width="2.5"/>
+        <circle cx="695" cy="128" r="7" fill="#7d5a1c"/>
+        <path d="M870 258 l9 16 h-18 z" fill="#7a2e12"/>
+        <!-- 数值标签 -->
+        <g font-family="Georgia,serif" font-size="14" font-weight="700" fill="#171a18" text-anchor="middle">
+          <text x="170" y="86">3856.24</text>
+          <text x="345" y="158">3832.36</text>
+          <text x="520" y="90">≈3855</text>
+          <text x="695" y="113">3847.4</text>
+          <text x="870" y="245" fill="#7a2e12">跌破 3,800</text>
+        </g>
+        <!-- 横轴标签 -->
+        <g font-size="13" fill="#171a18" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">
+          <text x="170" y="356">11-16 收盘</text>
+          <text x="345" y="356">11-16 盘中</text>
+          <text x="520" y="356">11-17 亚早盘</text>
+          <text x="695" y="356">11-17 收盘</text>
+          <text x="870" y="356">11-18 亚市盘中</text>
+        </g>
+        <g font-size="12" fill="#646b67" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">
+          <text x="170" y="376">汇通财经 11-17</text>
+          <text x="345" y="376">汇通财经 11-17</text>
+          <text x="520" y="376">汇通财经 11-17</text>
+          <text x="695" y="376">中新经纬 11-18</text>
+          <text x="870" y="376">港股午评 11-18</text>
+        </g>
+      </svg>
+      <div class="fig-legend">
+        <span><i class="dot dot-solid"></i>收盘读数</span>
+        <span><i class="dot dot-hollow"></i>盘中读数</span>
+        <span><i class="dot" style="background:#7a2e12"></i>破位点（11-18 亚市盘中）</span>
+      </div>
+      <figcaption><b>图 1 · 现货黄金五个时点读数（收盘与盘中并列）。</b>收盘、盘中、亚市早盘三类时点混列，仅示意各读数相对 3,800 关口的位置，不构成同口径连续序列。11-17 收盘 3847.4 为本轮检索补得（中新经纬，11-18 播发）；另有和讯口径 3848.99，属跨源差异，不作登记值（见口径未确认清单第 5 条）。11-16 收盘 3856.24 来自每日热点新闻简报 2026-11-17（汇通财经）。</figcaption>
+    </figure>
+
+    <h3>线三 · 利率与美元</h3>
+    <p>本轮为加息周期：美联储 9 月完成三年来首次加息，联邦基金利率目标区间 3.75%–4.00%（汇通财经，11-17）。CME FedWatch 的 12 月会议读数逐日抬升：11-16 口径 95%，11-17 口径 95.4%（汇通财经 17:00）与 96%（Khaleej Times，UTC 17:17），11-18 口径 96.8%，对应 50 个基点概率 3.2%。10 年期美债收益率 11-17 收在 5.103%。联储官员侧：圣路易斯联储主席穆萨勒姆称可能需要多次加息，纽约联储主席威廉姆斯称可能需要再次加息、但当前情况不需激烈行动（中国金融信息网 / 中国证券网，11-18）。</p>
+
+    <figure class="fig" id="fig-hike">
+      <svg viewBox="0 0 960 340" role="img" aria-label="折线图：CME 12 月加息 25 个基点概率。11-16 口径 95.0%、11-17 口径 95.4%、11-18 口径 96.8%，纵轴自 94% 起；11-17 另有 Khaleej Times 口径 96.0% 为空心点。">
+        <rect x="0" y="0" width="960" height="340" fill="#f4f6f4"/>
+        <!-- 网格 -->
+        <g stroke="#d2d8d4" stroke-width="1">
+          <line x1="90" y1="280" x2="930" y2="280"/>
+          <line x1="90" y1="220" x2="930" y2="220"/>
+          <line x1="90" y1="160" x2="930" y2="160"/>
+          <line x1="90" y1="100" x2="930" y2="100"/>
+          <line x1="90" y1="40" x2="930" y2="40"/>
+        </g>
+        <g font-family="Georgia,serif" font-size="12.5" fill="#646b67" text-anchor="end">
+          <text x="78" y="284">94<tspan>%</tspan></text>
+          <text x="78" y="224">95<tspan>%</tspan></text>
+          <text x="78" y="164">96<tspan>%</tspan></text>
+          <text x="78" y="104">97<tspan>%</tspan></text>
+          <text x="78" y="44">98<tspan>%</tspan></text>
+        </g>
+        <text x="90" y="26" font-size="12.5" fill="#646b67" font-family="-apple-system,PingFang SC,sans-serif">12 月加息 25 个基点概率 · 纵轴 94%–98%（截断）</text>
+        <!-- 折线（唯一动效：自左绘出） -->
+        <path class="draw-line" pathLength="1" d="M200 220 L520 196 L840 112"
+              fill="none" stroke="#7d5a1c" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- 点 -->
+        <circle cx="200" cy="220" r="7" fill="#7d5a1c"/>
+        <circle cx="520" cy="196" r="7" fill="#7d5a1c"/>
+        <circle cx="840" cy="112" r="7" fill="#7d5a1c"/>
+        <circle cx="570" cy="160" r="7" fill="#f4f6f4" stroke="#7d5a1c" stroke-width="2.5"/>
+        <!-- 数值 -->
+        <g font-family="Georgia,serif" font-size="16" font-weight="700" fill="#171a18" text-anchor="middle">
+          <text x="200" y="204">95.0<tspan>%</tspan></text>
+          <text x="520" y="180">95.4<tspan>%</tspan></text>
+          <text x="840" y="96">96.8<tspan>%</tspan></text>
+        </g>
+        <text x="555" y="154" font-size="13" fill="#4f5551" text-anchor="end" font-family="-apple-system,PingFang SC,sans-serif">96.0<tspan>%</tspan>（Khaleej Times 口径）</text>
+        <!-- 横轴 -->
+        <g font-size="13.5" fill="#171a18" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">
+          <text x="200" y="308">11-16 口径</text>
+          <text x="520" y="308">11-17 口径</text>
+          <text x="840" y="308">11-18 口径</text>
+        </g>
+        <g font-size="12" fill="#646b67" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">
+          <text x="200" y="328">中国基金报 11-16 06:05</text>
+          <text x="520" y="328">汇通财经 11-17 17:00</text>
+          <text x="840" y="328">港股午评 11-18 12:13</text>
+        </g>
+      </svg>
+      <div class="fig-legend">
+        <span><i class="dot dot-solid"></i>主读数（三个不同转引源）</span>
+        <span><i class="dot dot-hollow"></i>同日另一转引源</span>
+      </div>
+      <figcaption><b>图 2 · 12 月加息 25 个基点概率的三个口径读数。</b>三个点来自三个不同转引源（中国基金报、汇通财经、港股午评），非同一终端连续采样，比较的是「口径日期」而非同源序列。空心点为 11-17 同日的另一转引源读数，横向略作偏移以避让标签，纵轴位置仍按 96.0% 绘制。纵轴自 94% 起，仅为显示读数差异。同期 50 个基点概率：11-16 口径 5% → 11-17 口径 4.6% → 11-18 口径 3.2%。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 口径冲突 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径冲突：费城半导体指数的三个读数</h2>
+    <p class="lede">三份 11-18 播发的简报对同一指数给出三个互不相容的读数。按派单规则，本节不择一采信为事实，全部标为未确认。</p>
+
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <caption>三源并列（按简报播发时间排列，不按可信度排列）</caption>
+        <thead>
+          <tr><th>简报（11-18 播发）</th><th>所报读数</th><th>指向交易日</th><th>简报标注来源</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>每日AI技术动态简报 2026-11-18</td>
+            <td class="num"><span class="tag">未确认</span>跌 5.28%</td>
+            <td class="num">11-17</td>
+            <td class="src">新湖南 / WIRED（11-17 至 11-18）</td>
+          </tr>
+          <tr>
+            <td>每日热点新闻简报 2026-11-18</td>
+            <td class="num"><span class="tag">未确认</span>跌逾 5%</td>
+            <td class="num">美东 11-16 收盘</td>
+            <td class="src">凤凰网财经，11-17</td>
+          </tr>
+          <tr>
+            <td>每日股市简报 2026-11-18</td>
+            <td class="num"><span class="tag">未确认</span>涨 0.34%</td>
+            <td class="num">11-17 收盘</td>
+            <td class="src">证券时报，11-18 08:20</td>
+          </tr>
+          <tr class="flag">
+            <td colspan="4"><b>裁定：</b>未确认。三源中两条同指 11-17 且方向相反（跌 5.28% vs 涨 0.34%），第三条指向 11-16。正文不择一采信。<b>确认方法：</b>以费城证券交易所与标普道琼斯指数官方发布的 11-16、11-17 两个交易日收盘点位与涨跌幅复核。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="sec-note"><b>背景读数（不用于裁定上表）：</b>同日 11-17 美股收盘，标普 500 报 7340.53 点、跌 1.03%，道指跌 1.64%，纳指跌 0.74%（新华社，11-18 播发）；标普 500 十一大板块全线下跌，能源板块跌幅最小（-0.53%）。以上仅说明当日市场环境，不构成对三源任一读数的支持或否定。</p>
+  </div>
+</section>
+
+<!-- ── 时间线 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程：从 11-16 空袭到 11-20 会晤</h2>
+    <p class="lede">五天里落地的读数与尚未发生的事件分开写：前四天是已发生事实，最后一条是计划。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">11-16</span>
+        <div>
+          <div class="timeline-title">近五年最大规模空袭之一 · 刻赤大桥遇袭 · 特朗普启程</div>
+          <div class="timeline-detail">俄国防部称一夜拦截 1336 架乌克兰无人机，约 600 架飞向莫斯科地区；刻赤大桥遇袭，公路交通短暂中断。特朗普启程称「会谈乌克兰」，美方官员称俄乌不在重点之列。普京提出北约部署回退 1997 年边界的停战条件。</div>
+          <div class="timeline-detail">同日金价：现货黄金 11-16 收盘 3856.24 美元/盎司，盘中低见 3832.36（汇通财经，11-17 08:37）。CME 12 月加息 25bp 概率 11-16 口径 95%（中国基金报，11-16 06:05）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-17</span>
+        <div>
+          <div class="timeline-title">美债收 5.103% · 欧盟拨付 17.1 亿欧元 · 联储官员放鹰</div>
+          <div class="timeline-detail">10 年期美债收益率 11-17 收盘稳在 5.103%（投资导航，11-18）。欧盟委员会拨付 17.1 亿欧元（约 18.8 亿美元）军事采购（Army Technology，11-17）。穆萨勒姆称可能需要多次加息，威廉姆斯称可能需要再次加息但不需激烈行动（中国金融信息网 / 中国证券网，11-18）。</div>
+          <div class="timeline-detail">金价：11-17 仅小幅修复，当周黄金期货跌约 4.6%，美元刷新 19 个月新高（汇通财经 fx678，11-17）；11-17 现货收盘 3847.4 美元/盎司（中新经纬，11-18 播发）。费城半导体指数当日读数三源冲突（见口径冲突节）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-18</span>
+        <div>
+          <div class="timeline-title">金价盘中破 3,800、海峡关闭说法、加息定价 96.8%</div>
+          <div class="timeline-detail">现货黄金 11-18 亚市盘中一度跌破 3,800 美元/盎司，为 2025-09-30 以来首次。伊朗方面称霍尔兹海峡目前处于关闭状态，WTI 亚市早盘小幅反弹修复（港股午评，11-18 12:13）。CME 12 月加息 25bp 概率 96.8%、50bp 概率 3.2%（同源）。</div>
+          <div class="timeline-detail">港股午盘：恒生指数 23241.48 点，跌 1.13%；黄金股走弱，灵宝黄金跌超 7%（港股午评，11-18 12:13）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-19</span>
+        <div>
+          <div class="timeline-title">峰会前夜（本篇交付日）</div>
+          <div class="timeline-detail">会晤成果为零：截至本篇交付，三方未发布任何联合文件或条件清单。本篇全部会晤相关内容停留在待验证清单状态。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-20</span>
+        <div>
+          <div class="timeline-title">计划：深圳首次美中俄三边会晤（未发生）</div>
+          <div class="timeline-detail">派单口径写「本周四（11-20）」，素材原文写「本周四」；本机日历 2026-11-19 为周四，两种口径不一致，星期归属未确认（见口径未确认清单第 4 条）。会晤本身在本篇交付时尚未发生，不写任何成果性结论。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据：逐字回源</h2>
+    <p class="lede">判断所依据的原文，七段逐字引用；前六段取自三份 11-18 简报，第七段为本轮检索所得。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">俄国防部称 11-16 一夜拦截 1336 架乌克兰无人机，其中约 600 架飞向莫斯科地区，为近五年战争以来基辅最大规模空袭之一</p>
+        <cite class="evidence-source">France 24 / 美联社，11-16（每日热点新闻简报 2026-11-18 · 军事动态 1）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">特朗普、普京、习近平定于本周四在深圳举行首次美中俄三边会晤；美方官员称俄乌战争不在会谈重点之列，但特朗普 11-16 启程时表示“会谈乌克兰”。</p>
+        <cite class="evidence-source">France 24，11-16；Scripps News，11-16（同上 · 军事动态 3）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">欧盟委员会已向乌克兰拨付 17.1 亿欧元（约 18.8 亿美元）用于军事采购，涵盖无人机、弹药与防空。</p>
+        <cite class="evidence-source">Army Technology，11-17（同上 · 军事动态 7）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">现货黄金 11-18 亚市盘中一度跌破 3800 美元/盎司（2025-09-30 以来首次）；伊朗方面称霍尔兹海峡目前处于关闭状态，11-18 亚市早盘 WTI 原油小幅反弹修复。</p>
+        <cite class="evidence-source">港股午评，11-18 12:13（每日股市简报 2026-11-18 · 港股节）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">CME“美联储观察”（11-18 口径）：美联储 12 月会议加息 25 个基点概率 96.8%，加息 50 个基点概率 3.2%。</p>
+        <cite class="evidence-source">港股午评转引 CME，11-18 12:13（同上 · 利率预期节）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">11-17 收盘 10 年期美债收益率稳在 5.103%</p>
+        <cite class="evidence-source">投资导航，11-18 播发（每日热点新闻简报 2026-11-18 · 金融动态 6）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">当地时间17日，现货黄金收报3847.4美元/盎司，跌0.12%</p>
+        <cite class="evidence-source">中新经纬（凤凰网转载），11-18 播发 —— 本轮检索补 11-17 收盘原值所得</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 口径未确认清单 ──────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径未确认清单</h2>
+    <p class="lede">本篇没有回答的问题，逐条写明缺什么、怎么确认。全部标未确认，不以「可能」「大概」掩盖。</p>
+    <ol class="gaps">
+      <li><b>费城半导体指数三源读数冲突（跌 5.28% / 跌逾 5% / 涨 0.34%）。</b>未确认，正文不择一采信。
+        <span class="how">确认方法：交易所收盘数据复核 11-16、11-17 两个交易日的官方点位与涨跌幅。</span></li>
+      <li><b>「霍尔兹海峡关闭」的具名发言人与海峡名称。</b>未确认，素材仅写「伊朗方面」，未到人；素材用词与通称的霍尔木兹海峡是否同指也未核对。
+        <span class="how">确认方法：回查港股午评 11-18 12:13 原文与伊朗官方通稿。</span></li>
+      <li><b>海峡是否实际关闭。</b>未确认，目前只有单方表态，无独立通行数据。
+        <span class="how">确认方法：船舶 AIS 过峡记录与航运保险通告。</span></li>
+      <li><b>会晤日期的星期口径。</b>素材写「本周四」、派单写 11-20；本机日历 2026-11-19 为周四，两者不一致，未确认。
+        <span class="how">确认方法：France 24 原文与三方公布日程。</span></li>
+      <li><b>11-17 现货黄金收盘的跨源差异。</b>登记值 3847.4（中新经纬），另有和讯口径 3848.99；且 -0.12% 隐含前收约 3852，与素材 11-16 收盘 3856.24 不一致。未确认。
+        <span class="how">确认方法：取同一行情源的连续收盘序列比对。</span></li>
+      <li><b>黄金期货「当周」跌幅 4.6% 的起讫日。</b>素材未写明，未确认。
+        <span class="how">确认方法：COMEX 周度收盘序列核对周界。</span></li>
+      <li><b>1336 架拦截数与刻赤大桥战损的独立核实。</b>未确认，拦截数为俄国防部单方口径。
+        <span class="how">确认方法：双方战报与卫星影像比对。</span></li>
+      <li><b>普京 1997 年边界条件是否为本次峰会正式提案。</b>未确认，现为 Scripps News 转述。
+        <span class="how">确认方法：克里姆林宫发布会实录。</span></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>素材与方法。</b>主素材为三份 2026-11-18 播发的简报（每日热点新闻简报 · 军事动态与利率预期节；每日股市简报 · 港股与利率预期节；每日AI技术动态简报 · 费城半导体指数读数），全部只读。为补 11-17 现货黄金收盘原值做了两次检索：minimax 搜索额度耗尽后改用 Tavily 兜底，取得 3847.4（中新经纬）与 3848.99（和讯）两个读数，登记前者、后者记跨源差异，差异写入口径未确认清单第 5 条。</p>
+    <p><b>事实与判断的边界。</b>七条断言的 quote 均在本文件逐字存在，可回查；核心判断、三条线的分述方式、待验证清单与未确认清单为本篇分析，素材未作此论断。三源冲突读数、会晤成果、海峡关闭状态一律标未确认并附确认方法。两幅数据图按素材读数绘制，图注已写明时点口径与纵轴截断。</p>
+    <p><b>边界。</b>本篇不含投资建议，不构成对 11-20 会晤结果的任何预测。布伦特 1 月合约结算价本期无新数值，未复用该标签。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ─────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  7 条，全部为「数值 + 指标名」连续片段，逐条对应正文指标块。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "96.8%",
+    "label": "CME 12月会议加息25个基点概率（11-18口径）",
+    "quote": "96.8% CME 12月会议加息25个基点概率（11-18口径）"
+  },
+  {
+    "value": "5.103%",
+    "label": "10年期美债收益率（11-17收盘口径）",
+    "quote": "5.103% 10年期美债收益率（11-17收盘口径）"
+  },
+  {
+    "value": "3847.4 美元/盎司",
+    "label": "现货黄金收盘价（11-17）",
+    "quote": "3847.4 美元/盎司 现货黄金收盘价（11-17）"
+  },
+  {
+    "value": "跌破 3,800 美元/盎司",
+    "label": "现货黄金亚市盘中低点（11-18）",
+    "quote": "跌破 3,800 美元/盎司 现货黄金亚市盘中低点（11-18）"
+  },
+  {
+    "value": "1336 架",
+    "label": "单夜拦截乌克兰无人机数（11-16，俄国防部口径）",
+    "quote": "1336 架 单夜拦截乌克兰无人机数（11-16，俄国防部口径）"
+  },
+  {
+    "value": "17.1 亿欧元",
+    "label": "欧盟对乌军事采购拨付款（11-17）",
+    "quote": "17.1 亿欧元 欧盟对乌军事采购拨付款（11-17）"
+  },
+  {
+    "value": "约 4.6%",
+    "label": "黄金期货当周跌幅（11-17口径）",
+    "quote": "约 4.6% 黄金期货当周跌幅（11-17口径）"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：图 2 折线自左绘出。尊重 reduced-motion。
+(function(){
+  var fig=document.getElementById('fig-hike');
+  if(!fig||!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.35});
+  io.observe(fig);
+})();
+</script>
+</body>
+</html>

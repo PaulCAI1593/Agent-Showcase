@@ -1,0 +1,43 @@
+{
+ "hero_rect": {
+  "h1x": 170,
+  "wrapx": 150,
+  "wrapw": 980
+ },
+ "net": {
+  "dossierOpacity": "1",
+  "dvis": true,
+  "core": {
+   "x": 408,
+   "y": 475,
+   "w": 119
+  }
+ },
+ "climax": {
+  "n1": "28%",
+  "n2": "2600",
+  "vis": "1"
+ },
+ "time": {
+  "rdT": "11-20 盘后",
+  "rdP": "−3%",
+  "rdN": "较收盘再跌逾 3%",
+  "scrubH": 28,
+  "pathOffset": "0"
+ },
+ "drag": {
+  "before": "−3%",
+  "after": "83 美元",
+  "note": "发行价基准",
+  "value": "11"
+ },
+ "pageerrors_desktop": [],
+ "mobile": {
+  "sw": 375,
+  "iw": 375,
+  "scrubH": 28,
+  "rdP": "−3%",
+  "coreVisible": false
+ },
+ "pageerrors_mobile": []
+}

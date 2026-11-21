@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="就业与劳动">
+<meta name="description" content="斯坦福 CS146S 把入门编程课作业改成读陌生仓库、界定改动、向维护者解释方案：改了什么、交什么、哪些仍未回源。">
+<title>一个提示做完去年的作业——斯坦福重写编程课</title>
+
+<!--
+  智囊团 · 研究类作品（档案卷宗版式，按本篇内容重排）
+  契约：承载数据的语义块使用封闭词汇表，不自创 class 名。
+  自创 class 仅用于纯装饰与表格式结构（.scope/.cmp/.cards/.chart/.ledger/.unconf）。
+  零远程依赖：字体走 assets/vendor/fonts 本地镜像。
+  「返回展厅」链接由 autopublish 注入，不手写。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,
+                 U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2015,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:1.0625rem;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;overflow-wrap:break-word;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* 抬头 */
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(2.125rem,4.4vw,3.25rem);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:1.25rem;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:40ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:0.8125rem;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:1.375rem;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* 区块骨架 */
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:1.875rem;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;text-wrap:balance;
+}
+h3{font-family:var(--serif-cn);font-size:1.25rem;line-height:1.35;font-weight:600;margin:34px 0 12px;letter-spacing:-0.008em;text-wrap:balance}
+.lede{font-size:1.125rem;line-height:1.6;color:var(--ink-2);max-width:56ch;margin-bottom:38px}
+p{max-width:68ch;text-wrap:pretty}
+p + p{margin-top:16px}
+li{text-wrap:pretty}
+td{text-wrap:pretty}
+b{font-weight:600}
+strong{font-weight:600}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:rgba(127,127,127,.14);padding:1px 5px;border-radius:4px}
+
+/* 核心判断 */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(1.5rem,2.7vw,2rem);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:1rem;line-height:1.65;color:var(--deep-2);max-width:58ch;
+}
+
+/* 关键数据 */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px}
+.metric-value{
+  font-family:var(--serif-num);font-size:2.25rem;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:12px;font-size:0.90625rem;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);font-size:0.75rem;line-height:1.5;color:var(--ink-3)}
+
+/* 进程 */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;padding:24px 0;border-bottom:1px solid var(--rule)}
+.timeline-date{font-family:var(--serif-num);font-size:0.84375rem;color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px}
+.timeline-title{font-size:1.09375rem;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:0.96875rem;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+/* 证据 */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{font-family:var(--serif-cn);font-size:1.1875rem;line-height:1.62;color:var(--ink);max-width:56ch;padding-left:34px}
+.evidence-quote::before{content:'“';position:absolute;left:0;top:14px;font-family:var(--serif-num);font-size:2.75rem;line-height:1;color:var(--brass)}
+.evidence-source{margin-top:12px;padding-left:34px;font-size:0.78125rem;line-height:1.5;color:var(--ink-3);font-style:normal}
+
+/* 页脚 */
+.colophon{padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:0.84375rem;line-height:1.7;color:var(--ink-3);max-width:62ch}
+.colophon p + p{margin-top:12px}
+
+/* ── 本篇专用装饰类（纯展示，不承载断言）──────────────── */
+.scope{border:1px solid var(--rule);background:var(--brass-wash);padding:26px 28px;margin:8px 0 34px}
+.scope ol{margin:0;padding-left:22px}
+.scope li{font-size:1.03125rem;line-height:1.68;color:var(--ink-2);max-width:64ch}
+.scope li + li{margin-top:10px}
+.scope li b{color:var(--ink)}
+.scope .scope-lead{font-size:1rem;line-height:1.62;color:var(--ink-2);max-width:64ch;margin-bottom:16px}
+
+.cmp{width:100%;border-collapse:collapse;margin:30px 0 10px;font-size:0.96875rem;line-height:1.55}
+.cmp caption{text-align:left;font-size:0.8125rem;color:var(--ink-3);padding-bottom:10px}
+.cmp th,.cmp td{border:1px solid var(--rule);padding:13px 15px;vertical-align:top;text-align:left}
+.cmp thead th{background:var(--paper-raised);font-weight:600;font-size:0.8125rem;letter-spacing:.04em;color:var(--ink-2)}
+.cmp tbody th{background:var(--paper-raised);font-weight:600;width:132px;color:var(--ink)}
+.cmp td{color:var(--ink-2);max-width:32ch}
+.cmp td em{font-style:normal;color:var(--ink)}
+.cmp .src{display:block;margin-top:6px;font-size:0.75rem;color:var(--ink-3)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:18px;margin:30px 0 8px}
+.card{background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:24px 22px}
+.card h3{font-family:var(--serif-cn);font-size:1.1875rem;line-height:1.35;font-weight:600;margin:9px 0 10px;text-wrap:balance}
+.card p{font-size:0.90625rem;line-height:1.6;color:var(--ink-2);max-width:none}
+.card .c-tag{display:inline-block;margin-top:14px;font-size:0.71875rem;letter-spacing:.05em;padding:3px 10px;border-radius:3px;border:1px solid var(--rule);color:var(--ink-3)}
+.card .c-tag.ok{background:var(--brass-wash);border-color:#d9c79c;color:#5d4413}
+.card .c-tag.no{background:#e7e4e0;border-color:#cdc7c0;color:#5a544c}
+
+.unconf{border:1px solid var(--rule);background:#e7e9e6;padding:18px 22px;margin:20px 0;font-size:0.96875rem;line-height:1.65;color:var(--ink-2);max-width:66ch}
+.unconf b{color:var(--ink)}
+.unconf .u-tag{font-size:0.71875rem;letter-spacing:.08em;color:#5a544c;border:1px solid #c2bdb5;background:#dedbd6;padding:2px 9px;border-radius:3px;margin-right:9px;white-space:nowrap}
+.unconf p + p{margin-top:10px}
+
+.chart{margin:30px 0 8px;border:1px solid var(--rule);background:var(--paper-raised);padding:26px 26px 20px;border-radius:4px}
+.chart .ch-t{font-size:1.03125rem;font-weight:600;margin-bottom:4px}
+.chart .ch-s{font-size:0.8125rem;color:var(--ink-3);margin-bottom:18px;line-height:1.55}
+.chart svg{display:block;width:100%;height:auto;max-width:760px}
+/* 背景图：HTML 条形（真实 HTML 文字，移动端不缩成小字） */
+.bars{margin-top:8px}
+.bar-row{display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px;align-items:end;margin-bottom:20px}
+.bar-lab{text-align:right}
+.bar-val{font-family:var(--serif-num);font-size:1.5rem;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;display:block}
+.bar-date{font-size:0.8125rem;color:var(--ink-3);display:block;margin-top:4px}
+.bar-track{height:46px;background:var(--rule-soft);border:1px solid var(--rule)}
+.bar-fill{height:100%;background:#9aa39d}
+.bar-fill.tall{background:var(--brass)}
+.bar-note{font-size:0.8125rem;color:var(--ink-2);margin-top:2px;padding-top:12px;border-top:1px solid var(--rule-soft)}
+.chart .ch-n{font-size:0.78125rem;color:var(--ink-3);margin-top:14px;line-height:1.6;border-top:1px solid var(--rule-soft);padding-top:12px}
+
+.ledger{width:100%;border-collapse:collapse;margin:26px 0 8px;font-size:0.90625rem;line-height:1.5}
+.ledger th,.ledger td{border-bottom:1px solid var(--rule);padding:11px 12px;text-align:left;vertical-align:top}
+.ledger thead th{border-bottom:1px solid var(--ink-3);font-size:0.75rem;letter-spacing:.06em;color:var(--ink-2);font-weight:600}
+.ledger tbody th{font-weight:600;color:var(--ink);width:106px}
+.ledger td{color:var(--ink-2)}
+.ledger .st-ok{color:#5d4413;font-weight:600}
+.ledger .st-no{color:#5a544c;font-weight:600}
+
+.hair{height:1px;background:var(--rule);margin:0 0 34px;transform-origin:left center}
+
+/* 动效：发丝线自左绘出（页面唯一一次性动作） */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:1.5625rem}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:2.125rem}
+  .evidence-source{padding-left:26px}
+  .cmp,.ledger{font-size:0.84375rem}
+  .bar-row{grid-template-columns:1fr;gap:8px}
+  .bar-lab{text-align:left}
+  .cmp th,.cmp td,.ledger th,.ledger td{padding:10px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>一个提示做完去年的作业——斯坦福重写编程课</h1>
+        <p class="standfirst">斯坦福 CS146S 把入门编程课的作业从「写代码」改成「读陌生仓库、界定改动、向维护者解释方案」。本文只回答这一个问题，并把已回源与未回源的部分分开标注。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-17</dd></div>
+          <div><dt>素材日期</dt><dd><b>2026-11-09</b> 简报</dd></div>
+          <div><dt>追踪线</dt><dd><b>就业与劳动</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">3</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ───────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <div class="rule-draw hair" style="background:#3a403c"></div>
+    <h2>结论</h2>
+    <p class="verdict">斯坦福没有把作业变难，它换了一把尺子：从「能不能写出来」改成「能不能说清楚改什么、为什么改、拿什么验证」。</p>
+    <p class="verdict-note">触发点是工具侧的能力溢出：当编程 Agent 能用一个提示完成去年的作业，原作业的区分度就失效了。授课者给出的替代方案不是加难，而是换轴：读陌生仓库、界定改动范围、向维护者交代决策。本篇的回源范围止于此：课程评估口径与毕业率是否变化，本次素材内没有可逐字引用的数字，一律标注「未确认」并给出确认方法。</p>
+  </div>
+</section>
+
+<!-- ── 本篇回答哪几个问题 ─────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>本篇回答哪四个问题</h2>
+    <p class="lede">范围先收窄，再逐条标注证据强度。以下四问就是本文的全部。</p>
+    <div class="scope">
+      <p class="scope-lead">四问的共同前提：素材仅取 2026-11-09 那批已回源内容（AI 技术动态简报 11-09，来源 Latent Space / TodayAI 日报 11-09 等）。素材之外的常识性推断一律不写入正文。</p>
+      <ol>
+        <li><b>作业方式改成了什么？</b>：已回源。课程改为读陌生仓库、界定改动并向维护者解释方案。</li>
+        <li><b>学生交什么？</b>：部分回源。交付动作可回源；提交物的物理形态（代码、PR、说明文档、评分量表）未回源。</li>
+        <li><b>课程评估与毕业率口径变没变？</b>：未确认。素材内没有任何可逐字引用的评估或毕业率数字。</li>
+        <li><b>争议点是什么？</b>：未确认。素材内没有关于学术诚信争议的具体表述、主体或数据。</li>
+      </ol>
+    </div>
+    <p>四问之中，第一问是本篇的主干。第二问承接第一问，落到学生实际要交的东西。第三、四问是本次素材的空白区。把它们写成确定答案，等于用常识补数字，正是要避免的做法。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>关键数据</h2>
+    <p class="lede">这三个数不是课程数据。它们回答的是另一件事：为什么去年那份作业必须重写。工具侧的产出速度在同一个时间窗口里跳了一级，旧的区分度自然失效。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">154 万</div>
+        <div class="metric-label">DeepSeek Harness 日活（截至 11 月 4 日）</div>
+        <div class="metric-source">香港01（引彭博）· AI 技术动态简报 2026-11-09 焦点 4</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">27.1 万</div>
+        <div class="metric-label">DeepSeek Harness 9 月底日活</div>
+        <div class="metric-source">香港01（引彭博）· AI 技术动态简报 2026-11-09 焦点 4</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.7 万个</div>
+        <div class="metric-label">TristanTube 收录硬核科普视频数</div>
+        <div class="metric-source">Follow Builders · AI 技术动态简报 2026-11-09 观点 3</div>
+      </div>
+    </div>
+    <p>三者放在一页，是因为它们共同构成「尺子必须换」的外部条件：智能体应用入口在三个月内做到百万级日活，个体开发者用自然语言一次成型一个小工具的耗时压到分钟级。当这些变成常态，「手写一个程序」作为区分度来源就不再成立。</p>
+    <p>需要说明的是：这三个数与斯坦福课程之间没有素材给出的因果链条。它们是同期背景，不是课程决策的依据证明。</p>
+  </div>
+</section>
+
+<!-- ── 旧尺子与新尺子 ─────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>旧尺子与新尺子</h2>
+    <p class="lede">下表逐行标注依据。凡是素材只给了动作、没给形式的，一律写「未确认」，不用推测填满。</p>
+    <table class="cmp">
+      <caption>CS146S 作业形态对照。依据列标注可回源的具体出处。</caption>
+      <thead>
+        <tr><th>维度</th><th>旧作业（去年的形态）</th><th>新作业（2026 年秋的形态）</th><th>依据</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>触发事实</th>
+          <td><em>未确认</em>。素材未描述去年作业的原始要求。</td>
+          <td>编程 Agent 能用一个提示完成去年的作业，作业本身就必须改。</td>
+          <td><span class="src">简报 11-09 焦点 2 · 观点 5</span></td>
+        </tr>
+        <tr>
+          <th>核心动作</th>
+          <td><em>未确认</em>。素材未描述去年作业的原始要求。</td>
+          <td>读陌生仓库 → 界定改动范围 → 向维护者交代决策。</td>
+          <td><span class="src">简报 11-09 焦点 2 · 观点 5</span></td>
+        </tr>
+        <tr>
+          <th>交付内容</th>
+          <td><em>未确认</em>。</td>
+          <td>改动方案的界定与说明；课程改为读陌生仓库、界定改动并向维护者解释方案。</td>
+          <td><span class="src">简报 11-09 焦点 2</span></td>
+        </tr>
+        <tr>
+          <th>区分度来源</th>
+          <td>手写代码本身（由旧动作反推，<em>标注为推断</em>）。</td>
+          <td>审查智能体产出、界定问题与验证结果。</td>
+          <td><span class="src">简报 11-09 技术趋势 1</span></td>
+        </tr>
+        <tr>
+          <th>能力重心</th>
+          <td>写代码。</td>
+          <td>读代码、界定改动范围、向维护者交代决策。</td>
+          <td><span class="src">简报 11-09 观点 5</span></td>
+        </tr>
+        <tr>
+          <th>评分口径</th>
+          <td><em>未确认</em>。</td>
+          <td><em>未确认</em>。素材没有给出课程评估量表或通过标准。</td>
+          <td><span class="src">无出处，见「未确认清单」</span></td>
+        </tr>
+        <tr>
+          <th>毕业率 / 通过率</th>
+          <td><em>未确认</em>。</td>
+          <td><em>未确认</em>。素材没有给出任何通过率或毕业率数字。</td>
+          <td><span class="src">无出处，见「未确认清单」</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>整张表里只有三行有实打实的依据，而这三行都指向同一件事：换的是能力轴，不是难度档位。「评分口径」与「毕业率」两行留白，是本篇最重要的留白。</p>
+  </div>
+</section>
+
+<!-- ── 三项能力 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>新的三项能力</h2>
+    <p class="lede">课程把原来的一个大作业拆成三段可评分的动作：先读陌生仓库，再界定改动范围，最后向维护者交代决策。每一段的「可回源」与「未确认」是分开的标注。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>读陌生仓库</h3>
+        <p>面对一个不熟悉的代码库，理解其结构与约束。这是「读代码」取代「写代码」的第一段。</p>
+        <span class="c-tag ok">可回源 · 简报 11-09 焦点 2</span>
+      </div>
+      <div class="card">
+        <h3>界定改动范围</h3>
+        <p>明确指出要改哪里、改到什么程度、哪些部分不动。素材只给了这一动作的名称。</p>
+        <span class="c-tag ok">可回源 · 简报 11-09 观点 5</span>
+      </div>
+      <div class="card">
+        <h3>向维护者交代决策</h3>
+        <p>把方案讲给代码库的维护者听。可回源的是这一交付动作；具体提交形式未确认。</p>
+        <span class="c-tag ok">可回源 · 简报 11-09 焦点 2</span>
+      </div>
+    </div>
+    <div class="unconf">
+      <span class="u-tag">未确认</span>
+      <p><b>三项能力各自的评分权重与提交物形态。</b>素材只给出能力名称与交付动作，没有给出评分表、提交物清单（代码仓库链接 / PR / 文档 / 演示）或权重分配。</p>
+      <p><b>确认方法：</b>查 Stanford CS146S 官方课程页的 assignments 与 grading 页面，逐条比对三项能力是否出现在评分项中；再回查 Latent Space 原文（2026-11-09，TodayAI 日报转载）正文是否附有课程大纲或作业页面截图。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 学生交什么 ─────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>学生交什么</h2>
+    <p class="lede">把「交付动作」和「提交物」分开，才能看清素材支持到哪一步。</p>
+    <p>素材能确认的，是学生要完成的三类交付动作：读陌生仓库、界定改动并向维护者解释方案；以及授课者给出的能力表述：核心能力从写代码转向读代码、界定改动范围、向维护者交代决策。换句话说，交付物从「一个由学生写的程序」变成了「一份针对他人代码库、由学生界定并解释的改动方案」。</p>
+    <p>素材不能确认的，是提交物的物理形态和它在成绩里的位置。课程是否接受 pull request、是否要求一段文字说明、是否有机器辅助检查、这份交付占多少分，11-09 的素材里一个字都没有。</p>
+    <div class="unconf">
+      <span class="u-tag">未确认</span>
+      <p><b>学生提交物的清单、格式与评分权重。</b></p>
+      <p><b>确认方法：</b>查 CS146S 课程页的作业说明与评分表；若课程页已改版，可在 Wayback Machine 取 2026 年秋季学期快照，与旧版作业页做逐条比对，直接得到「作业改写前后的提交物差异」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 评估与毕业率 ───────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>评估口径与毕业率</h2>
+    <p class="lede">这两项是本篇问得最直接、素材答得最空的两条。任何肯定回答都需要素材以外的证据。</p>
+    <table class="ledger">
+      <thead>
+        <tr><th>问题</th><th>素材内证据</th><th>状态</th><th>确认方法</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>课程评估方式是否改变</th>
+          <td>只有一条间接线索：技术趋势条目把教学标准概括为「重心从手写代码转向审查智能体产出、界定问题与验证结果」。这是简报对标准的概括，不等于课程官方评估口径。</td>
+          <td class="st-no">未确认</td>
+          <td>查课程页 grading 段落与作业页评分项；比对改版前后快照。</td>
+        </tr>
+        <tr>
+          <th>通过率 / 毕业率是否变化</th>
+          <td>无。素材内没有任何通过率、毕业率或退课率数字。</td>
+          <td class="st-no">未确认</td>
+          <td>查 Stanford 教务公开统计与 CS146S 历史学期公告；若课程不公开，则查公开课评与学生社群讨论的定性反馈。</td>
+        </tr>
+        <tr>
+          <th>学术诚信政策是否更新</th>
+          <td>无。素材内没有提到作弊、披露 AI 使用或类似政策文本。</td>
+          <td class="st-no">未确认</td>
+          <td>查课程页 academic integrity / AI use 政策段落与改版时间戳。</td>
+        </tr>
+        <tr>
+          <th>授课者的公开理由</th>
+          <td>有，逐字可引：当编程 Agent 能用一个提示完成去年的作业，作业本身就必须改。</td>
+          <td class="st-ok">已回源</td>
+          <td>已回源（简报 11-09 观点 5，引 Latent Space / TodayAI 日报 11-09）。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>把这张表和上一节的对照表并排看，结论是：课程<strong>动作</strong>层面改写已经有回源支撑，课程<strong>评估与产出指标</strong>层面完全没有。一个常见的误读是，用「作业改了」反推「评估有效了」或「通过率变了」。素材不支持这个推论。</p>
+  </div>
+</section>
+
+<!-- ── 争议 ───────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>争议点</h2>
+    <p class="lede">本篇不虚构一场争论。可回源的是张力本身，不可回源的是围绕它的具体指控与数据。</p>
+    <p>素材里能读出的张力有两条。第一条来自授课者本人：当编程 Agent 能用一个提示完成去年的作业，作业本身就必须改。改作业不是降低标准，而是重新定义合格。第二条来自技术趋势条目：人才与教学标准重写，AI 原生工程能力重心从手写代码转向审查智能体产出、界定问题与验证结果。这等于把「产出会被 Agent 审查」写进了能力标准。</p>
+    <p>但「学术诚信争议」在本篇素材里没有对应事实：没有学生或教师对作弊、披露、评分争议的任何表述，没有课程方的回应，没有第三方评论，也没有相关数据。因此本篇只把它列为待查事项，不写成结论。</p>
+    <div class="unconf">
+      <span class="u-tag">未确认</span>
+      <p><b>围绕这次改写的争议是否存在、由谁提出、包含哪些具体指控。</b></p>
+      <p><b>确认方法：</b>取 2026-11-09 之后的 Latent Space 相关原文与评论区，检索课程官方讨论区与公开邮件列表存档，按「assignment redesign / academic integrity / AI policy」三组关键词定位原始发言；发言人、日期、原话须逐字引用后，才能进入本篇的证据层。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 背景图：工具侧的速度变化 ───────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>背景图：同一窗口里的速度差</h2>
+    <p class="lede">这张图只画素材里的两个数。它说明的是背景，不是课程改版的因果。</p>
+    <div class="chart">
+      <div class="ch-t">DeepSeek Harness 日活：9 月底 → 11 月 4 日</div>
+      <div class="ch-s">单位：万日活。口径为素材原文数字，未做换算。</div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bar-lab"><span class="bar-val">27.1 万</span><span class="bar-date">2026-09-30</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:17.6%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lab"><span class="bar-val">154 万</span><span class="bar-date">2026-11-04</span></div>
+          <div class="bar-track"><div class="bar-fill tall" style="width:100%"></div></div>
+        </div>
+        <p class="bar-note">约 5.7 倍（154 ÷ 27.1，本页自算）</p>
+      </div>      <div class="ch-n">自算说明：154 ÷ 27.1 ≈ 5.68，即约 5.7 倍；自算值不进入断言层，断言层只收素材原文数字。数据出处：香港01（引彭博）经 AI 技术动态简报 2026-11-09 焦点 4 转述。</div>
+    </div>
+    <p>图里唯一不是素材给出的，是那条约 5.7 倍，它由本页用两个原文数字相除得到，并已在图下标注。除此之外，日期、数值、口径全部照素材原样转写，没有四舍五入，也没有把「截至 11 月 4 日」与「9 月底」混成同一时点。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ───────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>进程</h2>
+    <p class="lede">时间为素材记录时间。素材未给出课程改版的具体生效日期，因此不写「某月某日课程发布新作业」。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09-30</span>
+        <div>
+          <div class="timeline-title">DeepSeek Harness 推出不足三个月，日活约 27.1 万</div>
+          <div class="timeline-detail">Agent 应用入口进入百万级增长通道的前段。同期基线来自简报 11-09 焦点 4。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-04</span>
+        <div>
+          <div class="timeline-title">Harness 日活达 154 万</div>
+          <div class="timeline-detail">距 9 月底约五周的窗口内，日活从 27.1 万涨到 154 万。这条速度线与课程改写处在同一个时间窗口。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">简报记录斯坦福 CS146S 重写编程课作业</div>
+          <div class="timeline-detail">当 Agent 一个提示完成去年作业，课程改为读陌生仓库、界定改动并向维护者解释方案。来源为 Latent Space（TodayAI 日报 11-09）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">授课者给出改写理由</div>
+          <div class="timeline-detail">Mihail Eric（斯坦福 CS146S 授课者）：当编程 Agent 能用一个提示完成去年的作业，作业本身就必须改；核心能力从写代码转向读代码、界定改动范围、向维护者交代决策。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-09</span>
+        <div>
+          <div class="timeline-title">简报把这件事归入「人才与教学标准重写」</div>
+          <div class="timeline-detail">重心从手写代码转向审查智能体产出、界定问题与验证结果。这是课程改写被放进就业与劳动这条线上的依据。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ───────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>证据</h2>
+    <p class="lede">以下均为素材原文逐字引用。引用时未改写、未补标点。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">斯坦福 CS146S 重写编程课作业：当 Agent 一个提示完成去年作业，课程改为读陌生仓库、界定改动并向维护者解释方案。</p>
+        <cite class="evidence-source">AI 技术动态简报 2026-11-09 · 今日焦点第 2 条 · 来源：Latent Space（TodayAI 日报 11-09）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">当编程 Agent 能用一个提示完成去年的作业，作业本身就必须改；核心能力从写代码转向读代码、界定改动范围、向维护者交代决策。</p>
+        <cite class="evidence-source">AI 技术动态简报 2026-11-09 · 热门观点第 5 条 · Mihail Eric（斯坦福 CS146S 授课者）· 来源：Latent Space（TodayAI 日报 11-09）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">人才与教学标准重写：AI 原生工程能力重心从手写代码转向审查智能体产出、界定问题与验证结果。</p>
+        <cite class="evidence-source">AI 技术动态简报 2026-11-09 · 技术趋势第 1 条 · 来源：Latent Space</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">DeepSeek 开源智能体应用 Harness 日活达 154 万（截至 11 月 4 日），推出不足三个月，9 月底约 27.1 万。</p>
+        <cite class="evidence-source">AI 技术动态简报 2026-11-09 · 今日焦点第 4 条 · 来源：香港01（引彭博）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">用 Claude Code 三分钟一次成型做出 TristanTube，收录 4.7 万个硬核科普视频；需求足够具体时，"想法到可用小工具"已压到分钟级。</p>
+        <cite class="evidence-source">AI 技术动态简报 2026-11-09 · 热门观点第 3 条 · Andrej Karpathy · 来源：Follow Builders</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 回源台账 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>回源台账</h2>
+    <p class="lede">逐条写明数字、它的口径、出处，以及能否逐字回源。</p>
+    <table class="ledger">
+      <thead>
+        <tr><th>数字 / 事实</th><th>口径</th><th>出处</th><th>状态</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>154 万</th>
+          <td>DeepSeek Harness 日活，截至 11 月 4 日。</td>
+          <td>简报 11-09 焦点 4（香港01 引彭博）</td>
+          <td class="st-ok">已回源</td>
+        </tr>
+        <tr>
+          <th>27.1 万</th>
+          <td>同一产品 9 月底日活；产品推出不足三个月。</td>
+          <td>简报 11-09 焦点 4（香港01 引彭博）</td>
+          <td class="st-ok">已回源</td>
+        </tr>
+        <tr>
+          <th>4.7 万个</th>
+          <td>TristanTube 收录的硬核科普视频数。</td>
+          <td>简报 11-09 观点 3（Follow Builders）</td>
+          <td class="st-ok">已回源</td>
+        </tr>
+        <tr>
+          <th>约 5.7 倍</th>
+          <td>本页以 154 ÷ 27.1 自算，非素材原文。</td>
+          <td>本页自算，图下已标注</td>
+          <td class="st-no">不入断言层</td>
+        </tr>
+        <tr>
+          <th>新作业三段动作</th>
+          <td>读陌生仓库、界定改动、向维护者解释方案。</td>
+          <td>简报 11-09 焦点 2 · 观点 5</td>
+          <td class="st-ok">已回源</td>
+        </tr>
+        <tr>
+          <th>去年作业的原始要求</th>
+          <td>素材未描述。</td>
+          <td>—</td>
+          <td class="st-no">未确认</td>
+        </tr>
+        <tr>
+          <th>评分口径与通过率</th>
+          <td>素材无任何数字或文本。</td>
+          <td>—</td>
+          <td class="st-no">未确认</td>
+        </tr>
+        <tr>
+          <th>毕业率变化</th>
+          <td>素材无任何数字。</td>
+          <td>—</td>
+          <td class="st-no">未确认</td>
+        </tr>
+        <tr>
+          <th>学术诚信争议</th>
+          <td>素材无相关表述、主体或数据。</td>
+          <td>—</td>
+          <td class="st-no">未确认</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>方法。</b>素材范围限定为 AI 技术动态简报 2026-11-09（含今日焦点、热门观点、技术趋势三个板块）。正文中的每一条事实与每一个数字，都能在该文件中逐字定位；不能定位的一律写「未确认」，并在同一处给出确认方法。本页不使用该素材之外的课程信息、统计数据或第三方评论。</p>
+    <p><b>局限。</b>本篇只回答课程改了什么、交付动作是什么；评估口径、毕业率与争议三处留白，是素材的真实边界，不是行文的省略。补齐这三处需要回到课程官方页面与 Latent Space 原文，按上文确认方法逐条回源。</p>
+    <p><b>声明。</b>本页是研究性梳理，不代表 Stanford 大学立场，也不构成对 CS146S 教学效果的任何评价。图中的自算值已在图下标注，不进入断言层。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {
+    "value": "154 万",
+    "label": "DeepSeek Harness 日活（截至 11 月 4 日）",
+    "quote": "日活达 154 万（截至 11 月 4 日）"
+  },
+  {
+    "value": "27.1 万",
+    "label": "DeepSeek Harness 9 月底日活",
+    "quote": "9 月底约 27.1 万"
+  },
+  {
+    "value": "4.7 万个",
+    "label": "TristanTube 收录硬核科普视频数",
+    "quote": "收录 4.7 万个硬核科普视频"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

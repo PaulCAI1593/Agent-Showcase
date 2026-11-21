@@ -36,6 +36,7 @@ auto_maintain.py — 展厅零 token 维护守护进程
 
 import argparse
 import datetime
+import fcntl
 import json
 import os
 import re
@@ -59,10 +60,23 @@ STATE_FILE = os.path.join(STATE_DIR, 'auto_maintain.json')
 HEARTBEAT_STATUS = os.path.join(WORKSPACE, 'HEARTBEAT_STATUS.md')
 LOG_DIR = os.path.join(ROOT, 'logs')
 LOG_FILE = os.path.join(LOG_DIR, 'auto_maintain.log')
+# 单实例锁：auto_maintain 与它的看门狗（auto_maintain_watchdog.sh /
+# auto_maintain_keepalive.sh）都可能拉起守护进程，两个实例同时写
+# HEARTBEAT_STATUS.md 会互相覆盖行。fcntl.flock 随进程退出自动释放，
+# 不会留下陈旧锁（陈旧锁会让守护再也起不来）。
+LOCK_FILE = os.path.join(LOG_DIR, 'auto_maintain.lock')
+# 锁的持有者 pid 另存一份给看门狗脚本判断「是不是已经有实例在跑」
+PID_FILE = os.path.join(LOG_DIR, 'auto_maintain.pid')
+# 视为「当前健康」的 cron 状态
+HEALTHY_STATUS = ('success', 'ok', 'running', '未首次运行')
 # 心跳 TODO 区块只保留最近这么多行 —— 否则守护每 30 分钟加一批，会无限膨胀
 MAX_TODO_ROWS = 24
 # 已处置行保留条数（未处置行不再受此上限约束，见 write_heartbeat）
 MAX_SETTLED_ROWS = 12
+# 「已自愈」说明行单独保留条数 —— 它是「某 cron 已恢复」的持久证据，
+# 不能被上面的已处置行上限挤掉（11-16 实测：说明行 04:50 写入，
+# 05:21 那一轮就被挤没了，证据等于没留）。
+MAX_HEALED_ROWS = 6
 
 # cron 间隔的粗略映射（分钟）—— 用于判断「该跑了却没跑」
 CRON_INTERVAL_HINT = {
@@ -146,6 +160,82 @@ def parse_json(text):
     return None
 
 
+# ── ⓪ 单实例锁 ────────────────────────────────────────────
+def _lock_holder():
+    """读锁文件里的持有者信息 → (pid, started_at, argv)。读不到返回 (None,'','')。
+
+    锁文件格式：第 1 行 pid，第 2 行 JSON 详情（便于 shell 脚本 head -1 读 pid）。
+    """
+    try:
+        with open(LOCK_FILE, encoding='utf-8') as f:
+            raw = f.read()
+    except OSError:
+        return (None, '', '')
+    lines = raw.split('\n')
+    pid = None
+    if lines and lines[0].strip().isdigit():
+        pid = int(lines[0].strip())
+    info = {}
+    if len(lines) > 1 and lines[1].strip():
+        try:
+            info = json.loads(lines[1])
+        except Exception:
+            info = {}
+    return (pid, info.get('started_at', ''), info.get('argv', ''))
+
+
+def acquire_instance_lock():
+    """拿单实例排他锁。
+
+    返回 (fd, pid)：成功时 fd 必须**一直持有**（进程退出时内核自动释放）。
+    返回 (None, holder_pid, holder_info)：拿不到（已有实例在跑）。
+
+    用 fcntl.flock(LOCK_EX|LOCK_NB) 而非 O_EXCL 锁文件：flock 由内核管理，
+    进程被 kill -9 也会自动释放，不会留下「陈旧锁」把守护锁死。
+    """
+    os.makedirs(LOG_DIR, exist_ok=True)
+    fd = os.open(LOCK_FILE, os.O_CREAT | os.O_RDWR, 0o644)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        pid, started_at, argv = _lock_holder()
+        os.close(fd)
+        return (None, None, {'pid': pid, 'started_at': started_at, 'argv': argv})
+    payload = json.dumps({
+        'pid': os.getpid(),
+        'started_at': bj_now().isoformat(timespec='seconds'),
+        'argv': ' '.join(sys.argv),
+    }, ensure_ascii=False)
+    os.ftruncate(fd, 0)
+    os.write(fd, f'{os.getpid()}\n{payload}\n'.encode('utf-8'))
+    os.fsync(fd)
+    # pidfile 给看门狗脚本用（它读它判断守护是否活着）
+    try:
+        with open(PID_FILE, 'w', encoding='utf-8') as f:
+            f.write(f'{os.getpid()}\n')
+    except OSError:
+        pass
+    return (fd, os.getpid(), {})
+
+
+def release_instance_lock(fd):
+    """释放锁并清掉 pidfile（只删自己写的那个）。"""
+    try:
+        if os.path.exists(PID_FILE):
+            with open(PID_FILE, encoding='utf-8') as f:
+                if f.read().strip() == str(os.getpid()):
+                    os.remove(PID_FILE)
+    except OSError:
+        pass
+    try:
+        if fd is not None:
+            os.ftruncate(fd, 0)
+            fcntl.flock(fd, fcntl.LOCK_UN)
+            os.close(fd)
+    except OSError:
+        pass
+
+
 # ── ① 展厅收敛 ────────────────────────────────────────────
 def converge_showcase():
     # 不再传 --quiet-seconds 0：强制绕过门禁会把**作者正在写的初稿**直接
@@ -169,19 +259,58 @@ def last_history_entry(jid):
 
     返回 {'run_at':..., 'status':..., 'error':...} 或 None。
     """
+    runs = last_history_entries(jid, 1)
+    return runs[-1] if runs else None
+
+
+def last_history_entries(jid, n=2):
+    """取最近 n 次运行记录，按 run_at 升序返回（最旧在前）。"""
     p = os.path.join(WORKSPACE, 'jobs_history', jid + '.json')
     if not os.path.exists(p):
-        return None
+        return []
     try:
         with open(p, encoding='utf-8') as f:
             hist = json.load(f)
     except Exception:
-        return None
+        return []
     runs = [e for e in hist if isinstance(e, dict) and e.get('run_at')]
-    if not runs:
-        return None
     runs.sort(key=lambda e: str(e.get('run_at')))
-    return runs[-1]
+    return runs[-n:] if n else runs
+
+
+def _parse_ts(s):
+    """把 ISO 时间串转成 datetime（比较新旧用）。解析不了返回 None。"""
+    if not s:
+        return None
+    try:
+        return datetime.datetime.fromisoformat(str(s).replace('Z', '+00:00'))
+    except Exception:
+        return None
+
+
+def resolve_status(state_status, state_run, hist_status, hist_run):
+    """双源判定 cron 当前状态：取「运行时间较新」的那条证据。
+
+    为什么必须双源（只看一个都会错）：
+      · `cron state` 是**运行内存**里的字段，qwenpaw 一重启就全变 null
+        （11-04 实测：6 个 cron 的 last_status 同时变 null，而 jobs_history
+        里明明记着当天 success）—— 只看 state 会把健康 cron 误判成失败。
+      · `jobs_history/<id>.json` 是磁盘上的持久记录，但只由 cron 自己追加，
+        进程刚重启还没跑到时它比内存旧 —— 只看 history 会漏掉最新一轮结果。
+    所以两条都读，按 run_at 取新的那条；时间都缺时优先 state（内存更新鲜）。
+
+    返回 (status, run_at)。
+    """
+    ts, th = _parse_ts(state_run), _parse_ts(hist_run)
+    if ts and th:
+        if th > ts:
+            return hist_status, hist_run
+        return state_status, state_run
+    if ts:
+        return state_status, state_run
+    if th:
+        return hist_status, hist_run
+    return (state_status or hist_status), (state_run or hist_run)
 
 
 def check_crons():
@@ -212,23 +341,25 @@ def check_crons():
             continue
         rc2, out2, err2 = run(['qwenpaw', 'cron', 'state', jid, '--agent-id', 'default'], timeout=60)
         st = parse_json(out2) or {}
-        status = st.get('last_status', '?')
-        last = st.get('last_run_at')
-        # ⚠️ `cron state` 的 last_* 是**运行内存**里的字段：qwenpaw 进程一重启就全变 null
-        # （实测 11-04 09:24 重启后，6 个 cron 的 state.last_status 同时变 null，
-        #   而 jobs_history/*.json 里明明记着当天 success）。
-        # 只看它 → 每轮巡检都把 6 个健康 cron 误判成「上次状态 None」的 🔴，
-        #   白白污染 TODO 表、把真故障淹没在噪声里。
-        # 因此：state 为 null 时回落读磁盘上的 jobs_history（跨重启持久）。
-        if not status or status == 'None':
-            h = last_history_entry(jid)
-            if h:
-                status = h.get('status') or status
-                last = h.get('run_at') or last
-            else:
-                # 既无内存态也无历史 → 这个 cron 从未跑过（如新建的周度发布 job）。
-                # 「还没到点」不是故障，判为正常，等它第一次触发。
-                status = '未首次运行'
+        # ── 双源证据：内存 state + 磁盘 jobs_history ──
+        state_status = (st.get('last_status') or '').strip() or None
+        if state_status in ('None', 'null', 'undefined'):
+            state_status = None
+        state_run = st.get('last_run_at')
+        hist = last_history_entries(jid, 2)
+        h_last = hist[-1] if hist else {}
+        h_prev = hist[-2] if len(hist) > 1 else {}
+        hist_status = (h_last.get('status') or '').strip() or None
+        if hist_status in ('None', 'null', 'undefined'):
+            hist_status = None
+        hist_run = h_last.get('run_at')
+        prev_status = (h_prev.get('status') or '').strip() or None
+        # 取较新的一条证据作为「当前状态」
+        status, last = resolve_status(state_status, state_run, hist_status, hist_run)
+        if not status:
+            # 既无内存态也无历史 → 这个 cron 从未跑过（如新建的周度发布 job）。
+            # 「还没到点」不是故障，判为正常，等它第一次触发。
+            status = '未首次运行'
         age_min = None
         if last:
             try:
@@ -244,14 +375,21 @@ def check_crons():
         late = age_min is not None and age_min > interval * 2.5
         # running = 此刻正在执行。它会被**自己**判成 🔴 —— 例会跑起来时
         # 守护同时在记「例会 cron 异常」，每 30 分钟污染一次 TODO 表。
-        ok = (status in ('success', 'ok', '未首次运行', 'running')) and not late
+        ok = (status in HEALTHY_STATUS) and not late
+        # 自愈信号：上一轮是失败、这一轮是成功 → 该 cron 已经好了，
+        # 它此前留在 TODO 表里的待处理行是陈旧残留，必须清掉。
+        self_healed = ok and prev_status not in (None, 'success', 'ok')
         note = ''
-        if status not in ('success', 'ok', '未首次运行', 'running'):
+        if status not in HEALTHY_STATUS:
             note = err or f'上次状态 {status}'
         elif late:
             note = f'已 {age_min/60:.0f} 小时未跑（应每 {interval/60:.0f} 小时）'
         results.append({'name': name, 'status': status, 'age_min': age_min,
-                        'ok': ok, 'note': note})
+                        'ok': ok, 'note': note,
+                        'state_status': state_status, 'state_run_at': state_run,
+                        'hist_status': hist_status, 'hist_run_at': hist_run,
+                        'prev_status': prev_status, 'self_healed': self_healed,
+                        'run_at': last})
     return results
 
 
@@ -455,26 +593,92 @@ def write_heartbeat(crons, showcase_ok, showcase_detail, extra=None):
     # 否则写在中段的持久条目会被后续巡检轮次挤掉（2026-11-12 实测 31 行→末 24 行）。
     pending = [l for l in rows_txt if not l.rstrip().endswith('✅已处置 |')]
     settled = [l for l in rows_txt if l.rstrip().endswith('✅已处置 |')]
+
+    # ── 陈旧失败不重登 ──────────────────────────────────────
+    # 某 cron 当前 status=success（依据 = cron state + jobs_history 双源）时，
+    # 它此前留在 TODO 表里的「cron「X」异常」待处理行就是**陈旧残留**：
+    # 故障已自愈，行还挂着 → 已自愈的 cron 长期占着待处理区，真故障被淹没。
+    # 实证（11-16）：cron「每日AI技术动态简报」11-15 21:09 已 success，
+    #   11-15 20:40 那行 feishu 报错仍标待处理；cron「展厅守护保活」当前 success，
+    #   11-14 22:21 那行报错仍标待处理。
+    # 处置：删掉陈旧行 + 留一条标注「已自愈」的说明（状态 ✅已处置）。
+    healthy = {c['name']: c for c in crons if c['ok']}
+    cron_row_re = re.compile(r'^cron「(.+?)」(异常|已自愈)$')
+
+    def _prob_cell(l):
+        parts = [x.strip() for x in l.split('|')]
+        return parts[3] if len(parts) > 3 else l.strip()
+
+    def _cron_of(l):
+        m = cron_row_re.match(_prob_cell(l))
+        return m.group(1) if m else None
+
+    def _cron_state(l):
+        m = cron_row_re.match(_prob_cell(l))
+        return m.group(2) if m else None
+
+    # 已有「已自愈」说明行的 cron —— 已有就不再重复写
+    noted = set()
+    for l in rows_txt:
+        if _cron_state(l) == '已自愈':
+            nm = _cron_of(l)
+            if nm:
+                noted.add(nm)
+
+    kept_pending = []
+    healed_rows = []
+    healed_seen = set()
+    for l in pending:
+        nm = _cron_of(l)
+        if nm and nm in healthy and _cron_state(l) == '异常':
+            # 陈旧行 → 本轮要删（下面统一处理）
+            healed_seen.add(nm)
+            continue
+        kept_pending.append(l)
+    # 对每个「本轮已健康、且有待处理残留或历史上刚自愈」的 cron：
+    #   ① 删掉它的待处理行；② 补一条「已自愈」说明行（已有则不重复写）
+    for nm in list(healed_seen) + [c['name'] for c in crons
+                                  if c.get('self_healed') and c['ok'] and c['name'] not in healed_seen]:
+        if nm not in healthy or nm in noted:
+            continue
+        c = healthy[nm]
+        when = str(c.get('run_at') or c.get('hist_run_at') or '')
+        when = when.replace('T', ' ')[:16]
+        why = '陈旧待处理行已清除' if nm in healed_seen else '上一轮失败已恢复'
+        healed_rows.append(
+            f'| {ts} | 🟢 | cron「{nm}」已自愈 | '
+            f'最近一次运行 {c.get("status")}'
+            + (f'（{when}）' if when else '')
+            + f' —— {why} | ✅已处置 |')
+        noted.add(nm)
+    # 陈旧待处理行真正删除：凡属已健康 cron 的「cron「X」异常」行一律剔除
+    kept_pending = [l for l in kept_pending
+                    if not (_cron_of(l) in healthy and _cron_state(l) == '异常')]
+    pending = kept_pending
+    if healed_rows:
+        log(f'清理陈旧失败行 {len(healed_rows)} 条：' +
+            '、'.join(_cron_of(l) or '?' for l in healed_rows))
+
     # 去重：同一「问题」的重复登记只留最后一条 —— 守护每 30min 会把同一个
     # cron 失败按**当前时间**重写成新行（2026-11-13 22:20→23:28 刷了 15 行，
     # 撑破 100 行上限且淹没真异常）。按「问题列」归并即可。
-    def _prob(l):
-        parts = [x.strip() for x in l.split('|')]
-        return parts[3] if len(parts) > 3 else l.strip()
     # 把本轮新行与旧行放在一起按「问题列」归并，**只留最新一条**：
     # 这样同一 cron 失败不会每 30min 刷一行，把真异常淹没、撑破 100 行上限。
-    new_rows = [l for l in lines if l.strip()]
-    def _prob(l):
-        parts = [x.strip() for x in l.split('|')]
-        return parts[3] if len(parts) > 3 else l.strip()
+    new_rows = [l for l in lines if l.strip()] + healed_rows
     order, latest = [], {}
     for l in pending + new_rows:
-        k = _prob(l)
+        k = _prob_cell(l)
         if k not in latest:
             order.append(k)
         latest[k] = l
     merged = [latest[k] for k in order]
-    keep = merged + settled[-MAX_SETTLED_ROWS:]
+    # 「已自愈」说明行单独留一份（不被已处置行上限挤掉）——
+    # 它是「某个 cron 已恢复」的持久证据，被挤掉就等于没留痕。
+    healed_notes = [l for l in settled if _cron_state(l) == '已自愈']
+    settled_other = [l for l in settled if _cron_state(l) != '已自愈']
+    keep = (merged
+            + healed_notes[-MAX_HEALED_ROWS:]
+            + settled_other[-MAX_SETTLED_ROWS:])
     new = '\n'.join(head + keep) + '\n'   # 本轮新行已并入 merged，不重复追加
     s = s.replace(block, new, 1)
     try:
@@ -496,6 +700,7 @@ def write_state(crons, showcase_ok, showcase_detail):
                 'showcase_detail': showcase_detail,
                 'crons': crons,
                 'cron_bad': [c['name'] for c in crons if not c['ok']],
+                'cron_healed': [c['name'] for c in crons if c.get('self_healed')],
             }, f, ensure_ascii=False, indent=2)
     except OSError:
         pass
@@ -534,6 +739,31 @@ def main():
     ap.add_argument('--design', action='store_true', help='本轮跑全量设计棘轮（detect 规则分布）')
     args = ap.parse_args()
 
+    # ── 单实例闸门 ──────────────────────────────────────────
+    # auto_maintain 与它的看门狗脚本（auto_maintain_watchdog.sh /
+    # auto_maintain_keepalive.sh / restart_automaintain.sh）都可能拉起守护。
+    # 两个实例同时写 HEARTBEAT_STATUS.md 会互相覆盖行（谁后写谁赢），
+    # 也可能出现「A 正在改、B 正在读」的半截文件。
+    # 这里用 fcntl.flock 排他锁把关：拿不到锁 → 打日志直接退出，**不做任何写入**。
+    lock_fd, lock_pid, holder = acquire_instance_lock()
+    if lock_fd is None:
+        holder = holder if isinstance(holder, dict) else {}
+        started = holder.get('started_at') or ''
+        argv = holder.get('argv') or ''
+        log(f'单实例锁：已有实例在运行（pid={holder.get("pid") or "?"}'
+            + (f'，启动于 {started}' if started else '')
+            + (f'，命令 {argv}' if argv else '')
+            + '）→ 本次退出（未做任何写入）')
+        return 3
+    log(f'已取得单实例锁（pid={lock_pid}，锁文件 {LOCK_FILE}）')
+    try:
+        return _run(args)
+    finally:
+        release_instance_lock(lock_fd)
+        log('已释放单实例锁')
+
+
+def _run(args):
     if args.once:
         ok, detail = (True, '') if args.no_showcase else converge_showcase()
         crons = check_crons()

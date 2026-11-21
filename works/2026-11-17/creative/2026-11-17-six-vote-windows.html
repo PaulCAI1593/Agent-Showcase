@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一年只剩六个窗口 —— 美联储把日历砍半，市场把概率打满</title>
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="2027 年 10 月会议不再投票，2028 年起常规利率窗口缩至 6 次；同期 CME 12 月加息 25bp 概率 93.5%。">
+<style>
+:root{
+  --paper:#EDEFF2;
+  --paper-2:#E1E4E9;
+  --ink:#141519;
+  --ink-2:#282A31;
+  --muted:#4F525A;
+  --muted-2:#63666E;
+  --red:#A81F14;
+  --red-soft:#D8564A;
+  --blue:#1C3D5A;
+  --line:#C6C9D0;
+  --line-dark:#3A3C44;
+  --serif:Georgia,"Songti SC","Noto Serif SC","Source Han Serif SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  font-feature-settings:"tnum" 1;overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-0.02em;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.shell{width:100%;max-width:1180px;margin-inline:auto}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;padding:72px 20px 56px;
+  border-bottom:2px solid var(--ink);background:var(--paper);
+}
+@media(min-width:900px){.hero{padding:104px 44px 64px}}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:22px;
+}
+.hero-meta b{color:var(--red);font-weight:700}
+h1{font-size:clamp(38px,7.4vw,88px);line-height:1.04;letter-spacing:-0.035em;max-width:16ch}
+h1 .cut{color:var(--red);position:relative;white-space:nowrap}
+h1 .cut::after{
+  content:"";position:absolute;left:-.06em;right:-.06em;top:54%;height:.075em;
+  background:var(--red);transform:rotate(-1.4deg);
+}
+.deck{
+  font-family:var(--serif);font-size:clamp(17px,2.1vw,23px);line-height:1.5;
+  color:var(--ink-2);max-width:44ch;margin-top:22px;
+}
+.deck b{color:var(--red);font-weight:700}
+
+.strip{
+  margin-top:clamp(34px,5vw,54px);display:grid;
+  grid-template-columns:repeat(4,1fr);gap:clamp(5px,.7vw,9px);
+}
+@media(min-width:680px){.strip{grid-template-columns:repeat(8,1fr)}}
+.win{
+  position:relative;aspect-ratio:3/4.4;background:var(--ink);
+  border-radius:2px;overflow:hidden;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:8px 7px;min-width:0;
+}
+.win .m{font-family:var(--mono);font-size:13px;color:#E8EAF0;letter-spacing:.04em;line-height:1.25}
+.win .d{font-family:var(--mono);font-size:12px;color:#AEB1BA;line-height:1.35;margin-top:3px;word-break:keep-all}
+.win.vote::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--blue)}
+.win.novote{background:var(--paper-2);border:2px solid var(--red)}
+.win.novote .m,.win.novote .d{color:var(--red)}
+.win.novote::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom right,transparent calc(50% - 1.5px),var(--red) calc(50% - 1.5px),var(--red) calc(50% + 1.5px),transparent calc(50% + 1.5px));
+}
+.strip-legend{
+  display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;
+  font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.03em;
+}
+.strip-legend span{display:inline-flex;align-items:center;gap:7px}
+.swatch{width:13px;height:13px;border-radius:2px;display:inline-block}
+.sw-vote{background:var(--ink);box-shadow:inset 0 4px 0 var(--blue)}
+.sw-no{background:var(--paper-2);border:2px solid var(--red)}
+
+/* ---------- SECTIONS ---------- */
+section{padding:64px 20px;border-bottom:1px solid var(--line)}
+@media(min-width:900px){section{padding:88px 44px}}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 28px;margin-bottom:clamp(26px,4vw,42px)}
+h2{font-size:clamp(27px,4.2vw,46px);line-height:1.12;letter-spacing:-0.03em;max-width:20ch}
+.sec-note{
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--muted);
+  border-top:1px solid var(--line);padding-top:9px;max-width:38ch;line-height:1.65;
+}
+.lede{font-family:var(--serif);font-size:clamp(16px,1.9vw,20px);line-height:1.6;color:var(--ink-2);max-width:52ch}
+
+/* ---------- PROBABILITY BOARD ---------- */
+.board{border:2px solid var(--ink);background:#fff}
+.board-top{
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  gap:12px 20px;padding:15px 18px;border-bottom:2px solid var(--ink);
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);
+}
+.board-top strong{color:var(--ink);font-size:13px;letter-spacing:.04em}
+.board-ctrl{display:flex;border:1.5px solid var(--ink);border-radius:3px;overflow:hidden}
+.board-ctrl button{
+  background:#fff;border:0;padding:8px 14px;cursor:pointer;
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  transition:background .18s ease,color .18s ease;
+}
+.board-ctrl button+button{border-left:1.5px solid var(--ink)}
+.board-ctrl button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.board-ctrl button:hover:not([aria-pressed="true"]){background:var(--paper-2)}
+
+.split{display:flex;height:clamp(50px,7vw,80px);position:relative;border-bottom:2px solid var(--ink)}
+.split .seg{
+  transition:flex-grow .55s cubic-bezier(.2,.75,.25,1);min-width:0;position:relative;
+}
+.seg-25{background:var(--ink);flex-grow:93.5}
+.seg-50{background:var(--red);flex-grow:6.5;box-shadow:inset 2px 0 0 var(--paper)}
+.split[data-view="11-13a"] .seg-25{flex-grow:88.5}
+.split[data-view="11-13a"] .seg-50{flex-grow:11.5}
+.split[data-view="11-13b"] .seg-25{flex-grow:84.7}
+.split[data-view="11-13b"] .seg-50{flex-grow:15.3}
+.split .marker{
+  position:absolute;top:0;bottom:0;left:93.5%;width:2px;background:var(--paper);
+  transition:left .55s cubic-bezier(.2,.75,.25,1);
+}
+.split[data-view="11-13a"] .marker{left:88.5%}
+.split[data-view="11-13b"] .marker{left:84.7%}
+
+.legend{display:grid;grid-template-columns:1fr 1fr}
+.leg{padding:17px 18px 18px;min-width:0}
+.leg+.leg{border-left:1px solid var(--line)}
+.chip{display:block;height:6px;border-radius:2px;margin-bottom:12px}
+.chip25{background:var(--ink)}
+.chip50{background:var(--red)}
+.leg .k{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);line-height:1.5}
+.leg .v{
+  display:block;font-family:var(--serif);font-size:clamp(32px,6vw,58px);font-weight:700;
+  line-height:1.05;letter-spacing:-0.03em;margin-top:7px;color:var(--ink);
+}
+.leg .v em{font-style:normal;font-size:24px;letter-spacing:0;margin-left:.1em}
+.leg .u{display:block;font-family:var(--mono);font-size:12px;color:var(--muted-2);margin-top:9px;letter-spacing:.03em;line-height:1.6;word-break:keep-all}
+.leg-50 .v{color:var(--red)}
+
+.board-foot{
+  padding:13px 18px;border-top:2px solid var(--ink);background:var(--paper);
+  display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;
+  font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.03em;line-height:1.65;
+}
+.board-foot .tag{color:var(--red);font-weight:700}
+
+/* divergence */
+.diverge{margin-top:22px;border:2px dashed var(--red);background:#fff;display:grid;grid-template-columns:1fr}
+@media(min-width:760px){.diverge{grid-template-columns:auto 1fr 1fr}}
+.diverge .dh{
+  background:var(--red);color:#fff;padding:14px 18px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;line-height:1.6;
+  display:flex;align-items:center;font-weight:700;
+}
+.diverge .dsrc{padding:15px 18px;border-top:1px solid var(--line);background:#F7F8FA}
+@media(min-width:760px){.diverge .dsrc+.dsrc{border-left:1px solid var(--line);border-top:0}}
+.diverge .who{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;line-height:1.6}
+.diverge .num{font-family:var(--serif);font-size:clamp(28px,4.4vw,40px);font-weight:700;color:var(--red);line-height:1.15;letter-spacing:-0.03em;margin-top:5px}
+.diverge .pair{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-top:6px;letter-spacing:.02em}
+.diverge-note{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.03em;line-height:1.75;margin-top:12px;max-width:80ch}
+
+/* metric band */
+.band{margin-top:22px;border:2px solid var(--ink);background:#fff;display:grid;grid-template-columns:repeat(2,1fr)}
+@media(min-width:860px){.band{grid-template-columns:repeat(4,1fr)}}
+.cell{
+  padding:16px 16px 17px;background:#fff;text-align:left;
+  border:0;border-top:1px solid var(--line);border-left:1px solid var(--line);
+  cursor:pointer;min-width:0;transition:background .18s ease;
+}
+.cell:nth-child(-n+2){border-top:0}
+.cell:nth-child(odd){border-left:0}
+@media(min-width:860px){
+  .cell{border-top:0}
+  .cell:nth-child(odd){border-left:1px solid var(--line)}
+  .cell:nth-child(1){border-left:0}
+}
+.cell:hover{background:var(--paper-2)}
+.cell[aria-expanded="true"]{background:var(--ink)}
+.cell[aria-expanded="true"] .ml,.cell[aria-expanded="true"] .ms{color:#CFD2D8}
+.cell[aria-expanded="true"] .mv{color:var(--paper)}
+.ml{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted);line-height:1.55;word-break:keep-all}
+.mv{
+  display:block;font-family:var(--serif);font-weight:700;font-size:clamp(22px,3.1vw,31px);
+  letter-spacing:-0.03em;line-height:1.2;margin-top:8px;color:var(--ink);
+}
+.mv em{font-style:normal;font-size:14px;margin-left:.15em;letter-spacing:0}
+.ms{display:block;font-family:var(--mono);font-size:12px;color:var(--muted-2);margin-top:8px;line-height:1.55}
+.msrc{
+  display:none;grid-column:1/-1;padding:14px 16px;background:var(--ink);color:#D9DCE2;
+  font-family:var(--mono);font-size:12px;line-height:1.8;letter-spacing:.02em;
+  border-top:1px solid var(--line-dark);
+}
+.msrc.on{display:block}
+.msrc b{color:#F0F2F5}
+
+/* ---------- CALENDAR ---------- */
+.cal-wrap{border:2px solid var(--ink);background:#fff;padding:24px 20px}
+@media(min-width:760px){.cal-wrap{padding:32px}}
+.cal-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:22px 32px}
+.year-big{font-family:var(--serif);font-size:clamp(52px,11vw,124px);font-weight:700;line-height:.9;letter-spacing:-0.05em;color:var(--ink)}
+.year-big .sub{display:block;font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.1em;color:var(--muted);margin-top:13px;line-height:1.6}
+.counter{display:flex;gap:clamp(20px,4vw,52px);align-items:flex-end}
+.counter .cv{font-family:var(--serif);font-size:clamp(36px,6.4vw,66px);font-weight:700;line-height:1;letter-spacing:-0.04em;color:var(--ink)}
+.counter .c.hot .cv{color:var(--red)}
+.counter .cl{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--muted);margin-top:10px;line-height:1.6;max-width:20ch;word-break:keep-all}
+
+.slider-row{margin-top:clamp(22px,3.5vw,34px)}
+.slider-lab{display:flex;justify-content:space-between;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);margin-bottom:10px}
+input[type=range]{
+  --track:10px;--thumb:26px;--p:0%;
+  -webkit-appearance:none;appearance:none;width:100%;margin:0;border:0;background:transparent;
+  height:34px;cursor:pointer;display:block;
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:var(--track);border-radius:999px;border:1.5px solid var(--ink);
+  background:linear-gradient(to right,var(--red) var(--p),var(--paper-2) var(--p));
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:var(--thumb);height:var(--thumb);
+  border-radius:50%;background:var(--ink);border:3px solid var(--paper);
+  box-shadow:0 0 0 1.5px var(--ink);margin-top:calc((var(--track) - var(--thumb))/2 - 1.5px);
+}
+input[type=range]::-moz-range-track{height:var(--track);border-radius:999px;background:var(--paper-2);border:1.5px solid var(--ink)}
+input[type=range]::-moz-range-progress{height:var(--track);border-radius:999px;background:var(--red)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);box-shadow:0 0 0 1.5px var(--ink)}
+input[type=range]:focus-visible{outline:3px solid var(--red);outline-offset:5px;border-radius:999px}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);margin-top:5px}
+.ticks span[aria-current="true"]{color:var(--red);font-weight:700}
+
+.cal-grid{margin-top:clamp(20px,3vw,30px);display:grid;gap:clamp(5px,.8vw,9px);grid-template-columns:repeat(4,1fr)}
+@media(min-width:760px){.cal-grid{grid-template-columns:repeat(8,1fr)}}
+.slot{
+  position:relative;border:1.5px solid var(--ink);background:var(--paper);
+  aspect-ratio:1/1.34;padding:9px 8px;display:flex;flex-direction:column;
+  justify-content:space-between;min-width:0;overflow:hidden;border-radius:2px;
+}
+.slot .mo{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink)}
+.slot .st{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.45;letter-spacing:.02em;word-break:keep-all}
+.slot.is-vote{background:var(--ink);border-color:var(--ink)}
+.slot.is-vote .mo{color:var(--paper)}
+.slot.is-vote .st{color:#B4B7BF}
+.slot.is-strategy{background:#fff;border:2px solid var(--red)}
+.slot.is-strategy .mo,.slot.is-strategy .st{color:var(--red)}
+.slot.is-strategy::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom right,transparent calc(50% - 2px),var(--red) calc(50% - 2px),var(--red) calc(50% + 2px),transparent calc(50% + 2px));
+  transform:scaleX(0);transform-origin:left center;
+}
+.slot.is-strategy.struck::after{transform:scaleX(1);transition:transform .5s cubic-bezier(.2,.8,.25,1) .12s}
+.slot.is-tbd{
+  border:1.5px dashed var(--red);
+  background:#F6E7E5;
+}
+.slot.is-tbd .mo,.slot.is-tbd .st{color:var(--red)}
+.cal-foot{
+  margin-top:18px;padding-top:15px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.85;letter-spacing:.02em;
+}
+.cal-foot b{color:var(--red)}
+.cal-foot .hi{color:var(--ink);font-weight:700}
+.cal-foot .pending{color:var(--red);font-weight:700}
+
+/* ---------- PATHS ---------- */
+.paths{display:grid;gap:clamp(16px,2.5vw,26px);grid-template-columns:1fr}
+@media(min-width:900px){.paths{grid-template-columns:minmax(240px,310px) 1fr}}
+.bank-list{display:flex;flex-direction:column;gap:10px}
+.bank{
+  text-align:left;border:2px solid var(--ink);background:#fff;padding:15px 16px;cursor:pointer;
+  transition:background .18s ease,transform .18s ease;border-radius:2px;display:block;width:100%;
+}
+.bank:hover{background:var(--paper-2)}
+.bank[aria-selected="true"]{background:var(--ink);color:var(--paper);transform:translateX(6px)}
+.bank .bn{display:block;font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-0.01em;line-height:1.3}
+.bank .bd{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);margin-top:7px;line-height:1.65}
+.bank[aria-selected="true"] .bd{color:#C4C7CE}
+.bank .bs{display:block;font-family:var(--mono);font-size:12px;color:var(--red);margin-top:9px;letter-spacing:.03em;line-height:1.6}
+.bank[aria-selected="true"] .bs{color:#EB9288}
+
+.path-view{border:2px solid var(--ink);background:#fff;padding:24px 20px;min-width:0}
+@media(min-width:760px){.path-view{padding:30px}}
+.path-view h3{font-size:clamp(20px,2.7vw,27px);letter-spacing:-0.02em;line-height:1.25}
+.path-sub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;margin-top:9px;line-height:1.7}
+.step-line{margin-top:24px;display:flex;overflow-x:auto;padding-bottom:8px}
+.step{flex:1 0 auto;min-width:112px;position:relative;padding-top:30px}
+.step::before{content:"";position:absolute;top:11px;left:0;right:0;height:2px;background:var(--line)}
+.step:last-child::before{right:50%}
+.step:first-child::before{left:50%}
+.step .dot{
+  position:absolute;top:5px;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;background:var(--paper);border:2.5px solid var(--line);
+}
+.step.hike .dot{background:var(--red);border-color:var(--red)}
+.step.hike::before{background:var(--red)}
+.step .sm{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);text-align:center;line-height:1.55}
+.step .sv{font-family:var(--serif);font-weight:700;font-size:17px;text-align:center;margin-top:6px;letter-spacing:-0.02em;color:var(--ink)}
+.step.hike .sv{color:var(--red)}
+.step .sn{font-family:var(--mono);font-size:12px;color:var(--muted-2);text-align:center;margin-top:5px;line-height:1.5}
+.path-note{
+  margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+  font-family:var(--serif);font-size:16.5px;line-height:1.7;color:var(--ink-2);max-width:56ch;
+}
+.path-note b{color:var(--red)}
+
+/* ---------- VOICES ---------- */
+.voices{display:grid;gap:clamp(10px,1.6vw,16px);grid-template-columns:1fr}
+@media(min-width:560px){.voices{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.voices{grid-template-columns:repeat(4,1fr)}}
+.voice{
+  text-align:left;border:2px solid var(--ink);background:#fff;padding:17px 16px 16px;cursor:pointer;
+  display:flex;flex-direction:column;gap:9px;min-height:190px;border-radius:2px;
+  transition:background .18s ease;position:relative;overflow:hidden;
+}
+.voice:hover{background:var(--paper-2)}
+.voice::after{content:"";position:absolute;right:13px;top:14px;width:9px;height:9px;border-radius:50%;background:var(--red)}
+.voice .vh{font-family:var(--serif);font-size:clamp(17px,2vw,21px);font-weight:700;letter-spacing:-0.02em;line-height:1.3}
+.voice .vr{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--muted);line-height:1.6}
+.voice .vq{font-family:var(--serif);font-size:15px;line-height:1.7;color:var(--ink-2);margin-top:auto}
+.voice .vm{font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.05em;margin-top:6px}
+
+dialog{
+  border:2px solid var(--ink);background:var(--paper);color:var(--ink);
+  padding:24px 20px;max-width:min(560px,calc(100% - 32px));width:100%;border-radius:3px;
+}
+dialog::backdrop{background:rgba(20,21,25,.74)}
+dialog:modal{overscroll-behavior:contain}
+.dlg-in{padding:0}
+.dlg-in .dk{font-family:var(--mono);font-size:12px;letter-spacing:.07em;color:var(--red);font-weight:700}
+.dlg-in h3{font-size:clamp(22px,3.4vw,30px);margin-top:10px;letter-spacing:-0.025em;line-height:1.25}
+.dlg-in .drole{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:9px;letter-spacing:.03em;line-height:1.7}
+.dlg-in .dquote{
+  font-family:var(--serif);font-size:clamp(16.5px,2.4vw,19px);line-height:1.8;color:var(--ink);
+  margin-top:19px;padding-top:17px;border-top:2px solid var(--ink);
+}
+.dlg-in .dsrc2{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:16px;letter-spacing:.03em;line-height:1.75}
+.dlg-act{margin-top:22px;display:flex;gap:10px;justify-content:flex-end}
+.dlg-act button{
+  border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+  padding:10px 22px;cursor:pointer;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;border-radius:2px;
+}
+.dlg-act button:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ---------- CLOSE ---------- */
+.close{background:var(--ink);color:var(--paper);border-bottom:0;padding:72px 20px}
+@media(min-width:900px){.close{padding:96px 44px}}
+.close h2{color:var(--paper);max-width:22ch}
+.close .lede{color:#D6D9E0;max-width:52ch}
+.close .lede b{color:#F0A79E;font-weight:700}
+.close-strip{margin-top:clamp(30px,5vw,48px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(6px,.8vw,9px)}
+@media(min-width:680px){.close-strip{grid-template-columns:repeat(6,1fr)}}
+.close-strip .cw{
+  aspect-ratio:1/1.4;background:#1D1F25;border:1.5px solid #4A4D57;border-radius:2px;
+  display:flex;align-items:flex-end;justify-content:center;padding:9px 4px;
+  font-family:var(--mono);font-size:13px;color:#AEB1BA;text-align:center;letter-spacing:.03em;line-height:1.45;
+}
+.close-strip .cw:last-child{border-color:var(--red);color:#EB9288}
+.close-stat{margin-top:clamp(28px,4vw,42px);display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,68px)}
+.close-stat .csv{font-family:var(--serif);font-size:clamp(40px,7vw,76px);font-weight:700;line-height:1;letter-spacing:-0.04em;color:var(--paper)}
+.close-stat .cs.hot .csv{color:var(--red-soft)}
+.close-stat .csl{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:#AEB1BA;margin-top:12px;line-height:1.7;max-width:26ch;word-break:keep-all}
+
+/* ---------- LEDGER ---------- */
+.ledger{background:var(--paper-2);padding:44px 20px 40px;border-top:2px solid var(--ink)}
+@media(min-width:900px){.ledger{padding:56px 44px 46px}}
+.ledger h2{font-size:clamp(19px,2.4vw,25px);letter-spacing:-0.02em}
+.ledger .lnote{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:11px;line-height:1.85;letter-spacing:.02em;max-width:76ch}
+.llist{margin:21px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.llist li{
+  padding:12px 0;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;line-height:1.9;color:var(--ink-2);letter-spacing:.01em;
+  display:grid;gap:3px 18px;
+}
+@media(min-width:820px){.llist li{grid-template-columns:1fr auto;align-items:baseline}}
+.llist .ltag{color:var(--muted);white-space:nowrap}
+.materials{
+  margin-top:27px;padding-top:18px;border-top:2px solid var(--ink);
+  font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2;letter-spacing:.02em;
+}
+.materials b{color:var(--ink)}
+.materials .pending{color:var(--red);font-weight:700}
+
+/* ---------- MOTION ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.75,.25,1) forwards}
+  .reveal.d1{animation-delay:.08s}
+  .reveal.d2{animation-delay:.16s}
+  .reveal.d3{animation-delay:.24s}
+  @keyframes rise{to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion: reduce){
+  .slot.is-strategy.struck::after{transition:none;transform:scaleX(1)}
+  .split .seg,.split .marker{transition:none}
+  .bank[aria-selected="true"]{transform:none}
+}
+@media (max-width:640px){
+  .legend{grid-template-columns:1fr}
+  .leg+.leg{border-left:0;border-top:1px solid var(--line)}
+  .mv em{display:block;margin-left:0;margin-top:5px;font-size:14px}
+  .board-top{flex-direction:column;align-items:flex-start}
+  .counter{width:100%;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="hero">
+  <div class="shell">
+    <div class="hero-meta reveal">
+      <span>选题 446 · 创意件</span>
+      <span>追踪线 <b>宏观利率与股市</b></span>
+      <span>2026-11-17</span>
+    </div>
+    <h1 class="reveal d1">一年只剩<span class="cut">六个窗口</span></h1>
+    <p class="deck reveal d2">美联储把日历砍半，市场把概率打满。<b>10 月那次会议照开，但不投票。</b></p>
+
+    <div class="strip reveal d3" role="img" aria-label="2027 年 FOMC 八次会议日历，其中十月二十六至二十七日会议不投票">
+      <div class="win vote"><span class="m">1月</span><span class="d">26–27 投票</span></div>
+      <div class="win vote"><span class="m">3月</span><span class="d">16–17 投票</span></div>
+      <div class="win vote"><span class="m">4月</span><span class="d">27–28 投票</span></div>
+      <div class="win vote"><span class="m">6月</span><span class="d">8–9 投票</span></div>
+      <div class="win vote"><span class="m">7月</span><span class="d">27–28 投票</span></div>
+      <div class="win vote"><span class="m">9月</span><span class="d">14–15 投票</span></div>
+      <div class="win novote"><span class="m">10月</span><span class="d">26–27 不投票</span></div>
+      <div class="win vote"><span class="m">11月</span><span class="d">16–17 投票</span></div>
+    </div>
+    <div class="strip-legend reveal d3">
+      <span><i class="swatch sw-vote"></i>利率投票窗口</span>
+      <span><i class="swatch sw-no"></i>战略会议 · 不投票</span>
+      <span>2027 年 8 次会议 / 7 次投票</span>
+    </div>
+  </div>
+</header>
+
+<section id="pulse">
+  <div class="shell">
+    <div class="sec-head">
+      <h2>概率打满，分歧没散</h2>
+      <p class="sec-note">CME FedWatch 读数 · 11-16 口径<br>切换可回看 11-13 两个来源的前值</p>
+    </div>
+
+    <div class="board">
+      <div class="board-top">
+        <strong>12 月 FOMC · 加息路径定价</strong>
+        <div class="board-ctrl" role="group" aria-label="切换读数口径">
+          <button type="button" data-view="11-16" aria-pressed="true">11-16 口径</button>
+          <button type="button" data-view="11-13a" aria-pressed="false">11-13 源 A</button>
+          <button type="button" data-view="11-13b" aria-pressed="false">11-13 源 B</button>
+        </div>
+      </div>
+
+      <div class="split" id="split" data-view="11-16" role="img" aria-label="25 个基点与 50 个基点的概率比例条">
+        <div class="seg seg-25"></div>
+        <div class="seg seg-50"></div>
+        <div class="marker"></div>
+      </div>
+
+      <div class="legend">
+        <div class="leg leg-25">
+          <i class="chip chip25"></i>
+          <span class="k">加息 25 个基点</span>
+          <span class="v" id="v25">93.5<em>%</em></span>
+          <span class="u" id="u25">CME 12月会议加息25个基点概率（11-16口径）</span>
+        </div>
+        <div class="leg leg-50">
+          <i class="chip chip50"></i>
+          <span class="k">加息 50 个基点</span>
+          <span class="v" id="v50">6.5<em>%</em></span>
+          <span class="u" id="u50">CME 12月会议加息50个基点概率（11-16口径）</span>
+        </div>
+      </div>
+
+      <div class="board-foot">
+        <span id="boardSrc">来源：汇通财经 11-16 11:19 · 素材《每日股市简报 2026-11-16》</span>
+        <span class="tag" id="boardTag">50bp 已从 11-13 高点回落</span>
+      </div>
+    </div>
+
+    <div class="diverge">
+      <div class="dh">11-13 前值<br>两源分歧</div>
+      <div class="dsrc">
+        <div class="who">源 A · 汇通财经 11-16（回溯 11-13）</div>
+        <div class="num">11.5%</div>
+        <div class="pair">同源 25bp 对应 88.5%</div>
+      </div>
+      <div class="dsrc">
+        <div class="who">源 B · CME 美联储观察 11-13（热点简报 11-14 转）</div>
+        <div class="num">15.3%</div>
+        <div class="pair">同源 25bp 对应 84.7%</div>
+      </div>
+    </div>
+    <p class="diverge-note">两值口径未统一，属源间分歧待裁定。本页并列显示，不取其一。</p>
+
+    <div class="band" id="band">
+      <button class="cell" type="button" aria-expanded="false" data-src="美国劳工统计局 BLS · 2026-11-13 发布｜素材《每日热点新闻简报 2026-11-14》金融动态 2｜环比 +0.3%，同比涨幅达 6.5%，为 2022 年 11 月以来最高">
+        <span class="ml">美国 10 月 PPI 同比（11-13 发布口径）</span>
+        <span class="mv">6.5<em>%</em></span>
+        <span class="ms">2022 年 11 月以来最高</span>
+      </button>
+      <button class="cell" type="button" aria-expanded="false" data-src="素材《每日热点新闻简报 2026-11-14》金融动态 5 · 21经济网 11-14｜11-13 收盘跌破 3900 美元/盎司，本周累计跌幅 4.9% 为 3 月底以来最大">
+        <span class="ml">现货黄金收盘价（11-13）</span>
+        <span class="mv">3894.52<em>美元/盎司</em></span>
+        <span class="ms">周跌 4.9% · 3 月底以来最大</span>
+      </button>
+      <button class="cell" type="button" aria-expanded="false" data-src="素材《每日热点新闻简报 2026-11-14》金融动态 5 · 21经济网 11-14｜11-13 收盘接近每桶 96 美元，国际油价两周连跌">
+        <span class="ml">布伦特 1 月合约结算价（11-13）</span>
+        <span class="mv">95.82<em>美元/桶</em></span>
+        <span class="ms">两周连跌</span>
+      </button>
+      <button class="cell" type="button" aria-expanded="false" data-src="美国财政部日终收益率曲线（美联储 H.15 口径）· 2026-11-13｜与已上展 11-16 作品同值 5.15%">
+        <span class="ml">10年期美债收益率（11-13收盘口径）</span>
+        <span class="mv">5.15<em>%</em></span>
+        <span class="ms">日终收益率曲线</span>
+      </button>
+      <div class="msrc" id="msrc" role="status"></div>
+    </div>
+  </div>
+</section>
+
+<section id="calendar">
+  <div class="shell">
+    <div class="sec-head">
+      <h2>把日历拖一遍</h2>
+      <p class="sec-note">美联储 11-12 发布 2027 年 FOMC 时间表<br>证券时报 11-13 · 北京商报 11-15 · CNBC 11-12</p>
+    </div>
+
+    <div class="cal-wrap">
+      <div class="cal-top">
+        <div class="year-big"><span id="yearNum">2026</span><span class="sub" id="yearSub">惯例 8 次 · 全部投票</span></div>
+        <div class="counter">
+          <div class="c">
+            <div class="cv" id="cvVote">8</div>
+            <div class="cl">可调整利率的常规投票窗口</div>
+          </div>
+          <div class="c hot">
+            <div class="cv" id="cvNo">0</div>
+            <div class="cl">不投票会议</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-lab" for="yearRange"><span>拨动年份</span><span id="rangeHint">当前 2026</span></label>
+        <input type="range" id="yearRange" min="0" max="2" step="1" value="0" aria-label="选择年份" aria-valuetext="2026 年">
+        <div class="ticks" aria-hidden="true">
+          <span data-t="0" aria-current="true">2026</span>
+          <span data-t="1">2027</span>
+          <span data-t="2">2028</span>
+        </div>
+      </div>
+
+      <div class="cal-grid" id="calGrid" aria-live="polite"></div>
+      <p class="cal-foot" id="calFoot"></p>
+    </div>
+  </div>
+</section>
+
+<section id="paths">
+  <div class="shell">
+    <div class="sec-head">
+      <h2>三家投行，三条路径</h2>
+      <p class="sec-note">切换查看各自的加息排布<br>素材《每日股市简报 2026-11-16》利率预期 4 · OR 11-15 转述</p>
+    </div>
+
+    <div class="paths">
+      <div class="bank-list" role="tablist" aria-label="投行路径切换">
+        <button class="bank" type="button" role="tab" id="tab-db" aria-selected="true" aria-controls="pathView" data-k="db">
+          <span class="bn">德意志银行</span>
+          <span class="bd">11-10 调整 · 把 2027 年 1 月纳入基准情景</span>
+          <span class="bs">12月 / 1月 / 3月 各 +25bp</span>
+        </button>
+        <button class="bank" type="button" role="tab" id="tab-gs" aria-selected="false" aria-controls="pathView" data-k="gs">
+          <span class="bn">高盛</span>
+          <span class="bd">11-11 · 戴维·梅里克尔 维持峰值 3.25%–3.5%</span>
+          <span class="bs">12月 / 次年3月 各 +25bp</span>
+        </button>
+        <button class="bank" type="button" role="tab" id="tab-citi" aria-selected="false" aria-controls="pathView" data-k="citi">
+          <span class="bn">花旗</span>
+          <span class="bd">11-13 · 同时认为 50bp 可能性上升</span>
+          <span class="bs">12月 +25bp 为基准情形</span>
+        </button>
+      </div>
+
+      <div class="path-view" id="pathView" role="tabpanel" aria-labelledby="tab-db" tabindex="0">
+        <h3 id="pvTitle">德意志银行</h3>
+        <p class="path-sub" id="pvSub">11-10 调整 · 三次加息，节奏最密</p>
+        <div class="step-line" id="pvSteps"></div>
+        <p class="path-note" id="pvNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voices">
+  <div class="shell">
+    <div class="sec-head">
+      <h2>四位官员，四种松紧</h2>
+      <p class="sec-note">点击卡片展开完整表态<br>素材《每日股市简报 2026-11-16》利率预期 5 · 汇通财经 11-16</p>
+    </div>
+
+    <div class="voices" id="voiceGrid">
+      <button class="voice" type="button" data-v="0">
+        <span class="vh">施密德</span>
+        <span class="vr">堪萨斯城联储主席</span>
+        <span class="vq">「通胀水平过高，剔除能源后依旧接近 3%」</span>
+        <span class="vm">周日表态 · 展开</span>
+      </button>
+      <button class="voice" type="button" data-v="1">
+        <span class="vh">柯林斯</span>
+        <span class="vr">波士顿联储主席</span>
+        <span class="vq">「支持以稳健小幅加息节奏推进收紧」</span>
+        <span class="vm">节奏派 · 展开</span>
+      </button>
+      <button class="voice" type="button" data-v="2">
+        <span class="vh">威廉姆斯</span>
+        <span class="vr">纽约联储主席</span>
+        <span class="vq">「通胀仍处于过高水平」</span>
+        <span class="vm">警示 · 展开</span>
+      </button>
+      <button class="voice" type="button" data-v="3">
+        <span class="vh">沃勒</span>
+        <span class="vr">美联储理事</span>
+        <span class="vq">「部分委员不排除下月更大幅度加息」</span>
+        <span class="vm">最鹰 · 展开</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<dialog id="voiceDlg" aria-labelledby="dlgName">
+  <div class="dlg-in">
+    <div class="dk">官员表态</div>
+    <h3 id="dlgName">待展开</h3>
+    <p class="drole" id="dlgRole">点击上方卡片查看</p>
+    <p class="dquote" id="dlgQuote">点击上方卡片查看</p>
+    <p class="dsrc2" id="dlgSrc">素材《每日股市简报 2026-11-16》</p>
+    <div class="dlg-act"><button type="button" id="dlgClose">关闭</button></div>
+  </div>
+</dialog>
+
+<section class="close">
+  <div class="shell">
+    <h2>窗口少了，声音就少了</h2>
+    <p class="lede" style="margin-top:20px">
+      通胀没下来，概率被打满；联储把投票窗口砍到 <b>6 个</b>。
+      市场的应对不是更大声，而是<b>少听多看</b>，少一次表态，多一天定价。
+    </p>
+
+    <div class="close-strip" role="img" aria-label="2028 年起的六个投票窗口">
+      <div class="cw">窗口 1</div>
+      <div class="cw">窗口 2</div>
+      <div class="cw">窗口 3</div>
+      <div class="cw">窗口 4</div>
+      <div class="cw">窗口 5</div>
+      <div class="cw">窗口 6</div>
+    </div>
+
+    <div class="close-stat">
+      <div class="cs hot">
+        <div class="csv">6</div>
+        <div class="csl">FOMC 常规利率投票窗口数（2028年起）</div>
+      </div>
+      <div class="cs">
+        <div class="csv">2</div>
+        <div class="csl">FOMC 不投票会议数（2028年起每年）</div>
+      </div>
+      <div class="cs">
+        <div class="csv">93.5%</div>
+        <div class="csl">CME 12月会议加息25个基点概率（11-16口径）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ledger">
+  <div class="shell">
+    <h2>口径台账</h2>
+    <p class="lnote">每条断言的原文片段逐字列于此处，供机器回查。同标签同日期取值与已上展作品对账一致。</p>
+
+    <ul class="llist">
+      <li><span>CME 12月会议加息25个基点概率（11-16口径） 93.5%</span><span class="ltag">汇通财经 11-16 11:19</span></li>
+      <li><span>CME 12月会议加息50个基点概率（11-16口径） 6.5%</span><span class="ltag">汇通财经 11-16 11:19</span></li>
+      <li><span>美国 10 月 PPI 同比（11-13 发布口径） 6.5%</span><span class="ltag">财联社 11-13</span></li>
+      <li><span>现货黄金收盘价（11-13） 3894.52 美元/盎司</span><span class="ltag">21经济网 11-14</span></li>
+      <li><span>布伦特 1 月合约结算价（11-13） 95.82 美元/桶</span><span class="ltag">21经济网 11-14</span></li>
+      <li><span>FOMC 常规利率投票窗口数（2028年起） 6</span><span class="ltag">证券时报 11-13</span></li>
+      <li><span>FOMC 不投票会议数（2028年起每年） 2</span><span class="ltag">证券时报 11-13</span></li>
+      <li><span>CME 12月会议加息50个基点概率前值分歧（11-13两源） 11.5% 与 15.3%</span><span class="ltag">汇通财经 11-16 / OR 11-15</span></li>
+      <li><span>10年期美债收益率（11-13收盘口径） 5.15%</span><span class="ltag">美国财政部日终收益率曲线</span></li>
+    </ul>
+
+    <p class="materials">
+      <b>素材日期</b>：《每日股市简报 2026-11-16》与《每日 AI 技术动态简报 2026-11-16》为 11-16 口径；
+      《每日热点新闻简报 2026-11-14》<b>滞后 3 天</b>，其数据（PPI、金价、油价、11-13 概率前值）均按 11-13 / 11-14 口径标注。<br>
+      <b>补充检索</b>：2027 年 FOMC 八次会议日期经 Tavily 补检（Scotsman Guide 11-13、北京商报 11-15、CNBC 11-12）；MiniMax 检索额度已耗尽，本轮改用 Tavily。<br>
+      <b>未确认</b>：<span class="pending">2028 年两次不投票会议的具体月份未公布</span>，需待美联储后续发布 2028 年时间表；
+      <span class="pending">11-13 前值两源分歧未裁定</span>，需 CME FedWatch 历史读数原始快照比对。<br>
+      <b>未采用</b>：WTI 原油一项为派单可选项，简报值与已上展 11-16 作品的取值对不上，按规则删除该条，不写入本页。
+    </p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value":"93.5%","label":"CME 12月会议加息25个基点概率（11-16口径）","quote":"CME 12月会议加息25个基点概率（11-16口径） 93.5%"},
+  {"value":"6.5%","label":"CME 12月会议加息50个基点概率（11-16口径）","quote":"CME 12月会议加息50个基点概率（11-16口径） 6.5%"},
+  {"value":"6.5%","label":"美国 10 月 PPI 同比（11-13 发布口径）","quote":"美国 10 月 PPI 同比（11-13 发布口径） 6.5%"},
+  {"value":"3894.52 美元/盎司","label":"现货黄金收盘价（11-13）","quote":"现货黄金收盘价（11-13） 3894.52 美元/盎司"},
+  {"value":"95.82 美元/桶","label":"布伦特 1 月合约结算价（11-13）","quote":"布伦特 1 月合约结算价（11-13） 95.82 美元/桶"},
+  {"value":"6","label":"FOMC 常规利率投票窗口数（2028年起）","quote":"FOMC 常规利率投票窗口数（2028年起） 6"},
+  {"value":"2","label":"FOMC 不投票会议数（2028年起每年）","quote":"FOMC 不投票会议数（2028年起每年） 2"},
+  {"value":"11.5% 与 15.3%","label":"CME 12月会议加息50个基点概率前值分歧（11-13两源）","quote":"CME 12月会议加息50个基点概率前值分歧（11-13两源） 11.5% 与 15.3%"}
+]
+</script>
+
+<script>
+(function(){
+"use strict";
+
+var VIEWS = {
+  "11-16":{v25:"93.5",v50:"6.5",
+    u25:"CME 12月会议加息25个基点概率（11-16口径）",
+    u50:"CME 12月会议加息50个基点概率（11-16口径）",
+    src:"来源：汇通财经 11-16 11:19 · 素材《每日股市简报 2026-11-16》",
+    tag:"50bp 已从 11-13 高点回落"},
+  "11-13a":{v25:"88.5",v50:"11.5",
+    u25:"11-13 源 A · 25bp 对应读数",
+    u50:"CME 12月会议加息50个基点概率前值分歧（11-13两源）",
+    src:"源 A：汇通财经 11-16 回溯 11-13 读数",
+    tag:"与源 B 相差 3.8 个百分点"},
+  "11-13b":{v25:"84.7",v50:"15.3",
+    u25:"11-13 源 B · 25bp 对应读数",
+    u50:"CME 12月会议加息50个基点概率前值分歧（11-13两源）",
+    src:"源 B：CME 美联储观察 11-13 · 热点简报 2026-11-14 转载",
+    tag:"与源 A 相差 3.8 个百分点"}
+};
+var split=document.getElementById("split");
+var v25=document.getElementById("v25"), v50=document.getElementById("v50");
+var u25=document.getElementById("u25"), u50=document.getElementById("u50");
+var bSrc=document.getElementById("boardSrc"), bTag=document.getElementById("boardTag");
+var ctrlBtns=Array.prototype.slice.call(document.querySelectorAll(".board-ctrl button"));
+
+function setView(k){
+  var d=VIEWS[k]; if(!d) return;
+  split.setAttribute("data-view",k);
+  v25.innerHTML=d.v25+"<em>%</em>";
+  v50.innerHTML=d.v50+"<em>%</em>";
+  u25.textContent=d.u25; u50.textContent=d.u50;
+  bSrc.textContent=d.src; bTag.textContent=d.tag;
+  ctrlBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-view")===k)); });
+}
+ctrlBtns.forEach(function(b){
+  b.addEventListener("click",function(){ setView(b.getAttribute("data-view")); });
+});
+
+var band=document.getElementById("band"), msrc=document.getElementById("msrc");
+band.addEventListener("click",function(e){
+  var cell=e.target.closest(".cell"); if(!cell) return;
+  var open=cell.getAttribute("aria-expanded")==="true";
+  Array.prototype.forEach.call(band.querySelectorAll(".cell"),function(c){ c.setAttribute("aria-expanded","false"); });
+  if(open){ msrc.classList.remove("on"); msrc.textContent=""; return; }
+  cell.setAttribute("aria-expanded","true");
+  msrc.innerHTML="<b>"+cell.querySelector(".ml").textContent+"</b> · "+cell.getAttribute("data-src");
+  msrc.classList.add("on");
+});
+
+var YEARS=[
+ {y:"2026",sub:"惯例 8 次 · 全部投票",vote:8,no:0,
+  slots:[{m:"惯例",s:"8 次会议"},{m:"惯例",s:"全部投票"},{m:"惯例",s:"全部投票"},{m:"惯例",s:"全部投票"},
+         {m:"惯例",s:"全部投票"},{m:"惯例",s:"全部投票"},{m:"惯例",s:"全部投票"},{m:"12月",s:"8–9 下一次"}],
+  cls:["","","","","","","","is-vote"],
+  foot:'<span class="hi">2026 年维持每年 8 次的惯例。</span>下一次会议 12 月 8–9 日（CNBC 11-12）。全年尚无不投票会议。'},
+ {y:"2027",sub:"8 次会议 · 7 次投票",vote:7,no:1,
+  slots:[{m:"1月",s:"26–27 投票"},{m:"3月",s:"16–17 投票"},{m:"4月",s:"27–28 投票"},{m:"6月",s:"8–9 投票"},
+         {m:"7月",s:"27–28 投票"},{m:"9月",s:"14–15 投票"},{m:"10月",s:"26–27 不投票"},{m:"11月",s:"16–17 投票"}],
+  cls:["is-vote","is-vote","is-vote","is-vote","is-vote","is-vote","is-strategy","is-vote"],
+  foot:'<b>10 月 26–27 日专议货币政策长期战略，不投票、不发声明。</b>原定 12 月的会议提前至 <span class="hi">11 月 16–17 日</span>，全年投票窗口由 8 个降至 7 个。'},
+ {y:"2028",sub:"投票窗口缩至 6 个",vote:6,no:2,
+  slots:[{m:"窗口",s:"1"},{m:"窗口",s:"2"},{m:"窗口",s:"3"},{m:"窗口",s:"4"},
+         {m:"窗口",s:"5"},{m:"窗口",s:"6"},{m:"不投票",s:"月份未公布"},{m:"不投票",s:"月份未公布"}],
+  cls:["is-vote","is-vote","is-vote","is-vote","is-vote","is-vote","is-tbd","is-tbd"],
+  foot:'2028 年起每年增至 <b>两次不投票会议</b>，可调整利率的常规会议窗口缩减至 <span class="hi">6 次</span>（证券时报 11-13）。<span class="pending">两次不投票会议的具体月份未公布</span>，图中以虚线槽位表示。'}
+];
+var grid=document.getElementById("calGrid"), foot=document.getElementById("calFoot");
+var yearNum=document.getElementById("yearNum"), yearSub=document.getElementById("yearSub");
+var cvVote=document.getElementById("cvVote"), cvNo=document.getElementById("cvNo");
+var range=document.getElementById("yearRange"), hint=document.getElementById("rangeHint");
+var ticks=Array.prototype.slice.call(document.querySelectorAll(".ticks span"));
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function renderYear(i){
+  var d=YEARS[i];
+  yearNum.textContent=d.y;
+  yearSub.textContent=d.sub;
+  cvVote.textContent=d.vote; cvNo.textContent=d.no;
+  hint.textContent="当前 "+d.y;
+  range.setAttribute("aria-valuetext", d.y+" 年，投票窗口 "+d.vote+" 个，不投票会议 "+d.no+" 次");
+  range.style.setProperty("--p",(i/2*100)+"%");
+  ticks.forEach(function(t){ t.setAttribute("aria-current", String(Number(t.getAttribute("data-t"))===i)); });
+
+  grid.innerHTML="";
+  d.slots.forEach(function(s,idx){
+    var el=document.createElement("div");
+    el.className="slot "+(d.cls[idx]||"");
+    var a=document.createElement("span"); a.className="mo"; a.textContent=s.m;
+    var b=document.createElement("span"); b.className="st"; b.textContent=s.s;
+    el.appendChild(a); el.appendChild(b);
+    grid.appendChild(el);
+  });
+  foot.innerHTML=d.foot;
+
+  var st=grid.querySelector(".is-strategy");
+  if(reduce){
+    if(st) st.classList.add("struck");
+    return;
+  }
+  if(st){ st.classList.remove("struck"); void st.offsetWidth; requestAnimationFrame(function(){ st.classList.add("struck"); }); }
+  Array.prototype.forEach.call(grid.querySelectorAll(".is-vote"),function(el,k){
+    el.style.opacity="0"; el.style.transform="translateY(8px)";
+    el.style.transition="opacity .34s ease "+(k*0.04)+"s, transform .34s ease "+(k*0.04)+"s";
+    requestAnimationFrame(function(){ el.style.opacity="1"; el.style.transform="none"; });
+  });
+}
+range.addEventListener("input",function(){ renderYear(Number(range.value)); });
+renderYear(0);
+
+var PATHS={
+ db:{t:"德意志银行",s:"11-10 调整 · 三次加息，节奏最密",
+   steps:[{m:"2026 12月",v:"+25bp",n:"基准",h:1},{m:"2027 1月",v:"+25bp",n:"新增",h:1},
+          {m:"2027 3月",v:"+25bp",n:"基准",h:1},{m:"2027 4月",v:"0bp",n:"观察",h:0},
+          {m:"2027 6月",v:"0bp",n:"观察",h:0}],
+   note:'把 <b>2027 年 1 月纳入基准情景</b>，12 月、明年 1 月、明年 3 月各加息 25 个基点，是三家中路径最长的。'},
+ gs:{t:"高盛",s:"11-11 · 峰值 3.25%–3.5%，首次降息推迟",
+   steps:[{m:"2026 12月",v:"+25bp",n:"基准",h:1},{m:"2027 1月",v:"0bp",n:"不动",h:0},
+          {m:"2027 3月",v:"+25bp",n:"基准",h:1},{m:"2027 9月",v:"原定降息",n:"已推迟",h:0},
+          {m:"2027 12月",v:"首次降息",n:"新时点",h:0}],
+   note:'维持峰值利率 <b>3.25%–3.5%</b> 判断，把首次降息由 2027 年 9 月推迟至 2027 年 12 月；同期把「12 月结束本轮加息周期」改为 12 月与 2027 年 3 月各加息 25 个基点。'},
+ citi:{t:"花旗",s:"11-13 · 基准 25bp，但 50bp 风险上升",
+   steps:[{m:"2026 12月",v:"+25bp",n:"基准情形",h:1},{m:"2027 1月",v:"0bp",n:"待定",h:0},
+          {m:"2027 3月",v:"0bp",n:"待定",h:0},{m:"2027 4月",v:"0bp",n:"待定",h:0},
+          {m:"2027 6月",v:"0bp",n:"待定",h:0}],
+   note:'仍预计 12 月加 25 个基点为基准情形，但与美国银行、渣打同样认为 <b>12 月加息 50 个基点的可能性上升</b>，基准与风险两个方向同时挂着。'}
+};
+var pvT=document.getElementById("pvTitle"), pvS=document.getElementById("pvSub"),
+    pvSt=document.getElementById("pvSteps"), pvN=document.getElementById("pvNote"),
+    pv=document.getElementById("pathView");
+var bankBtns=Array.prototype.slice.call(document.querySelectorAll(".bank"));
+
+function setPath(k){
+  var d=PATHS[k]; if(!d) return;
+  pvT.textContent=d.t; pvS.textContent=d.s; pvN.innerHTML=d.note;
+  pvSt.innerHTML="";
+  d.steps.forEach(function(s){
+    var el=document.createElement("div");
+    el.className="step"+(s.h?" hike":"");
+    var dot=document.createElement("span"); dot.className="dot";
+    var sm=document.createElement("div"); sm.className="sm"; sm.textContent=s.m;
+    var sv=document.createElement("div"); sv.className="sv"; sv.textContent=s.v;
+    var sn=document.createElement("div"); sn.className="sn"; sn.textContent=s.n;
+    el.appendChild(dot); el.appendChild(sm); el.appendChild(sv); el.appendChild(sn);
+    pvSt.appendChild(el);
+  });
+  bankBtns.forEach(function(b){ b.setAttribute("aria-selected",String(b.getAttribute("data-k")===k)); });
+  pv.setAttribute("aria-labelledby","tab-"+k);
+}
+bankBtns.forEach(function(b){
+  b.addEventListener("click",function(){ setPath(b.getAttribute("data-k")); });
+  b.addEventListener("keydown",function(e){
+    var arr=bankBtns, i=arr.indexOf(b), n;
+    if(e.key==="ArrowDown"||e.key==="ArrowRight"){ e.preventDefault(); n=arr[(i+1)%arr.length]; n.focus(); setPath(n.getAttribute("data-k")); }
+    if(e.key==="ArrowUp"||e.key==="ArrowLeft"){ e.preventDefault(); n=arr[(i-1+arr.length)%arr.length]; n.focus(); setPath(n.getAttribute("data-k")); }
+  });
+});
+setPath("db");
+
+var VOICES=[
+ {n:"施密德",r:"堪萨斯城联储主席 · 周日表态",
+  q:"通胀水平过高，剔除能源后的通胀依旧接近 3%。能源价格回落并未把核心通胀带回目标区间。",
+  s:"素材《每日股市简报 2026-11-16》利率预期 5 · 汇通财经 11-16"},
+ {n:"柯林斯",r:"波士顿联储主席",
+  q:"支持以稳健、小幅加息的节奏推进收紧，不主张一次到位：认可方向，但控制步幅。",
+  s:"素材《每日股市简报 2026-11-16》利率预期 5 · 汇通财经 11-16"},
+ {n:"威廉姆斯",r:"纽约联储主席",
+  q:"警示通胀仍处于过高水平，需要继续压降。纽约联储主席的表态对短端利率定价有直接影响。",
+  s:"素材《每日股市简报 2026-11-16》利率预期 5 · 汇通财经 11-16"},
+ {n:"沃勒",r:"美联储理事 · 上周表态",
+  q:"提出部分委员不排除下月实施更大幅度加息，是四人之中唯一直接给 50bp 留出口的表态。",
+  s:"素材《每日股市简报 2026-11-16》利率预期 5 · 汇通财经 11-16"}
+];
+var dlg=document.getElementById("voiceDlg");
+document.getElementById("voiceGrid").addEventListener("click",function(e){
+  var btn=e.target.closest(".voice"); if(!btn) return;
+  var d=VOICES[Number(btn.getAttribute("data-v"))];
+  document.getElementById("dlgName").textContent=d.n;
+  document.getElementById("dlgRole").textContent=d.r;
+  document.getElementById("dlgQuote").textContent="「"+d.q+"」";
+  document.getElementById("dlgSrc").textContent="来源："+d.s;
+  if(typeof dlg.showModal==="function"){ dlg.showModal(); } else { dlg.setAttribute("open",""); }
+});
+document.getElementById("dlgClose").addEventListener("click",function(){
+  if(typeof dlg.close==="function"){ dlg.close(); } else { dlg.removeAttribute("open"); }
+});
+dlg.addEventListener("click",function(e){ if(e.target===dlg && typeof dlg.close==="function") dlg.close(); });
+
+})();
+</script>
+</body>
+</html>

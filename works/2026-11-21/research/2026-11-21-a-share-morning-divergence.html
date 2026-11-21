@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="11-20 午盘：A股四指数齐跌、半日放量 698 亿元、超 4800 只个股下跌，建行工行中信盘中创历史新高；恒指午盘跌 1.71%、恒生科技跌 3.14%。两组口径并列，逐条对账。">
+<title>4800只下跌的午盘 —— 11-20 A股与港股的两本背离账 —— 量研研究卷宗</title>
+
+<style>
+/* 自托管字体（随作品分发，离线可用） */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0132-0133,U+0134-0135,U+0136-0137,U+0138-0139,
+    U+0140-0141,U+0142-0143,U+0144-0145,U+0146-0147,U+0148-0149,U+014A-014B,
+    U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --paper-sunk:#e2e7e3;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5d6460;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --deep-rule:#2b312d;
+  --brick:#8c3a2a;
+  --brick-wash:#f0e2de;
+  --brick-soft:#c9b9a0;
+  --jade:#2f6b4f;
+  --jade-wash:#dfeae4;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:#b3bbb6 var(--paper)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:var(--serif-cn);font-weight:600;letter-spacing:-0.012em;text-wrap:balance}
+a{color:var(--brass);text-underline-offset:3px;text-decoration-thickness:1px}
+#showcase-backlink{color:#644816}
+p{max-width:70ch}
+p+p{margin-top:14px}
+svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+table{width:100%;border-collapse:collapse}
+b,strong{font-weight:600}
+
+/* 抬头 */
+.masthead{padding:92px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:56px;align-items:start}
+h1{font-size:clamp(32px,4.2vw,50px);line-height:1.2;letter-spacing:-0.015em}
+.standfirst{margin-top:24px;font-size:19.5px;line-height:1.58;color:var(--ink-2);max-width:46ch}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+.daterow{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{
+  font-size:12.5px;line-height:1;padding:7px 11px;border-radius:3px;
+  background:var(--paper-raised);border:1px solid var(--rule);color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+}
+.chip.is-a{border-color:#c9b9a0;background:var(--brass-wash);color:#5f4315}
+.chip.is-hk{border-color:#b6cfc2;background:var(--jade-wash);color:#22513c}
+.chip.is-us{border-color:#d8bdb5;background:var(--brick-wash);color:#71301f}
+
+/* 区块骨架（区块间发丝线自左绘出：全页唯一动效） */
+section{padding:80px 0;position:relative}
+section + section::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:1px;
+  background:var(--rule);transform:scaleX(0);transform-origin:left center;will-change:transform;
+}
+section + section.drawn::before{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  section + section::before{transform:scaleX(1)!important;transition:none!important}
+}
+h2{font-size:29px;line-height:1.28;margin-bottom:16px}
+h3{font-size:19px;line-height:1.4;margin-bottom:12px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+p{max-width:70ch}
+p+p{margin-top:14px}
+
+/* 核心判断：深色带 */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  font-weight:600;max-width:34ch;letter-spacing:-0.008em;
+}
+.verdict em{font-style:normal;color:#e8c989}
+.verdict-note{margin-top:22px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:64ch}
+.verdict-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--deep-rule);border:1px solid var(--deep-rule);
+  margin-top:36px;border-radius:4px;overflow:hidden;
+}
+.verdict-cell{background:#171b19;padding:20px 20px 18px}
+.verdict-cell .vc-k{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#8d968f}
+.verdict-cell .vc-v{font-family:var(--serif-num);font-size:26px;line-height:1.15;margin-top:8px;color:var(--deep-ink);font-variant-numeric:tabular-nums}
+.verdict-cell .vc-v.neg{color:#e09a86}
+.verdict-cell .vc-v.pos{color:#8fc9ab}
+.verdict-cell .vc-s{font-size:12.5px;line-height:1.5;color:#8d968f;margin-top:8px}
+
+/* 关键数据 */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(206px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:clamp(26px,2.7vw,32px);line-height:1.06;
+  letter-spacing:-0.018em;font-weight:500;font-variant-numeric:tabular-nums;
+}
+.metric-value.neg{color:var(--brick)}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* 断言读法 */
+.readback{
+  margin-top:26px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-raised);padding:20px 22px 18px;
+}
+.readback h3{font-size:15px;font-family:var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.readback ol{list-style:none;counter-reset:rb;margin-top:12px;display:grid;gap:8px}
+.readback li{
+  counter-increment:rb;position:relative;padding-left:30px;
+  font-size:15px;line-height:1.6;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.readback li::before{
+  content:counter(rb);position:absolute;left:0;top:2px;width:20px;height:20px;
+  border:1px solid var(--brass);border-radius:50%;color:var(--brass);
+  font-family:var(--serif-num);font-size:11.5px;display:grid;place-items:center;line-height:1;
+}
+.readback .rb-note{margin-top:12px;font-size:12.5px;line-height:1.55;color:var(--ink-3)}
+
+/* 双栏账 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.duo-col{border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--paper-raised)}
+.duo-h{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.duo-h .dh-t{font-family:var(--serif-cn);font-size:17px;font-weight:600}
+.duo-h .dh-s{font-size:12.5px;color:var(--ink-3)}
+.duo-col.sell .duo-h{background:var(--brick-wash)}
+.duo-col.sell .dh-t{color:#71301f}
+.duo-col.buy .duo-h{background:var(--jade-wash)}
+.duo-col.buy .dh-t{color:#22513c}
+.duo-list{list-style:none;padding:6px 0}
+.duo-list li{
+  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  padding:9px 18px;font-size:15px;border-bottom:1px solid var(--rule-soft);
+}
+.duo-list li:last-child{border-bottom:none}
+.duo-list .dl-k{color:var(--ink)}
+.duo-list .dl-v{font-family:var(--serif-num);font-variant-numeric:tabular-nums;color:var(--ink-2);white-space:nowrap;font-size:14.5px}
+.duo-list .dl-v.neg{color:var(--brick);font-weight:600}
+.duo-list .dl-v.pos{color:var(--jade);font-weight:600}
+.duo-note{padding:12px 18px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--rule);background:var(--paper-sunk);line-height:1.55}
+
+/* 表 */
+.tbl-wrap{overflow:auto;max-inline-size:100%;container-type:inline-size;border-radius:4px}
+.tbl{
+  border-collapse:separate;border-spacing:0;font-size:15px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);
+}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 16px;font-size:13px;
+  color:var(--ink-3);background:var(--paper-sunk);border-bottom:1px solid var(--rule);
+}
+.tbl th,.tbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+.tbl thead th{
+  position:sticky;inset-block-start:0;z-index:1;
+  background:var(--paper-sunk);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--rule);
+}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
+.tbl tbody th{font-weight:600;background:var(--paper-raised)}
+.tbl .n{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .neg{color:var(--brick);font-weight:600}
+.tbl .pos{color:var(--jade);font-weight:600}
+.tbl .src{font-size:12.5px;color:var(--ink-3)}
+.tbl tr.grp th{
+  background:var(--paper-sunk);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:9px;padding-bottom:9px;
+}
+
+/* 口径并列 */
+.caliber{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.caliber-box{border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);overflow:hidden}
+.caliber-box .cb-h{
+  padding:14px 18px;background:var(--brass-wash);border-bottom:1px solid var(--rule);
+  font-family:var(--serif-cn);font-size:16.5px;font-weight:600;color:#5f4315;
+}
+.caliber-box .cb-row{padding:14px 18px;border-bottom:1px solid var(--rule-soft)}
+.caliber-box .cb-row:last-child{border-bottom:none}
+.caliber-box .cb-k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.caliber-box .cb-v{font-family:var(--serif-num);font-size:22px;font-variant-numeric:tabular-nums;margin-top:5px;color:var(--ink)}
+.caliber-box .cb-v.neg{color:var(--brick)}
+.caliber-box .cb-s{font-size:12.5px;line-height:1.55;color:var(--ink-3);margin-top:7px}
+.caliber-flag{
+  margin-top:18px;padding:14px 18px;border:1px solid #d8bdb5;background:var(--brick-wash);
+  border-radius:4px;font-size:14.5px;line-height:1.62;color:#71301f;
+}
+.caliber-flag b{color:#5f2517}
+
+/* 图 */
+.fig{background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:22px 22px 16px}
+.fig + .fig{margin-top:26px}
+.fig h3{font-size:17px}
+.fig-cap{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--rule-soft);max-width:none}
+.fig-legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:6px}
+.fig-legend span{display:inline-flex;align-items:center;gap:7px}
+.fig-legend i{width:13px;height:13px;border-radius:2px;display:inline-block}
+
+/* 时间线 */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:138px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding-top:3px}
+.timeline-title{font-size:17px;font-weight:600;line-height:1.45}
+.timeline-detail{margin-top:6px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+
+/* 证据 */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:60ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'\201C';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);font-style:normal;
+}
+
+/* 未确认 */
+.uncertain{list-style:none;border-top:1px solid var(--rule)}
+.uncertain li{
+  padding:16px 0;border-bottom:1px solid var(--rule);font-size:15.5px;line-height:1.62;color:var(--ink-2);
+}
+.uncertain li b{color:var(--ink)}
+
+/* 页脚 */
+.colophon{padding:52px 0 74px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:66ch}
+.colophon p+p{margin-top:12px}
+
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:36px}
+  .duo,.caliber{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:54px 0}
+  h2{font-size:24px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86;color:#fafafa;background:rgba(20,19,15,.92);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>4800只下跌的午盘：A股在放量下跌，高股息却在创历史新高，港股两指数齐跌</h1>
+        <p class="standfirst">2026-11-20 同一个上午，A股四指数齐跌、半日成交较上一日放量 698 亿元、超 4800 只个股下跌；同一时刻建设银行、工商银行、中信银行盘中创历史新高。隔一条海峡，恒指午盘跌 1.71%、恒生科技跌 3.14%。本篇把「放量下跌、家数口径、板块两向、高股息逆势」四组读数与前作《缩量的星期一》逐项对账，两组口径并列不取舍。</p>
+        <div class="daterow">
+          <span class="chip is-a">A 股 · 11-20 午盘 11:30</span>
+          <span class="chip is-hk">港股 · 11-20 午盘 12:00</span>
+          <span class="chip is-us">美股 · 11-19 收盘</span>
+          <span class="chip">素材：每日股市简报 2026-11-20.md</span>
+          <span class="chip">前作：11-17《缩量的星期一》</span>
+        </div>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>选题 / 成稿</dt><dd><b>461 · 2026-11-21</b></dd></div>
+          <div><dt>主责</dt><dd><b>量研</b></dd></div>
+          <div><dt>追踪线</dt><dd><b>宏观利率与股市</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">5</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">11-20 的午盘不是「缩量阴跌」的延续，而是<em>放量下跌与高股息创新高同时发生的同一天</em>；两本账的分歧点在于同一笔卖压落在了不同的股票上。</p>
+    <p class="verdict-note">11-16 是缩量 795 亿元的下跌，11-20 是放量 698 亿元的下跌：钱回来了，但方向是往下。同一天，半导体、白酒、算力领跌，元件、猪肉、传媒上涨；建行、工行、中信盘中创历史新高，说明承接盘没有离场，只是从高估值成长换到了高股息。港股不参与这个切换：恒指跌 1.71%、恒生科技跌 3.14%，跌幅比 A 股多数指数更深，且午盘点位当日两来源均未披露。</p>
+    <div class="verdict-grid">
+      <div class="verdict-cell">
+        <div class="vc-k">A 股半日成交</div>
+        <div class="vc-v">8473 亿元</div>
+        <div class="vc-s">较上一交易日放量 698 亿元；另一口径 8617 亿元，差异未确认</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">下跌家数</div>
+        <div class="vc-v neg">超 4800 只</div>
+        <div class="vc-s">口径二：641 涨 / 4509 跌，31 涨停、6 跌停</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">高股息</div>
+        <div class="vc-v pos">3 家创新高</div>
+        <div class="vc-s">建行、工行、中信盘中（截至 11:30）股价创历史新高</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">同日恒生科技</div>
+        <div class="vc-v neg">-3.14%</div>
+        <div class="vc-s">恒指午盘 -1.71%；午盘点位两来源均未给</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>关键数据：本篇跟踪的六个读数</h2>
+    <p class="lede">这六格与 11-17《缩量的星期一》同一组标签，只更新快照日期部分。午盘口径为 A 股 11:30 上午收盘快照、港股 12:00 快照。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value neg">3521.40 点</div>
+        <div class="metric-label">上证指数午盘点位（11-20）</div>
+        <div class="metric-source">21财经雷达数据，网易号 11-20 · A 股午盘 11:30 快照 · 跌 1.57%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">8473 亿元</div>
+        <div class="metric-label">A股午盘成交额（11-20）</div>
+        <div class="metric-source">财中社 11-20 · A 股午盘 11:30 快照 · 全市场半日，放量 698 亿元；另一口径 8617 亿元未确认</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">未确认</div>
+        <div class="metric-label">恒生指数午盘点位（11-20）</div>
+        <div class="metric-source">每经 AI 快讯 11-20 12:12／中国基金报 11-20 · 港股午盘 12:00 快照只给跌幅 -1.71% 未给点位；盘中 14:09 的 22367.10 点不作午盘口径</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-2.05%</div>
+        <div class="metric-label">深证成指午盘涨跌幅（11-20）</div>
+        <div class="metric-source">21财经雷达数据，网易号 11-20 · A 股午盘 11:30 快照 · 财中社 11-20 11:34 同值交叉确认</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-2.08%</div>
+        <div class="metric-label">创业板指午盘涨跌幅（11-20）</div>
+        <div class="metric-source">21财经雷达数据，网易号 11-20 · A 股午盘 11:30 快照 · 财中社 11-20 同值交叉确认</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-2.71%</div>
+        <div class="metric-label">科创50午盘涨跌幅（11-20）</div>
+        <div class="metric-source">21财经雷达数据，网易号 11-20 · A 股午盘 11:30 快照 · 财中社 11-20 同值交叉确认</div>
+      </div>
+    </div>
+
+    <div class="readback">
+      <h3>断言读法（quote 与本页正文逐字一致）</h3>
+      <ol>
+        <li>上证指数午盘点位（11-20）3521.40 点</li>
+        <li>A股午盘成交额（11-20）8473 亿元</li>
+        <li>深证成指午盘涨跌幅（11-20）-2.05%</li>
+        <li>创业板指午盘涨跌幅（11-20）-2.08%</li>
+        <li>科创50午盘涨跌幅（11-20）-2.71%</li>
+      </ol>
+      <p class="rb-note">恒生指数午盘点位（11-20）当日无午盘点位数据，标「未确认」，不列入断言层，也不用盘中点位顶替。</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="shell">
+    <h2>账一 · A 股午盘：同一本账里的两个方向</h2>
+    <p class="lede">指数只说了方向，板块与家数才说明动作。11-20 午盘的 A 股不是全面下跌，是高估值成长被卖、高股息与内需被接。</p>
+
+    <div class="duo">
+      <div class="duo-col sell">
+        <div class="duo-h"><span class="dh-t">领跌 · 高估值与白酒</span><span class="dh-s">11-20 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">半导体</span><span class="dl-v neg">跌幅居前</span></li>
+          <li><span class="dl-k">白酒</span><span class="dl-v neg">跌幅居前</span></li>
+          <li><span class="dl-k">算力</span><span class="dl-v neg">跌幅居前</span></li>
+          <li><span class="dl-k">贵金属 · 光刻机 · 小金属</span><span class="dl-v neg">跌幅居前</span></li>
+          <li><span class="dl-k">通富微电 · 阿石创 · 海光信息</span><span class="dl-v neg">下跌</span></li>
+        </ul>
+        <div class="duo-note">出处：中国证券报／21世纪经济报道 11-20 12:40、财中社 11-20。「跌幅居前」为来源原文表述，未给出板块百分比。</div>
+      </div>
+
+      <div class="duo-col buy">
+        <div class="duo-h"><span class="dh-t">领涨 · 元件与内需</span><span class="dh-s">11-20 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">元件</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">猪肉</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">文化传媒 · 影视院线</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">种植业与林业 · 养殖业</span><span class="dl-v pos">上涨</span></li>
+          <li><span class="dl-k">建行 · 工行 · 中信</span><span class="dl-v pos">盘中创历史新高</span></li>
+        </ul>
+        <div class="duo-note">出处：财中社 11-20、21财经雷达数据 11-20、中国证券报／21世纪经济报道 11-20 12:40。三家银行口径为 11-20 盘中（截至 11:30）。</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-a" style="margin-top:26px">
+      <table class="tbl">
+        <caption id="cap-a">表一 · A 股 11-20 午盘读数（11:30 快照；两组口径并列不取舍）</caption>
+        <thead>
+          <tr>
+            <th scope="col">对象</th>
+            <th scope="col">读数</th>
+            <th scope="col">口径 / 来源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">上证指数</th><td class="n neg">3521.40 点 · -1.57%</td><td class="src">21财经雷达数据，网易号 11-20</td></tr>
+          <tr><th scope="row">深证成指</th><td class="n neg">10365.76 点 · -2.05%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 11:34 同值</td></tr>
+          <tr><th scope="row">创业板指</th><td class="n neg">2245.61 点 · -2.08%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 同值</td></tr>
+          <tr><th scope="row">科创50</th><td class="n neg">1236.38 点 · -2.71%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 同值</td></tr>
+          <tr><th scope="row">北证50</th><td class="n neg">-0.79%</td><td class="src">财中社 11-20 11:34／搜狐 11-20（点位未给）</td></tr>
+          <tr><th scope="row">科创综指</th><td class="n neg">-2.92%</td><td class="src">中国证券报／21世纪经济报道 11-20 12:40</td></tr>
+          <tr><th scope="row">半日成交额</th><td class="n">8473 亿元（放量 698 亿元）</td><td class="src">财中社 11-20；另一口径 8617 亿元，差异未确认</td></tr>
+          <tr><th scope="row">盘中低点</th><td class="n">上证 3500.88 点 · 创业板指 2222.77 点</td><td class="src">中国证券报／21世纪经济报道 11-20 12:40（09:30-11:30 时段）</td></tr>
+          <tr><th scope="row">下跌家数（口径一）</th><td class="n neg">超 4800 只</td><td class="src">财中社 11-20（全市场）</td></tr>
+          <tr><th scope="row">涨跌家数（口径二）</th><td class="n neg">641 涨 · 4509 跌 · 31 涨停 · 6 跌停</td><td class="src">21财经雷达数据 11-20（沪深两市）</td></tr>
+          <tr><th scope="row">早盘个股成交额</th><td class="n">中际旭创 100.29 亿元居首</td><td class="src">21财经雷达数据 11-20（新易盛 97.47、长鑫科技 59.86、宁德时代 58.96、寒武纪 53.95 亿元）</td></tr>
+          <tr><th scope="row">宽基 ETF</th><td class="n">临午间收盘显著放量</td><td class="src">中国证券报 11-20（159915、510300、512100）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>与前作对照：缩量的一天之后，是放量的一天</h2>
+    <p class="lede">11-16 与 11-20 是同一组指数的两次午盘。上证从跌 0.39% 走到跌 1.57%，成交从缩量 795 亿元变成放量 698 亿元；科创50 与创业板指的跌幅反而略收窄。</p>
+
+    <div class="fig">
+      <div class="fig-legend">
+        <span><i style="background:#c9b9a0"></i>11-16 午盘（前作）</span>
+        <span><i style="background:#8c3a2a"></i>11-20 午盘（本篇）</span>
+        <span>横轴为午盘涨跌幅（%），零线在右</span>
+      </div>
+      <svg viewBox="0 0 880 288" role="img" aria-labelledby="chart-t chart-d">
+        <title id="chart-t">11-16 与 11-20 午盘四指数涨跌幅对照</title>
+        <desc id="chart-d">上证从 -0.39% 走到 -1.57%，深证成指从 -1.31% 走到 -2.05%，创业板指从 -2.34% 到 -2.08%，科创50 从 -2.91% 到 -2.71%。</desc>
+
+        <line x1="800" y1="14" x2="800" y2="248" stroke="#171a18" stroke-width="1"/>
+        <text x="800" y="272" text-anchor="middle" font-size="11.5" fill="#5d6460">0%</text>
+        <text x="573.3" y="272" text-anchor="middle" font-size="11.5" fill="#5d6460">-1%</text>
+        <text x="346.7" y="272" text-anchor="middle" font-size="11.5" fill="#5d6460">-2%</text>
+        <text x="120" y="272" text-anchor="middle" font-size="11.5" fill="#5d6460">-3%</text>
+
+        <text x="808" y="36" font-size="13.5" font-weight="700" fill="#171a18">上证指数</text>
+        <rect x="711.6" y="24" width="88.4" height="16" fill="#c9b9a0" rx="1"/>
+        <text x="705.6" y="36.5" text-anchor="end" font-size="12" fill="#4f5551">-0.39%</text>
+        <rect x="444.1" y="46" width="355.9" height="16" fill="#8c3a2a" rx="1"/>
+        <text x="438.1" y="58.5" text-anchor="end" font-size="12" font-weight="700" fill="#171a18">-1.57%</text>
+
+        <text x="808" y="92" font-size="13.5" font-weight="700" fill="#171a18">深证成指</text>
+        <rect x="503.1" y="80" width="296.9" height="16" fill="#c9b9a0" rx="1"/>
+        <text x="497.1" y="92.5" text-anchor="end" font-size="12" fill="#4f5551">-1.31%</text>
+        <rect x="335.3" y="102" width="464.7" height="16" fill="#8c3a2a" rx="1"/>
+        <text x="329.3" y="114.5" text-anchor="end" font-size="12" font-weight="700" fill="#171a18">-2.05%</text>
+
+        <text x="808" y="148" font-size="13.5" font-weight="700" fill="#171a18">创业板指</text>
+        <rect x="269.5" y="136" width="530.5" height="16" fill="#c9b9a0" rx="1"/>
+        <text x="263.5" y="148.5" text-anchor="end" font-size="12" fill="#4f5551">-2.34%</text>
+        <rect x="328.5" y="158" width="471.5" height="16" fill="#8c3a2a" rx="1"/>
+        <text x="322.5" y="170.5" text-anchor="end" font-size="12" font-weight="700" fill="#171a18">-2.08%</text>
+
+        <text x="808" y="204" font-size="13.5" font-weight="700" fill="#171a18">科创50</text>
+        <rect x="140.3" y="192" width="659.7" height="16" fill="#c9b9a0" rx="1"/>
+        <text x="134.3" y="204.5" text-anchor="end" font-size="12" fill="#4f5551">-2.91%</text>
+        <rect x="185.7" y="214" width="614.3" height="16" fill="#8c3a2a" rx="1"/>
+        <text x="179.7" y="226.5" text-anchor="end" font-size="12" font-weight="700" fill="#171a18">-2.71%</text>
+      </svg>
+      <p class="fig-cap">图一 · 两次午盘的四指数对照。读法：上证与深证成指明显恶化，创业板指与科创50 的跌幅反而小幅收窄，说明 11-20 的放量卖压没有集中在前作的主战场 AI 硬件，而是向权重与白酒、算力扩散。数据：11-16 见前作《缩量的星期一》（格隆汇、21财经雷达 11-16 午盘）；11-20 见 21财经雷达数据、财中社 11-20 午盘。</p>
+    </div>
+
+    <div class="fig">
+      <h3>半日成交：从缩量 795 亿元到放量 698 亿元</h3>
+      <svg viewBox="0 0 880 168" role="img" aria-labelledby="vol-t vol-d">
+        <title id="vol-t">11-16 与 11-20 半日成交额对照</title>
+        <desc id="vol-d">11-16 半日成交 9066 亿元，较上一日缩量 795 亿元；11-20 半日成交 8473 亿元，较上一日放量 698 亿元。</desc>
+
+        <line x1="120" y1="16" x2="120" y2="140" stroke="#d2d8d4" stroke-width="1"/>
+
+        <text x="112" y="46" text-anchor="end" font-size="13.5" fill="#171a18">11-16 午盘</text>
+        <rect x="120" y="32" width="580.2" height="26" fill="#c9b9a0" rx="1"/>
+        <text x="132" y="50" font-size="13.5" font-weight="700" fill="#171a18">9066 亿元 · 缩量 795 亿元</text>
+
+        <text x="112" y="104" text-anchor="end" font-size="13.5" fill="#171a18">11-20 午盘</text>
+        <rect x="120" y="90" width="542.3" height="26" fill="#8c3a2a" rx="1"/>
+        <text x="132" y="108" font-size="13.5" font-weight="700" fill="#ffffff">8473 亿元 · 放量 698 亿元</text>
+
+        <text x="120" y="158" font-size="11.5" fill="#5d6460">0</text>
+        <text x="700" y="158" text-anchor="middle" font-size="11.5" fill="#5d6460">9066 亿元（横轴自 0 起）</text>
+      </svg>
+      <p class="fig-cap">图二 · 半日成交额与量能方向。两天的绝对水平接近，量能方向相反：11-16 是「没人卖也没人买」的缩量，11-20 是「有人卖也有人接」的放量。另一口径 8617 亿元（中国证券报／21世纪经济报道 11-20 12:40）与 8473 亿元的差异未确认，两值均保留。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>账二 · 两地对账：A 股、港股与隔夜美股</h2>
+    <p class="lede">三个时点不同：A 股是 11-20 午盘 11:30 快照，港股是 11-20 午盘 12:00 快照，美股是前一交易日 11-19 收盘。并排是为了看方向，不是看同时性。</p>
+
+    <div class="fig">
+      <div class="fig-legend">
+        <span><i style="background:#8c3a2a"></i>下跌</span>
+        <span>横轴为涨跌幅（%），零线在右；美股为 11-19 收盘</span>
+      </div>
+      <svg viewBox="0 0 880 396" role="img" aria-labelledby="tri-t tri-d">
+        <title id="tri-t">11-20 三市指数涨跌幅对照</title>
+        <desc id="tri-d">A 股四指数跌 1.57% 至 2.71%；恒指跌 1.71%、恒生科技跌 3.14%；美股 11-19 收盘道指跌 2.19%、纳指跌 2.25%、标普跌 2.02%、费半跌 2.4%。</desc>
+
+        <line x1="760" y1="14" x2="760" y2="356" stroke="#171a18" stroke-width="1"/>
+
+        <text x="8" y="22" font-size="11.5" font-weight="700" fill="#7d5a1c" letter-spacing="1.4">A 股 · 11-20 午盘 11:30</text>
+        <text x="768" y="46" font-size="13" fill="#171a18">上证指数</text>
+        <rect x="436.2" y="33" width="323.8" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="430.2" y="46.5" text-anchor="end" font-size="12.5" fill="#171a18">-1.57%</text>
+        <text x="768" y="72" font-size="13" fill="#171a18">深证成指</text>
+        <rect x="337.2" y="59" width="422.8" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="331.2" y="72.5" text-anchor="end" font-size="12.5" fill="#171a18">-2.05%</text>
+        <text x="768" y="98" font-size="13" fill="#171a18">创业板指</text>
+        <rect x="331" y="85" width="429" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="325" y="98.5" text-anchor="end" font-size="12.5" fill="#171a18">-2.08%</text>
+        <text x="768" y="124" font-size="13" font-weight="700" fill="#171a18">科创50</text>
+        <rect x="201.1" y="111" width="558.9" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="195.1" y="124.5" text-anchor="end" font-size="12.5" font-weight="700" fill="#171a18">-2.71%</text>
+
+        <text x="8" y="154" font-size="11.5" font-weight="700" fill="#2f6b4f" letter-spacing="1.4">港股 · 11-20 午盘 12:00</text>
+        <text x="768" y="178" font-size="13" fill="#171a18">恒生指数</text>
+        <rect x="407.3" y="165" width="352.7" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="401.3" y="178.5" text-anchor="end" font-size="12.5" fill="#171a18">-1.71%</text>
+        <text x="768" y="204" font-size="13" font-weight="700" fill="#171a18">恒生科技</text>
+        <rect x="112.4" y="191" width="647.6" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="106.4" y="204.5" text-anchor="end" font-size="12.5" font-weight="700" fill="#171a18">-3.14%</text>
+
+        <text x="8" y="234" font-size="11.5" font-weight="700" fill="#8c3a2a" letter-spacing="1.4">美股 · 11-19 收盘</text>
+        <text x="768" y="258" font-size="13" fill="#171a18">道琼斯</text>
+        <rect x="308.3" y="245" width="451.7" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="302.3" y="258.5" text-anchor="end" font-size="12.5" fill="#171a18">-2.19%</text>
+        <text x="768" y="284" font-size="13" fill="#171a18">纳斯达克</text>
+        <rect x="295.9" y="271" width="464.1" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="289.9" y="284.5" text-anchor="end" font-size="12.5" fill="#171a18">-2.25%</text>
+        <text x="768" y="310" font-size="13" fill="#171a18">标普500</text>
+        <rect x="343.4" y="297" width="416.6" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="337.4" y="310.5" text-anchor="end" font-size="12.5" fill="#171a18">-2.02%</text>
+        <text x="768" y="336" font-size="13" font-weight="700" fill="#171a18">费城半导体</text>
+        <rect x="265" y="323" width="495" height="17" fill="#8c3a2a" rx="1"/>
+        <text x="259" y="336.5" text-anchor="end" font-size="12.5" font-weight="700" fill="#171a18">-2.40%</text>
+
+        <text x="760" y="380" text-anchor="middle" font-size="11.5" fill="#5d6460">0%</text>
+        <text x="553.75" y="380" text-anchor="middle" font-size="11.5" fill="#5d6460">-1%</text>
+        <text x="347.5" y="380" text-anchor="middle" font-size="11.5" fill="#5d6460">-2%</text>
+        <text x="141.25" y="380" text-anchor="middle" font-size="11.5" fill="#5d6460">-3%</text>
+      </svg>
+      <p class="fig-cap">图三 · 三市一屏。读法只有一条：恒生科技（-3.14%）是全场最深的一格，比科创50（-2.71%）还低；而隔夜费半（-2.40%）与三大指数 2% 上下的跌幅，是 11-20 亚太齐跌的背景。数据：21财经雷达数据、财中社、每经 AI 快讯（11-20 午盘）；新浪行情接口（11-19 美股收盘）。</p>
+    </div>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-three" style="margin-top:26px">
+      <table class="tbl">
+        <caption id="cap-three">表二 · 三市指数与关键读数对照（A/港为 11-20 午盘，美为 11-19 收盘）</caption>
+        <thead>
+          <tr>
+            <th scope="col">市场 · 时点</th>
+            <th scope="col">对象</th>
+            <th scope="col">读数</th>
+            <th scope="col">涨跌</th>
+            <th scope="col">出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><th colspan="5" scope="colgroup">A 股 · 11-20 午盘 11:30</th></tr>
+          <tr><td>A 股 午盘</td><th scope="row">上证指数</th><td class="n">3521.40 点</td><td class="n neg">-1.57%</td><td class="src">21财经雷达数据 11-20</td></tr>
+          <tr><td>A 股 午盘</td><th scope="row">深证成指</th><td class="n">10365.76 点</td><td class="n neg">-2.05%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 同值</td></tr>
+          <tr><td>A 股 午盘</td><th scope="row">创业板指</th><td class="n">2245.61 点</td><td class="n neg">-2.08%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 同值</td></tr>
+          <tr><td>A 股 午盘</td><th scope="row">科创50</th><td class="n">1236.38 点</td><td class="n neg">-2.71%</td><td class="src">21财经雷达数据 11-20；财中社 11-20 同值</td></tr>
+          <tr><td>A 股 午盘</td><th scope="row">全市场半日成交</th><td class="n">8473 亿元</td><td class="n">放量 698 亿元</td><td class="src">财中社 11-20；另一口径 8617 亿元（中国证券报／21世纪经济报道 11-20 12:40）</td></tr>
+          <tr><td>A 股 午盘</td><th scope="row">涨跌家数</th><td class="n">超 4800 只下跌</td><td class="n neg">641 涨 / 4509 跌（口径二）</td><td class="src">财中社 11-20 ／ 21财经雷达数据 11-20</td></tr>
+
+          <tr class="grp"><th colspan="5" scope="colgroup">港股 · 11-20 午盘 12:00</th></tr>
+          <tr><td>港股 午盘</td><th scope="row">恒生指数</th><td class="n">点位未确认</td><td class="n neg">-1.71%</td><td class="src">每经 AI 快讯 11-20 12:12；中国基金报 11-20 电</td></tr>
+          <tr><td>港股 午盘</td><th scope="row">恒生科技指数</th><td class="n">点位未确认</td><td class="n neg">-3.14%</td><td class="src">每经 AI 快讯 11-20 12:12；中国基金报 11-20 电</td></tr>
+          <tr><td>港股 盘中</td><th scope="row">恒生指数（14:09 参考）</th><td class="n">22367.10 点</td><td class="n neg">-2.08%（-474.52 点）</td><td class="src">新浪行情接口 hq.sinajs.cn，取数时点 11-20 14:09</td></tr>
+          <tr><td>港股 盘中</td><th scope="row">恒生科技指数（14:09 参考）</th><td class="n">3506.90 点</td><td class="n neg">-3.90%（-142.24 点）</td><td class="src">新浪行情接口 hq.sinajs.cn，取数时点 11-20 14:09</td></tr>
+
+          <tr class="grp"><th colspan="5" scope="colgroup">美股 · 11-19 收盘</th></tr>
+          <tr><td>美股 收盘</td><th scope="row">道琼斯工业平均指数</th><td class="n">49097.06 点</td><td class="n neg">-2.19%（-1101.11 点）</td><td class="src">新浪行情接口，美东 11-19 16:00 收盘</td></tr>
+          <tr><td>美股 收盘</td><th scope="row">纳斯达克综合指数</th><td class="n">23879.20 点</td><td class="n neg">-2.25%（-550.69 点）</td><td class="src">新浪行情接口，美东 11-19 收盘</td></tr>
+          <tr><td>美股 收盘</td><th scope="row">标普500指数</th><td class="n">7175.83 点</td><td class="n neg">-2.02%（-147.80 点）</td><td class="src">新浪行情接口，美东 11-19 16:00 收盘</td></tr>
+          <tr><td>美股 收盘</td><th scope="row">费城半导体指数</th><td class="n">点位未确认</td><td class="n neg">-2.40%</td><td class="src">BigGo Finance 11-20（日经报道转引）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>口径警示：两组数字都留着</h2>
+    <p class="lede">本篇素材里有两组互不一致的口径。差异原因当日未确认，因此并列呈现，不二选一，也不做加权或推算。</p>
+
+    <div class="caliber">
+      <div class="caliber-box">
+        <div class="cb-h">半日成交额：8473 亿元 vs 8617 亿元</div>
+        <div class="cb-row">
+          <div class="cb-k">口径一</div>
+          <div class="cb-v">8473 亿元</div>
+          <div class="cb-s">财中社 11-20：全市场半日（午盘）成交 8473 亿元，较上一交易日放量 698 亿元。</div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-k">口径二</div>
+          <div class="cb-v">8617 亿元</div>
+          <div class="cb-s">中国证券报／21世纪经济报道 11-20 12:40：另一口径全市场半日 8617 亿元。</div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-k">差异</div>
+          <div class="cb-v neg">未确认</div>
+          <div class="cb-s">素材原文写明「未确认两口径差异原因」。确认方法：回查两来源的统计口径（是否含北交所、是否含 ETF 与基金申赎）与截数时点。</div>
+        </div>
+      </div>
+
+      <div class="caliber-box">
+        <div class="cb-h">下跌家数：超 4800 只 vs 641 涨 / 4509 跌</div>
+        <div class="cb-row">
+          <div class="cb-k">口径一</div>
+          <div class="cb-v neg">超 4800 只下跌</div>
+          <div class="cb-s">财中社 11-20：全市场超 4800 只个股下跌。</div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-k">口径二</div>
+          <div class="cb-v neg">641 涨 · 4509 跌</div>
+          <div class="cb-s">21财经雷达数据 11-20：沪深两市 641 只上涨、4509 只下跌，31 只涨停、6 只跌停。</div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-k">差异</div>
+          <div class="cb-v">范围不同</div>
+          <div class="cb-s">口径一为全市场，口径二为沪深两市。两值不相加、不互相替代；差异大小未确认。</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="caliber-flag"><b>为什么必须并列：</b>两组口径分别决定「放量多少」和「跌得多广」这两个结论的分母。若只取 8473 亿元，放量 698 亿元的结论绑定在单一来源上；若只取「超 4800 只」，会丢掉 31 涨停、6 跌停这两个极端值。本篇的两本账以并列口径为前提。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>时间线：从缩量的一天到放量的一天</h2>
+    <p class="lede">这条线只放与本篇判定直接相关的四个时点。前作的高盛评级逆向不在本篇重写。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16 午盘</span>
+        <div>
+          <div class="timeline-title">缩量下跌：半日 9066 亿元，缩量 795 亿元</div>
+          <div class="timeline-detail">上证 -0.39%、科创50 -2.91%，超 3500 只个股下跌，恒指同日 +0.84%。前作《缩量的星期一》判定为「高估值 → 确定性」的换仓。出处：格隆汇、21财经雷达 11-16 午盘。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19 收盘</span>
+        <div>
+          <div class="timeline-title">隔夜美股三大指数齐跌逾 2%</div>
+          <div class="timeline-detail">道指 49097.06 点（-2.19%）、纳指 23879.20 点（-2.25%）、标普500 7175.83 点（-2.02%），费半 -2.4%。中国证券报 11-20 记为「隔夜美股下跌传导至今日亚太股市齐跌」。出处：新浪行情接口、BigGo Finance 11-20。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-20 午盘</span>
+        <div>
+          <div class="timeline-title">放量下跌：半日 8473 亿元，放量 698 亿元</div>
+          <div class="timeline-detail">上证 -1.57% 报 3521.40 点，深证成指 -2.05%，创业板指 -2.08%，科创50 -2.71%；超 4800 只个股下跌。上证盘中最低 3500.88 点、创业板指最低 2222.77 点后拉升。出处：21财经雷达数据、财中社、中国证券报 11-20。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-20 同一上午</span>
+        <div>
+          <div class="timeline-title">高股息逆势：建行、工行、中信盘中创历史新高</div>
+          <div class="timeline-detail">口径为 11-20 盘中（截至 11:30）。半导体、白酒、算力领跌，元件、猪肉、传媒上涨。这是本篇两本账的分歧点：同一笔卖压，落在了不同的股票上。出处：中国证券报／21世纪经济报道 11-20 12:40、财中社 11-20。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>证据：判定所依据的原文</h2>
+    <p class="lede">以下六条为素材原文逐字引用，未改写、未压缩。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">上证指数午盘收报 3521.40 点，跌 1.57%；深证成指午盘收报 10365.76 点，跌 2.05%；创业板指午盘收报 2245.61 点，跌 2.08%；科创50 午盘收报 1236.38 点，跌 2.71%</p>
+        <cite class="evidence-source">21财经雷达数据，网易号 11-20（素材《每日股市简报 · 2026-11-20》A股午盘 11:30 段）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">成交额：全市场半日（午盘）成交 8473 亿元，较上一交易日放量 698 亿元</p>
+        <cite class="evidence-source">财中社 11-20（同条另载：另一口径全市场半日 8617 亿元，未确认两口径差异原因）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">涨跌家数（午盘）：全市场超 4800 只个股下跌（财中社 11-20）</p>
+        <cite class="evidence-source">财中社 11-20（全市场口径）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">沪深两市 641 只上涨、4509 只下跌，31 只涨停、6 只跌停（21财经雷达数据 11-20）</p>
+        <cite class="evidence-source">21财经雷达数据 11-20（沪深两市口径）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">高股息相对抗跌，建设银行、工商银行、中信银行 11-20 盘中（截至 11:30）股价创历史新高</p>
+        <cite class="evidence-source">中国证券报／21世纪经济报道 11-20 12:40</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">恒生指数午间收盘跌 1.71%；恒生科技指数午间收盘跌 3.14%</p>
+        <cite class="evidence-source">每经 AI 快讯，网易号 11-20 12:12；中国基金报 11-20 电，紫荆网 11-20 转引</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>未确认清单</h2>
+    <p class="lede">下列读数在当日素材中缺失或标注未确认，本篇不推算、不用邻近日期顶替。</p>
+    <ul class="uncertain">
+      <li><b>恒生指数与恒生科技指数的午盘（12:00）点位：</b>未确认。两来源只给跌幅未给点位，不以前日点位推算。确认方法：港交所或行情商的 11-20 12:00 快照。</li>
+      <li><b>午盘成交额两口径差异原因：</b>未确认。8473 亿元与 8617 亿元并列保留。确认方法：回查两来源的统计范围与截数时点。</li>
+      <li><b>超 4800 只与 641 涨 / 4509 跌的口径差：</b>部分确认。范围差异已确认（全市场 vs 沪深两市），差额大小未确认。</li>
+      <li><b>11-20 北向资金当日成交净额：</b>未确认。确认方法：交易所盘后披露或东方财富北向资金条目（本轮检索未命中当日条目）。</li>
+      <li><b>11-20 南向资金当日净流入／成交额：</b>未确认。确认方法：港交所披露易或东方财富南向资金条目。</li>
+      <li><b>11-20 CME「美联储观察」12 月会议利率概率：</b>未确认。上一可查口径为 11-19 快讯（加息 25 个基点概率 92.7%、50 个基点 7.3%），仅作背景，不作为当日数据。确认方法：CME FedWatch 工具页或当日快讯转引。</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>方法说明：本篇只使用本地素材《每日股市简报 · 2026-11-20》与前作《缩量的星期一》（2026-11-17），未做网络检索。全部数值与引文来自该素材，来源与数据日期随文标注；素材本身标注「未确认」的项目，本篇同样标「未确认」。</p>
+    <p>口径边界：A 股为 11-20 上午收盘（11:30）快照，港股为 11-20 午间（12:00）快照，美股为前一交易日 11-19 收盘；港股 14:09 盘中读数只作参考，不作午盘口径。板块涨跌表述为来源原文的「涨幅居前／跌幅居前」，素材未给出板块百分比，本篇不补算。</p>
+    <p>本篇为研究卷宗，不构成投资建议。断言层（script#claims）只收数值与指标名的逐字对齐项；因果与解释性判断只留在正文，可被表一、表二与图一至图三的读数反驳。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {
+    "value": "3521.40 点",
+    "label": "上证指数午盘点位（11-20）",
+    "quote": "上证指数午盘点位（11-20）3521.40 点"
+  },
+  {
+    "value": "8473 亿元",
+    "label": "A股午盘成交额（11-20）",
+    "quote": "A股午盘成交额（11-20）8473 亿元"
+  },
+  {
+    "value": "-2.05%",
+    "label": "深证成指午盘涨跌幅（11-20）",
+    "quote": "深证成指午盘涨跌幅（11-20）-2.05%"
+  },
+  {
+    "value": "-2.08%",
+    "label": "创业板指午盘涨跌幅（11-20）",
+    "quote": "创业板指午盘涨跌幅（11-20）-2.08%"
+  },
+  {
+    "value": "-2.71%",
+    "label": "科创50午盘涨跌幅（11-20）",
+    "quote": "科创50午盘涨跌幅（11-20）-2.71%"
+  }
+]
+</script>
+
+<script>
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>
+

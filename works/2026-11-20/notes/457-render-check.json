@@ -1,0 +1,501 @@
+{
+ "pass": [
+  "静态远程依赖: 0 条（src/href/url()/@import 无 http(s):// 或 //）",
+  "运行期远程请求: 0 条（共 2 个请求全为 file://）",
+  "pageerror: 0",
+  "console error/warning: 0",
+  "lang: zh-CN",
+  "viewport meta: 存在",
+  "showcase-beat: “宏观利率与股市” 在 13 条封闭集内",
+  "claims: 6 条 · quote 正文逐字命中 6/6",
+  "375px 无横向滚动: scrollWidth=375 <= clientWidth=375",
+  "prefers-reduced-motion: {\"scroll\": \"auto\", \"revealOpacity\": \"1\", \"revealTransition\": \"1e-06s\", \"swipeAnim\": \"1s\"}",
+  "Tab 首焦点可见: {\"tag\": \"A\", \"id\": \"\", \"cls\": \"sb-back\", \"outline\": \"solid 3px rgb(255, 196, 99)\"}",
+  "img alt: 0 张图全有 alt（或无图）"
+ ],
+ "fail": [
+  "标题层级: {'heads': [1, 2, 3, 3, 3, 2, 2, 4, 4], 'h1count': 1, 'skip': '2→4', 'imgs': [], 'btnNoName': 0}",
+  "实测对比度 < 需求: [{'sel': '.hero-foot', 'note': '英雄区脚注', 'fg': '#1c1c1a', 'bg': '#14110d', 'cr': 1.1, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 20368}, {'sel': '.board .sub', 'note': '面板副标', 'fg': '#1d1913', 'bg': '#1d1913', 'cr': 1.0, 'need': 4.5, 'fs': '11.5px', 'pass': False, 'px': 7578}, {'sel': '.row .lab', 'note': '行标签', 'fg': '#1d1913', 'bg': '#1d1913', 'cr': 1.0, 'need': 4.5, 'fs': '13.5px', 'pass': False, 'px': 15084}, {'sel': '.lever label', 'note': '档位标签', 'fg': '#764d16', 'bg': '#c27f1f', 'cr': 2.23, 'need': 4.5, 'fs': '13.5px', 'pass': False, 'px': 5808}, {'sel': '.lever label span', 'note': '档位副标', 'fg': '#845a15', 'bg': '#e29422', 'cr': 2.46, 'need': 4.5, 'fs': '10.5px', 'pass': False, 'px': 1360}, {'sel': '.flap-cap', 'note': '翻牌图注', 'fg': '#877e6f', 'bg': '#1d1913', 'cr': 4.37, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 5434}, {'sel': '.market .mnote', 'note': '市场注', 'fg': '#877e6f', 'bg': '#1d1913', 'cr': 4.37, 'need': 4.5, 'fs': '11.5px', 'pass': False, 'px': 5148}, {'sel': '.card .name', 'note': '卡片名', 'fg': '#655d52', 'bg': '#1d1913', 'cr': 2.7, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 8835}, {'sel': '.path .seq', 'note': '路径序列', 'fg': '#80796c', 'bg': '#241f17', 'cr': 3.79, 'need': 4.5, 'fs': '13px', 'pass': False, 'px': 9870}, {'sel': '.legend', 'note': '图例', 'fg': '#635b50', 'bg': '#18140f', 'cr': 2.74, 'need': 4.5, 'fs': '11.5px', 'pass': False, 'px': 4284}, {'sel': '.blk .face', 'note': '阶梯块面', 'fg': '#423013', 'bg': '#483415', 'cr': 1.07, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 5969}, {'sel': '.blk.lit .face', 'note': '高亮块面', 'fg': '#423013', 'bg': '#483415', 'cr': 1.07, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 5969}, {'sel': '.quote-block .attr', 'note': '引文署名', 'fg': '#221d15', 'bg': '#221d15', 'cr': 1.0, 'need': 4.5, 'fs': '12px', 'pass': False, 'px': 19038}]"
+ ],
+ "warn": [
+  "触达目标 <24px @375: [{'sel': 'input#d0.', 'w': 1, 'h': 1, 't': '0'}, {'sel': 'input#d25.', 'w': 1, 'h': 1, 't': '25'}, {'sel': 'input#d50.', 'w': 1, 'h': 1, 't': '50'}]"
+ ],
+ "evidence": {
+  "title": "加息阶梯：12 月 FOMC 的三条路径推演",
+  "claims": [
+   {
+    "value": "92.7%",
+    "label": "CME 12月会议加息25个基点概率（11-19口径）",
+    "quote": "92.7% CME 12月会议加息25个基点概率（11-19口径）",
+    "in_body": true,
+    "in_file": true
+   },
+   {
+    "value": "7.3%",
+    "label": "CME 12月会议加息50个基点概率（11-19口径）",
+    "quote": "7.3% CME 12月会议加息50个基点概率（11-19口径）",
+    "in_body": true,
+    "in_file": true
+   },
+   {
+    "value": "68.1%",
+    "label": "CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）",
+    "quote": "68.1% CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）",
+    "in_body": true,
+    "in_file": true
+   },
+   {
+    "value": "34.5%",
+    "label": "Polymarket 三次会议「加息—加息—加息」隐含概率（11-18）",
+    "quote": "34.5% Polymarket 三次会议「加息—加息—加息」隐含概率（11-18）",
+    "in_body": true,
+    "in_file": true
+   },
+   {
+    "value": "3.75%—4%",
+    "label": "联邦基金利率目标区间（11-18 纪要口径）",
+    "quote": "3.75%—4% 联邦基金利率目标区间（11-18 纪要口径）",
+    "in_body": true,
+    "in_file": true
+   },
+   {
+    "value": "3724.71 美元/盎司",
+    "label": "现货黄金收盘价（11-18）",
+    "quote": "3724.71 美元/盎司 现货黄金收盘价（11-18）",
+    "in_body": true,
+    "in_file": true
+   }
+  ],
+  "small_targets_375": [
+   {
+    "sel": "input#d0.",
+    "w": 1,
+    "h": 1,
+    "t": "0"
+   },
+   {
+    "sel": "input#d25.",
+    "w": 1,
+    "h": 1,
+    "t": "25"
+   },
+   {
+    "sel": "input#d50.",
+    "w": 1,
+    "h": 1,
+    "t": "50"
+   }
+  ],
+  "reduced_motion": {
+   "scroll": "auto",
+   "revealOpacity": "1",
+   "revealTransition": "1e-06s",
+   "swipeAnim": "1s"
+  },
+  "first_tab_focus": {
+   "tag": "A",
+   "id": "",
+   "cls": "sb-back",
+   "outline": "solid 3px rgb(255, 196, 99)"
+  },
+  "semantics": {
+   "heads": [
+    1,
+    2,
+    3,
+    3,
+    3,
+    2,
+    2,
+    4,
+    4
+   ],
+   "h1count": 1,
+   "skip": "2→4",
+   "imgs": [],
+   "btnNoName": 0
+  },
+  "contrast_measured": [
+   {
+    "sel": "body p",
+    "note": "正文",
+    "fg": "#f6f1e7",
+    "bg": "#14110d",
+    "cr": 16.72,
+    "need": 4.5,
+    "fs": "21px",
+    "pass": true,
+    "px": 48300
+   },
+   {
+    "sel": ".sec-note",
+    "note": "小节说明",
+    "fg": "#b4ac9e",
+    "bg": "#14110d",
+    "cr": 8.37,
+    "need": 4.5,
+    "fs": "17px",
+    "pass": true,
+    "px": 25872
+   },
+   {
+    "sel": ".deck",
+    "note": "导语",
+    "fg": "#f6f1e7",
+    "bg": "#14110d",
+    "cr": 16.72,
+    "need": 4.5,
+    "fs": "21px",
+    "pass": true,
+    "px": 48300
+   },
+   {
+    "sel": ".cap",
+    "note": "图注",
+    "fg": "#928b7f",
+    "bg": "#1b1711",
+    "cr": 5.28,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": true,
+    "px": 22734
+   },
+   {
+    "sel": ".cap .src",
+    "note": "图注来源",
+    "fg": "#a79d8b",
+    "bg": "#1d1913",
+    "cr": 6.53,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": true,
+    "px": 7578
+   },
+   {
+    "sel": ".tally-cap",
+    "note": "大数字图注",
+    "fg": "#857c6d",
+    "bg": "#14110d",
+    "cr": 4.57,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": true,
+    "px": 9516
+   },
+   {
+    "sel": "footer",
+    "note": "页脚",
+    "fg": "#cbcac7",
+    "bg": "#14110d",
+    "cr": 11.48,
+    "need": 4.5,
+    "fs": "14px",
+    "pass": true,
+    "px": 364140
+   },
+   {
+    "sel": "footer li",
+    "note": "页脚列表",
+    "fg": "#cfc6b6",
+    "bg": "#14110d",
+    "cr": 11.12,
+    "need": 4.5,
+    "fs": "14px",
+    "pass": true,
+    "px": 12765
+   },
+   {
+    "sel": ".hero-foot",
+    "note": "英雄区脚注",
+    "fg": "#1c1c1a",
+    "bg": "#14110d",
+    "cr": 1.1,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 20368
+   },
+   {
+    "sel": ".hero-foot .cue",
+    "note": "英雄区提示",
+    "fg": "#cfa052",
+    "bg": "#1a1917",
+    "cr": 7.36,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": true,
+    "px": 1007
+   },
+   {
+    "sel": ".board .sub",
+    "note": "面板副标",
+    "fg": "#1d1913",
+    "bg": "#1d1913",
+    "cr": 1.0,
+    "need": 4.5,
+    "fs": "11.5px",
+    "pass": false,
+    "px": 7578
+   },
+   {
+    "sel": ".row .lab",
+    "note": "行标签",
+    "fg": "#1d1913",
+    "bg": "#1d1913",
+    "cr": 1.0,
+    "need": 4.5,
+    "fs": "13.5px",
+    "pass": false,
+    "px": 15084
+   },
+   {
+    "sel": ".lever label",
+    "note": "档位标签",
+    "fg": "#764d16",
+    "bg": "#c27f1f",
+    "cr": 2.23,
+    "need": 4.5,
+    "fs": "13.5px",
+    "pass": false,
+    "px": 5808
+   },
+   {
+    "sel": ".lever label span",
+    "note": "档位副标",
+    "fg": "#845a15",
+    "bg": "#e29422",
+    "cr": 2.46,
+    "need": 4.5,
+    "fs": "10.5px",
+    "pass": false,
+    "px": 1360
+   },
+   {
+    "sel": ".flap-cap",
+    "note": "翻牌图注",
+    "fg": "#877e6f",
+    "bg": "#1d1913",
+    "cr": 4.37,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 5434
+   },
+   {
+    "sel": ".market .mnote",
+    "note": "市场注",
+    "fg": "#877e6f",
+    "bg": "#1d1913",
+    "cr": 4.37,
+    "need": 4.5,
+    "fs": "11.5px",
+    "pass": false,
+    "px": 5148
+   },
+   {
+    "sel": ".card .facts",
+    "note": "卡片事实",
+    "fg": "#a79f92",
+    "bg": "#1d1913",
+    "cr": 6.68,
+    "need": 4.5,
+    "fs": "14px",
+    "pass": true,
+    "px": 38595
+   },
+   {
+    "sel": ".card .name",
+    "note": "卡片名",
+    "fg": "#655d52",
+    "bg": "#1d1913",
+    "cr": 2.7,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 8835
+   },
+   {
+    "sel": ".path .seq",
+    "note": "路径序列",
+    "fg": "#80796c",
+    "bg": "#241f17",
+    "cr": 3.79,
+    "need": 4.5,
+    "fs": "13px",
+    "pass": false,
+    "px": 9870
+   },
+   {
+    "sel": ".legend",
+    "note": "图例",
+    "fg": "#635b50",
+    "bg": "#18140f",
+    "cr": 2.74,
+    "need": 4.5,
+    "fs": "11.5px",
+    "pass": false,
+    "px": 4284
+   },
+   {
+    "sel": "#showcase-bar .sb-brand",
+    "note": "顶栏品牌",
+    "fg": "#dfb477",
+    "bg": "#0b0c12",
+    "cr": 10.16,
+    "need": 4.5,
+    "fs": "11px",
+    "pass": true,
+    "px": 1905
+   },
+   {
+    "sel": "#showcase-bar .sb-back",
+    "note": "顶栏返回",
+    "fg": "#ffc463",
+    "bg": "#0b0c12",
+    "cr": 12.39,
+    "need": 4.5,
+    "fs": "11.5px",
+    "pass": true,
+    "px": 1872
+   },
+   {
+    "sel": "#showcase-backlink",
+    "note": "返回链胶囊",
+    "fg": "#14110d",
+    "bg": "#cbcac7",
+    "cr": 11.48,
+    "need": 4.5,
+    "fs": "13px",
+    "pass": true,
+    "px": 4012
+   },
+   {
+    "sel": "#showcase-backlink span",
+    "note": "返回链文字",
+    "fg": "#1a1914",
+    "bg": "#cbcac7",
+    "cr": 10.74,
+    "need": 4.5,
+    "fs": "13px",
+    "pass": true,
+    "px": 845
+   },
+   {
+    "sel": ".blk .face",
+    "note": "阶梯块面",
+    "fg": "#423013",
+    "bg": "#483415",
+    "cr": 1.07,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 5969
+   },
+   {
+    "sel": ".blk.lit .face",
+    "note": "高亮块面",
+    "fg": "#423013",
+    "bg": "#483415",
+    "cr": 1.07,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 5969
+   },
+   {
+    "sel": ".quote-block .attr",
+    "note": "引文署名",
+    "fg": "#221d15",
+    "bg": "#221d15",
+    "cr": 1.0,
+    "need": 4.5,
+    "fs": "12px",
+    "pass": false,
+    "px": 19038
+   },
+   {
+    "sel": ".quote-block .say",
+    "note": "引文释义",
+    "fg": "#cfc6b6",
+    "bg": "#221d15",
+    "cr": 9.89,
+    "need": 4.5,
+    "fs": "15px",
+    "pass": true,
+    "px": 17983
+   },
+   {
+    "sel": ".verdict",
+    "note": "结论",
+    "fg": "#f6f1e7",
+    "bg": "#14110d",
+    "cr": 16.72,
+    "need": 3.0,
+    "fs": "30px",
+    "pass": true,
+    "px": 33930
+   },
+   {
+    "sel": "h1",
+    "note": "主标题",
+    "fg": "#14110d",
+    "bg": "#f6f1e7",
+    "cr": 16.72,
+    "need": 3.0,
+    "fs": "84px",
+    "pass": true,
+    "px": 112140
+   },
+   {
+    "sel": "h2",
+    "note": "大标题",
+    "fg": "#f6f1e7",
+    "bg": "#14110d",
+    "cr": 16.72,
+    "need": 3.0,
+    "fs": "46px",
+    "pass": true,
+    "px": 48048
+   },
+   {
+    "sel": ".path .pct",
+    "note": "概率大字",
+    "fg": "#ffc463",
+    "bg": "#241f17",
+    "cr": 10.39,
+    "need": 3.0,
+    "fs": "34px",
+    "pass": true,
+    "px": 17390
+   }
+  ],
+  "backlink": {
+   "computed": {
+    "color": "rgb(20, 19, 15)",
+    "bg": "rgba(252, 252, 250, 0.92)",
+    "opacity": "0.86",
+    "cls": "on-dark-page",
+    "font": "13px 500"
+   },
+   "box": {
+    "x": 16,
+    "y": 750,
+    "width": 118,
+    "height": 34
+   },
+   "nearby_colors": [
+    "#14110d(11475)",
+    "#cbcac7(1469)",
+    "#f6f1e7(739)",
+    "#c6c1b8(97)",
+    "#b6b5b3(92)",
+    "#cbcbc8(87)"
+   ]
+  }
+ },
+ "summary": {
+  "pass": 12,
+  "fail": 2,
+  "warn": 1
+ }
+}

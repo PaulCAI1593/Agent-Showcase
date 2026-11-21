@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="showcase-beat" content="开源 vs 闭源之争">
+<meta name="description" content="英国金融科技 Revolut 用 56 块英伟达 B200 自托管智谱 GLM-5.3，把约 2000 名工程师的默认编码模型从 Claude Code / Codex 换成开放权重模型：混合 token 成本 0.30 美元/百万，账单约为此前付给 Anthropic 与 OpenAI 的十分之一，编码时间缩短约 60%，开发周期缩短约 70%（均为 Revolut 自报口径）。">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>56 块 B200 与十分之一的账单 —— Revolut 把 2000 名工程师的默认编程模型换成开放权重的 GLM</title>
+
+<style>
+/* ── 自托管衬线：随作品分发，离线可用 ───────────────────── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0132-0133,U+0134-0135,U+0136-0137,U+0138-0139,
+                 U+0140-0141,U+0142-0143,U+0144-0145,U+0146-0147,U+0148-0149,
+                 U+014A-014B,U+014C-014D,U+014E-014F,U+0150-0151,U+0152-0153,
+                 U+0154-0155,U+0156-0157,U+0158-0159,U+015A-015B,U+015C-015D,
+                 U+015E-015F,U+0160-0161,U+0162-0163,U+0164-0165,U+0166-0167,
+                 U+0168-0169,U+016A-016B,U+016C-016D,U+016E-016F,U+0170-0171,
+                 U+0172-0173,U+0174-0175,U+0176-0177,U+0178,U+0179-017A,U+017A-017B,
+                 U+017C-017D,U+017E,U+017F,U+0180-0181,U+0182-0183,U+0184-0185,
+                 U+0186-0187,U+0188-0189,U+018A-018B,U+018C-018D,U+018E-018F,
+                 U+0190-0191,U+0192-0193,U+0194-0195,U+0196-0197,U+0198-0199,U+019A-019B,
+                 U+019C-019D,U+019E-019F,U+01A0-01A1,U+01A2-01A3,U+01A4-01A5,U+01A6-01A7,
+                 U+01A8-01A9,U+01AA-01AB,U+01AC-01AD,U+01AE-01AF,U+01B0-01B1,U+01B2-01B3,
+                 U+01B4-01B5,U+01B6-01B7,U+01B8-01B9,U+01BA-01BB,U+01BC-01BD,U+01BE-01BF,
+                 U+01C0-01C1,U+01C2-01C3,U+01C4-01C5,U+01C6-01C7,U+01C8-01C9,U+01CA-01CB,
+                 U+01CC-01CD,U+01CE-01CF,U+01D0-01D1,U+01D2-01D3,U+01D4-01D5,U+01D6-01D7,
+                 U+01D8-01D9,U+01DA-01DB,U+01DC-01DD,U+01DE-01DF,U+01E0-01E1,U+01E2-01E3,
+                 U+01E4-01E5,U+01E6-01E7,U+01E8-01E9,U+01EA-01EB,U+01EC-01ED,U+01EE,
+                 U+01EF,U+01F0-01F1,U+01F2-01F3,U+01F4-01F5,U+01F6-01F7,U+01F8-01F9,
+                 U+01FA-01FB,U+01FC-01FD,U+01FE-01FF,U+0200-023F,U+0240-0247,U+0248-024B,
+                 U+024C-024D,U+024E-024F,U+0250-02AF,U+02B0-02C1,U+02C6-02D1,U+02D6-02DD,
+                 U+02DE-02E4,U+02E5-02EB,U+02EC-02ED,U+02EE-02EF,U+02F0-02FD,U+02FE-02FF,
+                 U+0300-036F,U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,
+                 U+03A3-03CE,U+03D0-03F6,U+03F7-0483,U+0487-052F,U+0531-0556,U+0561-0588,
+                 U+0591-05C7,U+05D0-05EA,U+05EF-05F4,U+0600-0604,U+0606-060B,U+060C-061B,
+                 U+061C-061E,U+061F-061F,U+0620-063F,U+0641-064A,U+0656-066F,U+0671-06DC,
+                 U+06DE-06FF,U+0700-074F,U+0750-077F,U+0780-07BF,U+07C0-07FF,U+0800-083F,
+                 U+0840-085F,U+0860-086F,U+0870-088F,U+0890-089F,U+08A0-08FF,U+0900-097F,
+                 U+0980-09FF,U+0A00-0A7F,U+0A80-0AFF,U+0B00-0B7F,U+0B80-0BFF,U+0C00-0C7F,
+                 U+0C80-0CFF,U+0D00-0D7F,U+0D80-0DFF,U+0E00-0E7F,U+0E80-0EFF,U+0F00-0FFF,
+                 U+1000-109F,U+10A0-10FF,U+1100-11FF,U+1200-137F,U+1380-139F,U+13A0-13FF,
+                 U+1400-167F,U+1680-169F,U+16A0-16FF,U+1700-171F,U+1720-173F,U+1740-175F,
+                 U+1760-177F,U+1780-17FF,U+1800-18AF,U+18B0-18FF,U+1900-194F,U+1950-197F,
+                 U+1980-19DF,U+19E0-19FF,U+1A00-1A1F,U+1A20-1AAF,U+1B00-1B7F,U+1B80-1BBF,
+                 U+1BC0-1BFF,U+1C00-1C4F,U+1C50-1C7F,U+1C80-1C8F,U+1C90-1CBF,U+1CC0-1CCF,
+                 U+1CD0-1CFF,U+1D00-1D7F,U+1D80-1DBF,U+1DC0-1DFF,U+1E00-1EFF,U+1F00-1FFF,
+                 U+2000-206F,U+2070-209F,U+20A0-20CF,U+20D0-20FF,U+2100-214F,U+2150-218F,
+                 U+2190-21FF,U+2200-22FF,U+2300-23FF,U+2400-243F,U+2440-245F,U+2460-24FF,
+                 U+2500-257F,U+2580-259F,U+25A0-25FF,U+2600-26FF,U+2700-27BF,U+2800-28FF,
+                 U+2900-297F,U+2980-29FF,U+2A00-2AFF,U+2B00-2BFF,U+2C00-2C5F,U+2C60-2C7F,
+                 U+2C80-2CFF,U+2D00-2D7F,U+2D80-2DDF,U+2DE0-2DFF,U+2E00-2E7F,U+2E80-2EFF,
+                 U+2F00-2FDF,U+2FF0-2FFF,U+3000-303F,U+3040-309F,U+30A0-30FF,U+3100-312F,
+                 U+3130-318F,U+3190-319F,U+31A0-31BF,U+31C0-31EF,U+31F0-31FF,U+3200-32FF,
+                 U+3300-33FF,U+3400-4DBF,U+4DC0-4DFF,U+4E00-9FFF,U+A000-A48F,U+A490-A4CF,
+                 U+A4D0-A4FF,U+A500-A63F,U+A640-A69F,U+A6A0-A6FF,U+A700-A71F,U+A720-A7FF,
+                 U+A800-A82F,U+A840-A87F,U+A880-A8DF,U+A8E0-A8FF,U+A900-A92F,U+A930-A95F,
+                 U+A960-A97F,U+A980-A9DF,U+A9E0-A9FF,U+AA00-AADF,U+AB00-AB2F,U+AB30-AB6F,
+                 U+AB70-ABBF,U+ABC0-ABFF,U+AC00-D7AF,U+D7B0-D7FF,U+F900-FAFF,U+FB00-FB4F,
+                 U+FB50-FDFF,U+FE00-FE0F,U+FE20-FE2F,U+FE30-FE4F,U+FE50-FE6F,U+FE70-FEFF,
+                 U+FF00-FFEF,U+FFF0-FFFF;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --paper-sunk:#e2e7e3;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5d6460;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --brick:#8c3a2a;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Hiragino Sans GB',
+         'Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:#b3bbb6 var(--paper)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:var(--serif-cn);font-weight:600;letter-spacing:-0.012em;text-wrap:balance}
+a{color:var(--brass);text-underline-offset:3px;text-decoration-thickness:1px}
+svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+table{width:100%;border-collapse:separate;border-spacing:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--deep);color:var(--deep-ink);
+  padding:10px 16px;z-index:100;border-radius:0 0 4px 0}
+.skip:focus{left:0}
+p{max-width:70ch}
+p + p{margin-top:14px}
+
+/* ── 抬头 ─────────────────────────────────────────────── */
+.masthead{padding:92px 0 62px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{font-size:clamp(30px,4vw,52px);line-height:1.2}
+.standfirst{margin-top:26px;font-size:19.5px;line-height:1.62;color:var(--ink-2);max-width:52ch}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:76px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{font-size:29px;line-height:1.28;margin-bottom:16px}
+h3{font-size:20px;line-height:1.36;margin:0 0 6px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-bottom:34px}
+
+/* ── 核心判断：整幅深色带 ─────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.5vw,30px);line-height:1.46;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.7;color:var(--deep-2);max-width:64ch}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据：账册 ───────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 18px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:27px;line-height:1.12;letter-spacing:-0.016em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:11px;font-size:14px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12.5px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 台账表 / 成本表 / 采用者表 ────────────────────────── */
+.tw{overflow-x:auto;max-inline-size:100%;container-type:inline-size}
+.tbl{font-size:14.5px;line-height:1.55}
+.tbl th,.tbl td{overflow-wrap:anywhere;vertical-align:top;text-align:left}
+.tbl thead th{
+  font-size:13px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);
+  vertical-align:bottom;background:var(--paper-raised);
+}
+.tbl thead th:first-child{width:132px}
+.tbl tbody th{
+  font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink);
+  padding:14px 16px 14px 0;border-bottom:1px solid var(--rule-soft);
+  background:var(--paper-sunk);width:132px;
+}
+.tbl tbody td{
+  padding:14px 16px 14px 0;border-bottom:1px solid var(--rule-soft);color:var(--ink-2);
+}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:0}
+.tbl .num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.tbl .hi{color:var(--brass);font-weight:600}
+.tbl .sub{display:block;margin-top:4px;font-size:12.5px;color:var(--ink-3);line-height:1.5;white-space:normal}
+.tbl caption{
+  caption-side:top;text-align:left;font-family:var(--sans);font-size:13px;
+  color:var(--ink-3);padding-bottom:12px;line-height:1.5;
+}
+
+/* ── 发丝线自左绘出 ───────────────────────────────────── */
+.rule-draw{display:block;height:1px;background:var(--rule);margin:0 0 30px}
+.has-js .rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+/* ── 图 ───────────────────────────────────────────────── */
+.chart{margin-top:8px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 16px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{display:inline-block;width:13px;height:13px;border-radius:2px;flex:none}
+.sw-deep{background:#121513}
+.sw-brass{background:#7d5a1c}
+.sw-mid{background:#4f5551}
+.fig-cap{margin-top:14px;font-size:12.5px;line-height:1.6;color:var(--ink-3);max-width:74ch}
+.fig-cap b{color:var(--ink-2);font-weight:600}
+.fig{margin-top:38px}
+.fig:first-of-type{margin-top:0}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-item:first-child{border-top:1px solid var(--rule)}
+.timeline-date{font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;padding-top:3px}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:6px;font-size:15px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+
+/* ── 证据 ─────────────────────────────────────────────── */
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-item:first-child{border-top:1px solid var(--rule)}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18px;line-height:1.66;color:var(--ink);
+  max-width:60ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;display:block;
+}
+
+/* ── 断言账 ───────────────────────────────────────────── */
+.ledger{list-style:none}
+.ledger li{
+  display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:30px;
+  padding:15px 0;border-bottom:1px solid var(--rule-soft);font-size:14.5px;line-height:1.55;
+}
+.ledger li:first-child{border-top:1px solid var(--rule)}
+.ledger .l-val{font-family:var(--serif-num);font-variant-numeric:tabular-nums;
+  color:var(--ink);font-weight:500}
+.ledger .l-val em{font-style:normal;color:var(--ink-2);font-family:var(--sans);font-size:14px}
+.ledger .l-src{color:var(--ink-3);font-size:12.5px;line-height:1.55}
+
+/* ── 口径与未确认 ─────────────────────────────────────── */
+.uncertain{list-style:none}
+.uncertain li{font-size:15px;line-height:1.64;color:var(--ink-2);
+  padding:15px 0;border-bottom:1px solid var(--rule-soft)}
+.uncertain li:first-child{border-top:1px solid var(--rule)}
+.uncertain b{color:var(--brick);font-weight:600}
+.note{font-size:14.5px;line-height:1.66;color:var(--ink-2);max-width:74ch;margin-top:26px}
+.note b{color:var(--ink);font-weight:600}
+
+/* ── 页脚 ─────────────────────────────────────────────── */
+.colophon{padding:52px 0 72px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.74;color:var(--ink-3);max-width:66ch}
+
+/* ── 响应式：台账表在窄屏改为堆叠卡片（modern-web-guidance: responsive-table）── */
+@container (width < 760px){
+  .tw table,.tw thead,.tw tbody,.tw tr,.tw th,.tw td{display:block}
+  .tw thead{display:none}
+  .tw tbody tr{
+    margin-block-end:16px;border:1px solid var(--rule);border-radius:4px;
+    background:var(--paper-raised);overflow:hidden;
+  }
+  .tw tbody th{
+    position:sticky;inset-block-start:0;z-index:2;background:var(--paper-sunk);
+    width:auto;padding:12px 16px;border-bottom:1px solid var(--rule);
+  }
+  .tw tbody td{padding:12px 16px;border-bottom:1px solid var(--rule-soft)}
+  .tw tbody td:last-child{border-bottom:0}
+  .tw tbody td::before{
+    content:attr(data-label) " ";display:block;font-size:13px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;
+  }
+}
+
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .ledger li{grid-template-columns:1fr;gap:6px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:58px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  h1{font-size:27px}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+  .mast-meta dl{grid-template-columns:1fr}
+  .mast-meta dt{padding-top:9px;border-top:0}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:13px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;color:#14130f;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<a class="skip" href="#main">跳到正文</a>
+
+<main id="main">
+
+<!-- ══ 抬头 ═══════════════════════════════════════════════ -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>56 块 B200 与十分之一的账单</h1>
+        <p class="standfirst">欧洲最大的科技创业公司之一，把两千名工程师的默认编程模型从 Claude Code 与 Codex 换成了自托管的智谱 GLM。这不是一次模型选型新闻，而是一次采购结构变更：模型从「按 token 计费」变成「按小时计费的固定资产」。</p>
+      </div>
+      <div class="mast-meta">
+        <dl>
+          <div>
+            <dt>默认编码模型</dt>
+            <dd><b>自托管 GLM-5.3</b><span class="claim-n">1 / 10</span>此前的 Anthropic 与 OpenAI token 账单</dd>
+          </div>
+          <div>
+            <dt>自托管集群</dt>
+            <dd><b>56 块英伟达 B200</b></dd>
+          </div>
+          <div>
+            <dt>覆盖范围</dt>
+            <dd><b>约 2,000 名工程师</b></dd>
+          </div>
+          <div>
+            <dt>混合 token 成本</dt>
+            <dd><b>0.30 美元 / 百万 token</b></dd>
+          </div>
+          <div>
+            <dt>口径</dt>
+            <dd>Revolut 自报 · 会议演讲与媒体报道 · 非经审计财报</dd>
+          </div>
+          <div>
+            <dt>追踪线</dt>
+            <dd>开源 vs 闭源之争</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ 核心判断 ═══════════════════════════════════════════ -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">这次换模型赢的不是榜单，是账单结构。</p>
+    <p class="verdict-note">闭源 API 的定价随 token 走：工程师写得越多，账单越大，于是账单本身成了生产力的天花板。Revolut 的做法是把这台机器买下来：<b>56 块 B200 是自有固定资产</b>，闲置一整天和工作一整天价钱相同，于是「多写一点」不再等于「多付一点」。<b>开源权重模型能不能赢、能力是不是更强，都不是这件事的关键；关键是模型运行时归谁所有。</b></p>
+    <p class="verdict-note">但这条结论有边界：<b>90% 降的是 token 账单，不是总成本。</b>GPU 采购、机房、电力、推理平台的运维人力没有被计入分子。报道本身也点明了这一点：把 56 张卡和它们的固定成本摊进每天的调用量之后，单 token 成本才降到 0.30 美元。</p>
+  </div>
+</section>
+
+<!-- ══ 关键数据 ═══════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>Revolut 自报的数据</h2>
+    <p class="lede">以下六个数字全部来自 Revolut 在 AI Engineer 会议上的演讲及其后续媒体转述。它们是公司自己的度量，不是经审计的财务披露。口径逐条列在每格下方。</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">56 块</div>
+        <div class="metric-label">自托管 GLM 集群 GPU 数量</div>
+        <div class="metric-source">The Register 2026-11-03 · CloudPe 2026-11-05 转述（等于 7 套八卡 DGX B200）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 2,000 名</div>
+        <div class="metric-label">默认编码模型覆盖的工程师人数</div>
+        <div class="metric-source">The Register 2026-11-03 · 科技日报 2026-11-05 · AI Scout Daily 2026-11-09 三源一致</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">0.30 美元/百万 token</div>
+        <div class="metric-label">自托管混合 token 成本</div>
+        <div class="metric-source">David Abitbol 在 AI Engineer 会议原话 · The Register 2026-11-03 转述</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">90%</div>
+        <div class="metric-label">AI 编码推理成本降幅（Revolut 口径）</div>
+        <div class="metric-source">token 账单相对此前付给 Anthropic 与 OpenAI 的金额 · 科技日报 2026-11-05 交叉印证</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">60%</div>
+        <div class="metric-label">编码时间缩短幅度（Revolut 口径）</div>
+        <div class="metric-source">Revolut 自报交付指标 · 样本约 2,000 名工程师 · 科技日报 2026-11-05</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">70%</div>
+        <div class="metric-label">开发周期缩短幅度（Revolut 口径）</div>
+        <div class="metric-source">Revolut 自报交付指标（lead time）· TechGig 2026-11-04 交叉印证</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">88%</div>
+        <div class="metric-label">推理吞吐提升幅度（Revolut 口径）</div>
+        <div class="metric-source">Revolut 演讲数据 · TechGig 2026-11-04</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">76%</div>
+        <div class="metric-label">同期 token 需求增幅（Revolut 口径）</div>
+        <div class="metric-source">Revolut 演讲数据 · TechGig 2026-11-04</div>
+      </div>
+    </div>
+
+    <p class="note"><b>88% 与 76% 是一对，必须一起读。</b>需求涨了 76%，单位成本同时降了约 90%：这不是「模型变聪明了」，是「同样的卡扛住了更多请求」。两张数据放在一起才说明自托管摊薄的机制：利用率越高，每 token 越便宜。</p>
+  </div>
+</section>
+
+<!-- ══ 成本结构 ═══════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>两种成本结构</h2>
+    <p class="lede">闭源 API 与自托管集群的差别不在单价，在计价单位：一个是「每 token 收费」，一个是「每小时收费」。下图左边是媒体转述的原话数字，右边是按同一口径反推的前沿 API 混合成本。</p>
+
+    <div class="fig">
+      <div class="chart">
+        <div class="legend">
+          <span><i class="sw sw-deep"></i>前沿 API 混合成本（按「十分之一」反推）</span>
+          <span><i class="sw sw-brass"></i>自托管 GLM-5.3 混合成本</span>
+        </div>
+        <svg viewBox="0 0 760 196" role="img" aria-label="横条图：自托管混合 token 成本 0.30 美元每百万 token，约为反推的前沿 API 混合成本 3 美元每百万 token 的十分之一。">
+          <g style="font-size:13px">
+            <text x="0" y="30" style="fill:var(--ink-2)">前沿 API</text>
+            <text x="0" y="46" style="fill:var(--ink-3);font-size:13px">Anthropic + OpenAI 混合</text>
+            <rect x="180" y="14" width="460" height="30" style="fill:var(--deep)"></rect>
+            <text x="652" y="34" style="fill:var(--ink);font-size:14px">≈ 3.00 美元</text>
+
+            <text x="0" y="104" style="fill:var(--ink-2)">自托管 GLM-5.3</text>
+            <text x="0" y="120" style="fill:var(--ink-3);font-size:13px">56 × NVIDIA B200</text>
+            <rect x="180" y="88" width="46" height="30" style="fill:var(--brass)"></rect>
+            <text x="238" y="108" style="fill:var(--ink);font-size:14px">0.30 美元 / 百万 token</text>
+
+            <line x1="180" y1="8" x2="180" y2="130" style="stroke:var(--rule);stroke-width:1"></line>
+            <line x1="180" y1="146" x2="640" y2="146" style="stroke:var(--rule);stroke-width:1"></line>
+            <text x="180" y="166" style="fill:var(--ink-3);font-size:13px">0</text>
+            <text x="640" y="166" text-anchor="end" style="fill:var(--ink-3);font-size:13px">3 美元 / 百万 token</text>
+            <text x="180" y="186" style="fill:var(--ink-3);font-size:13px">横条长度按单位 token 混合成本等比；前沿 API 一侧为反推值</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-cap"><b>口径。</b>0.30 美元/百万 token 是 Revolut 负责 AI 运营的 David Abitbol 在 AI Engineer 会议上的原话；前沿 API 一侧不是任何厂商的公开报价，而是用「账单约为原来的十分之一」这一表述与 0.30 反推得到的约数（0.30 × 10 ≈ 3.00）。<b>该反推值仅用于图示比例，不可当作报价引用。</b></p>
+    </div>
+
+    <div class="fig">
+      <div class="chart">
+        <div class="legend">
+          <span><i class="sw sw-brass"></i>需求增幅</span>
+          <span><i class="sw sw-deep"></i>吞吐提升</span>
+        </div>
+        <svg viewBox="0 0 760 256" role="img" aria-label="柱状图：同期 token 需求增长 76%，推理吞吐提升 88%。">
+          <g style="font-size:13px">
+            <line x1="60" y1="16" x2="60" y2="180" style="stroke:var(--rule);stroke-width:1"></line>
+            <line x1="60" y1="180" x2="740" y2="180" style="stroke:var(--rule);stroke-width:1"></line>
+
+            <rect x="140" y="58" width="150" height="122" style="fill:var(--brass)"></rect>
+            <text x="215" y="46" style="fill:var(--ink);font-size:19px;text-anchor:middle">76%</text>
+            <text x="215" y="202" style="fill:var(--ink-2);text-anchor:middle">token 需求增幅</text>
+
+            <rect x="420" y="39" width="150" height="141" style="fill:var(--deep)"></rect>
+            <text x="495" y="27" style="fill:var(--ink);font-size:19px;text-anchor:middle">88%</text>
+            <text x="495" y="202" style="fill:var(--ink-2);text-anchor:middle">推理吞吐提升</text>
+
+            <text x="60" y="244" style="fill:var(--ink-3);font-size:13px">基线为 Revolut 迁移前的集群与用量水平；两数同源于一次演讲，非独立测算</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-cap"><b>口径。</b>两个数字来自同一场演讲（TechGig 2026-11-04 转述），不构成互相独立的交叉验证。它们说明「负载涨得比吞吐快不了多少」这一机制方向，但两者的统计口径在报道中未展开。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 采购台账 ═══════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>采购与部署台账</h2>
+    <p class="lede">把散落在报道里的数字收进一张表。凡是推算值、口径值和未公开项，都单独标出来。</p>
+
+    <div class="tw">
+      <table class="tbl">
+        <caption>表①　Revolut 自托管 GLM 部署台账（口径与出处逐行标注）</caption>
+        <thead>
+          <tr>
+            <th scope="col">项目</th>
+            <th scope="col">数值</th>
+            <th scope="col">口径与出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">推理集群</th>
+            <td class="num hi">56 块 B200</td>
+            <td>英伟达 B200，等于 7 套八卡 DGX B200。The Register 2026-11-03；CloudPe 2026-11-05 转述</td>
+          </tr>
+          <tr>
+            <th scope="row">覆盖人数</th>
+            <td class="num">约 2,000 名工程师</td>
+            <td>设为默认编码工具的工程师规模。科技日报 2026-11-05；AI Scout Daily 2026-11-09</td>
+          </tr>
+          <tr>
+            <th scope="row">自托管模型</th>
+            <td class="num">GLM-5.3</td>
+            <td>智谱（Z.ai）开放权重模型；模型供应商为中国实验室，运行方为英国公司</td>
+          </tr>
+          <tr>
+            <th scope="row">前一版本</th>
+            <td class="num">GLM-5.1</td>
+            <td>2026 年 4 月起先行部署并设为默认。科技日报 2026-11-05</td>
+          </tr>
+          <tr>
+            <th scope="row">混合 token 成本</th>
+            <td class="num hi">0.30 美元/百万 token</td>
+            <td>Abitbol 原话「blended cost of tokens to 30 cents per million」。The Register 2026-11-03 转述</td>
+          </tr>
+          <tr>
+            <th scope="row">前沿 API 对照</th>
+            <td class="num">≈ 3.00 美元/百万 token</td>
+            <td><b>推算值</b>：由「十分之一」与 0.30 反推，非厂商公开报价</td>
+          </tr>
+          <tr>
+            <th scope="row">成本降幅</th>
+            <td class="num hi">约 90%</td>
+            <td><b>token 账单口径</b>，相对此前付给 Anthropic 与 OpenAI 的金额；不含 GPU 摊销与运维</td>
+          </tr>
+          <tr>
+            <th scope="row">交付指标</th>
+            <td class="num">编码时间 −60%<span class="sub">开发周期（lead time）−70%</span></td>
+            <td>Revolut 自报，无对照组。科技日报 2026-11-05；TechGig 2026-11-04</td>
+          </tr>
+          <tr>
+            <th scope="row">容量指标</th>
+            <td class="num">吞吐 +88%<span class="sub">同期需求 +76%</span></td>
+            <td>同一场演讲。TechGig 2026-11-04</td>
+          </tr>
+          <tr>
+            <th scope="row">仍保留的闭源工具</th>
+            <td class="num">Claude Code · Codex · Gemini</td>
+            <td>默认模型之外的复杂任务仍走商业服务；Claude 已成为例外而非主力</td>
+          </tr>
+          <tr>
+            <th scope="row">视觉请求</th>
+            <td class="num">外接 Gemini</td>
+            <td>GLM 为纯文本模型，视觉请求转交闭源服务。AI Scout Daily 2026-11-09</td>
+          </tr>
+          <tr>
+            <th scope="row">GPU 采购价</th>
+            <td class="num">未公开</td>
+            <td><b>未确认</b>：全部报道均未给出 56 块 B200 的采购金额或租赁条款</td>
+          </tr>
+          <tr>
+            <th scope="row">数据驻留与合规</th>
+            <td class="num">未公开</td>
+            <td><b>未确认</b>：自托管的收益里包含数据不出境，报道未展开具体部署地与合规认定</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tw" style="margin-top:34px">
+      <table class="tbl">
+        <caption>表②　不是孤例：另一个默认模型切换</caption>
+        <thead>
+          <tr>
+            <th scope="col">主体</th>
+            <th scope="col">动作</th>
+            <th scope="col">出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Databricks</th>
+            <td>把智谱 GLM-5.2 设为默认编程工具</td>
+            <td>英国《泰晤士报》2026-11-01 报道；科技日报 2026-11-05 转引</td>
+          </tr>
+          <tr>
+            <th scope="row">Revolut</th>
+            <td>把智谱 GLM-5.3 设为默认编码模型（本次）</td>
+            <td>The Register 2026-11-03；科技日报 2026-11-05</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 进程 ═══════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>十四个月的时间线</h2>
+    <p class="lede">这不是一次模型发布当天的决定。Revolut 先用了一年多的闭源 API，才在账单压不住的时候改道。</p>
+
+    <ul class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-date">2025-01</div>
+        <div>
+          <div class="timeline-title">先用起来：Gemini 与 Claude Code</div>
+          <div class="timeline-detail">Revolut 2025 年 1 月开始试用 AI 编码工具，先引入谷歌 Gemini 用于内部数据访问，随后测试 Anthropic 的 Claude Code。AI Scout Daily 2026-11-09；The Register 2026-11-03 转述</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2026 年初</div>
+        <div>
+          <div class="timeline-title">账单压不住，改用预算上限硬控</div>
+          <div class="timeline-detail">部分工程师每月在 AI 编码工具上花掉 1,000 美元至上万美元，投资回报却不明显。Revolut 给 Claude Code 设了严格预算上限，工程师只能领到有限词元。TechGig 2026-11-04；科技日报 2026-11-05</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2026-04</div>
+        <div>
+          <div class="timeline-title">智谱发布 GLM-5.1，Revolut 立刻自托管</div>
+          <div class="timeline-detail">智谱于 2026 年 4 月推出 GLM-5.1，Revolut 迅速研究本地化部署并把它设为默认编码模型：实测使用成本仅为 Claude Code 的十分之一。词元配额随之取消。科技日报 2026-11-05</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2026-10</div>
+        <div>
+          <div class="timeline-title">AI Engineer 会议（纽约）：David Abitbol 演讲</div>
+          <div class="timeline-detail">Revolut 负责 AI 运营与基础设施的 Abitbol 公开讲述自托管的模型、硬件与账单结构。<b>具体演讲日各家报道不一致</b>：AI Pulse 记为 2026-10-13，Art of Smart 与 nosov 记为 2026-10-29 录像上传日，此处存疑不裁定。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2026-11-01</div>
+        <div>
+          <div class="timeline-title">Databricks 跟进：GLM-5.2 也被设为默认</div>
+          <div class="timeline-detail">英国《泰晤士报》报道，美国 AI 与数据公司 Databricks 已将智谱 GLM-5.2 设为默认编程工具。开源权重的默认地位从欧洲扩散到美国。科技日报 2026-11-05 转引</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2026-11-03</div>
+        <div>
+          <div class="timeline-title">The Register 报道，进入公开视野</div>
+          <div class="timeline-detail">成本降幅、集群规模、混合单价与交付指标经 The Register 报道扩散，随后被科技日报、AI Scout Daily、TechGig 等多家媒体转述，数字在各源之间一致。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ 证据 ═══════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>原始表述</h2>
+    <p class="lede">以下为可回溯到具体来源的原文。演讲原话为英文，中文为本文转述。</p>
+
+    <div class="evidence-item">
+      <blockquote class="evidence-quote">Self-hosting GLM brings our blended cost of tokens to 30 cents per million. Our invoice is now one-tenth of what we were spending on Anthropic and OpenAI.</blockquote>
+      <cite class="evidence-source">David Abitbol，Revolut AI 运营与基础设施负责人，AI Engineer 会议演讲 · The Register 2026-11-03 转述 · 原文英文</cite>
+    </div>
+
+    <div class="evidence-item">
+      <blockquote class="evidence-quote">今年4月，中国AI企业智谱推出了GLM-5.1大模型。Revolut迅速开始研究将其进行本地化部署，结果发现GLM-5.1的使用成本仅为Claude Code的十分之一。</blockquote>
+      <cite class="evidence-source">科技日报 2026-11-05（记者 胡定坤）· 新浪财经转载 · 中文原文</cite>
+    </div>
+
+    <div class="evidence-item">
+      <blockquote class="evidence-quote">56 NVIDIA B200 GPUs serve about 2,000 engineers, equal to seven eight-GPU DGX B200 systems.</blockquote>
+      <cite class="evidence-source">CloudPe 2026-11-05 转述 The Register · 原文英文 · 用于确定硬件规模与等效系统数</cite>
+    </div>
+
+    <div class="evidence-item">
+      <blockquote class="evidence-quote">the company reported a 60% improvement in coding time, and a 70% improvement in lead time — from a sample of about 2,000 engineers.</blockquote>
+      <cite class="evidence-source">AI Scout Daily 2026-11-09 · 原文英文 · 用于确认交付指标的样本口径</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 断言账 ═════════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>断言账</h2>
+    <p class="lede">本文声明的每一条断言，都是「数值 + 指标名」的成对陈述，并且可以在原文里逐字命中。解释性的判断不写进这一层。</p>
+
+    <ul class="ledger">
+      <li>
+        <div><span class="l-val">56 块 <em>自托管 GLM 集群 GPU 数量</em></span></div>
+        <div class="l-src">The Register 2026-11-03 · CloudPe 2026-11-05 转述</div>
+      </li>
+      <li>
+        <div><span class="l-val">约 2,000 名 <em>默认编码模型覆盖的工程师人数</em></span></div>
+        <div class="l-src">科技日报 2026-11-05 · AI Scout Daily 2026-11-09</div>
+      </li>
+      <li>
+        <div><span class="l-val">0.30 美元/百万 token <em>自托管混合 token 成本</em></span></div>
+        <div class="l-src">David Abitbol 演讲原话 · The Register 2026-11-03</div>
+      </li>
+      <li>
+        <div><span class="l-val">90% <em>AI 编码推理成本降幅（Revolut 口径）</em></span></div>
+        <div class="l-src">token 账单口径 · 科技日报 2026-11-05 交叉印证</div>
+      </li>
+      <li>
+        <div><span class="l-val">60% <em>编码时间缩短幅度（Revolut 口径）</em></span></div>
+        <div class="l-src">Revolut 自报 · 科技日报 2026-11-05</div>
+      </li>
+      <li>
+        <div><span class="l-val">162.85 美元 <em>英伟达 11-13 收盘价</em></span></div>
+        <div class="l-src">investing.com 历史数据 · moomoo · WSJ 三源一致 · 2026-11-13（复用 11-16 作品口径）</div>
+      </li>
+      <li>
+        <div><span class="l-val">9009 亿美元 <em>Anthropic 算力与基础设施承诺总额</em></span></div>
+        <div class="l-src">Anthropic, PBC S-1/A（2026-11-10）· 一手直取（复用 11-16 作品口径）</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ 口径与未确认 ═══════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>口径与未确认</h2>
+    <p class="lede">这套数字是演讲与媒体转述，不是审计过的财务数据。下面逐条标出它能证明什么、不能证明什么。</p>
+
+    <ul class="uncertain">
+      <li><b>90% 是 token 账单口径，不是总成本口径。</b>分子是付给 Anthropic 与 OpenAI 的推理账单；GPU 采购摊销、机房、电力、推理平台运维人力不在其中。把 56 张卡的固定成本摊进去之后，才是「每百万 token 0.30 美元」这个混合单价。</li>
+      <li><b>60% 与 70% 是自报交付指标，无对照组。</b>没有同规模团队用闭源模型跑同一段时间的对照，也没有质量回退的评测。多家报道均把它们描述为公司自身的指标。</li>
+      <li><b>88% 与 76% 出自同一场演讲，不构成独立交叉验证。</b>两者的统计口径（测量窗口、基线、是否含冷启动）在报道中没有展开。</li>
+      <li><b>≈ 3.00 美元/百万 token 是反推值。</b>由「十分之一」这一表述与 0.30 推出，精度只到数量级，不可当作任何厂商的报价引用。</li>
+      <li><b>「开源」这个词要打折。</b>GLM 是<b>开放权重</b>模型，不是 OSI 认证的开源软件：许可证的具体条款在各家报道中均未展开。把它算作「开源阵营」是媒体与本文的简化，权利边界未确认。</li>
+      <li><b>演讲具体日期各家报道不一致。</b>2026-10-13 与 2026-10-29 两种说法并存，差别可能来自「演讲日」与「录像上传日」，本文不裁定。</li>
+      <li><b>56 块 B200 的采购价未公开。</b>确认方法：等 Revolut 或其披露义务主体（英国上市公司披露口径）给出资本开支数字，或等同配置 DGX B200 的市场成交价区间披露。</li>
+      <li><b>数据驻留与合规安排未披露。</b>确认方法：等 Revolut 发布面向监管的说明，或等欧盟 AI 法案相关部署登记信息可查。</li>
+    </ul>
+
+    <p class="note"><b>一句话收束。</b>Revolut 用 56 块卡把「模型在哪里运行」这件事从供应商的定价表里拿回到了自己的资产负债表上。这是开源权重模型第一次在<b>成本结构层面</b>压过闭源 API：不是因为它更聪明，而是因为它可以被买下来并一直开着。Databricks 隔天跟进，说明这不是个案，是采购侧的一次集体转向。</p>
+    <p class="note"><b>本文为研究记录，不构成投资建议。</b>文中所有企业侧数字均为 Revolut 自报并经媒体转述，未经独立审计；宏观与市场侧数字复用本展厅 2026-11-16 已上展作品的口径与出处。</p>
+  </div>
+</section>
+
+
+<!-- ══ 对照坐标 ═══════════════════════════════════════════ -->
+<section>
+  <div class="shell">
+    <span class="rule-draw" aria-hidden="true"></span>
+    <h2>对照坐标：持有算力这一侧的价签</h2>
+    <p class="lede">自托管的账要放在算力与利率的坐标系里读。下面四个指标复用本展厅 2026-11-16 已上展作品的口径与出处，未另立名目。</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">162.85 美元</div>
+        <div class="metric-label">英伟达 11-13 收盘价</div>
+        <div class="metric-source">investing.com 历史数据 · moomoo · WSJ 三源一致 · 2026-11-13（复用 2026-11-16 作品口径）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">9009 亿美元</div>
+        <div class="metric-label">Anthropic 算力与基础设施承诺总额</div>
+        <div class="metric-source">Anthropic, PBC S-1/A（2026-11-10）· 一手直取（复用 2026-11-16 作品口径）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">6.5%</div>
+        <div class="metric-label">美国 10 月 PPI 同比（11-13 发布口径）</div>
+        <div class="metric-source">美国劳工统计局 BLS · 2026-11-13 发布（复用 2026-11-16 作品口径）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.15%</div>
+        <div class="metric-label">10年期美债收益率（11-13收盘口径）</div>
+        <div class="metric-source">美国财政部日终收益率曲线 · 2026-11-13（复用 2026-11-16 作品口径）</div>
+      </div>
+    </div>
+
+    <p class="note"><b>为什么这四个数放在这里。</b>自托管是一笔「先付钱、后使用」的资本开支，它的对手方报价就写在别人的资产负债表上：<b>Anthropic 一家的算力与基础设施承诺总额已达 9009 亿美元</b>，而持有这些资产的公司股价（英伟达 11-13 收盘 162.85 美元）同样对利率敏感：10 年期美债收益率 11-13 收盘口径 5.15%，美国 10 月 PPI 同比 6.5%。这四个数不参与 Revolut 的成本核算，它们说明的是另一件事：<b>算力的价格正在被持有算力的一方和持有现金的一方同时定价。</b></p>
+  </div>
+</section>
+
+<!-- ══ 页脚 ═══════════════════════════════════════════════ -->
+<footer class="colophon">
+  <div class="shell">
+    <p><b>关于来源。</b>企业侧数字全部来自 Revolut 负责 AI 运营与基础设施的 David Abitbol 在 AI Engineer 会议（纽约，2026 年 10 月）的演讲，以及 The Register 2026-11-03 的报道及科技日报 2026-11-05、AI Scout Daily 2026-11-09、TechGig 2026-11-04、CloudPe 2026-11-05 等转述。这些数字是公司自报，未经独立审计。宏观与市场侧数字复用本展厅 2026-11-16 已上展作品的指标名与出处。</p>
+    <p><b>关于口径。</b>文中出现的每一个数字，要么标注了「口径」一栏的归属（自报 / 推算 / 复用），要么在「口径与未确认」一节里被显式标出为未确认项。推算值（≈ 3.00 美元/百万 token）在图注中标明不可当作报价引用。</p>
+    <p><b>关于「开源」。</b>GLM 是开放权重模型，不是 OSI 认证的开源软件。许可证条款未在公开报道中展开。</p>
+    <p><b>免责。</b>本文为研究记录，不构成投资建议。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不要写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "56 块",
+    "label": "自托管 GLM 集群 GPU 数量",
+    "quote": "56 块 自托管 GLM 集群 GPU 数量"
+  },
+  {
+    "value": "约 2,000 名",
+    "label": "默认编码模型覆盖的工程师人数",
+    "quote": "约 2,000 名 默认编码模型覆盖的工程师人数"
+  },
+  {
+    "value": "0.30 美元/百万 token",
+    "label": "自托管混合 token 成本",
+    "quote": "0.30 美元/百万 token 自托管混合 token 成本"
+  },
+  {
+    "value": "90%",
+    "label": "AI 编码推理成本降幅（Revolut 口径）",
+    "quote": "90% AI 编码推理成本降幅（Revolut 口径）"
+  },
+  {
+    "value": "60%",
+    "label": "编码时间缩短幅度（Revolut 口径）",
+    "quote": "60% 编码时间缩短幅度（Revolut 口径）"
+  },
+  {
+    "value": "162.85 美元",
+    "label": "英伟达 11-13 收盘价",
+    "quote": "162.85 美元 英伟达 11-13 收盘价"
+  },
+  {
+    "value": "9009 亿美元",
+    "label": "Anthropic 算力与基础设施承诺总额",
+    "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+  }
+]
+</script>
+
+<script>
+/* 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。 */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var sections = [].slice.call(document.querySelectorAll('section'));
+  document.documentElement.classList.add('has-js');
+  if(reduce || !('IntersectionObserver' in window)){
+    sections.forEach(function(s){ s.classList.add('drawn'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('drawn'); io.unobserve(e.target); }
+    });
+  },{threshold:.12});
+  sections.forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>

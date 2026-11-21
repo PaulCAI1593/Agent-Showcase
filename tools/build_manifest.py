@@ -93,12 +93,62 @@ BACKUP_RE = re.compile(r'\.bak\.\d{8}-\d{6}$')
 # 交付前必须替换的占位符：模板 {{ }} 与旧式【】 两种都算
 PLACEHOLDER_RE = re.compile(r'\{\{[^}]*\}\}|【[^】]{2,20}】')
 
+# ── 产物完整性闸门（2026-11-16 技枢包一）──
+# 新产出作品必须带 <script type="application/json" id="claims"> 声明块，
+# 否则**不进 manifest**。
+# 根因：识别 cron 自动派单不校验产物完整性 —— 无声明块的作品照样上展，
+# 首页显示"0 条断言"却是绿灯（HEARTBEAT_STATUS.md 「#433 根因待查」）。
+# ⚠️ 只对**新派单/新产出**生效：存量 138 件按基线文件豁免，不追溯移除。
+CLAIMS_GATE_BASELINE = os.path.join(ROOT, 'tools', 'claims_gate_baseline.json')
+
 
 def load_json(path, default):
     if not os.path.exists(path):
         return default
     with open(path, encoding='utf-8') as f:
         return json.load(f)
+
+
+def load_claims_gate_baseline():
+    """
+    读取存量豁免基线（作品相对路径集合）。
+
+    基线 = 闸门落地前已在库的 138 件。基线内的作品**不因缺声明块被移出 manifest**，
+    这是硬约束：闸门只对新派单/新产出生效，不追溯移除存量作品。
+    基线文件缺失 → 返回 None（闸门不可用，由调用方决定如何失败，绝不静默删作品）。
+    """
+    data = load_json(CLAIMS_GATE_BASELINE, None)
+    if isinstance(data, dict):
+        files = data.get('files')
+    else:
+        files = data
+    if not isinstance(files, list):
+        return None
+    return {f for f in files if isinstance(f, str)}
+
+
+def claims_gate_blocks(rel, baseline=None):
+    """
+    该作品是否被 claims 闸门拦下。
+
+    判据：作品 HTML 里**没有**（或声明块不是合法 JSON 数组的）
+    `<script type="application/json" id="claims">` 声明块。
+    存量豁免：rel 在基线内 → 一律放行。
+
+    闸门不可用时（claim_gate 缺失 / 基线缺失）→ 一律放行：
+    宁可少拦，不可误删存量作品（拦下的动作由 main() 显式报出）。
+    """
+    if baseline is None:
+        baseline = load_claims_gate_baseline()
+    if baseline is None or rel in baseline:
+        return False
+    if gate is None:
+        return False
+    try:
+        html = open(os.path.join(ROOT, rel), encoding='utf-8', errors='ignore').read()
+    except OSError:
+        return False
+    return gate.declared_claims(html) is None
 
 
 def scan_works():
@@ -849,6 +899,14 @@ def main():
 
     works = scan_works()
     research, creative, issues = [], [], []
+    # 产物完整性闸门：基线（存量豁免）+ 本轮拦下的新作品
+    claims_baseline = load_claims_gate_baseline()
+    if claims_baseline is None:
+        print(f'\n⛔ claims 闸门基线缺失: {CLAIMS_GATE_BASELINE}')
+        print('   闸门不可用 → 拒绝重建 manifest（避免误删存量作品）。'
+              '请恢复基线文件后重跑。')
+        return 2
+    blocked_claims = []
 
     for rel in works:
         old = old_by_file.get(rel, {})
@@ -892,6 +950,11 @@ def main():
         }
         # 断言层：作品自身声明优先，但**同样要过闸门**（声明不是特权）
         declared = read_declared_claims(os.path.join(ROOT, rel))
+        # 产物完整性闸门（2026-11-16 技枢包一）：新作品没有 claims 声明块 →
+        # **不进 manifest**。存量作品在基线内，一律豁免，不追溯移除。
+        if declared is None and gate is not None and rel not in claims_baseline:
+            blocked_claims.append(rel)
+            continue
         if declared is not None and gate is not None:
             raw = open(os.path.join(ROOT, rel), encoding='utf-8', errors='ignore').read()
             passed = gate.filter_declared(raw, declared)
@@ -963,6 +1026,10 @@ def main():
     print(f'latestDate    : {manifest["latestDate"]}')
     tags = Counter(t for i in research + creative for t in i['highlights'])
     print(f'可用标签      : {len(tags)}')
+    print(f'claims 闸门   : 存量豁免 {len(claims_baseline)} 件 · '
+          f'本轮拦下 {len(blocked_claims)} 件（无 <script id="claims"> 声明块）')
+    for _rel in blocked_claims[:20]:
+        print(f'   ⛔ 不进 manifest: {_rel}')
     if issues:
         print(f'\n提示 {len(issues)} 条：')
         for s in issues[:20]:

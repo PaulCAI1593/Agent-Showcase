@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄仁勋之后：英伟达临时 CEO 时代的第一份财报，对账指引的每一行 —— 逐行核对 11-18 发布的实际值与新题面</title>
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="description" content="用上期题面逐行核对英伟达 2027 财年 Q3 实际值与 Q4 新题面，标注差额、发言人与素材时点。">
+
+<style>
+/* ── 自托管衬线（本地相对路径，无远程依赖）────────────── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4a504c;
+  --ink-3:#5e6560;
+  --rule:#cdd4cf;
+  --rule-soft:#dde2de;
+  --brass:#7a5619;
+  --brass-wash:#efe4cc;
+  --seal:#9a3b25;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b9c0bb;
+  --shell:1120px;
+  --measure:68ch;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.66;letter-spacing:-0.006em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+a{color:var(--brass);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,th:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头：标题 + 卷宗横条元信息 + 目录 ────────────────── */
+.masthead{padding:88px 0 0;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;
+  letter-spacing:-0.014em;font-weight:600;text-wrap:balance;max-width:24ch;
+}
+.standfirst{
+  margin-top:24px;font-size:19px;line-height:1.6;letter-spacing:-0.01em;
+  color:var(--ink-2);max-width:46ch;
+}
+.mast-side{border-top:1px solid var(--ink);padding-top:14px}
+.mast-side dl{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.mast-side dt{
+  font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:10px;
+}
+.mast-side dd{
+  font-family:var(--serif-num);font-size:15px;line-height:1.45;color:var(--ink);
+  padding-bottom:10px;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums;
+}
+.mast-side dd b{font-weight:600}
+.mast-side .claim-n{font-family:var(--serif-num);font-size:26px;color:var(--brass);
+  line-height:1.1;display:block}
+.toc{
+  margin-top:44px;padding:18px 0 22px;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline;
+}
+.toc-label{font-size:12.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.toc a{font-size:14.5px;color:var(--ink-2);text-decoration:none;
+  border-bottom:1px solid transparent;transition:border-color .2s ease,color .2s ease}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--brass)}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:76px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:16px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.4;font-weight:600;
+  letter-spacing:-0.006em;margin:38px 0 12px;
+}
+.lede{font-size:17.5px;line-height:1.62;color:var(--ink-2);max-width:60ch;margin-bottom:32px}
+p{max-width:var(--measure)}
+p + p{margin-top:16px}
+
+/* ── 核心判断：整幅深色带 ─────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(22px,2.5vw,30px);line-height:1.46;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:62ch;
+}
+
+/* ── 对账总表：账册 ───────────────────────────────────── */
+.table-wrap{overflow-x:auto;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:12px 0}
+table.ledger{width:100%;min-width:860px;border-collapse:collapse;font-size:15px;line-height:1.55}
+.ledger caption{
+  caption-side:bottom;text-align:left;font-size:12.5px;color:var(--ink-3);
+  padding-top:12px;line-height:1.6;
+}
+.ledger th,.ledger td{padding:15px 16px 15px 0;vertical-align:top;text-align:left}
+.ledger thead th{
+  font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:10px;
+}
+.ledger tbody tr{border-bottom:1px solid var(--rule-soft)}
+.ledger tbody tr:last-child{border-bottom:none}
+.ledger td:first-child,.ledger th:first-child{padding-left:2px}
+.row-key{font-weight:600;color:var(--ink);width:15%}
+.row-prev{color:var(--ink-2);width:27%}
+.row-now{width:38%}
+.row-gap{width:20%;font-variant-numeric:tabular-nums}
+.row-num{font-family:var(--serif-num);font-variant-numeric:tabular-nums}
+.state{
+  display:block;width:fit-content;font-size:12.5px;line-height:1.5;letter-spacing:.04em;
+  padding:2px 9px;border:1px solid var(--rule);border-radius:980px;
+  background:var(--paper-raised);color:var(--ink-2);margin-top:8px;white-space:nowrap;
+}
+.state-beat{border-color:var(--brass);color:var(--brass);background:var(--brass-wash)}
+.state-up{border-color:var(--brass);color:var(--brass)}
+.state-new{border-color:var(--ink-3);color:var(--ink)}
+.state-wait{border-color:var(--seal);color:var(--seal)}
+.calc{font-size:12.5px;color:var(--ink-3);display:block;margin-top:6px}
+
+/* ── 关键数据：账册指标 ───────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+  gap:1px;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px;display:flex;flex-direction:column}
+.metric-value{
+  font-family:var(--serif-num);font-size:33px;line-height:1.1;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-value .mu{font-size:.5em;letter-spacing:0;margin-left:2px;font-weight:500}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.46;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:auto;padding-top:14px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 图解 ─────────────────────────────────────────────── */
+.fig-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:44px;max-width:860px}
+figure.fig{border-top:1px solid var(--ink);padding-top:18px}
+figcaption.fig-cap{font-size:14px;font-weight:600;letter-spacing:-0.004em;margin-bottom:4px}
+.fig-sub{font-size:12.5px;color:var(--ink-3);line-height:1.55;margin-bottom:20px}
+.bar-row{display:grid;grid-template-columns:112px minmax(0,1fr) 158px;gap:14px;
+  align-items:center;padding:9px 0}
+.bar-name{font-size:13.5px;line-height:1.4;color:var(--ink-2)}
+.bar-track{position:relative;height:30px;background:var(--rule-soft);border-radius:2px}
+.bar-fill{
+  position:absolute;left:0;top:0;bottom:0;background:var(--brass);border-radius:2px;
+  transform:scaleX(0);transform-origin:left center;
+}
+.bar-fill.is-base{background:var(--ink-3)}
+.bar-val{
+  font-family:var(--serif-num);font-size:14.5px;font-variant-numeric:tabular-nums;
+  color:var(--ink);text-align:right;line-height:1.35;
+}
+.drawn .bar-fill{transform:scaleX(1);transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.axis-row{display:grid;grid-template-columns:112px minmax(0,1fr) 158px;gap:14px;
+  align-items:start}
+/* 区间图 */
+.range-row{padding:14px 0}
+.range-name{font-size:13.5px;color:var(--ink-2);margin-bottom:8px}
+.range-track{position:relative;height:30px;background:var(--rule-soft);border-radius:2px}
+.range-seg{position:absolute;top:0;bottom:0;background:var(--brass-wash);
+  border-left:2px solid var(--brass);border-right:2px solid var(--brass)}
+.range-mid{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink)}
+.range-base{position:absolute;left:0;top:0;bottom:0;background:#8d948f;border-radius:2px}
+.range-legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:12.5px;color:var(--ink-3);
+  margin-top:12px}
+.range-legend b{font-family:var(--serif-num);color:var(--ink);font-weight:500}
+.axis{
+  display:flex;justify-content:space-between;font-family:var(--serif-num);font-size:12.5px;
+  color:var(--ink-3);border-top:1px solid var(--rule);padding-top:6px;margin-top:10px;
+}
+.fig-note{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin-top:14px}
+
+/* ── 治理进程 ─────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:150px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.006em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:64ch}
+
+/* ── 发言人归属 ───────────────────────────────────────── */
+.attrib-list{border-top:1px solid var(--ink)}
+.attrib-item{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.attrib-say{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.6;font-weight:600;
+  letter-spacing:-0.006em;
+}
+.attrib-say .mark{color:var(--seal)}
+.attrib-meta{font-size:14.5px;line-height:1.66;color:var(--ink-2)}
+.attrib-meta b{color:var(--ink);font-weight:600}
+.attrib-meta .who{
+  display:inline-block;font-size:12.5px;letter-spacing:.06em;color:var(--brass);
+  border:1px solid var(--brass);border-radius:980px;padding:1px 10px;margin-bottom:8px;
+}
+
+/* ── 证据：悬挂引号 ───────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.66;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'\201C';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.6;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 未确认清单 ───────────────────────────────────────── */
+.open-list{list-style:none;border-top:1px solid var(--rule)}
+.open-item{
+  display:grid;grid-template-columns:36px minmax(0,1fr);gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--rule);
+}
+.open-no{
+  font-family:var(--serif-num);font-size:20px;color:var(--seal);
+  font-variant-numeric:tabular-nums;line-height:1.3;
+}
+.open-title{font-size:16.5px;font-weight:600;letter-spacing:-0.006em}
+.open-body{margin-top:6px;font-size:15px;line-height:1.64;color:var(--ink-2);max-width:66ch}
+.open-body b{color:var(--ink);font-weight:600}
+
+/* ── 页脚 ─────────────────────────────────────────────── */
+.colophon{padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:34px}
+.colophon h3{margin-top:0;font-size:15.5px}
+.colophon p,.colophon li{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:56ch}
+.colophon ul{list-style:none}
+.colophon li + li{margin-top:8px}
+
+/* ── 动效：账线自左入账（唯一一次）───────────────────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw,.bar-fill{transform:none!important;transition:none!important}
+  .bar-fill{transform:scaleX(var(--w,1))!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-side dl{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .attrib-item{grid-template-columns:1fr;gap:14px}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:56px 0 0}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .mast-side dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .bar-row{grid-template-columns:86px minmax(0,1fr) 116px;gap:10px}
+  .axis-row{grid-template-columns:86px minmax(0,1fr) 116px;gap:10px}
+  .bar-val{font-size:13px}
+  .open-item{grid-template-columns:26px minmax(0,1fr);gap:12px}
+}
+/* 返回徽标（showcase 注入）：继承 a{color:var(--brass)} 且 opacity:.86，
+   混到 #eaedea 上只有 4.2:1；此处单独加深到 5.2:1（正文级）。 */
+#showcase-backlink{color:#654614}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>黄仁勋之后：英伟达临时 CEO 时代的第一份财报，对账指引的每一行</h1>
+        <p class="standfirst">用上期题面（1,080 亿美元 ±2%）逐行核对 11-18 发布的实际值与 Q4 新题面：每一行写清差额、发言人与素材时点，缺实际值的行标未确认。</p>
+      </div>
+      <aside class="mast-side">
+        <dl>
+          <div><dt>成稿日期</dt><dd>2026-11-19</dd></div>
+          <div><dt>主责</dt><dd>研析</dd></div>
+          <div><dt>追踪线</dt><dd>厂商与算力权力</dd></div>
+          <div><dt>素材时点</dt><dd>T-1 · 2026-11-18</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+          <div><dt>对账行数</dt><dd>10 行 · 5 超出 / 1 上调 / 1 新增</dd></div>
+        </dl>
+      </aside>
+    </div>
+    <nav class="toc" aria-label="目录">
+      <span class="toc-label">卷内目录</span>
+      <a href="#ledger">逐行对账</a>
+      <a href="#numbers">关键数据</a>
+      <a href="#charts">差额图解</a>
+      <a href="#governance">治理线</a>
+      <a href="#attribution">发言人归属</a>
+      <a href="#evidence">证据原文</a>
+      <a href="#open">未确认</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论先行</h2>
+    <p class="verdict">在本篇素材覆盖的对账行里，临时 CEO 时代的第一次交卷没有一行失守：营收超出上期指引中值约 7.2%，Q4 指引再上台阶至约 1,300 亿美元，2028 财年增长预期上调至约 75%，再加 1,500 亿美元新回购；公司把「换人」这一治理事件，对冲成了「照常」这一经营口径。</p>
+    <p class="verdict-note">对账的锚点是上期题面，不是市场情绪。上期题面指 11-17 财报前给出的营收指引中值 1,080 亿美元、上下浮动 2%；本期实际值指 11-18 发布的 2027 财年第三财季数据。非 GAAP 毛利率一行缺本期实际值，单列在「未确认」，不参与「无失守」的判断。</p>
+  </div>
+</section>
+
+<!-- ── 逐行对账 ────────────────────────────────────────────── -->
+<section id="ledger">
+  <div class="shell">
+    <h2>逐行对账：上期题面 vs 本期实际</h2>
+    <p class="lede">十行对账覆盖营收、增速、数据中心、毛利率、净利、下一季指引、全年预期与资本回报。差额列的百分比为按素材数值的推算，已在行内标注。</p>
+    <div class="table-wrap">
+      <table class="ledger">
+        <caption>口径：上期题面截至 2026-11-17（发布前）；本期实际与新题面为 2026-11-18 发布。标「推算」的数值由素材数值计算得出，不是来源原文。</caption>
+        <thead>
+          <tr>
+            <th scope="col">对账项</th>
+            <th scope="col">上期题面（截至 11-17）</th>
+            <th scope="col">本期实际 / 新题面（11-18 发布）</th>
+            <th scope="col">差额与状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-key">营收</td>
+            <td class="row-prev">指引中值 <span class="row-num">1,080 亿美元</span>，上下浮动 2%</td>
+            <td class="row-now">实际 <span class="row-num">1,158 亿美元</span>，同比 +103%、环比 +20%</td>
+            <td class="row-gap">超中值 78 亿美元，约 +7.2%<span class="calc">推算：1,158 − 1,080</span><span class="state state-beat">超出</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">指引区间上限</td>
+            <td class="row-prev"><span class="row-num">1,101.6 亿美元</span><span class="calc">推算：1,080 × 1.02</span></td>
+            <td class="row-now">实际 <span class="row-num">1,158 亿美元</span></td>
+            <td class="row-gap">超上限 56.4 亿美元，约 +5.1%<span class="calc">推算：(1,158 − 1,101.6) ÷ 1,101.6</span><span class="state state-beat">超出</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">市场预期</td>
+            <td class="row-prev">预期营收 <span class="row-num">1,093.3 亿美元</span></td>
+            <td class="row-now">实际 <span class="row-num">1,158 亿美元</span></td>
+            <td class="row-gap">超预期 64.7 亿美元，约 +5.9%<span class="calc">推算：(1,158 − 1,093.3) ÷ 1,093.3</span><span class="state state-beat">超出</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">同比增速</td>
+            <td class="row-prev">指引隐含约 89.4%<span class="calc">上期作品口径：中值 1,080 亿美元 ÷ 同比基数 570.06 亿美元</span></td>
+            <td class="row-now">实际 <span class="row-num">+103%</span>（素材原文：同比增 103%）</td>
+            <td class="row-gap">高约 13.6 个百分点<span class="calc">推算：103 − 89.4</span><span class="state state-beat">超出</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">数据中心收入</td>
+            <td class="row-prev">上期未单独给出指引；上季 890 亿美元、同比 +117%、占总营收超九成</td>
+            <td class="row-now"><span class="row-num">1,076 亿美元</span>，同比 <span class="row-num">+110%</span>，超预期 1,018.7 亿美元</td>
+            <td class="row-gap">超预期约 57.3 亿美元<span class="calc">推算：1,076 − 1,018.7</span><span class="state state-beat">超出</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">非 GAAP 毛利率</td>
+            <td class="row-prev">上季 75.0%</td>
+            <td class="row-now">本期实际值本篇素材未收录；Q4 指引约 72%</td>
+            <td class="row-gap">缺实际值，无法对账<span class="state state-wait">未确认</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">净利与每股收益</td>
+            <td class="row-prev">上期未给指引</td>
+            <td class="row-now">GAAP 净利 <span class="row-num">652.87 亿美元</span>（+105%）；摊薄 EPS 2.70 美元；非 GAAP EPS 2.68 美元</td>
+            <td class="row-gap">无对账基准，仅记录<span class="state">记录</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">Q4 营收指引</td>
+            <td class="row-prev">上期未给 Q4 指引</td>
+            <td class="row-now">约 <span class="row-num">1,300 亿美元</span>，±3%（区间 1,261 至 1,339 亿美元）</td>
+            <td class="row-gap">中值环比 Q3 实际约 +12.3%<span class="calc">推算：1,300 ÷ 1,158 − 1</span><span class="state state-new">新题面</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">2028 财年营收增长预期</td>
+            <td class="row-prev">约 70%</td>
+            <td class="row-now">上调至约 <span class="row-num">75%</span></td>
+            <td class="row-gap">上调 5 个百分点<span class="state state-up">上调</span></td>
+          </tr>
+          <tr>
+            <td class="row-key">资本回报</td>
+            <td class="row-prev">上期无新增授权</td>
+            <td class="row-now">董事会批准新增 <span class="row-num">1,500 亿美元</span>回购授权</td>
+            <td class="row-gap">新增项目，无对账基准<span class="state state-new">新增</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section id="numbers">
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八项指标构成本篇的断言层：两项为既有标签的复用（上期题面与本期实际），六项为本篇新口径。每项标注机构、口径与日期。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">1,158<span class="mu"> 亿美元</span></div>
+        <div class="metric-label">英伟达 2027 财年 Q3 营收（11-18 发布）</div>
+        <div class="metric-source">上证报 · 中国经济网 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,080<span class="mu"> 亿美元</span></div>
+        <div class="metric-label">英伟达 11-17 财报营收指引中值</div>
+        <div class="metric-source">公司指引 · ±2% 浮动 · 2026-11-17</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,300<span class="mu"> 亿美元</span></div>
+        <div class="metric-label">Q4 营收指引（11-18）</div>
+        <div class="metric-source">证券时报 · 智通财经 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,500<span class="mu"> 亿美元</span></div>
+        <div class="metric-label">新增回购授权金额（11-18）</div>
+        <div class="metric-source">证券时报 · 智通财经 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">110%</div>
+        <div class="metric-label">数据中心收入同比增速（2027 财年 Q3）</div>
+        <div class="metric-source">上证报 · 中国经济网 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 75%</div>
+        <div class="metric-label">2028 财年营收增长预期（11-18 上调后口径）</div>
+        <div class="metric-source">证券时报 · 凤凰网 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">652.87<span class="mu"> 亿美元</span></div>
+        <div class="metric-label">英伟达 2027 财年 Q3 GAAP 净利（11-18 发布）</div>
+        <div class="metric-source">上证报 · 中国经济网 · 2026-11-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 72%</div>
+        <div class="metric-label">Q4 非 GAAP 毛利率指引（11-18）</div>
+        <div class="metric-source">证券时报 · 智通财经 · 2026-11-18</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 差额图解 ────────────────────────────────────────────── -->
+<section id="charts">
+  <div class="shell">
+    <h2>差额图解</h2>
+    <p class="lede">三张图回答三个问题：超了多少、下一季台阶有多高、增速落在什么位置。全部为素材数值的排版呈现，推算项已注明。</p>
+
+    <div class="fig-grid">
+      <figure class="fig">
+        <figcaption class="fig-cap">图 1 · Q3 营收对三个基准的差额（亿美元）</figcaption>
+        <p class="fig-sub">基准：上期指引中值、按 ±2% 折算的指引上限、市场预期营收</p>
+        <div class="bar-row">
+          <span class="bar-name">对指引中值</span>
+          <div class="bar-track"><span class="bar-fill" style="width:100%"></span></div>
+          <span class="bar-val">+78.0（约 +7.2%）</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-name">对市场预期</span>
+          <div class="bar-track"><span class="bar-fill" style="width:83%"></span></div>
+          <span class="bar-val">+64.7（约 +5.9%）</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-name">对指引上限</span>
+          <div class="bar-track"><span class="bar-fill" style="width:72%"></span></div>
+          <span class="bar-val">+56.4（约 +5.1%）</span>
+        </div>
+        <div class="axis-row"><span></span><div class="axis"><span>0</span><span>39</span><span>78</span></div><span></span></div>
+        <p class="fig-note">推算：1,158 − 1,080 = 78.0；1,158 − 1,093.3 = 64.7；指引上限 1,080 × 1.02 = 1,101.6，1,158 − 1,101.6 = 56.4。</p>
+      </figure>
+
+      <figure class="fig">
+        <figcaption class="fig-cap">图 2 · 从 Q3 实际到 Q4 指引区间（亿美元）</figcaption>
+        <p class="fig-sub">灰条为 Q3 实际 1,158；铜色区间为 Q4 指引 1,261 至 1,339，竖线为中值 1,300</p>
+        <div class="range-row">
+          <div class="range-name">2027 财年 Q3 实际</div>
+          <div class="range-track"><span class="range-base" style="width:82.7%"></span></div>
+        </div>
+        <div class="range-row">
+          <div class="range-name">2027 财年 Q4 指引区间（±3%）</div>
+          <div class="range-track">
+            <span class="range-seg" style="left:90.1%;width:5.6%"></span>
+            <span class="range-mid" style="left:92.9%"></span>
+          </div>
+        </div>
+        <div class="axis"><span>0</span><span>700</span><span>1,400</span></div>
+        <div class="range-legend">
+          <span>Q4 指引中值 <b>1,300</b></span>
+          <span>区间 <b>1,261 – 1,339</b></span>
+          <span>中值环比 <b>约 +12.3%</b></span>
+        </div>
+        <p class="fig-note">区间与中值来自 11-18 指引原文；+12.3% 为推算：1,300 ÷ 1,158 − 1。盘后一度涨超 4% 是盘后交易时段价格，不是收盘价。</p>
+      </figure>
+
+      <figure class="fig">
+        <figcaption class="fig-cap">图 3 · 同比增速的三个口径（%）</figcaption>
+        <p class="fig-sub">上期指引隐含值、本期实际总营收增速、本期数据中心增速</p>
+        <div class="bar-row">
+          <span class="bar-name">指引隐含</span>
+          <div class="bar-track"><span class="bar-fill is-base" style="width:81.3%"></span></div>
+          <span class="bar-val">89.4%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-name">实际总营收</span>
+          <div class="bar-track"><span class="bar-fill" style="width:93.6%"></span></div>
+          <span class="bar-val">103%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-name">实际数据中心</span>
+          <div class="bar-track"><span class="bar-fill" style="width:100%"></span></div>
+          <span class="bar-val">110%</span>
+        </div>
+        <div class="axis-row"><span></span><div class="axis"><span>0</span><span>55</span><span>110</span></div><span></span></div>
+        <p class="fig-note">89.4% 为上期作品口径（1,080 ÷ 570.06 − 1）；103% 与 110% 为 11-18 发布的原文数值。数据中心增速较上季的 117% 回落 7 个百分点。</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ── 治理线 ─────────────────────────────────────────────── -->
+<section id="governance">
+  <div class="shell">
+    <h2>治理线：换人发生在发布之前，交代发生在同一场会</h2>
+    <p class="lede">财务数字之外，本篇单独跟踪治理口径的给出顺序：辞任、接受辞呈、临时职务、回归表态，四件事都发生在首次财报披露的同一窗口。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12</span>
+        <div>
+          <div class="timeline-title">黄仁勋辞去总裁、CEO 与董事职务</div>
+          <div class="timeline-detail">临时 CEO 由首席财务官克雷斯（Colette Kress）兼任。此日期与职务口径来自上期作品（2026-11-16）对发布前题面的记录。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-17 美东盘后</span>
+        <div>
+          <div class="timeline-title">2027 财年第三财季财报发布</div>
+          <div class="timeline-detail">营收 1,158 亿美元等实际值在盘后披露。当日美股收盘口径（发布前交易时段）：英伟达跌 0.44%、费城半导体指数涨 0.34%，来源为证券时报 11-18 08:20。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-18</span>
+        <div>
+          <div class="timeline-title">财报会一次交代治理与指引</div>
+          <div class="timeline-detail">董事会主席哈维·琼斯表示「已一致接受其辞呈」；克雷斯称运营一切照常，把 2028 财年营收增长预期上调至约 75%，董事会批准新增 1,500 亿美元回购授权。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-18</span>
+        <div>
+          <div class="timeline-title">黄仁勋辞职后首次声明</div>
+          <div class="timeline-detail">称若董事会认为符合公司最佳利益，愿意重返 CEO 岗位。该表态与董事会「不重新任命」的立场并存，两条口径均出自 11-18 转述。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-18 盘后</span>
+        <div>
+          <div class="timeline-title">股价盘后一度涨超 4%</div>
+          <div class="timeline-detail">这是盘后交易时段价格，不是 11-18 收盘价。本篇素材未收录 11-18 美股收盘数据，收盘口径列为未确认。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19</span>
+        <div>
+          <div class="timeline-title">本篇成稿</div>
+          <div class="timeline-detail">素材时点为 2026-11-18（T-1 简报）。后续以公司 10-Q 与正式指引为准；本篇不改动 2026-11-16 旧作品，其补正由在途单负责。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 发言人归属 ─────────────────────────────────────────── -->
+<section id="attribution">
+  <div class="shell">
+    <h2>发言人归属：哪句话是谁说的</h2>
+    <p class="lede">三条容易被写成公司立场的话，本篇按发言人归位：治理表态来自董事会主席，经营口径来自临时 CEO 兼 CFO，中国销售表态来自临时 CEO 在财报会上的发言、经两家外媒转述。</p>
+    <div class="attrib-list">
+      <div class="attrib-item">
+        <p class="attrib-say">「已一致接受其辞呈」</p>
+        <div class="attrib-meta">
+          <span class="who">发言人：董事会主席 哈维·琼斯</span><br>
+          场合：11-18 财报电话会。这是治理层对辞呈状态的确认，不是对回归可能性的表态。来源：智通财经 / 腾讯新闻 · 2026-11-18。
+        </div>
+      </div>
+      <div class="attrib-item">
+        <p class="attrib-say">「运营一切照常」，2028 财年增长预期上调至约 75%</p>
+        <div class="attrib-meta">
+          <span class="who">发言人：临时 CEO 兼 CFO 科莱特·克雷斯</span><br>
+          场合：黄仁勋离任后的首场财报会。同场还给出 Q4 指引约 1,300 亿美元与新增 1,500 亿美元回购。来源：证券时报 / 凤凰网 · 2026-11-18。
+        </div>
+      </div>
+      <div class="attrib-item">
+        <p class="attrib-say"><span class="mark">「已停止向中国销售芯片」</span></p>
+        <div class="attrib-meta">
+          <span class="who">发言人：英伟达临时 CEO（克雷斯）· 财报会表态</span><br>
+          转述方：TechCrunch / WIRED（TodayAI 日报 · 2026-11-18）。本篇按发言人归属记录这条表态，<b>不写成公司政策事实</b>：政策文件形态、生效时间与豁免范围本篇素材未收录，列为未确认。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section id="evidence">
+  <div class="shell">
+    <h2>证据原文</h2>
+    <p class="lede">以下五条为素材原文逐字引用，作为上表与断言层的依据。引用保持简报原貌，含原文的四舍五入写法（如 1158 亿、1093.3 亿）。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">2027 财年第三财季营收 1158 亿美元，同比增 103%、环比增 20%，超市场预期 1093.3 亿；数据中心收入 1076 亿美元、同比增 110%，超预期 1018.7 亿；GAAP 净利 652.87 亿美元（+105%），摊薄 EPS 2.70 美元，非 GAAP EPS 2.68 美元。</p>
+        <cite class="evidence-source">上证报 / 中国经济网 · 2026-11-18（AI 技术动态简报焦点 1 转述）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">第四财季指引约 1300 亿美元、上下浮动 3%（区间 1261 亿至 1339 亿），非 GAAP 毛利率约 72%；公司把 2028 财年营收增长预期从约 70% 上调至约 75%，董事会批准新增 1500 亿美元回购授权，盘后股价一度涨超 4%。</p>
+        <cite class="evidence-source">证券时报 / 智通财经 · 2026-11-18（AI 技术动态简报焦点 2 转述）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">董事会主席哈维·琼斯在电话会上表示"已一致接受其辞呈"，临时 CEO 兼 CFO 克雷斯称运营一切照常；黄仁勋辞职后首次声明称若董事会认为符合公司最佳利益，愿意重返 CEO 岗位。</p>
+        <cite class="evidence-source">智通财经 / 腾讯新闻 · 2026-11-18（AI 技术动态简报焦点 3 转述）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">科莱特·克雷斯（英伟达临时 CEO 兼 CFO）：在黄仁勋离任后的首场财报会上把 2028 财年营收增长预期上调至 75%，并称"一切照常"，客户、供应商与合作伙伴均给予支持。</p>
+        <cite class="evidence-source">证券时报 / 凤凰网 · 2026-11-18（AI 技术动态简报热门观点 8 转述）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达临时 CEO 表示公司已停止向中国销售芯片</p>
+        <cite class="evidence-source">TechCrunch / WIRED（TodayAI 日报）· 2026-11-18（AI 技术动态简报行业影响 2 转述；发言人：临时 CEO 克雷斯）</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 未确认 ─────────────────────────────────────────────── -->
+<section id="open">
+  <div class="shell">
+    <h2>未确认与口径冲突</h2>
+    <p class="lede">五项缺口不进入断言层。每项写出确认方法，供后续补录。</p>
+    <ol class="open-list">
+      <li class="open-item">
+        <span class="open-no">1</span>
+        <div>
+          <div class="open-title">2027 财年 Q3 的非 GAAP 毛利率实际值</div>
+          <p class="open-body">本篇素材只给了上季 75.0% 与 Q4 指引约 72%，没有本期实际值。对账表该行因此标未确认。确认方法：读公司 10-Q 或财报会实录的毛利率段落。</p>
+        </div>
+      </li>
+      <li class="open-item">
+        <span class="open-no">2</span>
+        <div>
+          <div class="open-title">11-18 美股收盘价与收盘涨幅</div>
+          <p class="open-body">素材只有「盘后一度涨超 4%」。盘后价不等于收盘价，本篇不据此写当日涨跌结论。确认方法：取 11-18 美股收盘行情。</p>
+        </div>
+      </li>
+      <li class="open-item">
+        <span class="open-no">3</span>
+        <div>
+          <div class="open-title">11-17 芯片股行情的两处口径冲突</div>
+          <p class="open-body"><b>说法一：</b>AI 技术动态简报行业影响 4（新湖南 / WIRED，11-17 至 11-18）称 11-17 费城半导体指数跌 5.28%、英伟达跌 4.12%。<b>说法二：</b>股市简报（证券时报，11-18 08:20）称 11-17 收盘费半涨 0.34%、英伟达跌 0.44%。两说冲突，本篇两说并列，不采信任一，也不用它们支持任何断言。确认方法：核对两文的原始日期与盘中、收盘口径。</p>
+        </div>
+      </li>
+      <li class="open-item">
+        <span class="open-no">4</span>
+        <div>
+          <div class="open-title">「停止向中国销售芯片」的政策形态</div>
+          <p class="open-body">素材为临时 CEO 财报会表态，经 TechCrunch / WIRED 转述。是否已有公司书面政策、生效时间、已发货订单与豁免范围，素材未收录。确认方法：查公司公告、10-Q 风险因素与监管文件。</p>
+        </div>
+      </li>
+      <li class="open-item">
+        <span class="open-no">5</span>
+        <div>
+          <div class="open-title">Q4 指引是否假设对华销售维持现状</div>
+          <p class="open-body">素材给出 Q4 指引数值与毛利率口径，未给出地区假设。确认方法：财报会问答实录中关于中国区的提问与回答。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <div class="colophon-grid">
+      <div>
+        <h3>素材时点与检索</h3>
+        <ul>
+          <li>素材：AI 技术动态简报 2026-11-18 焦点 1、2、3，热门观点 8，行业影响 2、4；每日股市简报 2026-11-18。素材为 T-1 已标注。</li>
+          <li>成稿：2026-11-19（Asia/Shanghai）。正文所有事实以 2026-11-18 为截止时点。</li>
+          <li>上期题面与同比基数引自作品 2026-11-16-nvidia-three-test-week（11-17 发布前口径），本篇只引用、不改动该作品。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>推算与断言</h3>
+        <ul>
+          <li>标「推算」的数值由素材数值计算：超中值 78 亿、超上限 56.4 亿、超预期 64.7 亿、增速差 13.6 个百分点、Q4 中值环比 +12.3%。</li>
+          <li>证据区五条为素材原文逐字引用，引号与句末标点保持素材原样；正文内的引用以「」呈现同一段文字。</li>
+          <li>断言层 8 条，quote 均在本文件逐字存在；解释性判断只留在正文。</li>
+          <li>对账口径为「上期题面 vs 本期实际」，不是「预期 vs 实际」的替代：两组基准在表中分列。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>范围与免责</h3>
+        <ul>
+          <li>本篇只做对账与归因，不预测股价，不构成投资建议。</li>
+          <li>「无失守」判断限于本篇素材覆盖的对账行；缺实际值的行已单列未确认。</li>
+          <li>未收录 11-18 美股收盘数据与中国销售政策文件，相关结论均标未确认并给出确认方法。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  8 条，3~8 区间内。解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "1,158 亿美元",
+    "label": "英伟达 2027 财年 Q3 营收（11-18 发布）",
+    "quote": "1,158 亿美元 英伟达 2027 财年 Q3 营收（11-18 发布）"
+  },
+  {
+    "value": "1,080 亿美元",
+    "label": "英伟达 11-17 财报营收指引中值",
+    "quote": "1,080 亿美元 英伟达 11-17 财报营收指引中值"
+  },
+  {
+    "value": "1,300 亿美元",
+    "label": "Q4 营收指引（11-18）",
+    "quote": "1,300 亿美元 Q4 营收指引（11-18）"
+  },
+  {
+    "value": "1,500 亿美元",
+    "label": "新增回购授权金额（11-18）",
+    "quote": "1,500 亿美元 新增回购授权金额（11-18）"
+  },
+  {
+    "value": "110%",
+    "label": "数据中心收入同比增速（2027 财年 Q3）",
+    "quote": "110% 数据中心收入同比增速（2027 财年 Q3）"
+  },
+  {
+    "value": "约 75%",
+    "label": "2028 财年营收增长预期（11-18 上调后口径）",
+    "quote": "约 75% 2028 财年营收增长预期（11-18 上调后口径）"
+  },
+  {
+    "value": "652.87 亿美元",
+    "label": "英伟达 2027 财年 Q3 GAAP 净利（11-18 发布）",
+    "quote": "652.87 亿美元 英伟达 2027 财年 Q3 GAAP 净利（11-18 发布）"
+  },
+  {
+    "value": "约 72%",
+    "label": "Q4 非 GAAP 毛利率指引（11-18）",
+    "quote": "约 72% Q4 非 GAAP 毛利率指引（11-18）"
+  }
+]
+</script>
+
+<script>
+/* 唯一动效：账线入账。发丝线与图条自左展开一次，尊重 reduced-motion。 */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var showAll = function(){
+    document.querySelectorAll('section').forEach(function(s){s.classList.add('drawn');});
+  };
+  if(!('IntersectionObserver' in window)){showAll();return;}
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('section').forEach(function(s){io.observe(s);});
+  if(reduce){
+    showAll();
+    document.querySelectorAll('.bar-fill').forEach(function(b){
+      b.style.transform = 'scaleX(1)';
+    });
+  }
+})();
+</script>
+</body>
+</html>

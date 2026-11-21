@@ -1,0 +1,48 @@
+{
+ "overflow": {
+  "desktop": {
+   "sw": 1280,
+   "iw": 1280
+  },
+  "mobile": {
+   "sw": 375,
+   "iw": 375
+  }
+ },
+ "interactions": {
+  "node_amazon": true,
+  "chip_compete": {
+   "pressed": "true",
+   "dimmedNodes": 5,
+   "hiArcs": 3
+  },
+  "chip_supply": 3,
+  "chip_toggle_back": 0,
+  "scrub_72": {
+   "before": "83 美元",
+   "after": "97.17 美元",
+   "note": "收涨 17.07%",
+   "time": "11-19 收盘"
+  },
+  "kbd_enter_tsmc": true,
+  "esc_close": true,
+  "mobile_sheet_open": {
+   "open": true,
+   "top": 458,
+   "vh": 812,
+   "hasGoogle": true
+  }
+ },
+ "console": [],
+ "screens": [
+  "/app/working/shared/showcase/works/2026-11-21/notes/2026-11-21-coopetition-preview-desktop.png",
+  "/app/working/shared/showcase/works/2026-11-21/notes/2026-11-21-coopetition-preview-interact.png",
+  "/app/working/shared/showcase/works/2026-11-21/notes/2026-11-21-coopetition-preview-mobile.png",
+  "/app/working/shared/showcase/works/2026-11-21/notes/2026-11-21-coopetition-preview-mobile-sheet.png"
+ ],
+ "targets": {
+  "small": []
+ },
+ "contrast_desktop": [],
+ "contrast_mobile": []
+}

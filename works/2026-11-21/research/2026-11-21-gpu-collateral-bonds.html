@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抵押在轨道上的算力 —— SpaceX 430 亿美元 GPU 担保债与债权人收紧</title>
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="250 亿美元债券由五年租金支持，430 亿美元融资的抵押芯片却被债权人留在地面：算力第一次同时是还款来源与抵押品。">
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  智囊团 · 研究类作品 · 选题 462（追踪线：估值与资本）
+  ═══════════════════════════════════════════════════════════════════
+
+  视觉身份：担保契约卷（冷调档案纸 + 森林绿墨 + 琥珀棕存量 + 朱砂红处置边界）。
+  本篇主线是「四层结构」：租金 → 债券 → 抵押品 → 轨道资产。四层带状图 +
+  条款对照表 + 违约情形矩阵 + 口径对齐表 + 前作衔接表 + 轨道示意图。
+
+  契约：封闭语义词汇表（只用这些，不自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（必填，带单位）
+          .metric-label      指标名（必填，一行名词短语）
+          .metric-source     出处（必填，机构 · 口径 · 日期）
+      .verdict-band > .verdict / .verdict-note
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  其余 class 均为版式（shell / masthead / lede / note / tbl / fig / stack /
+  gaps / colophon 等），不承载语义断言。
+
+  断言声明在文件底部 script#claims（7 条），quote 逐字取自本文件正文。
+  「返回展厅」链接由 autopublish 阶段 5.5 自动注入，不手写。
+
+  素材依据：每日AI技术动态简报 2026-11-20（🔥 焦点 6/7、🌍 行业影响 2），
+  只读，不联网检索。对照前作：works/2026-11-18/research/
+  2026-11-18-ai-infra-credit-review.html（只读，标签逐字复用）。
+-->
+
+<style>
+/* ── 字体：自托管衬线（随作品分发，相对路径三层到 showcase 根）── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,
+    U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#e9ecea;          /* 冷调档案纸 */
+  --paper-raised:#f2f4f3;   /* 抬起面 */
+  --paper-3:#e1e5e2;        /* 表头带 / 图注带 */
+  --ink:#141716;
+  --ink-2:#454b48;          /* 次要文字 8.4:1 */
+  --ink-3:#5c6360;          /* 三级文字 5.6:1 */
+  --rule:#c8ceca;
+  --rule-2:#d9dedb;
+  --forest:#2d5016;         /* 结构色 */
+  --forest-deep:#16280f;    /* 判定带 */
+  --forest-line:#3c5a2a;
+  --amber:#d4a574;          /* 存量 */
+  --amber-ink:#7f551f;      /* 存量文字 5.4:1 */
+  --amber-wash:#eee6d8;
+  --seal:#a8342a;           /* 处置边界 / 风险 6.2:1 */
+  --seal-wash:#f3e7e5;
+  --deep-ink:#eef1ee;
+  --deep-2:#b6bdb8;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+    'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+  --mono:'SF Mono','Cascadia Mono',ui-monospace,Menlo,Consolas,'DejaVu Sans Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scrollbar-color:var(--rule) var(--paper);scrollbar-width:thin}
+::selection{background:var(--forest);color:var(--deep-ink)}
+:focus-visible{outline:2px solid var(--seal);outline-offset:3px}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--rule);border:3px solid var(--paper)}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.72;letter-spacing:-0.006em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 26px 92px}
+p{max-width:70ch}
+b,strong{font-weight:600}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ── 抬头：不对称双栏（标题 + 边注元信息）────────────────── */
+.masthead{padding:74px 0 52px;border-bottom:2px solid var(--forest)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 252px;gap:54px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(33px,4.2vw,50px);line-height:1.2;
+  letter-spacing:-0.02em;font-weight:600;text-wrap:balance;
+}
+h1 .num{color:var(--seal);white-space:nowrap}
+h1 .num2{color:var(--forest);white-space:nowrap}
+.standfirst{
+  margin-top:26px;font-size:19px;line-height:1.68;color:var(--ink-2);
+  letter-spacing:-0.008em;max-width:52ch;
+}
+.standfirst b{color:var(--ink)}
+.standfirst .q{
+  display:block;margin:0 0 20px;padding:16px 0 16px 20px;
+  border-left:1px solid var(--seal);background:var(--seal-wash);
+  font-family:var(--serif-cn);font-size:20px;line-height:1.6;color:var(--ink);
+  font-weight:600;max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13.5px;line-height:1.55}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.14em;color:var(--ink-3);
+  padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{
+  font-family:var(--serif-num);font-size:24px;color:var(--seal);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px;
+}
+
+/* ── 判定带：整幅深色（页面唯一的高对比时刻）────────────── */
+.verdict-band{background:var(--forest-deep);color:var(--deep-2);margin-top:0;padding:64px 0 60px}
+.verdict-band .shell{padding-bottom:0}
+.verdict-band h2{color:var(--deep-ink)}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.5vw,30px);line-height:1.46;
+  letter-spacing:-0.012em;font-weight:600;color:var(--deep-ink);max-width:34ch;
+}
+.verdict em{font-style:normal;color:var(--amber)}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.76;color:#c3ccc5;max-width:62ch;
+}
+.verdict-note b{color:#e6d3b4;font-weight:600}
+.vgrid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  margin-top:32px;padding-top:26px;border-top:1px solid var(--forest-line);
+}
+.vgrid dt{margin-bottom:8px;font-size:12.5px;font-weight:600;letter-spacing:.1em;color:var(--amber)}
+.vgrid dd{margin:0;font-size:15px;line-height:1.72;color:#c3ccc5}
+.vgrid dd b{color:var(--deep-ink)}
+
+/* ── 区块骨架 ───────────────────────────────────────────── */
+section{padding:74px 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:none}
+h2{
+  font-family:var(--serif-cn);font-size:clamp(25px,2.6vw,31px);line-height:1.3;
+  letter-spacing:-0.015em;font-weight:600;color:var(--ink);margin-bottom:16px;
+  text-wrap:balance;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.45;font-weight:600;
+  letter-spacing:-0.01em;margin-bottom:8px;
+}
+.sub{color:var(--ink-2);font-size:16.5px;line-height:1.74;max-width:64ch;margin-bottom:32px}
+.note{
+  margin-top:22px;padding:16px 18px;background:var(--paper-raised);
+  border:1px solid var(--rule);font-size:14.5px;line-height:1.74;color:var(--ink-2);max-width:74ch;
+}
+.note b{color:var(--ink)}
+.note + .note{margin-top:14px}
+.note .warn{color:var(--seal);font-weight:600}
+
+/* ── 指标账（发丝线分隔，非卡片）────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.metric{background:var(--paper-raised);padding:22px 20px 19px}
+.metric-value{
+  font-family:var(--serif-num);font-size:31px;line-height:1.12;font-weight:500;
+  letter-spacing:-0.018em;font-variant-numeric:tabular-nums;color:var(--forest);
+}
+.metric.stock .metric-value{color:var(--amber-ink)}
+.metric.risk .metric-value{color:var(--seal)}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.5;font-weight:600;color:var(--ink)}
+.metric-source{
+  margin-top:12px;padding-top:11px;border-top:1px solid var(--rule-2);
+  font-size:12.5px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 四层结构（主线图）──────────────────────────────────── */
+.stack{border:1px solid var(--rule);background:var(--paper-raised)}
+.layer{display:grid;grid-template-columns:168px minmax(0,1fr) 236px;border-bottom:1px solid var(--rule)}
+.layer:last-child{border-bottom:none}
+.layer-tag{
+  padding:22px 18px;background:var(--paper-3);border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:6px;justify-content:center;
+}
+.layer-tag .lv{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-3);
+}
+.layer-tag .nm{
+  font-family:var(--serif-cn);font-size:19px;font-weight:600;color:var(--forest);line-height:1.3;
+}
+.layer-body{padding:22px 22px 20px}
+.layer-body .src{
+  font-size:12.5px;letter-spacing:.02em;color:var(--ink-3);margin-bottom:8px;
+}
+.layer-body .fact{font-size:15.5px;line-height:1.7;color:var(--ink);max-width:56ch}
+.layer-body .fact b{color:var(--forest);font-weight:600}
+.layer-side{
+  padding:22px 20px;background:var(--paper);border-left:1px solid var(--rule);
+  font-size:13.5px;line-height:1.68;color:var(--ink-2);
+}
+.layer-side .who{
+  display:block;font-size:11.5px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:6px;
+}
+.flow-bar{
+  display:flex;align-items:center;gap:14px;padding:12px 18px;
+  background:var(--forest);color:#e9efe4;font-size:13.5px;letter-spacing:.02em;
+}
+.flow-bar .arrow{
+  width:10px;height:10px;border-right:1.5px solid #e9efe4;border-bottom:1.5px solid #e9efe4;
+  transform:rotate(45deg);flex:none;margin-top:-4px;
+}
+.flow-bar.tension{background:var(--seal);color:#f7eae8}
+.layer-split{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.layer-split > div{padding:18px 22px}
+.layer-split > div + div{border-left:1px solid var(--rule);background:var(--seal-wash)}
+.layer-split .h{
+  font-size:11.5px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:7px;
+}
+.layer-split .t{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.layer-split > div + div .h{color:var(--seal)}
+
+/* ── 表格 ───────────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--rule);background:var(--paper-3);padding:12px;margin-bottom:6px}
+table.tbl{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.66;background:var(--paper)}
+table.tbl caption{
+  caption-side:top;text-align:left;padding:13px 15px;background:var(--paper-3);
+  border-bottom:1px solid var(--rule);font-size:13.5px;font-weight:600;color:var(--forest);
+}
+table.tbl th,table.tbl td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+table.tbl thead th{
+  background:var(--forest);color:#eef2ea;font-weight:600;font-size:13px;letter-spacing:.04em;
+}
+table.tbl tbody tr:nth-child(even){background:var(--paper-raised)}
+table.tbl tbody tr:last-child td{border-bottom:none}
+table.tbl td.num{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;
+  font-weight:600;color:var(--ink);
+}
+table.tbl td.num.stock{color:var(--amber-ink)}
+table.tbl td.num.risk{color:var(--seal)}
+table.tbl td small{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-3);line-height:1.55}
+.yes{color:var(--forest);font-weight:600}
+.no{color:var(--seal);font-weight:600}
+.half{color:var(--amber-ink);font-weight:600}
+table.tbl td .src{display:block;margin-top:5px;font-size:12px;color:var(--ink-3)}
+
+/* ── 图 ─────────────────────────────────────────────────── */
+figure.fig{margin:26px 0 0;border:1px solid var(--rule);background:var(--paper-raised)}
+figure.fig svg{display:block;width:100%;height:auto;background:var(--paper-raised)}
+figure.fig figcaption{
+  padding:14px 18px;border-top:1px solid var(--rule);background:var(--paper-3);
+  font-size:13.5px;line-height:1.72;color:var(--ink-2);
+}
+figure.fig figcaption b{color:var(--ink)}
+
+/* ── 时间线 ─────────────────────────────────────────────── */
+.timeline{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:170px minmax(0,1fr);gap:32px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--forest);
+  letter-spacing:.02em;padding-top:3px;
+}
+.timeline-item.hot .timeline-date{color:var(--seal)}
+.timeline-title{font-size:17px;line-height:1.5;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15px;line-height:1.72;color:var(--ink-2);max-width:66ch}
+
+/* ── 证据 ───────────────────────────────────────────────── */
+.evidence{display:grid;gap:16px}
+.evidence-item{padding:20px 22px;background:var(--paper-raised);border:1px solid var(--rule)}
+.evidence-item.risk{background:var(--seal-wash);border-color:#e0cbc8}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:17px;line-height:1.76;color:var(--ink);max-width:64ch;
+}
+.evidence-quote::before{content:"「";color:var(--ink-3)}
+.evidence-quote::after{content:"」";color:var(--ink-3)}
+.evidence-source{display:block;margin-top:11px;font-style:normal;font-size:12.5px;line-height:1.6;color:var(--ink-3)}
+
+/* ── 未确认清单 ─────────────────────────────────────────── */
+.gaps{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.gaps li{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;padding:16px 0;border-bottom:1px solid var(--rule-2)}
+.gap-name{font-size:14.5px;font-weight:600;line-height:1.55;color:var(--ink)}
+.gap-state{display:block;margin-top:5px;font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--seal)}
+.gap-body{font-size:14.5px;line-height:1.72;color:var(--ink-2)}
+.gap-body b{color:var(--ink)}
+
+/* ── 页脚 ───────────────────────────────────────────────── */
+.colophon{background:var(--paper-raised);border-top:2px solid var(--forest);padding:52px 0 0}
+.colophon .shell{padding-bottom:64px}
+.colophon h3{font-size:16px;letter-spacing:.02em;margin-bottom:10px;color:var(--forest)}
+.colophon p{font-size:14px;line-height:1.78;color:var(--ink-2);max-width:74ch}
+.colophon p + h3{margin-top:24px}
+.colophon .sig{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-3)}
+
+/* ── 动效：唯一一次 —— 标题下发丝线自左绘出 ─────────────── */
+h2::after{
+  content:"";display:block;height:2px;margin-top:16px;max-width:100%;
+  background:var(--forest);transform:scaleX(0);transform-origin:left center;
+  will-change:transform;
+}
+.drawn h2::after{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.verdict-band h2::after{background:var(--amber)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  h2::after{transform:none!important;transition:none!important}
+  *{animation:none!important;transition:none!important}
+}
+
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:36px}
+  .mast-meta dt{border-top:none;padding-top:6px}
+  .mast-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}
+  .layer{grid-template-columns:1fr}
+  .layer-tag{border-right:none;border-bottom:1px solid var(--rule);flex-direction:row;align-items:baseline;gap:12px}
+  .layer-side{border-left:none;border-top:1px solid var(--rule)}
+  .vgrid{grid-template-columns:1fr;gap:20px}
+  .gaps li{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:680px){
+  body{font-size:16px}
+  .shell{padding:0 18px 64px}
+  .masthead{padding:52px 0 40px}
+  .standfirst .q{font-size:17.5px;padding:14px 0 14px 16px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .metric-value{font-size:27px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .timeline-date{padding-top:0}
+  .layer-split{grid-template-columns:1fr}
+  .layer-split > div + div{border-left:none;border-top:1px solid var(--rule)}
+  table.tbl th,table.tbl td{padding:11px 12px}
+  .evidence-item{padding:16px 16px}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86;color:#fafafa;background:rgba(20,19,15,.92);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>抵押在轨道上的算力 —— <span class="num">430 亿美元</span> GPU 担保债与债权人收紧</h1>
+        <div class="standfirst">
+          <span class="q">同一批芯片，一头是还款来源，一头是抵押品；债权人要求它不要上天。</span>
+          简报 11-20 记下两件同周发生的事：SpaceX 向大型投资者出售<b>逾 300 亿美元</b>债券，其中最大一笔 <b>250 亿美元</b>投资级债券由租用英伟达芯片的五年租金提供支持；而为 <b>430 亿美元</b>债务融资提供支持的债权人，试图阻止把作为抵押品的先进 AI 芯片发射入轨。前作问「债有多少」，本篇问「违约时谁拿得走」。
+        </div>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-21</dd></div>
+          <div><dt>主责</dt><dd>研析</dd></div>
+          <div><dt>追踪线</dt><dd>估值与资本</dd></div>
+          <div><dt>素材</dt><dd>简报 2026-11-20 焦点 6/7 · 行业影响 2</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断：这笔债定价的不是算力，是算力被允许留在地面的期限</h2>
+    <p class="verdict">抵押品的价值兑现依赖物理在场。芯片一旦入轨，债权人就失去「当场收回并出售」的唯一路径 —— 所以债权人真正买下的不是算力，而是<em>算力不上天的权利</em>。</p>
+    <p class="verdict-note">
+      <b>机制。</b>这笔融资的还款来源是五年租金，抵押品是先进 AI 芯片，发行主体是特殊目的实体，目标是把债务排除在资产负债表外以维持投资级评级。四层结构里只有一层是「钱」，另外三层都是<b>权利</b>：租金的收取权、债券的受偿权、抵押品的处置权。当算力的商业价值要求资产上天、而债权人的回收要求资产留在地面时，冲突就落在同一个动作上 —— 发射。<br>
+      <b>本篇判定的可反驳条件。</b>若发行文件显示抵押品条款允许入轨且已设保险、托管与再回收安排，则「债权人以限制发射换取回收确定性」这一判定被推翻；若显示抵押芯片本就没有发射计划，冲突降级为预防性条款。
+    </p>
+    <dl class="vgrid">
+      <dt>第一问</dt>
+      <dd>430 亿、逾 300 亿、250 亿是三笔钱吗？<b>不是，是嵌套关系。</b>430 亿是债务融资规模，逾 300 亿是已售出的部分，250 亿是其中最大的一笔。</dd>
+      <dt>第二问</dt>
+      <dd>债权人为什么盯住「发射」？<b>因为回收依赖物理在场。</b>入轨后回收的时间、成本与可行性都不可预估（研析据素材机制推断）。</dd>
+      <dt>第三问</dt>
+      <dd>与前作的 6800 亿美元什么关系？<b>同一存量的两层。</b>前作数发行额，本篇看担保结构；两者口径是否重叠未确认，不相加。</dd>
+    </dl>
+  </div>
+</section>
+
+<div class="shell">
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section id="metrics">
+  <h2>关键数据：八个数先分清嵌套与口径</h2>
+  <p class="sub">这八个数分属三组：<b>本笔融资</b>（430 / 逾 300 / 250）、<b>行业存量</b>（6800 / 1300 / 2960，沿用前作标签）、<b>轨道侧</b>（1 个机架 / 2029 年）。第一组内部是包含关系，第二组与第一组是否重叠未确认，第三组是另一本账。</p>
+
+  <div class="metrics">
+    <div class="metric risk">
+      <div class="metric-value">430 亿美元</div>
+      <div class="metric-label">SpaceX 债务融资规模（11-20 金融时报口径）</div>
+      <div class="metric-source">金融时报 / 凤凰网科技 · 每日AI技术动态简报 2026-11-20 · 焦点 7</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">逾 300 亿美元</div>
+      <div class="metric-label">SpaceX 已向大型投资者出售债券额（周四交易口径）</div>
+      <div class="metric-source">金融时报 / 凤凰网科技 · 简报 2026-11-20 · 焦点 7</div>
+    </div>
+    <div class="metric risk">
+      <div class="metric-value">250 亿美元</div>
+      <div class="metric-label">SpaceX GPU 租金支持债券额度（五年租金支持口径）</div>
+      <div class="metric-source">金融时报 · 简报 2026-11-20 · 焦点 7（最大一笔投资级债券）</div>
+    </div>
+    <div class="metric stock">
+      <div class="metric-value">6800 亿美元</div>
+      <div class="metric-label">先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）</div>
+      <div class="metric-source">美联储《金融稳定报告》· 前作 11-18 同一出处沿用</div>
+    </div>
+    <div class="metric stock">
+      <div class="metric-value">1300 亿美元</div>
+      <div class="metric-label">2023 年全年同类债务发行额（同一出处对比值）</div>
+      <div class="metric-source">美联储《金融稳定报告》· 前作 11-18 同一出处沿用</div>
+    </div>
+    <div class="metric stock">
+      <div class="metric-value">2960 亿美元</div>
+      <div class="metric-label">超大规模数据中心运营商年内发债额（11-08来源口径）</div>
+      <div class="metric-source">每日热点新闻简报 2026-11-10 · 金融动态 5（金融界 11-08）</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">1 个机架</div>
+      <div class="metric-label">轨道数据中心卫星单星算力当量（Project Suncatcher 口径）</div>
+      <div class="metric-source">Ars Technica · TodayAI 日报 · 简报 2026-11-20 · 焦点 6</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">2029 年</div>
+      <div class="metric-label">New Glenn 数据中心卫星发射计划年份（Google×Blue Origin 签约口径）</div>
+      <div class="metric-source">Ars Technica · TodayAI 日报 · 简报 2026-11-20 · 焦点 6</div>
+    </div>
+  </div>
+
+  <p class="note"><b>读法一（嵌套）。</b>430 亿美元 ⊃ 逾 300 亿美元 ⊃ 250 亿美元。三个数不能相加，只能取外层：融资规模 430 亿美元。素材未给未售出部分的规模、期限与利率。</p>
+  <p class="note"><b>读法二（跨组）。</b>本笔 430 亿美元与美联储 6800 亿美元是否重叠<span class="warn">未确认</span> —— 若 SpaceX 这笔已计入「先进计算基础设施相关债务」，则 430 ÷ 6800 ≈ 6.3%（研析推算，仅作量级参照）；若未计入，则两组数字不得相减也不得相加。2960 亿美元的主体是超大规模数据中心运营商，与 SpaceX 不是同一主体，<b>并列只作趋势参照</b>。</p>
+</section>
+
+<!-- ── 四层结构（主线图）───────────────────────────────────── -->
+<section id="stack">
+  <h2>四层结构：租金如何变成债券，债券如何变成抵押品</h2>
+  <p class="sub">把素材里的动作按依赖顺序排开，只有一层在产生现金，其余三层都在分配权利。冲突发生在第三层与第四层之间。</p>
+
+  <div class="stack">
+    <div class="layer">
+      <div class="layer-tag"><span class="lv">LAYER 1</span><span class="nm">租金层</span></div>
+      <div class="layer-body">
+        <div class="src">素材口径 · 简报 2026-11-20 焦点 7</div>
+        <div class="fact">SpaceX 租用英伟达芯片，<b>五年租金</b>构成债券的还款支持。租金是这四层里唯一持续产生现金流的东西，它先于债券存在。</div>
+      </div>
+      <div class="layer-side"><span class="who">谁的主张</span>出租方与承租方的租约关系。素材未给出租方名称、租金金额与支付节奏。</div>
+    </div>
+
+    <div class="flow-bar"><span class="arrow"></span>租金 → 支持 → 债券：现金流被写进受偿结构</div>
+
+    <div class="layer">
+      <div class="layer-tag"><span class="lv">LAYER 2</span><span class="nm">债券层</span></div>
+      <div class="layer-body">
+        <div class="src">素材口径 · 简报 2026-11-20 焦点 7 与 行业影响 2</div>
+        <div class="fact">债务融资规模 <b>430 亿美元</b>，其中逾 300 亿美元已向大型投资者出售，最大一笔 <b>250 亿美元</b>投资级债券由五年租金支持；发行主体是<b>特殊目的实体</b>，意在把债务排除在 SpaceX 资产负债表外以维持投资级评级。</div>
+      </div>
+      <div class="layer-side"><span class="who">谁的主张</span>投资者要投资级评级与表外结构；SpaceX 要保住母公司的评级与资产负债表干净度。</div>
+    </div>
+
+    <div class="flow-bar tension"><span class="arrow"></span>债券 → 要求 → 抵押：受偿权必须有可处置的物</div>
+
+    <div class="layer">
+      <div class="layer-tag"><span class="lv">LAYER 3</span><span class="nm">抵押品层</span></div>
+      <div class="layer-body">
+        <div class="src">素材口径 · 简报 2026-11-20 焦点 7 与 行业影响 2</div>
+        <div class="fact">抵押品是<b>先进 AI 芯片</b>。为这笔融资提供支持的债权人试图阻止把抵押品发射入轨，<b>以便违约时能收回并出售抵押品</b>。</div>
+      </div>
+      <div class="layer-side"><span class="who">谁的主张</span>债权人：抵押品必须停在可收回、可出售的位置。这是本篇冲突的原点。</div>
+    </div>
+
+    <div class="layer-split">
+      <div>
+        <div class="h">抵押逻辑（留在地面）</div>
+        <div class="t">违约时收回并出售，依赖芯片在地面、可清点、可交割。物理在场是处置权的前提。</div>
+      </div>
+      <div>
+        <div class="h">算力逻辑（必须上天）</div>
+        <div class="t">轨道资产的价值来自部署：太阳同步轨道的近乎连续太阳能与在轨算力，只有发射之后才存在。</div>
+      </div>
+    </div>
+
+    <div class="flow-bar tension"><span class="arrow"></span>分歧动作：发射 —— 同一个动作对两层的含义相反</div>
+
+    <div class="layer">
+      <div class="layer-tag"><span class="lv">LAYER 4</span><span class="nm">轨道资产层</span></div>
+      <div class="layer-body">
+        <div class="src">素材口径 · 简报 2026-11-20 焦点 6（另一条独立线索）</div>
+        <div class="fact">Google 与 Blue Origin 签约，New Glenn 火箭将于 <b>2029 年</b>发射数据中心卫星，属 Project Suncatcher；卫星部署太阳同步轨道以获近乎连续太阳能，<b>每颗算力大致相当于一个数据中心机架</b>；报道强调仍属长期探索，短期更接近技术验证。</div>
+      </div>
+      <div class="layer-side"><span class="who">谁的主张</span>Google 与 Blue Origin 的在轨算力部署。素材未把它与 SpaceX 这笔债直接相连，两者的并列由本篇给出。</div>
+    </div>
+  </div>
+
+  <p class="note"><b>这张图的边界。</b>素材只支持「债权人试图阻止抵押芯片入轨」这一件事，不支持「抵押芯片已有确定的发射计划」。第四层的 Suncatcher 是<b>另一家主体的另一条线索</b>，本篇把它放在同一条线上，是为了呈现「算力资产上天」这一共同方向，<span class="warn">不构成因果关系</span>。</p>
+</section>
+
+<!-- ── 条款对照 ────────────────────────────────────────────── -->
+<section id="terms">
+  <h2>条款对照：每一层由谁主张，分歧落在哪里</h2>
+  <p class="sub">下表把素材给出的每一项口径、主张方与它对违约处置的含义分开写。素材没有给出的格子写「素材未给」，不补估计值。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1 · 四层结构的条款对照（口径逐条标注，来源可回溯）</caption>
+      <thead>
+        <tr>
+          <th>层</th>
+          <th>素材口径（逐字要点）</th>
+          <th>主张方</th>
+          <th>对违约处置的含义</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>租金层</b></td>
+          <td>「由 SpaceX 租用英伟达芯片的五年租金提供支持」<span class="src">简报 2026-11-20 焦点 7</span></td>
+          <td>租约双方（出租方名称素材未给）</td>
+          <td>还款依赖租约持续履行；租金若因芯片被移出可用状态而中断，还款来源同时受损。</td>
+        </tr>
+        <tr>
+          <td><b>债券层</b></td>
+          <td>「这笔融资由一家特殊目的实体发行，意在把债务排除在 SpaceX 资产负债表外以维持投资级评级」<span class="src">简报 2026-11-20 行业影响 2</span></td>
+          <td>发行人（SPE）与投资者</td>
+          <td>债务在表外，评级在表内承压；表外结构意味着处置安排可能写在 SPV 层而非母公司层。</td>
+        </tr>
+        <tr>
+          <td><b>抵押品层</b></td>
+          <td>「债权人要求限制芯片发射入轨，以便违约时能收回并出售抵押品」<span class="src">简报 2026-11-20 行业影响 2</span></td>
+          <td>债权人</td>
+          <td>处置权以物理在场为条件。这是唯一一条直接写进违约处置的条款方向。</td>
+        </tr>
+        <tr>
+          <td><b>轨道资产层</b></td>
+          <td>「卫星部署太阳同步轨道以获近乎连续太阳能，每颗算力大致相当于一个数据中心机架」<span class="src">简报 2026-11-20 焦点 6</span></td>
+          <td>Google 与 Blue Origin</td>
+          <td>价值在部署之后才存在；与本笔债的关系素材未给，属并列线索。</td>
+        </tr>
+        <tr>
+          <td><b>评级目标</b></td>
+          <td>「维持投资级评级」<span class="src">简报 2026-11-20 行业影响 2</span></td>
+          <td>SpaceX 与 SPE</td>
+          <td>投资级是这套路数的门票；评级一旦失守，表外结构的意义随之消失。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 违约情形 ────────────────────────────────────────────── -->
+<section id="scenarios">
+  <h2>违约处置的三种情形：素材能回答到哪一步</h2>
+  <p class="sub">把「抵押品在哪」作为唯一变量，列出债权人回收路径的变化。「素材是否给出处置结果」一列只有一格是<span class="half">部分</span>，其余两格都是<span class="no">否</span>：素材只报了条款方向，没有报条款文本。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 2 · 抵押品位置 × 债权人可回收性（标「否」「未确认」的格为素材未覆盖）</caption>
+      <thead>
+        <tr>
+          <th>情形</th>
+          <th>抵押品状态</th>
+          <th>债权人主张</th>
+          <th>素材是否给出处置结果</th>
+          <th>缺口（确认方法）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>情形 A</b><small>条款生效，全部在地面</small></td>
+          <td>先进 AI 芯片留在地面，未发射</td>
+          <td><span class="yes">可收回并出售</span><small>与素材表述一致</small></td>
+          <td><span class="half">部分</span><small>素材只给条款方向，未给估值、保管与优先顺位</small></td>
+          <td>债券募集说明书的担保条款与托管安排<small>确认方法：读发行文件</small></td>
+        </tr>
+        <tr>
+          <td><b>情形 B</b><small>条款未阻止，部分入轨</small></td>
+          <td>一部分芯片已发射，一部分在地面</td>
+          <td><span class="no">未确认</span><small>素材未给部分在轨时的处置口径</small></td>
+          <td><span class="no">否</span></td>
+          <td>在轨资产的担保登记、保险与残值处置<small>确认方法：读发行文件与相关登记</small></td>
+        </tr>
+        <tr>
+          <td><b>情形 C</b><small>条款被绕开，全部入轨</small></td>
+          <td>抵押芯片已在轨运行</td>
+          <td><span class="no">未确认</span><small>素材未给回收路径；物理回收无先例可循</small></td>
+          <td><span class="no">否</span></td>
+          <td>在轨算力资产的违约处置先例<small>确认方法：行业披露与后续报道；素材明示「尚无先例可循」</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>为什么先写这张表。</b>素材给出的是<b>条款方向</b>（限制发射），不是<b>条款文本</b>（触发条件、豁免、违约定义）。所以本篇不给处置结果的预测，只把三种情形的缺口列出来；任何一格被发行文件补上，本节都要重写。</p>
+</section>
+
+<!-- ── 口径对齐 ────────────────────────────────────────────── -->
+<section id="align">
+  <h2>口径对齐：这六个数能不能相加</h2>
+  <p class="sub">给每个数标上时点、主体与性质。「能否相加」一列是本篇最实用的一列：错一步，整段论证就废。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 3 · 六个数的时点、主体与可加性</caption>
+      <thead>
+        <tr>
+          <th class="num">数字</th>
+          <th>时点</th>
+          <th>主体</th>
+          <th>性质</th>
+          <th>能否与 430 亿相加</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num risk">430 亿美元</td>
+          <td>截至 2026-11-20 报道</td>
+          <td>SpaceX 债务融资（SPE 发行）</td>
+          <td>融资规模 · 本笔总量</td>
+          <td><span class="no">不适用</span><small>这就是被对齐的那个数</small></td>
+          <td>金融时报 / 凤凰网科技<small>简报 2026-11-20 焦点 7</small></td>
+        </tr>
+        <tr>
+          <td class="num">逾 300 亿美元</td>
+          <td>周四（按简报 11-20 发布日换算为 11-19，研析换算）</td>
+          <td>同上</td>
+          <td>已售出部分</td>
+          <td><span class="no">否</span><small>包含于 430 亿</small></td>
+          <td>金融时报 / 凤凰网科技<small>简报 2026-11-20 焦点 7</small></td>
+        </tr>
+        <tr>
+          <td class="num risk">250 亿美元</td>
+          <td>同上</td>
+          <td>同上 · 最大一笔投资级债券</td>
+          <td>已售出部分中的单笔</td>
+          <td><span class="no">否</span><small>包含于逾 300 亿</small></td>
+          <td>金融时报<small>简报 2026-11-20 焦点 7</small></td>
+        </tr>
+        <tr>
+          <td class="num stock">6800 亿美元</td>
+          <td>截至 2026 年 10 月</td>
+          <td>先进计算基础设施发行人（全行业）</td>
+          <td>历史 · 累计发行存量</td>
+          <td><span class="no">未确认</span><small>是否含本笔 430 亿，素材未给</small></td>
+          <td>美联储《金融稳定报告》<small>前作 11-18 沿用</small></td>
+        </tr>
+        <tr>
+          <td class="num stock">1300 亿美元</td>
+          <td>2023 年全年</td>
+          <td>同上</td>
+          <td>历史 · 年度流量（对比值）</td>
+          <td><span class="no">否</span><small>不同年份、不同主体</small></td>
+          <td>美联储《金融稳定报告》<small>前作 11-18 沿用</small></td>
+        </tr>
+        <tr>
+          <td class="num stock">2960 亿美元</td>
+          <td>2026 年内（11-08 口径）</td>
+          <td>超大规模数据中心运营商</td>
+          <td>历史 · 年内已发行</td>
+          <td><span class="no">否</span><small>主体不同，非同一发行人</small></td>
+          <td>金融界 11-08<small>每日热点新闻简报 2026-11-10</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>唯一可算的一格。</b>430 ÷ 6800 ≈ 6.3%（研析推算），前提是本笔 430 亿已计入美联储口径；该前提<span class="warn">未确认</span>，因此这个比值只作量级参照，不作结论。其余各格一律不换算。</p>
+</section>
+
+<!-- ── 前作衔接 ────────────────────────────────────────────── -->
+<section id="sequel">
+  <h2>与前作的衔接：从发行额推进到处置权</h2>
+  <p class="sub">11-18《6080 亿的削减与 6800 亿的新债 —— AI 基建的信用审查时刻》问的是「发了多少、够不够」。本篇是它的抵押品条款续集：钱已经发出去了，接下来决定损益的是违约那一刻谁拿得走东西。</p>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 4 · 前作与本篇的分工（同一系列、同一条追踪线）</caption>
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>11-18《AI 基建的信用审查时刻》</th>
+          <th>本篇（11-21）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>核心问题</b></td>
+          <td>前瞻流量被下修，历史存量已固化，两者能不能相减</td>
+          <td>抵押品在哪、谁能处置，条款把资产留在哪一层</td>
+        </tr>
+        <tr>
+          <td><b>计量单位</b></td>
+          <td>发行额与资本开支（存量 / 流量）</td>
+          <td>处置权与物理位置（权利 / 状态）</td>
+        </tr>
+        <tr>
+          <td><b>沿用标签</b></td>
+          <td>先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）<br>2023 年全年同类债务发行额（同一出处对比值）<br>超大规模数据中心运营商年内发债额（11-08来源口径）</td>
+          <td>三个标签<b>逐字复用</b>，数值与出处不变，只换本篇语境（对照存量看本笔 430 亿的量级）</td>
+        </tr>
+        <tr>
+          <td><b>断言序列推进</b></td>
+          <td>把「先进计算基础设施相关债务发行额」连成 1300 亿 → 6800 亿的时间线</td>
+          <td>把同一条序列推进到<b>担保结构与违约处置权</b>，为后续在轨资产定价留基线</td>
+        </tr>
+        <tr>
+          <td><b>未确认的交点</b></td>
+          <td>6800 亿的发行人拆分、期限结构未确认</td>
+          <td>本笔 430 亿是否已计入 6800 亿<span class="no">未确认</span>，确认方法：读报告口径脚注与发行文件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>为什么算续集而不是重复。</b>前作的判定是「信用结构会在需求信号之后的第一个资产负债表事件上显形」。本篇给出了那个事件的具体形态：一个关于<b>抵押品能不能上天</b>的条款争议。判断没有变，位置从「报表」前移到「条款」。</p>
+</section>
+
+<!-- ── 轨道侧 ──────────────────────────────────────────────── -->
+<section id="orbit">
+  <h2>轨道侧的另一本账：一个机架的算力，一条发射边界</h2>
+  <p class="sub">同一份简报的焦点 6 给出另一条线索：算力要上天才成为轨道资产。把它与抵押条款画在一起，就能看出债权人守的是哪条线。</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 940 340" role="img" aria-label="示意图：左侧为地面数据中心与抵押芯片，右侧为地球与太阳同步轨道上的数据中心卫星；中间一条朱砂红虚线标出入轨边界，债权人要求抵押品不越过该线，而 2029 年 New Glenn 发射计划把算力送过该线。">
+      <rect x="0" y="0" width="940" height="340" fill="#f2f4f3"/>
+      <text x="26" y="34" font-family="PingFang SC, sans-serif" font-size="13.5" font-weight="600" fill="#2d5016">同一条算力，两个位置：地面是抵押品，在轨是资产</text>
+
+      <!-- 地面侧 -->
+      <rect x="40" y="74" width="250" height="132" fill="#e9ecea" stroke="#c8ceca"/>
+      <text x="58" y="104" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#5c6360">地面 · 数据中心</text>
+      <rect x="62" y="120" width="30" height="66" fill="#d4a574"/>
+      <rect x="100" y="120" width="30" height="66" fill="#d4a574"/>
+      <rect x="138" y="120" width="30" height="66" fill="#d4a574"/>
+      <text x="182" y="150" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#141716">先进 AI 芯片</text>
+      <text x="182" y="172" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#7f551f">抵押品 · 可清点可交割</text>
+      <text x="58" y="230" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#454b48">债权人的要求：留在这一侧</text>
+      <rect x="58" y="240" width="216" height="30" fill="#eee6d8" stroke="#d4a574"/>
+      <text x="70" y="260" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#7f551f">违约时收回并出售</text>
+
+      <!-- 入轨边界 -->
+      <line x1="360" y1="60" x2="360" y2="300" stroke="#a8342a" stroke-width="1.6" stroke-dasharray="6 5"/>
+      <circle cx="360" cy="60" r="5" fill="#a8342a"/>
+      <text x="374" y="52" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#a8342a">入轨边界 · 抵押品处置权的终点</text>
+      <text x="374" y="74" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#a8342a">债权人试图阻止芯片越过这条线</text>
+
+      <!-- 轨道侧 -->
+      <circle cx="700" cy="176" r="74" fill="#e9ecea" stroke="#2d5016" stroke-width="1.4"/>
+      <text x="700" y="172" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#2d5016">地球</text>
+      <text x="700" y="194" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="12" fill="#454b48">太阳同步轨道</text>
+      <ellipse cx="700" cy="176" rx="150" ry="96" fill="none" stroke="#2d5016" stroke-width="1.4" stroke-dasharray="5 4"/>
+      <g fill="#2d5016">
+        <rect x="842" y="150" width="16" height="16"/>
+        <rect x="612" y="258" width="16" height="16"/>
+        <rect x="546" y="94" width="16" height="16"/>
+      </g>
+      <text x="742" y="126" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#2d5016">数据中心卫星</text>
+      <text x="430" y="308" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#454b48">太阳同步轨道以获近乎连续太阳能 · 每颗算力大致相当于一个数据中心机架</text>
+
+      <!-- 发射箭头 -->
+      <line x1="308" y1="140" x2="516" y2="112" stroke="#2d5016" stroke-width="1.6"/>
+      <path d="M516 112 l-14 -1 l7 -8 z" fill="#2d5016"/>
+      <text x="308" y="96" font-family="PingFang SC, sans-serif" font-size="12.5" font-weight="600" fill="#2d5016">2029 计划：New Glenn 发射</text>
+
+      <!-- 底注 -->
+      <line x1="40" y1="300" x2="330" y2="300" stroke="#c8ceca"/>
+      <text x="40" y="322" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#5c6360">左侧：本篇的担保条款 · 右侧：同一简报焦点 6 的部署计划</text>
+    </svg>
+    <figcaption><b>图 · 读法。</b>琥珀色是地面抵押品，绿色是轨道资产，朱砂红虚线是两者的分界。素材没有说本笔债券的抵押芯片与 Suncatcher 卫星之间存在任何交易关系；这条线画的是<b>位置与权利的分界</b>，不是资金流。示意图按关系绘制，不按比例尺。</figcaption>
+  </figure>
+
+  <p class="note"><b>轨道侧的三个口径。</b>①「2029 年发射」是签约计划年份，不是已完成事实；②「每颗算力大致相当于一个数据中心机架」是当量类比，素材未给机型、功耗与单轨数量；③报道强调<b>仍属长期探索，短期更接近技术验证</b> —— 这句限定必须与数字一起引用，单独引用 2029 年会夸大确定性。</p>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section id="timeline">
+  <h2>进程：从存量到条款的六个时间点</h2>
+  <p class="sub">前三个点是行业存量（沿用前作标签），后三个点是本笔融资与轨道计划。存量提供量级参照，条款提供新的约束。</p>
+
+  <ol class="timeline">
+    <li class="timeline-item">
+      <span class="timeline-date">2023 年全年</span>
+      <div>
+        <div class="timeline-title">同类债务发行 1300 亿美元</div>
+        <div class="timeline-detail">美联储口径的基线年，前作用它算出 5.2 倍的放大倍数。本篇用它说明：担保结构的争议发生在存量已经很大的时候。</div>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">截至 2026-10</span>
+      <div>
+        <div class="timeline-title">先进计算基础设施相关债务发行累计 6800 亿美元</div>
+        <div class="timeline-detail">美联储《金融稳定报告》口径。本笔 430 亿美元是否已计入其中，素材未给，未确认。</div>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2026-11-08</span>
+      <div>
+        <div class="timeline-title">超大规模数据中心运营商年内发债额 2960 亿美元</div>
+        <div class="timeline-detail">金融界口径，由每日热点新闻简报 2026-11-10 转引。主体与 SpaceX 不同，只作趋势参照。</div>
+      </div>
+    </li>
+    <li class="timeline-item hot">
+      <span class="timeline-date">2026-11-19（周四）</span>
+      <div>
+        <div class="timeline-title">SpaceX 向大型投资者出售逾 300 亿美元债券</div>
+        <div class="timeline-detail">其中最大一笔 250 亿美元投资级债券由租用英伟达芯片的五年租金提供支持。日期按简报 11-20 发布日换算，研析换算，原文只写「周四」。</div>
+      </div>
+    </li>
+    <li class="timeline-item hot">
+      <span class="timeline-date">2026-11-20</span>
+      <div>
+        <div class="timeline-title">债权人试图阻止抵押芯片发射入轨（简报焦点 7 与 行业影响 2）</div>
+        <div class="timeline-detail">同一份简报的焦点 6 报道 Google 与 Blue Origin 签约，New Glenn 将于 2029 年发射数据中心卫星。条款收紧与轨道部署出现在同一份日报的同一版面上。</div>
+      </div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2029 年（计划）</span>
+      <div>
+        <div class="timeline-title">New Glenn 发射 Project Suncatcher 数据中心卫星</div>
+        <div class="timeline-detail">太阳同步轨道、近乎连续太阳能、单星约一个机架当量。报道强调仍属长期探索，短期更接近技术验证。</div>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section id="evidence">
+  <h2>证据：四段逐字回源</h2>
+  <p class="sub">以下四段是本篇全部事实性表述的来源原文，一字未改。页尾断言层的每一条 quote 都能在本文件中逐字命中。</p>
+
+  <div class="evidence">
+    <div class="evidence-item risk">
+      <p class="evidence-quote">为 SpaceX 一笔 430 亿美元债务融资提供支持的债权人试图阻止把作为抵押品的先进 AI 芯片发射入轨；周四 SpaceX 已向大型投资者出售逾 300 亿美元债券，其中最大一笔 250 亿美元投资级债券由 SpaceX 租用英伟达芯片的五年租金提供支持。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-20 · 🔥 今日焦点 7（金融时报 / 凤凰网科技 11-20）</cite>
+    </div>
+    <div class="evidence-item risk">
+      <p class="evidence-quote">SpaceX 以英伟达 GPU 作抵押发债，债权人要求限制芯片发射入轨，以便违约时能收回并出售抵押品；这笔融资由一家特殊目的实体发行，意在把债务排除在 SpaceX 资产负债表外以维持投资级评级，凸显轨道数据中心作为新兴资产类别尚无先例可循。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-20 · 🌍 行业影响 2（金融时报 / cnBeta 11-20）</cite>
+    </div>
+    <div class="evidence-item">
+      <p class="evidence-quote">Google 与 Blue Origin 签约，New Glenn 火箭将于 2029 年发射数据中心卫星：属 Project Suncatcher，卫星部署太阳同步轨道以获近乎连续太阳能，每颗算力大致相当于一个数据中心机架；报道强调仍属长期探索，短期更接近技术验证。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-20 · 🔥 今日焦点 6（Ars Technica · TodayAI 日报 11-20）</cite>
+    </div>
+    <div class="evidence-item">
+      <p class="evidence-quote">凸显轨道数据中心作为新兴资产类别尚无先例可循。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-20 · 🌍 行业影响 2（金融时报 / cnBeta 11-20）—— 本篇判定「无先例」这一限制的依据</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── 未确认清单 ──────────────────────────────────────────── -->
+<section id="gaps">
+  <h2>未确认清单：这份稿子还不能回答什么</h2>
+  <p class="sub">下面每一条都是本判断的真实缺口。列在这里比补一个估计值更诚实；任何一条被发行文件补上，前面的判定都要重过一遍。</p>
+
+  <ul class="gaps">
+    <li>
+      <div class="gap-name">债权人阻止条款的原文与触发条件<span class="gap-state">未确认</span></div>
+      <div class="gap-body">素材只给「试图阻止」这一方向，未给条款文本、违约定义与豁免条件。<b>确认方法</b>：读金融时报报道原文与债券募集说明书。</div>
+    </li>
+    <li>
+      <div class="gap-name">430 亿美元的完整分层<span class="gap-state">未确认</span></div>
+      <div class="gap-body">已售逾 300 亿之外的部分、期限、利率、担保顺位、优先与次级结构均未给。<b>确认方法</b>：发行文件与后续报道。</div>
+    </li>
+    <li>
+      <div class="gap-name">特殊目的实体的名称与出表结论<span class="gap-state">未确认</span></div>
+      <div class="gap-body">素材写「意在表外化以维持投资级评级」，是意图不是结果；SPE 名称、并表口径、评级机构意见均未给。<b>确认方法</b>：读发行文件与评级报告。</div>
+    </li>
+    <li>
+      <div class="gap-name">五年租金的租约细节<span class="gap-state">未确认</span></div>
+      <div class="gap-body">出租方是否即英伟达、租金金额、支付节奏、芯片不可用时的租金减免条款均未给。<b>确认方法</b>：租约披露或发行文件中的现金流说明。</div>
+    </li>
+    <li>
+      <div class="gap-name">抵押芯片的估值、保险与保管<span class="gap-state">未确认</span></div>
+      <div class="gap-body">担保物如何估值、由谁保管、保险受益人是谁，素材未给。<b>确认方法</b>：发行文件的担保清单。</div>
+    </li>
+    <li>
+      <div class="gap-name">抵押芯片是否已有发射计划<span class="gap-state">未确认</span></div>
+      <div class="gap-body">债权人「试图阻止」说明存在某种入轨安排，但计划内容、时间与主体未给。<b>确认方法</b>：报道原文与 SpaceX 发射排期披露。这是本篇判定成立与否的关键一条。</div>
+    </li>
+    <li>
+      <div class="gap-name">本笔 430 亿是否计入 6800 亿<span class="gap-state">未确认</span></div>
+      <div class="gap-body">若已计入，6.3% 的量级比值成立；若未计入，两组数字不得相加减。<b>确认方法</b>：美联储报告口径脚注与发行人拆分。</div>
+    </li>
+    <li>
+      <div class="gap-name">Suncatcher 单星算力当量的口径<span class="gap-state">未确认</span></div>
+      <div class="gap-body">「一个数据中心机架」对应机型、功耗、在轨数量与部署节奏均未给；2029 年是计划年份。<b>确认方法</b>：Ars Technica 报道原文与项目披露。</div>
+    </li>
+    <li>
+      <div class="gap-name">在轨资产的违约处置先例<span class="gap-state">未确认</span></div>
+      <div class="gap-body">素材明示「尚无先例可循」，因此情形 B 与情形 C 的处置结果无法从既有案例推出。<b>确认方法</b>：后续行业披露与司法、登记实践。</div>
+    </li>
+  </ul>
+</section>
+
+</div>
+
+<!-- ── 页脚 ────────────────────────────────────────────────── -->
+<footer class="colophon">
+  <div class="shell">
+    <h3>素材</h3>
+    <p>主素材：每日AI技术动态简报 2026-11-20（🔥 今日焦点 6/7、🌍 行业影响 2），只读，不联网检索。对照前作：works/2026-11-18/research/2026-11-18-ai-infra-credit-review.html，只读，用于核对指标标签与断言序列，未做任何改动。行业存量三个标签（先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）、2023 年全年同类债务发行额（同一出处对比值）、超大规模数据中心运营商年内发债额（11-08来源口径））逐字沿用前作，数值与出处不变。</p>
+    <h3>口径</h3>
+    <p>页尾断言声明块共 7 条，每条 quote 均在本文件内逐字存在，由 tools/claim_gate.py 的 G1 逐字引用闸门与 G2 标签质量闸门校验。解释性判断留在正文，由人读，不进断言层。派单所列「2028 财年同类债务发行额（同一出处对比值）」在展厅既有 .metric-label 中零命中；本篇复用同族既有标签「2023 年全年同类债务发行额（同一出处对比值）」，差异记入交付报告待确认项。</p>
+    <h3>标注约定</h3>
+    <p>表 3 中标「研析推算」的比值（430 ÷ 6800 ≈ 6.3%）是由公开数字做的算术，不是来源给出的结论；「周四 = 2026-11-19」是按简报发布日做的日期换算；四层结构图、情形矩阵与核心判断是研析的分析编排，素材只支持其中逐字引用的部分。素材未支持的比例、绝对值与执行细节一律留空并列入未确认清单。</p>
+    <p class="sig">研究简报 · 主责：研析 · 2026-11-21 · 追踪线：估值与资本 · 选题 462 · 素材：简报 2026-11-20</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "430 亿美元",
+    "label": "SpaceX 债务融资规模（11-20 金融时报口径）",
+    "quote": "430 亿美元 SpaceX 债务融资规模（11-20 金融时报口径）"
+  },
+  {
+    "value": "250 亿美元",
+    "label": "SpaceX GPU 租金支持债券额度（五年租金支持口径）",
+    "quote": "250 亿美元 SpaceX GPU 租金支持债券额度（五年租金支持口径）"
+  },
+  {
+    "value": "6800 亿美元",
+    "label": "先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）",
+    "quote": "6800 亿美元 先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）"
+  },
+  {
+    "value": "1300 亿美元",
+    "label": "2023 年全年同类债务发行额（同一出处对比值）",
+    "quote": "1300 亿美元 2023 年全年同类债务发行额（同一出处对比值）"
+  },
+  {
+    "value": "2960 亿美元",
+    "label": "超大规模数据中心运营商年内发债额（11-08来源口径）",
+    "quote": "2960 亿美元 超大规模数据中心运营商年内发债额（11-08来源口径）"
+  },
+  {
+    "value": "1 个机架",
+    "label": "轨道数据中心卫星单星算力当量（Project Suncatcher 口径）",
+    "quote": "1 个机架 轨道数据中心卫星单星算力当量（Project Suncatcher 口径）"
+  },
+  {
+    "value": "2029 年",
+    "label": "New Glenn 数据中心卫星发射计划年份（Google×Blue Origin 签约口径）",
+    "quote": "2029 年 New Glenn 数据中心卫星发射计划年份（Google×Blue Origin 签约口径）"
+  }
+]
+</script>
+
+<script>
+// 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

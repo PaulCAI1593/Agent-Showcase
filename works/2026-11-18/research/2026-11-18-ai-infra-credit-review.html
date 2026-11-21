@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6080 亿的削减与 6800 亿的新债 —— AI 基建的信用审查时刻</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  智囊团 · 研究类作品 · 选题450（追踪线：估值与资本）
+  ═══════════════════════════════════════════════════════════════════
+
+  视觉身份：信用审查底稿（薄荷白纸 + 森林绿墨 + 琥珀棕记账栏 + 朱砂红批注）。
+  本篇的主结构是「双栏复式对账」：左栏是被改写的前瞻流量，右栏是已固化的
+  历史存量，中间用一道对账线把两者接上；其余区块承载口径对齐表、算术对齐表、
+  判定矩阵与未确认清单。
+
+  契约：封闭语义词汇表（只用这些，不自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（必填，带单位）
+          .metric-label      指标名（必填，一行名词短语）
+          .metric-source     出处（必填，机构 · 口径 · 日期）
+      .verdict-band > .verdict / .verdict-note
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  其余 class 均为版式（shell / masthead / lede / align / tbl / fig / note 等），
+  不承载语义断言。
+
+  断言声明在文件底部 script#claims（8 条），quote 逐字取自本文件正文。
+  「返回展厅」链接由 autopublish 阶段 5.5 自动注入，不手写。
+
+  素材依据：每日AI技术动态简报 2026-11-17（🌍 行业影响 2）＋
+  每日热点新闻简报 2026-11-17（🔬 科技动态 3），只读，不联网检索。
+  跨作品沿用标签：Anthropic 算力与基础设施承诺总额、
+  超大规模数据中心运营商年内发债额（11-08来源口径）。
+-->
+
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="6080 亿美元的前瞻资本开支下修，与 6800 亿美元已发行的先进计算基础设施债务，不是同一笔钱，却落在同一批资产负债表上：AI 基建进入信用审查时刻。">
+
+<style>
+/* ── 基础 ────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px;
+  line-height:1.72;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+:root{
+  --paper:#F7F9F4;          /* 薄荷白：底纸 */
+  --paper-2:#EFF2EB;        /* 抬起的表格行 */
+  --paper-3:#E4E9DE;        /* 表头带 / 分区块 */
+  --ink:#1F2937;            /* 正文黑 */
+  --ink-2:#4A5568;          /* 石墨灰：次要文字 */
+  --ink-3:#5F6A5F;          /* 辅助灰：出处（5.35:1） */
+  --forest:#2D5016;         /* 森林绿：结构色 */
+  --forest-deep:#16280F;    /* 深墨：判定带 */
+  --amber:#D4A574;          /* 琥珀棕：已发生的存量 */
+  --amber-ink:#8A5F2B;      /* 琥珀棕文字版 */
+  --vermilion:#A8342A;      /* 朱砂红：下修与风险（6.2:1） */
+  --vermilion-2:#C44536;    /* 朱砂红：填充 */
+  --rule:#CBD3C4;           /* 分隔线 */
+  --rule-2:#DDE3D6;
+  --mono:"SF Mono","Cascadia Mono",ui-monospace,Menlo,Consolas,"DejaVu Sans Mono",monospace;
+}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.shell{max-width:980px;margin:0 auto;padding:0 24px 96px}
+
+/* ── 报头 ────────────────────────────────────────────────────── */
+.masthead{padding:64px 0 8px;border-bottom:2px solid var(--forest)}
+.kicker{
+  margin:0 0 26px;font-size:12.5px;font-weight:600;letter-spacing:.14em;
+  color:var(--forest);text-transform:none;
+}
+.kicker .sep{color:var(--ink-3);margin:0 10px}
+h1{
+  margin:0 0 26px;
+  font-size:44px;line-height:1.18;font-weight:600;letter-spacing:-0.02em;
+  color:var(--ink);max-width:24em;
+}
+h1 .anchor{color:var(--vermilion);white-space:nowrap}
+h1 .anchor.b{color:var(--forest);white-space:nowrap}
+.lede{max-width:43em;color:var(--ink-2);font-size:17.5px;line-height:1.78}
+.lede b{color:var(--ink);font-weight:600}
+.lede .q{
+  display:block;margin:0 0 22px;padding:18px 0 18px 22px;
+  border-left:3px solid var(--vermilion-2);
+  font-size:21px;line-height:1.55;color:var(--ink);font-weight:600;letter-spacing:-0.01em;
+}
+
+/* ── 判定带 ──────────────────────────────────────────────────── */
+.verdict-band{
+  margin:48px 0 56px;padding:40px 40px 36px;
+  background:var(--forest-deep);color:#C9D4C0;
+}
+.verdict-band .stamp{
+  display:inline-block;margin:0 0 20px;padding:5px 12px;
+  border:1px solid var(--amber);color:#E0B98A;
+  font-size:12px;font-weight:600;letter-spacing:.2em;
+}
+.verdict-band .verdict{
+  margin:0 0 22px;font-size:27px;line-height:1.42;font-weight:600;
+  color:#F2F6EC;letter-spacing:-0.015em;max-width:30em;
+}
+.verdict-band .verdict em{font-style:normal;color:#E0B98A}
+.verdict-band .verdict-note{
+  margin:0;font-size:15.5px;line-height:1.76;color:#B9C7AF;max-width:44em;
+}
+.verdict-band .verdict-note b{color:#E0B98A;font-weight:600}
+.vgrid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  margin:30px 0 0;padding:26px 0 0;border-top:1px solid #2C4120;
+}
+.vgrid dt{
+  margin:0 0 8px;font-size:12.5px;font-weight:600;letter-spacing:.1em;color:#E0B98A;
+}
+.vgrid dd{margin:0;font-size:15px;line-height:1.72;color:#C9D4C0}
+
+/* ── 章节 ────────────────────────────────────────────────────── */
+.sec{margin:0 0 64px}
+.sec-head{margin:0 0 26px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.sec-kicker{
+  margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--forest);
+}
+h2{margin:0;font-size:27px;line-height:1.3;font-weight:600;letter-spacing:-0.015em;color:var(--ink)}
+h2 .num{color:var(--vermilion);font-family:var(--mono);font-size:19px;margin-right:10px;vertical-align:2px}
+.sub{margin:10px 0 0;color:var(--ink-2);font-size:15.5px;line-height:1.72;max-width:44em}
+
+/* ── 指标条 ──────────────────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.metric{background:var(--paper);padding:22px 22px 20px}
+.metric-value{
+  font-family:var(--mono);font-size:29px;line-height:1.16;font-weight:600;
+  color:var(--forest);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;
+}
+.metric.cut .metric-value{color:var(--vermilion)}
+.metric.debt .metric-value{color:var(--amber-ink)}
+.metric-label{
+  margin:10px 0 0;font-size:14.5px;line-height:1.5;font-weight:600;color:var(--ink);
+}
+.metric-source{
+  margin:7px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+}
+.note{
+  margin:18px 0 0;font-size:14px;line-height:1.72;color:var(--ink-2);
+  padding-left:16px;border-left:2px solid var(--rule);
+}
+.note b{color:var(--ink);font-weight:600}
+
+/* ── 表格 ────────────────────────────────────────────────────── */
+.tbl-wrap{margin:0 0 22px;overflow-x:auto;border:1px solid var(--rule);background:var(--paper-3);padding:12px}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px;line-height:1.6;background:var(--paper)}
+table.tbl caption{
+  caption-side:top;text-align:left;padding:14px 16px;background:var(--paper-3);
+  border-bottom:1px solid var(--rule);
+  font-size:13.5px;font-weight:600;color:var(--forest);letter-spacing:.01em;
+}
+table.tbl th,table.tbl td{padding:13px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+table.tbl thead th{
+  background:var(--forest);color:#F2F6EC;font-weight:600;font-size:12.5px;
+  letter-spacing:.06em;white-space:nowrap;
+}
+table.tbl tbody tr:nth-child(even){background:var(--paper-2)}
+table.tbl tbody tr:last-child td{border-bottom:none}
+table.tbl td.num{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap;font-weight:600;color:var(--ink);
+}
+table.tbl thead th.num{color:#F2F6EC}
+table.tbl td.num.cut{color:var(--vermilion)}
+table.tbl td.num.debt{color:var(--amber-ink)}
+table.tbl td .src{display:block;margin-top:5px;font-size:12px;color:var(--ink-3);line-height:1.5}
+table.tbl td .yes{color:var(--forest);font-weight:600}
+table.tbl td .no{color:var(--vermilion);font-weight:600}
+table.tbl td .half{color:var(--amber-ink);font-weight:600}
+table.tbl td small{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+table.tbl.calc td.num{color:var(--vermilion)}
+table.tbl.calc td.warn{color:var(--ink-2);font-weight:400}
+
+/* ── 判定矩阵 ────────────────────────────────────────────────── */
+.matrix{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.mcell{background:var(--paper);padding:24px 24px 22px}
+.mcell.win{background:#EEF3E6;box-shadow:inset 4px 0 0 var(--forest)}
+.mcell h3{margin:0 0 4px;font-size:17px;line-height:1.42;font-weight:600;color:var(--ink)}
+.mcell .tag{
+  display:inline-block;margin:0 0 12px;padding:3px 9px;font-size:11.5px;font-weight:600;
+  letter-spacing:.1em;color:#F2F6EC;background:var(--ink-2);
+}
+.mcell.win .tag{background:var(--forest)}
+.mcell .row{margin:0 0 10px;font-size:14px;line-height:1.66;color:var(--ink-2)}
+.mcell .row b{display:block;margin-bottom:3px;font-size:12px;letter-spacing:.1em;color:var(--forest);font-weight:600}
+.mcell .row.gap b{color:var(--vermilion)}
+
+/* ── 时间线 ──────────────────────────────────────────────────── */
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule)}
+.timeline-item{position:relative;padding:0 0 26px 30px}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-item::before{
+  content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;
+  border-radius:50%;background:var(--paper);border:2px solid var(--forest);
+}
+.timeline-item.hot::before{background:var(--vermilion-2);border-color:var(--vermilion-2)}
+.timeline-date{
+  display:block;font-family:var(--mono);font-size:12.5px;font-weight:600;
+  color:var(--forest);letter-spacing:.04em;margin-bottom:5px;
+}
+.timeline-item.hot .timeline-date{color:var(--vermilion)}
+.timeline-title{margin:0 0 4px;font-size:16px;line-height:1.5;font-weight:600;color:var(--ink)}
+.timeline-detail{margin:0;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+
+/* ── 图 ──────────────────────────────────────────────────────── */
+figure.fig{margin:0 0 26px;border:1px solid var(--rule);background:var(--paper)}
+figure.fig svg{display:block;width:100%;height:auto}
+figure.fig figcaption{
+  padding:14px 18px;border-top:1px solid var(--rule);background:var(--paper-3);
+  font-size:13px;line-height:1.68;color:var(--ink-2);
+}
+figure.fig figcaption b{color:var(--ink);font-weight:600}
+
+/* ── 证据 ────────────────────────────────────────────────────── */
+.evidence{display:grid;gap:18px}
+.evidence-item{padding:20px 22px;background:var(--paper-2);border-left:3px solid var(--amber)}
+.evidence-item.cut{border-left-color:var(--vermilion-2)}
+.evidence-quote{margin:0 0 12px;font-size:15.5px;line-height:1.78;color:var(--ink)}
+.evidence-quote::before{content:"「";color:var(--ink-3)}
+.evidence-quote::after{content:"」";color:var(--ink-3)}
+.evidence-source{margin:0;font-style:normal;font-size:12.5px;line-height:1.6;color:var(--ink-3)}
+
+/* ── 未确认 ──────────────────────────────────────────────────── */
+.gaps{list-style:none;margin:0;padding:0}
+.gaps li{
+  display:grid;grid-template-columns:186px 1fr;gap:18px;
+  padding:15px 0;border-bottom:1px solid var(--rule-2);
+}
+.gaps li:first-child{border-top:1px solid var(--rule)}
+.gaps .gap-name{font-size:14px;font-weight:600;color:var(--ink);line-height:1.55}
+.gaps .gap-state{
+  display:block;margin-top:5px;font-size:11.5px;font-weight:600;letter-spacing:.08em;
+  color:var(--vermilion);
+}
+.gaps .gap-body{font-size:14px;line-height:1.7;color:var(--ink-2)}
+.gaps .gap-body b{color:var(--ink);font-weight:600}
+
+/* ── 页脚 ────────────────────────────────────────────────────── */
+.foot{
+  margin-top:70px;padding-top:28px;border-top:2px solid var(--forest);
+  font-size:13.5px;line-height:1.78;color:var(--ink-2);
+}
+.foot p{margin:0 0 13px;max-width:46em}
+.foot b{color:var(--ink);font-weight:600}
+.foot .sig{margin-top:20px;font-size:12.5px;color:var(--ink-3)}
+
+/* ── 响应式 ──────────────────────────────────────────────────── */
+@media (max-width:760px){
+  body{font-size:16px}
+  .shell{padding:0 18px 64px}
+  h1{font-size:31px}
+  .verdict-band{margin:36px 0 44px;padding:28px 22px 26px}
+  .verdict-band .verdict{font-size:21px}
+  .vgrid{grid-template-columns:1fr;gap:20px}
+  .gaps li{grid-template-columns:1fr;gap:6px}
+  table.tbl th,table.tbl td{padding:11px 12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+<div class="shell">
+
+<!-- ── 报头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <p class="kicker">智囊团 · 研究<span class="sep">|</span>追踪线：估值与资本<span class="sep">|</span>选题 450<span class="sep">|</span>2026-11-18</p>
+  <h1><span class="anchor">6080 亿</span>的削减与 <span class="anchor b">6800 亿</span>的新债 —— AI 基建的信用审查时刻</h1>
+  <div class="lede">
+    <span class="q">未来要砍掉的钱，和已经放出去的债，是不是同一笔钱？</span>
+    两个数出自同一天。<b>11 月 13 日</b>，SemiAnalysis 在模型更新里把 2030 年全球 AI 加速器资本开支从 1.531 万亿美元下调到 9230 亿美元，减 6080 亿美元；同一天，美联储《金融稳定报告》点名「循环融资」，说截至 2026 年 10 月，先进计算基础设施相关债务发行已超 6800 亿美元，约为 2023 年全年 1300 亿美元的五倍。
+    <p style="margin:18px 0 0">一个是前瞻流量被改写，一个是历史存量已经固化。把它们放进同一张表，第一眼会看到两个数几乎一样大；第二眼会看到它们根本不能相减。这篇稿子做的就是这次对齐，并把「需求预期回落」与「信用结构问题先于需求暴露」这两种读法分开检验。</p>
+  </div>
+</header>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <span class="stamp">审 查 结 论</span>
+  <p class="verdict">不是同一笔钱，但落在<em>同一批债务人</em>的资产负债表上。需求信号先动，义务不可撤销。所以信用结构会在需求信号之后的<em>第一个资产负债表事件</em>上显形，而不是之前。</p>
+  <p class="verdict-note">
+    <b>为什么不能相减。</b>6080 亿美元是对 2030 年前瞻资本开支的负向修订，属于流量改写；6800 亿美元是截至 2026 年 10 月已经发行出去的债务，属于存量固化。削减削掉的是明天的支出，债务留下的是今天签下的义务。两者之间没有抵消关系，只有先后关系。<br>
+    <b>为什么又说它们同源。</b>2023 年全年同类债务 1300 亿美元，到 2026 年前 10 个月已是 6800 亿美元（5.2 倍），这条曲线记录的是<b>旧预期</b>；SemiAnalysis 这次把 2028/2029/2030 三档分别下调 28%/41%/40%，记录的是<b>新预期</b>。旧预期已经变成资产负债表上的义务，新预期目前还只是模型里的一个数。两者是同一轮预期扩张留下的两张回执。<br>
+    <b>为什么不给「信用先坏」下结论。</b>美联储点名循环融资、IMF 估出略超 1 万亿美元的企业间循环融资，证明的是<b>结构存在</b>，不是结构已坏；资本开支下修证明的是<b>预期被改写</b>，不是需求已消失。两边都缺各自的关键证据，见文末未确认清单。
+  </p>
+  <dl class="vgrid">
+    <dt>第一问</dt>
+    <dd>是不是同一笔钱？<b>不是。</b>一个是前瞻流量的下修，一个是历史存量的发行，口径不可通约。</dd>
+    <dt>第二问</dt>
+    <dd>是不是同一批人？<b>大概率是，但没有直接证据。</b>债务人就是买加速器的一方，但重合度未确认。</dd>
+    <dt>第三问</dt>
+    <dd>谁先谁后？<b>需求预期先动，信用结构随后。</b>判断依据是不可撤销性：需求可回补，义务不能。</dd>
+  </dl>
+</section>
+
+<!-- ── 指标条 ──────────────────────────────────────────────── -->
+<section class="sec" id="metrics">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 1</p>
+    <h2><span class="num">01</span>九个数字，先分清谁是谁</h2>
+    <p class="sub">下面九个数在别的报道里经常被混着用。它们分别属于三种东西：<b>前瞻预测</b>、<b>已发生的发行</b>、<b>承诺与义务</b>。混用是这道题最容易出错的地方，所以先立一张清单。</p>
+  </div>
+
+  <div class="metrics">
+    <div class="metric cut">
+      <div class="metric-value">6080 亿美元</div>
+      <div class="metric-label">2030 年资本开支预测下修额（SemiAnalysis 2026-11-13 口径）</div>
+      <div class="metric-source">SemiAnalysis 模型更新 · 2026-11-13</div>
+    </div>
+    <div class="metric debt">
+      <div class="metric-value">6800 亿美元</div>
+      <div class="metric-label">先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）</div>
+      <div class="metric-source">美联储《金融稳定报告》· 2026-11-13</div>
+    </div>
+    <div class="metric debt">
+      <div class="metric-value">1300 亿美元</div>
+      <div class="metric-label">2023 年全年同类债务发行额（同一出处对比值）</div>
+      <div class="metric-source">美联储《金融稳定报告》 · 2026-11-13</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">3 万亿美元</div>
+      <div class="metric-label">AI 相关金融义务合计额（美联储《金融稳定报告》11-13 口径）</div>
+      <div class="metric-source">美联储《金融稳定报告》 · 2026-11-13</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">1 万亿美元</div>
+      <div class="metric-label">AI 企业间循环融资规模（IMF 口径）</div>
+      <div class="metric-source">IMF 估计 · 简报 11-17 转引</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">28%</div>
+      <div class="metric-label">全球 AI 加速器资本开支预测下修幅度（2028 年，SemiAnalysis 2026-11-13 口径）</div>
+      <div class="metric-source">SemiAnalysis 模型更新 · 2026-11-13</div>
+    </div>
+    <div class="metric debt">
+      <div class="metric-value">2960 亿美元</div>
+      <div class="metric-label">超大规模数据中心运营商年内发债额（11-08来源口径）</div>
+      <div class="metric-source">每日热点新闻简报 2026-11-10 · 金融动态 5（金融界 11-08）</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">9009 亿美元</div>
+      <div class="metric-label">Anthropic 算力与基础设施承诺总额</div>
+      <div class="metric-source">Anthropic, PBC S-1/A（2026-11-10）· 一手直取</div>
+    </div>
+    <div class="metric cut">
+      <div class="metric-value">9230 亿美元</div>
+      <div class="metric-label">全球 AI 加速器资本开支预测（SemiAnalysis 2026-11-13 口径）</div>
+      <div class="metric-source">SemiAnalysis 模型更新 · 2026-11-13（下调前 1.531 万亿美元）</div>
+    </div>
+  </div>
+
+  <p class="note">
+    <b>读法。</b>前两个数是本篇的两个锚：一个是<b>减掉的</b>（6080 亿美元，预测被改写），一个是<b>放出去的</b>（6800 亿美元，债务已发行）。「超大规模数据中心运营商年内发债额（11-08来源口径）」的主语是超大规模数据中心运营商，不是 AI 企业整体，口径为「今年已发行」累计；它与美联储口径的 6800 亿美元<b>不是同一统计口径</b>，两者并列只作趋势参照，不做加减。「Anthropic 算力与基础设施承诺总额」是承诺额，不是已发生支出，更不是债务。
+  </p>
+</section>
+
+<!-- ── 口径对齐表 ──────────────────────────────────────────── -->
+<section class="sec" id="align">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 2</p>
+    <h2><span class="num">02</span>口径对齐表：把两笔账放进同一张表</h2>
+    <p class="sub">核心动作只有一步：给每个数标上它的<b>时点</b>与<b>性质</b>。做完这一步，两个锚之间的关系就不再模糊了。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <caption>表 1 · 九个数的时点与性质（数字口径逐条标注，来源可回溯）</caption>
+      <thead>
+        <tr>
+          <th class="num">数字</th>
+          <th>口径与时点</th>
+          <th>性质</th>
+          <th>谁的钱</th>
+          <th>未来削减能否抵消</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num cut">1.531 万亿美元</td>
+          <td>2030 年全球 AI 加速器资本开支预测（下调前）</td>
+          <td>前瞻 · 年度流量</td>
+          <td>全行业买方</td>
+          <td><span class="no">不适用</span><small>已被下修取代</small></td>
+          <td>SemiAnalysis 模型更新<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num cut">9230 亿美元</td>
+          <td>2030 年全球 AI 加速器资本开支预测（下修后）</td>
+          <td>前瞻 · 年度流量</td>
+          <td>全行业买方</td>
+          <td><span class="no">否</span><small>这就是被削减后的基线</small></td>
+          <td>SemiAnalysis 模型更新<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num cut">6080 亿美元</td>
+          <td>2030 年资本开支预测下修额</td>
+          <td>前瞻 · 流量的负向修订</td>
+          <td>全行业买方</td>
+          <td><span class="yes">是</span><small>就是被砍掉的那一块</small></td>
+          <td>SemiAnalysis 模型更新<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num cut">28% / 41% / 40%</td>
+          <td>2028 / 2029 / 2030 年下修幅度</td>
+          <td>比例</td>
+          <td>不适用</td>
+          <td><span class="no">否</span><small>基数未公开，不能折成金额</small></td>
+          <td>SemiAnalysis 模型更新<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num debt">1300 亿美元</td>
+          <td>2023 年全年同类债务发行额</td>
+          <td>历史 · 年度流量</td>
+          <td>先进计算基础设施发行人</td>
+          <td><span class="no">否</span><small>已发生，不可撤销</small></td>
+          <td>美联储《金融稳定报告》<small>2026-11-13（对比值）</small></td>
+        </tr>
+        <tr>
+          <td class="num debt">6800 亿美元</td>
+          <td>截至 2026 年 10 月相关债务发行累计</td>
+          <td>历史 · 10 个月累计存量</td>
+          <td>先进计算基础设施发行人</td>
+          <td><span class="no">否</span><small>已发生，不可撤销</small></td>
+          <td>美联储《金融稳定报告》<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num debt">3 万亿美元</td>
+          <td>AI 相关金融义务合计</td>
+          <td>存量 · 义务总额</td>
+          <td>同一批发行主体及其对手方</td>
+          <td><span class="no">否</span><small>是否已含 6800 亿，未确认</small></td>
+          <td>美联储《金融稳定报告》<small>2026-11-13</small></td>
+        </tr>
+        <tr>
+          <td class="num">1 万亿美元</td>
+          <td>AI 企业间循环融资（略超）</td>
+          <td>存量 · 其中约三分之二靠借债</td>
+          <td>AI 企业之间</td>
+          <td><span class="no">否</span><small>与 6800 亿口径重叠未确认</small></td>
+          <td>IMF 估计<small>简报 11-17 转引</small></td>
+        </tr>
+        <tr>
+          <td class="num debt">2960 亿美元</td>
+          <td>超大规模数据中心运营商年内发债额（11-08来源口径）</td>
+          <td>历史 · 年内已发行</td>
+          <td>超大规模数据中心运营商</td>
+          <td><span class="no">否</span><small>与美联储口径不是同一统计口径</small></td>
+          <td>每日热点新闻简报 2026-11-10<small>金融动态 5（金融界 11-08）</small></td>
+        </tr>
+        <tr>
+          <td class="num">9009 亿美元</td>
+          <td>Anthropic 算力与基础设施承诺总额</td>
+          <td>未来承诺 · 尚未发生</td>
+          <td>Anthropic</td>
+          <td><span class="half">部分</span><small>承诺不是支出，更不是债务</small></td>
+          <td>Anthropic, PBC S-1/A<small>2026-11-10 · 一手直取</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    <b>这张表读出什么。</b>6080 亿美元与 6800 亿美元分处表格的两端，性质栏里一个是「前瞻 · 流量的负向修订」，一个是「历史 · 10 个月累计存量」。第三栏「未来削减能否抵消」一列，两行分别写「是」与「否」，这就是「是不是同一笔钱」的最短答案：<b>一笔还在模型里，另一笔已经在资产负债表上；它们不是同一笔钱，也不互相抵消。</b>
+  </p>
+</section>
+
+<!-- ── 算术对齐 ────────────────────────────────────────────── -->
+<section class="sec" id="calc">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 3</p>
+    <h2><span class="num">03</span>算术对齐：量级关系能说到哪一步</h2>
+    <p class="sub">对齐之后可以算的有六组。其中三组是<b>研析推算</b>（由公开数字做的算术，不是来源给出的结论），三组是<b>直接比值</b>。每一组都附口径警告；不带警告的比值就是误导。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl calc">
+      <caption>表 2 · 六组比值（研析推算均已标注）</caption>
+      <thead>
+        <tr>
+          <th>对齐项</th>
+          <th class="num">算式</th>
+          <th class="num">结果</th>
+          <th>口径警告</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>被砍的钱 ÷ 已放的债</td>
+          <td class="num">6080 / 6800</td>
+          <td class="num">89.4%</td>
+          <td class="warn">流量对存量，<b>不可相减</b>，只能作量级参照：被削掉的规模接近已发行债务的九成。</td>
+        </tr>
+        <tr>
+          <td>债务发行放大倍数</td>
+          <td class="num">6800 / 1300</td>
+          <td class="num">5.2 倍</td>
+          <td class="warn">10 个月累计对 2023 全年。按 2026 年全年折算，倍数只会更高。</td>
+        </tr>
+        <tr>
+          <td>年化债务发行 ÷ 下修后 2030 资本开支<span class="src">研析推算</span></td>
+          <td class="num">(6800 ÷ 10 × 12) / 9230</td>
+          <td class="num">约 88%</td>
+          <td class="warn">两个前提：债务按 12 个月均匀发行；发行人即资本开支买方。第二个前提<b>未确认</b>。</td>
+        </tr>
+        <tr>
+          <td>义务总额 ÷ 已发行债务</td>
+          <td class="num">30000 / 6800</td>
+          <td class="num">4.4 倍</td>
+          <td class="warn">若 3 万亿本身已包含这 6800 亿，则该比值只说明<b>其余义务</b>的量级，不能说债务在义务里占比低。</td>
+        </tr>
+        <tr>
+          <td>循环融资中的借债部分 ÷ 已发行债务<span class="src">研析推算</span></td>
+          <td class="num">(10000 × 2/3) / 6800</td>
+          <td class="num">约 98%</td>
+          <td class="warn">量级相近，但两家口径是否重叠<b>未确认</b>。相近不等于同一笔，不得相加。</td>
+        </tr>
+        <tr>
+          <td>下修幅度的年度走向</td>
+          <td class="num">28% → 41% → 40%</td>
+          <td class="num">2029 年最重</td>
+          <td class="warn">百分比基数未公开，不能折算成各年金额；也不能据此断定下修集中在 2029 年发生。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="fig">
+    <svg viewBox="0 0 940 310" role="img" aria-label="示意图：2023 年至 2030 年的时间轴上，债务发行累计（已发生的存量，琥珀色实线）在左段，AI 加速器资本开支预测（未来流量，森林绿实条）在右段，两者之间是 2026 年 11 月 13 日的分界；绿色条下方是其中被下修砍掉的 6080 亿美元。">
+      <rect x="0" y="0" width="940" height="310" fill="#F7F9F4"/>
+      <text x="28" y="30" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#2D5016">时序错位：两笔账各自的时间坐标</text>
+
+      <!-- 已发生的债务：琥珀条 -->
+      <text x="40" y="72" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#8A5F2B">已发生的存量 · 不可撤销 · 历史</text>
+      <rect x="40" y="80" width="550" height="34" fill="#D4A574"/>
+      <text x="52" y="102" font-family="PingFang SC, sans-serif" font-size="13.5" font-weight="600" fill="#1F2937">已发行债务累计：1300 亿（2023 全年）→ 6800 亿（截至 2026-10）</text>
+
+      <!-- 前瞻资本开支：森林绿条 -->
+      <text x="610" y="138" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#2D5016">前瞻的流量 · 可被再上修 · 未来</text>
+      <rect x="610" y="146" width="290" height="34" fill="#2D5016"/>
+      <text x="622" y="168" font-family="PingFang SC, sans-serif" font-size="13.5" font-weight="600" fill="#F2F6EC">下修后 2030 资本开支：9230 亿美元</text>
+
+      <!-- 被砍掉的部分 -->
+      <rect x="610" y="188" width="290" height="18" fill="#C44536" opacity="0.18"/>
+      <rect x="610" y="188" width="290" height="18" fill="none" stroke="#A8342A" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="610" y="224" font-family="PingFang SC, sans-serif" font-size="12.5" fill="#A8342A">其中被下修砍掉 6080 亿美元（2030）</text>
+
+      <!-- 分界：2026-11-13 -->
+      <line x1="600" y1="58" x2="600" y2="182" stroke="#A8342A" stroke-width="1.6" stroke-dasharray="5 4"/>
+      <circle cx="600" cy="58" r="5" fill="#A8342A"/>
+      <text x="612" y="46" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#A8342A">2026-11-13：下修与报告同日</text>
+
+      <!-- 轴 -->
+      <line x1="40" y1="252" x2="900" y2="252" stroke="#CBD3C4" stroke-width="1"/>
+      <g font-family="SF Mono, Menlo, monospace" font-size="12" fill="#5F6A5F">
+        <text x="40" y="272">2023</text>
+        <text x="300" y="272">2025</text>
+        <text x="540" y="272">2026-10</text>
+        <text x="862" y="272">2030</text>
+      </g>
+      <text x="610" y="296" font-family="PingFang SC, sans-serif" font-size="12" fill="#4A5568">两个数不同源、不同性质、不同时间，不能相减</text>
+    </svg>
+    <figcaption><b>图 1 · 读法。</b>琥珀色一段是已经落袋的债务存量，绿色一段是仍在模型里的前瞻流量，两者只在 2026-11-13 这一天被放进同一份每日素材。红色虚线框标出被下修砍掉的那一块。示意图按量级绘制，不按比例尺；两段长度不代表可比的规模关系。</figcaption>
+  </figure>
+</section>
+
+<!-- ── 判定矩阵 ────────────────────────────────────────────── -->
+<section class="sec" id="matrix">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 4</p>
+    <h2><span class="num">04</span>三种读法，把「需求回落」与「信用先坏」分开检验</h2>
+    <p class="sub">核心问题要求二选一，但已给证据不足以二选一。这一节把三种读法各自的<b>支持证据</b>与<b>缺口</b>并列摆出，最后给出研析的判定与它的成立条件。</p>
+  </div>
+
+  <div class="matrix">
+    <div class="mcell win">
+      <span class="tag">读法 A</span>
+      <h3>需求预期回落先行，信用结构是第二顺位</h3>
+      <p class="row"><b>支持</b>SemiAnalysis 单点下修三档（28%/41%/40%），是明确的预期改写；美联储报告点名的是「循环融资」这一结构存在，而非违约、利差走阔或融资中断。</p>
+      <p class="row gap"><b>缺口</b>没有需求侧独立指标（订单、交付、利用率）来确认需求真的转弱；也没有任何信用指标确认结构开始承压。</p>
+    </div>
+    <div class="mcell">
+      <span class="tag">读法 B</span>
+      <h3>信用结构问题先于需求暴露</h3>
+      <p class="row"><b>支持</b>6800 亿美元债务发行、3 万亿美元金融义务、IMF 略超 1 万亿美元循环融资（其中约三分之二靠借债）。量级足以让结构先成为约束。</p>
+      <p class="row gap"><b>缺口</b>无债务期限结构、无发行人主体拆分、无信用利差、无 3 万亿是否含 6800 亿的界定、无借款人是否同时是资本开支买方。结构存在已证实，结构已坏未证实。</p>
+    </div>
+    <div class="mcell">
+      <span class="tag">读法 C</span>
+      <h3>两者是同一件事的两端</h3>
+      <p class="row"><b>支持</b>循环融资意味着部分「需求」由债务本身制造出来；债务发行是旧预期在资产负债表上的留痕，资本开支下修是新预期的重估。两者同源。</p>
+      <p class="row gap"><b>缺口</b>已给素材无法证明因果方向。要坐实它，必须拿到借款人重合度：这批发债主体是否就是被下调资本开支的那批买方。</p>
+    </div>
+  </div>
+
+  <p class="note">
+    <b>研析判定。</b>按现有证据，指向 <b>A 与 C 的组合</b>，并把 <b>B 标为待检验的第二顺位问题</b>：信用结构不是先出问题的那一侧，但它会以不可撤销的方式<b>先变成资产负债表事件</b>：需求信号可以在一个季度内被价格修复，6800 亿美元发行与 3 万亿美元义务不会。<br>
+    <b>判定成立的条件</b>（任一成立即需改判）：若查到发行人名单与被下调买方高度重合，读法 C 升为主判；若查到债务期限集中在未来 12 至 18 个月且以浮息为主，读法 B 升为主判；若 3 万亿美元义务已包含 6800 亿债务且其余义务集中在表外工具，读法 B 的量级论证需要重做。
+  </p>
+</section>
+
+<!-- ── 时间线 ──────────────────────────────────────────────── -->
+<section class="sec" id="timeline">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 5</p>
+    <h2><span class="num">05</span>时间线：旧预期如何一步步变成新预期</h2>
+    <p class="sub">把这条线铺开就能看出，6080 亿与 6800 亿不是两次独立事件，而是同一条曲线的两端。</p>
+  </div>
+
+  <ol class="timeline">
+    <li class="timeline-item">
+      <span class="timeline-date">2023 年全年</span>
+      <div class="timeline-title">基线年：同类债务发行 1300 亿美元</div>
+      <div class="timeline-detail">这是美联储 11-13 报告里用来做对比的基线。三年多以后，同一口径的累计数是它的 5.2 倍。</div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2026-08</span>
+      <div class="timeline-title">Anthropic 提交 PBC S-1/A，算力与基础设施承诺总额 9009 亿美元</div>
+      <div class="timeline-detail">承诺额进入公开文件。这是公司侧对同一轮基建周期的表态，量级进入可核对状态。但承诺不是支出，也不是债务。</div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2026-10</span>
+      <div class="timeline-title">先进计算基础设施相关债务发行累计突破 6800 亿美元</div>
+      <div class="timeline-detail">美联储口径截至 2026 年 10 月。这 6800 亿在半年之后被写进《金融稳定报告》，与「循环融资」这个词绑在一起。</div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2026-11-08</span>
+      <div class="timeline-title">超大规模数据中心运营商年内发债额 2960 亿美元</div>
+      <div class="timeline-detail">金融界口径，由每日热点新闻简报 11-10 转引。口径与美联储的 6800 亿不同，两者并列只作趋势参照，不做加减。</div>
+    </li>
+    <li class="timeline-item hot">
+      <span class="timeline-date">2026-11-13</span>
+      <div class="timeline-title">同一天：SemiAnalysis 下修资本开支，美联储点名「循环融资」</div>
+      <div class="timeline-detail">2030 年全球 AI 加速器资本开支从 1.531 万亿美元下调到 9230 亿美元，减 6080 亿美元，2028/2029/2030 分别下调 28%/41%/40%；同一天，美联储《金融稳定报告》点名循环融资，说相关债务发行超 6800 亿美元、金融义务合计超 3 万亿美元。一边是预期被改写，一边是结构被点名。</div>
+    </li>
+    <li class="timeline-item">
+      <span class="timeline-date">2026-11-17</span>
+      <div class="timeline-title">两组数字进入同一份每日素材</div>
+      <div class="timeline-detail">简报把下修与债务发行并列转引（钛媒体、茉莉花 11-17 转引美联储 11-13《金融稳定报告》）。本页的选题冲突，正是在这份并列里产生的。</div>
+    </li>
+  </ol>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section class="sec" id="evidence">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 6</p>
+    <h2><span class="num">06</span>证据：逐字回源</h2>
+    <p class="sub">以下三段是本篇全部数值的来源原文。页尾断言层的每一条 quote，都能在本文件中逐字命中。</p>
+  </div>
+
+  <div class="evidence">
+    <div class="evidence-item cut">
+      <p class="evidence-quote">SemiAnalysis 在 11-13 的模型更新里把 2030 年全球 AI 加速器资本开支从 1.531 万亿美元下调到 9230 亿美元（减 6080 亿美元，2028/2029/2030 分别下调 28%/41%/40%）。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 2（选题库 2026-11-18 #450 热点描述逐字回源）</cite>
+    </div>
+    <div class="evidence-item">
+      <p class="evidence-quote">同一天，美联储 11-13《金融稳定报告》点名「循环融资」：截至 2026 年 10 月先进计算基础设施相关债务发行超 6800 亿美元，约为 2023 年全年 1300 亿美元的五倍，相关金融义务合计超 3 万亿美元。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 2（钛媒体 / 茉莉花 11-17 转引美联储 11-13《金融稳定报告》）</cite>
+    </div>
+    <div class="evidence-item">
+      <p class="evidence-quote">IMF 估计 AI 企业间循环融资略超 1 万亿美元，约三分之二靠借债。</p>
+      <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 2（IMF 估计，简报转引）</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── 未确认清单 ──────────────────────────────────────────── -->
+<section class="sec" id="gaps">
+  <div class="sec-head">
+    <p class="sec-kicker">§ 7</p>
+    <h2><span class="num">07</span>未确认清单：这份稿子还不能回答什么</h2>
+    <p class="sub">下面每一条都是本判断的真实缺口。列在这里比补一个估计值更诚实；任何一条被补上，§ 4 的判定都需要重新过一遍。</p>
+  </div>
+
+  <ul class="gaps">
+    <li>
+      <div class="gap-name">借款人重合度<span class="gap-state">未确认</span></div>
+      <div class="gap-body">6800 亿美元的发行人，与被下调资本开支的买方，是否是同一批主体。<b>确认方法</b>：取 6800 亿美元的发行人拆分名单（含项目公司层级），与 SemiAnalysis 下修所涉主体的名单做交集比对。</div>
+    </li>
+    <li>
+      <div class="gap-name">债务期限结构<span class="gap-state">未确认</span></div>
+      <div class="gap-body">6800 亿美元的到期分布、再融资墙位置、浮息与固息占比。<b>确认方法</b>：美联储《金融稳定报告》原文附表与逐笔发行文件。缺这一项，读法 B 无法坐实。</div>
+    </li>
+    <li>
+      <div class="gap-name">3 万亿美元是否含 6800 亿<span class="gap-state">未确认</span></div>
+      <div class="gap-body">若义务合计已包含这 6800 亿债务，则表 2 第四行的 4.4 倍只说明其余义务的量级。<b>确认方法</b>：查报告的金融义务定义与口径脚注。</div>
+    </li>
+    <li>
+      <div class="gap-name">6080 亿的年度分布金额<span class="gap-state">未确认</span></div>
+      <div class="gap-body">素材只给 2028/2029/2030 三个百分比与 2030 年总额，未给各年下修金额。<b>确认方法</b>：SemiAnalysis 模型更新原文；未公开前不作折算。</div>
+    </li>
+    <li>
+      <div class="gap-name">6800 亿的毛发行还是净融资<span class="gap-state">未确认</span></div>
+      <div class="gap-body">素材称「债务发行超 6800 亿美元」，未说明是否扣除偿还。<b>确认方法</b>：报告原文定义。</div>
+    </li>
+    <li>
+      <div class="gap-name">IMF 1 万亿与美联储 6800 亿的重叠<span class="gap-state">未确认</span></div>
+      <div class="gap-body">表 2 第五行的约 98% 只是量级相近，两数是否指向同一批债务无法确认，因此不得相加。<b>确认方法</b>：两家口径说明逐条对照。</div>
+    </li>
+    <li>
+      <div class="gap-name">循环融资中的「借债」是否即 6800 亿<span class="gap-state">未确认</span></div>
+      <div class="gap-body">IMF 说约三分之二靠借债，但未指明这部分借债是否落在美联储统计的债务发行口径内。<b>确认方法</b>：同上；若确认重合，读法 C 的因果链可直接推进一格。</div>
+    </li>
+    <li>
+      <div class="gap-name">资本开支下修的成因分解<span class="gap-state">未确认</span></div>
+      <div class="gap-body">需求、供给、融资成本、政策四类成因的贡献比例，素材未给。<b>确认方法</b>：SemiAnalysis 更新说明与后续行业数据。<b>这是本题最关键的一条缺口</b>：它直接决定「是需求先动还是信用先动」。</div>
+    </li>
+    <li>
+      <div class="gap-name">需求侧独立指标<span class="gap-state">未确认</span></div>
+      <div class="gap-body">加速器订单、交付节奏、数据中心上架率的公开序列未纳入本篇素材。<b>确认方法</b>：厂商出货披露与运营商公开指引。</div>
+    </li>
+  </ul>
+</section>
+
+<!-- ── 页脚 ────────────────────────────────────────────────── -->
+<footer class="foot">
+  <p>
+    <b>素材。</b>主素材：每日AI技术动态简报 2026-11-17（🌍 行业影响 2）与每日热点新闻简报 2026-11-17（🔬 科技动态 3），只读，不联网检索。选题依据：选题库 2026-11-18 #450 条目（只读，用于核对指标标签与素材缺口）。跨作品沿用的两个既有标签（Anthropic 算力与基础设施承诺总额、超大规模数据中心运营商年内发债额（11-08来源口径））取自本展厅既有核源记录，来源已在指标条与证据节逐条标出。
+  </p>
+  <p>
+    <b>口径。</b>页尾断言声明块共 8 条，每条的 quote 均在本文件内逐字存在，并由 tools/claim_gate.py 的 G1 逐字引用闸门与 G2 标签质量闸门校验。解释性判断留在正文，由人读，不进断言层。
+  </p>
+  <p>
+    <b>标注约定。</b>表 2 中标「研析推算」的三行是由公开数字做的算术，不是来源给出的结论；§ 4 的 A/B/C 三种读法与核心判断是研析的分析判断，不是素材给出的结论；§ 7 全部条目为未确认项，附确认方法。素材未支持的比例、绝对值与执行细节一律留空并列入未确认清单。
+  </p>
+  <p class="sig">研究简报 · 主责：研析 · 2026-11-18 · 追踪线：估值与资本 · 选题 450</p>
+</footer>
+
+</div>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "6080 亿美元",
+    "label": "2030 年资本开支预测下修额（SemiAnalysis 2026-11-13 口径）",
+    "quote": "6080 亿美元 2030 年资本开支预测下修额（SemiAnalysis 2026-11-13 口径）"
+  },
+  {
+    "value": "6800 亿美元",
+    "label": "先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）",
+    "quote": "6800 亿美元 先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）"
+  },
+  {
+    "value": "1300 亿美元",
+    "label": "2023 年全年同类债务发行额（同一出处对比值）",
+    "quote": "1300 亿美元 2023 年全年同类债务发行额（同一出处对比值）"
+  },
+  {
+    "value": "3 万亿美元",
+    "label": "AI 相关金融义务合计额（美联储《金融稳定报告》11-13 口径）",
+    "quote": "3 万亿美元 AI 相关金融义务合计额（美联储《金融稳定报告》11-13 口径）"
+  },
+  {
+    "value": "1 万亿美元",
+    "label": "AI 企业间循环融资规模（IMF 口径）",
+    "quote": "1 万亿美元 AI 企业间循环融资规模（IMF 口径）"
+  },
+  {
+    "value": "28%",
+    "label": "全球 AI 加速器资本开支预测下修幅度（2028 年，SemiAnalysis 2026-11-13 口径）",
+    "quote": "28% 全球 AI 加速器资本开支预测下修幅度（2028 年，SemiAnalysis 2026-11-13 口径）"
+  },
+  {
+    "value": "2960 亿美元",
+    "label": "超大规模数据中心运营商年内发债额（11-08来源口径）",
+    "quote": "2960 亿美元 超大规模数据中心运营商年内发债额（11-08来源口径）"
+  },
+  {
+    "value": "9009 亿美元",
+    "label": "Anthropic 算力与基础设施承诺总额",
+    "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+  }
+]
+</script>
+
+<script>
+// 唯一的脚本：无远程依赖，仅在支持时才把图 1 的标注线画出来。
+// 默认状态就是完整可见的；脚本失效不留白。
+(function(){
+  var fig=document.querySelector('figure.fig svg');
+  if(!fig||!('IntersectionObserver' in window)){return;}
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  fig.style.opacity='0.995';
+})();
+</script>
+</body>
+</html>

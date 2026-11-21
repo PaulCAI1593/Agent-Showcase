@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="11-16 午盘 A 股 AI 硬件链遭抛售、成交缩量 795 亿元，同日恒指 +0.84%；高盛把港股调超配、A 股调中性。四层读数逐层对账。">
+<title>缩量的星期一 —— 11-16，AI 硬件链被抛售，高盛却把港股调成超配 —— 量研研究卷宗</title>
+
+<style>
+/* 自托管字体（随作品分发，离线可用） */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0132-0133,U+0134-0135,U+0136-0137,U+0138-0139,
+    U+0140-0141,U+0142-0143,U+0144-0145,U+0146-0147,U+0148-0149,U+014A-014B,
+    U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --paper-sunk:#e2e7e3;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5d6460;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --deep-rule:#2b312d;
+  --brick:#8c3a2a;
+  --brick-wash:#f0e2de;
+  --jade:#2f6b4f;
+  --jade-wash:#dfeae4;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:#b3bbb6 var(--paper)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:var(--serif-cn);font-weight:600;letter-spacing:-0.012em;text-wrap:balance}
+a{color:var(--brass);text-underline-offset:3px;text-decoration-thickness:1px}
+#showcase-backlink{color:#644816}
+p{max-width:70ch}
+p+p{margin-top:14px}
+svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+table{width:100%;border-collapse:collapse}
+b,strong{font-weight:600}
+
+/* 抬头 */
+.masthead{padding:92px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:56px;align-items:start}
+h1{font-size:clamp(32px,4.2vw,50px);line-height:1.2;letter-spacing:-0.015em}
+.standfirst{margin-top:24px;font-size:19.5px;line-height:1.58;color:var(--ink-2);max-width:44ch}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+.daterow{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{
+  font-size:12.5px;line-height:1;padding:7px 11px;border-radius:3px;
+  background:var(--paper-raised);border:1px solid var(--rule);color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+}
+.chip.is-a{border-color:#c9b9a0;background:var(--brass-wash);color:#5f4315}
+.chip.is-hk{border-color:#b6cfc2;background:var(--jade-wash);color:#22513c}
+.chip.is-us{border-color:#d8bdb5;background:var(--brick-wash);color:#71301f}
+
+/* 区块骨架 */
+section{padding:80px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{font-size:29px;line-height:1.28;margin-bottom:16px}
+h3{font-size:19px;line-height:1.4;margin-bottom:12px}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+p{max-width:70ch}
+p+p{margin-top:14px}
+
+/* 核心判断：深色带 */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  font-weight:600;max-width:32ch;letter-spacing:-0.008em;
+}
+.verdict em{font-style:normal;color:#e8c989}
+.verdict-note{margin-top:22px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:60ch}
+.verdict-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--deep-rule);border:1px solid var(--deep-rule);
+  margin-top:36px;border-radius:4px;overflow:hidden;
+}
+.verdict-cell{background:#171b19;padding:20px 20px 18px}
+.verdict-cell .vc-k{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#8d968f}
+.verdict-cell .vc-v{font-family:var(--serif-num);font-size:26px;line-height:1.15;margin-top:8px;color:var(--deep-ink);font-variant-numeric:tabular-nums}
+.verdict-cell .vc-v.neg{color:#e09a86}
+.verdict-cell .vc-v.pos{color:#8fc9ab}
+.verdict-cell .vc-s{font-size:12.5px;line-height:1.5;color:#8d968f;margin-top:8px}
+
+/* 四层结构图（可对账） */
+.ledger{border-top:1px solid var(--rule)}
+.ledger-row{
+  display:grid;grid-template-columns:172px minmax(0,1fr) 216px;gap:30px;
+  padding:26px 0;border-bottom:1px solid var(--rule);align-items:start;
+}
+.ledger-k{position:relative;padding-left:34px}
+.ledger-k::before{
+  content:attr(data-n);position:absolute;left:0;top:0;
+  font-family:var(--serif-num);font-size:13px;color:var(--brass);
+  border:1px solid var(--brass);border-radius:50%;
+  width:22px;height:22px;display:grid;place-items:center;line-height:1;
+}
+.ledger-k .lk-t{font-family:var(--serif-cn);font-size:19px;font-weight:600;line-height:1.35;margin-top:4px}
+.ledger-k .lk-s{font-size:12.5px;color:var(--ink-3);margin-top:6px;line-height:1.5}
+.ledger-v{font-size:15.5px;line-height:1.66;color:var(--ink-2)}
+.ledger-v b{color:var(--ink)}
+.ledger-v .num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.ledger-v .num.neg{color:var(--brick)}
+.ledger-v .num.pos{color:var(--jade)}
+.ledger-s{font-size:12px;line-height:1.55;color:var(--ink-3);border-left:2px solid var(--rule);padding-left:12px}
+.ledger-flow{
+  background:var(--paper-raised);border:1px solid var(--rule);
+  border-top:none;padding:20px 22px;font-size:15px;line-height:1.65;color:var(--ink-2);
+}
+.ledger-flow b{color:var(--ink)}
+
+/* 表 */
+.tbl-wrap{
+  overflow:auto;max-inline-size:100%;container-type:inline-size;
+  border-radius:4px;
+}
+.tbl{
+  border-collapse:separate;border-spacing:0;font-size:15px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);
+}
+.tbl caption{
+  caption-side:top;text-align:left;padding:14px 16px;font-size:13px;
+  color:var(--ink-3);background:var(--paper-sunk);border-bottom:1px solid var(--rule);
+}
+.tbl th,.tbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+.tbl thead th{
+  position:sticky;inset-block-start:0;z-index:1;
+  background:var(--paper-sunk);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--rule);
+}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
+.tbl tbody th{font-weight:600;background:var(--paper-raised)}
+.tbl .n{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .neg{color:var(--brick);font-weight:600}
+.tbl .pos{color:var(--jade);font-weight:600}
+.tbl .src{font-size:12.5px;color:var(--ink-3)}
+.tbl tr.grp th{
+  background:var(--paper-sunk);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:9px;padding-bottom:9px;
+}
+
+/* 双栏 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.duo-col{border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--paper-raised)}
+.duo-h{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;gap:10px}
+.duo-h .dh-t{font-family:var(--serif-cn);font-size:17px;font-weight:600}
+.duo-h .dh-s{font-size:12.5px;color:var(--ink-3)}
+.duo-col.sell .duo-h{background:var(--brick-wash)}
+.duo-col.sell .dh-t{color:#71301f}
+.duo-col.buy .duo-h{background:var(--jade-wash)}
+.duo-col.buy .dh-t{color:#22513c}
+.duo-list{list-style:none;padding:6px 0}
+.duo-list li{
+  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  padding:9px 18px;font-size:15px;border-bottom:1px solid var(--rule-soft);
+}
+.duo-list li:last-child{border-bottom:none}
+.duo-list .dl-k{color:var(--ink)}
+.duo-list .dl-v{font-family:var(--serif-num);font-variant-numeric:tabular-nums;color:var(--ink-2);white-space:nowrap;font-size:14.5px}
+.duo-list .dl-v.neg{color:var(--brick);font-weight:600}
+.duo-list .dl-v.pos{color:var(--jade);font-weight:600}
+.duo-note{padding:12px 18px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--rule);background:var(--paper-sunk);line-height:1.55}
+
+/* 三条依据 */
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:22px}
+.three-item{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 22px 20px;display:flex;flex-direction:column;
+}
+.three-item p{flex:0 0 auto}
+.three-item .ti-n{
+  font-family:var(--serif-num);font-size:13px;color:var(--brass);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.three-item h3{margin-top:8px;font-size:18px}
+.three-item p{font-size:15px;line-height:1.62;color:var(--ink-2);margin-top:10px;max-width:none}
+.three-item .ti-src{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule-soft);font-size:12px;color:var(--ink-3);line-height:1.5}
+.three-item h3 + p{margin-top:10px;margin-bottom:16px}
+.three-item .ti-num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+
+/* 图 */
+.fig{background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:22px 22px 16px}
+.fig-cap{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--rule-soft);max-width:none}
+.fig-legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink-3);margin-bottom:6px}
+.fig-legend span{display:inline-flex;align-items:center;gap:7px}
+.fig-legend i{width:13px;height:13px;border-radius:2px;display:inline-block}
+
+/* 关键数据 */
+.metrics{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:clamp(27px,3vw,34px);line-height:1.06;
+  letter-spacing:-0.018em;font-weight:500;font-variant-numeric:tabular-nums;
+}
+.metric-value.neg{color:var(--brick)}
+.metric-value.pos{color:var(--jade)}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* 判定边界 */
+.bound{list-style:none;border-top:1px solid var(--rule)}
+.bound li{
+  display:grid;grid-template-columns:118px minmax(0,1fr);gap:24px;
+  padding:18px 0;border-bottom:1px solid var(--rule);font-size:15.5px;line-height:1.62;
+}
+.bound .b-k{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+.bound .b-v{color:var(--ink-2)}
+.bound .b-v b{color:var(--ink)}
+.bound li.is-risk .b-k{color:var(--brick)}
+
+/* 证据 */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);font-style:normal;
+}
+
+/* 时间线 */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:138px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding-top:3px}
+.timeline-title{font-size:17px;font-weight:600;line-height:1.45}
+.timeline-detail{margin-top:6px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+
+/* 未确认 */
+.uncertain{list-style:none;border-top:1px solid var(--rule)}
+.uncertain li{
+  padding:16px 0;border-bottom:1px solid var(--rule);font-size:15.5px;line-height:1.62;color:var(--ink-2);
+}
+.uncertain li b{color:var(--ink)}
+
+/* 页脚 */
+.colophon{padding:52px 0 74px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:64ch}
+.colophon p+p{margin-top:12px}
+
+
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:36px}
+  .ledger-row{grid-template-columns:1fr;gap:14px}
+  .ledger-s{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:10px}
+  .duo{grid-template-columns:1fr}
+  .bound li{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:54px 0}
+  h2{font-size:24px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>缩量的星期一：A 股在卖 AI 硬件，港股在买确定性，高盛把这件事写成了年度配置</h1>
+        <p class="standfirst">2026-11-16 同一个上午，上证跌 0.39%、科创50 跌 2.91%、全市场成交缩量 795 亿元；隔一条海峡，恒指涨 0.84%。当天高盛把港股调成超配、A 股调成中性。本篇把「缩量、板块分化、指数分化、评级逆向」四层读数逐层对账，给出一个可被反驳的判定。</p>
+        <div class="daterow">
+          <span class="chip is-a">A 股 · 11-16 午盘 11:30</span>
+          <span class="chip is-hk">港股 · 11-16 午盘 12:00</span>
+          <span class="chip is-us">美股 · 11-13 收盘（隔周末）</span>
+          <span class="chip">高盛报告 · 11-16 发布</span>
+          <span class="chip">素材：11-14 热点简报（滞后 3 天）</span>
+        </div>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>选题 / 成稿</dt><dd><b>445 · 2026-11-17</b></dd></div>
+          <div><dt>主责</dt><dd><b>量研</b></dd></div>
+          <div><dt>追踪线</dt><dd><b>宏观利率与股市</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">11-16 的分化不是两地资金对同一条消息给出相反结论，而是<em>同一次「高估值 → 确定性」的换仓在两地同时发生</em>；指数分化只是成分结构的放大器。</p>
+    <p class="verdict-note">A 股卖出的是 CPO、半导体、元件这些没有增量资金托底的高估值硬件，买入的是银行、白酒、公路；港股买入的是海底捞、金沙中国、蒙牛、美团这些现金流确定的公司，卖出的是单日跌超 23% 的康方生物。两边都在做同一个动作，只是各自的「确定性资产池」不同。高盛的评级逆向，是把这个换仓写成了 2027 年度配置结论。它的原话里，A 股降级的理由正是「投资者仓位集中于 AI 科技硬件股」。</p>
+    <div class="verdict-grid">
+      <div class="verdict-cell">
+        <div class="vc-k">A 股午盘成交</div>
+        <div class="vc-v">9066 亿元</div>
+        <div class="vc-s">较上一交易日同期缩量 795 亿元；超 3500 只个股下跌</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">同日恒生指数</div>
+        <div class="vc-v pos">+0.84%</div>
+        <div class="vc-s">报 23835.44 点，涨 197.84 点；恒生科技仅 +0.54%</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">科创50 午盘</div>
+        <div class="vc-v neg">−2.91%</div>
+        <div class="vc-s">与 11-13 费半 −3.43% 同量级，A 股硬件在定价美股半导体</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="vc-k">高盛 2027 口径</div>
+        <div class="vc-v">港超配 · A 中性</div>
+        <div class="vc-s">MSCI 中国指数目标对应 23% 潜在升幅</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>结构图：四层读数，逐层可对账</h2>
+    <p class="lede">这四层不是因果链，是同一天的四组独立观测。每一层都写明读数与出处，读者可以逐层核对；四层合起来才支撑最后那个判定。</p>
+
+    <div class="ledger">
+      <div class="ledger-row">
+        <div class="ledger-k" data-n="1">
+          <div class="lk-t">缩量</div>
+          <div class="lk-s">钱没有进来，只是在场内挪动</div>
+        </div>
+        <div class="ledger-v">
+          11-16 午盘全市场成交 <span class="num">9066 亿元</span>，较上一交易日同期<span class="num neg">缩量 795 亿元</span>；全市场<span class="num neg">超 3500 只</span>个股下跌。21 财经雷达同期口径为两市成交 0.90 万亿元。北证50 午盘跌 2.56%，其午盘点位两家来源均未披露。
+        </div>
+        <div class="ledger-s">格隆汇 11-16 午盘稿<br>财中社 11-16 11:35<br>21 财经雷达 11-16</div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-k" data-n="2">
+          <div class="lk-t">板块分化</div>
+          <div class="lk-s">同一个 A 股，卖出与买入各走一边</div>
+        </div>
+        <div class="ledger-v">
+          领跌：<b>CPO、元件、半导体、电子化学品、小金属</b>，AI 硬件链整条受压。领涨：<b>小家电、猪肉、银行、白酒、公路铁路运输</b>，防御与内需。个股两端同时出现：688141 跌 <span class="num neg">12.41%</span>、300308 跌 7.70%，另一侧 002035 涨 <span class="num pos">10.12%</span>、002242 涨 10.02%。
+        </div>
+        <div class="ledger-s">格隆汇 11-16<br>智通财经 11-16<br>财中社 11-16</div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-k" data-n="3">
+          <div class="lk-t">指数分化</div>
+          <div class="lk-s">A 股四指数齐跌，港股三指数齐涨</div>
+        </div>
+        <div class="ledger-v">
+          A 股午盘：上证 <span class="num neg">−0.39%</span>、深证成指 <span class="num neg">−1.31%</span>、创业板指 <span class="num neg">−2.34%</span>、科创50 <span class="num neg">−2.91%</span>。港股午盘：恒指 <span class="num pos">+0.84%</span>、恒生科技 <span class="num pos">+0.54%</span>、国企指数 <span class="num pos">+0.80%</span>。隔夜外因：11-13 收盘费半 <span class="num neg">−3.43%</span>、纳指 −0.91%，道指 +0.10%。
+        </div>
+        <div class="ledger-s">21 财经雷达 / 格隆汇 11-16<br>哈富证券·东方财富 11-16 12:10<br>汇通财经 · 中国经营报 11-14</div>
+      </div>
+
+      <div class="ledger-row">
+        <div class="ledger-k" data-n="4">
+          <div class="lk-t">评级逆向</div>
+          <div class="lk-s">同一天，同一主题，方向相反</div>
+        </div>
+        <div class="ledger-v">
+          高盛 11-16 发布 2027 年中国市场策略：<b>将港股评级上调至超配、A股下调至中性，并预计MSCI中国指数有望涨23%</b>。同期该行把美联储路径写为 2026 年 12 月与 2027 年 3 月各加息 25 个基点，与 CME 11-16 口径 93.5% 的 12 月加息 25 个基点概率同向。
+        </div>
+        <div class="ledger-s">高盛报告 11-16 · 观点网 14:03<br>中国基金报 15:15<br>财联社 17:25 转述</div>
+      </div>
+
+      <div class="ledger-flow">
+        <b>对账结论：</b>第 1 层说明这不是增量资金推动的行情；第 2 层说明场内资金在「高估值」与「确定性」之间换仓；第 3 层说明两地指数因成分结构不同而把同一次换仓放大成相反方向；第 4 层说明有机构把这个换仓读成了跨年度配置。四层读数互相独立，任何一层单独都不足以推出结论。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>对照一 · 三市一屏：A 午盘、港午盘、美 11-13 收盘</h2>
+    <p class="lede">三个时点不同：A 股与港股是 11-16 的午盘快照，美股是上一交易日 11-13 的收盘。把它们并排，是为了看方向而不是看同时性。</p>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-three">
+      <table class="tbl">
+        <caption id="cap-three">表一 · 三市指数与关键读数对照（A/港为 11-16 午盘，美为 11-13 收盘）</caption>
+        <thead>
+          <tr>
+            <th scope="col">市场 · 时点</th>
+            <th scope="col">对象</th>
+            <th scope="col">读数</th>
+            <th scope="col">涨跌</th>
+            <th scope="col">出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><th colspan="5" scope="colgroup">A 股 · 11-16 午盘 11:30</th></tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">上证指数</th>
+            <td class="n">3620.00 点</td><td class="n neg">−0.39%</td>
+            <td class="src">21 财经雷达 11-16 11:51</td>
+          </tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">深证成指</th>
+            <td class="n">10825.37 点</td><td class="n neg">−1.31%</td>
+            <td class="src">21 财经雷达 11-16 11:51</td>
+          </tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">创业板指</th>
+            <td class="n">2369.33 点</td><td class="n neg">−2.34%</td>
+            <td class="src">格隆汇 11-16 11:32</td>
+          </tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">科创50</th>
+            <td class="n">1242.47 点</td><td class="n neg">−2.91%</td>
+            <td class="src">格隆汇 11-16 11:32</td>
+          </tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">全市场成交额</th>
+            <td class="n">9066 亿元</td><td class="n neg">缩量 795 亿元</td>
+            <td class="src">格隆汇 11-16 · 21 财经雷达同期 0.90 万亿元</td>
+          </tr>
+          <tr>
+            <td>A 股 午盘</td><th scope="row">北证50</th>
+            <td class="n">点位未确认</td><td class="n neg">−2.56%</td>
+            <td class="src">财中社 11-16 11:35（两家来源均未披露点位）</td>
+          </tr>
+
+          <tr class="grp"><th colspan="5" scope="colgroup">港股 · 11-16 午盘 12:00</th></tr>
+          <tr>
+            <td>港股 午盘</td><th scope="row">恒生指数</th>
+            <td class="n">23835.44 点</td><td class="n pos">+0.84%（+197.84 点）</td>
+            <td class="src">哈富证券·东方财富 11-16 12:10</td>
+          </tr>
+          <tr>
+            <td>港股 午盘</td><th scope="row">恒生科技指数</th>
+            <td class="n">3833.65 点</td><td class="n pos">+0.54%（+20.46 点）</td>
+            <td class="src">哈富证券·东方财富 11-16 12:10</td>
+          </tr>
+          <tr>
+            <td>港股 午盘</td><th scope="row">国企指数</th>
+            <td class="n">点位未确认</td><td class="n pos">+0.80%</td>
+            <td class="src">富途资讯 11-16 午盘</td>
+          </tr>
+
+          <tr class="grp"><th colspan="5" scope="colgroup">美股 · 11-13 收盘（隔一个周末）</th></tr>
+          <tr>
+            <td>美股 收盘</td><th scope="row">道琼斯指数</th>
+            <td class="n">52347.55 点</td><td class="n pos">+0.10%</td>
+            <td class="src">汇通财经 11-16 · 财联社 11-14</td>
+          </tr>
+          <tr>
+            <td>美股 收盘</td><th scope="row">标普500 指数</th>
+            <td class="n">7561.67 点</td><td class="n neg">−0.40%</td>
+            <td class="src">汇通财经 11-16 · 财联社 11-14</td>
+          </tr>
+          <tr>
+            <td>美股 收盘</td><th scope="row">纳斯达克综合指数</th>
+            <td class="n">25136.27 点</td><td class="n neg">−0.91%</td>
+            <td class="src">汇通财经 11-16 · 财联社 11-14</td>
+          </tr>
+          <tr>
+            <td>美股 收盘</td><th scope="row">费城半导体指数</th>
+            <td class="n">点位未确认</td><td class="n neg">−3.43%</td>
+            <td class="src">中国经营报 11-14（汇通财经同日口径 −3.4%）</td>
+          </tr>
+          <tr>
+            <td>美股 收盘</td><th scope="row">英伟达</th>
+            <td class="n">162.85 美元</td><td class="n neg">−2%</td>
+            <td class="src">华尔街见闻 11-14</td>
+          </tr>
+
+          <tr class="grp"><th colspan="5" scope="colgroup">利率 · 11-16 口径</th></tr>
+          <tr>
+            <td>CME FedWatch</td><th scope="row">12 月加息 25 个基点概率</th>
+            <td class="n">93.5%</td><td class="n">加息 50 个基点 6.5%</td>
+            <td class="src">汇通财经 11-16 11:19 转 CME</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fig" style="margin-top:26px">
+      <div class="fig-legend">
+        <span><i style="background:#8c3a2a"></i>下跌</span>
+        <span><i style="background:#2f6b4f"></i>上涨</span>
+        <span>横轴为涨跌幅（%），零线右侧为涨</span>
+      </div>
+      <svg viewBox="0 0 880 404" role="img" aria-labelledby="chart-t chart-d">
+        <title id="chart-t">三市指数涨跌幅对照条形图</title>
+        <desc id="chart-d">A 股四指数全部下跌，科创50 跌 2.91%；港股三指数全部上涨，恒指涨 0.84%；美股 11-13 收盘费城半导体指数跌 3.43% 为最大跌幅。</desc>
+
+        <line x1="675" y1="18" x2="675" y2="376" stroke="#171a18" stroke-width="1"/>
+        <text x="675" y="394" text-anchor="middle" font-size="11.5" fill="#5d6460">0%</text>
+        <text x="174" y="394" text-anchor="middle" font-size="11.5" fill="#5d6460">−3.4%</text>
+        <text x="798" y="394" text-anchor="middle" font-size="11.5" fill="#5d6460">+0.8%</text>
+
+        <text x="8" y="26" font-size="11.5" font-weight="700" fill="#7d5a1c" letter-spacing="1.4">A 股 · 11-16 午盘</text>
+        <text x="140" y="50" text-anchor="end" font-size="13.5" fill="#171a18">上证指数</text>
+        <rect x="618.1" y="38" width="56.9" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="612.1" y="51.5" text-anchor="end" font-size="12.5" fill="#171a18">−0.39%</text>
+
+        <text x="140" y="76" text-anchor="end" font-size="13.5" fill="#171a18">深证成指</text>
+        <rect x="484.0" y="64" width="191.0" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="490" y="77.5" font-size="12.5" fill="#ffffff">−1.31%</text>
+
+        <text x="140" y="102" text-anchor="end" font-size="13.5" fill="#171a18">创业板指</text>
+        <rect x="333.8" y="90" width="341.2" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="339.8" y="103.5" font-size="12.5" fill="#ffffff">−2.34%</text>
+
+        <text x="140" y="128" text-anchor="end" font-size="13.5" font-weight="700" fill="#171a18">科创50</text>
+        <rect x="250.6" y="116" width="424.4" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="256.6" y="129.5" font-size="12.5" font-weight="700" fill="#ffffff">−2.91%</text>
+
+        <text x="8" y="158" font-size="11.5" font-weight="700" fill="#2f6b4f" letter-spacing="1.4">港股 · 11-16 午盘</text>
+        <text x="140" y="182" text-anchor="end" font-size="13.5" font-weight="700" fill="#171a18">恒生指数</text>
+        <rect x="675" y="170" width="122.5" height="18" fill="#2f6b4f" rx="1"/>
+        <text x="791.5" y="183.5" text-anchor="end" font-size="12.5" font-weight="700" fill="#ffffff">+0.84%</text>
+
+        <text x="140" y="208" text-anchor="end" font-size="13.5" fill="#171a18">国企指数</text>
+        <rect x="675" y="196" width="116.7" height="18" fill="#2f6b4f" rx="1"/>
+        <text x="785.7" y="209.5" text-anchor="end" font-size="12.5" fill="#ffffff">+0.80%</text>
+
+        <text x="140" y="234" text-anchor="end" font-size="13.5" fill="#171a18">恒生科技</text>
+        <rect x="675" y="222" width="78.7" height="18" fill="#2f6b4f" rx="1"/>
+        <text x="747.7" y="235.5" text-anchor="end" font-size="12.5" fill="#ffffff">+0.54%</text>
+
+        <text x="8" y="264" font-size="11.5" font-weight="700" fill="#8c3a2a" letter-spacing="1.4">美股 · 11-13 收盘</text>
+        <text x="140" y="288" text-anchor="end" font-size="13.5" fill="#171a18">道琼斯</text>
+        <rect x="675" y="276" width="14.6" height="18" fill="#2f6b4f" rx="1"/>
+        <text x="695.6" y="289.5" font-size="12.5" fill="#171a18">+0.10%</text>
+
+        <text x="140" y="314" text-anchor="end" font-size="13.5" fill="#171a18">标普500</text>
+        <rect x="616.7" y="302" width="58.3" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="610.7" y="315.5" text-anchor="end" font-size="12.5" fill="#171a18">−0.40%</text>
+
+        <text x="140" y="340" text-anchor="end" font-size="13.5" fill="#171a18">纳斯达克</text>
+        <rect x="542.3" y="328" width="132.7" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="536.3" y="341.5" text-anchor="end" font-size="12.5" fill="#171a18">−0.91%</text>
+
+        <text x="140" y="366" text-anchor="end" font-size="13.5" font-weight="700" fill="#171a18">费城半导体</text>
+        <rect x="174.8" y="354" width="500.2" height="18" fill="#8c3a2a" rx="1"/>
+        <text x="180.8" y="367.5" font-size="12.5" font-weight="700" fill="#ffffff">−3.43%</text>
+      </svg>
+      <p class="fig-cap">图一 · 三市指数涨跌幅。读法只有一条：A 股的科创50（−2.91%）与隔夜费半（−3.43%）落在同一量级，说明 A 股的 AI 硬件在给美股半导体定价；而恒指（+0.84%）与这两条都不在一条线上，它定价的是别的东西。数据：格隆汇、21 财经雷达、哈富证券·东方财富（11-16 午盘）；中国经营报、汇通财经（11-13 收盘）。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>对照二 · A 股内部：卖出的是硬件，买入的是确定性</h2>
+    <p class="lede">指数只说了方向，板块才说明动作。11-16 午盘的 A 股不是「全面下跌」，是两笔方向相反的交易同时进行。</p>
+
+    <div class="duo">
+      <div class="duo-col sell">
+        <div class="duo-h"><span class="dh-t">领跌 · AI 硬件链</span><span class="dh-s">11-16 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">板块</span><span class="dl-v">CPO · 元件 · 半导体</span></li>
+          <li><span class="dl-k">板块</span><span class="dl-v">电子化学品 · 小金属</span></li>
+          <li><span class="dl-k">688141</span><span class="dl-v neg">−12.41%</span></li>
+          <li><span class="dl-k">688313</span><span class="dl-v neg">−8.79%</span></li>
+          <li><span class="dl-k">300308</span><span class="dl-v neg">−7.70%</span></li>
+          <li><span class="dl-k">300502</span><span class="dl-v neg">−6.97%</span></li>
+          <li><span class="dl-k">科创成长 ETF 易方达</span><span class="dl-v neg">−4.88%</span></li>
+        </ul>
+        <div class="duo-note">出处：格隆汇 11-16 午盘稿、智通财经 11-16 午评。个股代码按来源原样保留。</div>
+      </div>
+
+      <div class="duo-col buy">
+        <div class="duo-h"><span class="dh-t">领涨 · 防御与内需</span><span class="dh-s">11-16 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">板块</span><span class="dl-v">小家电 · 猪肉 · 银行</span></li>
+          <li><span class="dl-k">板块</span><span class="dl-v">白酒 · 公路铁路运输</span></li>
+          <li><span class="dl-k">002035</span><span class="dl-v pos">+10.12%</span></li>
+          <li><span class="dl-k">002959</span><span class="dl-v pos">+10.01%</span></li>
+          <li><span class="dl-k">002242</span><span class="dl-v pos">+10.02%</span></li>
+          <li><span class="dl-k">000521</span><span class="dl-v pos">+9.95%</span></li>
+          <li><span class="dl-k">银行 ETF 富国</span><span class="dl-v pos">+1.50%</span></li>
+        </ul>
+        <div class="duo-note">出处：财中社 11-16、智通财经 11-16。ETF 数据：格隆汇 11-16 午盘。</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-etf" style="margin-top:26px">
+      <table class="tbl">
+        <caption id="cap-etf">表二 · 11-16 午盘 ETF 分化：资金去哪一侧一目了然</caption>
+        <thead>
+          <tr><th scope="col">ETF</th><th scope="col">午盘涨跌</th><th scope="col">指向</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">中概互联 ETF 广发</th><td class="n pos">+1.83%</td><td>港股互联网敞口</td></tr>
+          <tr><th scope="row">港股通消费 ETF 汇添富</th><td class="n pos">+1.56%</td><td>港股消费敞口</td></tr>
+          <tr><th scope="row">银行 ETF 富国</th><td class="n pos">+1.50%</td><td>防御 · 利率敏感</td></tr>
+          <tr><th scope="row">科创成长 ETF 易方达</th><td class="n neg">−4.88%</td><td>A 股高估值成长</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:18px;font-size:15.5px;line-height:1.66;color:var(--ink-2)">值得单独记一笔：当天涨得最猛的两只 ETF 都是<b>港股敞口</b>。A 股场内的钱在缩量中没有离场，而是从科创成长切到了中概互联与港股消费，这正是「换仓」而非「撤资」的直接痕迹。出处：格隆汇 11-16 午盘稿。</p>
+    <p style="margin-top:14px;font-size:15.5px;line-height:1.66;color:var(--ink-2)">午盘原文写法：<b>上证指数跌0.39%报3620.00点</b>、<b>科创50跌2.91%报1242.47点</b>；11-16 午盘全市场成交额9066亿元，较上一交易日同期缩量795亿元。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>对照三 · 港股内部：涨的是消费与平台，跌的是生物科技</h2>
+    <p class="lede">恒指 +0.84% 容易被读成「港股全面 risk-on」。拆开成分看，当天港股做的其实是同一个动作：卖出高估值，买入现金流。</p>
+
+    <div class="duo">
+      <div class="duo-col buy">
+        <div class="duo-h"><span class="dh-t">恒指成分 · 领涨</span><span class="dh-s">11-16 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">海底捞</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">金沙中国有限公司</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">蒙牛乳业</span><span class="dl-v pos">涨幅居前</span></li>
+          <li><span class="dl-k">美团</span><span class="dl-v pos">涨超 3%</span></li>
+          <li><span class="dl-k">腾讯</span><span class="dl-v pos">涨近 2%</span></li>
+        </ul>
+        <div class="duo-note">出处：东方财富 11-16、富途资讯 11-16。「涨幅居前」为来源原文表述，未给出具体百分比。</div>
+      </div>
+
+      <div class="duo-col sell">
+        <div class="duo-h"><span class="dh-t">领跌 · 生物技术</span><span class="dh-s">11-16 午盘</span></div>
+        <ul class="duo-list">
+          <li><span class="dl-k">康方生物</span><span class="dl-v neg">跌超 23%</span></li>
+          <li><span class="dl-k">恒生科技指数</span><span class="dl-v pos">+0.54%</span></li>
+        </ul>
+        <div class="duo-note">出处：富途资讯 11-16。恒生科技仅涨 0.54%，说明港股当天的上涨不由 AI 硬件或科技成长驱动。当日南向资金净买入额未确认。</div>
+      </div>
+    </div>
+
+    <div class="fig" style="margin-top:26px">
+      <h3>同一天，两地各自动了哪一边</h3>
+      <svg viewBox="0 0 880 236" role="img" aria-labelledby="split-t split-d">
+        <title id="split-t">A 股与港股 11-16 午盘的卖出侧与买入侧对照</title>
+        <desc id="split-d">A 股卖出 AI 硬件链、买入银行白酒公路；港股卖出生物科技、买入消费与平台。</desc>
+
+        <line x1="440" y1="30" x2="440" y2="206" stroke="#d2d8d4" stroke-width="1"/>
+        <text x="440" y="20" text-anchor="middle" font-size="11.5" fill="#5d6460" letter-spacing="1.2">11-16 午盘 · 同一个动作</text>
+
+        <text x="20" y="56" font-size="12" font-weight="700" fill="#7d5a1c" letter-spacing="1.2">A 股</text>
+        <rect x="20" y="66" width="380" height="52" fill="#f0e2de" stroke="#d8bdb5" rx="3"/>
+        <text x="34" y="88" font-size="14" font-weight="700" fill="#71301f">卖出</text>
+        <text x="34" y="110" font-size="14" fill="#4f5551">CPO · 元件 · 半导体 · 电子化学品 · 小金属</text>
+
+        <rect x="20" y="130" width="380" height="52" fill="#dfeae4" stroke="#b6cfc2" rx="3"/>
+        <text x="34" y="152" font-size="14" font-weight="700" fill="#22513c">买入</text>
+        <text x="34" y="174" font-size="14" fill="#4f5551">银行 · 白酒 · 公路铁路 · 猪肉 · 小家电</text>
+
+        <text x="480" y="56" font-size="12" font-weight="700" fill="#2f6b4f" letter-spacing="1.2">港股</text>
+        <rect x="480" y="66" width="380" height="52" fill="#f0e2de" stroke="#d8bdb5" rx="3"/>
+        <text x="494" y="88" font-size="14" font-weight="700" fill="#71301f">卖出</text>
+        <text x="494" y="110" font-size="14" fill="#4f5551">生物技术（康方生物 跌超 23%）</text>
+
+        <rect x="480" y="130" width="380" height="52" fill="#dfeae4" stroke="#b6cfc2" rx="3"/>
+        <text x="494" y="152" font-size="14" font-weight="700" fill="#22513c">买入</text>
+        <text x="494" y="174" font-size="14" fill="#4f5551">海底捞 · 金沙中国 · 蒙牛 · 美团 · 腾讯</text>
+
+        <text x="440" y="224" text-anchor="middle" font-size="12.5" fill="#5d6460">两地卖出的都是高估值成长，买入的都是现金流确定的公司</text>
+      </svg>
+      <p class="fig-cap">图二 · 两侧动作对照。依据：财中社/智通财经 11-16（A 股板块）、东方财富/富途资讯 11-16（港股个股）。「两地动作相同」是本篇的归纳，不是来源原文；它可被图一与表一的读数反驳。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>对照四 · 高盛逆向的三条依据</h2>
+    <p class="lede">评级逆向不是拍脑袋。高盛 11-16 报告给出的理由可以逐条拆开，而且三条都指向同一个前提：2026 年下半年的回调已经把利空定价进去了。</p>
+
+    <div class="three">
+      <div class="three-item">
+        <div class="ti-n">依据一</div>
+        <h3>盈利拐点在港股一侧</h3>
+        <p>中资股每股盈利增速由 2026 年的 <span class="ti-num">8%</span> 加快至 2027 年的 <span class="ti-num">15%</span>；港股盈利呈超趋势增长，其中互联网板块盈利增速由 2026 年的 <span class="ti-num">−3%</span> 转为 2027 年的 <span class="ti-num">+18%</span>，软科技由 14% 加速至 22%。相比之下，A 股 AI 硬科技盈利增速明显回落，盈利预期下修压力更大。</p>
+        <div class="ti-src">观点网 2026-11-16 14:03 · 财联社 2026-11-16 17:25 · 中国基金报 2026-11-16 15:15</div>
+      </div>
+
+      <div class="three-item">
+        <div class="ti-n">依据二</div>
+        <h3>估值处周期低位</h3>
+        <p>MSCI 中国指数 12 个月远期市盈率仅 <span class="ti-num">9.8 倍</span>，接近 2024 年 9 月初的周期低点，较十年均值低约 1 个标准差。高盛统计：远期市盈率低于 10 倍的历史区间中，指数未来 12 个月实现正回报的概率超过 <span class="ti-num">85%</span>。</p>
+        <div class="ti-src">中国基金报 2026-11-16 15:15 · 财联社 2026-11-16 17:25</div>
+      </div>
+
+      <div class="three-item">
+        <div class="ti-n">依据三</div>
+        <h3>仓位偏轻 + 南向确定性增量</h3>
+        <p>投资者整体仓位偏轻，AI 交易以外的分散化配置价值尚未被充分定价。高盛预计 2027 年南向资金流入港股 <span class="ti-num">1000 亿美元</span>，远高于年初至今的 530 亿美元；对冲基金与长线外资主动加仓意愿仍偏谨慎，资金结构迎来再平衡。</p>
+        <div class="ti-src">中国基金报 2026-11-16 15:15 · 财联社 2026-11-16 17:25</div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-gs" style="margin-top:26px">
+      <table class="tbl">
+        <caption id="cap-gs">表三 · 高盛 2027 中国市场策略：两地评级与目标（11-16 报告，媒体转述口径）</caption>
+        <thead>
+          <tr><th scope="col">项目</th><th scope="col">港股</th><th scope="col">A 股</th><th scope="col">出处</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">区域评级</th><td class="pos">上调至超配</td><td class="neg">下调至中性</td><td class="src">观点网 11-16 14:03</td></tr>
+          <tr><th scope="row">2027 目标</th><td>MSCI 中国 +23%</td><td>沪深300 +10%（4500 点）</td><td class="src">中国基金报 11-16 15:15</td></tr>
+          <tr><th scope="row">下调理由</th><td>不适用</td><td>AI 盈利增速放缓与乐观预期矛盾；仓位集中于 AI 科技硬件股</td><td class="src">观点网 11-16 14:03</td></tr>
+          <tr><th scope="row">行业评级调整</th><td>半导体、医疗保健、消费服务业调至增持</td><td>科技硬件降至中性；能源及公用事业降至减持</td><td class="src">观点网 11-16 14:03</td></tr>
+          <tr><th scope="row">风险提示</th><td colspan="2">2027 年一季度港股逾 580 亿美元解禁，或短期紧缩流动性</td><td class="src">财联社 11-16 17:25 · 观点网 11-16</td></tr>
+          <tr><th scope="row">利率路径</th><td colspan="2">预计美联储 2026-12 与 2027-03 各加息 25 个基点</td><td class="src">中国基金报 11-16 15:15</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2)">把表三与 11-16 午盘实况并排，逆向就不神秘了：高盛降 A 股的理由是「仓位集中于 AI 科技硬件股」，而当天 A 股跌得最狠的正是 CPO、半导体、元件；高盛加港股的理由是估值低位与盈利拐点，而当天港股领涨的正是消费与平台。<b>它不是在跟当天的行情对着干，它是在给当天已经发生的换仓下年度结论。</b>另需注意其自身提示的风险：2027 年一季度逾 580 亿美元解禁。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>外因背景 · 隔夜那条链：费半与英伟达</h2>
+    <p class="lede">本段只作背景，不重写英伟达财报日历、接班与担保（那些已在 11-16《11 月的三场考试》里）。</p>
+
+    <div class="tbl-wrap" tabindex="0" role="region" aria-labelledby="cap-us">
+      <table class="tbl">
+        <caption id="cap-us">表四 · 外因读数（美股 11-13 收盘，素材含 11-14 热点简报，滞后 3 天）</caption>
+        <thead>
+          <tr><th scope="col">对象</th><th scope="col">读数</th><th scope="col">说明</th><th scope="col">出处</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">费城半导体指数</th><td class="n neg">−3.43%</td><td>11-13 单日；AMD −8.75%、博通 −4.8%</td><td class="src">中国经营报 11-14</td></tr>
+          <tr><th scope="row">英伟达</th><td class="n neg">162.85 美元</td><td>跌 2%，六周连跌，市值跌破 4 万亿美元</td><td class="src">华尔街见闻 11-14</td></tr>
+          <tr><th scope="row">英伟达单周</th><td class="n neg">−12.7%</td><td>市值蒸发逾 5730 亿美元；创 2012 年 10 月以来最长周线连跌</td><td class="src">华尔街见闻 11-14 · 汇通财经 11-16</td></tr>
+          <tr><th scope="row">标普500 科技板块</th><td class="n neg">−1.7%</td><td>11 大板块最差；苹果涨 0.39% 重回全球股王</td><td class="src">21 世纪经济报道 11-14</td></tr>
+          <tr><th scope="row">前沿算力协议中的英伟达份额</th><td class="n">39%</td><td>摩根大通称由 2023–2025 年的 80% 以上降至 39%，AMD 占 15%</td><td class="src">24/7 Wall St 11-15 报告，财联社 11-16 转述</td></tr>
+          <tr><th scope="row">DeepSeek 每日调用配额</th><td>已引入</td><td>被视为中国 AI 芯片紧缺的公开信号，需求跑在可获得芯片之前</td><td class="src">InvestingLive 11-16（每日 AI 技术动态简报 11-16）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:20px;font-size:15.5px;line-height:1.66;color:var(--ink-2)">外因的作用可以写得很短：11-13 收盘<b>费城半导体指数跌3.43%</b>，<b>英伟达跌2%报162.85美元</b>、六周连跌并跌破 4 万亿美元市值；这条链在 11-16 开盘前原样传给 A 股的 AI 硬件，于是科创50 午盘 −2.91%、CPO 与半导体领跌。它解释了「卖什么」，解释不了「为什么港股不跟着卖」。港股恒指成分里没有等量的 AI 硬件权重，这就是指数分化的来源。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>利率锚 · 同一天的利率读数：加息几乎被完全计价</h2>
+    <p class="lede">这条追踪线是「宏观利率与股市」，所以分化必须放在利率背景下读：风险偏好的收缩不是 11-16 才开始的。</p>
+
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">11-10</span>
+        <div>
+          <div class="timeline-title">12 月加息 25 个基点概率 95.6%</div>
+          <div class="timeline-detail">CME FedWatch 读数；较一周前上升 18.2 个百分点、较一个月前上升 25.8 个百分点。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-11</span>
+        <div>
+          <div class="timeline-title">读数 88.5%，50 个基点概率 11.5%</div>
+          <div class="timeline-detail">同族口径（既有作品已记录 11-11 盘前 88.5%）；至 2027 年 1 月累计加息 50 个基点概率 59.2%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-13</span>
+        <div>
+          <div class="timeline-title">读数 84.7%，50 个基点概率升至 15.3%</div>
+          <div class="timeline-detail">美股同日费半 −3.43%、纳指 −0.91%；现货黄金跌破 3900 美元/盎司，本周累跌 4.9%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-16</span>
+        <div>
+          <div class="timeline-title">读数 93.5%，50 个基点概率回落至 6.5%</div>
+          <div class="timeline-detail">12月FOMC加息25个基点概率93.5%，加息50个基点概率6.5%，市场认为基准加息已几乎完全计价。同日高盛发布 2027 中国市场策略，港股调超配、A 股调中性。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>关键数据 · 本篇登记的九个读数</h2>
+    <p class="lede">同标签同日期的取值与已上展作品对账一致；新标签为本篇首次登记，供后续复用。</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">3620.00 点</div>
+        <div class="metric-label">上证指数午盘点位（11-16）</div>
+        <div class="metric-source">21 财经雷达 · 2026-11-16 11:51（跌 0.39%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-2.34%</div>
+        <div class="metric-label">创业板指午盘涨跌幅（11-16）</div>
+        <div class="metric-source">格隆汇 · 2026-11-16 11:32（报 2369.33 点）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-2.91%</div>
+        <div class="metric-label">科创50午盘涨跌幅（11-16）</div>
+        <div class="metric-source">格隆汇 · 2026-11-16 11:32（报 1242.47 点）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">23835.44 点</div>
+        <div class="metric-label">恒生指数午盘点位（11-16）</div>
+        <div class="metric-source">哈富证券·东方财富 · 2026-11-16 12:10（涨 0.84%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">9066 亿元</div>
+        <div class="metric-label">A股午盘成交额（11-16）</div>
+        <div class="metric-source">格隆汇 · 2026-11-16 午盘（缩量 795 亿元）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value pos">23%</div>
+        <div class="metric-label">高盛 MSCI中国指数目标涨幅（11-16 报告口径）</div>
+        <div class="metric-source">高盛 2027 年中国市场策略 · 2026-11-16（观点网/中国基金报转述）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">162.85 美元</div>
+        <div class="metric-label">英伟达 11-13 收盘价</div>
+        <div class="metric-source">华尔街见闻 · 2026-11-14（与既有作品同值）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value neg">-3.43%</div>
+        <div class="metric-label">费城半导体指数 · 11/13 单日跌幅</div>
+        <div class="metric-source">中国经营报 · 2026-11-14（汇通财经同日口径 −3.4%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">93.5%</div>
+        <div class="metric-label">CME 12月会议加息25个基点概率（11-16口径）</div>
+        <div class="metric-source">汇通财经转 CME FedWatch · 2026-11-16 11:19</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="verdict-band">
+  <div class="shell">
+    <h2>判定：卖出硬件、买入确定性</h2>
+    <p class="verdict">本篇取第一个答案——缩量日的分化是<em>「卖出硬件、买入确定性」</em>，不是「两地资金对同一消息的不同定价」。</p>
+    <p class="verdict-note">理由有三。其一，如果是对同一消息的相反定价，应该看到「A 股卖 AI、港股买 AI」，但恒生科技当天只涨 0.54%，港股领涨的是海底捞、金沙中国、蒙牛、美团、腾讯，领跌的是康方生物；港股卖的也是高估值成长。其二，A 股领涨的是银行、白酒、公路、猪肉、小家电，同样是确定性资产，不是「抄底 AI」。其三，两只涨幅最大的 ETF 是中概互联与港股通消费，说明 A 股场内资金是切仓而非离场。指数方向相反，是因为两地成分结构不同：A 股指数高权重压着 AI 硬件，恒指高权重压着消费与金融。</p>
+    <p class="verdict-note" style="margin-top:16px">高盛的评级逆向与这个判定同向：它降 A 股的理由是「仓位集中于 AI 科技硬件股」，加港股的理由是估值周期低位与盈利拐点。评级是年度尺度的同一个判断，午盘是日内的同一次换仓。</p>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>证据边界 · 这个判定到哪里为止</h2>
+    <p class="lede">判定必须写清它靠什么成立、被什么推翻。</p>
+
+    <ul class="bound">
+      <li class="is-risk">
+        <span class="b-k">资金流未确认</span>
+        <span class="b-v"><b>11-16 当日北向与南向资金净买入额均未取到</b>，这是来源缺口，不是零值。因此本篇不能直接断言「资金从 A 股流向港股」，只能用 ETF 结构与板块结构做间接推断。确认方法：当日收盘后港交所与沪深交易所披露的陆股通/港股通净买入数据。</span>
+      </li>
+      <li class="is-risk">
+        <span class="b-k">午盘口径</span>
+        <span class="b-v">A 股读数为 <b>11:30</b> 快照，港股为 <b>12:00</b> 快照，两者相差 30 分钟，且都<b>不是收盘</b>。若 11-16 收盘 A 股硬件反弹、港股回落，则午盘分化主要是时点噪声，本篇判定被削弱。确认方法：对齐两市当日收盘读数后重跑表一。</span>
+      </li>
+      <li class="is-risk">
+        <span class="b-k">外因隔周末</span>
+        <span class="b-v">美股读数是 <b>11-13 收盘</b>，距 11-16 午盘隔一个周末，中间没有新的美股交易。费半与 A 股硬件的「同量级」是方向与幅度的对照，<b>不是</b>因果检验。</span>
+      </li>
+      <li>
+        <span class="b-k">报告为转述</span>
+        <span class="b-v">高盛三条依据取自观点网、财联社、中国基金报 <b>11-16</b> 的转述，<b>未取得报告原文</b>。转述之间对「85%→46%」这一 AI 硬科技盈利增速口径存在差异（华尔街见闻摘要口径），本篇未采用该数字。确认方法：调阅高盛 2027 年中国市场策略报告原文。</span>
+      </li>
+      <li>
+        <span class="b-k">素材日期</span>
+        <span class="b-v">外因段与利率段部分素材取自<b>《每日热点新闻简报》2026-11-14</b>，相对成稿日滞后 3 天；英伟达单周跌幅、六周连跌等均为该素材区间口径，正文已标注日期。</span>
+      </li>
+      <li>
+        <span class="b-k">可证伪点</span>
+        <span class="b-v">若出现以下任一情况，本篇判定应被推翻：① 11-16 收盘两地板块方向收敛；② 后续数据显示当日南向为净卖出而北向为净买入；③ 高盛报告原文显示评级依据以流动性而非盈利估值为主。</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>证据 · 判断所依据的原文</h2>
+    <p class="lede">以下引用逐字来自来源页面；引号内为原文，出处与发稿时间在引文之后。</p>
+
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">上证指数跌0.39%报3620.00点，深证成指跌1.31%报10825.37点，创业板指跌2.34%报2369.33点，科创50跌2.91%报1242.47点。</p>
+        <cite class="evidence-source">21 财经雷达 · 2026-11-16 11:51（点位）／格隆汇 · 2026-11-16 11:32（创业板与科创50）；每日股市简报 2026-11-16 转引</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">11月16日午盘恒生指数涨0.84%报23835.44点（涨197.84点），恒生科技指数涨0.54%报3833.65点（涨20.46点），国企指数涨0.80%。</p>
+        <cite class="evidence-source">哈富证券·东方财富 · 2026-11-16 12:10 ／ 富途资讯 · 2026-11-16；每日股市简报 2026-11-16 转引</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">将港股评级上调至超配、A股下调至中性，并预计MSCI中国指数有望涨23%。</p>
+        <cite class="evidence-source">高盛 2027 年中国市场策略报告 · 2026-11-16（媒体转述）；每日股市简报 2026-11-16 转引</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">上调H股评级的依据包括：每股盈利增长将由今年的8%加快至2027年的15%，估值目前仅9.8倍、处于周期低位，投资者整体仓位偏低，加上人工智能（AI）配置趋多元化。</p>
+        <cite class="evidence-source">观点网 · 2026-11-16 14:03</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">A股方面，高盛指AI推动的盈利增长放缓，或与市场更乐观的盈利预测存在矛盾，且投资者仓位集中于AI科技硬件股，故将A股降至“与市场同步”，预期沪深300指数2027年潜在升幅为10%。</p>
+        <cite class="evidence-source">观点网 · 2026-11-16 14:03</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达跌2%报162.85美元，连续第六周收低、创2012年10月以来最长周线连跌，收盘市值跌破4万亿美元大关。</p>
+        <cite class="evidence-source">华尔街见闻 · 2026-11-14；每日股市简报 2026-11-16 转引（素材含 11-14 热点简报，滞后 3 天）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">11月13日收盘费城半导体指数跌3.43%（汇通财经口径为跌3.4%）；AMD跌8.75%、博通跌4.8%。</p>
+        <cite class="evidence-source">中国经营报 · 2026-11-14 ／ 21 世纪经济报道 · 2026-11-14</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">12月FOMC加息25个基点概率93.5%，加息50个基点概率6.5%，市场认为基准加息已几乎完全计价。</p>
+        <cite class="evidence-source">汇通财经 · 2026-11-16 11:19（转 CME FedWatch）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">11月16日午盘全市场成交额9066亿元，较上一交易日同期缩量795亿元；全市场超3500只个股下跌。</p>
+        <cite class="evidence-source">格隆汇 · 2026-11-16 ／ 财中社 · 2026-11-16</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <h2>未确认与局限</h2>
+    <p class="lede">下面这些量本篇没有取数，也没有写进断言层。取不到就空着，不推测填充。</p>
+
+    <ul class="uncertain">
+      <li><b>11-16 当日北向资金净买入额：未确认。</b>本轮检索未取到当日盘中北向数据（来源缺口，非零值）。确认方法：当日收盘后交易所披露的陆股通净买入。</li>
+      <li><b>11-16 当日南向资金净买入额：未确认。</b>未取到当日盘中南向数据。可用背景值为上周（11-09 至 11-13）南向合计净流入约 118.68 亿港元（港股通周报口径），另有中资券商研究口径为 119 亿港元；两值口径不同，本篇不取其一作当日值。</li>
+      <li><b>北证50 午盘点位：未确认。</b>财中社与另一来源均只给出跌 2.56%，未披露点位。</li>
+      <li><b>国企指数午盘点位：未确认。</b>来源只给出涨 0.80%，未披露点位。</li>
+      <li><b>CPO 概念、5G 概念 11-16 主力资金净流入：未确认。</b>11-16 简报未给出这两个读数，本篇不取该族标签（既有 11-11 版分别为 109.92 亿元与 107.64 亿元，日期不同不可代用）。确认方法：同花顺/智通财经 11-16 午评原文。</li>
+      <li><b>纳斯达克中国金龙指数 11-13 涨幅：未确认。</b>来源未披露具体数值。</li>
+      <li><b>美元指数 11-16 具体点位：未确认。</b>来源仅表述为「103 高位」，无精确读数。</li>
+      <li><b>高盛报告原文：未取得。</b>三条依据均为媒体转述；「85%→46%」的 AI 硬科技盈利增速口径存在跨源差异，本篇未采用。</li>
+    </ul>
+
+    <p style="margin-top:22px;font-size:15.5px;line-height:1.66;color:var(--ink-2)">另有两处口径边界需要说明。第一，A 股午盘成交「9066 亿元」与「0.90 万亿元」是同一件事的两种精度，断言取 9066 亿元。第二，「缩量 795 亿元」是与上一交易日<b>同期</b>比较，不是与上一交易日<b>全天</b>比较，两者不可互换。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>方法。</b>本篇所有读数均回源至带发稿时间的报道页面；A 股与港股一律标注午盘时点（11:30 / 12:00），美股一律标注 11-13 收盘，利率一律标注 CME 口径日期。同标签同日期的取值与近 7 天已上展作品逐字对账，对不上则删除该条，不改口径。</p>
+    <p><b>素材。</b>主要取自《每日股市简报》2026-11-16、《每日 AI 技术动态简报》2026-11-16、《每日热点新闻简报》2026-11-14（滞后 3 天，正文已标注）；高盛三条依据为 11-16 现场检索补齐（观点网、财联社、中国基金报）；缺的数标「未确认」，未做推测填充。</p>
+    <p><b>撞车边界。</b>本篇不重写 11-16《11 月的三场考试》的财报/定价/作证日历，不写接班与 1050 亿美元担保，不重做 11-13《加息满值与 3900 美元》的四张价格表；英伟达与费半只作外因背景一段。</p>
+    <p><b>局限。</b>本文写于 2026-11-17，全部 A 股与港股读数均为午盘快照而非收盘；当日两地资金流向数据未取得；高盛报告为转述口径。</p>
+    <p><b>免责。</b>本文为研究记录，不构成投资建议。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不要写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "3620.00 点",
+    "label": "上证指数午盘点位（11-16）",
+    "quote": "上证指数跌0.39%报3620.00点"
+  },
+  {
+    "value": "-2.91%",
+    "label": "科创50午盘涨跌幅（11-16）",
+    "quote": "科创50跌2.91%报1242.47点"
+  },
+  {
+    "value": "23835.44 点",
+    "label": "恒生指数午盘点位（11-16）",
+    "quote": "恒生指数涨0.84%报23835.44点（涨197.84点）"
+  },
+  {
+    "value": "23%",
+    "label": "高盛 MSCI中国指数目标涨幅（11-16 报告口径）",
+    "quote": "将港股评级上调至超配、A股下调至中性，并预计MSCI中国指数有望涨23%"
+  },
+  {
+    "value": "162.85 美元",
+    "label": "英伟达 11-13 收盘价",
+    "quote": "英伟达跌2%报162.85美元"
+  },
+  {
+    "value": "-3.43%",
+    "label": "费城半导体指数 · 11/13 单日跌幅",
+    "quote": "费城半导体指数跌3.43%"
+  },
+  {
+    "value": "93.5%",
+    "label": "CME 12月会议加息25个基点概率（11-16口径）",
+    "quote": "12月FOMC加息25个基点概率93.5%"
+  },
+  {
+    "value": "9066 亿元",
+    "label": "A股午盘成交额（11-16）",
+    "quote": "全市场成交额9066亿元"
+  }
+]
+</script>
+</body>
+</html>

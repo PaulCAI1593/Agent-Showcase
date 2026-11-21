@@ -6691,7 +6691,7 @@
         },
         {
           "value": "4068.76美元/盎司",
-          "label": "现货黄金结算价（10-29）",
+          "label": "现货黄金收盘价（10-29）",
           "quote": "现货黄金涨0.2%报4068.76美元/盎司、连续第三日走高"
         },
         {
@@ -7108,7 +7108,7 @@
         },
         {
           "value": "4063 美元/盎司",
-          "label": "现货黄金结算价（11-04）",
+          "label": "现货黄金收盘价（11-04）",
           "quote": "现货黄金涨超3%至4063美元上方、创8月以来最大单日涨幅"
         },
         {
@@ -7397,6 +7397,58 @@
       ]
     },
     {
+      "file": "works/2026-11-10/creative/2026-11-10-openrouter-token-race.html",
+      "description": "OpenRouter 11 月 2-8 日周榜的翻页榜墙：210 万亿 Token 逐字写入，中国厂商 116.18 万亿、美国厂商 13.98 万亿，第三台计数器没有字模——残差 79.84 万亿是推算，原文未给出来源；前五席里三席留空。",
+      "highlights": [
+        "Token消耗",
+        "大模型",
+        "OpenRouter"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "210 万亿",
+          "label": "全球大模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "全球大模型调用量 210 万亿 Token"
+        },
+        {
+          "value": "116.18 万亿",
+          "label": "中国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "中国大模型周调用量 116.18 万亿 Token、连续 28 周超美国"
+        },
+        {
+          "value": "13.98 万亿",
+          "label": "美国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "美国周量 13.98 万亿、环比下滑 32.4%"
+        },
+        {
+          "value": "4.37 万亿",
+          "label": "Kimi K3.1 Pro 单模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
+          "quote": "周调用 4.37 万亿、环比增 91%"
+        },
+        {
+          "value": "+91%",
+          "label": "Kimi K3.1 Pro 周调用环比增幅（环比上周同指标 · 11 月 2-8 日）",
+          "quote": "环比增 91%"
+        },
+        {
+          "value": "-32.4%",
+          "label": "美国厂商合计周调用环比降幅（环比上周同指标 · 11 月 2-8 日）",
+          "quote": "环比下滑 32.4%"
+        },
+        {
+          "value": "28 周",
+          "label": "中国厂商合计连续超美国周数（截至 11 月 2-8 日）",
+          "quote": "连续 28 周超美国"
+        },
+        {
+          "value": "3 周",
+          "label": "DeepSeek 连续领跑周数（OpenRouter 周榜 · 截至 11 月 2-8 日）",
+          "quote": "连续三周领跑"
+        }
+      ]
+    },
+    {
       "file": "works/2026-11-10/research/2026-11-10-ai-hogging-fabs.html",
       "description": "Microchip 标准产品交期从 4—8 周拉到 6-32 周，同一周 Marvell 用全股票付掉 1150 亿美元买下 Lumentum：瓶颈从排队等产能变成产能归谁。附交期口径矩阵、并购结构表与国产光刻机、存储带宽两条对冲线。",
       "highlights": [
@@ -7481,7 +7533,7 @@
         },
         {
           "value": "4100 美元",
-          "label": "现货黄金收复价（11-09）",
+          "label": "现货黄金收盘价（11-09）",
           "quote": "现货黄金收复4100美元"
         },
         {
@@ -7544,54 +7596,52 @@
       ]
     },
     {
-      "file": "works/2026-11-10/creative/2026-11-10-openrouter-token-race.html",
-      "description": "OpenRouter 11 月 2-8 日周榜的翻页榜墙：210 万亿 Token 逐字写入，中国厂商 116.18 万亿、美国厂商 13.98 万亿，第三台计数器没有字模——残差 79.84 万亿是推算，原文未给出来源；前五席里三席留空。",
+      "file": "works/2026-11-12/creative/2026-11-12-robot-two-tracks.html",
+      "description": "GR00T 2 的示范次数与成功率曲线，和 ASIMOV-jailbreak 的一句对抗指令，放在同一间车间里对照。",
       "highlights": [
-        "Token消耗",
-        "大模型",
-        "OpenRouter"
+        "车间双轨"
       ],
-      "agent": "创艺",
+      "agent": "绘界+创艺+量研",
       "claims": [
         {
-          "value": "210 万亿",
-          "label": "全球大模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
-          "quote": "全球大模型调用量 210 万亿 Token"
+          "value": "40%",
+          "label": "GR00T 2 零示范 50 项任务平均成功率",
+          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
         },
         {
-          "value": "116.18 万亿",
-          "label": "中国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
-          "quote": "中国大模型周调用量 116.18 万亿 Token、连续 28 周超美国"
+          "value": "71%",
+          "label": "GR00T 2 一次示范 50 项任务平均成功率",
+          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
         },
         {
-          "value": "13.98 万亿",
-          "label": "美国厂商合计周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
-          "quote": "美国周量 13.98 万亿、环比下滑 32.4%"
+          "value": "95%",
+          "label": "GR00T 2 五次示范 50 项任务平均成功率",
+          "quote": "One teleoperated episode per task lifts success to 71%, and five episodes, under three minutes of robot data, lift it to 95%, with 37 of the 50 tasks succeeding in every trial."
         },
         {
-          "value": "4.37 万亿",
-          "label": "Kimi K3.1 Pro 单模型周调用量（OpenRouter 周榜 · 11 月 2-8 日）",
-          "quote": "周调用 4.37 万亿、环比增 91%"
+          "value": "80%",
+          "label": "五次示范任务入选的成功率门槛",
+          "quote": "The 50 tasks were chosen among those the model learns with five episodes (at least 80% success), so the five-episode rate is high partly by construction."
         },
         {
-          "value": "+91%",
-          "label": "Kimi K3.1 Pro 周调用环比增幅（环比上周同指标 · 11 月 2-8 日）",
-          "quote": "环比增 91%"
+          "value": "99.5%",
+          "label": "Gemini 4 Argon 越狱抵御率",
+          "quote": "Argon achieves a 99.5% jailbreak resistance — a significant improvement over the 82% rate of our previous baseline, Gemini Robotics ER 2"
         },
         {
-          "value": "-32.4%",
-          "label": "美国厂商合计周调用环比降幅（环比上周同指标 · 11 月 2-8 日）",
-          "quote": "环比下滑 32.4%"
+          "value": "82%",
+          "label": "Gemini Robotics ER 2 官方前基线越狱抵御率",
+          "quote": "the 82% rate of our previous baseline, Gemini Robotics ER 2"
         },
         {
-          "value": "28 周",
-          "label": "中国厂商合计连续超美国周数（截至 11 月 2-8 日）",
-          "quote": "连续 28 周超美国"
+          "value": "96%",
+          "label": "Gemini Robotics 2.5 奔驰产线试点成功率",
+          "quote": "During a real-world proof-of-concept on Mercedes-Benz production lines, our models helped Apptronik's Apollo 2 humanoid pick and pack automotive parts with a 96% success rate."
         },
         {
-          "value": "3 周",
-          "label": "DeepSeek 连续领跑周数（OpenRouter 周榜 · 截至 11 月 2-8 日）",
-          "quote": "连续三周领跑"
+          "value": "3连板",
+          "label": "机器人概念 3 连板（11-11 午盘口径）",
+          "quote": "机器人概念活跃（锋龙股份、光洋股份3连板，风语筑2连板，日发精机、汉王科技涨停）"
         }
       ]
     },
@@ -7645,158 +7695,6 @@
           "value": "1.1万亿",
           "label": "Anthropic IPO传闻估值",
           "quote": "Anthropic IPO 传闻估值降至 1.1 万亿"
-        }
-      ]
-    },
-    {
-      "file": "works/2026-11-12/creative/2026-11-12-robot-two-tracks.html",
-      "description": "GR00T 2 的示范次数与成功率曲线，和 ASIMOV-jailbreak 的一句对抗指令，放在同一间车间里对照。",
-      "highlights": [
-        "车间双轨"
-      ],
-      "agent": "绘界+创艺+量研",
-      "claims": [
-        {
-          "value": "40%",
-          "label": "GR00T 2 零示范 50 项任务平均成功率",
-          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
-        },
-        {
-          "value": "71%",
-          "label": "GR00T 2 一次示范 50 项任务平均成功率",
-          "quote": "Across the 50 tasks, GR00T 2 succeeds 40% of the time zero-shot, 71% with one episode, and 95% with five (Fig. 24)."
-        },
-        {
-          "value": "95%",
-          "label": "GR00T 2 五次示范 50 项任务平均成功率",
-          "quote": "One teleoperated episode per task lifts success to 71%, and five episodes, under three minutes of robot data, lift it to 95%, with 37 of the 50 tasks succeeding in every trial."
-        },
-        {
-          "value": "80%",
-          "label": "五次示范任务入选的成功率门槛",
-          "quote": "The 50 tasks were chosen among those the model learns with five episodes (at least 80% success), so the five-episode rate is high partly by construction."
-        },
-        {
-          "value": "99.5%",
-          "label": "Gemini 4 Argon 越狱抵御率",
-          "quote": "Argon achieves a 99.5% jailbreak resistance — a significant improvement over the 82% rate of our previous baseline, Gemini Robotics ER 2"
-        },
-        {
-          "value": "82%",
-          "label": "Gemini Robotics ER 2 官方前基线越狱抵御率",
-          "quote": "the 82% rate of our previous baseline, Gemini Robotics ER 2"
-        },
-        {
-          "value": "96%",
-          "label": "Gemini Robotics 2.5 奔驰产线试点成功率",
-          "quote": "During a real-world proof-of-concept on Mercedes-Benz production lines, our models helped Apptronik's Apollo 2 humanoid pick and pack automotive parts with a 96% success rate."
-        },
-        {
-          "value": "3连板",
-          "label": "机器人概念 3 连板（11-11 午盘口径）",
-          "quote": "机器人概念活跃（锋龙股份、光洋股份3连板，风语筑2连板，日发精机、汉王科技涨停）"
-        }
-      ]
-    },
-    {
-      "file": "works/2026-11-13/creative/2026-11-13-token-zero-output.html",
-      "description": "谷歌 Gemini Decision 1 把输出定价为 0 元，百度词元所给 Token 建了信用评级和交易所，双 11 货架上 Token 成交额首日环比 +450%。这是一间夜间交易所：先计价，再上架，最后输出归零。",
-      "highlights": [
-        "Token",
-        "谷歌",
-        "百度"
-      ],
-      "agent": "创艺",
-      "claims": [
-        {
-          "value": "0.10 美元",
-          "label": "Gemini Decision 1 每百万输入 Token 价格",
-          "quote": "每百万输入Token仅0.10美元、输出0元"
-        },
-        {
-          "value": "0 元",
-          "label": "Gemini Decision 1 输出 Token 价格",
-          "quote": "每百万输入Token仅0.10美元、输出0元"
-        },
-        {
-          "value": "1000 个",
-          "label": "Gemini Decision 1 单次前向传播可评分问题上限",
-          "quote": "以单次前向传播对文本、图像、音频、视频、PDF中最多1000个问题评分"
-        },
-        {
-          "value": "92.2%",
-          "label": "Gemini Decision 1 测试最高准确率",
-          "quote": "9项测试拿下7项第一，准确率最高92.2%"
-        },
-        {
-          "value": "7000 亿",
-          "label": "百度词元所日均调用 Token（上线一个月口径）",
-          "quote": "上线一个月入驻供应资源超100个，日均调用次数突破5000万，日均调用Token超7000亿"
-        },
-        {
-          "value": "+450%",
-          "label": "天猫 AI 空间站 Token 成交额首日环比",
-          "quote": "天猫AI空间站Token成交额首日环比增450%"
-        },
-        {
-          "value": "三分之二",
-          "label": "推理占 AI 计算支出比重（InfoQ 年底预测）",
-          "quote": "预计到今年底推理将占AI计算支出的三分之二左右"
-        },
-        {
-          "value": "88.6%",
-          "label": "万格智元同等任务硬件成本降幅",
-          "quote": "硬件成本降低约88.6%"
-        }
-      ]
-    },
-    {
-      "file": "works/2026-11-13/research/2026-11-13-nvidia-succession-power-shift.html",
-      "description": "11-12 英伟达换帅当日的价格、供应商投票与五层权力台账：谁在英伟达缺席时接单。",
-      "highlights": [
-        "英伟达"
-      ],
-      "agent": "研析",
-      "claims": [
-        {
-          "value": "166.19 美元",
-          "label": "英伟达 11-12 收盘价",
-          "quote": "收盘跌幅收窄至4.34%，报166.19美元，市值4.01万亿美元"
-        },
-        {
-          "value": "148.80 美元",
-          "label": "英伟达 11-12 盘中新低",
-          "quote": "英伟达盘初一度急跌14.35%，低见148.80美元"
-        },
-        {
-          "value": "10,506.67 点",
-          "label": "费城半导体指数收盘点位（11-12）",
-          "quote": "费城半导体指数报10,506.67点，跌0.54%"
-        },
-        {
-          "value": "-0.54%",
-          "label": "费城半导体指数 · 11/12 单日跌幅",
-          "quote": "半导体板块内部明显分化，费城半导体指数跌0.54%"
-        },
-        {
-          "value": "5.11%",
-          "label": "10年期美债收益率（11-12收盘口径）",
-          "quote": "10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"
-        },
-        {
-          "value": "4.86%",
-          "label": "2年期美债收益率（11-12收盘口径）",
-          "quote": "2年期报4.8645%，上行12.68个基点"
-        },
-        {
-          "value": "51%",
-          "label": "英伟达要求云伙伴为非中国企业保留的服务能力下限",
-          "quote": "英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少51%的服务提供给非中国企业"
-        },
-        {
-          "value": "1 万亿~1.2 万亿美元",
-          "label": "机构估算的「被罢免」情形市值蒸发区间",
-          "quote": "若黄仁勋被罢免，市值或再蒸发1万亿~1.2万亿美元"
         }
       ]
     },
@@ -7860,6 +7758,58 @@
       ]
     },
     {
+      "file": "works/2026-11-13/creative/2026-11-13-token-zero-output.html",
+      "description": "谷歌 Gemini Decision 1 把输出定价为 0 元，百度词元所给 Token 建了信用评级和交易所，双 11 货架上 Token 成交额首日环比 +450%。这是一间夜间交易所：先计价，再上架，最后输出归零。",
+      "highlights": [
+        "Token",
+        "谷歌",
+        "百度"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "0.10 美元",
+          "label": "Gemini Decision 1 每百万输入 Token 价格",
+          "quote": "每百万输入Token仅0.10美元、输出0元"
+        },
+        {
+          "value": "0 元",
+          "label": "Gemini Decision 1 输出 Token 价格",
+          "quote": "每百万输入Token仅0.10美元、输出0元"
+        },
+        {
+          "value": "1000 个",
+          "label": "Gemini Decision 1 单次前向传播可评分问题上限",
+          "quote": "以单次前向传播对文本、图像、音频、视频、PDF中最多1000个问题评分"
+        },
+        {
+          "value": "92.2%",
+          "label": "Gemini Decision 1 测试最高准确率",
+          "quote": "9项测试拿下7项第一，准确率最高92.2%"
+        },
+        {
+          "value": "7000 亿",
+          "label": "百度词元所日均调用 Token（上线一个月口径）",
+          "quote": "上线一个月入驻供应资源超100个，日均调用次数突破5000万，日均调用Token超7000亿"
+        },
+        {
+          "value": "+450%",
+          "label": "天猫 AI 空间站 Token 成交额首日环比",
+          "quote": "天猫AI空间站Token成交额首日环比增450%"
+        },
+        {
+          "value": "三分之二",
+          "label": "推理占 AI 计算支出比重（InfoQ 年底预测）",
+          "quote": "预计到今年底推理将占AI计算支出的三分之二左右"
+        },
+        {
+          "value": "88.6%",
+          "label": "万格智元同等任务硬件成本降幅",
+          "quote": "硬件成本降低约88.6%"
+        }
+      ]
+    },
+    {
       "file": "works/2026-11-13/research/2026-11-13-fed-hike-full-pricing.html",
       "description": "CME 12月加息概率打满100%（25bp 86.8%/50bp 13.2%）的口径日里，美元指数创19个月新高、黄金失守3900、布油结算反弹、LME铝溢价30年最高——四张价格表逐条回源。",
       "highlights": [
@@ -7898,7 +7848,7 @@
         },
         {
           "value": "3876.62 美元/盎司",
-          "label": "现货黄金结算价（11-12）",
+          "label": "现货黄金收盘价（11-12）",
           "quote": "现货黄金收跌2.79%，报3876.62美元/盎司"
         },
         {
@@ -7910,6 +7860,1171 @@
           "value": "+5.66%",
           "label": "费城半导体指数 · 11/11 单日涨幅",
           "quote": "费城半导体指数大涨：11日涨5.66%，成分股全部走高"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-13/research/2026-11-13-nvidia-succession-power-shift.html",
+      "description": "11-12 英伟达换帅当日的价格、供应商投票与五层权力台账：谁在英伟达缺席时接单。",
+      "highlights": [
+        "英伟达"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "166.19 美元",
+          "label": "英伟达 11-12 收盘价",
+          "quote": "收盘跌幅收窄至4.34%，报166.19美元，市值4.01万亿美元"
+        },
+        {
+          "value": "148.80 美元",
+          "label": "英伟达 11-12 盘中新低",
+          "quote": "英伟达盘初一度急跌14.35%，低见148.80美元"
+        },
+        {
+          "value": "10,506.67 点",
+          "label": "费城半导体指数收盘点位（11-12）",
+          "quote": "费城半导体指数报10,506.67点，跌0.54%"
+        },
+        {
+          "value": "-0.54%",
+          "label": "费城半导体指数 · 11/12 单日跌幅",
+          "quote": "半导体板块内部明显分化，费城半导体指数跌0.54%"
+        },
+        {
+          "value": "5.11%",
+          "label": "10年期美债收益率（11-12收盘口径）",
+          "quote": "10年期收益率报5.1129%，上行12.09个基点，重回5.10%上方"
+        },
+        {
+          "value": "4.86%",
+          "label": "2年期美债收益率（11-12收盘口径）",
+          "quote": "2年期报4.8645%，上行12.68个基点"
+        },
+        {
+          "value": "51%",
+          "label": "英伟达要求云伙伴为非中国企业保留的服务能力下限",
+          "quote": "英伟达要求部分云计算和数据中心合作伙伴在未来合同中，将至少51%的服务提供给非中国企业"
+        },
+        {
+          "value": "1 万亿~1.2 万亿美元",
+          "label": "机构估算的「被罢免」情形市值蒸发区间",
+          "quote": "若黄仁勋被罢免，市值或再蒸发1万亿~1.2万亿美元"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-16/creative/2026-11-16-who-pressed-the-stop.html",
+      "description": "11 月 10 日到 15 日，美国政府停摆第 42 天、Microsoft 365 中断逾 24 小时、FAA 全国范围航班停飞令，三层系统先后停止服务。到第三层，按下停机键的开始不再是人类。",
+      "highlights": [
+        "谁在按下「停」"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "42 天",
+          "label": "美国政府停摆天数（11-11）",
+          "quote": "美国政府停摆第 42 天"
+        },
+        {
+          "value": "2400 架次",
+          "label": "全美航班取消架次（11-10）",
+          "quote": "10 日全美超 2400 架次航班取消、超 9100 架次延误"
+        },
+        {
+          "value": "95.82 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-13）",
+          "quote": "11 月 12 日交易日结算价 95.82 美元/桶"
+        },
+        {
+          "value": "84.7%",
+          "label": "CME 12月会议加息25个基点概率（11-13口径）",
+          "quote": "12 月 FOMC（11-13 更新）：加息 25 个基点概率 84.7%"
+        },
+        {
+          "value": "8.75 亿美元",
+          "label": "FAA SMART 系统耗资（2026 年）",
+          "quote": "耗资 8.75 亿美元的 SMART 系统自启用以来已帮助改航 180 架次航班"
+        },
+        {
+          "value": "12563 人",
+          "label": "FAA 现役空管员目标（2025 年调整后）",
+          "quote": "FAA 2025 年将现役空管员目标从 14633 人下调至 12563 人"
+        },
+        {
+          "value": "13 万起",
+          "label": "Outlook 故障报告峰值（11-14）",
+          "quote": "美国 Outlook 报告峰值超 13 万起"
+        },
+        {
+          "value": "50 个",
+          "label": "扫描 Cloudflare 客户的智能体框架家族数（11-15）",
+          "quote": "最近三天已有超过 50 个框架家族扫描 Cloudflare 全球客户"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-16/research/2026-11-16-ai-infra-inflation-ppi.html",
+      "description": "10月PPI同比6.5%创新高，AI基建账单已在联储反应函数里；12月25bp一档一周回落10.9个百分点，10年期收益率却收在5.15%。",
+      "highlights": [
+        "基建"
+      ],
+      "agent": "量研",
+      "claims": [
+        {
+          "value": "6.5%",
+          "label": "美国 10 月 PPI 同比（11-13 发布口径）",
+          "quote": "6.5% 美国 10 月 PPI 同比（11-13 发布口径）"
+        },
+        {
+          "value": "84.7%",
+          "label": "CME 12月会议加息25个基点概率（11-13口径）",
+          "quote": "84.7% CME 12月会议加息25个基点概率（11-13口径）"
+        },
+        {
+          "value": "15.3%",
+          "label": "CME 12月会议加息50个基点概率（11-13口径）",
+          "quote": "15.3% CME 12月会议加息50个基点概率（11-13口径）"
+        },
+        {
+          "value": "95.6%",
+          "label": "CME 12月会议加息25个基点概率一周前读数（11-10口径）",
+          "quote": "95.6% CME 12月会议加息25个基点概率一周前读数（11-10口径）"
+        },
+        {
+          "value": "64.7%",
+          "label": "CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）",
+          "quote": "64.7% CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）"
+        },
+        {
+          "value": "5.15%",
+          "label": "10年期美债收益率（11-13收盘口径）",
+          "quote": "10 年期美债收益率（11-13 收盘口径）5.15%"
+        },
+        {
+          "value": "3,894.52 美元/盎司",
+          "label": "现货黄金收盘价（11-13）",
+          "quote": "现货黄金 11-13 收于 3,894.52 美元/盎司（11-14 简报转 11-13 收盘，日涨 0.5%）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-16/research/2026-11-16-nvidia-three-test-week.html",
+      "claims": [
+        {
+          "value": "162.85 美元",
+          "label": "英伟达 11-13 收盘价",
+          "quote": "162.85 美元 英伟达 11-13 收盘价"
+        },
+        {
+          "value": "-12.75%",
+          "label": "英伟达单周跌幅（11-13 收盘口径）",
+          "quote": "-12.75% 英伟达单周跌幅（11-13 收盘口径）"
+        },
+        {
+          "value": "5,730 亿美元",
+          "label": "英伟达单周市值蒸发（11-13 收盘口径）",
+          "quote": "5,730 亿美元 英伟达单周市值蒸发（11-13 收盘口径）"
+        },
+        {
+          "value": "1,050 亿美元",
+          "label": "英伟达对 OpenAI 俄亥俄园区担保上限",
+          "quote": "1,050 亿美元 英伟达对 OpenAI 俄亥俄园区担保上限"
+        },
+        {
+          "value": "1,080 亿美元",
+          "label": "英伟达 11-17 财报营收指引中值",
+          "quote": "1,080 亿美元 英伟达 11-17 财报营收指引中值"
+        },
+        {
+          "value": "9009 亿美元",
+          "label": "Anthropic 算力与基础设施承诺总额",
+          "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+        },
+        {
+          "value": "70 至 78 美元/股",
+          "label": "Anthropic IPO 定价区间（11-11）",
+          "quote": "70 至 78 美元/股 Anthropic IPO 定价区间（11-11）"
+        },
+        {
+          "value": "95.82 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-13）",
+          "quote": "95.82 美元/桶 布伦特 1 月合约结算价（11-13）"
+        }
+      ],
+      "description": "11-17 英伟达财报、11-18 Anthropic 定价、11-26 国会作证：三场考试同一周开考，而 1050 亿美元的担保人正是要在 11-17 交出答案的那家公司。",
+      "highlights": [
+        "英伟达",
+        "Anthropic",
+        "1050 亿美元担保",
+        "国会作证",
+        "三场考试"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "works/2026-11-17/creative/2026-11-17-model-triage-board.html",
+      "claims": [
+        {
+          "value": "51 分",
+          "label": "默认 high 档 Artificial Analysis 智能指数",
+          "quote": "默认 high 档 Artificial Analysis 智能指数 51 分"
+        },
+        {
+          "value": "54 分",
+          "label": "xhigh 档 Artificial Analysis 智能指数",
+          "quote": "xhigh 档 Artificial Analysis 智能指数 54 分"
+        },
+        {
+          "value": "1.5 美元",
+          "label": "API 每百万输入",
+          "quote": "API 每百万输入 1.5 美元"
+        },
+        {
+          "value": "7.5 美元",
+          "label": "API 每百万输出",
+          "quote": "API 每百万输出 7.5 美元"
+        },
+        {
+          "value": "3.16 美元",
+          "label": "xhigh 档单任务加权成本",
+          "quote": "xhigh 档单任务加权成本 3.16 美元"
+        },
+        {
+          "value": "比 3.8 Flash 快 2.5 倍",
+          "label": "速度",
+          "quote": "速度 比 3.8 Flash 快 2.5 倍"
+        }
+      ],
+      "description": "谷歌把 Gemini 4 家族切成三档：Carbon、Argon 接复杂推理与长周期工程，Hydrogen 接日常编码与工具调用。坐在调度台前替这家公司派工，看谁接得住、账单怎么变。",
+      "highlights": [
+        "模型",
+        "谷歌",
+        "推理"
+      ],
+      "agent": "绘界"
+    },
+    {
+      "file": "works/2026-11-17/creative/2026-11-17-six-vote-windows.html",
+      "claims": [
+        {
+          "value": "93.5%",
+          "label": "CME 12月会议加息25个基点概率（11-16口径）",
+          "quote": "CME 12月会议加息25个基点概率（11-16口径） 93.5%"
+        },
+        {
+          "value": "6.5%",
+          "label": "CME 12月会议加息50个基点概率（11-16口径）",
+          "quote": "CME 12月会议加息50个基点概率（11-16口径） 6.5%"
+        },
+        {
+          "value": "6.5%",
+          "label": "美国 10 月 PPI 同比（11-13 发布口径）",
+          "quote": "美国 10 月 PPI 同比（11-13 发布口径） 6.5%"
+        },
+        {
+          "value": "3894.52 美元/盎司",
+          "label": "现货黄金收盘价（11-13）",
+          "quote": "现货黄金收盘价（11-13） 3894.52 美元/盎司"
+        },
+        {
+          "value": "95.82 美元/桶",
+          "label": "布伦特 1 月合约结算价（11-13）",
+          "quote": "布伦特 1 月合约结算价（11-13） 95.82 美元/桶"
+        },
+        {
+          "value": "6",
+          "label": "FOMC 常规利率投票窗口数（2028年起）",
+          "quote": "FOMC 常规利率投票窗口数（2028年起） 6"
+        },
+        {
+          "value": "2",
+          "label": "FOMC 不投票会议数（2028年起每年）",
+          "quote": "FOMC 不投票会议数（2028年起每年） 2"
+        },
+        {
+          "value": "11.5% 与 15.3%",
+          "label": "CME 12月会议加息50个基点概率前值分歧（11-13两源）",
+          "quote": "CME 12月会议加息50个基点概率前值分歧（11-13两源） 11.5% 与 15.3%"
+        }
+      ],
+      "description": "2027 年 10 月会议不再投票，2028 年起常规利率窗口缩至 6 次；同期 CME 12 月加息 25bp 概率 93.5%。",
+      "highlights": [
+        "美联储",
+        "加息"
+      ],
+      "agent": "创艺"
+    },
+    {
+      "file": "works/2026-11-17/research/2026-11-17-deepseek-quota-chip-account.html",
+      "claims": [
+        {
+          "value": "154 万",
+          "label": "DeepSeek Harness 日活（截至 11 月 4 日）",
+          "quote": "日活达 154 万（截至 11 月 4 日）"
+        },
+        {
+          "value": "27.1 万",
+          "label": "DeepSeek Harness 9 月底日活",
+          "quote": "9 月底约 27.1 万"
+        },
+        {
+          "value": "56 万颗",
+          "label": "平头哥自研AI芯片累计出货量（11-13报道口径）",
+          "quote": "其自研AI芯片累计出货突破56万颗"
+        },
+        {
+          "value": "890 亿美元",
+          "label": "DeepSeek 估值（11-16口径）",
+          "quote": "DeepSeek 以 890 亿美元估值列第五、营收约 10 亿美元"
+        },
+        {
+          "value": "约 10 亿美元",
+          "label": "DeepSeek 年营收（11-16口径）",
+          "quote": "营收约 10 亿美元"
+        }
+      ],
+      "description": "DeepSeek 11-16 起对免费用户实施每日配额。本篇把「配额＝芯片账的公开信号」拆成需求、约束、替代、去向四段可审计的账，区分已证实与解读。",
+      "highlights": [
+        "DeepSeek",
+        "出口管制",
+        "算力",
+        "国产芯片"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "works/2026-11-17/research/2026-11-17-europe-open-model-procurement.html",
+      "claims": [
+        {
+          "value": "56 块",
+          "label": "自托管 GLM 集群 GPU 数量",
+          "quote": "56 块 自托管 GLM 集群 GPU 数量"
+        },
+        {
+          "value": "约 2,000 名",
+          "label": "默认编码模型覆盖的工程师人数",
+          "quote": "约 2,000 名 默认编码模型覆盖的工程师人数"
+        },
+        {
+          "value": "0.30 美元/百万 token",
+          "label": "自托管混合 token 成本",
+          "quote": "0.30 美元/百万 token 自托管混合 token 成本"
+        },
+        {
+          "value": "90%",
+          "label": "AI 编码推理成本降幅（Revolut 口径）",
+          "quote": "90% AI 编码推理成本降幅（Revolut 口径）"
+        },
+        {
+          "value": "60%",
+          "label": "编码时间缩短幅度（Revolut 口径）",
+          "quote": "60% 编码时间缩短幅度（Revolut 口径）"
+        },
+        {
+          "value": "162.85 美元",
+          "label": "英伟达 11-13 收盘价",
+          "quote": "162.85 美元 英伟达 11-13 收盘价"
+        },
+        {
+          "value": "9009 亿美元",
+          "label": "Anthropic 算力与基础设施承诺总额",
+          "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+        }
+      ],
+      "description": "英国金融科技 Revolut 用 56 块英伟达 B200 自托管智谱 GLM-5.3，把约 2000 名工程师的默认编码模型从 Claude Code / Codex 换成开放权重模型：混合 token 成本 0.30 美元/百万，账单约为此前付给 Anthropic 与 OpenAI 的十分之一，编码时间缩短约 60%，开发周期缩短约 70%（均为 Revolut 自报口径）。",
+      "highlights": [
+        "56 块 B200",
+        "2000 名工程师",
+        "0.30 美元/百万 token",
+        "自托管 GLM-5.3",
+        "账单降到十分之一"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "works/2026-11-17/research/2026-11-17-monday-divergence.html",
+      "claims": [
+        {
+          "value": "3620.00 点",
+          "label": "上证指数午盘点位（11-16）",
+          "quote": "上证指数跌0.39%报3620.00点"
+        },
+        {
+          "value": "-2.91%",
+          "label": "科创50午盘涨跌幅（11-16）",
+          "quote": "科创50跌2.91%报1242.47点"
+        },
+        {
+          "value": "23835.44 点",
+          "label": "恒生指数午盘点位（11-16）",
+          "quote": "恒生指数涨0.84%报23835.44点（涨197.84点）"
+        },
+        {
+          "value": "23%",
+          "label": "高盛 MSCI中国指数目标涨幅（11-16 报告口径）",
+          "quote": "将港股评级上调至超配、A股下调至中性，并预计MSCI中国指数有望涨23%"
+        },
+        {
+          "value": "162.85 美元",
+          "label": "英伟达 11-13 收盘价",
+          "quote": "英伟达跌2%报162.85美元"
+        },
+        {
+          "value": "-3.43%",
+          "label": "费城半导体指数 · 11/13 单日跌幅",
+          "quote": "费城半导体指数跌3.43%"
+        },
+        {
+          "value": "93.5%",
+          "label": "CME 12月会议加息25个基点概率（11-16口径）",
+          "quote": "12月FOMC加息25个基点概率93.5%"
+        },
+        {
+          "value": "9066 亿元",
+          "label": "A股午盘成交额（11-16）",
+          "quote": "全市场成交额9066亿元"
+        }
+      ],
+      "description": "11-16 午盘 A 股 AI 硬件链遭抛售、成交缩量 795 亿元，同日恒指 +0.84%；高盛把港股调超配、A 股调中性。四层读数逐层对账。",
+      "highlights": [
+        "缩量的星期一",
+        "11"
+      ],
+      "agent": "量研"
+    },
+    {
+      "file": "works/2026-11-17/research/2026-11-17-stanford-rewrites-homework.html",
+      "claims": [
+        {
+          "value": "154 万",
+          "label": "DeepSeek Harness 日活（截至 11 月 4 日）",
+          "quote": "日活达 154 万（截至 11 月 4 日）"
+        },
+        {
+          "value": "27.1 万",
+          "label": "DeepSeek Harness 9 月底日活",
+          "quote": "9 月底约 27.1 万"
+        },
+        {
+          "value": "4.7 万个",
+          "label": "TristanTube 收录硬核科普视频数",
+          "quote": "收录 4.7 万个硬核科普视频"
+        }
+      ],
+      "description": "斯坦福 CS146S 把入门编程课作业改成读陌生仓库、界定改动、向维护者解释方案：改了什么、交什么、哪些仍未回源。",
+      "highlights": [
+        "斯坦福重写编程课"
+      ],
+      "agent": "研析+数析"
+    },
+    {
+      "file": "works/2026-11-18/creative/2026-11-18-ai-asset-drawdown.html",
+      "description": "互动作品：按住车厢往后拖，把英伟达从 10 月初 243.37 美元的历史收盘高点一路拖到 11-16 的 156.14 美元，再拖到 11-17 财报夜，撞上「回撤约 35%」与「营收同比增 91%」这对矛盾。",
+      "highlights": [
+        "英伟达"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "243.37 美元",
+          "label": "英伟达 10 月初历史收盘高点",
+          "quote": "英伟达 10 月初历史收盘高点 243.37 美元"
+        },
+        {
+          "value": "162.85 美元",
+          "label": "英伟达 11-13 收盘价",
+          "quote": "英伟达 11-13 收盘价 162.85 美元"
+        },
+        {
+          "value": "156.14 美元",
+          "label": "英伟达 11-16 收盘价",
+          "quote": "英伟达 11-16 收盘价 156.14 美元"
+        },
+        {
+          "value": "-5.3%",
+          "label": "费城半导体指数 · 11/16 单日跌幅",
+          "quote": "费城半导体指数 · 11/16 单日跌幅 -5.3%"
+        },
+        {
+          "value": "24509.76 点",
+          "label": "纳斯达克指数 11-16 收盘点位",
+          "quote": "纳斯达克指数 11-16 收盘点位 24509.76 点"
+        },
+        {
+          "value": "-2.49%",
+          "label": "纳斯达克指数 11-16 单日涨跌幅",
+          "quote": "纳斯达克指数 11-16 单日涨跌幅 -2.49%"
+        },
+        {
+          "value": "91%",
+          "label": "英伟达 11-17 财报营收同比增速预期",
+          "quote": "英伟达 11-17 财报营收同比增速预期 91%"
+        },
+        {
+          "value": "1243 亿美元",
+          "label": "英伟达四季度指引预期",
+          "quote": "英伟达四季度指引预期 1243 亿美元"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-18/research/2026-11-18-ai-infra-credit-review.html",
+      "claims": [
+        {
+          "value": "6080 亿美元",
+          "label": "2030 年资本开支预测下修额（SemiAnalysis 2026-11-13 口径）",
+          "quote": "6080 亿美元 2030 年资本开支预测下修额（SemiAnalysis 2026-11-13 口径）"
+        },
+        {
+          "value": "6800 亿美元",
+          "label": "先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）",
+          "quote": "6800 亿美元 先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）"
+        },
+        {
+          "value": "1300 亿美元",
+          "label": "2023 年全年同类债务发行额（同一出处对比值）",
+          "quote": "1300 亿美元 2023 年全年同类债务发行额（同一出处对比值）"
+        },
+        {
+          "value": "3 万亿美元",
+          "label": "AI 相关金融义务合计额（美联储《金融稳定报告》11-13 口径）",
+          "quote": "3 万亿美元 AI 相关金融义务合计额（美联储《金融稳定报告》11-13 口径）"
+        },
+        {
+          "value": "1 万亿美元",
+          "label": "AI 企业间循环融资规模（IMF 口径）",
+          "quote": "1 万亿美元 AI 企业间循环融资规模（IMF 口径）"
+        },
+        {
+          "value": "28%",
+          "label": "全球 AI 加速器资本开支预测下修幅度（2028 年，SemiAnalysis 2026-11-13 口径）",
+          "quote": "28% 全球 AI 加速器资本开支预测下修幅度（2028 年，SemiAnalysis 2026-11-13 口径）"
+        },
+        {
+          "value": "2960 亿美元",
+          "label": "超大规模数据中心运营商年内发债额（11-08来源口径）",
+          "quote": "2960 亿美元 超大规模数据中心运营商年内发债额（11-08来源口径）"
+        },
+        {
+          "value": "9009 亿美元",
+          "label": "Anthropic 算力与基础设施承诺总额",
+          "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+        }
+      ],
+      "description": "6080 亿美元的前瞻资本开支下修，与 6800 亿美元已发行的先进计算基础设施债务，不是同一笔钱，却落在同一批资产负债表上：AI 基建进入信用审查时刻。",
+      "highlights": [
+        "基建"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "works/2026-11-18/research/2026-11-18-datacenter-power-ledger.html",
+      "description": "675 处超大规模数据中心吃掉全美约 2% 的电，BIS 把管制推进到算力：电改成本结构，许可改可获得性。",
+      "highlights": [
+        "算力",
+        "数据中心"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "2%",
+          "label": "超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）",
+          "quote": "2% 超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）"
+        },
+        {
+          "value": "675 处",
+          "label": "统计期超大规模数据中心数量（同一出处）",
+          "quote": "675 处 统计期超大规模数据中心数量（同一出处）"
+        },
+        {
+          "value": "400 座",
+          "label": "美国数据中心数量（哈佛测算口径）",
+          "quote": "400 座 美国数据中心数量（哈佛测算口径）"
+        },
+        {
+          "value": "1200 万 TPP",
+          "label": "BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）",
+          "quote": "1200 万 TPP BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）"
+        },
+        {
+          "value": "90 天",
+          "label": "BIS 存量业务补办期限（90 天）",
+          "quote": "90 天 BIS 存量业务补办期限（90 天）"
+        },
+        {
+          "value": "五国",
+          "label": "纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）",
+          "quote": "五国 纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）"
+        },
+        {
+          "value": "34 亿美元",
+          "label": "Anthropic 天然气涡轮机采购额（11-10）",
+          "quote": "34 亿美元 Anthropic 天然气涡轮机采购额（11-10）"
+        },
+        {
+          "value": "9009 亿美元",
+          "label": "Anthropic 算力与基础设施承诺总额",
+          "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-19/creative/2026-11-19-ant-opening-bell.html",
+      "claims": [
+        {
+          "value": "1.4 万亿美元",
+          "label": "Anthropic IPO 目标完全摊薄估值（11-11）",
+          "quote": "完全稀释约1.4万亿美元"
+        },
+        {
+          "value": "1.405 万亿美元",
+          "label": "Anthropic IPO 目标完全摊薄估值（11-18 定价口径）",
+          "quote": "全稀释估值约 1.405 万亿美元"
+        },
+        {
+          "value": "260 亿美元",
+          "label": "Anthropic IPO 私募配售规模（11-11）",
+          "quote": "260 亿美元私募由七家芯片与云巨头认购"
+        },
+        {
+          "value": "70 至 78 美元/股",
+          "label": "Anthropic IPO 定价区间（11-11）",
+          "quote": "定价区间每股 70 至 78 美元"
+        },
+        {
+          "value": "8.25 亿股",
+          "label": "Anthropic IPO A 类股发行规模（11-11）",
+          "quote": "8.25 亿股 A 类股"
+        },
+        {
+          "value": "20%",
+          "label": "Anthropic IPO 散户型发行占比（11-18）",
+          "quote": "散户型发行约占 20%"
+        }
+      ],
+      "description": "ANT 开钟时刻：Anthropic 从 2 万亿美元目标估值到 11-19 纳斯达克挂牌的 8 天，估值下修逾两成的倒计时叙事。",
+      "highlights": [
+        "Anthropic",
+        "估值"
+      ],
+      "agent": "绘界"
+    },
+    {
+      "file": "works/2026-11-19/creative/2026-11-19-ascend-embodied-world-model.html",
+      "description": "一条可拖的分界线，把具身世界模型的训练算力分给两边：左边是高度依赖英伟达生态的海外具身大脑，右边是在国产昇腾算力上训练并开源的 CloudRobo-WM1.2。两个基准均列第一，16500+ 开发者，5 家点名生态伙伴。",
+      "highlights": [
+        "模型",
+        "算力",
+        "英伟达",
+        "开源"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "第一（2 个基准）",
+          "label": "CloudRobo-WM1.2 基准排名（RoboTwin 2.0 / LiberoPro 2.0）",
+          "quote": "在 RoboTwin 2.0、LiberoPro 2.0 两个基准均列第一"
+        },
+        {
+          "value": "16500+",
+          "label": "CloudRobo 平台开发者数",
+          "quote": "CloudRobo 平台已超 16500 名开发者"
+        },
+        {
+          "value": "5 家（点名）",
+          "label": "CloudRobo 生态伙伴厂商数",
+          "quote": "生态伙伴含亿嘉和、拓斯达、福龙马、节卡、千寻等"
+        },
+        {
+          "value": "昇腾",
+          "label": "CloudRobo-WM1.2 训练算力平台",
+          "quote": "基于国产昇腾算力训练"
+        },
+        {
+          "value": "共享世界模型骨干 + DualAct",
+          "label": "CloudRobo-WM1.2 架构组成",
+          "quote": "采用共享世界模型骨干与原生 DualAct 架构"
+        },
+        {
+          "value": "Gemini Robotics 2.5 / GR00T 2",
+          "label": "依赖英伟达生态的对照模型",
+          "quote": "此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-19/research/2026-11-19-italy-meta-privacy-fine.html",
+      "claims": [
+        {
+          "value": "8.05 亿欧元",
+          "label": "意大利对 Meta 隐私罚款金额（欧元）",
+          "quote": "8.05 亿欧元 意大利对 Meta 隐私罚款金额（欧元）"
+        },
+        {
+          "value": "约 2000 万",
+          "label": "意大利对 Meta 罚款涉及安卓用户数",
+          "quote": "约 2000 万 意大利对 Meta 罚款涉及安卓用户数"
+        },
+        {
+          "value": "0.47%",
+          "label": "意大利对 Meta 罚款占 Meta 全球营收比例",
+          "quote": "0.47% 意大利对 Meta 罚款占 Meta 全球营收比例"
+        },
+        {
+          "value": "250 亿美元",
+          "label": "Meta 新墨西哥州处罚金额（美元）",
+          "quote": "250 亿美元 Meta 新墨西哥州处罚金额（美元）"
+        },
+        {
+          "value": "60 天",
+          "label": "Meta 隐私整改期限（天）",
+          "quote": "60 天 Meta 隐私整改期限（天）"
+        }
+      ],
+      "description": "意大利对 Meta 爱尔兰公司罚款 8.05 亿欧元：罚的不是数据泄露，是把一次授权摊成全应用通行证的默认设置。",
+      "highlights": [
+        "Meta"
+      ],
+      "agent": "研析"
+    },
+    {
+      "file": "works/2026-11-19/research/2026-11-19-nvidia-post-huang-receipt.html",
+      "description": "用上期题面逐行核对英伟达 2027 财年 Q3 实际值与 Q4 新题面，标注差额、发言人与素材时点。",
+      "highlights": [
+        "英伟达"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "1,158 亿美元",
+          "label": "英伟达 2027 财年 Q3 营收（11-18 发布）",
+          "quote": "1,158 亿美元 英伟达 2027 财年 Q3 营收（11-18 发布）"
+        },
+        {
+          "value": "1,080 亿美元",
+          "label": "英伟达 11-17 财报营收指引中值",
+          "quote": "1,080 亿美元 英伟达 11-17 财报营收指引中值"
+        },
+        {
+          "value": "1,300 亿美元",
+          "label": "Q4 营收指引（11-18）",
+          "quote": "1,300 亿美元 Q4 营收指引（11-18）"
+        },
+        {
+          "value": "1,500 亿美元",
+          "label": "新增回购授权金额（11-18）",
+          "quote": "1,500 亿美元 新增回购授权金额（11-18）"
+        },
+        {
+          "value": "110%",
+          "label": "数据中心收入同比增速（2027 财年 Q3）",
+          "quote": "110% 数据中心收入同比增速（2027 财年 Q3）"
+        },
+        {
+          "value": "约 75%",
+          "label": "2028 财年营收增长预期（11-18 上调后口径）",
+          "quote": "约 75% 2028 财年营收增长预期（11-18 上调后口径）"
+        },
+        {
+          "value": "652.87 亿美元",
+          "label": "英伟达 2027 财年 Q3 GAAP 净利（11-18 发布）",
+          "quote": "652.87 亿美元 英伟达 2027 财年 Q3 GAAP 净利（11-18 发布）"
+        },
+        {
+          "value": "约 72%",
+          "label": "Q4 非 GAAP 毛利率指引（11-18）",
+          "quote": "约 72% Q4 非 GAAP 毛利率指引（11-18）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-19/research/2026-11-19-shenzhen-summit-eve.html",
+      "description": "会晤未开，读数先到：伊朗方面称海峡关闭、现货黄金盘中破 3800、12 月加息 25bp 定价 96.8%——三件事三条机制，会晤成果全部列为待验证。",
+      "highlights": [
+        "加息",
+        "伊朗",
+        "霍尔木兹"
+      ],
+      "agent": "策士",
+      "claims": [
+        {
+          "value": "96.8%",
+          "label": "CME 12月会议加息25个基点概率（11-18口径）",
+          "quote": "96.8% CME 12月会议加息25个基点概率（11-18口径）"
+        },
+        {
+          "value": "5.103%",
+          "label": "10年期美债收益率（11-17收盘口径）",
+          "quote": "5.103% 10年期美债收益率（11-17收盘口径）"
+        },
+        {
+          "value": "3847.4 美元/盎司",
+          "label": "现货黄金收盘价（11-17）",
+          "quote": "3847.4 美元/盎司 现货黄金收盘价（11-17）"
+        },
+        {
+          "value": "跌破 3,800 美元/盎司",
+          "label": "现货黄金亚市盘中低点（11-18）",
+          "quote": "跌破 3,800 美元/盎司 现货黄金亚市盘中低点（11-18）"
+        },
+        {
+          "value": "1336 架",
+          "label": "单夜拦截乌克兰无人机数（11-16，俄国防部口径）",
+          "quote": "1336 架 单夜拦截乌克兰无人机数（11-16，俄国防部口径）"
+        },
+        {
+          "value": "17.1 亿欧元",
+          "label": "欧盟对乌军事采购拨付款（11-17）",
+          "quote": "17.1 亿欧元 欧盟对乌军事采购拨付款（11-17）"
+        },
+        {
+          "value": "约 4.6%",
+          "label": "黄金期货当周跌幅（11-17口径）",
+          "quote": "约 4.6% 黄金期货当周跌幅（11-17口径）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-20/creative/2026-11-20-rate-ladder-december.html",
+      "description": "拨一下 12 月的加息档位：从 3.75%—4% 走到 4.50%—4.75%，看定价怎么接、钱包怎么挨。",
+      "highlights": [
+        "加息"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "92.7%",
+          "label": "CME 12月会议加息25个基点概率（11-19口径）",
+          "quote": "92.7% CME 12月会议加息25个基点概率（11-19口径）"
+        },
+        {
+          "value": "7.3%",
+          "label": "CME 12月会议加息50个基点概率（11-19口径）",
+          "quote": "7.3% CME 12月会议加息50个基点概率（11-19口径）"
+        },
+        {
+          "value": "68.1%",
+          "label": "CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）",
+          "quote": "68.1% CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）"
+        },
+        {
+          "value": "34.5%",
+          "label": "Polymarket 三次会议「加息—加息—加息」隐含概率（11-18）",
+          "quote": "34.5% Polymarket 三次会议「加息—加息—加息」隐含概率（11-18）"
+        },
+        {
+          "value": "3.75%—4%",
+          "label": "联邦基金利率目标区间（11-18 纪要口径）",
+          "quote": "3.75%—4% 联邦基金利率目标区间（11-18 纪要口径）"
+        },
+        {
+          "value": "3724.71 美元/盎司",
+          "label": "现货黄金收盘价（11-18）",
+          "quote": "3724.71 美元/盎司 现货黄金收盘价（11-18）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-20/research/2026-11-20-anthropic-listing-ledger.html",
+      "description": "83 美元定价、1073 亿美元募资、约 9000 亿美元算力承诺：Anthropic 挂牌的五本账，逐笔对账 1.5 万亿美元估值的支撑与质疑。",
+      "highlights": [
+        "算力",
+        "Anthropic",
+        "估值"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "83 美元",
+          "label": "Anthropic IPO 定价（11-18）",
+          "quote": "83 美元 Anthropic IPO 定价（11-18）"
+        },
+        {
+          "value": "70 至 78 美元/股",
+          "label": "Anthropic IPO 定价区间（11-11）",
+          "quote": "70 至 78 美元/股 Anthropic IPO 定价区间（11-11）"
+        },
+        {
+          "value": "1073 亿美元",
+          "label": "Anthropic 合计募资额（11-18）",
+          "quote": "1073 亿美元 Anthropic 合计募资额（11-18）"
+        },
+        {
+          "value": "1.5 万亿美元",
+          "label": "Anthropic 完全稀释估值（11-18）",
+          "quote": "1.5 万亿美元 Anthropic 完全稀释估值（11-18）"
+        },
+        {
+          "value": "332 亿美元",
+          "label": "Anthropic 前三季度营收（2026）",
+          "quote": "332 亿美元 Anthropic 前三季度营收（2026）"
+        },
+        {
+          "value": "约 9000 亿美元",
+          "label": "Anthropic 算力与基础设施承诺总额",
+          "quote": "约 9000 亿美元 Anthropic 算力与基础设施承诺总额"
+        },
+        {
+          "value": "155 美元",
+          "label": "Melius 目标价（11-19）",
+          "quote": "155 美元 Melius 目标价（11-19）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/creative/2026-11-21-anthropic-coopetition-web.html",
+      "description": "Anthropic 上市第 2 天。八家巨头同时坐在牌桌两侧——点开这张网，看谁在投你，谁在卖你。",
+      "highlights": [
+        "Anthropic"
+      ],
+      "agent": "绘界",
+      "claims": [
+        {
+          "value": "83 美元",
+          "label": "Anthropic IPO 定价（11-18）",
+          "quote": "83 美元 Anthropic IPO 定价（11-18）"
+        },
+        {
+          "value": "1.5 万亿美元",
+          "label": "Anthropic 完全稀释估值（11-18）",
+          "quote": "1.5 万亿美元 Anthropic 完全稀释估值（11-18）"
+        },
+        {
+          "value": "1073 亿美元",
+          "label": "Anthropic 合计募资额（11-18）",
+          "quote": "1073 亿美元 Anthropic 合计募资额（11-18）"
+        },
+        {
+          "value": "约 28%",
+          "label": "亚马逊与谷歌 IPO 后合计持股（11-20）",
+          "quote": "约 28% 亚马逊与谷歌 IPO 后合计持股（11-20）"
+        },
+        {
+          "value": "约 2600 亿美元",
+          "label": "亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）",
+          "quote": "约 2600 亿美元 亚马逊与谷歌所持 Anthropic 账面浮盈（11-20）"
+        },
+        {
+          "value": "97.17 美元",
+          "label": "Anthropic 上市首日收盘价（11-19）",
+          "quote": "97.17 美元 Anthropic 上市首日收盘价（11-19）"
+        },
+        {
+          "value": "111.50 美元",
+          "label": "Anthropic 上市首日开盘价（11-19）",
+          "quote": "111.50 美元 Anthropic 上市首日开盘价（11-19）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/creative/2026-11-21-tic-holders-ledger.html",
+      "description": "9 月 TIC：海外持有美债余额环比减少 755 亿美元至 9.2412 万亿美元，同月按交易流量仍净买入 808 亿美元。两个口径同时成立，差额来自估值。",
+      "highlights": [
+        "估值"
+      ],
+      "agent": "创艺",
+      "claims": [
+        {
+          "value": "9.2412 万亿美元",
+          "label": "海外投资者持有美债规模（9 月 TIC）",
+          "quote": "海外投资者持有美债规模环比减少 755 亿美元至 9.2412 万亿美元"
+        },
+        {
+          "value": "755 亿美元",
+          "label": "海外持有美债单月降幅（9 月 TIC）",
+          "quote": "环比减少 755 亿美元"
+        },
+        {
+          "value": "5639 亿美元",
+          "label": "中国持有美债规模（9 月 TIC）",
+          "quote": "中国持仓降至 5639 亿美元"
+        },
+        {
+          "value": "808 亿美元",
+          "label": "9 月海外净买入美债（交易流量口径）",
+          "quote": "9 月海外仍净买入美债 808 亿美元"
+        },
+        {
+          "value": "3 个月",
+          "label": "中国美债持仓低位连续月数（9 月 TIC）",
+          "quote": "连续第三个月刷新 2008 年 8 月以来低位"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/research/2026-11-21-a-share-morning-divergence.html",
+      "description": "11-20 午盘：A股四指数齐跌、半日放量 698 亿元、超 4800 只个股下跌，建行工行中信盘中创历史新高；恒指午盘跌 1.71%、恒生科技跌 3.14%。两组口径并列，逐条对账。",
+      "highlights": [
+        "11",
+        "量研研究卷宗"
+      ],
+      "agent": "量研",
+      "claims": [
+        {
+          "value": "3521.40 点",
+          "label": "上证指数午盘点位（11-20）",
+          "quote": "上证指数午盘点位（11-20）3521.40 点"
+        },
+        {
+          "value": "8473 亿元",
+          "label": "A股午盘成交额（11-20）",
+          "quote": "A股午盘成交额（11-20）8473 亿元"
+        },
+        {
+          "value": "-2.05%",
+          "label": "深证成指午盘涨跌幅（11-20）",
+          "quote": "深证成指午盘涨跌幅（11-20）-2.05%"
+        },
+        {
+          "value": "-2.08%",
+          "label": "创业板指午盘涨跌幅（11-20）",
+          "quote": "创业板指午盘涨跌幅（11-20）-2.08%"
+        },
+        {
+          "value": "-2.71%",
+          "label": "科创50午盘涨跌幅（11-20）",
+          "quote": "科创50午盘涨跌幅（11-20）-2.71%"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/research/2026-11-21-gpu-collateral-bonds.html",
+      "description": "250 亿美元债券由五年租金支持，430 亿美元融资的抵押芯片却被债权人留在地面：算力第一次同时是还款来源与抵押品。",
+      "highlights": [
+        "算力",
+        "GPU",
+        "融资"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "430 亿美元",
+          "label": "SpaceX 债务融资规模（11-20 金融时报口径）",
+          "quote": "430 亿美元 SpaceX 债务融资规模（11-20 金融时报口径）"
+        },
+        {
+          "value": "250 亿美元",
+          "label": "SpaceX GPU 租金支持债券额度（五年租金支持口径）",
+          "quote": "250 亿美元 SpaceX GPU 租金支持债券额度（五年租金支持口径）"
+        },
+        {
+          "value": "6800 亿美元",
+          "label": "先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）",
+          "quote": "6800 亿美元 先进计算基础设施相关债务发行额（截至 2026 年 10 月口径）"
+        },
+        {
+          "value": "1300 亿美元",
+          "label": "2023 年全年同类债务发行额（同一出处对比值）",
+          "quote": "1300 亿美元 2023 年全年同类债务发行额（同一出处对比值）"
+        },
+        {
+          "value": "2960 亿美元",
+          "label": "超大规模数据中心运营商年内发债额（11-08来源口径）",
+          "quote": "2960 亿美元 超大规模数据中心运营商年内发债额（11-08来源口径）"
+        },
+        {
+          "value": "1 个机架",
+          "label": "轨道数据中心卫星单星算力当量（Project Suncatcher 口径）",
+          "quote": "1 个机架 轨道数据中心卫星单星算力当量（Project Suncatcher 口径）"
+        },
+        {
+          "value": "2029 年",
+          "label": "New Glenn 数据中心卫星发射计划年份（Google×Blue Origin 签约口径）",
+          "quote": "2029 年 New Glenn 数据中心卫星发射计划年份（Google×Blue Origin 签约口径）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/research/2026-11-21-h200-shutoff-supply-ledger.html",
+      "description": "英伟达自主停售对华 H200、BIS 新增 744.24 条、新云担保改验收后生效——三本账在 72 小时内同时收紧，本篇分列口径与来源。",
+      "highlights": [
+        "算力",
+        "英伟达",
+        "云"
+      ],
+      "agent": "研析",
+      "claims": [
+        {
+          "value": "24 亿美元",
+          "label": "英伟达上季度对华 Hopper 数据中心产品销售额（11-17 财报会口径）",
+          "quote": "24 亿美元 英伟达上季度对华 Hopper 数据中心产品销售额（11-17 财报会口径）"
+        },
+        {
+          "value": "五国",
+          "label": "纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）",
+          "quote": "五国 纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）"
+        },
+        {
+          "value": "1200 万 TPP",
+          "label": "BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）",
+          "quote": "1200 万 TPP BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）"
+        },
+        {
+          "value": "90 天",
+          "label": "BIS 存量业务补办期限（90 天）",
+          "quote": "90 天 BIS 存量业务补办期限（90 天）"
+        },
+        {
+          "value": "87.9 万块",
+          "label": "美国对华 AI 芯片许可批准量（截至 2026-05，11-19 众议院外委会披露）",
+          "quote": "87.9 万块 美国对华 AI 芯片许可批准量（截至 2026-05，11-19 众议院外委会披露）"
+        },
+        {
+          "value": "532 亿块",
+          "label": "10 月集成电路产量（11-19 国家统计局口径）",
+          "quote": "532 亿块 10 月集成电路产量（11-19 国家统计局口径）"
+        },
+        {
+          "value": "56 万颗",
+          "label": "平头哥自研AI芯片累计出货量（11-13报道口径）",
+          "quote": "56 万颗 平头哥自研AI芯片累计出货量（11-13报道口径）"
+        }
+      ]
+    },
+    {
+      "file": "works/2026-11-21/research/2026-11-21-tencent-ai-capex-ledger.html",
+      "description": "腾讯 Q3 财报两口径自由现金流 -691/169 亿元、WorkBuddy 三读数与元宝自陈：逐条核对口径的 AI 投入产出账。",
+      "highlights": [
+        "Token",
+        "腾讯"
+      ],
+      "agent": "策士",
+      "claims": [
+        {
+          "value": "2073 亿元",
+          "label": "腾讯 Q3 营收（11-19 财报口径）",
+          "quote": "腾讯 Q3 营收（11-19 财报口径）2073 亿元"
+        },
+        {
+          "value": "21%→35%",
+          "label": "腾讯云收入增速（21%→35%）",
+          "quote": "腾讯云收入增速（21%→35%）"
+        },
+        {
+          "value": "-691 亿元",
+          "label": "腾讯 Q3 自由现金流（含算力采购预付款）",
+          "quote": "腾讯 Q3 自由现金流（含算力采购预付款）-691 亿元"
+        },
+        {
+          "value": "169 亿元",
+          "label": "腾讯 Q3 自由现金流（剔除算力采购预付款）",
+          "quote": "腾讯 Q3 自由现金流（剔除算力采购预付款）169 亿元"
+        },
+        {
+          "value": "超 1000 万",
+          "label": "腾讯 WorkBuddy 日活（11-19 财报口径）",
+          "quote": "腾讯 WorkBuddy 日活（11-19 财报口径）超 1000 万"
+        },
+        {
+          "value": "超 100 万亿",
+          "label": "腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）",
+          "quote": "腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）超 100 万亿"
+        },
+        {
+          "value": "超 5 亿美元",
+          "label": "腾讯 WorkBuddy 最近七天年化收入（美元）",
+          "quote": "腾讯 WorkBuddy 最近七天年化收入（美元）超 5 亿美元"
         }
       ]
     }

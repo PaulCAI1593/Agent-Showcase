@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>模型公司的早会 —— 一个任务到底该派给谁</title>
+<meta name="showcase-beat" content="成本与普惠">
+<meta name="description" content="谷歌把 Gemini 4 家族切成三档：Carbon、Argon 接复杂推理与长周期工程，Hydrogen 接日常编码与工具调用。坐在调度台前替这家公司派工，看谁接得住、账单怎么变。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EFE6D1'/%3E%3Crect x='5' y='8' width='22' height='16' fill='none' stroke='%23191510' stroke-width='2'/%3E%3Cpath d='M11 16h10' stroke='%23A62A1A' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+
+:root{
+  /* 纸与墨 —— 印刷车间的工作台 */
+  --desk:#D5C9AC;
+  --paper:#EFE6D1;
+  --paper-lit:#FBF6E9;
+  --paper-mid:#E4D9BE;
+  --paper-deep:#D8CBAE;
+  --ink:#191510;
+  --ink-2:#413A2E;
+  --ink-3:#574E41;
+  --rule:#C3B593;
+  --rule-2:#A4936F;
+  /* 三个岗位 */
+  --carbon:#1C3A5E;
+  --argon:#2A5940;
+  --hydrogen:#8E4F0C;
+  /* 印泥 */
+  --stamp:#9C2617;
+  --stamp-2:#7C1D10;
+  --gold:#8A6A1E;
+  --serif:"Noto Serif SC",Georgia,"Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  --pad:clamp(16px,3.6vw,48px);
+  --maxw:1260px;
+  --lift:0 1px 1px rgba(25,21,16,.10), 0 10px 26px -12px rgba(25,21,16,.42);
+  --lift-2:0 1px 1px rgba(25,21,16,.12), 0 22px 44px -18px rgba(25,21,16,.50);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--desk);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:
+    linear-gradient(180deg,rgba(25,21,16,.10),rgba(25,21,16,0) 220px),
+    radial-gradient(120% 60% at 50% -10%,rgba(255,250,236,.55),rgba(255,250,236,0) 60%);
+  background-repeat:no-repeat;
+}
+::selection{background:#E9C46A;color:#191510}
+:focus-visible{outline:2px solid var(--carbon);outline-offset:3px;border-radius:3px}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:700;line-height:1.24;letter-spacing:-.01em}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.sheet{max-width:var(--maxw);margin:0 auto;padding:var(--pad) var(--pad) 72px}
+.panel{background:var(--paper);border:1px solid var(--rule);box-shadow:var(--lift)}
+.eyebrow-none{}
+.lede{font-family:var(--serif);font-size:clamp(15px,1.6vw,17px);color:var(--ink-2);line-height:1.75}
+.src{font-size:12.5px;line-height:1.6;color:var(--ink-3)}
+.num-label{font-size:12.5px;letter-spacing:.04em;color:var(--ink-3)}
+
+/* ── 页眉 ───────────────────────────────── */
+.masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:22px 0 20px;border-bottom:3px double var(--rule-2)}
+.masthead__id{display:flex;align-items:center;gap:12px}
+.clock{flex:none}
+.masthead__name{font-family:var(--serif);font-size:15px;color:var(--ink-2)}
+.masthead__name b{font-weight:700}
+.masthead__meta{font-size:12.5px;color:var(--ink-3);text-align:right}
+
+/* ── 开场 ───────────────────────────────── */
+.hero{padding:44px 0 8px}
+.hero__title{font-size:clamp(34px,6.4vw,74px);letter-spacing:-.025em;line-height:1.06}
+.hero__title em{font-style:normal;color:var(--stamp)}
+.hero__lede{margin-top:16px;max-width:62ch}
+.hero__ask{margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-family:var(--serif);
+  font-size:clamp(16px,2vw,20px);color:var(--ink);
+  border-bottom:2px solid var(--ink);padding-bottom:6px}
+.hero__ask .dot{width:9px;height:9px;background:var(--stamp);border-radius:50%}
+
+/* ── 通用小节头 ───────────────────────────── */
+.sec{margin-top:52px}
+.sec__head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid var(--rule);padding-bottom:9px;margin-bottom:22px}
+.sec__head h2{font-size:clamp(22px,3.1vw,31px)}
+.sec__head .sec__note{font-size:13px;color:var(--ink-3)}
+
+/* ── 工单轨 ───────────────────────────────── */
+.rail{position:relative;margin:26px 0 0;padding:26px 0 8px;
+  border-top:1px solid var(--rule-2);
+  background:linear-gradient(180deg,rgba(25,21,16,.05),rgba(25,21,16,0) 26px)}
+.rail__bar{position:absolute;left:-8px;right:-8px;top:16px;height:7px;border-radius:4px;
+  background:linear-gradient(180deg,#C9BC9C,#8E8367 55%,#6E6450);
+  box-shadow:0 2px 5px rgba(25,21,16,.30)}
+.rail__row{display:grid;grid-template-columns:repeat(auto-fill,minmax(214px,1fr));gap:16px}
+
+/* 工单：纸片 + 骑缝齿 + 夹子 */
+.ticket{position:relative;text-align:left;background:var(--paper-lit);
+  border:1px solid var(--rule-2);border-radius:3px;padding:34px 15px 15px;
+  box-shadow:var(--lift);cursor:pointer;
+  transition:transform .22s cubic-bezier(.2,.8,.3,1),box-shadow .22s ease,border-color .2s ease;
+  -webkit-mask-image:radial-gradient(circle 6px at 7px 0,transparent 99%,#000 100%);
+  -webkit-mask-size:14px 14px;mask-image:radial-gradient(circle 6px at 7px 0,transparent 99%,#000 100%);
+  mask-size:14px 14px;mask-repeat:repeat-x}
+.ticket:nth-child(2n){-webkit-mask-position:7px 0;mask-position:7px 0}
+.ticket::before{content:"";position:absolute;left:50%;top:-9px;width:26px;height:18px;transform:translateX(-50%);
+  background:linear-gradient(180deg,#9E9377,#6F6653 60%,#585040);border-radius:3px 3px 1px 1px;
+  box-shadow:0 2px 4px rgba(25,21,16,.34)}
+.ticket::after{content:"";position:absolute;left:50%;top:-9px;width:12px;height:3px;transform:translateX(-50%);
+  background:rgba(25,21,16,.32);border-radius:2px}
+.ticket:hover,.ticket:focus-visible{transform:translateY(-4px);box-shadow:var(--lift-2);border-color:var(--ink-2)}
+.ticket[aria-pressed="true"]{transform:translateY(-6px);border-color:var(--stamp);
+  box-shadow:var(--lift-2),0 0 0 2px rgba(166,42,26,.24)}
+.ticket[disabled]{cursor:default;opacity:.42;filter:grayscale(.55)}
+.ticket__no{font-family:var(--mono);font-size:12px;letter-spacing:.10em;color:var(--ink-3)}
+.ticket__title{font-family:var(--serif);font-size:16.5px;font-weight:700;line-height:1.42;margin:5px 0 9px}
+.ticket__meta{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border-top:1px dashed var(--rule);padding-top:8px}
+.notch{display:flex;gap:3px}
+.notch i{width:7px;height:12px;background:var(--rule-2);border-radius:1px}
+.notch i.on{background:var(--ink)}
+.ticket__tier{font-size:12px;color:var(--ink-3)}
+.ticket__flag{margin-top:9px;font-size:12px;line-height:1.5;display:none}
+.ticket[aria-pressed="true"] .ticket__flag{display:block}
+
+/* ── 三个工位 ─────────────────────────────── */
+.desks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:8px}
+.desk{position:relative;background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;
+  box-shadow:var(--lift);padding:0;overflow:hidden;
+  transition:transform .24s cubic-bezier(.2,.8,.3,1),box-shadow .24s ease}
+.desk:hover{transform:translateY(-3px);box-shadow:var(--lift-2)}
+.desk__head{display:flex;align-items:center;gap:12px;padding:15px 16px 13px;color:#FBF6E9}
+.desk--carbon .desk__head{background:var(--carbon)}
+.desk--argon .desk__head{background:var(--argon)}
+.desk--hydrogen .desk__head{background:var(--hydrogen)}
+.desk__badge{flex:none}
+.desk__name{font-family:var(--serif);font-size:23px;font-weight:700;line-height:1.1}
+.desk__role{font-size:12.5px;opacity:.92;letter-spacing:.14em}
+.desk__body{padding:14px 16px 16px}
+.desk__duty{font-family:var(--serif);font-size:15px;line-height:1.6;color:var(--ink)}
+.desk__duty em{font-style:normal;background:rgba(166,42,26,.10);padding:0 2px}
+.desk__cap{margin-top:12px;border-top:1px solid var(--rule);padding-top:11px}
+.cap__row{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:baseline;
+  font-size:12.5px;color:var(--ink-3)}
+.cap__row b{font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:700}
+.desk__more{margin-top:12px;border-top:1px solid var(--rule);padding-top:12px;
+  display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.desk__more > div{overflow:hidden}
+.desk:hover .desk__more,.desk:focus-within .desk__more{grid-template-rows:1fr}
+.desk__toggle{margin-top:11px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);
+  background:none;border:0;padding:2px 0;cursor:pointer;border-bottom:1px dashed var(--rule-2)}
+.desk__toggle svg{width:13px;height:13px;flex:none}
+@media (hover:none){.desk__more{grid-template-rows:1fr}.desk__toggle{display:none}}
+
+/* ── 派工台 ───────────────────────────────── */
+.dispatch{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start}
+.dispatch__left{min-width:0}
+.railwrap{background:var(--paper-mid);border:1px solid var(--rule);border-radius:4px;padding:4px 18px 16px;
+  box-shadow:var(--lift)}
+
+/* 难度尺 */
+.scale{margin:22px 0 6px}
+.scale__track{position:relative;height:36px}
+.scale__line{position:absolute;left:0;right:0;top:16px;height:2px;background:var(--rule-2)}
+.scale__ticks{position:absolute;left:0;right:0;top:8px;display:flex;justify-content:space-between}
+.scale__ticks span{width:2px;height:18px;background:var(--ink-3);opacity:.55}
+.scale__labels{display:grid;grid-template-columns:repeat(5,1fr);margin-top:2px}
+.scale__labels b{font-size:12px;font-weight:400;color:var(--ink-3);text-align:center;line-height:1.3}
+.scale__labels b.on{color:var(--ink);font-weight:700}
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:none;margin:0;display:block}
+.slider::-webkit-slider-runnable-track{height:36px;background:transparent}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:var(--stamp);border:3px solid var(--paper-lit);box-shadow:0 2px 6px rgba(25,21,16,.42);cursor:grab;margin-top:5px}
+.slider::-moz-range-track{height:36px;background:transparent}
+.slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--stamp);
+  border:3px solid var(--paper-lit);box-shadow:0 2px 6px rgba(25,21,16,.42);cursor:grab}
+.scale__read{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:8px;
+  padding:10px 12px;background:var(--paper-lit);border:1px solid var(--rule)}
+.scale__read strong{font-family:var(--serif);font-size:19px}
+.scale__read .who{font-family:var(--serif);font-size:15px;color:var(--ink-2)}
+.scale__read .who b{color:var(--ink)}
+
+/* 收据 */
+.receipt{background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:3px;
+  box-shadow:var(--lift);padding:0 0 16px;position:relative;
+  -webkit-mask-image:radial-gradient(circle 5px at 6px 100%,transparent 98%,#000 100%);
+  mask-image:radial-gradient(circle 5px at 6px 100%,transparent 98%,#000 100%);
+  -webkit-mask-size:12px 12px;mask-size:12px 12px;mask-repeat:repeat-x}
+.receipt__top{border-bottom:1px dashed var(--rule-2);padding:12px 16px 10px;text-align:center}
+.receipt__title{font-family:var(--serif);font-size:15px;font-weight:700}
+.receipt__date{font-size:12px;color:var(--ink-3);letter-spacing:.08em}
+.receipt__rows{padding:12px 16px 4px}
+.rrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:6px 0;border-bottom:1px dotted var(--rule);font-size:13.5px}
+.rrow:last-child{border-bottom:0}
+.rrow span{color:var(--ink-2)}
+.rrow b{font-family:var(--mono);font-size:14px;font-weight:500}
+.rrow.total{border-top:1px solid var(--ink-2);border-bottom:0;margin-top:6px;padding-top:9px}
+.rrow.total b{font-size:21px;font-weight:700}
+.rrow.gap b{color:var(--stamp);font-weight:700}
+.receipt__note{padding:2px 16px 0;font-size:12px;color:var(--ink-3);line-height:1.55}
+.receipt__empty{padding:16px;text-align:center;font-size:13px;color:var(--ink-3)}
+
+/* 戳 */
+.stamp{position:absolute;right:10px;bottom:6px;transform:rotate(-9deg);
+  font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.10em;
+  color:var(--stamp);border:2.5px solid var(--stamp);border-radius:4px;padding:4px 9px;
+  opacity:0;transform:rotate(-9deg) scale(1.5);pointer-events:none;
+  -webkit-mask-image:radial-gradient(circle 3px at 12% 22%,transparent 96%,#000 100%);
+  mask-image:radial-gradient(circle 3px at 12% 22%,transparent 96%,#000 100%)}
+.stamp.on{animation:stampdown .42s cubic-bezier(.2,1.3,.4,1) forwards}
+.stamp.ghost{color:var(--ink-3);border-color:var(--ink-3)}
+@keyframes stampdown{
+  0%{opacity:0;transform:rotate(-9deg) scale(1.7)}
+  55%{opacity:.95;transform:rotate(-9deg) scale(.94)}
+  100%{opacity:.92;transform:rotate(-9deg) scale(1)}
+}
+
+/* ── 工位：接单堆 / 样片 / 派工条 ───────────── */
+.desk__stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px;min-height:6px;
+  border-top:1px dashed var(--rule);padding-top:11px}
+.desk__stack:empty::after{content:"今天还没接单";font-size:12px;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--paper-mid);border:1px solid var(--rule-2);
+  border-radius:3px;padding:3px 8px;font-size:12px;color:var(--ink-2);max-width:100%}
+.chip b{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400}
+.chip.bad{background:rgba(166,42,26,.10);border-color:rgba(166,42,26,.42);color:var(--stamp-2)}
+.sample{margin-top:11px;border:1px solid var(--rule-2);overflow:hidden;line-height:0;
+  padding:8px;background:var(--paper-lit)}
+.desk.fit{outline:3px solid var(--gold);outline-offset:2px}
+.desk.open .desk__more{grid-template-rows:1fr}
+
+.assign{margin-top:18px;border-top:1px solid var(--rule);padding-top:15px}
+.assign__q{font-family:var(--serif);font-size:15px;margin-bottom:9px}
+.assign__q b{font-weight:700}
+.assign__row{display:flex;flex-wrap:wrap;gap:9px}
+.take{flex:1 1 120px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;
+  background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;padding:10px 13px;cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.take b{font-family:var(--serif);font-size:16px;font-weight:700}
+.take span{font-size:12px;color:var(--ink-3)}
+.take:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+.take--carbon{border-color:var(--carbon)}.take--argon{border-color:var(--argon)}.take--hydrogen{border-color:var(--hydrogen)}
+.take--carbon:hover{background:rgba(28,58,94,.07)}.take--argon:hover{background:rgba(42,89,64,.07)}
+.take--hydrogen:hover{background:rgba(142,79,12,.08)}
+.take[disabled]{opacity:.45;cursor:default;transform:none;box-shadow:none}
+.rowbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;border-top:1px solid var(--rule);padding-top:15px}
+.quote{font-family:var(--serif);font-size:15px;line-height:1.75;color:var(--ink-2);
+  border-top:1px solid var(--rule);padding-top:11px;margin-top:12px}
+.confirm{margin-top:12px;padding:12px 14px;background:rgba(166,42,26,.07);border:1px solid rgba(166,42,26,.34);
+  font-size:13.5px;line-height:1.65}
+.confirm b{color:var(--stamp)}
+.confirm__btns{display:flex;gap:9px;margin-top:11px;flex-wrap:wrap}
+.ticket.done{opacity:.5}
+.ticket.done .ticket__title{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--rule-2)}
+.tier-switch{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tier-switch button{font-size:12.5px;background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:3px;
+  padding:5px 10px;cursor:pointer;color:var(--ink-2)}
+.tier-switch button[aria-pressed="true"]{background:var(--hydrogen);border-color:var(--hydrogen);color:#FBF6E9}
+@media (max-width:560px){.desk__name{font-size:21px}}
+
+/* ── 账本 ───────────────────────────────── */
+.ledger{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.book{background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;box-shadow:var(--lift);padding:18px 18px 20px}
+.book__cap{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.35}
+.book__q{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.book__big{font-family:var(--serif);font-size:clamp(38px,5.2vw,58px);font-weight:700;line-height:1;
+  letter-spacing:-.02em;margin:12px 0 2px}
+.book__unit{font-size:13.5px;color:var(--ink-2)}
+.book__algo{margin-top:14px;border-top:1px solid var(--rule);padding-top:11px;font-size:12.5px;
+  line-height:1.65;color:var(--ink-2)}
+.book__algo b{color:var(--ink)}
+.book__warn{margin-top:11px;background:rgba(166,42,26,.08);border:1px solid rgba(166,42,26,.30);
+  padding:8px 11px;font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.book__warn b{color:var(--stamp)}
+.cache{margin-top:16px}
+.cache__val{display:flex;align-items:baseline;gap:9px;margin-top:2px}
+.cache__val b{font-family:var(--serif);font-size:34px;font-weight:700;letter-spacing:-.02em}
+.cache__val span{font-size:13px;color:var(--ink-2)}
+.ratio{display:flex;gap:8px;align-items:baseline;margin-top:9px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+.ratio b{font-size:14px;color:var(--ink)}
+.anchormark{display:flex;align-items:center;gap:9px;margin-top:11px;font-size:12px;color:var(--ink-3)}
+.anchormark i{flex:none;width:26px;height:0;border-top:2px dashed var(--stamp)}
+
+/* 对照条 */
+.compare{margin-top:18px;background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;
+  box-shadow:var(--lift);padding:18px}
+.compare h3{font-size:17px;margin-bottom:4px}
+.cmp{margin-top:16px}
+.cmp__row{display:grid;grid-template-columns:minmax(140px,210px) 1fr;gap:12px;align-items:center;margin-top:10px}
+.cmp__name{font-size:13px;color:var(--ink-2);line-height:1.45}
+.cmp__name b{display:block;color:var(--ink);font-size:14px}
+.cmp__bar{position:relative;height:26px;background:var(--paper-mid);border:1px solid var(--rule)}
+.cmp__fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink-2);opacity:.30}
+.cmp__fill.hot{background:var(--hydrogen);opacity:1}
+.cmp__fill.cool{background:var(--carbon);opacity:.85}
+.cmp__val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:12px;
+  color:var(--ink);background:rgba(251,246,233,.82);padding:0 4px}
+
+/* 用量 */
+.usage{margin-top:18px}
+.ubars{margin-top:14px}
+.ubar{margin-top:13px}
+.ubar__head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px}
+.ubar__head b{font-family:var(--serif);font-size:15px}
+.ubar__track{height:34px;margin-top:5px;background:var(--paper-mid);border:1px solid var(--rule);position:relative}
+.ubar__fill{position:absolute;inset:0 auto 0 0;background:var(--ink);opacity:.22}
+.ubar__fill.deep{background:var(--carbon);opacity:.9}
+.ubar__tag{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:12.5px}
+
+/* ── 挑战 ───────────────────────────────── */
+.challenge{margin-top:18px;background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;
+  box-shadow:var(--lift);padding:18px}
+.chal__top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.chal__timer{font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.chal__timer.low{color:var(--stamp)}
+.chal__score{font-family:var(--mono);font-size:14px;color:var(--ink-2);text-align:right;line-height:1.6}
+.btn{appearance:none;background:var(--ink);color:var(--paper-lit);border:1px solid var(--ink);border-radius:4px;
+  padding:9px 18px;font-family:var(--serif);font-size:15px;cursor:pointer;
+  transition:background .18s ease,transform .18s ease}
+.btn:hover{background:var(--carbon);border-color:var(--carbon);transform:translateY(-1px)}
+.btn--ghost{background:none;color:var(--ink);border-color:var(--rule-2)}
+.btn--ghost:hover{background:var(--paper-mid);color:var(--ink);border-color:var(--ink)}
+.btn[disabled]{opacity:.42;cursor:default;transform:none}
+.chal__q{margin-top:14px;padding:12px 14px;background:var(--paper-mid);border:1px solid var(--rule);font-size:14px}
+.chal__q b{font-family:var(--serif);font-size:16px}
+.chal__log{margin-top:12px;font-size:12.5px;color:var(--ink-3);min-height:1.6em}
+.chal__log b{color:var(--ink)}
+
+/* ── 收尾 ───────────────────────────────── */
+.close{margin-top:56px;background:var(--paper-mid);border:1px solid var(--rule-2);border-radius:4px;
+  padding:30px clamp(18px,3vw,34px) 32px;box-shadow:var(--lift)}
+.close__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start}
+.close h2{font-size:clamp(24px,3.4vw,34px);line-height:1.26}
+.close p{margin-top:12px;font-size:14.5px;line-height:1.75;color:var(--ink-2)}
+.factlist{margin-top:4px}
+.fact{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dotted var(--rule-2)}
+.fact:last-child{border-bottom:0}
+.fact__k{font-size:13px;color:var(--ink-2);line-height:1.5}
+.fact__k b{display:block;color:var(--ink);font-family:var(--serif);font-size:15px;font-weight:700}
+.fact__v{font-family:var(--mono);font-size:15px;white-space:nowrap}
+.fact__v small{display:block;font-size:11px;color:var(--ink-3);font-family:var(--sans);letter-spacing:.04em}
+.minutes{margin-top:22px;background:var(--paper-lit);border:2px solid var(--ink-2);border-radius:4px;
+  padding:18px 20px;position:relative}
+.minutes::after{content:"早会纪要";position:absolute;right:12px;top:10px;font-family:var(--serif);font-size:13px;
+  letter-spacing:.16em;color:var(--stamp);border:1.5px solid var(--stamp);border-radius:3px;padding:1px 7px;
+  transform:rotate(-6deg);opacity:.85}
+.minutes h3{font-size:18px;padding-right:96px}
+.minutes__rows{margin-top:10px}
+.minutes__rows .rrow b{font-size:16px}
+.minutes__q{margin-top:12px;font-family:var(--serif);font-size:16px;line-height:1.6}
+.closing-q{margin-top:26px;font-family:var(--serif);font-size:clamp(21px,3.2vw,30px);line-height:1.4;
+  border-top:3px double var(--rule-2);border-bottom:3px double var(--rule-2);padding:20px 0}
+.closing-q b{color:var(--stamp)}
+
+/* ── 页脚 ───────────────────────────────── */
+.foot{margin-top:44px;border-top:1px solid var(--rule-2);padding-top:16px;
+  display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.foot p{font-size:12.5px;line-height:1.7;color:var(--ink-3)}
+.foot b{color:var(--ink-2)}
+
+/* ── 响应式 ─────────────────────────────── */
+@media (max-width:1000px){
+  .dispatch{grid-template-columns:1fr}
+  .desks{grid-template-columns:1fr}
+  .ledger{grid-template-columns:1fr}
+  .close__grid{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:15px}
+  .hero{padding-top:30px}
+  .masthead{align-items:flex-start}
+  .masthead__meta{text-align:left}
+  .rail__row{grid-template-columns:1fr}
+  .cmp__row{grid-template-columns:1fr;gap:5px}
+  .cmp__bar{height:22px}
+  .scale__labels b{font-size:11px}
+  .receipt{font-size:13px}
+  .chal__timer{font-size:34px}
+}
+
+/* ── 动效门控 ───────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .ticket:hover,.desk:hover{transform:none}
+  .stamp.on{opacity:.92;transform:rotate(-9deg) scale(1)}
+}
+
+/* ── 分诊规则表 ───────────────────────────── */
+.rules{background:var(--paper-lit);border:1px solid var(--rule-2);border-radius:4px;
+  box-shadow:var(--lift);overflow:hidden;padding-bottom:14px}
+.rules__scroll{overflow-x:auto;padding:10px 10px 0}
+.rtbl{width:100%;border-collapse:collapse;font-size:14px}
+.rtbl caption{caption-side:top;text-align:left;padding:16px 18px 2px;
+  font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.5}
+.rtbl thead th{padding:12px 14px;text-align:left;font-size:12px;font-weight:400;
+  letter-spacing:.10em;color:var(--ink-3);background:var(--paper-mid);
+  border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);white-space:nowrap}
+.rtbl tbody td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top}
+.rtbl tbody tr:last-child td{border-bottom:0}
+.rtbl tbody tr{cursor:pointer;transition:background .18s ease}
+.rtbl tbody tr:hover{background:var(--paper-mid)}
+.rtbl tbody tr[aria-selected="true"]{background:rgba(166,42,26,.09)}
+.rtbl tbody tr:focus-visible{outline:2px solid var(--carbon);outline-offset:-2px}
+.rtbl .idx{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.10em;
+  color:var(--ink-3);margin-bottom:4px}
+.rtbl .q{font-family:var(--serif);font-size:16px;font-weight:700;line-height:1.45;display:block}
+.rtbl .ans{display:inline-flex;align-items:center;gap:7px;font-family:var(--serif);
+  font-size:15.5px;font-weight:700;white-space:nowrap}
+.rtbl .ans i{width:11px;height:11px;border-radius:2px;flex:none}
+.ans--carbon i{background:var(--carbon)}
+.ans--argon i{background:var(--argon)}
+.ans--hydrogen i{background:var(--hydrogen)}
+.ans--hold i{background:var(--stamp)}
+.ans--hold{color:var(--stamp)}
+.rtbl .what{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.rtbl .cost{font-family:var(--mono);font-size:13.5px;white-space:nowrap;color:var(--ink)}
+.rtbl .cost small{display:block;font-family:var(--sans);font-size:12px;color:var(--ink-3);
+  letter-spacing:.03em;white-space:normal;margin-top:3px}
+.rules__foot{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule-2);
+  background:var(--paper-mid)}
+.rules__cell{padding:15px 18px;font-size:13.5px;line-height:1.68;color:var(--ink-2)}
+.rules__cell + .rules__cell{border-left:1px solid var(--rule)}
+.rules__cell b{display:block;font-family:var(--serif);font-size:15px;color:var(--ink);margin-bottom:4px}
+@media (max-width:760px){
+  .rtbl{min-width:620px}
+  .rules__foot{grid-template-columns:1fr}
+  .rules__cell + .rules__cell{border-left:0;border-top:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<style id="showcase-rescue">/* 死规则救援：把被永久隐藏的内容放出来 *//* 戳 */ .stamp{opacity:1!important;visibility:visible!important;transform:none!important}</style>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<div class="sheet">
+
+  <!-- ══ 页眉 ══════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead__id">
+      <svg class="clock" width="46" height="38" viewBox="0 0 46 38" fill="none" aria-hidden="true">
+        <rect x="1.5" y="5.5" width="43" height="31" rx="3" stroke="#191510" stroke-width="2"/>
+        <path d="M8 5.5V2.5M30 5.5V2.5" stroke="#191510" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="23" cy="21" r="10.5" stroke="#191510" stroke-width="2"/>
+        <path d="M23 14v7.5l5 3" stroke="#9C2617" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="masthead__name"><b>Gemini 4 家族</b> · 早会</div>
+    </div>
+    <div class="masthead__meta">2026-11-17 · 09:00 · 调度台已开</div>
+  </header>
+
+  <!-- ══ 开场 ══════════════════════════════════ -->
+  <section class="hero">
+    <h1 class="hero__title">模型公司的<em>早会</em></h1>
+    <p class="hero__lede">谷歌把 Gemini 4 家族切成三档：Carbon 与 Argon 负责复杂推理、长程规划与高难工程，Hydrogen 承担日常编码与工具调用。<br>
+      今天桌上有一堆活。先派给谁，是这家公司每天早上要做的第一个决定。</p>
+    <div class="hero__ask"><span class="dot"></span>派错了，谁来付账？</div>
+  </section>
+
+  <!-- ══ 早会 · 派工台 ══════════════════════════ -->
+  <section class="sec" id="standup">
+    <div class="sec__head">
+      <h2>三个工位</h2>
+      <span class="sec__note">岗位设定为本件的创意框架；来源只明确了三档的分工，不区分谁做哪一件。</span>
+    </div>
+
+    <div class="desks" id="desks">
+
+      <!-- Carbon -->
+      <article class="desk desk--carbon" data-desk="carbon">
+        <div class="desk__head">
+          <svg class="desk__badge" width="38" height="38" viewBox="0 0 36 36" fill="none" stroke="#FBF6E9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 4l12 7v14l-12 7-12-7V11z"/>
+            <circle cx="12.5" cy="21" r="2.1"/><circle cx="23.5" cy="14.5" r="2.1"/>
+            <path d="M14.2 19.9l7.6-4.1"/>
+          </svg>
+          <div>
+            <div class="desk__name">Carbon</div>
+            <div class="desk__role">架构师</div>
+          </div>
+        </div>
+        <div class="desk__body">
+          <p class="desk__duty">复杂推理 · 长周期工程 · 多智能体协同</p>
+          <div class="cap">
+            <div class="cap__row"><span>可接层级</span><b>复杂推理 → 长周期工程</b></div>
+            <div class="cap__row"><span>本件引用内的单价</span><b>未给出</b></div>
+          </div>
+          <div class="desk__more"><div>
+            <div class="cap">
+              <div class="cap__row"><span>公开事件</span><b>一夜做完一款完整小游戏</b></div>
+              <div class="cap__row"><span>形态</span><b>多个 Carbon 组成的智能体团队</b></div>
+            </div>
+            <div class="sample" aria-hidden="true">
+              <svg viewBox="0 0 180 96" width="100%" height="96">
+                <rect x="0.5" y="0.5" width="179" height="95" fill="#1C3A5E" stroke="#191510" stroke-width="1.4"/>
+                <rect x="8" y="8" width="164" height="66" fill="#122741"/>
+                <rect x="14" y="52" width="10" height="10" fill="#E9C46A"/>
+                <rect x="26" y="46" width="10" height="16" fill="#E9C46A"/>
+                <rect x="38" y="40" width="10" height="22" fill="#E9C46A"/>
+                <rect x="52" y="34" width="10" height="28" fill="#E9C46A"/>
+                <rect x="66" y="40" width="10" height="22" fill="#E9C46A"/>
+                <rect x="80" y="46" width="10" height="16" fill="#E9C46A"/>
+                <rect x="94" y="52" width="10" height="10" fill="#E9C46A"/>
+                <rect x="122" y="24" width="12" height="12" fill="#E9C46A"/>
+                <rect x="125" y="27" width="6" height="6" fill="#122741"/>
+                <rect x="12" y="78" width="156" height="10" fill="#0E1E31"/>
+                <text x="12" y="92" font-family="ui-monospace,monospace" font-size="8.5" fill="#8FA6BE">▮▮ 一夜 · 一款完整小游戏</text>
+              </svg>
+            </div>
+          </div></div>
+          <button class="desk__toggle" type="button" data-toggle="carbon" aria-expanded="false">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+            展开细项
+          </button>
+          <div class="desk__stack" data-stack="carbon" aria-label="Carbon 已接工单"></div>
+        </div>
+      </article>
+
+      <!-- Argon -->
+      <article class="desk desk--argon" data-desk="argon">
+        <div class="desk__head">
+          <svg class="desk__badge" width="38" height="38" viewBox="0 0 36 36" fill="none" stroke="#FBF6E9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+            <circle cx="18" cy="18" r="13"/>
+            <path d="M11.5 24L18 10l6.5 14"/>
+            <path d="M14.2 19.5h7.6"/>
+          </svg>
+          <div>
+            <div class="desk__name">Argon</div>
+            <div class="desk__role">计划员</div>
+          </div>
+        </div>
+        <div class="desk__body">
+          <p class="desk__duty">长程规划 · 方案与拆解</p>
+          <div class="cap">
+            <div class="cap__row"><span>可接层级</span><b>长程规划 → 复杂推理</b></div>
+            <div class="cap__row"><span>本件引用内的单价</span><b>未给出</b></div>
+          </div>
+          <div class="desk__more"><div>
+            <div class="cap">
+              <div class="cap__row"><span>同档分工</span><b>与 Carbon 同属高难档</b></div>
+              <div class="cap__row"><span>来源口径</span><b>未区分 Carbon 与 Argon</b></div>
+            </div>
+          </div></div>
+          <button class="desk__toggle" type="button" data-toggle="argon" aria-expanded="false">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+            展开细项
+          </button>
+          <div class="desk__stack" data-stack="argon" aria-label="Argon 已接工单"></div>
+        </div>
+      </article>
+
+      <!-- Hydrogen -->
+      <article class="desk desk--hydrogen" data-desk="hydrogen">
+        <div class="desk__head">
+          <svg class="desk__badge" width="38" height="38" viewBox="0 0 36 36" fill="none" stroke="#FBF6E9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+            <rect x="6" y="6" width="24" height="24" rx="5"/>
+            <path d="M19.5 10l-5.5 9.5h4.2l-1.4 6.8 5.6-9.6h-4.2z"/>
+          </svg>
+          <div>
+            <div class="desk__name">Hydrogen</div>
+            <div class="desk__role">执行者</div>
+          </div>
+        </div>
+        <div class="desk__body">
+          <p class="desk__duty">日常编码 · 工具调用</p>
+          <div class="cap">
+            <div class="cap__row"><span>可接层级</span><b>日常编码 → 工具调用</b></div>
+            <div class="cap__row"><span>Artificial Analysis 智能指数</span><b>51 / 54 分</b></div>
+          </div>
+          <div class="desk__more"><div>
+            <div class="cap">
+              <div class="cap__row"><span>默认 high 档 Artificial Analysis 智能指数</span><b>51 分</b></div>
+              <div class="cap__row"><span>xhigh 档 Artificial Analysis 智能指数</span><b>54 分</b></div>
+              <div class="cap__row"><span>速度</span><b>比 3.8 Flash 快 2.5 倍</b></div>
+              <div class="cap__row"><span>API 每百万输入</span><b>1.5 美元</b></div>
+              <div class="cap__row"><span>API 每百万输出</span><b>7.5 美元</b></div>
+              <div class="cap__row"><span>免费渠道</span><b>搜索 / Gemini 应用 / AI Studio / Antigravity</b></div>
+              <div class="cap__row"><span>第三方观察</span><b>权重未开放、模型规模未披露</b></div>
+            </div>
+            <p class="src">渠道免费指接入渠道免费，不等于 API 免费。</p>
+          </div></div>
+          <button class="desk__toggle" type="button" data-toggle="hydrogen" aria-expanded="false">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+            展开细项
+          </button>
+          <div class="desk__stack" data-stack="hydrogen" aria-label="Hydrogen 已接工单"></div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- 工单轨 + 收据 -->
+    <div class="dispatch" style="margin-top:22px">
+      <div class="dispatch__left">
+        <div class="railwrap">
+          <div class="scale">
+            <div class="scale__track">
+              <div class="scale__line"></div>
+              <div class="scale__ticks"><span></span><span></span><span></span><span></span><span></span></div>
+              <input class="slider" type="range" id="difficulty" min="0" max="4" step="1" value="0"
+                     aria-label="任务难度滑块，决定该派给谁">
+            </div>
+            <div class="scale__labels" id="scaleLabels">
+              <b class="on">日常编码</b><b>工具调用</b><b>长程规划</b><b>复杂推理</b><b>长周期工程</b>
+            </div>
+            <div class="scale__read" id="scaleRead">
+              <strong>日常编码</strong>
+              <span class="who">该派给 <b>Hydrogen</b> · 走 high 档</span>
+              <span class="num-label" id="scaleNote">难度尺拖到哪一格，问「谁接得住」就变。</span>
+            </div>
+          </div>
+
+          <div class="rail">
+            <div class="rail__bar"></div>
+            <div class="rail__row" id="rail">
+              <button class="ticket" type="button" data-ticket="t1" aria-pressed="false">
+                <span class="ticket__no">工单 01</span>
+                <span class="ticket__title">给这个仓库补 30 个单测</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+                  <span class="ticket__tier">日常编码 · 2 小时</span>
+                </span>
+                <span class="ticket__flag">谁接都行，Hydrogen 最快。</span>
+              </button>
+              <button class="ticket" type="button" data-ticket="t2" aria-pressed="false">
+                <span class="ticket__no">工单 02</span>
+                <span class="ticket__title">把上周的 API 报错日志归类</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+                  <span class="ticket__tier">工具调用 · 1 小时</span>
+                </span>
+                <span class="ticket__flag">谁接都行，Hydrogen 最快。</span>
+              </button>
+              <button class="ticket" type="button" data-ticket="t3" aria-pressed="false">
+                <span class="ticket__no">工单 03</span>
+                <span class="ticket__title">为一个新服务定技术选型方案</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+                  <span class="ticket__tier">长程规划 · 1 天</span>
+                </span>
+                <span class="ticket__flag">要有人先把方案写出来。</span>
+              </button>
+              <button class="ticket" type="button" data-ticket="t4" aria-pressed="false">
+                <span class="ticket__no">工单 04</span>
+                <span class="ticket__title">把这段单体代码拆出服务边界</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+                  <span class="ticket__tier">复杂推理 · 2 天</span>
+                </span>
+                <span class="ticket__flag">Argon 或 Carbon 能接。</span>
+              </button>
+              <button class="ticket" type="button" data-ticket="t5" aria-pressed="false">
+                <span class="ticket__no">工单 05</span>
+                <span class="ticket__title">三个月期的多智能体编排：设计到上线</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+                  <span class="ticket__tier">长周期工程 · 3 个月</span>
+                </span>
+                <span class="ticket__flag">只有 Carbon 扛得住。</span>
+              </button>
+              <button class="ticket" type="button" data-ticket="t6" aria-pressed="false">
+                <span class="ticket__no">工单 06</span>
+                <span class="ticket__title">把上周的用户反馈聚类成需求清单</span>
+                <span class="ticket__meta">
+                  <span class="notch" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+                  <span class="ticket__tier">工具调用 · 3 小时</span>
+                </span>
+                <span class="ticket__flag">谁接都行，Hydrogen 最快。</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="assign" id="assign" hidden>
+            <p class="assign__q" id="assignQ">把这张工单派给：</p>
+            <div class="assign__row" id="assignRow">
+              <button class="take" type="button" data-take="carbon"><b>Carbon</b><span>架构师</span></button>
+              <button class="take" type="button" data-take="argon"><b>Argon</b><span>计划员</span></button>
+              <button class="take" type="button" data-take="hydrogen"><b>Hydrogen</b><span>执行者</span></button>
+            </div>
+          </div>
+
+          <div class="rowbtns">
+            <button class="btn btn--ghost" type="button" id="makeTicket">按这个难度造一张工单</button>
+            <button class="btn btn--ghost" type="button" id="resetBoard">重置早会</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="receipt" aria-live="polite">
+        <div class="receipt__top">
+          <div class="receipt__title">今日派工记账</div>
+          <div class="receipt__date">2026-11-17 · 09:00</div>
+        </div>
+        <div class="receipt__rows" id="receiptRows">
+          <div class="receipt__empty">还没有派工。</div>
+        </div>
+        <div class="receipt__note" id="receiptNote">口径：xhigh 档单任务加权成本 3.16 美元，取自 Artificial Analysis 智能指数的加权平均评估成本。</div>
+        <div class="stamp" id="deskStamp">派错档</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ 分诊规则表 ════════════════════════════ -->
+  <section class="sec" id="rules">
+    <div class="sec__head">
+      <h2>分诊规则表</h2>
+      <span class="sec__note">四问定派单。点一行，上面的难度尺会跳到对应档位。</span>
+    </div>
+
+    <div class="rules">
+      <div class="rules__scroll" tabindex="0" role="region" aria-labelledby="rulesCap">
+        <table class="rtbl" id="rtbl">
+          <caption id="rulesCap">今天早上这堆活，按什么顺序问、问完派给谁</caption>
+          <thead>
+            <tr>
+              <th scope="col">早会上的第一个问题</th>
+              <th scope="col">答「是」派给</th>
+              <th scope="col">这一档接什么</th>
+              <th scope="col">成本落在哪</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tabindex="0" data-level="0" aria-selected="false">
+              <td><span class="idx">01</span><span class="q">这活是不是一次便宜调用就够？</span></td>
+              <td><span class="ans ans--hydrogen"><i></i>Hydrogen</span></td>
+              <td class="what">日常编码 · 工具调用</td>
+              <td class="cost">1.5 美元 / 7.5 美元<small>API 每百万输入 / 输出</small></td>
+            </tr>
+            <tr tabindex="0" data-level="1" aria-selected="false">
+              <td><span class="idx">02</span><span class="q">要不要先有人把方案写出来？</span></td>
+              <td><span class="ans ans--argon"><i></i>Argon</span></td>
+              <td class="what">长程规划 · 方案与拆解</td>
+              <td class="cost">未给出<small>高难档单价，来源没写</small></td>
+            </tr>
+            <tr tabindex="0" data-level="3" aria-selected="false">
+              <td><span class="idx">03</span><span class="q">是不是长周期、要多智能体协同？</span></td>
+              <td><span class="ans ans--carbon"><i></i>Carbon</span></td>
+              <td class="what">复杂推理 · 长周期工程</td>
+              <td class="cost">未给出<small>高难档单价，来源没写</small></td>
+            </tr>
+            <tr tabindex="0" data-level="4" aria-selected="false">
+              <td><span class="idx">04</span><span class="q">这一版输出，必须有人再看一遍吗？</span></td>
+              <td><span class="ans ans--hold"><i></i>留在人工复核</span></td>
+              <td class="what">三档都不等于人工复核</td>
+              <td class="cost">不计 token<small>这一格不进派工记账</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rules__foot">
+        <div class="rules__cell">
+          <b>问一次：渠道免费，是不是 API 免费？</b>
+          不是。搜索、Gemini 应用、AI Studio、Antigravity 四条渠道免费，指接入渠道免费，不等于 API 免费。
+        </div>
+        <div class="rules__cell">
+          <b>问一次：高难档里谁贵谁便宜？</b>
+          来源没区分 Carbon 与 Argon。本页不给这两档排价格先后。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 收尾 ══════════════════════════════════ -->
+  <footer class="foot">
+    <p><b>口径。</b>三档分工来自来源原文：Carbon 与 Argon 接复杂推理、长程规划与长周期工程，Hydrogen 接日常编码与工具调用。工位名、四问与难度尺是本件的创意框架，来源只明确三档分工，不区分谁做哪一件。</p>
+    <p><b>成本。</b>Hydrogen 的 API 单价与 xhigh 档单任务加权成本，取自 Artificial Analysis 智能指数的加权平均评估成本。本页只算 API 价，渠道免费不折算成零成本。</p>
+  </footer>
+</div>
+
+<script type="application/json" id="claims">
+[
+  {"value":"51 分","label":"默认 high 档 Artificial Analysis 智能指数","quote":"默认 high 档 Artificial Analysis 智能指数 51 分"},
+  {"value":"54 分","label":"xhigh 档 Artificial Analysis 智能指数","quote":"xhigh 档 Artificial Analysis 智能指数 54 分"},
+  {"value":"1.5 美元","label":"API 每百万输入","quote":"API 每百万输入 1.5 美元"},
+  {"value":"7.5 美元","label":"API 每百万输出","quote":"API 每百万输出 7.5 美元"},
+  {"value":"3.16 美元","label":"xhigh 档单任务加权成本","quote":"xhigh 档单任务加权成本 3.16 美元"},
+  {"value":"比 3.8 Flash 快 2.5 倍","label":"速度","quote":"速度 比 3.8 Flash 快 2.5 倍"}
+]
+</script>
+
+<script>
+(function(){
+"use strict";
+
+var LEVELS=[
+  {n:"日常编码",  who:"Hydrogen", tier:"high 档",  flag:"谁接都行，Hydrogen 最快。"},
+  {n:"工具调用",  who:"Hydrogen", tier:"high 档",  flag:"谁接都行，Hydrogen 最快。"},
+  {n:"长程规划",  who:"Argon",    tier:"高难档",   flag:"要有人先把方案写出来。"},
+  {n:"复杂推理",  who:"Argon",    tier:"高难档",   flag:"Argon 或 Carbon 能接。"},
+  {n:"长周期工程",who:"Carbon",   tier:"高难档",   flag:"只有 Carbon 扛得住。"}
+];
+var ACCEPT=[["hydrogen"],["hydrogen"],["argon"],["argon","carbon"],["carbon"]];
+var RANK={hydrogen:1,argon:2,carbon:3};
+var NAMES={carbon:"Carbon",argon:"Argon",hydrogen:"Hydrogen"};
+var POOL=[
+  ["给这个仓库补 30 个单测","日常编码 · 2 小时"],
+  ["把上周的 API 报错日志归类","工具调用 · 1 小时"],
+  ["为一个新服务定技术选型方案","长程规划 · 1 天"],
+  ["把这段单体代码拆出服务边界","复杂推理 · 2 天"],
+  ["三个月期的多智能体编排：设计到上线","长周期工程 · 3 个月"]
+];
+
+var $=function(id){return document.getElementById(id);};
+var slider=$("difficulty"), labels=$("scaleLabels"), read=$("scaleRead");
+var rail=$("rail"), assign=$("assign"), assignQ=$("assignQ"), assignRow=$("assignRow");
+var rows=$("receiptRows"), note=$("receiptNote"), stamp=$("deskStamp");
+var stacks={carbon:$('[data-stack="carbon"]'),argon:$('[data-stack="argon"]'),hydrogen:$('[data-stack="hydrogen"]')};
+var current=null, level=0, seq=6, dispatched=0;
+
+function notches(n){
+  var s="",i;
+  for(i=0;i<5;i++){s+='<i'+(i<n?' class="on"':'')+'></i>';}
+  return s;
+}
+function setLevel(v){
+  level=Math.max(0,Math.min(4,Number(v)||0));
+  var L=LEVELS[level];
+  slider.value=String(level);
+  slider.setAttribute("aria-valuetext",L.n+"，该派给 "+L.who);
+  Array.prototype.forEach.call(labels.children,function(b,i){
+    b.classList.toggle("on",i===level);
+  });
+  read.querySelector("strong").textContent=L.n;
+  read.querySelector(".who").innerHTML='该派给 <b>'+L.who+"</b> · "+L.tier;
+  $("scaleNote").textContent=L.flag;
+}
+slider.addEventListener("input",function(){setLevel(slider.value);});
+
+/* ── 选工单 ── */
+function pickTicket(btn){
+  if(btn.classList.contains("done")){return;}
+  Array.prototype.forEach.call(rail.querySelectorAll(".ticket"),function(t){
+    t.setAttribute("aria-pressed",String(t===btn));
+  });
+  current=btn;
+  var no=btn.querySelector(".ticket__no").textContent;
+  assignQ.textContent=no+"：把这张工单派给";
+  assign.hidden=false;
+  Array.prototype.forEach.call(assignRow.children,function(b){b.disabled=false;});
+}
+rail.addEventListener("click",function(e){
+  var t=e.target.closest(".ticket");
+  if(t){pickTicket(t);}
+});
+
+/* ── 派工 ── */
+function verdict(desk){
+  var ok=ACCEPT[level].indexOf(desk)>=0;
+  if(ok){return "";}
+  var top=Math.max.apply(null,ACCEPT[level].map(function(d){return RANK[d];}));
+  return RANK[desk]>top?"派贵了":"派错档";
+}
+assignRow.addEventListener("click",function(e){
+  var b=e.target.closest(".take");
+  if(!b||!current||b.disabled){return;}
+  var desk=b.getAttribute("data-take"), L=LEVELS[level];
+  var mark=verdict(desk);
+
+  current.classList.add("done");
+  current.setAttribute("aria-pressed","false");
+  current.disabled=true;
+  var no=current.querySelector(".ticket__no").textContent;
+  var chip=document.createElement("span");
+  chip.className="chip"+(mark?" bad":"");
+  chip.innerHTML="<b>"+no.replace("工单 ","")+"</b>"+NAMES[desk];
+  stacks[desk].appendChild(chip);
+
+  dispatched++;
+  if(dispatched===1){rows.innerHTML="";}
+  var r=document.createElement("div");
+  r.className="rrow";
+  r.innerHTML="<span>"+no+" · "+L.n+"</span><b>"+NAMES[desk]+(mark?" · "+mark:"")+"</b>";
+  rows.appendChild(r);
+
+  if(mark){
+    stamp.textContent=mark;
+    stamp.classList.remove("ghost","on");
+    if(mark==="派贵了"){stamp.classList.add("ghost");}
+    void stamp.offsetWidth;
+    stamp.classList.add("on");
+  }else{
+    stamp.classList.remove("on");
+  }
+  current=null;
+  assign.hidden=true;
+});
+
+/* ── 造单 / 重置 ── */
+$("makeTicket").addEventListener("click",function(){
+  seq++;
+  var p=POOL[level];
+  var b=document.createElement("button");
+  b.className="ticket";
+  b.type="button";
+  b.setAttribute("data-ticket","t"+seq);
+  b.setAttribute("aria-pressed","false");
+  b.innerHTML='<span class="ticket__no">工单 '+("0"+seq).slice(-2)+"</span>"+
+    '<span class="ticket__title">'+p[0]+"</span>"+
+    '<span class="ticket__meta"><span class="notch" aria-hidden="true">'+notches(level+1)+
+    '</span><span class="ticket__tier">'+p[1]+"</span></span>"+
+    '<span class="ticket__flag">'+LEVELS[level].flag+"</span>";
+  rail.appendChild(b);
+  pickTicket(b);
+  b.scrollIntoView({block:"nearest",behavior:"smooth"});
+});
+$("resetBoard").addEventListener("click",function(){
+  Array.prototype.slice.call(rail.querySelectorAll(".ticket")).forEach(function(t,i){
+    t.classList.remove("done");
+    t.disabled=false;
+    t.setAttribute("aria-pressed","false");
+    if(i>5){t.remove();}
+  });
+  Object.keys(stacks).forEach(function(k){stacks[k].innerHTML="";});
+  rows.innerHTML='<div class="receipt__empty">还没有派工。</div>';
+  stamp.classList.remove("on");
+  dispatched=0;
+  current=null;
+  assign.hidden=true;
+});
+
+/* ── 工位展开 ── */
+Array.prototype.forEach.call(document.querySelectorAll(".desk__toggle"),function(btn){
+  btn.addEventListener("click",function(){
+    var desk=btn.closest(".desk");
+    var open=desk.classList.toggle("open");
+    btn.setAttribute("aria-expanded",String(open));
+    btn.lastChild.textContent=open?" 收起细项":" 展开细项";
+  });
+});
+
+/* ── 规则表 → 难度尺 ── */
+var rtbl=$("rtbl");
+function applyRow(tr){
+  Array.prototype.forEach.call(rtbl.querySelectorAll("tbody tr"),function(r){
+    r.setAttribute("aria-selected",String(r===tr));
+  });
+  setLevel(tr.getAttribute("data-level"));
+  Array.prototype.forEach.call(document.querySelectorAll(".desk"),function(d){
+    d.classList.remove("fit");
+  });
+  var target=LEVELS[level].who.toLowerCase();
+  var d=document.querySelector('.desk[data-desk="'+target+'"]');
+  if(d){d.classList.add("fit");}
+}
+rtbl.addEventListener("click",function(e){
+  var tr=e.target.closest("tbody tr");
+  if(tr){applyRow(tr);}
+});
+rtbl.addEventListener("keydown",function(e){
+  if(e.key!=="Enter"&&e.key!==" "){return;}
+  var tr=e.target.closest("tbody tr");
+  if(tr){e.preventDefault();applyRow(tr);}
+});
+
+setLevel(0);
+})();
+</script>
+</body>
+</html>

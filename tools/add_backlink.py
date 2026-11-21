@@ -229,7 +229,20 @@ def snippet(index_rel: str) -> str:
         f'display:inline-flex;align-items:center;gap:7px;padding:9px 15px;'
         f'border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;'
         f'text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;'
-        f'opacity:.86}}'
+        # ⚠️ 基础规则必须自带 color + background（包十一 2026-11-21）。
+        # 旧行为：基础规则只有 opacity:.86，color 靠继承页面 a{color:var(--brass)}。
+        #   detect 不执行 JS → 拿不到 on-dark/on-light 变体类 → 按静态继承算：
+        #   brass@0.86 叠纸色 #eaedea = 4.0-4.2:1，低于 4.5:1（11-19 两次打回）。
+        # 为什么 color 与 background 必须一起补：
+        #   单一 color 在数学上无法同时达标 —— 浅纸面要暗字、深纸面要亮字。
+        #   实测（含 opacity:.86 反算）只补 color：
+        #     #654614 → 浅 5.21:1 / 深 1.92:1；#fafafa → 浅 1.11:1 / 深 13.39:1。
+        #   自带底后文字压在自己的底上，与页面底色解耦：
+        #     color:#fafafa + background:rgba(20,19,15,.92) → 浅 7.10-7.62:1 / 深 13.28-13.64:1。
+        #   变体类 .on-dark-page/.on-light-page 特异性更高（id+class），运行时仍覆盖基础规则。
+        f'opacity:.86;color:#fafafa;background:rgba(20,19,15,.92);'
+        f'border:1px solid rgba(255,255,255,.16);'
+        f'backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}'
         f'#{STYLE_ID}:hover{{opacity:1;transform:translateY(-1px)}}'
         # 底色自适应：作品页有浅色（档案卷宗）与深色（早期作品）两种，
         # 固定深色药丸贴在浅纸上会很跳。用页面底色亮度决定药丸明暗。

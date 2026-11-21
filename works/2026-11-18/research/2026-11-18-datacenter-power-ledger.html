@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>675 座与 400 座 —— AI 的两张用电账本，以及算力为什么开始需要「被解释」</title>
+
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  智囊团 · 研究类作品 · 选题452（追踪线：算力·能耗·环境）
+  ═══════════════════════════════════════════════════════════════════
+
+  视觉身份：档案卷宗（冷调档案纸 + 墨色 + 陈铜）。骨架取自
+  templates/work.html，但版式与信息组织按本篇内容重排：
+  本篇的主结构是「双栏账本」—— 左栏电、右栏许可，中间用一道
+  不可通约的标记隔开；其余区块承载矩阵、归因链图、判定表。
+
+  契约：封闭语义词汇表（只用这些，不自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（必填，带单位）
+          .metric-label      指标名（必填，一行名词短语）
+          .metric-source     出处（必填，机构 · 口径 · 日期）
+      .verdict             核心判断
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  其余 class 均为版式（shell / masthead / lede / dual / ledger / tbl /
+  fig / note / bar / chip 等），不承载语义断言。
+
+  断言声明在文件底部 script#claims（8 条）。
+  「返回展厅」链接由 autopublish 阶段 5.5 自动注入，不手写。
+
+  素材依据：每日AI技术动态简报 2026-11-17（只读，不联网检索）。
+  跨作品沿用标签：Anthropic 天然气涡轮机采购额（11-10）、
+  Anthropic 算力与基础设施承诺总额（口径复用 2026-11-16 作品）。
+-->
+
+<meta name="showcase-beat" content="算力·能耗·环境">
+<meta name="description" content="675 处超大规模数据中心吃掉全美约 2% 的电，BIS 把管制推进到算力：电改成本结构，许可改可获得性。">
+
+<style>
+/* ── 自托管字体（随作品分发，离线可用）──────────────────────── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB,02BC,02C6,02D7,
+                 02DD,02DE,2000-206F,20AC,2122,2191,2193,2212,2215,FEFF,FFFD;
+}
+
+:root{
+  --paper:#eaedea;          /* 档案纸（账簿灰绿） */
+  --paper-raised:#f4f6f4;   /* 抬起面（账册带） */
+  --ink:#171a18;            /* 正文 */
+  --ink-2:#4f5551;          /* 次要文字 6.5:1 */
+  --ink-3:#646b67;          /* 三级文字 4.6:1 */
+  --rule:#d2d8d4;           /* 发丝线 */
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;          /* 电（陈铜） 5.3:1 */
+  --brass-wash:#efe4cc;
+  --slate:#2f4858;          /* 许可（石板蓝） 8.1:1 */
+  --slate-wash:#e5ebee;
+  --down:#a03a2a;           /* 卡点 / 钩子（朱砂） 5.7:1 */
+  --down-wash:#f4e3de;
+  --deep:#121513;           /* 深色带 */
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.7;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ─────────────────────────────────────────────────── */
+.masthead{padding:96px 0 60px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 272px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.1vw,50px);line-height:1.24;
+  letter-spacing:-0.014em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:24px;font-size:19px;line-height:1.72;color:var(--ink-2);max-width:54ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.55}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────────── */
+section{padding:76px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:16px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:18px;line-height:1.5;font-weight:600;
+  letter-spacing:-0.006em;margin-bottom:12px;
+}
+.lede{font-size:18px;line-height:1.66;color:var(--ink-2);max-width:60ch;margin-bottom:34px}
+p{max-width:70ch}
+p + p{margin-top:16px}
+strong{font-weight:600}
+.note{
+  margin-top:26px;padding:18px 20px;background:var(--paper-raised);
+  border:1px solid var(--rule-soft);border-radius:4px;
+  font-size:14.5px;line-height:1.72;color:var(--ink-2);max-width:74ch;
+}
+.note b{color:var(--ink);font-weight:600}
+
+/* ── 核心判断：深色带（页面唯一的高对比时刻）──────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:36ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.75;color:var(--deep-2);max-width:66ch;
+}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 双栏账本：本篇的主结构 ───────────────────────────────── */
+.dual{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+  background:var(--rule);
+}
+.ledger{background:var(--paper);padding:30px 30px 34px}
+.ledger + .ledger{border-left:1px solid var(--rule)}
+.ledger-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.ledger-tag{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 9px;border-radius:3px;font-weight:600;
+}
+.ledger-power .ledger-tag{background:var(--brass-wash);color:var(--brass)}
+.ledger-licence .ledger-tag{background:var(--slate-wash);color:var(--slate)}
+.ledger-sub{font-size:14.5px;color:var(--ink-2);margin-bottom:22px}
+.ledger ul{list-style:none;display:grid;gap:14px;margin-top:22px}
+.ledger li{
+  font-size:15px;line-height:1.68;color:var(--ink-2);padding-left:18px;
+  position:relative;
+}
+.ledger li::before{
+  content:'';position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--rule);
+}
+.ledger-power li::before{background:var(--brass)}
+.ledger-licence li::before{background:var(--slate)}
+.ledger li b{color:var(--ink);font-weight:600}
+
+/* ── 图（自绘 SVG，随作品分发，离线可用）──────────────────── */
+.fig{margin:30px 0 0}
+.fig-region{container-type:inline-size}
+.fig-scroll{
+  overflow-x:auto;overflow-y:hidden;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:22px 8px;
+}
+.fig-scroll svg{display:block;width:100%;min-width:860px;height:auto}
+.fig-hint{display:none;font-size:12.5px;line-height:1.6;color:var(--ink-3);margin-top:10px}
+.fig-cap{
+  margin-top:12px;font-size:13px;line-height:1.6;color:var(--ink-3);max-width:74ch;
+}
+.fig-cap b{color:var(--ink-2);font-weight:600}
+
+/* ── 表 ───────────────────────────────────────────────────── */
+.tbl-region{container-type:inline-size;margin:26px 0 0}
+.tbl-scroll{
+  overflow-x:auto;max-inline-size:100%;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:12px 0;
+}
+.tbl{border-collapse:collapse;width:100%;min-width:760px;font-size:14.5px;line-height:1.62}
+.tbl caption{
+  caption-side:top;text-align:left;padding:0 0 12px;
+  font-family:var(--serif-cn);font-size:16px;font-weight:600;color:var(--ink);
+}
+.tbl th,.tbl td{padding:13px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-soft)}
+.tbl thead th{
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--rule);white-space:nowrap;
+}
+.tbl tbody th{font-weight:600;color:var(--ink);background:var(--paper-raised)}
+.tbl td{color:var(--ink-2)}
+.tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--paper-raised)}
+.tbl .num{font-family:var(--serif-num);font-size:17px;color:var(--ink);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.tbl .key{color:var(--ink);font-weight:600}
+.tbl .cap-src{font-size:12.5px;color:var(--ink-3)}
+
+/* 卡点强度条：数据条，不是装饰 */
+.bar{display:flex;align-items:center;gap:10px;min-width:150px}
+.bar-track{display:block;flex:1;height:7px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.bar-fill{display:block;height:100%;background:var(--down);border-radius:2px}
+.bar-label{font-size:12.5px;color:var(--ink-3);white-space:nowrap;font-family:var(--sans)}
+
+/* 窄屏：表格转堆叠，标签由 data-l 注入 */
+@container (max-width:720px){
+  .tbl-scroll{border-bottom:none}
+  .tbl{min-width:0;font-size:15px}
+  .tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .tbl tbody tr{display:block;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .tbl tbody th,.tbl td{display:block;border-bottom:none;padding:4px 0}
+  .tbl tbody th{padding-bottom:8px}
+  .tbl td::before{
+    content:attr(data-l);display:block;font-size:12px;letter-spacing:.04em;
+    color:var(--ink-3);margin-bottom:2px;
+  }
+  .tbl .num{font-size:16px}
+}
+
+/* ── 关键数据：账册（发丝线分隔，非卡片）──────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));
+  background:var(--rule-soft);
+  border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:34px;line-height:1.06;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{
+  margin-top:11px;font-size:14px;line-height:1.5;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 进程：左侧边注日期 ───────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:136px minmax(0,1fr);gap:32px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17px;line-height:1.5;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:6px;font-size:15px;line-height:1.68;color:var(--ink-2);max-width:64ch}
+.timeline-detail b{color:var(--ink);font-weight:600}
+
+/* ── 证据：悬挂引号 ───────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18px;line-height:1.72;color:var(--ink);
+  max-width:64ch;padding-left:32px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:8px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:32px;font-size:12.5px;line-height:1.55;color:var(--ink-3);
+  font-style:normal;
+}
+
+/* ── 缺口清单 ─────────────────────────────────────────────── */
+.gaps{list-style:none;border-top:1px solid var(--rule);max-width:80ch}
+.gaps li{
+  padding:14px 0 14px 26px;border-bottom:1px solid var(--rule-soft);
+  font-size:15px;line-height:1.68;color:var(--ink-2);position:relative;
+}
+.gaps li::before{
+  content:'';position:absolute;left:0;top:1.42em;width:12px;height:1px;background:var(--down);
+}
+.gaps li b{color:var(--ink);font-weight:600}
+
+/* ── 页脚 ─────────────────────────────────────────────────── */
+.colophon{
+  padding:52px 0 74px;background:var(--paper-raised);border-top:1px solid var(--rule);
+}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:74ch}
+.colophon b{color:var(--ink-2);font-weight:600}
+
+/* ── 动效：全页唯一的一次性动作 ───────────────────────────── */
+.rule-draw{
+  display:block;transform-origin:left center;width:88px;height:2px;
+  background:var(--brass);margin:26px 0 0;opacity:.9;
+}
+.js-motion .rule-draw{transform:scaleX(0)}
+.js-motion .rule-draw.drawn{transform:scaleX(1);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js-motion .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .dual{grid-template-columns:1fr}
+  .ledger + .ledger{border-left:none;border-top:1px solid var(--rule)}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 42px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .ledger{padding:22px 20px 26px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:24px;font-size:17px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:24px}
+  .gaps li{padding-left:22px}
+  .fig-hint{display:block}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>675 座与 400 座</h1>
+        <p class="standfirst">
+          AI 的两张用电账本，以及算力为什么开始需要「被解释」。本文把电力与许可放在同一张账上，
+          回答两个问题：谁会被两条约束同时卡住，哪一条先改变行业的成本结构。
+        </p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-18</dd></div>
+          <div><dt>主责</dt><dd><b>研析</b></dd></div>
+          <div><dt>追踪线</dt><dd>算力·能耗·环境</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · quote 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">电改成本结构，许可改可获得性。被同时夹住的是受限主体的代训订单。</p>
+    <p class="verdict-note">
+      675 处超大规模数据中心的那 2%，是 2024 年 5 月至 2025 年 4 月已经发生并入账的事实，
+      它的成本传导路径是显性的：电费、涡轮机资本开支、长期购电协议。
+      1200 万 TPP 的逐案许可与 90 天补办期限不改单位算力的价格，它改的是<b>谁能拿到、能不能连续拿到</b>。
+      所以电力在总账上先动，许可在受限主体那一格上先动。
+    </p>
+    <span class="rule-draw" id="verdict-rule" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- ── 双栏账本 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>同一周，两条账本同时收紧</h2>
+    <p class="lede">
+      2026 年 11 月 17 日出现的两条新闻，约束的是同一件商品的两端：一边是它从哪里取电，
+      一边是谁可以用它。两条约束的物理形式完全不同，结算对象却是同一个东西：一座机房里的一批加速卡。
+    </p>
+
+    <div class="dual">
+
+      <!-- 左栏：电 -->
+      <article class="ledger ledger-power">
+        <div class="ledger-head">
+          <span class="ledger-tag">账本一 · 电</span>
+        </div>
+        <h3>电的账本：量已经不是单点，是分配问题</h3>
+        <p class="ledger-sub">
+          统计期 2024 年 5 月至 2025 年 4 月，675 处超大规模数据中心用电约占全美 2%。
+          哈佛测算的另一侧：仅约 400 座美国数据中心，总用电已超密歇根州全州。
+        </p>
+
+        <ul>
+          <li><b>2% 是国家级分配问题。</b>675 处超大规模站点吃掉的电不是某个电网的峰谷问题，而是全美用电总量的一个份额；这决定了它的约束形态是排队、许可与价格，而不是某一次停电。</li>
+          <li><b>400 座那一侧还没算完。</b>哈佛测算的总用电已超密歇根州全州，而自建离网燃气园区没有被计入。有能力自己发电的主体已经绕过公共电网，于是公开统计系统性低估了 AI 的真实负载。</li>
+          <li><b>公司侧的动作已经落在资产上。</b>Anthropic 天然气涡轮机采购额（11-10）为 34 亿美元，Anthropic 算力与基础设施承诺总额为 9009 亿美元。同一张资产负债表上，一边是买电的合同，一边是自建电源的资本开支。</li>
+        </ul>
+      </article>
+
+      <!-- 右栏：许可 -->
+      <article class="ledger ledger-licence">
+        <div class="ledger-head">
+          <span class="ledger-tag">账本二 · 许可</span>
+        </div>
+        <h3>许可的账本：门槛、穿透、期限</h3>
+        <p class="ledger-sub">
+          BIS 临时最终规则把管制的对象从芯片推进到算力。触发条件是客户身份加算力量级，
+          动作是逐案许可，期限压在存量业务上。
+        </p>
+
+        <ul>
+          <li><b>触发靠的是客户身份，不是芯片流向。</b>向总部位于 D:5 国家组（含中国）或澳门实体提供超 1200 万 TPP 聚合算力的海外数据中心，其出口、再出口或境内转移须逐案许可。</li>
+          <li><b>穿透靠的是归因链。</b>规则覆盖网络互联与共享资源机群、转租与代理调用、为受限主体代训模型。这三处都指向同一件事：物理位置不变，归属可以变。</li>
+          <li><b>豁免结构暴露了规则的逻辑。</b>电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免。用途可事先分类的可以豁免，用途不可事先分类的只能靠门槛与逐案兜底。</li>
+          <li><b>90 天是所有存量安排的分界。</b>它不改变单笔算力的价格，改变的是合同能不能续。同时，五国外扩把先进半导体的许可范围一起往外推了一步，两条账的边界在同一天变得更大。</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <h3>账本一的尺：一个份额，一条大小关系</h3>
+      <div class="fig fig-region">
+        <div class="fig-scroll" tabindex="0" role="region" aria-labelledby="figA-cap">
+          <svg viewBox="0 0 880 292" role="img" aria-labelledby="figA-title figA-desc">
+            <title id="figA-title">电的账本：两把不通约的尺</title>
+            <desc id="figA-desc">标尺一是一条代表全美用电百分比的横条，其中约百分之二被标记为 675 处超大规模数据中心。标尺二用两个不按比例绘制的方框表示密歇根州全州用电与约 400 座美国数据中心总用电的关系，后者已超过前者，比例未量化，且未计入自建离网燃气园区。</desc>
+            <g font-family="var(--sans)">
+              <text x="0" y="16" font-size="14" font-weight="600" fill="#171a18">标尺一 · 全美用电（基准 = 100%）</text>
+              <rect x="0" y="34" width="880" height="30" fill="#dfe4e0" stroke="#d2d8d4"/>
+              <rect x="0" y="34" width="17.6" height="30" fill="#7d5a1c"/>
+              <line x1="8.8" y1="64" x2="8.8" y2="78" stroke="#7d5a1c" stroke-width="1"/>
+              <text x="0" y="94" font-size="13" font-weight="600" fill="#7d5a1c">约 2%</text>
+              <text x="58" y="94" font-size="13" fill="#4f5551">675 处超大规模数据中心（统计期 2024-05 至 2025-04）</text>
+              <text x="0" y="116" font-size="12.5" fill="#646b67">其余美国用电的构成，素材未给</text>
+
+              <text x="0" y="156" font-size="14" font-weight="600" fill="#171a18">标尺二 · 用电量对比（两框不按比例绘制）</text>
+              <rect x="0" y="176" width="300" height="48" fill="#f4f6f4" stroke="#d2d8d4"/>
+              <text x="150" y="205" font-size="13" text-anchor="middle" fill="#171a18">密歇根州全州用电</text>
+              <line x1="312" y1="200" x2="548" y2="200" stroke="#a03a2a" stroke-width="1.2" stroke-dasharray="5 4"/>
+              <polygon points="556,200 542,194 542,206" fill="#a03a2a"/>
+              <text x="434" y="190" font-size="12.5" text-anchor="middle" fill="#a03a2a">已超（比例未量化）</text>
+              <rect x="568" y="176" width="312" height="48" fill="#efe4cc" stroke="#7d5a1c"/>
+              <text x="724" y="205" font-size="13" text-anchor="middle" fill="#171a18">约 400 座美国数据中心总用电</text>
+              <text x="0" y="248" font-size="12.5" fill="#a03a2a">哈佛测算未计入自建离网燃气园区</text>
+              <text x="0" y="272" font-size="12.5" fill="#646b67">两个读数的分母、统计期与对象都不同，不能相减、相除，也不能并列成同一条趋势线。</text>
+            </g>
+          </svg>
+        </div>
+        <p class="fig-hint">图表可横向滑动查看完整内容。</p>
+        <p class="fig-cap" id="figA-cap"><b>图一 · 电的账本：两把不通约的尺。</b>上尺给的是份额（约 2%），下尺给的是大小关系（已超一个州）。素材只提供这两个读数，没有给两者的换算。</p>
+
+
+    <h3>账本二的闸：四道门，一条豁免结构</h3>
+      <div class="fig fig-region">
+        <div class="fig-scroll" tabindex="0" role="region" aria-labelledby="figB-cap">
+          <svg viewBox="0 0 880 292" role="img" aria-labelledby="figB-title figB-desc">
+            <title id="figB-title">许可的账本：四道闸与一条豁免结构</title>
+            <desc id="figB-desc">四个依次排列的环节：触发条件为客户身份位于 D:5 国家组含中国或澳门且算力超 1200 万 TPP 聚合算力；穿透接口为网络互联与共享资源机群、转租与代理调用、为受限主体代训模型；出口、再出口与境内转移均须逐案许可；存量业务须在 90 天内补办。下方是豁免结构：电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免。</desc>
+            <g font-family="var(--sans)">
+              <rect x="0" y="16" width="196" height="150" fill="#e5ebee" stroke="#2f4858"/>
+              <text x="16" y="44" font-size="14" font-weight="600" fill="#2f4858">触发</text>
+              <text x="16" y="72" font-size="13" fill="#171a18">客户身份</text>
+              <text x="16" y="92" font-size="13" fill="#171a18">总部位于 D:5 国家组</text>
+              <text x="16" y="112" font-size="13" fill="#171a18">（含中国）或澳门实体</text>
+              <text x="16" y="132" font-size="13" fill="#171a18">量级门槛</text>
+              <text x="16" y="152" font-size="13" fill="#171a18">超 1200 万 TPP 聚合算力</text>
+
+              <rect x="228" y="16" width="196" height="150" fill="#e5ebee" stroke="#2f4858"/>
+              <text x="244" y="44" font-size="14" font-weight="600" fill="#2f4858">穿透</text>
+              <text x="244" y="72" font-size="13" fill="#171a18">网络互联与</text>
+              <text x="244" y="92" font-size="13" fill="#171a18">共享资源机群</text>
+              <text x="244" y="112" font-size="13" fill="#171a18">转租与代理调用</text>
+              <text x="244" y="132" font-size="13" fill="#171a18">为受限主体</text>
+              <text x="244" y="152" font-size="13" fill="#171a18">代训模型</text>
+
+              <rect x="456" y="16" width="196" height="150" fill="#e5ebee" stroke="#2f4858"/>
+              <text x="472" y="44" font-size="14" font-weight="600" fill="#2f4858">许可</text>
+              <text x="472" y="72" font-size="13" fill="#171a18">出口</text>
+              <text x="472" y="92" font-size="13" fill="#171a18">再出口</text>
+              <text x="472" y="112" font-size="13" fill="#171a18">境内转移</text>
+              <text x="472" y="132" font-size="13" fill="#171a18">均须逐案许可</text>
+              <text x="472" y="152" font-size="12.5" fill="#646b67">逐单逐案审批</text>
+
+              <rect x="684" y="16" width="196" height="150" fill="#e5ebee" stroke="#2f4858"/>
+              <text x="700" y="44" font-size="14" font-weight="600" fill="#2f4858">期限</text>
+              <text x="700" y="72" font-size="13" fill="#171a18">存量业务</text>
+              <text x="700" y="92" font-size="13" font-weight="600" fill="#171a18">90 天内补办</text>
+              <text x="700" y="112" font-size="13" fill="#171a18">起算日素材未给</text>
+              <text x="700" y="132" font-size="12.5" fill="#646b67">无法定位到期日</text>
+
+              <path d="M 204 84 L 220 91 L 204 98" fill="none" stroke="#2f4858" stroke-width="1.4"/>
+              <path d="M 432 84 L 448 91 L 432 98" fill="none" stroke="#2f4858" stroke-width="1.4"/>
+              <path d="M 660 84 L 676 91 L 660 98" fill="none" stroke="#2f4858" stroke-width="1.4"/>
+
+              <rect x="0" y="196" width="880" height="58" fill="#f4f6f4" stroke="#d2d8d4"/>
+              <line x1="440" y1="208" x2="440" y2="242" stroke="#d2d8d4"/>
+              <text x="18" y="222" font-size="13" font-weight="600" fill="#2f4858">豁免但须报备</text>
+              <text x="18" y="244" font-size="13" fill="#171a18">电商社交推荐算力</text>
+              <text x="458" y="222" font-size="13" font-weight="600" fill="#a03a2a">不豁免</text>
+              <text x="458" y="244" font-size="13" fill="#171a18">生成式 AI 系统</text>
+
+              <text x="0" y="278" font-size="12.5" fill="#646b67">外扩：马来西亚、新加坡、印尼、泰国、巴西五国纳入先进半导体出口许可范围。</text>
+            </g>
+          </svg>
+        </div>
+        <p class="fig-hint">图表可横向滑动查看完整内容。</p>
+        <p class="fig-cap" id="figB-cap"><b>图二 · 许可的账本：四道闸与一条豁免结构。</b>规则不是拦一次交易，而是把一次交易拆成四个必须分别回答的问题：客户是谁、算力在哪一格、能不能走、存量怎么办。</p>
+
+
+    <div class="tbl-region">
+      <div class="tbl-scroll" tabindex="0" role="region" aria-labelledby="tbl1-cap">
+        <table class="tbl">
+          <caption id="tbl1-cap">表一 · 三个读数的口径边界</caption>
+          <thead>
+            <tr>
+              <th scope="col">读数</th>
+              <th scope="col">数值</th>
+              <th scope="col">口径</th>
+              <th scope="col">它能推出</th>
+              <th scope="col">它不能推出</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">统计期超大规模数据中心数量（同一出处）</th>
+              <td class="num" data-l="数值">675 处</td>
+              <td data-l="口径">2024-05 至 2025-04 的站点统计，来源为 Ars Technica / WIRED 转述的研究</td>
+              <td data-l="它能推出">这批站点合起来吃掉全美用电约 2%</td>
+              <td data-l="它不能推出">与 400 座是否重叠、是否含离网自发电</td>
+            </tr>
+            <tr>
+              <th scope="row">美国数据中心数量（哈佛测算口径）</th>
+              <td class="num" data-l="数值">400 座</td>
+              <td data-l="口径">哈佛测算的总量估算，与一个州的用电作比较</td>
+              <td data-l="它能推出">这个规模的机群用电已超过密歇根州全州</td>
+              <td data-l="它不能推出">超出多少、绝对电量是多少</td>
+            </tr>
+            <tr>
+              <th scope="row">超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）</th>
+              <td class="num" data-l="数值">2%</td>
+              <td data-l="口径">分母是全美用电总量</td>
+              <td data-l="它能推出">电力已是国家级分配问题</td>
+              <td data-l="它不能推出">这 2% 的构成、是否含离网自发电</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="note">
+      <b>读法。</b>三个读数的分母、统计期与统计对象都不一样：一个数的是「有多少处站点」，另一个数的是
+      「有多少座机房加起来的电超过一个州」，第三个是「占全美的份额」。素材没有给它们之间的换算关系，
+      所以本篇不把 675 与 400 相减、相除，也不把两个数字并列成同一条趋势线。
+      唯一被素材明确写出的关系是同一句话里的两项：400 座那一侧的总量<b>未计入自建离网燃气园区</b>。
+    </p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">
+      本篇登记的八个读数。前两个是跨作品沿用的既有标签，写法保持原样以便接成时间线；
+      后六个是本篇新增，每个都带口径后缀。出处行同时标出原文的表述方式。
+    </p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">2%</div>
+        <div class="metric-label">超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）</div>
+        <div class="metric-source">研究统计 · Ars Technica / WIRED · 2026-11-17 · 原文表述为「用电约占全美 2%」</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">675 处</div>
+        <div class="metric-label">统计期超大规模数据中心数量（同一出处）</div>
+        <div class="metric-source">研究统计 · Ars Technica / WIRED · 2026-11-17 · 统计期 2024-05 至 2025-04</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">400 座</div>
+        <div class="metric-label">美国数据中心数量（哈佛测算口径）</div>
+        <div class="metric-source">哈佛测算 · 2026-11-17 · 原文表述为「仅约 400 座美国数据中心」</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1200 万 TPP</div>
+        <div class="metric-label">BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）</div>
+        <div class="metric-source">BIS 临时最终规则 · 2026-11-17 · 原文表述为「超 1200 万 TPP 聚合算力」</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">90 天</div>
+        <div class="metric-label">BIS 存量业务补办期限（90 天）</div>
+        <div class="metric-source">BIS 临时最终规则 · 2026-11-17 · 存量业务须在 90 天内补办</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">五国</div>
+        <div class="metric-label">纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）</div>
+        <div class="metric-source">BIS 临时最终规则 · 2026-11-17 · 马来西亚、新加坡、印尼、泰国、巴西</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">34 亿美元</div>
+        <div class="metric-label">Anthropic 天然气涡轮机采购额（11-10）</div>
+        <div class="metric-source">每日AI技术动态简报 2026-11-10 · 今日焦点 4（TechCrunch）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">9009 亿美元</div>
+        <div class="metric-label">Anthropic 算力与基础设施承诺总额</div>
+        <div class="metric-source">Anthropic, PBC S-1/A（2026-11-10）· 一手直取（复用 2026-11-16 作品口径）</div>
+      </div>
+    </div>
+
+    <p class="note">
+      <b>读法。</b>第 2% 与第 675 处是同一个统计的两面，来源相同、统计期相同；
+      第 400 座来自另一条测算线（哈佛），两者不可通约。
+      第 34 亿美元与第 9009 亿美元是公司侧的两张单据：一张买电源，一张买算力，
+      它们回答的是「电的账本最终由谁买单」这个问题，不是行业口径。
+    </p>
+  </div>
+</section>
+
+<!-- ── 谁被同时卡住 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>谁会被两条账同时卡住</h2>
+    <p class="lede">
+      两条约束落在四类主体身上，重叠程度完全不同。下表按「卡点强度」给出判断，
+      强度是本文的判断，不是素材给出的结论：素材只给阈值、期限与覆盖范围，不给受影响主体的数量或比例。
+    </p>
+
+    <div class="tbl-region">
+      <div class="tbl-scroll" tabindex="0" role="region" aria-labelledby="tbl2-cap">
+        <table class="tbl">
+          <caption id="tbl2-cap">表二 · 四类主体 × 两条约束的卡点位置</caption>
+          <thead>
+            <tr>
+              <th scope="col">主体</th>
+              <th scope="col">电力账卡在哪</th>
+              <th scope="col">许可账卡在哪</th>
+              <th scope="col">卡点强度（本文判断）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">云厂商</th>
+              <td data-l="电力账卡在哪">已在成本内。675 处超大规模站点就是他们的资产；自建离网燃气与长期购电协议是他们现成的对冲工具，电的约束对他们是已消化的旧问题。</td>
+              <td data-l="许可账卡在哪">新增的合规固定成本。同一座机房对不同客户身份承担不同手续，算力池按身份被切分，池化收益下降。</td>
+              <td data-l="卡点强度">
+                <span class="bar"><span class="bar-track"><span class="bar-fill" style="width:45%"></span></span><span class="bar-label">中</span></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">模型公司</th>
+              <td data-l="电力账卡在哪">正在用资本开支对冲。Anthropic 天然气涡轮机采购额（11-10）为 34 亿美元，Anthropic 算力与基础设施承诺总额为 9009 亿美元，买电与自建电源同时推进。</td>
+              <td data-l="许可账卡在哪">被直接点名的是「为受限主体代训模型」这类工作负载；同一家公司也可能自己就是受限主体，一部戏同时演两角。</td>
+              <td data-l="卡点强度">
+                <span class="bar"><span class="bar-track"><span class="bar-fill" style="width:62%"></span></span><span class="bar-label">中高</span></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">数据中心运营商</th>
+              <td data-l="电力账卡在哪">首当其冲。购电价格与并网排队直接进成本，且要为自建离网燃气园区额外找燃料与设备。</td>
+              <td data-l="许可账卡在哪">必须能证明一整条归因链：网络互联与共享资源机群要拆得开，转租与代理调用要留痕。这不是加一道审批，是重资本的行政工程。</td>
+              <td data-l="卡点强度">
+                <span class="bar"><span class="bar-track"><span class="bar-fill" style="width:85%"></span></span><span class="bar-label">高</span></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">受限主体的代训订单</th>
+              <td data-l="电力账卡在哪">没有对冲手段。不能自建离网燃气园区，只能买剩下的、更贵的容量，而且买的是被许可切走之后剩下的那部分。</td>
+              <td data-l="许可账卡在哪">没有资质。无法自行取得逐案许可；存量业务还要在 90 天内补办，合同连续性由别人决定。</td>
+              <td data-l="卡点强度">
+                <span class="bar"><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-label">最高</span></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="note">
+      <b>读法。</b>表里只有最后一行是真正的「两条账同时落在同一个主体身上」：
+      它要的量级（超 1200 万 TPP 聚合算力）本身就落在 675 处超大规模站点所在的区间；
+      它没有自建离网燃气园区的能力，也没有自行取得逐案许可的资质；
+      而 90 天这个期限对它和对云厂商是同时生效的。
+      前三类主体都还有牌可打：云厂商有定价权，模型公司有资产负债表，运营商有物理资产。
+      <b>受限主体的代训订单是唯一无法靠自身资产修复合同连续性的一方。</b>
+    </p>
+  </div>
+</section>
+
+<!-- ── 为什么需要被解释 ────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>算力为什么开始需要「被解释」</h2>
+    <p class="lede">
+      芯片运出去是一次性事件，可以追到运单；算力用得到是持续状态，只能追到机群、账单与调度日志。
+      管制一旦从货物转到服务，被管制的对象就从「东西」变成了「一条可以回答的链路」。
+      这就是「必须解释算力被谁、以什么方式使用」的技术含义：不是多写一份报告，是多出一份可归因的账。
+    </p>
+
+    <div class="fig fig-region">
+      <div class="fig-scroll" tabindex="0" role="region" aria-labelledby="figC-cap">
+        <svg viewBox="0 0 880 240" role="img" aria-labelledby="figC-title figC-desc">
+          <title id="figC-title">归因链与三处接口</title>
+          <desc id="figC-desc">五段链条从左到右依次是：受限主体、订单与合同、数据中心与机群、调用链、最终使用者。三处接口分别钩在链条上：为受限主体代训模型钩在订单环节，网络互联与共享资源机群钩在数据中心与机群环节，转租与代理调用钩在调用链环节。</desc>
+          <g font-family="var(--sans)">
+            <rect x="0" y="34" width="156" height="88" fill="#f4f6f4" stroke="#d2d8d4"/>
+            <text x="78" y="60" font-size="13.5" font-weight="600" text-anchor="middle" fill="#171a18">受限主体</text>
+            <text x="78" y="84" font-size="12.5" text-anchor="middle" fill="#4f5551">总部在 D:5 国家组</text>
+            <text x="78" y="102" font-size="12.5" text-anchor="middle" fill="#4f5551">（含中国）或澳门</text>
+
+            <rect x="181" y="34" width="156" height="88" fill="#f4f6f4" stroke="#d2d8d4"/>
+            <text x="259" y="60" font-size="13.5" font-weight="600" text-anchor="middle" fill="#171a18">订单与合同</text>
+            <text x="259" y="84" font-size="12.5" text-anchor="middle" fill="#4f5551">代训、调用</text>
+            <text x="259" y="102" font-size="12.5" text-anchor="middle" fill="#4f5551">与交付物</text>
+
+            <rect x="362" y="34" width="156" height="88" fill="#f4f6f4" stroke="#d2d8d4"/>
+            <text x="440" y="60" font-size="13.5" font-weight="600" text-anchor="middle" fill="#171a18">数据中心与机群</text>
+            <text x="440" y="84" font-size="12.5" text-anchor="middle" fill="#4f5551">超 1200 万 TPP</text>
+            <text x="440" y="102" font-size="12.5" text-anchor="middle" fill="#4f5551">聚合算力</text>
+
+            <rect x="543" y="34" width="156" height="88" fill="#f4f6f4" stroke="#d2d8d4"/>
+            <text x="621" y="60" font-size="13.5" font-weight="600" text-anchor="middle" fill="#171a18">调用链</text>
+            <text x="621" y="84" font-size="12.5" text-anchor="middle" fill="#4f5551">共享、转租</text>
+            <text x="621" y="102" font-size="12.5" text-anchor="middle" fill="#4f5551">与代理</text>
+
+            <rect x="724" y="34" width="156" height="88" fill="#f4f6f4" stroke="#d2d8d4"/>
+            <text x="802" y="60" font-size="13.5" font-weight="600" text-anchor="middle" fill="#171a18">最终使用者</text>
+            <text x="802" y="84" font-size="12.5" text-anchor="middle" fill="#4f5551">工作负载</text>
+            <text x="802" y="102" font-size="12.5" text-anchor="middle" fill="#4f5551">与产物归属</text>
+
+            <path d="M 160 78 L 176 84 L 160 90" fill="none" stroke="#a03a2a" stroke-width="1.4"/>
+            <path d="M 341 78 L 357 84 L 341 90" fill="none" stroke="#a03a2a" stroke-width="1.4"/>
+            <path d="M 522 78 L 538 84 L 522 90" fill="none" stroke="#a03a2a" stroke-width="1.4"/>
+            <path d="M 703 78 L 719 84 L 703 90" fill="none" stroke="#a03a2a" stroke-width="1.4"/>
+
+            <line x1="259" y1="122" x2="259" y2="142" stroke="#a03a2a" stroke-width="1"/>
+            <line x1="440" y1="122" x2="440" y2="142" stroke="#a03a2a" stroke-width="1"/>
+            <line x1="621" y1="122" x2="621" y2="142" stroke="#a03a2a" stroke-width="1"/>
+
+            <rect x="181" y="142" width="156" height="46" fill="#f4e3de" stroke="#a03a2a"/>
+            <text x="259" y="162" font-size="12.5" font-weight="600" text-anchor="middle" fill="#a03a2a">接口三</text>
+            <text x="259" y="180" font-size="12.5" text-anchor="middle" fill="#171a18">为受限主体代训模型</text>
+
+            <rect x="362" y="142" width="156" height="46" fill="#f4e3de" stroke="#a03a2a"/>
+            <text x="440" y="162" font-size="12.5" font-weight="600" text-anchor="middle" fill="#a03a2a">接口一</text>
+            <text x="440" y="180" font-size="12.5" text-anchor="middle" fill="#171a18">网络互联与共享资源机群</text>
+
+            <rect x="543" y="142" width="156" height="46" fill="#f4e3de" stroke="#a03a2a"/>
+            <text x="621" y="162" font-size="12.5" font-weight="600" text-anchor="middle" fill="#a03a2a">接口二</text>
+            <text x="621" y="180" font-size="12.5" text-anchor="middle" fill="#171a18">转租与代理调用</text>
+
+            <text x="0" y="220" font-size="12.5" fill="#646b67">本文的读法：许可只需要一个可回答的问题：这一批算力，是为谁跑的。</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-hint">图表可横向滑动查看完整内容。</p>
+      <p class="fig-cap" id="figC-cap"><b>图三 · 归因链与三处接口。</b>规则钩住的是链条上的三段，而不是某个物理位置。三段各有各的破法：机群互联破了「隔离」的假设，转租与代理破了「直接客户」的假设，代训交付破了「可拦截货物」的假设。</p>
+    </div>
+
+    <h3>三处接口，各破掉一个假设</h3>
+    <p>
+      <b>接口一 · 网络互联与共享资源机群。</b>一座机房里可以同时有服务境内客户的卡和服务受限主体的卡，
+      只要物理上互联。规则因此不能按机房管，只能按机群管：谁要能证明某一批卡只跑哪些工作负载。
+    </p>
+    <p>
+      <b>接口二 · 转租与代理调用。</b>算力可以被转手，也可以由第三方代为调用。
+      合同上的客户与实际使用者可以不是同一家，规则因此必须穿透到最终使用者。
+      这一处对数据中心运营商最重：它要的不是一纸同意书，而是可审计的调度与计费链路。
+    </p>
+    <p>
+      <b>接口三 · 为受限主体代训模型。</b>本文的读法：模型是客户自有的资产，训练完成的交付物没有可拦截的形态，
+      所以许可必须落在训练过程上，而不是落在交付那一刻。这也解释了为什么代训会被单独点名，
+      而不是笼统地写进「向受限主体提供服务」。
+    </p>
+
+    <h3>豁免结构本身就是证据</h3>
+    <p>
+      电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免。这两条放在一起读，
+      规则自己承认了一件事：<b>用途可事先分类的算力可以豁免，用途不可事先分类的不行。</b>
+      电商社交推荐的负载有可识别的形态，规则能判断这一批卡在做什么；
+      生成式 AI 的输入输出事先无法分类，规则没法判断。
+    </p>
+    <p>
+      所以 BIS 选了另一条路：不按用途豁免，改按客户身份与算力量级设门槛，再逐案审。
+      <b>门槛与逐案不是例外机制，而是「用途不可判定」时的替代控制方式</b>：
+      它把「解释用途」换成了「解释客户」。这也是本篇标题里「被解释」的技术含义。
+    </p>
+    <p class="note">
+      <b>未确认：缺 BIS 条文原文。</b>「电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免」
+      这一条的完整表述只出现在素材的概括性转述里，素材未附条文原文，也未给出豁免的适用范围、报备流程与时限。
+      本篇对该条的全部解读都建立在这句转述之上，若原文口径不同，上述读法需要相应修正。
+    </p>
+  </div>
+</section>
+
+<!-- ── 成本结构：谁先动 ────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>电力先改成本结构，许可先改可获得性</h2>
+    <p class="lede">
+      两条约束改变行业的方式不同：电改变长期成本曲线，许可改变谁能拿到、能不能连续拿到。
+      判定必须写清靠什么成立、被什么推翻，否则只是一句态度。
+    </p>
+
+    <div class="tbl-region">
+      <div class="tbl-scroll" tabindex="0" role="region" aria-labelledby="tbl3-cap">
+        <table class="tbl">
+          <caption id="tbl3-cap">表三 · 三条判定的成立条件与推翻条件</caption>
+          <thead>
+            <tr>
+              <th scope="col">判定</th>
+              <th scope="col">成立靠什么</th>
+              <th scope="col">被什么推翻</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">电力先改成本结构，许可先改可获得性</th>
+              <td data-l="成立靠什么">675 处超大规模数据中心占全美约 2%，统计期 2024-05 至 2025-04，是已经发生并入账的事实，成本已进入折旧、电费与购电合同；公司侧已用资本开支对冲（Anthropic 天然气涡轮机采购额（11-10）34 亿美元、Anthropic 算力与基础设施承诺总额 9009 亿美元）；哈佛测算的 400 座用电已超一个州，说明量级是区域级而非单点。</td>
+              <td data-l="被什么推翻">下一统计期若超大规模站点用电占比回落，说明 2% 是波动不是趋势；若 BIS 规则把门槛下调到绝大多数商业代训都落入区间，许可侧成本会与电力侧同量级，两者的先后顺序被拉平。</td>
+            </tr>
+            <tr>
+              <th scope="row">受限主体的代训订单被两条账同时夹住</th>
+              <td data-l="成立靠什么">它要的量级（超 1200 万 TPP 聚合算力）本身就落在 675 处超大规模站点所在的区间；它没有自建离网燃气园区的能力，也没有自行取得逐案许可的资质；存量业务 90 天内补办对它与云厂商同时生效，合同连续性不由它决定。</td>
+              <td data-l="被什么推翻">若受限主体的算力需求主要迁往境内且不触发管辖，或规则对小量级订单整体豁免，「同时被夹住」的强度下降；90 天补办若在实际执行中普遍延后，期限的约束力也会减弱。</td>
+            </tr>
+            <tr>
+              <th scope="row">「被解释」会变成算力的固定成本项</th>
+              <td data-l="成立靠什么">许可按客户身份触发，且覆盖网络互联与共享资源机群、转租与代理调用、为受限主体代训模型三处接口；三处都要求留下可归因的链路记录，记录要靠机群拆分、调度日志与独立的客户身份账本来支撑。</td>
+              <td data-l="被什么推翻">若报备与逐案流程在 90 天后转为常态化批量放行，或规则只对特定客户名单生效而不要求链路拆分，合规固定成本会大幅摊薄，这项成本就不会沉淀为长期科目。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="note">
+      <b>读法。</b>三条判定都只判方向与位置，不判规模。素材没有给出「多少比例的订单被卡住」、
+      「审批平均时长」「违规后果」，也没有给出电价的绝对值，所以任何带比例的结论都超出了素材能支撑的范围。
+    </p>
+
+    <h3>还有第三本账在同时收</h3>
+    <p>
+      电与许可收紧的同时，信用这一侧也在收紧：美联储 11 月 13 日《金融稳定报告》点名「循环融资」，
+      截至 2026 年 10 月先进计算基础设施相关债务发行超 6800 亿美元、约为 2023 年全年 1300 亿美元的五倍，
+      相关金融义务合计超 3 万亿美元；IMF 估计 AI 企业间循环融资略超 1 万亿美元，约三分之二靠借债。
+    </p>
+    <p>
+      本文判断（素材未给主体级数据，不能推广到全行业）：能把电力与许可两条约束同时扛在身上的主体，
+      通常也是有资产负债表去扛的主体。这可以从一家公司的两份账单上看出：
+      Anthropic 的 34 亿美元涡轮机采购与 9009 亿美元算力承诺同时出现在表上。
+      这条判断只说明「谁还能扛」，不说明「谁会被淘汰」；素材不支持后一半。
+    </p>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">这两条账不是同时出现的。它们先在资产上出现，再在规则上收紧。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-10</span>
+        <div>
+          <div class="timeline-title">Anthropic 斥资约 34 亿美元购买天然气涡轮机</div>
+          <div class="timeline-detail">供电竞赛进入「自己发电」阶段。电的账本从电费合同延伸到资本开支，<b>电网不再是唯一的供电来源</b>。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-11</span>
+        <div>
+          <div class="timeline-title">Anthropic 算力与基础设施承诺总额 9009 亿美元</div>
+          <div class="timeline-detail">与上一条并置后可以看到：算力账单与自建电源出现在同一张资产负债表上，<b>电的承诺和算力的承诺是同一笔钱的两面</b>。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">美联储《金融稳定报告》点名「循环融资」</div>
+          <div class="timeline-detail">第三条约束进入视野：截至 2026 年 10 月先进计算基础设施相关债务发行超 6800 亿美元，相关金融义务合计超 3 万亿美元。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16</span>
+        <div>
+          <div class="timeline-title">英伟达收报 156.14 美元，较 10 月初 243.37 美元历史高点回撤约 35%</div>
+          <div class="timeline-detail">市场先给出一个信号：焦点从需求转向回报。11 月 17 日费城半导体指数跌 5.28%、英伟达跌 4.12%，闪迪跌 8.58%，美光与 SK 海力士跌超 7%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-17</span>
+        <div>
+          <div class="timeline-title">BIS 临时最终规则见报：管制从芯片推进到算力</div>
+          <div class="timeline-detail">超 1200 万 TPP 聚合算力触发逐案许可，存量业务 90 天内补办；马来西亚、新加坡、印尼、泰国、巴西五国纳入先进半导体出口许可范围。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-17</span>
+        <div>
+          <div class="timeline-title">电力账被量化：675 处约占全美 2%，400 座已超密歇根州全州</div>
+          <div class="timeline-detail">同一天，约束被写成两个数：一个是份额，一个是大小的关系。<b>电的账与许可的账在同一周落到同一个约束方向上</b>。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">＋90 天</span>
+        <div>
+          <div class="timeline-title">存量业务补办期限到期</div>
+          <div class="timeline-detail">合同连续性的判定点。<b>起算日素材未给</b>，本篇不把这一条定位到日历日期，只标出它是所有存量安排的分界。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。引用逐字照录素材，不做润色。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">研究统计 2024 年 5 月至 2025 年 4 月 675 处超大规模数据中心用电约占全美 2%；哈佛测算仅约 400 座美国数据中心总用电已超密歇根州全州，且未计入自建离网燃气园区。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 4 · 原文来源 Ars Technica / WIRED</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">BIS 临时最终规则要求，向总部位于 D:5 国家组（含中国）或澳门实体提供超 1200 万 TPP 聚合算力的海外数据中心，出口、再出口或境内转移须逐案许可，存量业务 90 天内补办；马来西亚、新加坡、印尼、泰国、巴西五国纳入先进半导体出口许可范围。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🔥 今日焦点 3 · 原文来源 芯智讯 / CBS News</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">BIS 规则覆盖网络互联与共享资源机群、转租与代理调用、为受限主体代训模型；电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免；行业门槛从"有无芯片电力"转向"能否解释算力被谁、以何方式使用"。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 1 · 原文来源 钛媒体（11-17 早报）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">美联储 11 月 13 日《金融稳定报告》点名"循环融资"，截至 2026 年 10 月先进计算基础设施相关债务发行超 6800 亿美元、约为 2023 年全年 1300 亿美元的五倍，相关金融义务合计超 3 万亿美元；IMF 估计 AI 企业间循环融资略超 1 万亿美元，约三分之二靠借债。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-17 · 🌍 行业影响 2 · 原文来源 钛媒体（11-17 早报）/ 茉莉花（11-17）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Anthropic 斥资约 34 亿美元购买天然气涡轮机，加入 AI 公司锁定发电能力的供电竞赛，资产负债表与化石能源周期绑定加深。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-10 · 今日焦点 4 · 原文来源 TechCrunch（沿用本篇既有标签口径）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">S-1文件显示，Anthropic已签订购买承诺及租赁协议，包括短期承诺，以及尚未开始的租赁，总计承诺的花费大约为9009亿美元，其中绝大部分内容都与算力及基础设施相关。</p>
+        <cite class="evidence-source">Anthropic S-1 招股文件 · 央广网 2026-11-10 转引（沿用 2026-11-16 作品口径）</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 未确认与局限 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>未确认与局限</h2>
+    <p class="lede">
+      本篇只做素材内的事。以下八项是素材没有给、而结论又离不开的东西，一律写明，不填推测值。
+    </p>
+    <ul class="gaps">
+      <li><b>未确认：缺 BIS 条文原文。</b>「电商社交推荐算力豁免但须报备，生成式 AI 系统不豁免」的具体条文只在素材的概括表述里，没有条文原文。确认方法：取 BIS 临时最终规则正式文本与 Federal Register 刊登版本。</li>
+      <li><b>未确认：缺 TPP 换算口径。</b>素材未给单卡 TPP 值、聚合方式与 TPP 与芯片数量的换算关系，因此本篇不把 1200 万 TPP 折算成任何芯片数或机架数。</li>
+      <li><b>未确认：缺 D:5 国家组完整名单。</b>素材只写「含中国」，未列全名单，也未说明马来西亚、新加坡、印尼、泰国、巴西这五国进入的是先进半导体出口许可范围还是 D:5 组本身。</li>
+      <li><b>未确认：缺规则生效日与 90 天起算点。</b>素材未给生效日，存量业务补办期限的到期日因此无法定位到日历日期。确认方法：取规则刊登日期。</li>
+      <li><b>未确认：缺 675 处与 400 座的口径对照。</b>两者的统计对象、统计期与用电基数都不同，素材未给换算关系，也未给密歇根州与全美的用电量绝对值。</li>
+      <li><b>未确认：缺电力侧一手研究。</b>675 处 / 2% 与 400 座 / 密歇根州两条均为二手转述，素材未给研究名称与原始统计口径；本轮不联网，未做原典回查。</li>
+      <li><b>未确认：缺自建离网燃气园区的规模。</b>素材只说明 400 座口径未计入离网燃气园区，未给园区数量、装机容量与投运时间，因此无法量化「电的真实负载被低估了多少」。</li>
+      <li><b>未确认：缺受影响主体的比例与审批时长。</b>素材未给被卡住的订单占比、审批平均时长、违规后果，也没有给电价绝对值，所以本篇只判方向与位置，不判规模。</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>
+      <b>方法。</b>主素材：每日AI技术动态简报 2026-11-17（今日焦点 3、🌍 行业影响 1 / 2 / 4），
+      只读该文件，不做网络检索。跨作品沿用的两个既有标签
+      （Anthropic 天然气涡轮机采购额（11-10）、Anthropic 算力与基础设施承诺总额）
+      取自本展厅既有核源记录，来源已在证据节逐条标出。素材日期 11-17，与本篇日期相差 1 天，属正常滞后。
+    </p>
+    <p>
+      <b>口径。</b>页尾断言声明块共 8 条，每条的 quote 均在本文件内逐字存在，
+      并由 tools/claim_gate.py 的 G1 逐字引用闸门与 G2 标签质量闸门校验。
+      解释性判断留在正文，由人读，不进断言层。
+    </p>
+    <p>
+      <b>免责。</b>文中对卡点强度、对成因顺序、对主体的排序均为研析的判断，不是素材给出的结论；
+      素材未支持的比例、绝对值与执行细节一律留空并列入未确认清单。
+      研究简报 · 主责：研析 · 2026-11-18 · 追踪线：算力·能耗·环境。
+    </p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "2%",
+    "label": "超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）",
+    "quote": "2% 超大规模数据中心用电占全美比例（2024-05 至 2025-04 口径）"
+  },
+  {
+    "value": "675 处",
+    "label": "统计期超大规模数据中心数量（同一出处）",
+    "quote": "675 处 统计期超大规模数据中心数量（同一出处）"
+  },
+  {
+    "value": "400 座",
+    "label": "美国数据中心数量（哈佛测算口径）",
+    "quote": "400 座 美国数据中心数量（哈佛测算口径）"
+  },
+  {
+    "value": "1200 万 TPP",
+    "label": "BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）",
+    "quote": "1200 万 TPP BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）"
+  },
+  {
+    "value": "90 天",
+    "label": "BIS 存量业务补办期限（90 天）",
+    "quote": "90 天 BIS 存量业务补办期限（90 天）"
+  },
+  {
+    "value": "五国",
+    "label": "纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）",
+    "quote": "五国 纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）"
+  },
+  {
+    "value": "34 亿美元",
+    "label": "Anthropic 天然气涡轮机采购额（11-10）",
+    "quote": "34 亿美元 Anthropic 天然气涡轮机采购额（11-10）"
+  },
+  {
+    "value": "9009 亿美元",
+    "label": "Anthropic 算力与基础设施承诺总额",
+    "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+  }
+]
+</script>
+
+<script>
+// 全页唯一的一次性动效：核心判断下的铜色短横自左绘出。
+// 默认可见；只有 JS 可用时才开启动画，避免脚本失效时留白。
+(function(){
+  var html=document.documentElement;
+  html.classList.add('js-motion');
+  var target=document.getElementById('verdict-rule');
+  if(!target){html.classList.remove('js-motion');return;}
+  if(!('IntersectionObserver' in window)){
+    target.classList.add('drawn');
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){target.classList.add('drawn');io.unobserve(target);}
+    });
+  },{threshold:.4});
+  io.observe(target);
+})();
+</script>
+</body>
+</html>

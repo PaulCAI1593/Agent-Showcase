@@ -958,9 +958,21 @@ def phase_validate(pre_manifest, pre_tags, excluded=None, js_bad=None):
     research = manifest.get('research', [])
     creative = manifest.get('creative', [])
     items = research + creative
-    disk = [w for w in build_manifest.scan_works() if not in_quarantine(w, excluded)]
+    # 产物完整性闸门（2026-11-16 技枢包一）：无 <script id="claims"> 声明块的新作品
+    # 不进 manifest（存量作品按基线豁免）。闸门拦下的作品从"磁盘集合"里剔除，
+    # 否则它会永远挂在「磁盘未登记」上，让整条流水线为一个坏作品长期失败。
+    _baseline = build_manifest.load_claims_gate_baseline()
+    disk_all = [w for w in build_manifest.scan_works() if not in_quarantine(w, excluded)]
+    blocked = [w for w in disk_all if build_manifest.claims_gate_blocks(w, _baseline)]
+    blocked_set = set(blocked)
+    disk = [w for w in disk_all if w not in blocked_set]
+    if blocked:
+        log(f'  ⛔ claims 闸门  拦下 {len(blocked)} 件（无 <script id="claims"> 声明块，不进 manifest）')
+        for f in blocked[:5]:
+            log(f'        ! {f}')
     man_files = {i['file'] for i in items}
     disk_set = set(disk)
+    known_set = disk_set | blocked_set      # 闸门拦下的作品仍在磁盘上，不是孤儿键
 
     # ① 计数一致
     total = manifest.get('total')
@@ -1044,7 +1056,7 @@ def phase_validate(pre_manifest, pre_tags, excluded=None, js_bad=None):
     if isinstance(enrich_data, dict) and 'works' not in enrich_data:
         enrich_data = {'works': enrich_data}
     enrich_files = {w.get('file') for w in enrich_data.get('works', []) if w.get('file')}
-    enrich_orphans = sorted(enrich_files - disk_set)
+    enrich_orphans = sorted(enrich_files - known_set)
 
     registry = load_type_registry(TYPES_REGISTRY)
     manifest_type = {i['file']: i['type'] for i in items}

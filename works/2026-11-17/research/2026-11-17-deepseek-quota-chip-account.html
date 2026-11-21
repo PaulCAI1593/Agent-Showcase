@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="地缘与能源">
+<meta name="description" content="DeepSeek 11-16 起对免费用户实施每日配额。本篇把「配额＝芯片账的公开信号」拆成需求、约束、替代、去向四段可审计的账，区分已证实与解读。">
+<title>配额、限制与 56 万颗 —— DeepSeek 每日配额背后的芯片账</title>
+
+<!--
+  智囊团 · 研究类作品（选题 447 · 档案卷宗世界，按本篇内容重排）
+  契约：承载数据的语义块只用封闭词汇表（.metrics/.verdict/.timeline/.evidence）；
+  自创 class 仅用于纯装饰与表格式结构（.chain/.scope/.chart/.ledger/.risk/.stat）。
+  零远程依赖：字体走 assets/vendor/fonts 本地镜像；图表为手写 HTML/CSS/SVG。
+  「返回展厅」链接由 autopublish 注入，不手写。
+  素材：AI 技术动态简报 2026-11-16 / 每日股市简报 2026-11-16 /
+        每日热点新闻简报 2026-11-14（滞后 3 天，正文已标注素材日期）。
+-->
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,
+                 U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,
+                 U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --warn:#a63a2c;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:1.0625rem;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;overflow-wrap:break-word;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* 抬头 */
+.masthead{padding:104px 0 68px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(2.125rem,4.4vw,3.25rem);line-height:1.22;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:1.25rem;line-height:1.55;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:0.8125rem;line-height:1.5;letter-spacing:0}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:1.375rem;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* 区块骨架 */
+section{padding:84px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{
+  font-family:var(--serif-cn);font-size:1.875rem;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:1.1875rem;line-height:1.45;font-weight:600;
+  letter-spacing:-0.008em;margin:34px 0 12px;
+}
+.lede{font-size:1.125rem;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:38px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+.hair{height:1px;background:var(--rule);margin:0 0 34px}
+strong{font-weight:600}
+em{font-style:normal;color:var(--warn);font-weight:500}
+
+/* 核心判断 */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(1.5rem,2.7vw,2rem);line-height:1.42;
+  letter-spacing:-0.008em;font-weight:600;max-width:32ch;
+}
+.verdict-note{margin-top:24px;font-size:1rem;line-height:1.65;color:var(--deep-2);max-width:60ch}
+
+/* 对账链 */
+.chain{
+  list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border:1px solid var(--rule);background:var(--paper-raised);
+}
+.chain-node{
+  position:relative;padding:24px 22px 22px;border-right:1px solid var(--rule);
+}
+.chain-node:last-child{border-right:0}
+.chain-node::before{
+  content:'';position:absolute;right:-5px;top:39px;z-index:2;
+  border:5px solid transparent;border-left:10px solid var(--brass);
+}
+.chain-node:last-child::before{display:none}
+.chain-k{
+  display:block;font-family:var(--serif-cn);font-size:1.0625rem;font-weight:600;
+  letter-spacing:-0.006em;color:var(--ink);
+}
+.chain-fig{
+  display:block;margin-top:12px;font-family:var(--serif-num);font-size:1.375rem;
+  line-height:1.25;color:var(--brass);font-variant-numeric:tabular-nums;
+}
+.chain-sub{display:block;margin-top:10px;font-size:0.84375rem;line-height:1.55;color:var(--ink-2)}
+.chain-note{margin-top:18px;font-size:0.90625rem;line-height:1.6;color:var(--ink-3);max-width:70ch}
+
+/* 关键数据（封闭词汇表）*/
+.metrics{
+  display:flex;flex-wrap:wrap;gap:1px;
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:26px 22px 22px;flex:1 1 280px}
+.metric-value{
+  font-family:var(--serif-num);font-size:2.25rem;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:12px;font-size:0.90625rem;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:0.75rem;line-height:1.5;color:var(--ink-3);
+}
+
+/* 进程 */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:0.84375rem;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:1.09375rem;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:0.96875rem;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.timeline-detail .src{display:block;margin-top:5px;font-size:0.78125rem;color:var(--ink-3)}
+
+/* 表格：可滚动容器 + 粘性表头 + 窄容器堆叠（modern-web-guidance: responsive-table）*/
+.tw{
+  overflow:auto;max-inline-size:100%;container-type:inline-size;
+  border:1px solid var(--rule);background:var(--paper-raised);margin:30px 0 10px;
+  padding:12px;
+}
+.ledger{
+  width:100%;border-collapse:collapse;font-size:0.96875rem;line-height:1.55;
+  min-width:560px;
+}
+.ledger caption{text-align:left;font-size:0.8125rem;color:var(--ink-3);padding:14px 15px 0}
+.ledger th,.ledger td{border-bottom:1px solid var(--rule);padding:13px 15px;vertical-align:top;text-align:left}
+.ledger thead th{
+  position:sticky;top:0;background:var(--paper);font-weight:600;font-size:0.8125rem;
+  letter-spacing:.04em;color:var(--ink-2);border-bottom:1px solid var(--rule);z-index:1;
+}
+.ledger tbody th{background:var(--paper-raised);font-weight:600;color:var(--ink)}
+.ledger td{color:var(--ink-2)}
+.ledger .src{display:block;margin-top:6px;font-size:0.75rem;color:var(--ink-3)}
+.ledger tr:last-child th,.ledger tr:last-child td{border-bottom:0}
+.ledger .tag{display:inline-block;font-size:0.75rem;font-weight:600;letter-spacing:.02em}
+.ledger .tag-ok{color:var(--ink)}
+.ledger .tag-read{color:var(--brass)}
+.ledger .tag-no{color:var(--warn)}
+@container (max-width:640px){
+  .ledger{min-width:0}
+  .ledger thead{display:none}
+  .ledger tbody th,.ledger tbody td{display:block;border-bottom:0;padding:6px 15px}
+  .ledger tbody th{padding-top:14px}
+  .ledger tbody td{padding-bottom:14px;border-bottom:1px solid var(--rule)}
+  .ledger tbody td::before{
+    content:attr(data-label);display:block;font-size:0.6875rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;
+  }
+  .ledger tr{border-bottom:1px solid var(--rule);display:block}
+  .ledger tr:last-child{border-bottom:0}
+}
+
+/* 范围框 */
+.scope{border:1px solid var(--rule);background:var(--brass-wash);padding:26px 28px;margin:8px 0 34px}
+.scope ol{margin:0;padding-left:22px}
+.scope li{font-size:1.03125rem;line-height:1.68;color:var(--ink-2);max-width:64ch}
+.scope li + li{margin-top:10px}
+.scope li b{color:var(--ink)}
+
+/* 图表 */
+.chart{margin:34px 0 8px}
+.chart figcaption{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);max-width:64ch;margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:92px minmax(0,1fr) 96px;gap:14px;align-items:center;margin-bottom:14px}
+.bar-name{font-size:0.90625rem;color:var(--ink-2);text-align:right}
+.bar-track{background:var(--rule-soft);height:30px;position:relative;overflow:hidden}
+.bar-fill{
+  height:100%;width:var(--w);background:var(--brass);transform-origin:left center;
+}
+.bar-fill.alt{background:var(--ink-2)}
+.bar-val{
+  font-family:var(--serif-num);font-size:1.0625rem;font-variant-numeric:tabular-nums;
+  color:var(--ink);font-weight:500;
+}
+.bar-annot{
+  grid-column:2 / 4;font-size:0.8125rem;color:var(--ink-3);margin-top:-6px;
+}
+.chart svg{display:block;width:100%;height:auto}
+.chart .cap-note{font-size:0.8125rem;color:var(--ink-3);margin-top:10px;max-width:64ch}
+
+/* 单数字提示 */
+.stat{
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:22px 0;margin:30px 0;display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);
+  gap:28px;align-items:baseline;
+}
+.stat-v{
+  font-family:var(--serif-num);font-size:2.5rem;line-height:1.05;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--brass);
+}
+.stat-l{font-size:0.9375rem;line-height:1.6;color:var(--ink-2);max-width:56ch}
+.stat-l .src{display:block;margin-top:6px;font-size:0.75rem;color:var(--ink-3)}
+
+/* 风险 */
+.risk{list-style:none;border-top:1px solid var(--rule);margin-top:8px}
+.risk li{padding:20px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px}
+.risk .risk-k{font-size:0.84375rem;font-weight:600;color:var(--warn);letter-spacing:.02em;padding-top:2px}
+.risk .risk-t{font-size:1rem;line-height:1.6;color:var(--ink-2);max-width:64ch}
+.risk .risk-t b{color:var(--ink)}
+.risk .risk-t .src{display:block;margin-top:6px;font-size:0.75rem;color:var(--ink-3)}
+
+/* 证据（封闭词汇表）*/
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:1.1875rem;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'\201C';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:2.75rem;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:0.78125rem;line-height:1.5;color:var(--ink-3);
+  font-style:normal;
+}
+.evidence-source .gloss{display:block;margin-top:4px}
+
+/* 页脚 */
+.colophon{padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon h3{margin-top:0}
+.colophon p,.colophon li{font-size:0.875rem;line-height:1.7;color:var(--ink-3);max-width:66ch}
+.colophon ul{margin:10px 0 0;padding-left:20px}
+.colophon li + li{margin-top:4px}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .chain{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chain-node:nth-child(2n){border-right:0}
+  .chain-node:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .chain-node:nth-child(2n)::after,.chain-node:nth-child(2n)::before{display:none}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:64px 0 46px}
+  section{padding:56px 0}
+  h2{font-size:1.5625rem}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .chain{grid-template-columns:1fr}
+  .chain-node{border-right:0;border-bottom:1px solid var(--rule)}
+  .chain-node:last-child{border-bottom:0}
+  .chain-node::after,.chain-node::before{display:none}
+  .stat{grid-template-columns:1fr;gap:10px}
+  .risk li{grid-template-columns:1fr;gap:6px}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:2.125rem}
+  .evidence-source{padding-left:26px}
+  .bar-row{grid-template-columns:70px minmax(0,1fr) 84px;gap:10px}
+}
+
+/* 唯一的动效时刻：需求条在首次进入视口时自左生长。
+   滚动驱动动画（modern-web-guidance: scroll-entry-exit-effects）：
+   @supports 双重检测 + prefers-reduced-motion；不支持的浏览器直接显示终态。 */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()) and (animation-range:entry){
+    @keyframes bar-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    .bar-fill{
+      animation:bar-grow linear both;
+      animation-timeline:view();
+      animation-range:entry 0% entry 100%;
+    }
+  }
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>配额、限制与 56 万颗 —— DeepSeek 每日配额背后的芯片账</h1>
+        <p class="standfirst">免费用户每天能问多少次，过去由服务器忙不忙决定；11 月 16 日起由配额决定。本篇把「配额＝芯片账的公开信号」拆成四段可以逐条回查的账：需求、约束、替代、去向。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-17</dd></div>
+          <div><dt>主责</dt><dd>研析</dd></div>
+          <div><dt>追踪线</dt><dd>地缘与能源</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">5</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ───────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">配额不是产品策略，是一张公开的芯片账：需求跑在可获得的算力前面，免费服务只能用配额来排队。</p>
+    <p class="verdict-note">DeepSeek 官方给出的理由是算力不足；「这是中国 AI 芯片紧缺的公开信号」是 InvestingLive 的解读，不是官方表述。本篇把两者分开记账：多源可回查的写「已证实」，单一来源的判断写「被视为」，缺证据的写「未确认」。11 月 16 日同一天还发生了另一件事：美方对东南亚数据中心的先进芯片出口与远程访问加上许可证要求。两件事同日落地；素材没有给出两者的因果表述，本篇不写因果。</p>
+  </div>
+</section>
+
+<!-- ── 对账链 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>对账链</h2>
+    <p class="lede">本篇只做一件事：把一句话拆成四段账。每段给出数值、出处与状态；状态全篇只用三种：已证实、被视为（解读）、未确认。</p>
+    <ol class="chain">
+      <li class="chain-node">
+        <span class="chain-k">需求</span>
+        <span class="chain-fig">五周约 5.7 倍</span>
+        <span class="chain-sub">日活 27.1 万 → 154 万（9 月底 → 11-04）；单周 59.2 万亿 token 全球第一</span>
+      </li>
+      <li class="chain-node">
+        <span class="chain-k">约束</span>
+        <span class="chain-fig">同日两项</span>
+        <span class="chain-sub">11-16 每日配额三项细则；五国数据中心芯片与远程访问许可证，90 天生效</span>
+      </li>
+      <li class="chain-node">
+        <span class="chain-k">替代</span>
+        <span class="chain-fig">56 万颗</span>
+        <span class="chain-sub">平头哥自研 AI 芯片累计出货（11-13 报道口径）；长鑫称服务器占全球 DRAM 需求数半以上</span>
+      </li>
+      <li class="chain-node">
+        <span class="chain-k">去向</span>
+        <span class="chain-fig">两边记账</span>
+        <span class="chain-sub">受益方与承压方逐行列出，每行标注证据强度</span>
+      </li>
+    </ol>
+    <p class="chain-note">「五周约 5.7 倍」为本页计算（154 ÷ 27.1），输入的两个值各有出处，见关键数据区。链条的顺序是记账顺序，不是因果顺序。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>关键数据</h2>
+    <p class="lede">五个标签，五条断言。前两个与 2026-11-17《斯坦福重写编程课》同标签同值；后三个为本篇新建标签，均带口径日期。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">154 万</div>
+        <div class="metric-label">DeepSeek Harness 日活（截至 11 月 4 日）</div>
+        <div class="metric-source">香港01（引彭博）· AI 技术动态简报 2026-11-09 焦点 4</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">27.1 万</div>
+        <div class="metric-label">DeepSeek Harness 9 月底日活</div>
+        <div class="metric-source">香港01（引彭博）· AI 技术动态简报 2026-11-09 焦点 4</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">56 万颗</div>
+        <div class="metric-label">平头哥自研AI芯片累计出货量（11-13报道口径）</div>
+        <div class="metric-source">腾讯新闻·前沿快讯 11-13 · 每日热点新闻简报 2026-11-14（素材滞后 3 天）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">890 亿美元</div>
+        <div class="metric-label">DeepSeek 估值（11-16口径）</div>
+        <div class="metric-source">36氪 · AI 技术动态简报 2026-11-16 行业影响 6</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 10 亿美元</div>
+        <div class="metric-label">DeepSeek 年营收（11-16口径）</div>
+        <div class="metric-source">36氪 · AI 技术动态简报 2026-11-16 行业影响 6</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 事件日历 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>事件日历</h2>
+    <p class="lede">配额与美方规则在同一天落地。同一天不等于互为因果；素材没有给出两者的因果表述。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-05 下旬</span>
+        <div>
+          <div class="timeline-title">前史：DeepSeek 曾悄悄限制重新生成与编辑次数</div>
+          <div class="timeline-detail">当时被普遍读作算力紧张的反应。11 月的配额是同一方向上的第二次收紧，幅度更大、公开度更高。<span class="src">InvestingLive 11-16 回溯</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-09-30</span>
+        <div>
+          <div class="timeline-title">Harness 日活约 27.1 万</div>
+          <div class="timeline-detail">配额讨论的需求侧基线。与 11-17《斯坦福重写编程课》同标签同值。<span class="src">香港01（引彭博）· AI 简报 11-09 焦点 4</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-04</span>
+        <div>
+          <div class="timeline-title">Harness 日活达 154 万</div>
+          <div class="timeline-detail">距 9 月底约五周，日活从 27.1 万涨到 154 万，约 5.7 倍（本页计算）。<span class="src">香港01（引彭博）· AI 简报 11-09 焦点 4</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">平头哥分拆赴港推进；自研 AI 芯片累计出货突破 56 万颗</div>
+          <div class="timeline-detail">同日长鑫科技副总裁称服务器已占全球 DRAM 需求数半以上。素材日期 2026-11-14，滞后 3 天。<span class="src">腾讯新闻·前沿快讯 11-13、新华财经 11-13 · 每日热点新闻简报 2026-11-14</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16</span>
+        <div>
+          <div class="timeline-title">DeepSeek 对免费服务实施每日配额</div>
+          <div class="timeline-detail">三项细则：7 天无交互的长对话不再支持、单次输入上限约 40,000 字、每日对话配额。官方提示给出的理由是算力约束；公司未发布统一配额规则。<span class="src">36氪 / TokenPost / BigGo Finance / InvestingLive · 均 11-16</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16</span>
+        <div>
+          <div class="timeline-title">美方以临时规则限制东南亚数据中心芯片与远程访问</div>
+          <div class="timeline-detail">商务部规则要求新加坡、马来西亚、泰国、印尼、巴西的数据中心取得许可证；为受限国家企业提供大量算力的海外数据中心同样需要许可证；规则 90 天生效。简报 11-16 的口径是「拟」，同日多家媒体报道规则已发布。<span class="src">The Japan Times / PBS / The Hill / NYT / NPR · 均 11-16</span></div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16</span>
+        <div>
+          <div class="timeline-title">当日市场反应两边都不好</div>
+          <div class="timeline-detail">韩股芯片重挫（SK 海力士跌超 6%、Kospi 约 -2.6%）；A 股午盘 AI 硬件链领跌，科创 50 跌 2.91%。约束落地当天，「利好国产芯片」没有出现在午盘定价里。<span class="src">InvestingLive 11-16 · 每日股市简报 2026-11-16</span></div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 需求侧 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>需求侧：三个可对账的数</h2>
+    <p class="lede">日活、单周 token 量、估值与营收的落差。三个数来自三个独立出处，逐条可回查。</p>
+
+    <figure class="chart">
+      <figcaption>图 1 · DeepSeek Harness 日活：9 月底 → 11 月 4 日。条长按 154 万为满刻度等比绘制；倍数为本页计算。</figcaption>
+      <div class="bar-row">
+        <span class="bar-name">9 月底</span>
+        <div class="bar-track"><div class="bar-fill alt" style="--w:17.6%"></div></div>
+        <span class="bar-val">27.1 万</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name">11-04</span>
+        <div class="bar-track"><div class="bar-fill" style="--w:100%"></div></div>
+        <span class="bar-val">154 万</span>
+        <span class="bar-annot">约 5.7 倍（154 ÷ 27.1，本页计算）· 两个值同出处：香港01 引彭博</span>
+      </div>
+    </figure>
+
+    <p>五个星期内日活涨约 5.7 倍。需求侧还有第二个独立读数：OpenRouter 数据显示 DeepSeek 的 V4.1 Flash 单周记录 59.2 万亿 token，全球第一；同一报道还说平台自 10 月以来多次服务中断。<span class="src" style="font-size:.78125rem;color:var(--ink-3)">BigGo Finance · 11-16</span></p>
+
+    <div class="stat">
+      <span class="stat-v">59.2 万亿</span>
+      <span class="stat-l">DeepSeek V4.1 Flash 单周 token 量，全球第一（OpenRouter 口径）。token 消耗是调用量的直接代理：量在涨，服务在抖，配额在同一天落地。<span class="src">BigGo Finance · 2026-11-16</span></span>
+    </div>
+
+    <figure class="chart">
+      <figcaption>图 2 · 估值与年营收的落差（11-16 口径）。条长按 890 亿美元为满刻度等比绘制；倍数为本页计算，营收本身是约数。</figcaption>
+      <div class="bar-row">
+        <span class="bar-name">估值</span>
+        <div class="bar-track"><div class="bar-fill" style="--w:100%"></div></div>
+        <span class="bar-val">890 亿</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-name">年营收</span>
+        <div class="bar-track"><div class="bar-fill alt" style="--w:1.1%"></div></div>
+        <span class="bar-val">约 10 亿</span>
+        <span class="bar-annot">约 89 倍（890 ÷ 约 10，本页计算）· 出处：36氪 · AI 简报 11-16 行业影响 6</span>
+      </div>
+    </figure>
+
+    <p>市场按 890 亿美元估值给一家年营收约 10 亿美元的公司定价，约 89 倍。而免费服务没有付费分层可以让用户跳过排队，这一点 InvestingLive 在配额报道里明确写了。本篇的判断：钱买不到队列位置时，稀缺只能用配额分配；这就是「配额＝芯片账」的账面逻辑。</p>
+  </div>
+</section>
+
+<!-- ── 约束侧 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>约束侧：配额与出口管制 2.0 的关系</h2>
+    <p class="lede">约束侧分两笔账：DeepSeek 自己的配额，和美方规则。两笔都发生在 11 月 16 日；状态不同，分开记。</p>
+
+    <div class="tw">
+      <table class="ledger">
+        <caption>表 1 · 配额细则（11-16 起）。公司未发布统一规则，细则来自用户反馈与前端代码。</caption>
+        <thead>
+          <tr><th scope="col">项目</th><th scope="col">规则</th><th scope="col">出处</th><th scope="col">状态</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">长对话</th>
+            <td data-label="规则">存续超过 7 天且无主动交互的长对话不再支持，闲置会话不能恢复</td>
+            <td data-label="出处">36氪 11-16、TokenPost 11-16</td>
+            <td data-label="状态"><span class="tag tag-ok">已证实（多源）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">单次输入</th>
+            <td data-label="规则">上限约 40,000 中文字符</td>
+            <td data-label="出处">TokenPost 11-16、BigGo 11-16</td>
+            <td data-label="状态"><span class="tag tag-ok">已证实（多源）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">每日配额</th>
+            <td data-label="规则">达到每日上限时提示服务繁忙、配额用尽</td>
+            <td data-label="出处">TokenPost 11-16、InvestingLive 11-16</td>
+            <td data-label="状态"><span class="tag tag-ok">已证实（多源）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">官方理由</th>
+            <td data-label="规则">算力不足（提示文本：due to computing power constraints）</td>
+            <td data-label="出处">36氪 11-16 引用户截图</td>
+            <td data-label="状态"><span class="tag tag-ok">已证实</span></td>
+          </tr>
+          <tr>
+            <th scope="row">付费通道</th>
+            <td data-label="规则">网页代码出现「Coding Plan」标签；无价格、无上线日期</td>
+            <td data-label="出处">TokenPost 11-16、Pandaily 11-16</td>
+            <td data-label="状态"><span class="tag tag-no">未确认</span></td>
+          </tr>
+          <tr>
+            <th scope="row">统一规则</th>
+            <td data-label="规则">公司未发布统一的配额规则文本</td>
+            <td data-label="出处">BigGo Finance 11-16</td>
+            <td data-label="状态"><span class="tag tag-ok">已证实</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tw">
+      <table class="ledger">
+        <caption>表 2 · 同一天的两笔账：已证实、被视为、未确认三栏分开。</caption>
+        <thead>
+          <tr><th scope="col">议题</th><th scope="col">状态</th><th scope="col">依据与日期</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">配额实施</th>
+            <td data-label="状态"><span class="tag tag-ok">已证实</span></td>
+            <td data-label="依据">36氪 / TokenPost / BigGo / InvestingLive，均 11-16，多源一致</td>
+          </tr>
+          <tr>
+            <th scope="row">「配额是中国 AI 芯片紧缺的公开信号」</th>
+            <td data-label="状态"><span class="tag tag-read">被视为（解读）</span></td>
+            <td data-label="依据">InvestingLive 标题与文中判断，11-16；单一来源，非 DeepSeek 官方表述</td>
+          </tr>
+          <tr>
+            <th scope="row">美方限制东南亚远程访问</th>
+            <td data-label="状态"><span class="tag tag-ok">已证实（新闻多源）</span></td>
+            <td data-label="依据">Japan Times / PBS / The Hill / NYT / NPR，均 11-16：临时规则已发布、90 天生效。简报 11-16 口径为「拟」，为当日较早时点。BIS 规则原文未回查 → 细节<em>未确认</em></td>
+          </tr>
+          <tr>
+            <th scope="row">「或利好国产芯片与 AI 基础设施供应商」</th>
+            <td data-label="状态"><span class="tag tag-read">被视为（解读）</span></td>
+            <td data-label="依据">InvestingLive 11-16（AI 简报 11-16 焦点 7 转述）；同日 A 股午盘 AI 硬件链领跌，是反例</td>
+          </tr>
+          <tr>
+            <th scope="row">配额与美方规则的因果关系</th>
+            <td data-label="状态"><span class="tag tag-no">未确认</span></td>
+            <td data-label="依据">两事同日发生；素材没有任何一方给出因果表述。确认方法：DeepSeek 官方声明或 BIS 规则说明中的直接引语</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>两笔账的关系只能写到这一步：时间上同日，机制上同向：一边限制你能用多少，一边限制你能从哪里拿到。再往前一步就是推测，本篇不写。</p>
+  </div>
+</section>
+
+<!-- ── 替代侧 ─────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>替代侧：谁能接住被约束的需求</h2>
+    <p class="lede">替代侧的账是出货与适配：平头哥的芯片、长鑫的存储、以及模型方对国产加速器的实际使用。</p>
+
+    <h3>平头哥：56 万颗与一场分拆</h3>
+    <p>阿里推进平头哥半导体分拆独立赴港上市，其自研 AI 芯片累计出货突破 56 万颗（腾讯新闻·前沿快讯 11-13；素材日期 2026-11-14，滞后 3 天）。同一条线的补充：吴泳铭披露平头哥芯片超过 60% 的业务收入来自外部商业化客户，已服务 650 余家企业。<span class="src" style="font-size:.78125rem;color:var(--ink-3)">OFWEEK 11-13</span></p>
+    <p><em>口径注记：</em>检索到 OFWEEK 11-13 的另一处写法是「真武系列累计出货 56 万片，截至 2026 年 4 月」。两处数值一致（56 万），范围表述不同：简报写「自研 AI 芯片」，OFWEEK 写「真武系列」。本篇断言按派单指定的 11-13 报道口径记账；两者的范围是否完全重合，<em>未确认</em>，确认方法：平头哥招股书中的出货口径定义。</p>
+
+    <h3>长鑫：存储一侧的承接</h3>
+    <p>长鑫科技称服务器已占全球 DRAM 需求数半以上（新华财经 11-13，长鑫科技副总裁骆晓东；素材日期 2026-11-14，滞后 3 天）。约束限制的是加速器与远程算力，存储需求同时在被 AI 服务器推高，替代侧不只一条产品线。</p>
+
+    <h3>适配：模型方已经在用</h3>
+    <div class="evidence" style="margin-top:18px">
+      <div class="evidence-item">
+        <p class="evidence-quote">Some companies, including Z.ai and DeepSeek, were already working with Huawei and other domestic chipmakers to increase their use</p>
+        <cite class="evidence-source">South China Morning Post · 2026-11-16
+          <span class="gloss">译：包括 Z.ai 与 DeepSeek 在内的一些公司，已在与华为等国产芯片厂商合作，提高国产芯片使用量。</span>
+        </cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">tighter restrictions on remote access to overseas computing infrastructure would force Chinese AI developers to rely more heavily on domestic processors, particularly Huawei's Ascend chips for training</p>
+        <cite class="evidence-source">South China Morning Post（引 Triolo）· 2026-11-16
+          <span class="gloss">译：对海外算力远程访问的更严限制，将迫使中国 AI 开发者更多依赖国产处理器，尤其是用于训练的华为昇腾芯片。</span>
+        </cite>
+      </div>
+    </div>
+
+    <figure class="chart">
+      <figcaption>图 3 · 前沿实验室未来算力协议中的份额（摩根大通口径）。左侧点为 2023–2025 年「80% 以上」，箭头表示方向；右侧为当前读数。</figcaption>
+      <svg viewBox="0 0 640 250" role="img" aria-labelledby="c3-t c3-d">
+        <title id="c3-t">英伟达份额从 80% 以上降至 39%，AMD 当前 15%</title>
+        <desc id="c3-d">折线图：英伟达在前沿实验室未来算力协议中的份额从 2023 至 2025 年的 80% 以上降至当前 39%；AMD 当前为 15%。纵轴 0 至 90 个百分点。</desc>
+        <g font-family="Newsreader, Georgia, serif" font-size="12" fill="#646b67">
+          <line x1="70" y1="210" x2="600" y2="210" stroke="#d2d8d4"/>
+          <line x1="70" y1="30" x2="600" y2="30" stroke="#dfe4e0" stroke-dasharray="2 4"/>
+          <line x1="70" y1="90" x2="600" y2="90" stroke="#dfe4e0" stroke-dasharray="2 4"/>
+          <line x1="70" y1="150" x2="600" y2="150" stroke="#dfe4e0" stroke-dasharray="2 4"/>
+          <text x="58" y="214" text-anchor="end">0%</text>
+          <text x="58" y="154" text-anchor="end">30%</text>
+          <text x="58" y="94" text-anchor="end">60%</text>
+          <text x="58" y="34" text-anchor="end">90%</text>
+        </g>
+        <line x1="150" y1="50" x2="500" y2="132" stroke="#7d5a1c" stroke-width="2.5"/>
+        <circle cx="150" cy="50" r="6" fill="#7d5a1c"/>
+        <path d="M150 44 L146 32 L154 32 Z" fill="#7d5a1c"/>
+        <circle cx="500" cy="132" r="6" fill="#7d5a1c"/>
+        <circle cx="500" cy="180" r="6" fill="#4f5551"/>
+        <g font-family="-apple-system, PingFang SC, sans-serif" font-size="13" fill="#171a18">
+          <text x="164" y="44">英伟达 &gt;80%</text>
+          <text x="514" y="130">39%</text>
+          <text x="514" y="184" fill="#4f5551">AMD 15%</text>
+        </g>
+        <g font-family="-apple-system, PingFang SC, sans-serif" font-size="11.5" fill="#646b67">
+          <text x="150" y="234" text-anchor="middle">2023–2025</text>
+          <text x="500" y="234" text-anchor="middle">当前</text>
+        </g>
+      </svg>
+      <p class="cap-note">出处：24/7 Wall St 报告（11-15），财联社 11-16 转述 · AI 技术动态简报 2026-11-16 热门观点 8。这是机构测算，不是厂商出货统计。</p>
+    </figure>
+
+    <p>份额位移与配额是同一张账的两面：需求方拿不到海外算力，供给方的替代品才有订单。英伟达份额从 80% 以上降到 39%、AMD 占 15%，CUDA 锁定在松动，这是「利好国产芯片」之外的另一层松动。</p>
+  </div>
+</section>
+
+<!-- ── 去向 ───────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>谁受益，谁承压</h2>
+    <p class="lede">同一份证据，两边记账。证据强度列写明每行靠什么撑着：多源事实、机构测算、单一解读，还是当日反例。</p>
+    <div class="tw">
+      <table class="ledger">
+        <caption>表 3 · 去向账（依据日期 2026-11-16，除非另注）。</caption>
+        <thead>
+          <tr><th scope="col">方向</th><th scope="col">主体</th><th scope="col">依据</th><th scope="col">证据强度</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">被指受益</th>
+            <td data-label="主体">国产芯片与 AI 基础设施供应商</td>
+            <td data-label="依据">配额与远程访问限制同时收紧，需求转向国内供给</td>
+            <td data-label="证据强度"><span class="tag tag-read">解读（InvestingLive 11-16）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">被指受益</th>
+            <td data-label="主体">平头哥</td>
+            <td data-label="依据">自研 AI 芯片累计出货 56 万颗（11-13 报道口径）；分拆赴港推进；60% 以上收入来自外部客户</td>
+            <td data-label="证据强度"><span class="tag tag-ok">多源事实（素材 11-14，滞后 3 天）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">被指受益</th>
+            <td data-label="主体">长鑫等存储厂</td>
+            <td data-label="依据">服务器已占全球 DRAM 需求数半以上（新华财经 11-13）</td>
+            <td data-label="证据强度"><span class="tag tag-ok">当事方表述（素材 11-14）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">承压</th>
+            <td data-label="主体">DeepSeek 免费用户</td>
+            <td data-label="依据">7 天长对话失效、单次输入约 4 万字、每日对话配额</td>
+            <td data-label="证据强度"><span class="tag tag-ok">多源事实（11-16）</span></td>
+          </tr>
+          <tr>
+            <th scope="row">承压</th>
+            <td data-label="主体">东南亚转口与远程算力通道</td>
+            <td data-label="依据">五国数据中心许可证要求；受限国家企业「大量算力」条款；90 天生效</td>
+            <td data-label="证据强度"><span class="tag tag-ok">新闻多源（11-16）；BIS 原文未回查</span></td>
+          </tr>
+          <tr>
+            <th scope="row">承压</th>
+            <td data-label="主体">英伟达生态</td>
+            <td data-label="依据">前沿实验室未来算力协议份额 80% 以上 → 39%；六周连跌、市值跌破 4 万亿美元</td>
+            <td data-label="证据强度"><span class="tag tag-read">机构测算 + 行情事实</span></td>
+          </tr>
+          <tr>
+            <th scope="row">当日反例</th>
+            <td data-label="主体">A 股 AI 硬件链</td>
+            <td data-label="依据">11-16 午盘 CPO、半导体领跌，科创 50 跌 2.91%；超 3500 只个股下跌</td>
+            <td data-label="证据强度"><span class="tag tag-ok">行情事实（股市简报 11-16 午盘口径）</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>注意最后一行：约束落地当天，A 股 AI 硬件链没有上涨。「利好」是一个方向判断，不是 11 月 16 日的盘面事实。判断要兑现，给出的窗口是美方规则 90 天生效期与平头哥上市进程。</p>
+  </div>
+</section>
+
+<!-- ── 风险预警 ───────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>风险预警</h2>
+    <p class="lede">六条。每条写清状态与确认方法，不用「可能」掩盖不确定。</p>
+    <ul class="risk">
+      <li>
+        <span class="risk-k">配额细则</span>
+        <span class="risk-t"><b>未确认：</b>公司未发布统一配额规则，每日上限的具体数值没有公开。细则来自用户反馈与前端代码，可能分模型、分时段不同。确认方法：DeepSeek 官方规则页或公告。</span>
+      </li>
+      <li>
+        <span class="risk-k">Coding Plan</span>
+        <span class="risk-t"><b>未确认：</b>网页代码里的「Coding Plan」标签没有价格、没有上线日期，付费跳队列只是推测。确认方法：官方定价页上线。</span>
+      </li>
+      <li>
+        <span class="risk-k">规则原文</span>
+        <span class="risk-t"><b>未确认：</b>美方规则的 BIS 原文未回查，本篇依据 11-16 五家媒体的报道口径。「大量算力」的量化门槛、许可证审批尺度都未知。确认方法：BIS 联邦公报原文（90 天生效窗口内可查）。</span>
+      </li>
+      <li>
+        <span class="risk-k">同日不同因</span>
+        <span class="risk-t"><b>未确认：</b>配额与美方规则同日发生，素材没有任何一方给出因果表述。把配额解释成对规则的反应，是推测。确认方法：DeepSeek 官方声明中的直接引语。</span>
+      </li>
+      <li>
+        <span class="risk-k">出货口径</span>
+        <span class="risk-t"><b>未确认：</b>「自研 AI 芯片 56 万颗」与「真武系列 56 万片（截至 2026 年 4 月）」数值一致、范围表述不同，两者是否完全重合未知。确认方法：平头哥招股书的出货口径定义。</span>
+      </li>
+      <li>
+        <span class="risk-k">素材时效</span>
+        <span class="risk-t"><b>已标注：</b>平头哥与长鑫两条素材来自每日热点新闻简报 2026-11-14（报道日期 11-13，滞后 3 天）。11-14 之后的进展未覆盖。确认方法：按日期补检阿里与长鑫的最新公告。</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── 证据 ───────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <div class="hair"></div>
+    <h2>证据</h2>
+    <p class="lede">本篇引用的原文。英文引文保留原文逐字，译文单独标注。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">DeepSeek 引入每日调用配额，被视为中国 AI 芯片紧缺的公开信号：需求跑在可获得芯片之前</p>
+        <cite class="evidence-source">InvestingLive · AI 技术动态简报 2026-11-16 焦点 7（解读，非官方表述）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Long conversations that have gone more than seven days without activity are no longer supported, users reported. Single inputs are capped at about 40,000 Chinese characters.</p>
+        <cite class="evidence-source">TokenPost · 2026-11-16
+          <span class="gloss">译：用户反馈，超过七天无活动的长对话不再支持；单次输入上限约 4 万汉字。</span>
+        </cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">An interim rule issued by the Commerce Department on Monday would require data center operators in Singapore, Malaysia, Thailand, Indonesia and Brazil to obtain a U.S. government license before exporting advanced AI chips</p>
+        <cite class="evidence-source">The Japan Times · 2026-11-16
+          <span class="gloss">译：商务部周一发布的临时规则要求新加坡、马来西亚、泰国、印尼、巴西的数据中心运营者在出口先进 AI 芯片前取得美国政府许可证。</span>
+        </cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">The interim final rule, which takes effect in 90 days</p>
+        <cite class="evidence-source">The Hill · 2026-11-16（该临时最终规则 90 天生效）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">DeepSeek 开源智能体应用 Harness 日活达 154 万（截至 11 月 4 日），推出不足三个月，9 月底约 27.1 万</p>
+        <cite class="evidence-source">香港01（引彭博）· AI 技术动态简报 2026-11-09 焦点 4</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">阿里推进平头哥半导体分拆独立赴港上市，其自研AI芯片累计出货突破56万颗</p>
+        <cite class="evidence-source">腾讯新闻·前沿快讯 2026-11-13 · 每日热点新闻简报 2026-11-14（素材滞后 3 天）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">长鑫科技称服务器已占全球DRAM需求半数以上</p>
+        <cite class="evidence-source">新华财经 2026-11-13 · 每日热点新闻简报 2026-11-14（素材滞后 3 天）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">DeepSeek 以 890 亿美元估值列第五、营收约 10 亿美元</p>
+        <cite class="evidence-source">36氪 · AI 技术动态简报 2026-11-16 行业影响 6</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">摩根大通测算其占前沿实验室未来算力协议的份额已从 80% 以上降至 39%，AMD 为 15%</p>
+        <cite class="evidence-source">财联社转述 24/7 Wall St 报告（11-15）· AI 技术动态简报 2026-11-16 行业影响 1</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <h3>方法与局限</h3>
+    <p>本篇素材：AI 技术动态简报 2026-11-16、每日股市简报 2026-11-16、每日热点新闻简报 2026-11-14（滞后 3 天，正文已逐处标注）。简报缺口用网络检索补齐：先用 minimax（额度耗尽，base_resp 2056），改用 Tavily 兜底，检索日期 2026-11-17。</p>
+    <ul>
+      <li>已验证：配额三项细则、美方规则要点、日活两值、56 万颗、890 亿美元与约 10 亿美元营收、DRAM 半数、份额位移：均为发布方明确、日期明确的可逐字引用事实，关键项多源交叉。</li>
+      <li>被视为（解读）：「配额＝芯片紧缺的公开信号」「利好国产芯片与 AI 基础设施供应商」：单一来源判断，已在正文与表 2 标注。</li>
+      <li>未确认：配额统一规则与每日上限数值、Coding Plan、BIS 规则原文细节、配额与美方规则的因果、56 万颗的两处口径是否重合：逐条列于风险预警，附确认方法。</li>
+      <li>本页计算：5.7 倍（154÷27.1）、89 倍（890÷约 10），输入值各有出处，已在图注标明。</li>
+    </ul>
+    <p style="margin-top:16px">免责：本篇是情报记账，不构成投资建议。判断部分（受益承压表的解读行）为团队立场，可被新证据反驳。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "154 万",
+    "label": "DeepSeek Harness 日活（截至 11 月 4 日）",
+    "quote": "日活达 154 万（截至 11 月 4 日）"
+  },
+  {
+    "value": "27.1 万",
+    "label": "DeepSeek Harness 9 月底日活",
+    "quote": "9 月底约 27.1 万"
+  },
+  {
+    "value": "56 万颗",
+    "label": "平头哥自研AI芯片累计出货量（11-13报道口径）",
+    "quote": "其自研AI芯片累计出货突破56万颗"
+  },
+  {
+    "value": "890 亿美元",
+    "label": "DeepSeek 估值（11-16口径）",
+    "quote": "DeepSeek 以 890 亿美元估值列第五、营收约 10 亿美元"
+  },
+  {
+    "value": "约 10 亿美元",
+    "label": "DeepSeek 年营收（11-16口径）",
+    "quote": "营收约 10 亿美元"
+  }
+]
+</script>
+
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>从 243.37 到 156.14 —— AI 资产的一趟过山车</title>
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="互动作品：按住车厢往后拖，把英伟达从 10 月初 243.37 美元的历史收盘高点一路拖到 11-16 的 156.14 美元，再拖到 11-17 财报夜，撞上「回撤约 35%」与「营收同比增 91%」这对矛盾。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0D13'/%3E%3Cpath d='M3 7c9 0 6 18 13 18 4 0 7-3 13-3' fill='none' stroke='%23F2B23C' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='27' cy='10' r='4' fill='%2363D2E4'/%3E%3C/svg%3E">
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+
+:root{
+  --ink:#0A0D13;
+  --ink2:#0E131B;
+  --ink3:#131A24;
+  --line:#1E2733;
+  --line2:#2C3948;
+  --paper:#ECE9E2;
+  --dim:#A5AFBD;
+  --dim2:#7E8A9A;
+  --amber:#F2B23C;
+  --ember:#FF7A45;
+  --cyan:#63D2E4;
+  --mint:#7FE6B8;
+  --red:#FF6B52;
+  --serif:"Noto Serif SC",Georgia,"Songti SC",serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --pad:clamp(16px,4vw,48px);
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--sans);font-size:16px;line-height:1.72;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--amber);color:#150E05}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:600;line-height:1.24;letter-spacing:-.01em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;color:var(--dim2)}
+.dim{color:var(--dim)}
+.dim2{color:var(--dim2)}
+.unc{color:var(--red)}
+
+/* ── hero ─────────────────────────────── */
+.hero{position:relative;padding:clamp(52px,9vw,116px) 0 clamp(40px,6vw,76px);border-bottom:1px solid var(--line);overflow:hidden}
+.hero::before{
+  content:"";position:absolute;top:-14%;right:-8%;width:min(62vw,760px);aspect-ratio:1;
+  background:radial-gradient(circle,rgba(242,178,60,.13),rgba(242,178,60,0) 66%);pointer-events:none;
+}
+.hero__in{position:relative;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero h1{font-size:clamp(40px,7.4vw,88px);line-height:1.04;letter-spacing:-.028em;margin:18px 0 0}
+.hero h1 .n{font-family:var(--mono);font-weight:600;color:var(--amber)}
+.hero h1 .n.b{color:var(--paper)}
+.hero__sub{font-family:var(--serif);font-size:clamp(21px,2.8vw,34px);color:var(--paper);margin-top:14px;letter-spacing:.01em}
+.hero__lede{margin-top:20px;max-width:33ch;color:var(--dim);font-size:clamp(15px,1.7vw,17px)}
+.hero__lede b{color:var(--paper);font-weight:600}
+.hero__cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:var(--amber);text-decoration:none;font-family:var(--mono);font-size:14px;letter-spacing:.06em;border:1px solid var(--line2);padding:11px 18px}
+.hero__cta:hover{border-color:var(--amber);background:rgba(242,178,60,.08)}
+.hero__cta svg{width:13px;height:13px}
+.crest{width:100%;height:auto;display:block}
+
+/* ── stage ────────────────────────────── */
+.stage{padding:clamp(44px,7vw,96px) 0 clamp(40px,6vw,72px)}
+.sec__h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.sec__h h2{font-size:clamp(25px,3.6vw,40px)}
+.sec__note{color:var(--dim2);font-size:13.5px;max-width:44ch}
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:clamp(20px,3vw,34px)}
+.hud__c{background:var(--ink2);padding:13px 15px 15px;min-height:92px}
+.hud__l{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--dim2);margin-bottom:7px}
+.hud__v{display:block;font-family:var(--mono);font-size:clamp(17px,2vw,23px);color:var(--paper);font-variant-numeric:tabular-nums;line-height:1.3}
+.hud__v.sm{font-size:15px;color:var(--dim);letter-spacing:0}
+
+.board{position:relative;margin-top:clamp(18px,3vw,32px);background:
+  radial-gradient(120% 90% at 8% 6%,rgba(242,178,60,.09),rgba(242,178,60,0) 55%),
+  linear-gradient(180deg,#0B0F16,#070A10);
+  border:1px solid var(--line);overflow:hidden}
+.board svg{display:block;width:100%;height:auto}
+.tag{position:absolute;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:opacity .18s}
+.tag.on{opacity:1}
+.tag__b{background:var(--ink);border:1px solid var(--line2);padding:7px 11px;white-space:nowrap}
+.tag__l{display:block;font-family:var(--mono);font-size:11.5px;color:var(--dim2);letter-spacing:.06em}
+.tag__v{display:block;font-family:var(--mono);font-size:17px;color:var(--amber);font-variant-numeric:tabular-nums}
+.tag.calm .tag__v{color:var(--dim)}
+
+.ctrl{margin-top:clamp(18px,3vw,30px);display:grid;gap:16px}
+.lever{position:relative}
+.lever__row{display:flex;align-items:center;gap:16px}
+.lever__lab{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--dim2);flex:0 0 auto}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1 1 auto;min-width:0;background:transparent;margin:0;height:26px;cursor:grab}
+input[type=range]:active{cursor:grabbing}
+input[type=range]::-webkit-slider-runnable-track{height:5px;background:linear-gradient(90deg,var(--amber),var(--ember));border-radius:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:26px;background:var(--paper);border:0;border-radius:2px;box-shadow:0 0 0 3px var(--ink),0 0 0 4px var(--line2);margin-top:-10px}
+input[type=range]::-moz-range-track{height:5px;background:linear-gradient(90deg,var(--amber),var(--ember));border-radius:0}
+input[type=range]::-moz-range-thumb{width:20px;height:26px;background:var(--paper);border:0;border-radius:2px;box-shadow:0 0 0 3px var(--ink),0 0 0 4px var(--line2)}
+.ticks{position:relative;height:34px;margin-top:2px}
+.tick{position:absolute;top:0;transform:translateX(-50%);appearance:none;background:none;border:0;padding:5px 7px;color:var(--dim2);font-family:var(--mono);font-size:12.5px;cursor:pointer;white-space:nowrap}
+.tick:hover{color:var(--paper)}
+.tick.on{color:var(--amber)}
+.segs{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;border-top:1px solid var(--line);padding-top:15px}
+.segs__lab{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--dim2)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-right:auto}
+.seg button,.btn{appearance:none;background:transparent;border:1px solid var(--line2);color:var(--dim);font:inherit;font-size:14px;padding:8px 15px;cursor:pointer}
+.seg button:hover,.btn:hover{border-color:var(--dim2);color:var(--paper)}
+.seg button[aria-pressed=true]{background:var(--amber);border-color:var(--amber);color:#170F04;font-weight:600}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13.5px;letter-spacing:.04em}
+.btn--go{border-color:var(--ember);color:var(--ember)}
+.btn--go:hover{background:rgba(255,122,69,.12);border-color:var(--ember);color:var(--ember)}
+
+/* ── stations ─────────────────────────── */
+.stations{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:clamp(24px,4vw,44px)}
+.st{background:var(--ink2);padding:16px 16px 14px;display:flex;flex-direction:column;gap:2px;transition:background .35s}
+.st.pass{background:var(--ink3)}
+.st.now{background:#16202C;box-shadow:inset 0 2px 0 var(--amber)}
+.st__hd{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.st__no{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--dim2)}
+.st__date{font-family:var(--mono);font-size:16px;color:var(--paper);font-variant-numeric:tabular-nums}
+.st__t{font-size:13.5px;color:var(--dim);margin-bottom:4px}
+.mt{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.mt-l{font-size:13px;color:var(--dim);flex:1 1 auto;line-height:1.5}
+.mt-v{font-family:var(--mono);font-size:16.5px;color:var(--paper);white-space:nowrap;flex:0 0 auto;font-variant-numeric:tabular-nums}
+.mt-v.up{color:var(--cyan)}
+.mt-v.dn{color:var(--ember)}
+.st__n{font-size:12.5px;color:var(--dim2);line-height:1.6;margin-top:8px}
+.st__src{font-family:var(--mono);font-size:11.5px;color:var(--dim2);margin-top:auto;padding-top:10px}
+.door{display:flex;align-items:center;gap:12px;padding:14px 0 6px;border-top:1px solid var(--line);margin-top:6px}
+.door svg{width:30px;height:34px;flex:0 0 auto;color:var(--dim2);transition:color .4s}
+.door__t{font-family:var(--mono);font-size:15px;color:var(--dim);transition:color .4s}
+.door__s{font-size:12.5px;color:var(--dim2);display:block;margin-top:2px}
+.st.night .door svg{color:var(--mint)}
+.st.night .door__t{color:var(--mint)}
+
+/* ── climax ───────────────────────────── */
+.climax{position:relative;padding:96px 0 88px;border-top:1px solid var(--line);background:
+  radial-gradient(90% 70% at 88% 4%,rgba(99,210,228,.10),rgba(99,210,228,0) 60%),
+  radial-gradient(80% 60% at 6% 96%,rgba(255,122,69,.09),rgba(255,122,69,0) 62%)}
+.climax__h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.climax__h h2{font-size:clamp(25px,3.6vw,40px)}
+.duo{display:grid;grid-template-columns:1fr 1px 1fr;gap:0;margin-top:clamp(28px,4vw,52px);align-items:stretch}
+.side{padding:clamp(18px,3vw,34px) clamp(16px,3vw,40px)}
+.side:first-child{padding-left:0}
+.side:last-child{padding-right:0}
+.side__lab{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;color:var(--dim2)}
+.side__num{font-family:var(--mono);font-size:clamp(52px,11vw,132px);line-height:.92;letter-spacing:-.05em;display:block;margin-top:14px;font-variant-numeric:tabular-nums}
+.side--down .side__num{color:var(--ember)}
+.side--up .side__num{color:var(--cyan)}
+.side__sub{display:block;font-size:14px;color:var(--dim);margin-top:14px;max-width:26ch}
+.side__m{margin-top:clamp(18px,3vw,30px)}
+.cl__m{padding:11px 0;border-top:1px solid var(--line)}
+.cl__l{font-size:13px;color:var(--dim);line-height:1.5}
+.cl__v{font-family:var(--mono);font-size:clamp(20px,2.4vw,27px);color:var(--paper);margin-top:3px;font-variant-numeric:tabular-nums}
+.side--up .cl__v{color:var(--mint)}
+.seam{position:relative;border-left:1px dashed #46566C}
+.seam__t{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);white-space:nowrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;color:var(--dim2);background:var(--ink);padding:6px 12px}
+.climax__foot{margin-top:clamp(26px,4vw,44px);border-top:1px solid var(--line);padding-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 40px}
+.climax__foot p{font-size:13.5px;color:var(--dim2);line-height:1.72}
+.climax__foot b{color:var(--dim);font-weight:600}
+
+/* ── ledger ───────────────────────────── */
+.ledger{padding:88px 0;border-top:1px solid var(--line)}
+.ledger h2{font-size:clamp(22px,3vw,32px)}
+.lg{margin-top:22px;border-top:1px solid var(--line)}
+.lg li{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);align-items:start}
+.lg__k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--dim2);padding-top:4px}
+.lg__v{font-size:14.5px;color:var(--dim);line-height:1.72}
+.lg__v b{color:var(--paper);font-weight:600}
+.src{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--dim2);line-height:1.9}
+
+/* ── close ────────────────────────────── */
+.close{padding:104px 0 112px;border-top:1px solid var(--line);background:linear-gradient(180deg,#0A0D13,#080B10)}
+.close__l{font-family:var(--serif);font-size:clamp(26px,4.6vw,52px);line-height:1.32;letter-spacing:-.015em;max-width:20ch}
+.close__l em{font-style:normal;color:var(--amber)}
+.close__l i{font-style:normal;color:var(--cyan)}
+.close__s{margin-top:20px;color:var(--dim2);font-size:14.5px;max-width:40ch}
+.close__btns{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+  .stations{grid-template-columns:repeat(2,1fr)}
+  .hud{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  .climax{padding:72px 0 64px}
+  .ledger{padding:64px 0}
+  .close{padding:76px 0 84px}
+}
+@media (max-width:600px){
+  .climax{padding:56px 0 52px}
+  .ledger{padding:52px 0}
+  .close{padding:60px 0 68px}
+}
+@media (max-width:860px){
+  .hero__in{grid-template-columns:1fr}
+  .crest{max-width:520px}
+  .duo{grid-template-columns:1fr}
+  .seam{border-left:0;border-top:1px dashed #46566C;height:0;margin:16px 0}
+  .seam__t{transform:translate(-50%,-50%)}
+  .side{padding:clamp(18px,5vw,30px) 0}
+}
+@media (max-width:600px){
+  .stations{grid-template-columns:1fr}
+  .hud{grid-template-columns:1fr}
+  .mt-v{font-size:15.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="hero">
+  <div class="wrap hero__in">
+    <div>
+      <p class="kicker">2026-11-18 · 创意互动</p>
+      <h1>从 <span class="n">243.37</span> 到 <span class="n b">156.14</span></h1>
+      <p class="hero__sub">AI 资产的一趟过山车</p>
+      <p class="hero__lede">英伟达 10 月初历史收盘高点 243.37 美元。六周连跌，11-16 收报 <b>156.14 美元</b>。<br>11-17 财报夜，市场在等另一条曲线。</p>
+      <a class="hero__cta" href="#stage">按住车厢，往后拖
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v9M2.4 6.6L6 10.2l3.6-3.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div>
+      <svg class="crest" id="crestSvg" viewBox="0 0 560 380" role="img" aria-label="轨道示意图：从高点向右下滑落"></svg>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="stage" id="stage">
+  <div class="wrap">
+    <div class="sec__h">
+      <h2>一趟下坠</h2>
+      <p class="sec__note">横轴为站点序列，间距非等比。四个站点是已确认收盘价，站点之间的连线为示意。</p>
+    </div>
+
+    <div class="hud" aria-live="polite">
+      <div class="hud__c"><span class="hud__l">当前位置</span><span class="hud__v sm" id="hudPos">10 月初 · 历史收盘高点</span></div>
+      <div class="hud__c"><span class="hud__l">已确认收盘价（美元）</span><span class="hud__v" id="hudPrice">243.37</span></div>
+      <div class="hud__c"><span class="hud__l" id="hudDropL">该站已知跌幅</span><span class="hud__v" id="hudDrop">—</span></div>
+      <div class="hud__c"><span class="hud__l">自 10 月初高点回撤</span><span class="hud__v" id="hudDD">—</span></div>
+    </div>
+
+    <div class="board" id="board">
+      <svg id="boardSvg" role="img" aria-label="英伟达收盘价轨道：从 243.37 美元下滑到 156.14 美元，末端立起财报预期柱"></svg>
+      <div class="tag" id="tag" aria-hidden="true"><div class="tag__b"><span class="tag__l" id="tagL">站点</span><span class="tag__v" id="tagV">—</span></div></div>
+    </div>
+
+    <div class="ctrl">
+      <div class="lever">
+        <div class="lever__row">
+          <span class="lever__lab">时间闸</span>
+          <input id="lever" type="range" min="0" max="1000" step="1" value="0" aria-label="时间轴：从 10 月初拖到 11-17 财报夜">
+        </div>
+        <div class="ticks" id="ticks">
+          <button class="tick" type="button" data-i="0">10 月初</button>
+          <button class="tick" type="button" data-i="1">11-13</button>
+          <button class="tick" type="button" data-i="2">11-16</button>
+          <button class="tick" type="button" data-i="3">11-17</button>
+        </div>
+      </div>
+      <div class="segs">
+        <span class="segs__lab">轨道模式</span>
+        <div class="seg" role="group" aria-label="轨道模式">
+          <button type="button" data-mode="price" aria-pressed="true">价格路径</button>
+          <button type="button" data-mode="split" aria-pressed="false">并置</button>
+          <button type="button" data-mode="expect" aria-pressed="false">预期路径</button>
+        </div>
+        <div class="btns">
+          <button class="btn" type="button" id="playBtn">自动下滑</button>
+          <button class="btn btn--go" type="button" id="jumpBtn">跳到 11-17 财报夜</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stations" id="stations">
+      <article class="st" data-i="0">
+        <div class="st__hd"><span class="st__no">S1</span><span class="st__date">10 月初</span></div>
+        <p class="st__t">历史收盘高点</p>
+        <div class="mt"><span class="mt-l">英伟达 10 月初历史收盘高点</span><span class="mt-v">243.37 美元</span></div>
+        <p class="st__n">起点。素材只记「10 月初」。<br><span class="unc">未确认：10 月初历史收盘高点的具体交易日</span></p>
+        <p class="st__src">AI 技术动态简报 11-17</p>
+      </article>
+
+      <article class="st" data-i="1">
+        <div class="st__hd"><span class="st__no">S2</span><span class="st__date">11-13</span></div>
+        <p class="st__t">连续第六周收低</p>
+        <div class="mt"><span class="mt-l">英伟达 11-13 收盘价</span><span class="mt-v dn">162.85 美元</span></div>
+        <div class="mt"><span class="mt-l">费城半导体指数 · 11/13 单日跌幅</span><span class="mt-v dn">-3.43%</span></div>
+        <p class="st__n">收盘市值跌破 4 万亿美元。<br><span class="unc">未确认：10 月初至 11-13 区间内每日收盘价</span></p>
+        <p class="st__src">每日股市简报 11-16</p>
+      </article>
+
+      <article class="st" data-i="2">
+        <div class="st__hd"><span class="st__no">S3</span><span class="st__date">11-16</span></div>
+        <p class="st__t">纳指确认进入修正区间</p>
+        <div class="mt"><span class="mt-l">英伟达 11-16 收盘价</span><span class="mt-v dn">156.14 美元</span></div>
+        <div class="mt"><span class="mt-l">费城半导体指数 · 11/16 单日跌幅</span><span class="mt-v dn">-5.3%</span></div>
+        <div class="mt"><span class="mt-l">纳斯达克指数 11-16 收盘点位</span><span class="mt-v">24509.76 点</span></div>
+        <div class="mt"><span class="mt-l">纳斯达克指数 11-16 单日涨跌幅</span><span class="mt-v dn">-2.49%</span></div>
+        <p class="st__n">纳指较 10-06 收盘高点回落逾 10%，确认进入技术性修正区间。<br><span class="unc">未确认：两源同日跌幅 5.3% 与 5.28% 的口径差异</span></p>
+        <p class="st__src">热点新闻简报 11-17</p>
+      </article>
+
+      <article class="st" data-i="3">
+        <div class="st__hd"><span class="st__no">S4</span><span class="st__date">11-17</span></div>
+        <p class="st__t">财报夜（美股盘后）</p>
+        <div class="door">
+          <svg viewBox="0 0 30 34" aria-hidden="true">
+            <rect x="3" y="13" width="24" height="18" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path id="shackle" d="M9 13V9a6 6 0 0 1 12 0v4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="15" cy="21" r="2.4" fill="currentColor"/>
+          </svg>
+          <div>
+            <span class="door__t" id="doorT">尚未抵达</span>
+            <span class="door__s" id="doorS">把车厢拖到这一站，解锁财报夜</span>
+          </div>
+        </div>
+        <p class="st__src">AI 技术动态简报 11-17</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="climax" id="climax">
+  <div class="wrap">
+    <div class="climax__h">
+      <h2>同一夜，两条曲线</h2>
+      <p class="sec__note">11-17 财报夜：价格停在低处，预期从同一处起点立起来。</p>
+    </div>
+
+    <div class="duo">
+      <div class="side side--down">
+        <span class="side__lab">价格 · 走完的路</span>
+        <span class="side__num">约 35%</span>
+        <span class="side__sub">自 10 月初 243.37 美元历史收盘高点回撤。素材原文写作「回撤约 35%」。</span>
+        <div class="side__m">
+          <div class="cl__m"><div class="cl__l">英伟达 11-16 收盘价</div><div class="cl__v">156.14 美元</div></div>
+          <div class="cl__m"><div class="cl__l">费城半导体指数 · 11/16 单日跌幅</div><div class="cl__v">-5.3%</div></div>
+          <div class="cl__m"><div class="cl__l">纳斯达克指数 11-16 收盘点位</div><div class="cl__v">24509.76 点</div></div>
+        </div>
+      </div>
+
+      <div class="seam"><span class="seam__t">11-17 · 同一天</span></div>
+
+      <div class="side side--up">
+        <span class="side__lab">预期 · 还没走的路</span>
+        <span class="side__num">91%</span>
+        <span class="side__sub">市场对英伟达 11-17 财报营收的同比增速预期。同一天，同一家公司。</span>
+        <div class="side__m">
+          <div class="cl__m"><div class="cl__l">英伟达 11-17 财报营收预期区间</div><div class="cl__v">1090~1095 亿美元</div></div>
+          <div class="cl__m"><div class="cl__l">英伟达 11-17 财报营收同比增速预期</div><div class="cl__v">91%</div></div>
+          <div class="cl__m"><div class="cl__l">英伟达四季度指引预期</div><div class="cl__v">1243 亿美元</div></div>
+          <div class="cl__m"><div class="cl__l">英伟达 11-17 财报营收指引中值</div><div class="cl__v">1080 亿美元</div></div>
+          <div class="cl__m"><div class="cl__l">英伟达 11-17 财报调整后 EPS 预期</div><div class="cl__v">2.47 美元</div></div>
+          <div class="cl__m"><div class="cl__l">英伟达 11-17 财报数据中心收入预期</div><div class="cl__v">约 1018 亿美元</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="climax__foot">
+      <p><b>口径提醒。</b>费城半导体指数 11/16 单日跌幅有两套数：新闻简报 11-16 收盘口径记 <b>5.3%</b>，AI 简报 11-17 口径记 <b>5.28%</b>。两者所指应为同一次美股收盘（美东 11-16 = 北京 11-17 早）。<span class="unc">未确认：两源同日跌幅 5.3% 与 5.28% 的口径差异。</span></p>
+      <p><b>这不是结果。</b><span class="unc">未确认：11-17 财报实际值。</span>素材只给出市场预期与公司指引。本页全部数字为收盘口径或素材明确写出的预期值。</p>
+    </div>
+  </div>
+</section>
+
+<section class="ledger">
+  <div class="wrap">
+    <h2>口径与未确认</h2>
+    <ul class="lg">
+      <li><span class="lg__k">01</span><span class="lg__v"><b>费城半导体指数 · 11/16 单日跌幅 5.3% 与 5.28%。</b>新闻简报 11-16 收盘口径记 5.3%（费半收盘下跌 5.3%）；AI 简报 11-17 口径记 5.28%。两者所指应为同一次美股收盘（美东 11-16 = 北京 11-17 早）。<span class="unc">未确认：两源同日跌幅 5.3% 与 5.28% 的口径差异。</span></span></li>
+      <li><span class="lg__k">02</span><span class="lg__v"><b>10 月初历史收盘高点的具体交易日。</b>素材只写「10 月初」。<span class="unc">未确认：243.37 美元对应的具体交易日。</span></span></li>
+      <li><span class="lg__k">03</span><span class="lg__v"><b>区间内每日收盘价。</b><span class="unc">未确认：10 月初至 11-13、11-13 至 11-16 之间的每日收盘价。</span>轨道在站点之间为示意连线，只标注已确认的四个站点值。</span></li>
+      <li><span class="lg__k">04</span><span class="lg__v"><b>11-17 的结果。</b><span class="unc">未确认：11-17 财报实际值、11-17 美股收盘数据。</span>素材仅有市场预期与公司指引。</span></li>
+      <li><span class="lg__k">05</span><span class="lg__v"><b>回撤口径。</b>素材原文为「较 10 月初 243.37 美元历史高点回撤约 35%」。按 156.14 ÷ 243.37 换算为 -35.8%，本页正文沿用素材的「约 35%」表述，不另造精确值。</span></li>
+      <li><span class="lg__k">06</span><span class="lg__v"><b>纳指修正区间。</b>素材口径为「纳斯达克指数较 10 月 6 日历史收盘高点回落逾 10%，确认进入修正区间」，指纳指自身高点，非英伟达高点。</span></li>
+    </ul>
+    <p class="src">素材：每日 AI 技术动态简报 2026-11-17（行业影响 3 / 今日焦点 2）· 每日热点新闻简报 2026-11-17（金融动态 1/2/3）· 每日股市简报 2026-11-16（美股 11-13 收盘口径）</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <p class="close__l"><em>-35%</em> 和 <i>+91%</i>，来自同一天，同一家公司。</p>
+    <p class="close__s">轨道往下走完了，预期刚从同一处起点立起来。剩下怎么读，交给还在拖动的人。</p>
+    <div class="close__btns">
+      <button class="btn" type="button" id="againBtn">再跑一趟</button>
+      <a class="btn" href="#stage" style="text-decoration:none;display:inline-flex;align-items:center">回到轨道顶部</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script type="application/json" id="claims">
+[
+  {"value":"243.37 美元","label":"英伟达 10 月初历史收盘高点","quote":"英伟达 10 月初历史收盘高点 243.37 美元"},
+  {"value":"162.85 美元","label":"英伟达 11-13 收盘价","quote":"英伟达 11-13 收盘价 162.85 美元"},
+  {"value":"156.14 美元","label":"英伟达 11-16 收盘价","quote":"英伟达 11-16 收盘价 156.14 美元"},
+  {"value":"-5.3%","label":"费城半导体指数 · 11/16 单日跌幅","quote":"费城半导体指数 · 11/16 单日跌幅 -5.3%"},
+  {"value":"24509.76 点","label":"纳斯达克指数 11-16 收盘点位","quote":"纳斯达克指数 11-16 收盘点位 24509.76 点"},
+  {"value":"-2.49%","label":"纳斯达克指数 11-16 单日涨跌幅","quote":"纳斯达克指数 11-16 单日涨跌幅 -2.49%"},
+  {"value":"91%","label":"英伟达 11-17 财报营收同比增速预期","quote":"英伟达 11-17 财报营收同比增速预期 91%"},
+  {"value":"1243 亿美元","label":"英伟达四季度指引预期","quote":"英伟达四季度指引预期 1243 亿美元"}
+]
+</script>
+
+<script>
+(function(){
+'use strict';
+var NS='http://www.w3.org/2000/svg';
+var REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(REDUCE)document.documentElement.classList.add('reduce');
+
+var PRICES=[243.37,162.85,156.14,156.14];
+var DATES=['10 月初','11-13','11-16','11-17'];
+var DROP=['—','-3.43%','-5.3%','—'];
+var DROPL=['该站已知跌幅','费城半导体指数 · 11/13 单日跌幅','费城半导体指数 · 11/16 单日跌幅','该站已知跌幅'];
+
+var LAY={
+  wide:{w:1200,h:420,pt:50,pb:300,pTop:250,pBot:150,
+        px:[110,540,880,1130],
+        ctrl:[[110,243.37],[250,215],[400,178],[540,162.85],[700,158],[880,156.14]],
+        ground:340,gx0:20,gx1:1180,axisX:92,gridX0:100,gridX1:1176,
+        noteX:100,noteY:32,breakX:44,plateY:366,
+        fsNote:14,fsAxis:15,fsStation:24,fsDate:15,fsBig:44,fsChip:15,fsChipV:23,fsSeam:15},
+  tall:{w:560,h:760,pt:48,pb:560,pTop:250,pBot:150,
+        px:[60,210,370,510],
+        ctrl:[[60,243.37],[130,205],[210,162.85],[290,158],[370,156.14]],
+        ground:650,gx0:16,gx1:544,axisX:52,gridX0:60,gridX1:548,
+        noteX:60,noteY:34,breakX:30,plateY:690,
+        fsNote:16,fsAxis:16,fsStation:0,fsDate:24,fsBig:40,fsChip:16,fsChipV:26,fsSeam:16},
+  hero:{w:620,h:340,pt:80,pb:270,pTop:250,pBot:150,
+        px:[110,330,490,585],
+        ctrl:[[110,243.37],[190,215],[255,178],[330,162.85],[415,158],[490,156.14]],
+        ground:310,gx0:14,gx1:606,axisX:60,gridX0:68,gridX1:606,
+        noteX:68,noteY:30,breakX:34,plateY:330,
+        fsNote:13,fsAxis:13,fsStation:0,fsDate:13,fsBig:40,fsChip:13,fsChipV:18,fsSeam:13}
+};
+
+var uid=0;
+function el(tag,attrs,parent){
+  var n=document.createElementNS(NS,tag);
+  if(attrs)for(var k in attrs){if(Object.prototype.hasOwnProperty.call(attrs,k))n.setAttribute(k,attrs[k]);}
+  if(parent)parent.appendChild(n);
+  return n;
+}
+function tx(parent,x,y,s,attrs){
+  var a={};if(attrs)for(var k in attrs){if(Object.prototype.hasOwnProperty.call(attrs,k))a[k]=attrs[k];}
+  a.x=x;a.y=y;
+  var n=el('text',a,parent);n.textContent=s;return n;
+}
+function yOf(L,p){return L.pt+(L.pTop-p)/(L.pTop-L.pBot)*(L.pb-L.pt);}
+function spline(pts){
+  var d='M '+pts[0][0]+' '+pts[0][1];
+  for(var i=0;i<pts.length-1;i++){
+    var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||pts[i+1];
+    d+=' C '+(p1[0]+(p2[0]-p0[0])/6)+' '+(p1[1]+(p2[1]-p0[1])/6)+' '+
+       (p2[0]-(p3[0]-p1[0])/6)+' '+(p2[1]-(p3[1]-p1[1])/6)+' '+p2[0]+' '+p2[1];
+  }
+  return d;
+}
+function grid(mode){
+  return mode==='dd'
+    ? [{p:243.37,l:'0%'},{p:219.03,l:'-10%'},{p:194.70,l:'-20%'},{p:170.36,l:'-30%'}]
+    : [{p:240,l:'240'},{p:220,l:'220'},{p:200,l:'200'},{p:180,l:'180'},{p:160,l:'160'}];
+}
+
+/* ── 场景绘制 ─────────────────────────────────── */
+function drawScene(svg,L,opt){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  svg.setAttribute('viewBox','0 0 '+L.w+' '+L.h);
+  var id='g'+(++uid);
+  var defs=el('defs',{},svg);
+  var lg=el('linearGradient',{id:id,x1:'0',y1:'0',x2:'1',y2:'0'},defs);
+  el('stop',{offset:'0','stop-color':'#F2B23C'},lg);
+  el('stop',{offset:'.6','stop-color':'#F58A3C'},lg);
+  el('stop',{offset:'1','stop-color':'#FF6A45'},lg);
+
+  var pts=L.ctrl.map(function(c){return [c[0],yOf(L,c[1])];});
+  var d=spline(pts);
+  var flatX=L.px[3],flatY=yOf(L,156.14);
+  var dAll=d+' L '+flatX+' '+flatY;
+
+  /* 网格 + 轴 */
+  if(!opt||!opt.hero){
+    var gGrid=el('g',{opacity:'.62'},svg);
+    grid('usd').forEach(function(g){
+      var y=yOf(L,g.p);
+      el('line',{x1:L.gridX0,y1:y,x2:L.gridX1,y2:y,stroke:'#1A222E','stroke-width':'1'},gGrid);
+      tx(gGrid,L.axisX,y+5,g.l,{'font-family':'ui-monospace,monospace','font-size':L.fsAxis,fill:'#5F6B7C','text-anchor':'end'});
+    });
+    el('line',{x1:L.gridX0,y1:yOf(L,L.pTop),x2:L.gridX1,y2:yOf(L,L.pTop),stroke:'#24303F','stroke-width':'1'},gGrid);
+    tx(svg,L.noteX,L.noteY,'横轴：站点序列（间距非等比） · 纵轴：美元（线性）',
+      {'font-family':'ui-monospace,monospace','font-size':L.fsNote,fill:'#5F6B7C'});
+  }
+
+  /* 地面 + 断轴 */
+  var gG=el('g',{},svg);
+  el('line',{x1:L.gx0,y1:L.ground,x2:L.gx1,y2:L.ground,stroke:'#2C3948','stroke-width':'1.5'},gG);
+  el('path',{d:'M '+(L.breakX-9)+' '+(L.ground-9)+' L '+(L.breakX-3)+' '+(L.ground+9)+
+               ' M '+(L.breakX+4)+' '+(L.ground-9)+' L '+(L.breakX+10)+' '+(L.ground+9),
+             stroke:'#4A5768','stroke-width':'1.6',fill:'none'},gG);
+  if(!opt||!opt.hero){
+    var mid=(L.px[0]+L.px[1])/2;
+    tx(gG,mid,L.ground-14,'六周',{'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#5F6B7C','text-anchor':'middle'});
+    tx(gG,(L.px[1]+L.px[2])/2,L.ground-14,'3 天',{'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#5F6B7C','text-anchor':'middle'});
+    tx(gG,(L.px[2]+L.px[3])/2,L.ground-14,'1 天',{'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#5F6B7C','text-anchor':'middle'});
+  }
+
+  /* 支撑柱 */
+  var gSup=el('g',{},svg);
+  var sup=[];
+  var i;
+  for(i=0;i<L.px.length;i++){
+    var sx=L.px[i],sy=(i<3)?yOf(L,PRICES[i]):yOf(L,156.14);
+    if(i===0)sup.push([sx,sy]);
+    else if(i===3)sup.push([sx,sy]);
+    else{sup.push([sx-62,sy-6]);sup.push([sx,sy]);sup.push([sx+52,sy+2]);}
+  }
+  if(!opt||!opt.hero){
+    for(i=40;i<L.gx1-10;i+=78){
+      var t=i/(L.gx1-20);
+      sup.push([L.gx0+t*(L.gx1-L.gx0), null]);
+    }
+  }
+  sup.forEach(function(s){
+    if(s[1]===null){
+      var x=s[0];
+      var ln=el('line',{x1:x,y1:L.ground,x2:x,y2:L.ground-16,stroke:'#1E2733','stroke-width':'1'},gSup);
+      return;
+    }
+    if(s[1]>=L.ground-3)return;
+    el('line',{x1:s[0],y1:s[1],x2:s[0],y2:L.ground,stroke:'#1E2733','stroke-width':'2'},gSup);
+    el('line',{x1:s[0]-13,y1:L.ground,x2:s[0]+13,y2:L.ground,stroke:'#232D3B','stroke-width':'2'},gSup);
+  });
+
+  /* 轨道 */
+  var gRail=el('g',{},svg);
+  var flatD='M '+pts[pts.length-1][0]+' '+pts[pts.length-1][1]+' L '+flatX+' '+flatY;
+  el('path',{d:d,fill:'none',stroke:'#232D3B','stroke-width':'13','stroke-linecap':'round'},gRail);
+  el('path',{d:d,fill:'none',stroke:'#39465A','stroke-width':'7','stroke-linecap':'round'},gRail);
+  el('path',{d:flatD,fill:'none',stroke:'#232D3B','stroke-width':'13','stroke-linecap':'round','stroke-dasharray':'2 9'},gRail);
+  el('path',{d:flatD,fill:'none',stroke:'#39465A','stroke-width':'7','stroke-linecap':'round','stroke-dasharray':'2 9'},gRail);
+
+  /* 枕木 */
+  var gTie=el('g',{},svg);
+  var tiePath=el('path',{d:dAll,fill:'none',stroke:'none'},svg);
+  var total=tiePath.getTotalLength();
+  var step=(opt&&opt.hero)?34:17;
+  for(var l=0;l<=total;l+=step){
+    var p=tiePath.getPointAtLength(l);
+    var p2=tiePath.getPointAtLength(Math.min(total,l+2));
+    var dx=p2.x-p.x,dy=p2.y-p.y,md=Math.sqrt(dx*dx+dy*dy)||1;
+    var nx=-dy/md,ny=dx/md;
+    el('line',{x1:p.x-nx*8,y1:p.y-ny*8,x2:p.x+nx*8,y2:p.y+ny*8,
+      stroke:(opt&&opt.hero)?'#3A4657':'#48566A','stroke-width':'2.2'},gTie);
+  }
+
+  /* 已行驶部分 */
+  var gTrail=el('g',{},svg);
+  var trailS=el('path',{d:d,fill:'none',stroke:'url(#'+id+')','stroke-width':'4.5','stroke-linecap':'round'},gTrail);
+  var trailF=el('path',{d:flatD,fill:'none',stroke:'#FF6A45','stroke-width':'4.5','stroke-linecap':'round','stroke-dasharray':'0 100000'},gTrail);
+
+  /* 站点 */
+  var gSt=el('g',{},svg);
+  var stNodes=[];
+  if(!opt||!opt.hero){
+    for(i=0;i<4;i++){
+      var x=L.px[i],y=(i<3)?yOf(L,PRICES[i]):yOf(L,156.14);
+      var g=el('g',{},gSt);
+      el('circle',{cx:x,cy:y,r:'6.5',fill:'#0A0D13',stroke:'#8A97A8','stroke-width':'2.5'},g);
+      var lab=tx(g,x,y-18,DATES[i],{'font-family':'ui-monospace,monospace','font-size':L.fsDate,fill:'#A5AFBD','text-anchor':'middle'});
+      if(i===3)lab.setAttribute('fill','#63D2E4');
+      if(L.fsStation>0&&i<3){
+        tx(g,x,L.plateY,PRICES[i].toFixed(2),{'font-family':'ui-monospace,monospace','font-size':L.fsStation,fill:'#ECE9E2','text-anchor':'middle'});
+      }
+      stNodes.push({g:g,c:g.firstChild,x:x,y:y});
+    }
+  }else{
+    el('rect',{x:'8',y:'8',width:'3',height:'64',fill:'#F2B23C'},gSt);
+    tx(gSt,22,44,'243.37 美元',{'font-family':'ui-monospace,monospace','font-size':38,fill:'#F2B23C','font-weight':'600'});
+    tx(gSt,22,66,'英伟达 10 月初历史收盘高点',{'font-family':'ui-monospace,monospace','font-size':15,fill:'#7E8A9A'});
+  }
+
+  /* 未确认段标注 */
+  if(!opt||!opt.hero){
+    tx(svg,(L.px[2]+L.px[3])/2,yOf(L,156.14)+30,'11-17 收盘 未确认',
+      {'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#5F6B7C','text-anchor':'middle'});
+  }
+
+  /* 冲击标记 */
+  var gShock=el('g',{},svg);
+  if(!opt||!opt.hero){
+    [1,2].forEach(function(k){
+      var x=L.px[k],y=yOf(L,PRICES[k]);
+      var g=el('g',{},gShock);
+      el('line',{x1:x,y1:y-30,x2:x,y2:y-12,stroke:'#FF6A45','stroke-width':'1.5','stroke-dasharray':'3 4'},g);
+      el('path',{d:'M '+(x-4)+' '+(y-30)+' L '+x+' '+(y-38)+' L '+(x+4)+' '+(y-30)+' Z',fill:'#FF6A45'},g);
+      if(L.fsStation>0){
+        tx(g,x,y-46,DROP[k],{'font-family':'ui-monospace,monospace','font-size':L.fsChipV,fill:'#FF7A45','text-anchor':'middle','font-weight':'600'});
+      }
+      stNodes[k].shock=g;
+    });
+  }
+
+  /* 预期柱 */
+  var gExp=el('g',{opacity:'0'},svg);
+  var expX=L.px[3],expTop=yOf(L,243.37),expY=yOf(L,156.14);
+  if(!opt||!opt.hero){
+  el('line',{x1:expX,y1:expY,x2:expX,y2:expTop,stroke:'#63D2E4','stroke-width':'3','stroke-dasharray':'7 6','stroke-linecap':'round'},gExp);
+  el('path',{d:'M '+(expX-9)+' '+(expTop+14)+' L '+expX+' '+expTop+' L '+(expX+9)+' '+(expTop+14)+' Z',fill:'#63D2E4'},gExp);
+  el('circle',{cx:expX,cy:expY,r:'5',fill:'#63D2E4'},gExp);
+  tx(gExp,expX-16,expTop+6,'91%',{'font-family':'ui-monospace,monospace','font-size':L.fsBig,fill:'#63D2E4','text-anchor':'end','font-weight':'600'});
+  tx(gExp,expX-16,expTop+26,'英伟达 11-17 财报营收同比增速预期',
+     {'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#7E8A9A','text-anchor':'end'});
+  tx(gExp,expX-16,expTop+46,'1090~1095 亿美元',
+     {'font-family':'ui-monospace,monospace','font-size':L.fsChipV,fill:'#A5AFBD','text-anchor':'end'});
+  tx(gExp,expX-16,expY-46,'约 35%',
+     {'font-family':'ui-monospace,monospace','font-size':L.fsChipV,fill:'#FF7A45','text-anchor':'end','font-weight':'600'});
+  tx(gExp,expX-16,expY-26,'自 243.37 美元高点回撤',
+     {'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#7E8A9A','text-anchor':'end'});
+  tx(gExp,expX-16,expY-6,'英伟达 11-16 收盘价',
+     {'font-family':'ui-monospace,monospace','font-size':L.fsChip,fill:'#7E8A9A','text-anchor':'end'});
+  if(!opt||!opt.hero){
+    tx(gExp,expX+16,(expTop+expY)/2,'同一天 · 11-17',
+       {'font-family':'ui-monospace,monospace','font-size':L.fsSeam,fill:'#63D2E4','text-anchor':'middle',
+        transform:'rotate(90 '+(expX+16)+' '+((expTop+expY)/2)+')'});
+  }
+  }
+
+  /* 车厢 */
+  var gCar=el('g',{},svg);
+  var car=el('g',{},gCar);
+  el('rect',{x:'-19',y:'-13',width:'38',height:'17',rx:'2',fill:'#ECE9E2'},car);
+  el('rect',{x:'-19',y:'-13',width:'38',height:'5',rx:'2',fill:'#F2B23C'},car);
+  el('circle',{cx:'-10',cy:'7',r:'5',fill:'#0A0D13',stroke:'#ECE9E2','stroke-width':'2.5'},car);
+  el('circle',{cx:'10',cy:'7',r:'5',fill:'#0A0D13',stroke:'#ECE9E2','stroke-width':'2.5'},car);
+  el('line',{x1:'-4',y1:'-13',x2:'-4',y2:'-30',stroke:'#ECE9E2','stroke-width':'2'},car);
+  el('path',{d:'M -4 -30 L 14 -25 L -4 -20 Z',fill:'#F2B23C'},car);
+
+  return {svg:svg,L:L,path:tiePath,total:total,d:d,flatD:flatD,
+          trailS:trailS,trailF:trailF,car:car,gSt:gSt,stNodes:stNodes,gShock:gShock,gExp:gExp,pts:pts};
+}
+
+/* ── 状态 ─────────────────────────────────────── */
+var state={t:0,mode:'price',night:false,playing:false,drag:false};
+var sc=null,hero=null;
+var boardSvg=document.getElementById('boardSvg');
+var crestSvg=document.getElementById('crestSvg');
+var tag=document.getElementById('tag'),tagL=document.getElementById('tagL'),tagV=document.getElementById('tagV');
+var lever=document.getElementById('lever');
+var hudPos=document.getElementById('hudPos'),hudPrice=document.getElementById('hudPrice');
+var hudDrop=document.getElementById('hudDrop'),hudDropL=document.getElementById('hudDropL'),hudDD=document.getElementById('hudDD');
+var stEls=[].slice.call(document.querySelectorAll('.st'));
+var ticks=[].slice.call(document.querySelectorAll('.tick'));
+var shackle=document.getElementById('shackle');
+
+function stationT(i){
+  var L=sc.L,x=L.px[i],y=(i<3)?yOf(L,PRICES[i]):yOf(L,156.14);
+  var best=0,bd=1e9;
+  for(var k=0;k<=600;k++){
+    var l=sc.total*k/600,p=sc.path.getPointAtLength(l);
+    var dd=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);
+    if(dd<bd){bd=dd;best=k;}
+  }
+  return best/600;
+}
+var ST=[0,0,0,0];
+
+function place(node,x,y){
+  var m=boardSvg.getScreenCTM();
+  if(!m)return;
+  var r=boardSvg.getBoundingClientRect();
+  var p=new DOMPoint(x,y).matrixTransform(m);
+  var bw=r.width,bh=r.height;
+  var tw=node.offsetWidth||160,th=node.offsetHeight||56;
+  var l=Math.max(tw/2+6,Math.min(bw-tw/2-6,p.x-r.left));
+  var tp=Math.max(th/2+4,Math.min(bh-th/2-4,p.y-r.top));
+  node.style.left=l+'px';
+  node.style.top=tp+'px';
+}
+
+function updateTag(t){
+  var seg=-1,i;
+  for(i=0;i<4;i++){if(t>=ST[i]-0.004)seg=i;}
+  var L=sc.L;
+  if(seg>=0){
+    tag.classList.remove('calm');
+    tagL.textContent=DATES[seg];
+    tagV.textContent=seg===3?'11-17 · 财报夜':PRICES[seg].toFixed(2)+' 美元';
+    place(tag,L.px[seg],(seg<3)?yOf(L,PRICES[seg]):yOf(L,156.14)-58);
+  }else{
+    tag.classList.add('calm');
+    tagL.textContent='区间读数';
+    tagV.textContent='243.37 → 162.85 美元';
+    place(tag,(L.px[0]+L.px[1])/2,(yOf(L,243.37)+yOf(L,162.85))/2-46);
+  }
+}
+
+function setT(v,skipLever){
+  v=Math.max(0,Math.min(1,v));
+  state.t=v;
+  var l=v*sc.total;
+  var ls=sc.trailS.getTotalLength();
+  sc.trailS.style.strokeDasharray=Math.min(l,ls)+' 100000';
+  sc.trailF.style.strokeDasharray=Math.max(0,l-ls)+' 100000';
+  var p=sc.path.getPointAtLength(l);
+  var p2=sc.path.getPointAtLength(Math.min(sc.total,l+2));
+  var ang=Math.atan2(p2.y-p.y,p2.x-p.x)*180/Math.PI;
+  sc.car.setAttribute('transform','translate('+p.x+','+p.y+') rotate('+ang+')');
+
+  if(!skipLever)lever.value=Math.round(v*1000);
+  lever.setAttribute('aria-valuetext',hudPos.textContent);
+
+  var seg=-1,i;
+  for(i=0;i<4;i++){if(v>=ST[i]-0.004)seg=i;}
+  if(seg<0){
+    hudPos.textContent='10 月初 → 11-13 区间';
+    hudPrice.textContent='243.37 → 162.85';
+    hudDropL.textContent='该站已知跌幅';
+    hudDrop.textContent='—';
+    hudDD.textContent='—';
+  }else{
+    hudPos.textContent=DATES[seg]+(seg===3?' · 财报夜':' · '+(seg===0?'历史收盘高点':(seg===1?'第六周收低':'收盘 · 全线大跌')));
+    hudPrice.textContent=seg===3?'156.14':PRICES[seg].toFixed(2);
+    hudDropL.textContent=DROPL[seg];
+    hudDrop.textContent=DROP[seg];
+    hudDD.textContent=seg>=2?'约 35%':'—';
+  }
+  updateTag(v);
+
+  stEls.forEach(function(e,k){
+    e.classList.toggle('pass',v>=ST[k]-0.004);
+    e.classList.toggle('now',seg===k);
+  });
+  ticks.forEach(function(b,k){
+    b.classList.toggle('on',Math.abs(v-ST[k])<0.02);
+  });
+
+  if(v>=0.995&&!state.night)unlock();
+}
+
+function unlock(){
+  state.night=true;
+  document.getElementById('doorT').textContent='已解锁';
+  document.getElementById('doorS').textContent='营收预期 1090~1095 亿美元 · 同比 +91%';
+  stEls[3].classList.add('night');
+  if(shackle)shackle.setAttribute('d','M9 13V8a6 6 0 0 1 12-1');
+  if(state.mode==='price')setMode('split',true);
+  if(!REDUCE){
+    var nums=document.querySelectorAll('#climax .side__num, #climax .cl__v');
+    [].forEach.call(nums,function(n,k){
+      n.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],
+        {duration:620,delay:Math.min(k*45,420),easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});
+    });
+    revealExp(760);
+  }else{
+    sc.gExp.setAttribute('opacity','1');
+  }
+}
+
+function revealExp(dur){
+  var top=yOf(sc.L,243.37),bot=yOf(sc.L,156.14),len=Math.abs(bot-top);
+  var line=sc.gExp.firstChild;
+  var t0=performance.now();
+  sc.gExp.setAttribute('opacity','1');
+  line.style.strokeDasharray='0 '+len;
+  function step(now){
+    var p=Math.min(1,(now-t0)/dur);
+    line.style.strokeDasharray=(len*p)+' '+len;
+    if(p<1)requestAnimationFrame(step);
+    else line.style.strokeDasharray='7 6';
+  }
+  requestAnimationFrame(step);
+}
+
+function setMode(m,silent){
+  state.mode=m;
+  [].forEach.call(document.querySelectorAll('[data-mode]'),function(b){
+    b.setAttribute('aria-pressed',String(b.getAttribute('data-mode')===m));
+  });
+  if(!sc)return;
+  var exp=sc.gExp;
+  if(m==='price'){exp.setAttribute('opacity','0');sc.gSt.setAttribute('opacity','1');}
+  else if(m==='split'){exp.setAttribute('opacity',state.night?'1':'.42');sc.gSt.setAttribute('opacity','1');}
+  else{exp.setAttribute('opacity','1');sc.gSt.setAttribute('opacity','.42');}
+  if(state.night&&m!=='price'&&!silent&&!REDUCE){
+    var top=yOf(sc.L,243.37),bot=yOf(sc.L,156.14),len=Math.abs(bot-top);
+    exp.firstChild.style.strokeDasharray='7 6';
+  }
+}
+
+function rebuild(){
+  var w=document.getElementById('board').clientWidth;
+  var L=(w<760)?LAY.tall:LAY.wide;
+  sc=drawScene(boardSvg,L,{});
+  if(!hero)hero=drawScene(crestSvg,LAY.hero,{hero:true});
+  var i;
+  for(i=0;i<4;i++)ST[i]=stationT(i);
+  ticks.forEach(function(b,k){
+    b.style.left=(ST[k]*100)+'%';
+    b.style.transform=k===0?'translateX(0)':(k===3?'translateX(-100%)':'translateX(-50%)');
+  });
+  stEls.forEach(function(e,k){e.style.cursor='pointer';e.onclick=function(){setT(ST[k]+0.002);};});
+  setT(state.t);
+  setMode(state.night?'split':state.mode,true);
+  place(tag,sc.L.px[0],yOf(sc.L,243.37)-58);
+}
+
+/* ── 交互 ─────────────────────────────────────── */
+function tFromEvent(e){
+  var m=boardSvg.getScreenCTM();
+  if(!m)return 0;
+  var p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
+  var best=0,bd=1e9;
+  for(var k=0;k<=600;k++){
+    var l=sc.total*k/600,q=sc.path.getPointAtLength(l);
+    var dd=(q.x-p.x)*(q.x-p.x)+(q.y-p.y)*(q.y-p.y);
+    if(dd<bd){bd=dd;best=k;}
+  }
+  return best/600;
+}
+boardSvg.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='touch')return;
+  state.drag=true;boardSvg.setPointerCapture(e.pointerId);
+  state.playing=false;setT(tFromEvent(e));e.preventDefault();
+});
+boardSvg.addEventListener('pointermove',function(e){
+  if(!state.drag)return;setT(tFromEvent(e));
+});
+boardSvg.addEventListener('pointerup',function(){state.drag=false;});
+boardSvg.addEventListener('pointercancel',function(){state.drag=false;});
+
+lever.addEventListener('input',function(){state.playing=false;setT(lever.value/1000,true);});
+
+[].forEach.call(document.querySelectorAll('[data-mode]'),function(b){
+  b.addEventListener('click',function(){setMode(b.getAttribute('data-mode'));});
+});
+ticks.forEach(function(b){
+  b.addEventListener('click',function(){state.playing=false;setT(ST[+b.getAttribute('data-i')]+0.002);});
+});
+document.getElementById('jumpBtn').addEventListener('click',function(){state.playing=false;setT(1);});
+document.getElementById('againBtn').addEventListener('click',function(){
+  state.playing=false;state.night=false;
+  document.getElementById('doorT').textContent='尚未抵达';
+  document.getElementById('doorS').textContent='把车厢拖到这一站，解锁财报夜';
+  stEls[3].classList.remove('night');
+  if(shackle)shackle.setAttribute('d','M9 13V9a6 6 0 0 1 12 0v4');
+  sc.gExp.setAttribute('opacity','0');
+  setMode('price',true);
+  setT(0);
+  document.getElementById('stage').scrollIntoView({behavior:REDUCE?'auto':'smooth'});
+});
+document.getElementById('playBtn').addEventListener('click',function(){
+  if(REDUCE){setT(1);return;}
+  if(state.playing){state.playing=false;return;}
+  if(state.t>=0.995)setT(0);
+  state.playing=true;
+  var t0=state.t,started=performance.now();
+  function step(now){
+    if(!state.playing)return;
+    var p=Math.min(1,(now-started)/(8200*(1-t0)+1));
+    var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    setT(t0+(1-t0)*e);
+    if(p<1)requestAnimationFrame(step);else state.playing=false;
+  }
+  requestAnimationFrame(step);
+});
+
+var rt=null;
+window.addEventListener('resize',function(){
+  clearTimeout(rt);rt=setTimeout(function(){
+    var w=document.getElementById('board').clientWidth;
+    var want=(w<760)?'tall':'wide';
+    if(sc&&(sc.L===LAY.tall)===(want==='tall'))return;
+    rebuild();
+  },160);
+});
+
+rebuild();
+setTimeout(function(){place(tag,sc.L.px[0],yOf(sc.L,243.37)-58);},60);
+})();
+</script>
+</body>
+</html>

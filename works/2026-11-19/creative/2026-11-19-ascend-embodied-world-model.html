@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>配额之外的那一半 —— 昇腾上的具身世界模型 CloudRobo-WM1.2</title>
+<meta name="showcase-beat" content="机器人与具身">
+<meta name="description" content="一条可拖的分界线，把具身世界模型的训练算力分给两边：左边是高度依赖英伟达生态的海外具身大脑，右边是在国产昇腾算力上训练并开源的 CloudRobo-WM1.2。两个基准均列第一，16500+ 开发者，5 家点名生态伙伴。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A14'/%3E%3Cpath d='M4 22l6-8 5 5 5-9 8 12' fill='none' stroke='%23C08BF0' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='9' r='3' fill='%234FE0C8'/%3E%3C/svg%3E">
+<style>
+@import url("../../../assets/vendor/fonts/noto-serif-sc.css");
+
+:root{
+  --bg:#0B0A14; --bg2:#100E1D; --panel:#161331; --panel2:#1D1940;
+  --line:#2C2653; --line2:#413A73;
+  --ink:#F3F0FC; --dim:#C3BADF; --dim2:#AAA0CC;
+  --sea:#4FE0C8; --sea-d:#39B7A4;
+  --asc:#C79BF6; --asc-d:#A97BE4;
+  --gold:#F5B942; --red:#FF6E5C;
+  --serif:"Noto Serif SC",Georgia,"Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono",monospace;
+  --pad:56px; --gutter:20px; --sec-y:88px; --hero-y:86px; --seam-y:42px;
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--asc-d);color:#0B0A14}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:600;line-height:1.24}
+p{margin:0}
+a{color:var(--asc);text-decoration:none;border-bottom:1px solid var(--line2)}
+a:hover{color:var(--ink);border-color:var(--asc)}
+button{font:inherit;color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.src{font-family:var(--mono);font-size:12.5px;color:var(--dim2);line-height:1.6}
+.metric-label{
+  display:block;font-family:var(--mono);font-size:12.5px;line-height:1.4;
+  color:var(--dim2);letter-spacing:.01em;
+}
+
+/* ── 顶栏 ───────────────────────────── */
+.rail{position:sticky;top:0;z-index:60;background:rgba(11,10,20,.93);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.rail__in{max-width:var(--maxw);margin:0 auto;padding:9px var(--pad);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.rail__k{font-family:var(--mono);font-size:12.5px;color:var(--dim2);letter-spacing:.1em;flex:0 0 auto}
+.rail__bar{flex:1 1 190px;height:9px;background:var(--bg2);border:1px solid var(--line);border-radius:99px;overflow:hidden;display:flex;min-width:130px}
+.rail__nv{background:var(--sea);width:50%;transition:width .18s linear}
+.rail__asc{background:var(--asc);flex:1 1 auto}
+.rail__v{font-family:var(--mono);font-size:12.5px;color:var(--ink);flex:0 0 auto;font-variant-numeric:tabular-nums}
+.rail__note{font-family:var(--mono);font-size:11.5px;color:var(--dim2);border:1px dashed var(--line2);border-radius:99px;padding:1px 8px}
+
+/* ── Hero ───────────────────────────── */
+.hero{position:relative;min-height:min(88vh,760px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#141128 0%,var(--bg) 62%)}
+#world{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__in{position:relative;z-index:2;max-width:var(--maxw);width:100%;margin:0 auto;padding:var(--hero-y) var(--pad) 0}
+.hero__by{
+  margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 18px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--dim2);
+}
+.hero__by span+span{position:relative;padding-left:18px}
+.hero__by span+span::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:1px;background:var(--line2)}
+h1{font-size:clamp(40px,8.4vw,88px);line-height:1.04;letter-spacing:-.02em;margin-top:14px}
+h1 .lit{
+  color:var(--asc);position:relative;display:inline-block;
+}
+h1 .lit::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.1em;background:linear-gradient(90deg,var(--sea),var(--asc))}
+.hero__sub{margin-top:20px;font-family:var(--serif);font-size:clamp(17px,2.4vw,23px);color:var(--dim);max-width:24ch}
+.hero__sub b{color:var(--ink);font-weight:600}
+/* ── 分界滑条 ───────────────────────── */
+.seam{position:relative;z-index:3;padding:var(--seam-y) var(--pad);max-width:var(--maxw);width:100%;margin:0 auto}
+.seam__lbl{display:flex;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:12.5px;margin-bottom:10px}
+.seam__lbl span:first-child{color:var(--sea)}
+.seam__lbl span:last-child{color:var(--asc);text-align:right}
+.seam__row{position:relative}
+.seam__line{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line2);transform:translateY(-50%)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;background:transparent;position:relative;
+  height:44px;margin:0;cursor:ew-resize;display:block;
+}
+input[type=range]::-webkit-slider-runnable-track{height:44px;background:transparent}
+input[type=range]::-moz-range-track{height:44px;background:transparent}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sea),var(--asc));border:3px solid var(--bg);
+  box-shadow:0 0 0 1px var(--line2),0 4px 16px rgba(0,0,0,.55);margin-top:7px;
+}
+input[type=range]::-moz-range-thumb{
+  width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--sea),var(--asc));
+  border:3px solid var(--bg);box-shadow:0 0 0 1px var(--line2);
+}
+.seam__hint{font-family:var(--mono);font-size:12.5px;color:var(--dim2);text-align:center;margin-top:6px}
+.seam__hint b{color:var(--ink);font-weight:500}
+
+/* ── 通用段 ─────────────────────────── */
+.sec{border-top:1px solid var(--line);padding:var(--sec-y) 0}
+.sec--tint{background:linear-gradient(180deg,#0E0C1C 0%,var(--bg) 100%)}
+h2{font-size:clamp(27px,4.4vw,46px);letter-spacing:-.015em}
+.lede{margin-top:16px;color:var(--dim);max-width:56ch;font-size:clamp(15.5px,1.7vw,17.5px)}
+
+/* ── 01 动作 vs 世界 ────────────────── */
+.switch{display:inline-flex;gap:6px;margin-top:28px;padding:5px;border:1px solid var(--line);border-radius:99px;background:var(--bg2)}
+.switch button{
+  appearance:none;background:none;border:0;border-radius:99px;padding:9px 24px;cursor:pointer;
+  font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--dim2);transition:background .2s,color .2s;
+}
+.switch button:hover{color:var(--ink)}
+.switch button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
+.stage{margin-top:26px;border:1px solid var(--line);background:var(--bg2);border-radius:14px;overflow:hidden}
+.stage__view{position:relative}
+.stage__view svg{display:block;width:100%;height:auto}
+.stage__cap{
+  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;
+  padding:14px var(--gutter) 16px;border-top:1px solid var(--line);background:var(--panel);
+}
+.stage__cap .c1{font-family:var(--serif);font-size:clamp(16px,2vw,19px);color:var(--ink)}
+.stage__cap .c2{font-family:var(--mono);font-size:12.5px;color:var(--dim2)}
+[hidden]{display:none !important}
+
+/* ── 02 架构 ────────────────────────── */
+.arch{margin-top:30px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);gap:clamp(18px,3vw,34px);align-items:start}
+.arch__fig{border:1px solid var(--line);background:var(--bg2);border-radius:14px;padding:var(--gutter)}
+.arch__fig svg{display:block;width:100%;height:auto}
+.hit{cursor:pointer}
+.hit rect,.hit circle,.hit path.dz{transition:fill .18s,stroke .18s,opacity .18s}
+.arch__cap{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:18px var(--gutter)}
+.arch__cap .a1{font-family:var(--mono);font-size:12.5px;color:var(--dim2);letter-spacing:.08em}
+.arch__cap .a2{margin-top:8px;font-family:var(--serif);font-size:clamp(17px,2vw,20px);color:var(--ink);line-height:1.5}
+.arch__cap .a3{margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--dim2)}
+.metrics{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.metric{background:var(--bg2);padding:16px var(--gutter) 17px;transition:background .2s}
+.metric:hover{background:var(--panel)}
+.metric__v{display:block;margin-top:9px;font-family:var(--mono);font-size:clamp(23px,3.2vw,31px);line-height:1.1;color:var(--ink);letter-spacing:-.015em}
+.metric__v.is-asc{color:var(--asc)}
+.metric__v.is-gold{color:var(--gold)}
+.metric__u{display:block;margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--dim2)}
+
+/* ── 03 训练侧 / 推理侧 + 双基准 ────── */
+.split{margin-top:28px}
+.split__tabs{display:flex;gap:0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.split__tabs button{
+  appearance:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;
+  padding:12px 30px;cursor:pointer;font-family:var(--mono);font-size:14.5px;
+  letter-spacing:.06em;color:var(--dim2);transition:color .2s,border-color .2s;
+}
+.split__tabs button:hover{color:var(--ink)}
+.split__tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--gold)}
+.split__panel{padding-top:24px}
+.bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(12px,2vw,20px)}
+.bcard{
+  border:1px solid var(--line);background:var(--bg2);border-radius:14px;padding:20px 20px 18px;position:relative;overflow:hidden;
+}
+.bcard__k{font-family:var(--mono);font-size:13px;color:var(--dim);letter-spacing:.05em}
+.bcard__r{margin-top:6px;font-family:var(--serif);font-size:clamp(46px,8vw,74px);line-height:1;color:var(--gold);letter-spacing:-.03em}
+.bcard__r small{font-family:var(--mono);font-size:14px;color:var(--dim2);letter-spacing:.06em;margin-left:8px;vertical-align:top}
+.bcard__bar{margin-top:16px;height:10px;border:1px dashed var(--line2);border-radius:99px;position:relative;overflow:hidden}
+.bcard__bar i{position:absolute;inset:0;background:rgba(199,155,246,.32)}
+.bcard__n{margin-top:9px;font-family:var(--mono);font-size:12px;color:var(--dim2)}
+.prose{margin-top:22px;border-left:1px solid var(--line2);padding-left:16px}
+.prose p{color:var(--dim);font-size:clamp(15.5px,1.8vw,17.5px)}
+.prose p+p{margin-top:9px}
+.prose b{color:var(--ink);font-weight:600}
+.evid{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:12px;color:var(--dim2);border:1px solid var(--line2);border-radius:99px;padding:3px 11px}
+.chip--gold{color:var(--gold);border-color:rgba(245,185,66,.5)}
+.chip--warn{color:var(--red);border-color:rgba(255,110,92,.5)}
+.chip--asc{color:var(--asc);border-color:rgba(199,155,246,.5)}
+
+/* 盲测 */
+.quiz{margin-top:30px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#151132,#0F0D22);padding:26px var(--gutter)}
+.quiz__k{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:var(--gold)}
+.quiz__q{margin-top:9px;font-family:var(--serif);font-size:clamp(18px,2.6vw,24px);color:var(--ink)}
+.quiz__doors{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.door{
+  appearance:none;cursor:pointer;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;
+  padding:17px 16px;text-align:left;transition:transform .18s,border-color .18s,background .18s;
+}
+.door:hover{transform:translateY(-3px);border-color:var(--asc)}
+.door .d1{font-family:var(--mono);font-size:12px;color:var(--dim2);display:block}
+.door .d2{font-family:var(--serif);font-size:clamp(18px,2.4vw,22px);color:var(--ink);display:block;margin-top:5px}
+.door[aria-pressed=true]{border-color:var(--gold);background:#1B1533}
+.door.is-right{border-color:var(--sea);background:#101A22}
+.door.is-wrong{border-color:var(--red);opacity:.62}
+.quiz__ans{margin-top:16px;border-top:1px dashed var(--line2);padding-top:15px}
+.quiz__verdict{font-family:var(--serif);font-size:clamp(17px,2.2vw,21px);color:var(--ink)}
+.quiz__verdict.ok{color:var(--sea)}
+.quiz__verdict.no{color:var(--red)}
+.quiz__ev{margin-top:9px;font-family:var(--mono);font-size:13px;color:var(--dim);line-height:1.7}
+.quiz__ev b{color:var(--ink);font-weight:500}
+
+/* ── 04 生态网络 ────────────────────── */
+.net{margin-top:28px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.95fr);gap:clamp(18px,3vw,30px);align-items:center}
+.net__fig{border:1px solid var(--line);background:var(--bg2);border-radius:14px;padding:8px}
+.net__fig svg{display:block;width:100%;height:auto}
+.nnode{cursor:pointer}
+.nnode circle.dot{transition:r .2s,fill .2s,stroke .2s}
+.nnode text{font-family:var(--mono);font-size:13px;fill:var(--ink);pointer-events:none}
+.net__side .a1{font-family:var(--mono);font-size:12.5px;color:var(--dim2);letter-spacing:.08em}
+.net__side .a2{margin-top:8px;font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);color:var(--ink);line-height:1.45}
+.net__side .a2 b{color:var(--asc);font-weight:600}
+.net__side .a3{margin-top:11px;font-family:var(--mono);font-size:12.5px;color:var(--dim2);line-height:1.7}
+.legend{margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--dim2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* ── 05 依赖滑块 ────────────────────── */
+.dep{margin-top:30px;border:1px solid var(--line);border-radius:16px;background:var(--bg2);padding:28px var(--gutter)}
+.dep__bar{display:flex;height:40px;border-radius:9px;overflow:hidden;border:1px solid var(--line2);background:var(--bg2);padding:3px}
+.dep__nv{background:linear-gradient(90deg,var(--sea-d),var(--sea));display:flex;align-items:center;padding-left:12px}
+.dep__asc{background:linear-gradient(90deg,var(--asc),var(--asc-d));display:flex;align-items:center;justify-content:flex-end;padding-right:12px}
+.dep__bar span{font-family:var(--mono);font-size:13px;color:#08110F;font-weight:600;white-space:nowrap}
+.dep__asc span{color:#140B24}
+.dep__read{display:flex;justify-content:space-between;gap:14px;margin-top:12px;font-family:var(--mono);font-size:13.5px;flex-wrap:wrap}
+.dep__read b{font-weight:600}
+.dep__nv-t{color:var(--sea)} .dep__asc-t{color:var(--asc)}
+.dep__note{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--dim2);min-height:3.4em;line-height:1.7}
+.dep__note b{color:var(--ink);font-weight:500}
+.dep__quote{margin-top:10px;padding:15px 17px;border-radius:10px;background:var(--panel);border:1px solid var(--line2);font-family:var(--serif);font-size:clamp(15.5px,1.9vw,18px);color:var(--ink);line-height:1.7}
+.dep__src{margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--dim2)}
+
+/* ── 06 收尾 ────────────────────────── */
+.close__h{font-size:clamp(30px,6.4vw,64px);letter-spacing:-.02em;line-height:1.14}
+.close__h em{font-style:normal;color:var(--gold)}
+.close__grid{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,3vw,26px)}
+.qbox{border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:20px 20px 17px}
+.qbox--vendor{border-color:rgba(245,185,66,.42);background:linear-gradient(160deg,#1A1428,#0F0D1E)}
+.qbox__k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--dim2)}
+.qbox--vendor .qbox__k{color:var(--gold)}
+.qbox__t{margin-top:11px;font-family:var(--serif);font-size:clamp(17px,2.2vw,21px);color:var(--ink);line-height:1.65}
+.qbox__s{margin-top:12px}
+.closer{margin-top:40px;font-family:var(--serif);font-size:clamp(20px,3.4vw,32px);color:var(--ink);line-height:1.6;max-width:24ch}
+.closer b{color:var(--asc);font-weight:600}
+
+/* ── footer ─────────────────────────── */
+.foot{border-top:1px solid var(--line);background:var(--bg2);padding:56px 0 72px}
+.foot h3{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:var(--dim2);font-weight:500;text-transform:uppercase}
+.foot ol{margin:14px 0 0;padding-left:1.2em}
+.foot li{color:var(--dim);font-size:14.5px;line-height:1.75;margin-bottom:8px}
+.foot .meta{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.foot .fine{margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--dim2);line-height:1.8}
+
+@media (max-width:900px){
+  :root{--pad:32px;--gutter:18px;--sec-y:64px;--hero-y:64px;--seam-y:32px}
+  .foot{padding:48px 0 58px}
+}
+@media (max-width:560px){
+  :root{--pad:16px;--gutter:16px;--sec-y:48px;--hero-y:46px;--seam-y:26px}
+  .foot{padding:38px 0 50px}
+  .quiz{padding:20px var(--gutter)}
+  .dep{padding:20px var(--gutter)}
+  .split__tabs button{padding:11px 16px;font-size:14px}
+}
+@media (max-width:860px){
+  .arch,.net{grid-template-columns:1fr}
+  .rail__note{display:none}
+}
+@media (max-width:520px){
+  .rail__k{display:none}
+  .bcard__r{font-size:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<div class="rail" id="rail">
+  <div class="rail__in">
+    <span class="rail__k">算力配比</span>
+    <span class="rail__bar" aria-hidden="true"><i class="rail__nv" id="railNv"></i><i class="rail__asc"></i></span>
+    <span class="rail__v" id="railV">昇腾 50% · 英伟达生态 50%</span>
+    <span class="rail__note">示意 · 非实测比例</span>
+  </div>
+</div>
+
+<header class="hero" id="hero">
+  <canvas id="world" aria-hidden="true"></canvas>
+
+  <div class="hero__in">
+    <h1>配额之外的<br><span class="lit">那一半</span></h1>
+    <p class="hero__by"><span>2026-11-16 · 华为云 · 已开源</span><span>CloudRobo-WM1.2 · 昇腾原生</span></p>
+    <p class="hero__sub">机器人学的不只是动作，是一个<b>世界</b>。这次造它的算力，换了一边。</p>
+  </div>
+
+  <div class="seam">
+    <div class="seam__lbl">
+      <span>◀ 海外具身大脑 · 英伟达生态</span>
+      <span>CloudRobo-WM1.2 · 昇腾原生 ▶</span>
+    </div>
+    <div class="seam__row">
+      <span class="seam__line" aria-hidden="true"></span>
+      <input type="range" id="seamRange" min="10" max="90" step="1" value="50"
+             aria-label="算力配比分界线：向左是英伟达生态一侧，向右是国产昇腾一侧"
+             aria-describedby="seamHint">
+    </div>
+    <p class="seam__hint" id="seamHint">拖动横条：把<b>训练算力</b>分给哪一边，右边的世界就活到哪一边</p>
+  </div>
+</header>
+
+<!-- ═══ 01 开场 ═══ -->
+<section class="sec" id="s1">
+  <div class="wrap">
+    <h2>它要学的，不只是动作</h2>
+    <p class="lede">动作是看得见的一次抓取。世界是它背后所有看不见的条件。具身世界模型练的是后者。</p>
+
+    <div class="switch" role="tablist" aria-label="切换观察视角">
+      <button type="button" role="tab" id="tabAct" aria-selected="true" aria-controls="vAct" data-v="act">动作</button>
+      <button type="button" role="tab" id="tabWorld" aria-selected="false" aria-controls="vWorld" data-v="world">世界</button>
+    </div>
+
+    <div class="stage">
+      <div class="stage__view" id="vAct" role="tabpanel" aria-labelledby="tabAct">
+        <svg viewBox="0 0 640 260" role="img" aria-label="示意图：一条由接近、抓取、放置三步组成的动作轨迹">
+          <rect width="640" height="260" fill="#100E1D"/>
+          <line x1="0" y1="200" x2="640" y2="200" stroke="#2C2653" stroke-width="1"/>
+          <g stroke="#2C2653" stroke-width="1" opacity=".7">
+            <line x1="60" y1="0" x2="60" y2="260"/><line x1="180" y1="0" x2="180" y2="260"/>
+            <line x1="300" y1="0" x2="300" y2="260"/><line x1="420" y1="0" x2="420" y2="260"/>
+            <line x1="540" y1="0" x2="540" y2="260"/>
+          </g>
+          <path d="M70 190 C 150 60, 240 60, 300 140 C 350 205, 470 210, 575 175"
+                fill="none" stroke="#4FE0C8" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>
+          <g fill="#0B0A14" stroke="#4FE0C8" stroke-width="3">
+            <circle cx="70" cy="190" r="9"/><circle cx="300" cy="140" r="9"/><circle cx="575" cy="175" r="9"/>
+          </g>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#C3BADF">
+            <text x="46" y="226">接近</text><text x="276" y="120">抓取</text><text x="551" y="207">放置</text>
+          </g>
+          <g stroke="#4FE0C8" stroke-width="3" fill="none">
+            <rect x="272" y="176" width="56" height="40" rx="4"/>
+            <line x1="300" y1="176" x2="300" y2="146"/>
+          </g>
+        </svg>
+      </div>
+      <div class="stage__view" id="vWorld" role="tabpanel" aria-labelledby="tabWorld" hidden>
+        <svg viewBox="0 0 640 260" role="img" aria-label="示意图：同一场景上叠加状态场网格，物体带有位置、可达、接触等状态标记">
+          <rect width="640" height="260" fill="#100E1D"/>
+          <g stroke="#2C2653" stroke-width="1" opacity=".85">
+            <line x1="0" y1="52" x2="640" y2="52"/><line x1="0" y1="104" x2="640" y2="104"/>
+            <line x1="0" y1="156" x2="640" y2="156"/><line x1="0" y1="208" x2="640" y2="208"/>
+            <line x1="60" y1="0" x2="60" y2="260"/><line x1="180" y1="0" x2="180" y2="260"/>
+            <line x1="300" y1="0" x2="300" y2="260"/><line x1="420" y1="0" x2="420" y2="260"/>
+            <line x1="540" y1="0" x2="540" y2="260"/>
+          </g>
+          <g fill="#C79BF6" opacity=".16">
+            <rect x="60" y="104" width="120" height="52"/><rect x="300" y="52" width="120" height="52"/>
+            <rect x="420" y="156" width="120" height="52"/><rect x="180" y="156" width="120" height="52"/>
+          </g>
+          <g stroke="#C79BF6" stroke-width="3" fill="none">
+            <rect x="272" y="176" width="56" height="40" rx="4"/>
+            <line x1="300" y1="176" x2="300" y2="146"/>
+          </g>
+          <g stroke="#4FE0C8" stroke-width="2" fill="#0B0A14">
+            <rect x="452" y="72" width="104" height="30" rx="15"/><rect x="86" y="184" width="104" height="30" rx="15"/>
+          </g>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#F3F0FC">
+            <text x="470" y="92">可达性</text><text x="104" y="204">接触关系</text>
+          </g>
+          <g fill="#F5B942"><circle cx="300" cy="146" r="6"/><circle cx="504" cy="130" r="6"/></g>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#F5B942">
+            <text x="314" y="141">位置</text><text x="518" y="126">状态</text>
+          </g>
+        </svg>
+      </div>
+      <div class="stage__cap">
+        <span class="c1" id="stageC1">动作：一条看得见的轨迹</span>
+        <span class="c2" id="stageC2">接近 · 抓取 · 放置</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 发展 ═══ -->
+<section class="sec sec--tint" id="s2">
+  <div class="wrap">
+    <h2>同一副世界模型骨干，<br>两副国产算力的手</h2>
+
+    <div class="arch">
+      <div class="arch__fig">
+        <svg viewBox="0 0 660 330" role="img" aria-label="架构示意图：共享世界模型骨干向下接原生 DualAct 架构，再分出两个动作分支与昇腾训练算力底座">
+          <rect width="660" height="330" fill="#100E1D"/>
+          <g class="hit" id="hBase" tabindex="0" role="button" aria-label="训练算力底座：国产昇腾">
+            <rect x="40" y="268" width="580" height="46" rx="10" fill="#1D1940" stroke="#A97BE4" stroke-width="2"/>
+            <text x="330" y="297" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#C79BF6">昇腾（Ascend）训练算力底座</text>
+          </g>
+          <g class="hit" id="hBack" tabindex="0" role="button" aria-label="共享世界模型骨干">
+            <rect x="40" y="34" width="580" height="74" rx="14" fill="#161331" stroke="#4FE0C8" stroke-width="2"/>
+            <text x="330" y="78" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="17" fill="#4FE0C8">共享世界模型骨干</text>
+            <text x="330" y="99" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#AAA0CC">shared world-model backbone</text>
+          </g>
+          <g class="hit" id="hDual" tabindex="0" role="button" aria-label="原生 DualAct 架构">
+            <rect x="176" y="152" width="308" height="60" rx="30" fill="#161331" stroke="#F5B942" stroke-width="2"/>
+            <text x="330" y="188" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="16" fill="#F5B942">原生 DualAct 架构</text>
+          </g>
+          <g stroke="#413A73" stroke-width="2" fill="none">
+            <path d="M330 108 L330 152"/>
+            <path d="M240 212 L240 244 L150 244 L150 268"/>
+            <path d="M420 212 L420 244 L510 244 L510 268"/>
+          </g>
+          <g class="hit" id="hA" tabindex="0" role="button" aria-label="动作分支 A">
+            <rect x="72" y="224" width="156" height="34" rx="17" fill="#0B0A14" stroke="#A97BE4" stroke-width="2"/>
+            <text x="150" y="247" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#F3F0FC">动作分支 A</text>
+          </g>
+          <g class="hit" id="hB" tabindex="0" role="button" aria-label="动作分支 B">
+            <rect x="432" y="224" width="156" height="34" rx="17" fill="#0B0A14" stroke="#A97BE4" stroke-width="2"/>
+            <text x="510" y="247" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#F3F0FC">动作分支 B</text>
+          </g>
+          <text x="46" y="24" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#AAA0CC">图示 · 依官方表述绘制，分支命名为示意</text>
+        </svg>
+      </div>
+
+      <div class="arch__cap" id="archCap" aria-live="polite">
+        <div class="a1" id="archK">共享世界模型骨干</div>
+        <div class="a2" id="archT">两个基准共用同一副世界表示。换的是手，不是脑。</div>
+        <div class="a3" id="archS">来源：财联社 / IT之家（11-16）</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span class="metric-label">CloudRobo-WM1.2 训练算力平台</span>
+        <span class="metric__v is-asc">昇腾</span>
+        <span class="metric__u">Ascend · 国产算力</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">CloudRobo-WM1.2 基准排名（RoboTwin 2.0 / LiberoPro 2.0）</span>
+        <span class="metric__v is-gold">第一 ×2</span>
+        <span class="metric__u">两个基准均列第一</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">CloudRobo 平台开发者数</span>
+        <span class="metric__v">16500+</span>
+        <span class="metric__u">CloudRobo 平台已超 16500 名开发者</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">CloudRobo 生态伙伴厂商数</span>
+        <span class="metric__v">5 家</span>
+        <span class="metric__u">来源点名 5 家，原文含「等」</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 高潮：训练侧 / 推理侧 ═══ -->
+<section class="sec" id="s3">
+  <div class="wrap">
+    <h2>第一次，训练侧站上第一梯队</h2>
+    <p class="lede">同一天的两份材料：一份讲成绩，一份讲依赖。切换看它们各自证明了什么。</p>
+
+    <div class="split">
+      <div class="split__tabs" role="tablist" aria-label="切换观察侧面">
+        <button type="button" role="tab" id="tabTrain" aria-selected="true" aria-controls="pTrain" data-p="train">训练侧 · 成绩</button>
+        <button type="button" role="tab" id="tabInfer" aria-selected="false" aria-controls="pInfer" data-p="infer">推理侧 · 依赖</button>
+      </div>
+
+      <div class="split__panel" id="pTrain" role="tabpanel" aria-labelledby="tabTrain">
+        <div class="bench">
+          <div class="bcard">
+            <div class="bcard__k">RoboTwin 2.0</div>
+            <div class="bcard__r">第 1<small>名次</small></div>
+            <div class="bcard__bar"><i></i></div>
+            <div class="bcard__n">分数未公开 · 只公开名次</div>
+          </div>
+          <div class="bcard">
+            <div class="bcard__k">LiberoPro 2.0</div>
+            <div class="bcard__r">第 1<small>名次</small></div>
+            <div class="bcard__bar"><i></i></div>
+            <div class="bcard__n">分数未公开 · 只公开名次</div>
+          </div>
+        </div>
+        <div class="prose">
+          <p>华为云发布并开源昇腾原生具身世界模型 CloudRobo-WM1.2：<b>基于国产昇腾算力训练，采用共享世界模型骨干与原生 DualAct 架构，在 RoboTwin 2.0、LiberoPro 2.0 两个基准均列第一</b>。</p>
+        </div>
+        <div class="evid">
+          <span class="chip chip--gold">训练侧：昇腾原生</span>
+          <span class="chip">已开源</span>
+          <span class="chip">来源：财联社 / IT之家（11-16）</span>
+        </div>
+      </div>
+
+      <div class="split__panel" id="pInfer" role="tabpanel" aria-labelledby="tabInfer" hidden>
+        <div class="prose">
+          <p><b>此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态。</b></p>
+          <p>这一侧讲的不是名次，是供应链：能跑起来的算力从哪来。</p>
+        </div>
+        <div class="evid">
+          <span class="chip chip--asc">对照对象 · 海外具身大脑</span>
+          <span class="chip chip--warn">依赖：英伟达生态</span>
+          <span class="chip">来源：科创板日报（11-16）</span>
+        </div>
+        <div class="prose">
+          <p class="src">这一卡是对照，不是成绩。它没有可比的公开名次。本页不做跨模型的排名推断。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz">
+      <p class="quiz__k">配额盲测 · 一题</p>
+      <p class="quiz__q">两个基准的第一，训练算力来自哪一侧？</p>
+      <div class="quiz__doors">
+        <button type="button" class="door" data-a="asc" aria-pressed="false"><span class="d1">选项 A</span><span class="d2">昇腾（国产）</span></button>
+        <button type="button" class="door" data-a="nv" aria-pressed="false"><span class="d1">选项 B</span><span class="d2">英伟达（海外）</span></button>
+      </div>
+      <div class="quiz__ans" id="quizAns" hidden>
+        <p class="quiz__verdict" id="quizVerdict"></p>
+        <p class="quiz__ev" id="quizEv"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 生态 ═══ -->
+<section class="sec sec--tint" id="s4">
+  <div class="wrap">
+    <h2>模型开源之后，围着它的是谁</h2>
+
+    <div class="net">
+      <div class="net__fig">
+        <svg viewBox="0 0 640 400" role="img" aria-label="生态网络图谱：中心是 CloudRobo 平台，外围是五家点名的生态伙伴厂商与开发者云">
+          <rect width="640" height="400" fill="#100E1D"/>
+          <g id="cloud" fill="#4FE0C8" opacity=".55"></g>
+          <g id="links" stroke="#413A73" stroke-width="1.6" fill="none"></g>
+          <g class="nnode" id="nCore" tabindex="0" role="button" aria-label="中心节点：CloudRobo 平台，超 16500 名开发者" data-name="CloudRobo 平台" data-role="超 16500 名开发者 · 已开源">
+            <circle class="dot" cx="320" cy="200" r="34" fill="#161331" stroke="#C79BF6" stroke-width="3"/>
+            <text x="320" y="205" text-anchor="middle">CloudRobo</text>
+          </g>
+          <g id="partners"></g>
+          <text x="18" y="28" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#AAA0CC">生态网络 · 点选任一节点</text>
+          <text x="18" y="386" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#AAA0CC">外圈 165 个点 ≈ 16500 名开发者（1 点 ≈ 100 人 · 示意）</text>
+        </svg>
+      </div>
+
+      <div class="net__side">
+        <div class="a1" id="netK">CloudRobo 平台</div>
+        <div class="a2" id="netT">超 <b>16500</b> 名开发者</div>
+        <div class="a3" id="netS">来源：财联社 / IT之家（11-16）</div>
+        <div class="legend">
+          <span><i style="background:#C79BF6"></i>中心平台</span>
+          <span><i style="background:#F5B942"></i>生态伙伴厂商</span>
+          <span><i style="background:#4FE0C8"></i>开发者云</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 硬件依赖滑块 ═══ -->
+<section class="sec" id="s5">
+  <div class="wrap">
+    <h2>把依赖度，从一端拨到另一端</h2>
+    <p class="lede">这根滑块只有两端有出处。中间没有被公开验证的比例，那是示意，不是数据。</p>
+
+    <div class="dep">
+      <div class="dep__bar" aria-hidden="true">
+        <div class="dep__nv" id="depNvBar" style="width:50%"><span id="depNvTxt">英伟达生态 50%</span></div>
+        <div class="dep__asc" id="depAscBar" style="width:50%"><span id="depAscTxt">昇腾 50%</span></div>
+      </div>
+      <div class="dep__read">
+        <b class="dep__nv-t">海外具身大脑 · 英伟达生态</b>
+        <b class="dep__asc-t">CloudRobo-WM1.2 · 昇腾原生</b>
+      </div>
+      <input type="range" id="depRange" min="0" max="100" step="1" value="50"
+             aria-label="硬件依赖度滑块：0 是完全依赖英伟达生态，100 是完全基于国产昇腾"
+             aria-describedby="depNote">
+      <p class="dep__note" id="depNote">中间态：这是概念示意。两端之外没有被公开披露的依赖比例。</p>
+      <div class="dep__quote" id="depQuote">此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态。</div>
+      <p class="dep__src" id="depSrc">来源：科创板日报（11-16）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 收尾 ═══ -->
+<section class="sec sec--tint" id="s6">
+  <div class="wrap">
+    <h2 class="close__h">当配额成为瓶颈，<br>谁掌握<em>另一半</em></h2>
+
+    <div class="close__grid">
+      <div class="qbox">
+        <div class="qbox__k">同日信号 · 推理侧</div>
+        <p class="qbox__t">DeepSeek 引入每日调用配额，被视为中国 AI 芯片紧缺的公开信号</p>
+        <p class="qbox__s src">来源：InvestingLive（11-16）</p>
+      </div>
+      <div class="qbox qbox--vendor">
+        <div class="qbox__k">厂商自述 · 未独立验证</div>
+        <p class="qbox__t">「基于国产昇腾算力可以训练出世界领先的具身世界模型」</p>
+        <p class="qbox__s src">华为云称 · 来源：科创板日报（11-16）</p>
+      </div>
+    </div>
+
+    <p class="closer">配额决定分到多少，<b>训练侧</b>决定能不能自己造。</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <h3>来源</h3>
+    <ol>
+      <li>华为云发布并开源昇腾原生具身世界模型 CloudRobo-WM1.2：基于国产昇腾算力训练，采用共享世界模型骨干与原生 DualAct 架构，在 RoboTwin 2.0、LiberoPro 2.0 两个基准均列第一；CloudRobo 平台已超 16500 名开发者，生态伙伴含亿嘉和、拓斯达、福龙马、节卡、千寻等。来源：财联社 / IT之家（11-16）</li>
+      <li>国产算力验证进入训练侧：华为云称 CloudRobo-WM1.2 验证了「基于国产昇腾算力可以训练出世界领先的具身世界模型」，此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态。来源：科创板日报（11-16）</li>
+      <li>DeepSeek 引入每日调用配额，被视为中国 AI 芯片紧缺的公开信号：需求跑在可获得芯片之前，配合美方拟限制东南亚远程访问，或利好国产芯片与 AI 基础设施供应商。来源：InvestingLive（11-16）</li>
+    </ol>
+    <div class="meta">
+      <span class="chip">追踪线：机器人与具身</span>
+      <span class="chip">形态：创意类</span>
+      <span class="chip">日期：2026-11-19</span>
+      <span class="chip chip--gold">「世界领先」为厂商自述</span>
+    </div>
+    <p class="fine">断言与图示均取自上列公开来源；滑块配比、网络点数、轨迹与状态场图形为概念示意，不构成实测数据。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {"value":"第一（2 个基准）","label":"CloudRobo-WM1.2 基准排名（RoboTwin 2.0 / LiberoPro 2.0）","quote":"在 RoboTwin 2.0、LiberoPro 2.0 两个基准均列第一"},
+  {"value":"16500+","label":"CloudRobo 平台开发者数","quote":"CloudRobo 平台已超 16500 名开发者"},
+  {"value":"5 家（点名）","label":"CloudRobo 生态伙伴厂商数","quote":"生态伙伴含亿嘉和、拓斯达、福龙马、节卡、千寻等"},
+  {"value":"昇腾","label":"CloudRobo-WM1.2 训练算力平台","quote":"基于国产昇腾算力训练"},
+  {"value":"共享世界模型骨干 + DualAct","label":"CloudRobo-WM1.2 架构组成","quote":"采用共享世界模型骨干与原生 DualAct 架构"},
+  {"value":"Gemini Robotics 2.5 / GR00T 2","label":"依赖英伟达生态的对照模型","quote":"此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态"}
+]
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var RM = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  function el(id){ return document.getElementById(id); }
+
+  /* ══ 1. 世界画布 + 分界线 ═══════════════════════ */
+  var cv = el("world"), ctx = cv.getContext("2d");
+  var W = 0, H = 0, seam = 0.5, tt = 0, rafId = null, last = 0;
+
+  function sizeCanvas(){
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, r.width); H = Math.max(1, r.height);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function heightAt(wx, z, s){
+    var a = Math.sin(wx * 0.5 + tt * 0.55) * Math.cos(z * 0.34 - tt * 0.4);
+    var b = Math.sin((wx + z) * 0.3 + tt * 0.75) * 0.55;
+    return (a + b) * (0.3 + 1.0 * s);
+  }
+
+  function seamFraction(){
+    if (!seamRange || !W) return 0.5;
+    var rr = seamRange.getBoundingClientRect();
+    var cr = cv.getBoundingClientRect();
+    if (!rr.width) return 0.5;
+    var thumbW = 30;
+    var v = Math.max(10, Math.min(90, +seamRange.value));
+    var f = (rr.left - cr.left + thumbW / 2 + ((v - 10) / 80) * (rr.width - thumbW)) / W;
+    return Math.max(0.02, Math.min(0.98, f));
+  }
+
+  function draw(){
+    if (!W || !H) return;
+    seam = seamFraction();
+    ctx.clearRect(0, 0, W, H);
+    var rows = 24, cols = 44;
+    var cx = W * 0.5, horizon = H * 0.30, f = H * 0.8, camH = 1.4;
+    var g = ctx.createLinearGradient(0, 0, W, 0);
+    var s = Math.max(0.04, Math.min(0.96, seam));
+    g.addColorStop(0, "#4FE0C8"); g.addColorStop(s, "#4FE0C8");
+    g.addColorStop(s, "#C79BF6"); g.addColorStop(1, "#C79BF6");
+
+    function proj(wx, depth){
+      var sc = f / depth;
+      var sx = cx + wx * sc;
+      var sv = Math.max(0, Math.min(1, (sx / W - s) * 4 + 0.5));
+      var h = heightAt(wx, depth, sv);
+      return [sx, horizon + camH * sc - h * sc * 0.5, sv];
+    }
+
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    ctx.strokeStyle = g;
+
+    for (var r = 0; r < rows; r++){
+      var tz = r / (rows - 1);
+      var depth = 8.0 - 6.4 * tz;
+      ctx.globalAlpha = 0.20 + 0.62 * tz;
+      ctx.lineWidth = 0.7 + 1.1 * tz;
+      ctx.beginPath();
+      for (var c = 0; c < cols; c++){
+        var wx = -7 + 14 * (c / (cols - 1));
+        var p = proj(wx, depth);
+        if (c === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+      }
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 0.34; ctx.lineWidth = 1;
+    for (var cc = 0; cc < cols; cc += 5){
+      var wx2 = -7 + 14 * (cc / (cols - 1));
+      ctx.beginPath();
+      for (var rr = 0; rr < rows; rr++){
+        var tz2 = rr / (rows - 1);
+        var d2 = 8.0 - 6.4 * tz2;
+        var q = proj(wx2, d2);
+        if (rr === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+      }
+      ctx.stroke();
+    }
+
+    /* 悬浮物体：世界里的状态点 */
+    var objs = [[-3.2, 5.4], [2.4, 3.6], [5.2, 6.2], [-5.6, 4.2]];
+    ctx.globalAlpha = 1;
+    for (var i = 0; i < objs.length; i++){
+      var o = proj(objs[i][0], objs[i][1]);
+      var rr2 = 6 + 10 / objs[i][1];
+      ctx.beginPath(); ctx.arc(o[0], o[1], rr2, 0, Math.PI * 2);
+      ctx.strokeStyle = "#F5B942"; ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(o[0], o[1] + rr2); ctx.lineTo(o[0], o[1] + rr2 + 16);
+      ctx.strokeStyle = "rgba(245,185,66,.45)"; ctx.lineWidth = 1; ctx.stroke();
+    }
+
+    /* 分界线 */
+    var sx2 = W * s;
+    ctx.globalAlpha = 1;
+    ctx.setLineDash([7, 7]);
+    ctx.beginPath(); ctx.moveTo(sx2, 0); ctx.lineTo(sx2, H);
+    ctx.strokeStyle = "rgba(243,240,252,.72)"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(sx2, H * 0.46); ctx.lineTo(sx2 + 11, H * 0.5);
+    ctx.lineTo(sx2, H * 0.54); ctx.lineTo(sx2 - 11, H * 0.5); ctx.closePath();
+    ctx.fillStyle = "#F3F0FC"; ctx.fill();
+    ctx.strokeStyle = "#0B0A14"; ctx.lineWidth = 2; ctx.stroke();
+  }
+
+  function loop(ts){
+    if (!last) last = ts;
+    tt += Math.min(64, ts - last) * 0.00045;
+    last = ts;
+    draw();
+    rafId = window.requestAnimationFrame(loop);
+  }
+  function startLoop(){
+    if (RM) { draw(); return; }
+    if (rafId === null) { last = 0; rafId = window.requestAnimationFrame(loop); }
+  }
+  function stopLoop(){ if (rafId !== null){ window.cancelAnimationFrame(rafId); rafId = null; } }
+
+  var seamRange = el("seamRange"), railNv = el("railNv"), railV = el("railV");
+  function applySeam(v){
+    railNv.style.width = (100 - v) + "%";
+    railV.textContent = "昇腾 " + v + "% · 英伟达生态 " + (100 - v) + "%";
+    draw();
+  }
+  seamRange.addEventListener("input", function(){ applySeam(+this.value); });
+  applySeam(+seamRange.value);
+
+  if (window.ResizeObserver){
+    new ResizeObserver(sizeCanvas).observe(cv);
+  } else {
+    window.addEventListener("resize", sizeCanvas);
+  }
+  sizeCanvas();
+  startLoop();
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) stopLoop(); else startLoop();
+  });
+
+  /* ══ 2. 动作 / 世界 ════════════════════════════ */
+  var stageC1 = el("stageC1"), stageC2 = el("stageC2");
+  var views = {
+    act:   { v: el("vAct"),   k1: "动作：一条看得见的轨迹", k2: "接近 · 抓取 · 放置" },
+    world: { v: el("vWorld"), k1: "世界：所有看不见的条件", k2: "位置 · 可达 · 接触 · 状态" }
+  };
+  Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".switch button"), function(o){
+        o.setAttribute("aria-selected", o === b ? "true" : "false");
+      });
+      var key = b.getAttribute("data-v");
+      Object.keys(views).forEach(function(k){ views[k].v.hidden = (k !== key); });
+      stageC1.textContent = views[key].k1;
+      stageC2.textContent = views[key].k2;
+    });
+  });
+
+  /* ══ 3. 架构悬停揭示 ═══════════════════════════ */
+  var archData = {
+    hBack: ["共享世界模型骨干", "两个基准共用同一副世界表示。换的是手，不是脑。", "来源：财联社 / IT之家（11-16）"],
+    hDual: ["原生 DualAct 架构", "动作分两路出，这就是「两副手」的来源。", "来源：财联社 / IT之家（11-16）"],
+    hA:    ["动作分支 A", "从同一条骨干里长出来的一只手。", "图示 · 依官方表述绘制"],
+    hB:    ["动作分支 B", "另一只手，共用同一副世界表示。", "图示 · 依官方表述绘制"],
+    hBase: ["昇腾（Ascend）训练算力底座", "国产算力在这里第一次进入训练侧。", "来源：科创板日报（11-16）"]
+  };
+  var archK = el("archK"), archT = el("archT"), archS = el("archS");
+  function showArch(id){
+    var d = archData[id]; if (!d) return;
+    archK.textContent = d[0]; archT.textContent = d[1]; archS.textContent = d[2];
+    Object.keys(archData).forEach(function(k){
+      var g = el(k); if (g) g.style.opacity = (k === id) ? "1" : "0.42";
+    });
+  }
+  Object.keys(archData).forEach(function(id){
+    var g = el(id); if (!g) return;
+    g.addEventListener("mouseenter", function(){ showArch(id); });
+    g.addEventListener("focus", function(){ showArch(id); });
+    g.addEventListener("click", function(){ showArch(id); });
+    g.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); showArch(id); }
+    });
+  });
+
+  /* ══ 4. 训练侧 / 推理侧切换 ════════════════════ */
+  var panels = { train: el("pTrain"), infer: el("pInfer") };
+  Array.prototype.forEach.call(document.querySelectorAll(".split__tabs button"), function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".split__tabs button"), function(o){
+        o.setAttribute("aria-selected", o === b ? "true" : "false");
+      });
+      var k = b.getAttribute("data-p");
+      Object.keys(panels).forEach(function(x){ panels[x].hidden = (x !== k); });
+    });
+  });
+
+  /* ══ 5. 配额盲测 ══════════════════════════════ */
+  var quizAns = el("quizAns"), quizVerdict = el("quizVerdict"), quizEv = el("quizEv");
+  Array.prototype.forEach.call(document.querySelectorAll(".door"), function(d){
+    d.addEventListener("click", function(){
+      var pick = d.getAttribute("data-a");
+      var right = (pick === "asc");
+      Array.prototype.forEach.call(document.querySelectorAll(".door"), function(o){
+        o.setAttribute("aria-pressed", o === d ? "true" : "false");
+        o.classList.remove("is-right", "is-wrong");
+        if (o.getAttribute("data-a") === "asc") o.classList.add("is-right");
+        else if (o !== d) o.classList.add("is-wrong");
+      });
+      if (!right) d.classList.add("is-wrong");
+      quizAns.hidden = false;
+      quizVerdict.className = "quiz__verdict " + (right ? "ok" : "no");
+      quizVerdict.textContent = right ? "对。训练算力换了一边。" : "不是这一边。抬头看那条分界线。";
+      quizEv.innerHTML = right
+        ? "<b>基于国产昇腾算力训练</b> · CloudRobo-WM1.2 · 来源：财联社 / IT之家（11-16）"
+        : "对照：此前海外具身大脑模型高度依赖英伟达生态 · 来源：科创板日报（11-16）";
+    });
+  });
+
+  /* ══ 6. 生态网络图谱 ══════════════════════════ */
+  var partners = ["亿嘉和", "拓斯达", "福龙马", "节卡", "千寻"];
+  var gLinks = el("links"), gPartners = el("partners"), gCloud = el("cloud");
+  var netK = el("netK"), netT = el("netT"), netS = el("netS");
+  var CX = 320, CY = 200, RX = 214, RY = 128;
+  var NS = "http://www.w3.org/2000/svg";
+
+  for (var i = 0; i < 165; i++){
+    var ang = (i / 165) * Math.PI * 2 + (i % 7) * 0.11;
+    var rad = 1.35 + ((i * 37) % 60) / 100;
+    var dx = CX + Math.cos(ang) * RX * rad * 0.86;
+    var dy = CY + Math.sin(ang) * RY * rad * 0.9;
+    if (dx < 10 || dx > 630 || dy < 40 || dy > 372) continue;
+    var dot = document.createElementNS(NS, "circle");
+    dot.setAttribute("cx", dx.toFixed(1)); dot.setAttribute("cy", dy.toFixed(1));
+    dot.setAttribute("r", (1.3 + (i % 4) * 0.35).toFixed(2));
+    gCloud.appendChild(dot);
+  }
+
+  partners.forEach(function(name, idx){
+    var ang = -Math.PI / 2 + (idx / partners.length) * Math.PI * 2;
+    var px = CX + Math.cos(ang) * RX, py = CY + Math.sin(ang) * RY;
+    var ln = document.createElementNS(NS, "line");
+    ln.setAttribute("x1", CX); ln.setAttribute("y1", CY);
+    ln.setAttribute("x2", px.toFixed(1)); ln.setAttribute("y2", py.toFixed(1));
+    gLinks.appendChild(ln);
+
+    var g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "nnode"); g.setAttribute("tabindex", "0");
+    g.setAttribute("role", "button");
+    g.setAttribute("aria-label", "生态伙伴厂商：" + name);
+    g.setAttribute("data-name", name);
+
+    var c = document.createElementNS(NS, "circle");
+    c.setAttribute("class", "dot"); c.setAttribute("cx", px.toFixed(1));
+    c.setAttribute("cy", py.toFixed(1)); c.setAttribute("r", "24");
+    c.setAttribute("fill", "#0B0A14"); c.setAttribute("stroke", "#F5B942");
+    c.setAttribute("stroke-width", "2.5");
+    g.appendChild(c);
+
+    var tx = document.createElementNS(NS, "text");
+    tx.setAttribute("x", px.toFixed(1)); tx.setAttribute("y", (py + 5).toFixed(1));
+    tx.setAttribute("text-anchor", "middle");
+    tx.textContent = name;
+    g.appendChild(tx);
+    gPartners.appendChild(g);
+  });
+
+  function showNet(g){
+    var name = g.getAttribute("data-name") || "CloudRobo";
+    var core = (name === "CloudRobo");
+    netK.textContent = core ? "CloudRobo 平台" : "生态伙伴 · 来源点名 5 家之一";
+    netT.innerHTML = core ? "超 <b>16500</b> 名开发者" : "<b>" + name + "</b>";
+    netS.textContent = core
+      ? "CloudRobo 平台已超 16500 名开发者 · 来源：财联社 / IT之家（11-16）"
+      : "生态伙伴含亿嘉和、拓斯达、福龙马、节卡、千寻等 · 来源：财联社 / IT之家（11-16）";
+    Array.prototype.forEach.call(document.querySelectorAll(".nnode"), function(o){
+      var d = o.querySelector("circle.dot");
+      if (!d) return;
+      var on = (o === g);
+      d.setAttribute("r", on ? (o.id === "nCore" ? "40" : "30") : (o.id === "nCore" ? "34" : "24"));
+      d.setAttribute("fill", on ? (o.id === "nCore" ? "#1D1940" : "#F5B942") : (o.id === "nCore" ? "#161331" : "#0B0A14"));
+      o.querySelector("text").setAttribute("fill", on && o.id !== "nCore" ? "#140B24" : "#F3F0FC");
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".nnode"), function(g){
+    g.addEventListener("mouseenter", function(){ showNet(g); });
+    g.addEventListener("focus", function(){ showNet(g); });
+    g.addEventListener("click", function(){ showNet(g); });
+    g.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); showNet(g); }
+    });
+  });
+
+  /* ══ 7. 硬件依赖滑块 ═══════════════════════════ */
+  var depRange = el("depRange"), depNvBar = el("depNvBar"), depAscBar = el("depAscBar");
+  var depNvTxt = el("depNvTxt"), depAscTxt = el("depAscTxt");
+  var depNote = el("depNote"), depQuote = el("depQuote"), depSrc = el("depSrc");
+  var Q_NV = "此前海外具身大脑模型（Gemini Robotics 2.5、GR00T 2）高度依赖英伟达生态。";
+  var S_NV = "来源：科创板日报（11-16）";
+  var Q_ASC = "华为云称，CloudRobo-WM1.2 基于国产昇腾算力训练，已开源。";
+  var S_ASC = "来源：财联社 / IT之家（11-16）";
+
+  function applyDep(v){
+    depNvBar.style.width = (100 - v) + "%";
+    depAscBar.style.width = v + "%";
+    depNvTxt.textContent = "英伟达生态 " + (100 - v) + "%";
+    depAscTxt.textContent = "昇腾 " + v + "%";
+    depNvTxt.style.visibility = (100 - v) < 22 ? "hidden" : "visible";
+    depAscTxt.style.visibility = v < 22 ? "hidden" : "visible";
+    if (v === 0){
+      depNote.innerHTML = "端点一（有出处）：<b>海外具身大脑模型</b> 高度依赖英伟达生态。";
+      depQuote.textContent = Q_NV; depSrc.textContent = S_NV;
+    } else if (v === 100){
+      depNote.innerHTML = "端点二（有出处）：<b>CloudRobo-WM1.2</b> 用国产昇腾算力训练。";
+      depQuote.textContent = Q_ASC; depSrc.textContent = S_ASC;
+    } else {
+      depNote.innerHTML = "中间态：这是概念示意。两端之外没有被公开披露的依赖比例。";
+      depQuote.textContent = (v >= 50) ? Q_ASC : Q_NV;
+      depSrc.textContent = (v >= 50) ? S_ASC : S_NV;
+    }
+  }
+  depRange.addEventListener("input", function(){ applyDep(+this.value); });
+  applyDep(+depRange.value);
+
+  /* 失焦可见性：离开屏幕就停动画 */
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if (e.isIntersecting) startLoop(); else stopLoop();
+      });
+    }, { threshold: 0.02 });
+    io.observe(cv);
+  }
+})();
+</script>
+
+</body>
+</html>

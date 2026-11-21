@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthropic 挂牌的五本账：1.5 万亿美元估值靠什么撑住，被什么质疑</title>
+
+<!--
+  ═════════════════════════════════════════════════════════════════
+  智囊团 · 研究类作品 · 2026-11-20 选题1（追踪线：估值与资本）
+  ═════════════════════════════════════════════════════════════════
+
+  视觉身份：挂牌账簿（冷调档案纸 + 墨色 + 陈铜 + 朱砂批注）。
+  版式按内容重排，不套模板壳：主结构是「五本账对账表 → 四幅图 →
+  两边账（撑住 / 质疑）→ 两重视角专段（经济金融 · 安全与治理）」。
+  朱砂只用于大号数值与示意标注，不做正文色。
+
+  契约：封闭语义词汇表（只用这些，不自创 class 名）
+      .metrics > .metric
+          .metric-value      数值（必填，带单位）
+          .metric-label      指标名（必填，一行名词短语）
+          .metric-source     出处（必填，机构 · 口径 · 日期）
+      .verdict-band > .verdict / .verdict-note
+      .timeline > .timeline-item
+          .timeline-date     时间点
+          .timeline-title    事件
+          .timeline-detail   影响
+      .evidence > .evidence-item
+          .evidence-quote    原文逐字引用
+          .evidence-source   出处
+  其余 class 均为版式（shell / masthead / index-strip / ledger / fig /
+  two-col / entry / flow / note 等），不承载语义断言。
+
+  断言声明在文件底部 script#claims（7 条），quote 逐字取自本文件正文。
+  「返回展厅」链接由 autopublish 阶段 5.5 自动注入，不手写。
+
+  素材依据：每日AI技术动态简报 2026-11-19、每日股市简报 2026-11-19、
+  每日热点新闻简报 2026-11-19（已查，该期无 Anthropic 条目），
+  只读，不联网检索；缺项写「未确认」。
+
+  跨作品沿用标签（原文逐字复用，不改名不加后缀）：
+      Anthropic 算力与基础设施承诺总额
+      Anthropic IPO 定价区间（11-11）
+  本篇新增同族标签：
+      Anthropic IPO 定价（11-18）/ Anthropic 合计募资额（11-18）/
+      Anthropic 完全稀释估值（11-18）/ Anthropic 前三季度营收（2026）/
+      Anthropic 超额认购倍数（11-18）/ Melius 目标价（11-19）
+-->
+
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="83 美元定价、1073 亿美元募资、约 9000 亿美元算力承诺：Anthropic 挂牌的五本账，逐笔对账 1.5 万亿美元估值的支撑与质疑。">
+
+<style>
+/* ── 自托管字体（离线可用，路径按 works/YYYY-MM-DD/research/ 深度） ── */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --vermilion:#c44536;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;
+  scrollbar-width:thin;scrollbar-color:var(--rule) var(--paper)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;caret-color:var(--brass);
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--rule);border-radius:5px;border:2px solid var(--paper)}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px;
+  text-decoration-color:var(--rule);transition:text-decoration-color .12s ease}
+a:hover{text-decoration-color:var(--brass)}
+
+/* ── 抬头：标题 + 边注档案卡 ─────────────────────────────── */
+.masthead{padding:96px 0 56px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:24px;font-size:19px;line-height:1.6;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:46ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 卷宗目录条 ─────────────────────────────────────────── */
+.index-strip{border-bottom:1px solid var(--rule);background:var(--paper-raised)}
+.index-strip ul{list-style:none;display:flex;flex-wrap:wrap;gap:0}
+.index-strip li + li{border-left:1px solid var(--rule)}
+.index-strip a{
+  display:block;padding:13px 20px;font-size:13px;letter-spacing:.04em;
+  color:var(--ink-2);text-decoration:none;
+}
+.index-strip a:hover{color:var(--ink);background:var(--brass-wash)}
+
+/* ── 区块骨架 ───────────────────────────────────────────── */
+section{padding:80px 0;position:relative}
+section + section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--rule);transform:scaleX(0);transform-origin:left center;
+  will-change:transform;
+}
+section + section.drawn::before{transform:scaleX(1);
+  transition:transform .9s cubic-bezier(.16,1,.3,1)}
+h2{
+  font-family:var(--serif-cn);font-size:30px;line-height:1.3;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:22px;line-height:1.4;font-weight:600;
+  letter-spacing:-0.008em;
+}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+.sec-note{
+  margin-top:22px;font-size:13.5px;line-height:1.7;color:var(--ink-3);
+  max-width:74ch;border-top:1px solid var(--rule-soft);padding-top:14px;
+}
+
+/* ── 结论带（页面唯一的高对比时刻）─────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink);padding:76px 0}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.7;color:var(--deep-2);max-width:60ch}
+
+/* ── 关键数据：账册格 ──────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 18px;
+  display:flex;flex-direction:column}
+.metric-value{
+  font-family:var(--serif-num);font-size:32px;line-height:1.1;letter-spacing:-0.018em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+  text-wrap:balance;word-break:keep-all;
+}
+.metric-label{
+  margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;
+  word-break:keep-all;
+}
+.metric-source{
+  margin-top:auto;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 五本账对账表 ──────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto}
+table.ledger{
+  width:100%;border-collapse:collapse;min-width:760px;font-size:15px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);
+}
+.ledger caption{
+  caption-side:top;text-align:left;font-size:12.5px;color:var(--ink-3);
+  padding:0 0 10px;letter-spacing:.02em;
+}
+.ledger th{
+  font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--ink-3);
+  text-align:left;padding:14px 18px;background:var(--paper);
+  border-bottom:1px solid var(--rule);white-space:nowrap;
+}
+.ledger td{padding:15px 18px;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.55}
+.ledger tbody tr:last-child td{border-bottom:0}
+.ledger tbody tr:hover{background:#eef1ee}
+.ledger .acct{font-weight:600;white-space:nowrap}
+.ledger .num{
+  font-family:var(--serif-num);font-variant-numeric:tabular-nums;
+  font-weight:500;white-space:nowrap;font-size:16px;
+}
+.ledger .calc{color:var(--brass);font-weight:600}
+.ledger .src{font-size:12.5px;color:var(--ink-3)}
+.ledger .plain{color:var(--ink-2);font-size:14px}
+
+/* ── 图 ────────────────────────────────────────────────── */
+.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.fig{
+  margin:0;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-raised);padding:22px 22px 16px;
+}
+.fig.wide{grid-column:1/-1}
+.fig figcaption{
+  margin-top:16px;padding-top:13px;border-top:1px solid var(--rule-soft);
+  font-size:13.5px;line-height:1.65;color:var(--ink-3);
+}
+.fig figcaption b{color:var(--ink);font-weight:600}
+.fig .fig-src{display:block;margin-top:6px;font-size:12.5px;color:var(--ink-3)}
+.plot{position:relative;height:250px}
+.plot.short{height:210px}
+.svgwrap svg{display:block;width:100%;height:auto}
+.svgwrap text{font-family:var(--sans);letter-spacing:0}
+.svgwrap .mk{font-family:var(--serif-cn);font-weight:600}
+
+/* 图 1：募资结构堆叠条 */
+.stackbar{display:flex;height:56px;border-radius:3px;overflow:hidden}
+.seg{display:flex;align-items:center;min-width:0}
+.seg span{
+  font-family:var(--serif-num);font-size:20px;font-weight:600;color:#f4f6f4;
+  padding-left:14px;font-variant-numeric:tabular-nums;
+}
+.seg-a{background:var(--ink)}
+.seg-b{background:var(--brass);border-left:2px solid var(--paper-raised)}
+.stack-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:13px;
+  font-size:13.5px;color:var(--ink-2);align-items:baseline}
+.stack-legend .sw{display:inline-block;width:10px;height:10px;border-radius:2px;
+  margin-right:7px;vertical-align:-1px}
+.sw-a{background:var(--ink)}
+.sw-b{background:var(--brass)}
+.stack-total{margin-left:auto;font-family:var(--serif-num);font-size:16px;
+  font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ── 两边账：撑住 / 质疑 ───────────────────────────────── */
+.two-col{
+  display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);
+  position:relative;
+}
+.two-col::after{
+  content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;
+  background:var(--rule);transform:translateX(-.5px);
+}
+.side{padding-top:30px;padding-bottom:8px;min-width:0}
+.side + .side{padding-left:38px}
+.side:first-child{padding-right:38px}
+.side-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.side-head .side-sub{font-size:13px;color:var(--ink-3);letter-spacing:.02em}
+.entry{padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.entry:last-child{border-bottom:0}
+.entry-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.entry-num{
+  font-family:var(--serif-num);font-size:29px;font-weight:600;line-height:1.1;
+  letter-spacing:-0.015em;font-variant-numeric:tabular-nums;
+}
+.side-support .entry-num{color:var(--brass)}
+.side-doubt .entry-num{color:var(--vermilion)}
+.tag{
+  font-size:11.5px;letter-spacing:.05em;color:var(--brass);
+  background:var(--paper-raised);border:1px solid var(--rule);
+  border-radius:980px;padding:3px 11px;white-space:nowrap;
+}
+.entry-body{margin-top:8px;font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:52ch}
+.entry-body b{color:var(--ink);font-weight:600}
+
+/* ── 两重视角：正文与示意 ──────────────────────────────── */
+.prose-block{max-width:70ch}
+.prose-block p{font-size:16.5px;line-height:1.72;color:var(--ink-2)}
+.prose-block p b{color:var(--ink);font-weight:600}
+.judged{
+  margin-top:20px;padding:16px 20px;background:var(--paper-raised);
+  border:1px solid var(--rule);border-radius:4px;font-size:15px;line-height:1.66;
+  color:var(--ink-2);max-width:70ch;
+}
+.judged b{color:var(--ink)}
+.flow{display:flex;align-items:stretch;gap:14px;margin-top:26px;flex-wrap:wrap}
+.flow-step{
+  flex:1 1 180px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-raised);padding:16px 18px;min-width:0;
+}
+.flow-step .fs-n{font-family:var(--serif-num);font-size:13px;color:var(--brass);
+  display:block;margin-bottom:6px;letter-spacing:.06em}
+.flow-step .fs-t{font-size:15px;font-weight:600;line-height:1.45;color:var(--ink)}
+.flow-step .fs-d{font-size:13.5px;line-height:1.6;color:var(--ink-3);margin-top:7px}
+.flow-arrow{align-self:center;flex:0 0 auto;color:var(--brass)}
+.flow-caption{margin-top:14px;font-size:13px;color:var(--ink-3);line-height:1.6;max-width:70ch}
+
+/* ── 时间线 ────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;
+}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:64ch}
+
+/* ── 证据 ──────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.66;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;
+  color:var(--ink-3);font-style:normal;display:block;
+}
+
+/* ── 未确认 ────────────────────────────────────────────── */
+.tbd-list{list-style:none;border-top:1px solid var(--rule);max-width:78ch}
+.tbd-list li{
+  padding:15px 0 15px 26px;border-bottom:1px solid var(--rule-soft);
+  font-size:15.5px;line-height:1.66;color:var(--ink-2);position:relative;
+}
+.tbd-list li::before{
+  content:'';position:absolute;left:0;top:24px;width:10px;height:2px;
+  background:var(--vermilion);
+}
+.tbd-list b{color:var(--ink);font-weight:600}
+.tbd-list .how{display:block;margin-top:4px;font-size:13.5px;color:var(--ink-3)}
+
+/* ── 页脚 ──────────────────────────────────────────────── */
+.colophon{padding:52px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.75;color:var(--ink-3);max-width:66ch}
+.colophon p + p{margin-top:12px}
+.colophon b{color:var(--ink-2)}
+
+/* ── 动效：区块发丝线自左绘出（页面唯一的一次性动作）────── */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  section + section::before{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mast-meta dl > div{display:contents}
+  .fig-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .two-col::after{display:none}
+  .side:first-child{padding-right:0;padding-bottom:26px}
+  .side + .side{border-top:1px solid var(--rule);padding-left:0;padding-top:26px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:54px 0}
+  h2{font-size:28px}
+  .standfirst{font-size:17.5px}
+  .metric-value{font-size:30px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .evidence-quote{padding-left:26px;font-size:17px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .entry-num{font-size:26px}
+  .stack-total{margin-left:0;width:100%}
+  .flow-arrow{align-self:center;transform:rotate(90deg)}
+  .flow{flex-direction:column;flex-wrap:nowrap}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>Anthropic 挂牌的五本账：1.5 万亿美元估值靠什么撑住，被什么质疑</h1>
+        <p class="standfirst">2026 年 11 月 18 日，Anthropic 以每股 83 美元定价、合计募资 1073 亿美元挂牌纳斯达克（代码 ANT）。本篇把定价、募资、营收、算力承诺、看空理由五本账逐笔对齐：一边是接近七倍的超额认购与 332 亿美元营收，一边是约 9000 亿美元承诺、5% 的成本差距与一份安全联署。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-20</dd></div>
+          <div><dt>主责</dt><dd>研析</dd></div>
+          <div><dt>追踪线</dt><dd>估值与资本</dd></div>
+          <div><dt>素材</dt><dd>11-19 三份简报 · 未联网</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- ── 卷宗目录 ────────────────────────────────────────────── -->
+<nav class="index-strip" aria-label="卷宗目录">
+  <div class="shell">
+    <ul>
+      <li><a href="#ledger">五本账对账</a></li>
+      <li><a href="#charts">图解对账</a></li>
+      <li><a href="#sides">撑住与质疑</a></li>
+      <li><a href="#macro">公开市场定价锚</a></li>
+      <li><a href="#governance">治理风险</a></li>
+      <li><a href="#timeline">时间线</a></li>
+      <li><a href="#evidence">证据</a></li>
+      <li><a href="#tbd">未确认</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- ── 一页结论 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>一页结论</h2>
+    <p class="verdict">贷方是接近七倍的超额认购与 332 亿美元营收，借方是约 9000 亿美元算力承诺、5% 的成本差距与一份安全联署。</p>
+    <p class="verdict-note">1.5 万亿美元完全稀释估值的成立前提有二：公开市场愿意在区间上限之上继续出价——83 美元高出 70 至 78 美元区间约 6%，超额认购接近发行规模七倍；且营收增速能把约 9000 亿美元算力与租赁承诺逐步消化。第一个前提已有成交验证。第二个前提尚无时间验证：2026 年前三季度营收 332 亿美元，对约 9000 亿美元承诺，本篇直除约 27 倍。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section id="figures">
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">八个格子是这本账的全部入账数：前四格来自定价与募资，后四格来自营收、承诺与两侧观点。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">83 美元</div>
+        <div class="metric-label">Anthropic IPO 定价（11-18）</div>
+        <div class="metric-source">智通财经 / CNN · 每股 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">70 至 78 美元/股</div>
+        <div class="metric-label">Anthropic IPO 定价区间（11-11）</div>
+        <div class="metric-source">招股区间 · 11-19 简报回指</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1073 亿美元</div>
+        <div class="metric-label">Anthropic 合计募资额（11-18）</div>
+        <div class="metric-source">公开 813 + 私募 260 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1.5 万亿美元</div>
+        <div class="metric-label">Anthropic 完全稀释估值（11-18）</div>
+        <div class="metric-source">完全稀释口径 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">接近 7 倍</div>
+        <div class="metric-label">Anthropic 超额认购倍数（11-18）</div>
+        <div class="metric-source">对发行规模 · 钛媒体 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">332 亿美元</div>
+        <div class="metric-label">Anthropic 前三季度营收（2026）</div>
+        <div class="metric-source">约 79% 按用量计费 · 钛媒体 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">约 9000 亿美元</div>
+        <div class="metric-label">Anthropic 算力与基础设施承诺总额</div>
+        <div class="metric-source">算力与租赁承诺 · 钛媒体 · 11-19 简报</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">155 美元</div>
+        <div class="metric-label">Melius 目标价（11-19）</div>
+        <div class="metric-source">Melius ·「买入」评级 · 11-19 简报</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 五本账对账 ──────────────────────────────────────────── -->
+<section id="ledger">
+  <div class="shell">
+    <h2>五本账对账</h2>
+    <p class="lede">每行一个账户。记账数取自 11-19 简报原文；对账结果一栏写明是简报原文口径，还是本篇按简报两数直除。</p>
+    <div class="tbl-wrap">
+      <table class="ledger">
+        <caption>表 1 · Anthropic 挂牌五本账（2026-11-20 · 研析）</caption>
+        <thead>
+          <tr>
+            <th scope="col">账目</th>
+            <th scope="col">本篇记账数</th>
+            <th scope="col">对照数</th>
+            <th scope="col">对账结果</th>
+            <th scope="col">出处</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="acct">定价账</td>
+            <td class="num">83 美元</td>
+            <td class="num">78 美元（区间上限）</td>
+            <td class="calc">高出上限 6.4%</td>
+            <td class="src plain">智通财经 / CNN · 11-19<br>简报原文「约 6%」，直除一致</td>
+          </tr>
+          <tr>
+            <td class="acct">募资账</td>
+            <td class="num">1073 亿美元</td>
+            <td class="num">813 + 260 亿美元</td>
+            <td class="calc">813+260=1073，三数自洽</td>
+            <td class="src plain">智通财经 / CNN · 11-19<br>公开募资 + 七家战略方私募</td>
+          </tr>
+          <tr>
+            <td class="acct">营收账</td>
+            <td class="num">332 亿美元</td>
+            <td class="num">25 亿美元（上年同期）</td>
+            <td class="calc">约 13.3 倍（本篇直除）</td>
+            <td class="src plain">钛媒体 · 11-19<br>约 79% 按用量计费</td>
+          </tr>
+          <tr>
+            <td class="acct">承诺账</td>
+            <td class="num">约 9000 亿美元</td>
+            <td class="num">1073 亿美元（合计募资）</td>
+            <td class="calc">约 8.4 倍（本篇直除）</td>
+            <td class="src plain">钛媒体 · 11-19<br>对营收另为约 27 倍，见图 4</td>
+          </tr>
+          <tr>
+            <td class="acct">看空账</td>
+            <td class="num">5%（成本比）</td>
+            <td class="num">6 至 12 个月（领先窗口）</td>
+            <td class="plain">未来 3 到 5 年难再高速增长；未给出对价估值</td>
+            <td class="src plain">钜亨网 · 11-19<br>李开复口径</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sec-note">读法：定价账、募资账两行的对账结果与简报原文一致；营收账、承诺账两行的倍数为本篇按简报两数直除，简报未给这些倍数。看空账一行只登记李开复给出的口径，未给估值对价，处理见「未确认」。</p>
+  </div>
+</section>
+
+<!-- ── 图解对账 ────────────────────────────────────────────── -->
+<section id="charts">
+  <div class="shell">
+    <h2>图解对账</h2>
+    <p class="lede">前三幅记录已经发生的定价、募资与增长，第四幅是尚未兑现的承诺量级。</p>
+    <div class="fig-grid">
+
+      <!-- 图 1：募资结构 -->
+      <figure class="fig wide">
+        <div class="stackbar" role="img" aria-label="条形图：募资结构。公开募资 813 亿美元占 75.8%，战略私募 260 亿美元占 24.2%，合计 1073 亿美元。">
+          <div class="seg seg-a" style="width:75.8%"><span>813</span></div>
+          <div class="seg seg-b" style="width:24.2%"><span>260</span></div>
+        </div>
+        <div class="stack-legend">
+          <span><i class="sw sw-a"></i>公开募资 813 亿美元（75.8%）</span>
+          <span><i class="sw sw-b"></i>七家战略方私募 260 亿美元（24.2%）</span>
+          <span class="stack-total">合计 1073 亿美元</span>
+        </div>
+        <figcaption><b>图 1 · 募资结构（亿美元）</b> 两段共用一把刻度：一次公开发行加一笔私募拼出 1073 亿美元，超过 SpaceX 纪录（金额未确认）。占比为本篇按 813÷1073、260÷1073 直除。
+          <span class="fig-src">来源：智通财经 / CNN · 每日AI技术动态简报 2026-11-19 · 今日焦点 1</span>
+        </figcaption>
+      </figure>
+
+      <!-- 图 2：营收台阶 -->
+      <figure class="fig">
+        <div class="plot"><canvas id="figRevenue" role="img" aria-label="柱状图：营收台阶。上年同期 25 亿美元，2026 年前三季度 332 亿美元，本篇直除约 13.3 倍。"></canvas></div>
+        <figcaption><b>图 2 · 营收台阶（亿美元）</b> 同期口径对照：25 亿美元到 332 亿美元，本篇直除约 13.3 倍；约 79% 按用量计费。
+          <span class="fig-src">来源：钛媒体 · 每日AI技术动态简报 2026-11-19 · 行业影响 1</span>
+        </figcaption>
+      </figure>
+
+      <!-- 图 3：定价位置 -->
+      <figure class="fig">
+        <div class="svgwrap">
+          <svg viewBox="0 0 480 206" role="img" aria-label="刻度图：横轴 66 至 86 美元，70 至 78 美元区间为色带，定价 83 美元落在色带之上，按上限高出约 6%。">
+            <rect x="120" y="58" width="160" height="82" fill="#efe4cc"></rect>
+            <line x1="120" y1="58" x2="280" y2="58" stroke="#7d5a1c" stroke-width="1.5"></line>
+            <text x="200" y="104" text-anchor="middle" font-size="13" fill="#4f5551">招股区间 70 至 78</text>
+            <line x1="40" y1="140" x2="456" y2="140" stroke="#d2d8d4" stroke-width="1"></line>
+            <g stroke="#d2d8d4" stroke-width="1">
+              <line x1="40" y1="140" x2="40" y2="148"></line>
+              <line x1="120" y1="140" x2="120" y2="148"></line>
+              <line x1="200" y1="140" x2="200" y2="148"></line>
+              <line x1="280" y1="140" x2="280" y2="148"></line>
+              <line x1="360" y1="140" x2="360" y2="148"></line>
+              <line x1="440" y1="140" x2="440" y2="148"></line>
+            </g>
+            <g font-size="12" fill="#646b67" text-anchor="middle">
+              <text x="40" y="164">66</text>
+              <text x="120" y="164">70</text>
+              <text x="200" y="164">74</text>
+              <text x="280" y="164">78</text>
+              <text x="360" y="164">82</text>
+              <text x="440" y="164">86</text>
+            </g>
+            <line x1="284" y1="86" x2="376" y2="86" stroke="#7d5a1c" stroke-width="1" stroke-dasharray="3 3"></line>
+            <text x="330" y="78" text-anchor="middle" font-size="13" fill="#7d5a1c">高出上限约 6%</text>
+            <line x1="380" y1="46" x2="380" y2="140" stroke="#171a18" stroke-width="2"></line>
+            <circle cx="380" cy="46" r="4.5" fill="#171a18"></circle>
+            <text class="mk" x="380" y="32" text-anchor="middle" font-size="17" fill="#171a18">83 美元</text>
+            <text x="456" y="190" text-anchor="end" font-size="12" fill="#646b67">横轴单位：美元/股</text>
+          </svg>
+        </div>
+        <figcaption><b>图 3 · 定价位置（美元/股）</b> 83 美元不在区间内，在区间上：按上限 78 直除 +6.4%，与简报「约 6%」一致。
+          <span class="fig-src">来源：智通财经 / CNN · 每日AI技术动态简报 2026-11-19 · 今日焦点 1</span>
+        </figcaption>
+      </figure>
+
+      <!-- 图 4：承诺量级 -->
+      <figure class="fig wide">
+        <div class="plot short"><canvas id="figCommit" role="img" aria-label="条形图：约 9000 亿美元算力与租赁承诺，对 1073 亿美元合计募资约 8.4 倍，对 332 亿美元前三季度营收约 27 倍。"></canvas></div>
+        <figcaption><b>图 4 · 承诺与到手资金、营收的量级（亿美元）</b> 约 9000 亿美元承诺对 1073 亿美元合计募资约 8.4 倍、对 332 亿美元前三季度营收约 27 倍（本篇按简报两数直除，简报未给倍数）。承诺是合同义务，不是已付款。
+          <span class="fig-src">来源：钛媒体 · 每日AI技术动态简报 2026-11-19 · 行业影响 1</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 撑住与质疑 ──────────────────────────────────────────── -->
+<section id="sides">
+  <div class="shell">
+    <h2>撑住与质疑：1.5 万亿美元的两边</h2>
+    <p class="lede">左栏是公开市场已经付钱的证据，右栏是尚未定价的风险。经济金融口径贯穿两栏，安全与治理口径集中在右栏第三条。</p>
+    <div class="two-col">
+
+      <div class="side side-support">
+        <div class="side-head">
+          <h3>撑住</h3>
+          <span class="side-sub">已成交的证据</span>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">接近 7 倍</span>
+            <span class="tag">经济金融 · 需求</span>
+          </div>
+          <p class="entry-body">超额认购接近发行规模七倍，且 83 美元定价高出区间约 6%：需求不止于区间上限，定价权在发行人一侧。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">332 亿美元</span>
+            <span class="tag">经济金融 · 增长</span>
+          </div>
+          <p class="entry-body">2026 年前三季度营收，上年同期 25 亿；约 79% 按用量计费，收入随用量滚动，不是一次性确认。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">1073 亿美元</span>
+            <span class="tag">经济金融 · 资本</span>
+          </div>
+          <p class="entry-body">公开 813 亿加私募 260 亿，超 SpaceX 纪录（金额未确认）：一次到位的现金，为约 9000 亿美元承诺提供首段燃料。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">155 美元</span>
+            <span class="tag">经济金融 · 卖方</span>
+          </div>
+          <p class="entry-body">Melius 于 11 月 19 日给予「买入」评级、目标价 155 美元：挂牌次日，卖方给出上行锚（假设未确认）。</p>
+        </div>
+      </div>
+
+      <div class="side side-doubt">
+        <div class="side-head">
+          <h3>质疑</h3>
+          <span class="side-sub">尚未定价的风险</span>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">约 9000 亿美元</span>
+            <span class="tag">经济金融 · 承诺</span>
+          </div>
+          <p class="entry-body">算力与租赁承诺约是合计募资的 <b>8.4 倍</b>、前三季度营收的 <b>27 倍</b>（本篇直除）：承诺先于收入固化，履约期跨过增长的不确定性。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">5%</span>
+            <span class="tag">竞争 · 成本</span>
+          </div>
+          <p class="entry-body">李开复称最好的中国模型线上使用成本约为顶级 Anthropic 模型的 5%，领先窗口只有 6 至 12 个月，未来 3 到 5 年难再高速增长。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">MisAnthropic</span>
+            <span class="tag">安全与治理</span>
+          </div>
+          <p class="entry-body">Center for AI Safety 联署声明指其一边追求能自我改进的 AI、一边弱化安全承诺并游说对自身有利的监管：安全承诺成为上市风险项。</p>
+        </div>
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-num">12 月加息</span>
+            <span class="tag">经济金融 · 宏观</span>
+          </div>
+          <p class="entry-body">定价当日，投资者卖出流动性最好的资产筹措认购资金；鹰派表态与会议纪要推高 12 月加息定价：认购热度本身有宏观成本。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 经济金融专段 ────────────────────────────────────────── -->
+<section id="macro">
+  <div class="shell">
+    <h2>经济金融：公开市场定价锚</h2>
+    <p class="lede">这一段回答：83 美元这个数字在公开市场里意味着什么。</p>
+    <div class="prose-block">
+      <p><b>定价在区间之上，不是区间之内。</b>按区间上限 78 美元直除，83 美元高出 6.4%，与简报「约 6%」的表述一致；超额认购接近发行规模七倍，说明簿记的需求段落在上限之外。同一天，1073 亿美元合计募资超过 SpaceX 纪录，AI 公司的融资规模第一次以公开市场为定价锚。</p>
+      <p><b>锚的另一面是利率。</b>每日股市简报 2026-11-19 记录了资金来源与宏观背景：为筹措认购资金，投资者卖出流动性最好的资产；美联储官员鹰派表态与会议纪要推高 12 月加息定价。需求是真实的，代价也是真实的——流动性从别处来，加息预期在别处涨。</p>
+      <p><b>卖方在挂牌次日给出上行空间。</b>Melius 于 11 月 19 日给予「买入」评级、目标价 155 美元，相对 83 美元定价的上行幅度约 87%（本篇直除）；其估值假设与目标期限，简报未给。</p>
+      <div class="judged"><b>本篇判断：</b>公开市场已经用成交价验证了需求侧；加息路径对 1.5 万亿美元估值倍数的影响，三份简报没有给数，列入未确认。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 安全与治理专段 ──────────────────────────────────────── -->
+<section id="governance">
+  <div class="shell">
+    <h2>安全与治理：联署声明作为上市风险项</h2>
+    <p class="lede">这一段回答：一份不涉及财务数字的声明，为什么进得了这本账。</p>
+    <div class="prose-block">
+      <p><b>联署点名的是承诺一致性。</b>Center for AI Safety 称已与 Steven Pinker、Hugging Face 联合创始人 Thomas Wolf 等联署「MisAnthropic Statement」，指 Anthropic 一边追求能自我改进的 AI、一边弱化安全承诺并游说对自身有利的监管。简报把这条排进「行业影响」，标题就是「安全承诺成为上市风险项」。</p>
+      <p><b>它与营收倍数走不同的账。</b>营收、认购、定价都能在成交里找到对手价；安全承诺的对手价还没出现，它以监管动作、企业客户采购条款与研究者信任的形式折现。对一家以完全稀释估值 1.5 万亿美元挂牌的公司，这类折现不改变当期营收，改变的是倍数的分母风险。</p>
+    </div>
+    <div class="flow" role="list" aria-label="风险传导示意：三步">
+        <div class="flow-step" role="listitem">
+          <span class="fs-n">第 1 步</span>
+          <span class="fs-t">联署公开点名</span>
+          <span class="fs-d">Pinker、Thomas Wolf 等联署，指控聚焦「追求自我改进 AI」与「弱化安全承诺」的并存。</span>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 34 14" fill="none"><path d="M0 7h30M25 2l6 5-6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="flow-step" role="listitem">
+          <span class="fs-n">第 2 步</span>
+          <span class="fs-t">安全承诺可信度折价</span>
+          <span class="fs-d">「一边弱化、一边游说」的指控若被采信，承诺的可信度先于财务数据受损。</span>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">
+          <svg width="34" height="14" viewBox="0 0 34 14" fill="none"><path d="M0 7h30M25 2l6 5-6 5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="flow-step" role="listitem">
+          <span class="fs-n">第 3 步</span>
+          <span class="fs-t">监管与信任承压</span>
+          <span class="fs-d">监管议程、客户采购与人才声誉同时承压，落到估值倍数的分母风险上。</span>
+        </div>
+      </div>
+      <p class="flow-caption">风险传导为本篇示意，用于说明该事件进账的方式；三步之间的因果强度简报未给，属判断不属事实。</p>
+      <div class="judged"><b>本篇判断：</b>联署声明本身没有金额，所以它不进表 1 的任何一行数字；它进的是估值的分母风险栏——这正是多元化视角里安全与治理一侧的记账方式。</div>
+  </div>
+</section>
+
+<!-- ── 时间线 ──────────────────────────────────────────────── -->
+<section id="timeline">
+  <div class="shell">
+    <h2>时间线</h2>
+    <p class="lede">三个日期把五本账串起来：区间、定价、挂牌与两侧发声。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-11</span>
+        <div>
+          <div class="timeline-title">招股区间 70 至 78 美元/股</div>
+          <div class="timeline-detail">区间口径由 11-11 作品登记，标签为 Anthropic IPO 定价区间（11-11）；11-19 简报以「70 至 78 美元区间」回指同一口径。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-18</span>
+        <div>
+          <div class="timeline-title">定价 83 美元，合计募资 1073 亿美元</div>
+          <div class="timeline-detail">高出区间约 6%；发行扩至 9.564 亿股，公开募资约 813 亿美元，叠加七家战略方 260 亿美元私募，超 SpaceX 纪录；完全稀释估值约 1.5 万亿美元；超额认购接近发行规模七倍。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19</span>
+        <div>
+          <div class="timeline-title">挂牌纳斯达克（代码 ANT），两侧声音同日落地</div>
+          <div class="timeline-detail">简报以「Anthropic 挂牌纳斯达克（代码 ANT）」记录当日；Melius 给予「买入」、目标价 155 美元；李开复看空增长窗口；Center for AI Safety 公开联署；股市简报记录认购资金来源与 12 月加息定价。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section id="evidence">
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">五段原文逐字引用，全部来自 11-19 三份简报；断言的 quote 也逐字取自这些正文。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">11 月 18 日定价每股 83 美元，高出 70 至 78 美元区间约 6%；发行扩至 9.564 亿股，公开募资约 813 亿美元，叠加七家战略方 260 亿美元私募合计 1073 亿美元，超 SpaceX 纪录；完全稀释估值约 1.5 万亿美元。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 · 今日焦点 1 · 智通财经 / CNN（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">AI 定价锚落到公开市场：Anthropic 按区间上限定价、超额认购接近发行规模七倍，2026 年前三季度营收 332 亿美元（上年同期 25 亿）、约 79% 按用量计费，但仍有约 9000 亿美元算力与租赁承诺；Melius 于 11 月 19 日给予"买入"评级、目标价 155 美元。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 · 行业影响 1 · 钛媒体 / 钛媒体快报（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">看空 Anthropic IPO，认为其只领先中国开源模型 6 至 12 个月、增长难持续，未来 3 到 5 年无法再像此前那样高速增长；最好的中国模型线上使用成本大约是顶级 Anthropic 模型的 5%。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 · 热门观点 7 · 钜亨网（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">Center for AI Safety 称已与 Steven Pinker、Hugging Face 联合创始人 Thomas Wolf 等联署"MisAnthropic Statement"，指 Anthropic 一边追求能自我改进的 AI、一边弱化安全承诺并游说对自身有利的监管。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 · 行业影响 6 · Digg / 新浪科技（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">驱动：Anthropic IPO 定价 83 美元/股，投资者卖出流动性最好的资产筹措认购资金；美联储官员鹰派表态与会议纪要推高 12 月加息定价（上海有色网转引华尔街见闻，11-19）。</p>
+        <cite class="evidence-source">每日股市简报 2026-11-19 · 上海有色网转引华尔街见闻（11-19）</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 未确认 ──────────────────────────────────────────────── -->
+<section id="tbd">
+  <div class="shell">
+    <h2>未确认</h2>
+    <p class="lede">以下七项三份简报没有给数，本篇不补数、不推测。</p>
+    <ul class="tbd-list">
+      <li><b>未确认：SpaceX 纪录的金额与口径。</b>简报只写「超 SpaceX 纪录」。<span class="how">确认方法：查 SpaceX 上一轮募资的原始报道。</span></li>
+      <li><b>未确认：9.564 亿股的股份类别与超额配售安排。</b>简报只给总股数。<span class="how">确认方法：查招股文件发行条款章节。</span></li>
+      <li><b>未确认：约 9000 亿美元算力与租赁承诺的到期结构。</b>简报未给分类与年限。<span class="how">确认方法：查招股文件承诺附注。</span></li>
+      <li><b>未确认：Melius 155 美元目标价的估值假设与目标期限。</b>简报只给评级与目标价。<span class="how">确认方法：查 Melius 原始报告。</span></li>
+      <li><b>未确认：MisAnthropic Statement 的联署人总数与声明全文。</b>简报只列 Steven Pinker、Thomas Wolf 两位。<span class="how">确认方法：查 Center for AI Safety 发布原文。</span></li>
+      <li><b>未确认：挂牌首日收盘表现与当日成交额。</b>三份简报均未给。<span class="how">确认方法：查 11-19 及次日行情数据。</span></li>
+      <li><b>未确认：李开复是否给出对价估值或目标价。</b>简报只给竞争与增长口径。<span class="how">确认方法：查钜亨网原报道。</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>素材。</b>每日AI技术动态简报 2026-11-19、每日股市简报 2026-11-19、每日热点新闻简报 2026-11-19（已查，该期无 Anthropic 条目）。按派单要求本轮只读本地简报，未做网络检索。</p>
+    <p><b>方法。</b>数值与引文逐字取自上述简报。带「本篇直除」的倍数（13.3 倍、8.4 倍、27 倍、6.4%、87%）与简单年化数（约 443 亿美元、约 34 倍）由本篇按简报两数计算，简报未给这些数；表 1 与图注已逐处标出。其余数字均为简报原文。</p>
+    <p><b>断言。</b>7 条，quote 逐字回查本文件正文；两条既有标签（Anthropic 算力与基础设施承诺总额、Anthropic IPO 定价区间（11-11））按派单原文复用，未改名、未加后缀。</p>
+    <p><b>判断与免责。</b>「撑住 / 质疑」两栏的归类、风险传导三步与两处「本篇判断」为分析意见，不是简报原文结论。本页为研究记录，不构成投资建议。</p>
+  </div>
+</footer>
+
+<!-- 断言声明（权威来源 · 与视觉无关）：7 条，quote 逐字取自本文件正文 -->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "83 美元",
+    "label": "Anthropic IPO 定价（11-18）",
+    "quote": "83 美元 Anthropic IPO 定价（11-18）"
+  },
+  {
+    "value": "70 至 78 美元/股",
+    "label": "Anthropic IPO 定价区间（11-11）",
+    "quote": "70 至 78 美元/股 Anthropic IPO 定价区间（11-11）"
+  },
+  {
+    "value": "1073 亿美元",
+    "label": "Anthropic 合计募资额（11-18）",
+    "quote": "1073 亿美元 Anthropic 合计募资额（11-18）"
+  },
+  {
+    "value": "1.5 万亿美元",
+    "label": "Anthropic 完全稀释估值（11-18）",
+    "quote": "1.5 万亿美元 Anthropic 完全稀释估值（11-18）"
+  },
+  {
+    "value": "332 亿美元",
+    "label": "Anthropic 前三季度营收（2026）",
+    "quote": "332 亿美元 Anthropic 前三季度营收（2026）"
+  },
+  {
+    "value": "约 9000 亿美元",
+    "label": "Anthropic 算力与基础设施承诺总额",
+    "quote": "约 9000 亿美元 Anthropic 算力与基础设施承诺总额"
+  },
+  {
+    "value": "155 美元",
+    "label": "Melius 目标价（11-19）",
+    "quote": "155 美元 Melius 目标价（11-19）"
+  }
+]
+</script>
+
+<script src="../../../assets/vendor/npm_chart.js_4.4.7_dist/chart.umd.min.js"></script>
+<script>
+// 图 2 / 图 4：Chart.js 柱状与条形。数值标签由小插件画在条端；
+// prefers-reduced-motion 下关闭动画。脚本失效时 canvas 留白，图注仍可读。
+(function(){
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (typeof Chart === 'undefined') { return; }
+
+  Chart.defaults.font.family = "-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif";
+  Chart.defaults.font.size = 13;
+  Chart.defaults.color = '#4f5551';
+
+  var GRID = '#dfe4e0', AXIS = '#646b67', INK = '#171a18';
+
+  // 条端数值标签插件
+  var valueLabels = {
+    id: 'valueLabels',
+    afterDatasetsDraw: function(chart){
+      var opts = chart.$vl || {};
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.font = '600 14px ' + Chart.defaults.font.family;
+      ctx.fillStyle = INK;
+      chart.data.datasets.forEach(function(ds, di){
+        var meta = chart.getDatasetMeta(di);
+        if (meta.hidden) { return; }
+        meta.data.forEach(function(el, i){
+          var lbl = (ds.vlLabels && ds.vlLabels[i] != null) ? ds.vlLabels[i] : String(ds.data[i]);
+          if (chart.options.indexAxis === 'y') {
+            ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+            ctx.fillText(lbl, el.x + 9, el.y);
+          } else {
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            ctx.fillText(lbl, el.x, el.y - 8);
+          }
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  // 图 2 · 营收台阶
+  new Chart(document.getElementById('figRevenue'), {
+    type: 'bar',
+    data: {
+      labels: ['上年同期', '2026 前三季度'],
+      datasets: [{
+        data: [25, 332],
+        vlLabels: ['25', '332'],
+        backgroundColor: ['#646b67', '#7d5a1c'],
+        borderWidth: 0,
+        borderRadius: 3,
+        barPercentage: 0.56,
+        categoryPercentage: 0.72
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: RM ? false : { duration: 750, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: function(c){ return c.parsed.y + ' 亿美元'; } } }
+      },
+      scales: {
+        x: { grid: { display: false }, border: { color: '#d2d8d4' }, ticks: { color: AXIS } },
+        y: {
+          beginAtZero: true, max: 410,
+          grid: { color: GRID }, border: { display: false },
+          ticks: { color: AXIS, stepSize: 100, callback: function(v){ return v; } },
+          title: { display: true, text: '亿美元', color: AXIS, font: { size: 12 } }
+        }
+      }
+    },
+    plugins: [valueLabels]
+  });
+
+  // 图 4 · 承诺量级
+  new Chart(document.getElementById('figCommit'), {
+    type: 'bar',
+    data: {
+      labels: ['算力与租赁承诺', '合计募资', '2026 前三季度营收'],
+      datasets: [{
+        data: [9000, 1073, 332],
+        vlLabels: ['约 9000', '1073', '332'],
+        backgroundColor: ['#c44536', '#7d5a1c', '#171a18'],
+        borderWidth: 0,
+        borderRadius: 3,
+        barPercentage: 0.58,
+        categoryPercentage: 0.78
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: RM ? false : { duration: 750, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: function(c){ return c.parsed.x + ' 亿美元'; } } }
+      },
+      scales: {
+        x: {
+          beginAtZero: true, max: 11600,
+          grid: { color: GRID }, border: { display: false },
+          ticks: { color: AXIS, stepSize: 2000, callback: function(v){ return v.toLocaleString('en-US'); } },
+          title: { display: true, text: '亿美元', color: AXIS, font: { size: 12 } }
+        },
+        y: { grid: { display: false }, border: { color: '#d2d8d4' }, ticks: { color: AXIS, font: { size: 13 } } }
+      }
+    },
+    plugins: [valueLabels]
+  });
+})();
+
+// 页面唯一的一次性动作：区块发丝线自左绘出。尊重 reduced-motion。
+(function(){
+  var targets = document.querySelectorAll('main section');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(function(t){ t.classList.add('drawn'); });
+    return;
+  }
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    targets.forEach(function(t){ t.classList.add('drawn'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('drawn'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="宏观利率与股市">
+<meta name="description" content="10月PPI同比6.5%创新高，AI基建账单已在联储反应函数里；12月25bp一档一周回落10.9个百分点，10年期收益率却收在5.15%。">
+<title>PPI 6.5% 与 AI 基建账单：联储鹰派路径重画，量研研究卷宗</title>
+
+<style>
+/* ── 自托管字体（随作品分发，离线可用）────────────────────────
+   中文衬线取自本地 noto-serif-sc.css；拉丁数字取 Newsreader。 */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --paper-sunk:#e2e7e3;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5d6460;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-ink:#6b4a14;   /* 纸色底上的正文铜色：链接文字用，对比度 ≥ 4.5:1 */
+  --brass-wash:#efe4cc;
+  --brass-light:#d9b978;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --deep-rule:#2b312d;
+  --mute:#aeb6b1;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px}
+h1,h2,h3{font-family:var(--serif-cn);font-weight:600;letter-spacing:-0.012em;text-wrap:balance}
+a{color:var(--brass-ink)}
+p{max-width:70ch}
+p+p{margin-top:14px}
+svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+
+/* ── 抬头：标题 + 元信息横带（与卷宗模板的右侧边注不同）── */
+.masthead{padding:92px 0 0;border-bottom:1px solid var(--rule)}
+h1{font-size:clamp(31px,4vw,50px);line-height:1.2}
+.standfirst{
+  margin-top:26px;font-size:19px;line-height:1.58;color:var(--ink-2);
+  max-width:62ch;
+}
+.meta-strip{
+  margin-top:44px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  border-top:1px solid var(--rule);
+}
+.meta-cell{padding:14px 20px 18px;border-left:1px solid var(--rule)}
+/* 首列与页面左缘对齐：单元格内缩 12px，外框向左出血 12px（无边框无底色，出血不可见） */
+.meta-cell:first-child{padding-left:12px;margin-left:-12px;border-left:0}
+.meta-cell dt{
+  font-size:11px;letter-spacing:.14em;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.meta-cell dd{
+  margin-top:7px;font-family:var(--serif-num);font-size:15px;line-height:1.4;
+  font-variant-numeric:tabular-nums;
+}
+.meta-cell dd .claim-n{
+  font-size:21px;color:var(--brass);line-height:1.2;
+  font-family:var(--serif-num);font-variant-numeric:tabular-nums;
+}
+
+/* ── 结论带：整幅深色，页面唯一的高对比时刻 ── */
+.verdict-band{background:var(--deep);color:var(--deep-ink);padding:74px 0 76px}
+.verdict-band h2{color:var(--deep-ink)}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(22px,2.5vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;
+}
+.verdict-note{
+  margin-top:22px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:60ch;
+}
+.verdict-strip{margin-top:44px}
+
+/* ── 区块骨架 ── */
+section{padding:78px 0}
+section+section{border-top:1px solid var(--rule)}
+h2{font-size:29px;line-height:1.28;margin-bottom:16px}
+h3{font-size:18px;line-height:1.4;margin-bottom:12px}
+.lede{font-size:17.5px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+.note{
+  margin-top:26px;padding-top:16px;border-top:1px solid var(--rule-soft);
+  font-size:15px;line-height:1.68;color:var(--ink-2);max-width:68ch;
+}
+.note b{color:var(--ink);font-weight:600}
+.callout{
+  margin-top:30px;background:var(--paper-raised);border:1px solid var(--rule);
+  border-radius:4px;padding:22px 24px;max-width:74ch;
+}
+.callout h3{margin-bottom:10px}
+.callout p{font-size:15.5px;line-height:1.7;color:var(--ink-2)}
+.callout p+p{margin-top:10px}
+
+/* ── 关键数据：账册（发丝线分隔）── */
+.metrics{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:4px;
+  overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:32px;line-height:1.04;letter-spacing:-0.018em;
+  font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;
+}
+.metric-label{
+  margin-top:12px;font-size:14px;line-height:1.45;color:var(--ink-2);font-weight:500;
+}
+.metric-source{
+  margin-top:14px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+.metrics--dark{background:var(--deep-rule);border-color:var(--deep-rule)}
+.metrics--dark .metric{background:transparent;padding:22px 20px 18px}
+.metrics--dark .metric-value{color:var(--brass-light)}
+.metrics--dark .metric-label{color:var(--deep-2)}
+.metrics--dark .metric-source{color:#8f9993;border-top-color:var(--deep-rule)}
+
+/* ── 双栏版式（与卷宗模板的单列纵向不同）── */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start}
+.split--wide{grid-template-columns:1.28fr 1fr}
+.stack{display:grid;gap:34px}
+
+/* ── 图 ── */
+.chart{
+  background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:20px 20px 16px;
+}
+.chart--wide{margin-top:34px}
+.chart figcaption{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  font-size:13px;line-height:1.6;color:var(--ink-3);
+}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:14px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+.sw-25{background:var(--brass)}
+.sw-50{background:var(--deep)}
+.sw-0{background:var(--mute)}
+.sw-10y{background:var(--deep)}
+.sw-2y{background:var(--brass)}
+.sw-pos{background:#2b332e}
+.sw-neg{background:var(--brass)}
+
+/* ── 表（modern-web-guidance: responsive-table + accessibility）── */
+/* 表框由 <table> 自身承担：单元格自身 padding 已是 11/18px 内缩，
+   子元素不再贴着外框（旧：外框 padding 会在窄视口把表格挤出约 10px 横滚） */
+.tw{
+  overflow:auto;max-inline-size:100%;container-type:inline-size;
+}
+.tw table{
+  border-collapse:separate;border-spacing:0;width:100%;min-width:520px;font-size:15px;
+  border:1px solid var(--rule);border-radius:4px;background:var(--paper-raised);
+}
+.tw caption{
+  text-align:left;padding:14px 18px 12px;border-bottom:1px solid var(--rule);
+  font-size:13.5px;line-height:1.5;color:var(--ink-3);
+  /* 1px 边框使 caption 盒子比栅格宽 2px，钉回栅格宽度：列宽与行高与加框前一致 */
+  width:calc(100% - 2px);
+}
+.tw th,.tw td{padding:11px 18px;text-align:left;vertical-align:top;line-height:1.5}
+.tw thead th{
+  position:sticky;inset-block-start:0;z-index:1;background:var(--paper-sunk);
+  font-size:12.5px;letter-spacing:.06em;color:var(--ink-3);font-weight:600;
+  border-bottom:1px solid var(--rule);
+}
+.tw tbody th{font-weight:600;color:var(--ink);white-space:nowrap}
+.tw tbody tr+tr th,.tw tbody tr+tr td{border-top:1px solid var(--rule-soft)}
+.tw tbody tr:hover{background:var(--brass-wash)}
+.num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pos{color:var(--ink)}
+.neg{color:var(--brass);font-weight:600}
+.hi{background:var(--brass-wash)}
+@container (max-width:640px){
+  .tw table{min-width:0;font-size:13.5px}
+  .tw th,.tw td{padding:9px 12px}
+  .tw caption{padding:12px 12px 10px;font-size:13px}
+  .tw tbody th{white-space:normal}
+}
+
+/* ── 进程 ── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{
+  display:grid;grid-template-columns:118px minmax(0,1fr);gap:30px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{
+  font-family:var(--serif-num);font-size:13.5px;color:var(--brass);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:4px;
+  border-top:2px solid var(--brass);margin-top:2px;
+}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.006em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+.timeline-detail q{color:var(--ink);font-style:normal}
+
+/* ── 余地：编号约束清单 ── */
+.limits{list-style:none;counter-reset:lim;display:grid;gap:18px}
+.limits li{
+  counter-increment:lim;position:relative;padding-left:44px;
+  font-size:15.5px;line-height:1.66;color:var(--ink-2);
+}
+.limits li::before{
+  content:counter(lim);position:absolute;left:0;top:-2px;
+  font-family:var(--serif-num);font-size:26px;line-height:1;color:var(--brass);
+  font-variant-numeric:tabular-nums;
+}
+.limits li b{color:var(--ink);font-weight:600}
+
+/* ── 证据：悬挂引号 ── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:13px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  display:block;margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;
+  color:var(--ink-3);
+}
+
+/* ── 页脚 ── */
+.colophon{padding:54px 0 74px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.75;color:var(--ink-3);max-width:64ch}
+.colophon p+p{margin-top:12px}
+.colophon b{color:var(--ink-2);font-weight:600}
+
+/* ── 唯一的一次性动效：结论带铜色细线自左绘出 ── */
+.verdict-rule{
+  display:block;width:100%;height:2px;background:var(--brass-light);
+  margin-bottom:30px;transform-origin:left center;
+  animation:draw .95s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media (max-width:960px){
+  .split,.split--wide{grid-template-columns:1fr;gap:34px}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .meta-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .meta-cell{padding-left:20px;border-left:1px solid var(--rule)}
+  .meta-cell:nth-child(odd){padding-left:12px;margin-left:-12px;border-left:0}
+}
+@media (max-width:620px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 0}
+  section{padding:54px 0}
+  h2{font-size:25px}
+  .metrics{grid-template-columns:1fr}
+  .metric-value{font-size:30px}
+  .timeline-item{grid-template-columns:1fr;gap:6px}
+  .timeline-date{border-top:0;margin-top:0;padding-top:0}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+  .limits li{padding-left:38px}
+  .meta-strip{grid-template-columns:1fr}
+  .meta-cell,.meta-cell:first-child,.meta-cell:nth-child(odd){
+    margin-left:0;padding-left:12px;border-left:0;
+  }
+  .meta-cell{border-top:1px solid var(--rule-soft)}
+  .meta-cell:first-child{border-top:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .verdict-rule{animation:none}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <h1>PPI 6.5% 与 AI 基建账单 —— 联储鹰派路径重画，与「加息预期一周回落 10.9 个百分点」的背离</h1>
+    <p class="standfirst">本篇回答两个问题。第一，AI 数据中心的电力设备、芯片、土地与建筑施工成本，是否已经进入美国的通胀管道。第二，当 12 月加息 50bp 的概率一个月内从接近 0% 抬到 15.3%、同时 25bp 一档一周回落 10.9 个百分点、而 PPI 同比创 2022 年 11 月以来新高时，联储还剩多少余地。</p>
+    <dl class="meta-strip">
+      <div class="meta-cell"><dt>日期</dt><dd>2026-11-16</dd></div>
+      <div class="meta-cell"><dt>主责</dt><dd>量研 · 研析</dd></div>
+      <div class="meta-cell"><dt>追踪线</dt><dd>宏观利率与股市</dd></div>
+      <div class="meta-cell"><dt>行情口径日</dt><dd>2026-11-13 收盘</dd></div>
+      <div class="meta-cell"><dt>已验证断言</dt><dd><span class="claim-n">7</span> 条 · 逐字回查过原文</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+
+<section class="verdict-band" aria-labelledby="h-verdict">
+  <div class="shell">
+    <h2 id="h-verdict">结论</h2>
+    <span class="verdict-rule" aria-hidden="true"></span>
+    <p class="verdict">AI 基建的账单没有出现在 10 月 PPI 的构成里，却已经出现在联储的反应函数里：同一周 12 月加息 25bp 的一档回落 10.9 个百分点，10 年期美债收益率却累涨 29 个基点收在 5.15%：被重定价的不是 12 月，是 2027 年 3 月。</p>
+    <p class="verdict-note">三个可核对的口径。第一，10 月 PPI 同比 6.5%，其中食品环比 1.3%、卡车货运环比 3.9%、最终需求商品同比 10.2%，没有单独的 AI 分项。第二，古尔斯比把 AI 数据中心热潮写成「传统意义上的需求过热压力」，并承认「央行的政策工具相对有限」。第三，高盛把本轮终点从「12 月结束加息周期」改到 12 月与 2027 年 3 月各加 25bp。</p>
+    <div class="metrics metrics--dark verdict-strip">
+      <div class="metric">
+        <div class="metric-value">6.5%</div>
+        <div class="metric-label">美国 10 月 PPI 同比（11-13 发布口径）</div>
+        <div class="metric-source">美国劳工统计局 BLS · 2026-11-13 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">CME 12月会议加息总概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13 读数</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.15%</div>
+        <div class="metric-label">10年期美债收益率（11-13收盘口径）</div>
+        <div class="metric-source">美国财政部日终收益率曲线 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">64.7%</div>
+        <div class="metric-label">CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13 读数</div>
+      </div>
+    </div>
+    <p class="verdict-note verdict-strip-note">同一周的三个方向：12 月加息 25bp 一档 −10.9pp，10 年期美债收益率 +29bp，2 年期 +37bp。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-data">
+  <div class="shell">
+    <h2 id="h-data">关键数据</h2>
+    <p class="lede">口径统一在 2026 年 11 月 13 日。带「11-13 口径」的是当日读数，带「11-10 口径」的是一周前同一工具的读数；带「发布口径」的是 11 月 13 日公布的 10 月数据。美债收益率取美国财政部日终收益率曲线（美联储 H.15 口径），现货黄金取 11-14 简报转的 11-13 收盘，布伦特取次日晨播的结算价。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">6.5%</div>
+        <div class="metric-label">美国 10 月 PPI 同比（11-13 发布口径）</div>
+        <div class="metric-source">美国劳工统计局 BLS · 2026-11-13 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">84.7%</div>
+        <div class="metric-label">CME 12月会议加息25个基点概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13 读数</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">15.3%</div>
+        <div class="metric-label">CME 12月会议加息50个基点概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13 读数</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">CME 12月会议加息总概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 84.7% 与 15.3% 合计</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">95.6%</div>
+        <div class="metric-label">CME 12月会议加息25个基点概率一周前读数（11-10口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-10 读数</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">64.7%</div>
+        <div class="metric-label">CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13 读数</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.15%</div>
+        <div class="metric-label">10年期美债收益率（11-13收盘口径）</div>
+        <div class="metric-source">美国财政部日终收益率曲线 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">4.88%</div>
+        <div class="metric-label">2年期美债收益率（11-13收盘口径）</div>
+        <div class="metric-source">美国财政部日终收益率曲线 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">103.412</div>
+        <div class="metric-label">美元指数收盘点位（11-13）</div>
+        <div class="metric-source">新华社纽约电 · 汇市尾市 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3,894.52 美元/盎司</div>
+        <div class="metric-label">现货黄金收盘价（11-13）</div>
+        <div class="metric-source">11-14 热点新闻简报 · 转 11-13 收盘</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">95.82 美元/桶</div>
+        <div class="metric-label">布伦特 1 月合约结算价（11-13）</div>
+        <div class="metric-source">investing.com · 11-12 交易日结算价</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">88.56 美元/桶</div>
+        <div class="metric-label">WTI 原油收盘价（11-13）</div>
+        <div class="metric-source">中国基金报 · 转述 11-13 收盘</div>
+      </div>
+    </div>
+    <p class="note"><b>口径</b>：美债收益率取美国财政部日终收益率曲线（美联储 H.15 口径）：10 年期美债收益率（11-13 收盘口径）5.15%，2 年期美债收益率（11-13 收盘口径）4.88%，日变动按 H.15 公布的 11-12 收盘 5.10% 与 4.86% 起算。现货黄金 11-13 收于 3,894.52 美元/盎司（11-14 简报转 11-13 收盘，日涨 0.5%）。布伦特 1 月合约结算价（11-13）是 11-12 交易日的结算价 95.82 美元/桶（次日晨播口径）。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-divergence">
+  <div class="shell">
+    <h2 id="h-divergence">一周里同时发生的三件事</h2>
+    <p class="lede">同一条曲线，两个端点在这一周走反了方向。短端把加息预期集中到 12 月当天，长端却把预期挪到 2027 年；25bp 一档退了，50bp 一档进了。</p>
+    <div class="split split--wide">
+      <figure class="chart">
+        <div class="legend">
+          <span><i class="sw sw-25"></i>加息 25bp</span>
+          <span><i class="sw sw-50"></i>加息 50bp</span>
+          <span><i class="sw sw-0"></i>维持不变</span>
+        </div>
+        <svg viewBox="0 0 640 216" role="img" aria-labelledby="ca-t ca-d">
+          <title id="ca-t">12 月会议加息概率的三个口径</title>
+          <desc id="ca-d">横条显示 11 月 10 日、11 月 11 日、11 月 13 日三个 CME FedWatch 读数中，加息 25bp、加息 50bp 与维持不变三档的概率构成。</desc>
+          <text x="0" y="14" font-size="12" fill="#5d6460" font-family="var(--sans)">概率构成（合计 100%）</text>
+          <text x="0" y="46" font-size="13" fill="#171a18" font-family="var(--sans)">11-10</text>
+          <text x="0" y="60" font-size="11" fill="#5d6460" font-family="var(--sans)">CPI 发布前</text>
+          <rect x="78" y="34" width="537.3" height="34" fill="#7d5a1c"></rect>
+          <rect x="615.3" y="34" width="24.7" height="34" fill="#aeb6b1"></rect>
+          <text x="346" y="55" font-size="12.5" fill="#f4f6f4" text-anchor="middle" font-family="var(--sans)">25bp 95.6%</text>
+          <text x="0" y="112" font-size="13" fill="#171a18" font-family="var(--sans)">11-11</text>
+          <text x="0" y="126" font-size="11" fill="#5d6460" font-family="var(--sans)">CPI 后</text>
+          <rect x="78" y="100" width="497.4" height="34" fill="#7d5a1c"></rect>
+          <rect x="575.4" y="100" width="64.6" height="34" fill="#121513"></rect>
+          <text x="326" y="121" font-size="12.5" fill="#f4f6f4" text-anchor="middle" font-family="var(--sans)">25bp 88.5%</text>
+          <text x="607" y="121" font-size="12.5" fill="#f4f6f4" text-anchor="middle" font-family="var(--sans)">50bp 11.5%</text>
+          <text x="0" y="178" font-size="13" fill="#171a18" font-family="var(--sans)">11-13</text>
+          <text x="0" y="192" font-size="11" fill="#5d6460" font-family="var(--sans)">PPI 后</text>
+          <rect x="78" y="166" width="476" height="34" fill="#7d5a1c"></rect>
+          <rect x="554" y="166" width="86" height="34" fill="#121513"></rect>
+          <text x="316" y="187" font-size="12.5" fill="#f4f6f4" text-anchor="middle" font-family="var(--sans)">25bp 84.7%</text>
+          <text x="597" y="187" font-size="12.5" fill="#f4f6f4" text-anchor="middle" font-family="var(--sans)">50bp 15.3%</text>
+        </svg>
+        <figcaption>CME FedWatch 12 月会议概率构成，三个口径。11-10 读数为 25bp 95.6%、维持不变 4.4%，未列 50bp 档；11-11 与 11-13 读数中维持不变均为 0%。</figcaption>
+      </figure>
+      <div class="stack">
+        <div class="tw" tabindex="0" role="region" aria-labelledby="tb-cap">
+          <table>
+            <caption id="tb-cap">12 月会议概率与一周前读数对比</caption>
+            <thead>
+              <tr><th scope="col">档位</th><th scope="col">11-10 口径</th><th scope="col">11-13 口径</th><th scope="col">变动</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">加息 25bp</th><td class="num">95.6%</td><td class="num hi">84.7%</td><td class="num neg">−10.9pp</td></tr>
+              <tr><th scope="row">加息 50bp</th><td class="num">未列明</td><td class="num hi">15.3%</td><td class="num">—</td></tr>
+              <tr><th scope="row">维持不变</th><td class="num">4.4%</td><td class="num">0%</td><td class="num">−4.4pp</td></tr>
+              <tr><th scope="row">加息总概率</th><td class="num">95.6%</td><td class="num hi">100%</td><td class="num">+4.4pp</td></tr>
+              <tr><th scope="row">12 月 50bp 一个月前</th><td class="num" colspan="3">接近 0%（10 月 CPI 公布当晚升至 11.6%）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tw" tabindex="0" role="region" aria-labelledby="tc-cap">
+          <table>
+            <caption id="tc-cap">至 2027 年 1 月累计口径</caption>
+            <thead>
+              <tr><th scope="col">累计档位</th><th scope="col">11-11 口径</th><th scope="col">11-13 口径</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">累计加息 25bp</th><td class="num">未列明</td><td class="num">24.4%</td></tr>
+              <tr><th scope="row">累计加息 50bp</th><td class="num">59.2%</td><td class="num hi">64.7%</td></tr>
+              <tr><th scope="row">累计加息 75bp</th><td class="num">7.1%</td><td class="num">未列明</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <figure class="chart chart--wide">
+      <div class="legend">
+        <span><i class="sw sw-10y"></i>10 年期</span>
+        <span><i class="sw sw-2y"></i>2 年期</span>
+      </div>
+      <svg viewBox="0 0 640 262" role="img" aria-labelledby="cb-t cb-d">
+        <title id="cb-t">美债收益率的周变动与周五单日变动</title>
+        <desc id="cb-d">分组条形图。本周累计（11-06 → 11-13）10 年期 +29 个基点、2 年期 +37 个基点；11 月 13 日单日 10 年期 +5 个基点、2 年期 +2 个基点。</desc>
+        <g stroke="#dfe4e0">
+          <line x1="110" y1="38" x2="620" y2="38"></line>
+          <line x1="110" y1="78.6" x2="620" y2="78.6"></line>
+          <line x1="110" y1="119" x2="620" y2="119"></line>
+          <line x1="110" y1="159.5" x2="620" y2="159.5"></line>
+        </g>
+        <line x1="110" y1="200" x2="620" y2="200" stroke="#171a18"></line>
+        <g font-size="11" fill="#5d6460" text-anchor="end">
+          <text x="102" y="41.4">40bp</text>
+          <text x="102" y="82">30bp</text>
+          <text x="102" y="123">20bp</text>
+          <text x="102" y="163.5">10bp</text>
+          <text x="102" y="204">0</text>
+        </g>
+        <rect x="110" y="82.55" width="76" height="117.45" fill="#121513"></rect>
+        <rect x="200" y="50.15" width="76" height="149.85" fill="#7d5a1c"></rect>
+        <rect x="360" y="179.75" width="76" height="20.25" fill="#121513"></rect>
+        <rect x="450" y="191.9" width="76" height="8.1" fill="#7d5a1c"></rect>
+        <g font-size="11.5" fill="#f4f6f4" text-anchor="middle" font-variant-numeric="tabular-nums">
+          <text x="148" y="146">+29bp</text>
+          <text x="238" y="130">+37bp</text>
+        </g>
+        <g font-size="11.5" fill="#171a18" text-anchor="middle" font-variant-numeric="tabular-nums">
+          <text x="398" y="173.5">+5bp</text>
+          <text x="488" y="185.5">+2bp</text>
+        </g>
+        <g font-size="11.5" fill="#4f5551" text-anchor="middle">
+          <text x="193" y="252">本周累计（11-06 → 11-13）</text>
+          <text x="443" y="252">11-13 单日</text>
+        </g>
+      </svg>
+      <figcaption>美债收益率的周内累计与 11-13 单日变动，单位为基点，美国财政部日终收益率曲线口径。周内 2 年期走得更快；周五长端领涨。</figcaption>
+    </figure>
+    <p class="note"><b>读法一</b>：一周里 25bp 一档退 10.9 个百分点，50bp 一档从接近 0% 进到 15.3%，而加息总概率从 95.6% 升到 100%。回落的是「只有 25bp」这一档，不是加息本身。<b>读法二</b>：2 年期收益率周内累涨 37 个基点，10 年期累涨 29 个基点，前半周的信息进了短端。周五 PPI 公布当天长端领涨（10 年期 +5 个基点、2 年期 +2 个基点），2s10s 从 24 个基点走阔到 27 个基点（本篇按 H.15 收盘口径推算）。<b>读法三</b>：11-13 的累计 24.4% 加 64.7% 等于 89.1%，余下 10.9% 落在更高累计档位，本次口径未列明具体档位。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-ppi">
+  <div class="shell">
+    <h2 id="h-ppi">10 月 PPI 的 6.5%，构成里没有 AI</h2>
+    <p class="lede">同比 6.5% 是 2022 年 11 月以来最高，但拆开看，驱动来自食品、卡车货运、关税与能源冲击。PPI 没有单独的 AI 数据中心分项，能被它看见的传导路径在中间需求阶段。</p>
+    <div class="split">
+      <div class="tw" tabindex="0" role="region" aria-labelledby="tp-cap">
+        <table>
+          <caption id="tp-cap">2026 年 10 月美国 PPI 分项（季节调整后环比，同比为未经季调 12 个月变动）</caption>
+          <thead>
+            <tr><th scope="col">分项</th><th scope="col">环比</th><th scope="col">同比</th><th scope="col">口径</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">最终需求 PPI</th><td class="num hi">+0.3%</td><td class="num hi">+6.5%</td><td>BLS · 预期 0.4%</td></tr>
+            <tr><th scope="row">核心 PPI（剔食品能源）</th><td class="num">+0.3%</td><td class="num">+5.0%</td><td>与前月一致</td></tr>
+            <tr><th scope="row">剔食品能源贸易服务</th><td class="num">+0.5%</td><td class="num">+4.9%</td><td>与 9 月持平</td></tr>
+            <tr><th scope="row">最终需求商品</th><td class="num">+0.5%</td><td class="num">+10.2%</td><td>2022 年 10 月以来最高</td></tr>
+            <tr><th scope="row">最终需求服务</th><td class="num">+0.2%</td><td class="num">—</td><td>连续第五个月上涨</td></tr>
+            <tr><th scope="row">食品</th><td class="num">+1.3%</td><td class="num">—</td><td>生鲜干蔬菜、加工肉鸡走高</td></tr>
+            <tr><th scope="row">能源</th><td class="num neg">−0.1%</td><td class="num">—</td><td>柴油 −7.9%</td></tr>
+            <tr><th scope="row">卡车货运</th><td class="num hi">+3.9%</td><td class="num">—</td><td>贡献服务涨幅超八成</td></tr>
+            <tr><th scope="row">贸易服务利润率</th><td class="num neg">−0.2%</td><td class="num">—</td><td>机械车辆批发利润率 −4.2%</td></tr>
+            <tr><th scope="row">中间需求·加工商品</th><td class="num">+0.4%</td><td class="num">高增速</td><td>四个阶段同比均高增速</td></tr>
+            <tr><th scope="row">中间需求·未加工商品</th><td class="num neg">−3.1%</td><td class="num">高增速</td><td>原油价格回落</td></tr>
+            <tr><th scope="row">中间需求·服务</th><td class="num">+0.6%</td><td class="num">高增速</td><td>四个阶段同比均高增速</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="chart">
+        <div class="legend">
+          <span><i class="sw sw-pos"></i>正值</span>
+          <span><i class="sw sw-neg"></i>负值</span>
+        </div>
+        <svg viewBox="0 0 640 250" role="img" aria-labelledby="cc-t cc-d">
+          <title id="cc-t">10 月 PPI 分项环比读数</title>
+          <desc id="cc-d">横向条形图，以零线为基准，显示最终需求 PPI、核心 PPI、食品、卡车货运、中间需求加工商品与未加工商品等分项的 10 月环比百分比。</desc>
+          <line x1="470" y1="26" x2="470" y2="236" stroke="#171a18" stroke-width="1"></line>
+          <text x="470" y="20" font-size="11" fill="#5d6460" text-anchor="middle" font-family="var(--sans)">0%</text>
+          <text x="0" y="14" font-size="12" fill="#5d6460" font-family="var(--sans)">2026 年 10 月环比</text>
+          <g font-size="12" fill="#4f5551" font-family="var(--sans)">
+            <text x="190" y="42" text-anchor="end">最终需求 PPI</text>
+            <text x="190" y="60" text-anchor="end">核心 PPI（剔食品能源）</text>
+            <text x="190" y="78" text-anchor="end">剔食品能源贸易服务</text>
+            <text x="190" y="96" text-anchor="end">最终需求商品</text>
+            <text x="190" y="114" text-anchor="end">最终需求服务</text>
+            <text x="190" y="132" text-anchor="end">食品</text>
+            <text x="190" y="150" text-anchor="end">能源</text>
+            <text x="190" y="168" text-anchor="end">卡车货运</text>
+            <text x="190" y="186" text-anchor="end">中间需求·加工商品</text>
+            <text x="190" y="204" text-anchor="end">中间需求·未加工商品</text>
+            <text x="190" y="222" text-anchor="end">柴油</text>
+          </g>
+          <g fill="#2b332e">
+            <rect x="470" y="32" width="9" height="11"></rect>
+            <rect x="470" y="50" width="9" height="11"></rect>
+            <rect x="470" y="68" width="15" height="11"></rect>
+            <rect x="470" y="86" width="15" height="11"></rect>
+            <rect x="470" y="104" width="6" height="11"></rect>
+            <rect x="470" y="122" width="39" height="11"></rect>
+            <rect x="470" y="158" width="117" height="11"></rect>
+            <rect x="470" y="176" width="12" height="11"></rect>
+          </g>
+          <g fill="#7d5a1c">
+            <rect x="467" y="140" width="3" height="11"></rect>
+            <rect x="377" y="194" width="93" height="11"></rect>
+            <rect x="233" y="212" width="237" height="11"></rect>
+          </g>
+          <g font-size="11" fill="#171a18" font-variant-numeric="tabular-nums">
+            <text x="485" y="42">+0.3%</text>
+            <text x="485" y="60">+0.3%</text>
+            <text x="491" y="78">+0.5%</text>
+            <text x="491" y="96">+0.5%</text>
+            <text x="482" y="114">+0.2%</text>
+            <text x="515" y="132">+1.3%</text>
+            <text x="461" y="150" text-anchor="end">−0.1%</text>
+            <text x="593" y="168">+3.9%</text>
+            <text x="488" y="186">+0.4%</text>
+            <text x="371" y="204" text-anchor="end">−3.1%</text>
+            <text x="227" y="222" text-anchor="end">−7.9%</text>
+          </g>
+        </svg>
+        <figcaption>2026 年 10 月美国 PPI 关键分项环比，零线为基准。铜色为负值。</figcaption>
+      </figure>
+    </div>
+    <div class="callout">
+      <h3>AI 账单在哪里</h3>
+      <p>古尔斯比的表述把 AI 基建放在需求一侧，而不是供给侧。原文是：人工智能数据中心建设热潮带来了传统意义上的需求过热压力，而且这种影响似乎正在向其他领域扩散。</p>
+      <p>他走访中得到的证据是电气设备、芯片、建筑施工成本明显上涨。这四项没有出现在 10 月 PPI 的分项表里。能被 PPI 看见的，是中间需求四个生产阶段同比均维持高增速：加工商品环比 0.4%、中间需求服务环比 0.6%。账单进管道的路径是「中间需求 → 商品 → 服务」，不是 10 月 PPI 的同比读数。</p>
+    </div>
+    <p class="note"><b>本篇判断</b>：因此，把 10 月 PPI 同比 6.5% 直接读成「AI 基建推高通胀」是过度归因。6.5% 的解释在食品、货运、关税与能源；AI 基建的成本压力在中间需求与资本开支，它进入的是联储的理由，不是本月的数字。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-fed">
+  <div class="shell">
+    <h2 id="h-fed">反应函数：AI 账单如何写进联储的语言</h2>
+    <p class="lede">从 10 月 CPI 到 10 月 PPI，四天之内，联储官员的用词从「继续观察」换成了「重建公信力」。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026-10-28</span>
+        <div>
+          <div class="timeline-title">FOMC 维持 3.75%–4.00%，10 票对 2 票</div>
+          <div class="timeline-detail">理事库克与克利夫兰联储主席哈马克主张加息 25 个基点。主席沃什拒绝「软性通胀目标」，未给出 12 月明确指引。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-10</span>
+        <div>
+          <div class="timeline-title">10 月 CPI 连续第三个月超预期</div>
+          <div class="timeline-detail">整体 CPI 环比 0.4%、核心 CPI 环比 0.3%，均比市场预期高 0.1 个百分点。当晚 12 月加息 50bp 的概率由接近 0% 升至 11.6%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-10</span>
+        <div>
+          <div class="timeline-title">沃勒放话：可能需要更强力的政策行动</div>
+          <div class="timeline-detail">若 10 月核心 CPI 与过去两个月相近或更高，则「可能需要更强力的政策行动」。同日高盛把加息次数预测上调至三次，新增 2027 年 3 月加息 25bp，首次降息从 2027 年 9 月推迟到 12 月。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-10</span>
+        <div>
+          <div class="timeline-title">鲍曼给出第二条风险线：AI 回报</div>
+          <div class="timeline-detail">警告 AI 投资回报不确定性可能引发股票估值大幅修正，并推高私人长期利率；同时暗示她可支持 12 月加息。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-12</span>
+        <div>
+          <div class="timeline-title">纽约联储主席威廉姆斯：可能需要进一步行动</div>
+          <div class="timeline-detail">表示可能需要采取进一步的政策行动来控制通胀，同时要避免对就业造成过大损害。前一交易日 2 年期美债单日跳涨 19 个基点至 4.74%，10 年期一度触及 5%。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">10 月 PPI 公布：同比 6.5%</div>
+          <div class="timeline-detail">环比 0.3%，低于预期的 0.4%；同比 6.5%，为 2022 年 11 月以来最高。最终需求商品同比 10.2%，为 2022 年 10 月以来最高。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">古尔斯比转鹰，把 AI 写进理由</div>
+          <div class="timeline-detail">「美联储显然还有很多工作要做，才能继续重建自身的公信力」；大规模数据中心投资正在推高电力设备、计算机芯片、土地及建筑施工等领域的成本；并承认「央行的政策工具相对有限」。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">哈马克与科林斯同日跟进</div>
+          <div class="timeline-detail">哈马克：人工智能基础设施建设正在带来实实在在的价格上涨压力，需要加息使政策利率达到限制性水平，但支持幅度更小、更稳定的加息。科林斯：货币政策清晰的方向是走高，预计很快会有一些额外的收紧。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-13</span>
+        <div>
+          <div class="timeline-title">华尔街重画路线图</div>
+          <div class="timeline-detail">美银、花旗、渣打认为 12 月加息 50bp 的可能性上升；高盛把「12 月结束本轮加息周期」改为 12 月与 2027 年 3 月各加息 25bp，利率峰值升至 4.25%–4.50%。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section aria-labelledby="h-pricing">
+  <div class="shell">
+    <h2 id="h-pricing">谁在为 AI 基建定价通胀</h2>
+    <p class="lede">五个市场，五个不同的定价对象。债市和商品在定价 AI 基建的成本与管道，黄金在定价央行信誉，股票在定价股权回报，方向相反。</p>
+    <div class="tw" tabindex="0" role="region" aria-labelledby="tr-cap">
+      <table>
+        <caption id="tr-cap">11-13 收盘口径下，各资产在定价什么</caption>
+        <thead>
+          <tr><th scope="col">市场</th><th scope="col">11-13 收盘</th><th scope="col">当日</th><th scope="col">本周</th><th scope="col">在定价什么</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">10 年期美债</th><td class="num">5.15%</td><td class="num">+5bp</td><td class="num">+29bp</td><td>生产者价格管道与联储信誉，比核心 PPI 同比只高 15bp</td></tr>
+          <tr><th scope="row">2 年期美债</th><td class="num">4.88%</td><td class="num">+2bp</td><td class="num">+37bp</td><td>12 月会议本身；周内 2 年期跑赢长端 8 个基点，短端定价更集中</td></tr>
+          <tr><th scope="row">美元指数</th><td class="num">103.412</td><td class="num">+0.23%</td><td class="num">+1.11%</td><td>相对紧缩程度，接近 19 个月高位</td></tr>
+          <tr><th scope="row">布伦特 1 月</th><td class="num">95.82 美元/桶</td><td class="num">+3.30%</td><td class="num">−2.2%</td><td>中东风险溢价与二次通胀；本行为 11-12 交易日结算价</td></tr>
+          <tr><th scope="row">WTI 12 月</th><td class="num">88.56 美元/桶</td><td class="num neg">−0.2%</td><td class="num">—</td><td>同上</td></tr>
+          <tr><th scope="row">现货黄金</th><td class="num">3,894.52 美元/盎司</td><td class="num">+0.46%</td><td class="num neg">近 −4%</td><td>央行信誉，不是通胀对冲；11-12 跌破 3900</td></tr>
+          <tr><th scope="row">标普 500</th><td class="num">7,561.67</td><td class="num neg">−0.40%</td><td class="num">上涨</td><td>股权回报，整体仍是正周</td></tr>
+          <tr><th scope="row">纳斯达克</th><td class="num">25,136.273</td><td class="num neg">−0.91%</td><td class="num">—</td><td>AI 股权回报；科技板块当日 −1.70%</td></tr>
+          <tr><th scope="row">英伟达</th><td class="num">—</td><td class="num neg">−2%</td><td class="num neg">−13%</td><td>AI 算力的股权回报；市值跌破 4 万亿美元，六连跌</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>本篇判断</b>：把这张表叠起来看，AI 基建的成本由债券市场定价，AI 基建的回报由股票市场定价，两者在 11-13 同一周里方向相反。黄金跌出 6 月初以来最差的一周，说明市场不给「联储能把通胀压回去」这件事付溢价：如果市场相信 PPI 的 6.5% 是暂时的、且联储会把它压下来，黄金不会在 PPI 创三年新高的同一周跌到一年多新低。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-room">
+  <div class="shell">
+    <h2 id="h-room">联储还剩多少余地</h2>
+    <p class="lede">名义上还有两次 25bp，实际利率上仍是负的；按生产者价格口径，长端几乎没有缓冲。</p>
+    <div class="split">
+      <figure class="chart">
+        <svg viewBox="0 0 640 268" role="img" aria-labelledby="cd-t cd-d">
+          <title id="cd-t">联邦基金利率目标区间阶梯与对照线</title>
+          <desc id="cd-d">阶梯图显示当前目标区间 3.75% 至 4.00%、12 月加息 25 个基点后的 4.00% 至 4.25%、12 月加息 50 个基点或高盛路径终点的 4.25% 至 4.50%，并以虚线标出 10 月核心 PPI 同比 5.0% 作为对照。</desc>
+          <line x1="60" y1="30" x2="60" y2="222" stroke="#d2d8d4"></line>
+          <g font-size="11" fill="#5d6460" font-family="var(--sans)" text-anchor="end">
+            <text x="54" y="81">5.0%</text>
+            <text x="54" y="176">4.0%</text>
+            <text x="54" y="226">3.5%</text>
+          </g>
+          <line x1="60" y1="78" x2="620" y2="78" stroke="#7d5a1c" stroke-dasharray="5 4"></line>
+          <text x="620" y="70" font-size="11.5" fill="#7d5a1c" text-anchor="end" font-family="var(--sans)">10 月核心 PPI 同比 5.0%</text>
+          <rect x="90" y="196" width="120" height="24" fill="#2b332e"></rect>
+          <text x="150" y="188" font-size="12.5" fill="#171a18" text-anchor="middle" font-family="var(--sans)">3.75%–4.00%</text>
+          <text x="150" y="236" font-size="11.5" fill="#4f5551" text-anchor="middle" font-family="var(--sans)">现在（10-28 起）</text>
+          <text x="150" y="252" font-size="11" fill="#5d6460" text-anchor="middle" font-family="var(--sans)">EFFR 3.88%</text>
+          <rect x="250" y="172" width="120" height="24" fill="#7d5a1c"></rect>
+          <text x="310" y="164" font-size="12.5" fill="#171a18" text-anchor="middle" font-family="var(--sans)">4.00%–4.25%</text>
+          <text x="310" y="212" font-size="11.5" fill="#4f5551" text-anchor="middle" font-family="var(--sans)">12 月 +25bp</text>
+          <text x="310" y="228" font-size="11" fill="#5d6460" text-anchor="middle" font-family="var(--sans)">概率 84.7%</text>
+          <rect x="410" y="148" width="120" height="24" fill="#121513"></rect>
+          <text x="470" y="140" font-size="12.5" fill="#171a18" text-anchor="middle" font-family="var(--sans)">4.25%–4.50%</text>
+          <text x="470" y="188" font-size="11.5" fill="#4f5551" text-anchor="middle" font-family="var(--sans)">12 月 +50bp</text>
+          <text x="470" y="204" font-size="11" fill="#5d6460" text-anchor="middle" font-family="var(--sans)">概率 15.3%</text>
+          <line x1="210" y1="196" x2="250" y2="172" stroke="#5d6460" stroke-width="1"></line>
+          <line x1="370" y1="172" x2="410" y2="148" stroke="#5d6460" stroke-width="1"></line>
+          <line x1="60" y1="220" x2="620" y2="220" stroke="#171a18"></line>
+          <text x="60" y="274" font-size="11.5" fill="#5d6460">纵轴：联邦基金利率目标区间（%）；高盛路径终点与 12 月 +50bp 落在同一区间。</text>
+        </svg>
+        <figcaption>利率空间阶梯：从 3.75%–4.00% 走到 4.25%–4.50%，名义上是两次 25bp。虚线是 10 月核心 PPI 同比 5.0%。</figcaption>
+      </figure>
+      <div class="stack">
+        <div class="tw" tabindex="0" role="region" aria-labelledby="tq-cap">
+          <table>
+            <caption id="tq-cap">实际政策利率（按不同价格口径计）</caption>
+            <thead>
+              <tr><th scope="col">节点</th><th scope="col">政策利率中枢</th><th scope="col">对核心 PPI 5.0%</th><th scope="col">对 PPI 6.5%</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">现在</th><td class="num">3.875%</td><td class="num neg">−112bp</td><td class="num neg">−262bp</td></tr>
+              <tr><th scope="row">12 月 +25bp</th><td class="num">4.125%</td><td class="num neg">−88bp</td><td class="num neg">−238bp</td></tr>
+              <tr><th scope="row">12 月 +50bp</th><td class="num">4.375%</td><td class="num neg">−62bp</td><td class="num neg">−212bp</td></tr>
+              <tr><th scope="row">高盛路径终点</th><td class="num">4.375%</td><td class="num neg">−62bp</td><td class="num neg">−212bp</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="limits">
+          <li><b>工具有限</b>：古尔斯比承认央行的政策工具相对有限，主要依靠利率调节经济需求。土地、变压器、芯片与施工的价格，利率压不动；利率能压住的需求里，包含 AI 资本开支本身。</li>
+          <li><b>信誉是约束</b>：目标写成「重建自身的公信力」，而不是「压低通胀」。近六年通胀率一直高于 2%，且近期看不到改善迹象。黄金本周仍跌近 4%（11-14 简报口径）是这个约束的市场报价。</li>
+          <li><b>长端已在替联储定价</b>：10 年期 5.15% 只比核心 PPI 同比 5.0% 高 15 个基点。周五长端领涨（10 年期 +5 个基点、2 年期 +2 个基点），增量信息进了长端而不是短端。</li>
+          <li><b>资产端会反馈</b>：鲍曼警告 AI 回报不确定性可能引发股票估值大幅修正，并推高私人长期利率；股价下跌削弱消费韧性，利率上升压制住房和小企业投资。</li>
+        </ol>
+      </div>
+    </div>
+    <p class="note"><b>本篇判断</b>：联储还剩多少余地，答案分两层。名义层是 50bp：到 4.25%–4.50%，与高盛路径的终点相同；市场已经用 64.7% 的概率给到 2027 年 1 月。实际层是负的：即便走到 4.25%–4.50%，按核心 PPI 同比计的实际政策利率仍是 −62bp。真正的边界在长端：10 年期比核心 PPI 只高 15 个基点，联储每加一次 bp，AI 基建的资本成本就由债券市场单独承担一次；长端走不动的时候，替联储收紧的是股票市场的估值。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-evidence">
+  <div class="shell">
+    <h2 id="h-evidence">逐字证据</h2>
+    <p class="lede">本节全部为原文引用。中文引语按原刊标点排印。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">我认为，美联储显然还有很多工作要做，才能继续重建自身的公信力。</p>
+        <cite class="evidence-source">芝加哥联储主席古尔斯比，2026-11-13 接受采访；财联社 2026-11-13 23:43</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">近六年来，美国通胀率一直高于2%。尽管期间有时取得了一些进展，但最近我们已经看不到任何改善迹象，甚至可以说，通胀走势正在朝着错误的方向发展。</p>
+        <cite class="evidence-source">古尔斯比，2026-11-13；财联社 2026-11-13</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">大规模数据中心投资正在推高电力设备、计算机芯片、土地及建筑施工等领域的成本。</p>
+        <cite class="evidence-source">古尔斯比，2026-11-13；财联社 2026-11-13</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">On an unadjusted basis, the index for final demand increased 6.5 percent for the 12 months ended in October, the largest 12-month rise since moving up 7.4 percent in November 2022.</p>
+        <cite class="evidence-source">美国劳工统计局，Producer Price Index News Release，USDL 26-1687，2026-11-13 08:30 ET</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">据路透社11月11日报道，高盛最新调整美联储利率预测，预计美联储将在今年12月和明年3月分别加息25个基点，并将首次降息时间从此前预计的2027年9月推迟至2027年12月。</p>
+        <cite class="evidence-source">环球网 2026-11-11，转述路透社</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">货币政策清晰的方向是走高，预计很快会有一些额外的收紧，这是合适的。合适的货币政策可能要比自己此前的预期稍微更为收紧。</p>
+        <cite class="evidence-source">波士顿联储主席苏珊·科林斯，2026-11-13；新华财经 2026-11-14</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">黄金 11-12 单日暴跌 3% 至一年多最低，13 日回升 0.5% 至 3894.52 美元/盎司，本周仍跌近 4%</p>
+        <cite class="evidence-source">11-14 热点新闻简报「金融动态 5」，转 FXStreet / 汇通财经 11-13</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">The 10-year US Treasury yield closed at 5.15% on Friday, 13 November 2026, up 5 basis points from the previous session.</p>
+        <cite class="evidence-source">crunchupdates（按美国财政部日终收益率曲线自动更新），2026-11-15 更新</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-caliber">
+  <div class="shell">
+    <h2 id="h-caliber">口径与未确认</h2>
+    <p class="lede">素材简报存在滞后与口径差异。本节列出本篇的取值与依据；未确认项不参与判断。</p>
+    <div class="tw" tabindex="0" role="region" aria-labelledby="tv-cap">
+      <table>
+        <caption id="tv-cap">口径差异与未确认项</caption>
+        <thead>
+          <tr><th scope="col">项目</th><th scope="col">本篇采用</th><th scope="col">简报或流传口径</th><th scope="col">处理</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">WTI 11-13 收盘</th><td class="num">88.56 美元/桶</td><td class="num">88.79、+2.7%</td><td>88.79 属 11-12 美东收盘（北京时间 11-13 报道）</td></tr>
+          <tr><th scope="row">美元指数 11-13</th><td class="num">103.412（+0.23%）</td><td class="num">103.48、+0.34%</td><td>采用新华社纽约尾市口径</td></tr>
+          <tr><th scope="row">10 年期美债 11-13</th><td class="num">5.15%（日终曲线口径）</td><td class="num">5.1352%、新浪「纽约尾盘」快照</td><td>取美国财政部日终收益率曲线；日变动 +5bp 按 H.15 公布的 11-12 收盘 5.10% 起算；H.15 2026-11-16 发布版可核对 Nov 13 列</td></tr>
+          <tr><th scope="row">现货黄金 11-13</th><td class="num">3,894.52</td><td class="num">3,883.40、Kitco 纽约尾盘快照</td><td>采用 11-14 简报「13 日回升 0.5% 至 3894.52 美元/盎司」；本周跌近 4% 为简报口径、起止未确认；Kitco 快照是另一时点读数，不与本标签并列</td></tr>
+          <tr><th scope="row">高盛改口日期</th><td class="num">2026-11-11</td><td class="num">11-13</td><td>以路透原始报道日为准</td></tr>
+          <tr><th scope="row">累计口径余量</th><td class="num">10.9%</td><td class="num">—</td><td>档位未列明，本篇不推断</td></tr>
+          <tr><th scope="row">布伦特 1 月合约结算价（11-13）</th><td class="num">95.82 美元/桶</td><td class="num">95.84、11-13 交易日收盘</td><td>该系列标签日 = 交易日 + 1（次日晨播结算价），（11-13）即 11-12 交易日结算价；95.84 若引用须另立标签</td></tr>
+          <tr><th scope="row">素材滞后</th><td class="num">行情 11-13（滞后 3 天）</td><td class="num">AI 简报 11-15 版；热点简报 11-14 版（滞后 2 天）；股市简报 11-12 版（滞后 4 天）</td><td>正文标注，未确认项不采信</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>方法</b>：行情数据统一为 2026-11-13 收盘口径；美债收益率取美国财政部日终收益率曲线（美联储 H.15 口径），现货黄金取 11-14 热点简报转的 11-13 收盘，布伦特取 investing.com 历史行情的 11-12 交易日结算价。数据来源包括美国劳工统计局 PPI 新闻稿（USDL 26-1687）、CME FedWatch（经同花顺与财联社转述）、美国财政部与美联储 H.15、新华社、新华财经、财联社、Kitco、中国基金报、investing.com、新浪财经 7x24、环球网与路透。凡标「本篇判断」的段落为推论，不是事实。</p>
+    <p><b>滞后</b>：行情数据滞后 3 天；AI 简报为 2026-11-15 版；热点新闻简报为 2026-11-14 版，滞后 2 天；每日股市简报为 2026-11-12 版，滞后 4 天；美联储 H.15 的 11-13 列于 2026-11-16 16:15 ET 发布后可复核。</p>
+    <p><b>分工</b>：本篇与 2026-11-13 作品《加息满值与 3900 美元》不重叠。前作覆盖 11-12 收盘口径的四张价格表；本篇从 11-13 收盘口径出发，回答 PPI 构成、AI 基建传导与联储余地三个问题。</p>
+    <p><b>免责</b>：本页为研究性内容，不构成投资建议。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {
+    "value": "6.5%",
+    "label": "美国 10 月 PPI 同比（11-13 发布口径）",
+    "quote": "6.5% 美国 10 月 PPI 同比（11-13 发布口径）"
+  },
+  {
+    "value": "84.7%",
+    "label": "CME 12月会议加息25个基点概率（11-13口径）",
+    "quote": "84.7% CME 12月会议加息25个基点概率（11-13口径）"
+  },
+  {
+    "value": "15.3%",
+    "label": "CME 12月会议加息50个基点概率（11-13口径）",
+    "quote": "15.3% CME 12月会议加息50个基点概率（11-13口径）"
+  },
+  {
+    "value": "95.6%",
+    "label": "CME 12月会议加息25个基点概率一周前读数（11-10口径）",
+    "quote": "95.6% CME 12月会议加息25个基点概率一周前读数（11-10口径）"
+  },
+  {
+    "value": "64.7%",
+    "label": "CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）",
+    "quote": "64.7% CME 至 2027 年 1 月累计加息50个基点概率（11-13口径）"
+  },
+  {
+    "value": "5.15%",
+    "label": "10年期美债收益率（11-13收盘口径）",
+    "quote": "10 年期美债收益率（11-13 收盘口径）5.15%"
+  },
+  {
+    "value": "3,894.52 美元/盎司",
+    "label": "现货黄金收盘价（11-13）",
+    "quote": "现货黄金 11-13 收于 3,894.52 美元/盎司（11-14 简报转 11-13 收盘，日涨 0.5%）"
+  }
+]
+</script>
+
+</body>
+</html>

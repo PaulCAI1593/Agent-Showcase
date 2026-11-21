@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="ANT 开钟时刻：Anthropic 从 2 万亿美元目标估值到 11-19 纳斯达克挂牌的 8 天，估值下修逾两成的倒计时叙事。">
+<title>ANT 开钟时刻：从 2 万亿目标到挂牌的 8 天</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --ink:#0a0a0b;
+  --panel:#141417;
+  --line:#2a2a31;
+  --f1:#f5f5f7;
+  --f2:#b9b9c0;
+  --f3:#d8d8dc;
+  --amber:#f0a63a;
+  --amber-deep:#c9821f;
+  --on-amber:#0a0a0b;
+  --drop:#ff6a55;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--f1);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+[hidden]{display:none!important}
+img,svg{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1,h2{margin:0;font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+h1{font-size:44px;line-height:1.08}
+h2{font-size:30px;line-height:1.16}
+p{margin:0}
+a{color:var(--amber)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.band :focus-visible{outline-color:var(--on-amber)}
+
+.js .reveal{opacity:0;transform:translateY(20px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+.hero{display:grid;grid-template-columns:1fr;gap:30px;align-items:center;
+  padding:56px 0 44px;min-height:92vh}
+.hero .lede{font-size:19px;color:var(--f3);margin-top:18px;max-width:20em}
+.tape{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
+  border-top:2px solid var(--amber);border-bottom:2px solid var(--amber);
+  padding:13px 0;margin-top:30px;font-family:var(--mono);font-size:15px;
+  color:var(--amber);letter-spacing:.01em}
+.tape span{white-space:nowrap}
+.tape .dim{color:var(--f2)}
+.cue{margin-top:24px;font-family:var(--mono);font-size:15px;color:var(--f2);
+  display:flex;align-items:center;gap:10px}
+.cue svg{flex:none}
+.bell-plate{display:flex;justify-content:flex-start}
+.bell{width:210px;height:auto;max-width:100%}
+.js .bell{opacity:0;animation:bellIn .9s var(--ease) .15s forwards}
+.js .bell .clapper{transform-origin:120px 66px;animation:ring 1.5s var(--ease) .5s 1}
+@keyframes bellIn{to{opacity:1}}
+@keyframes ring{0%{transform:rotate(0)}22%{transform:rotate(-11deg)}
+  48%{transform:rotate(8deg)}74%{transform:rotate(-4deg)}100%{transform:rotate(0)}}
+
+section{padding:72px 0}
+.sec-hint{color:var(--f2);font-size:16px;margin-top:14px}
+.scrub-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;margin:34px 0 6px}
+.scrub-date{font-family:var(--mono);font-size:46px;font-weight:700;
+  color:var(--amber);letter-spacing:-.02em;line-height:1}
+.scrub-count{font-family:var(--mono);font-size:17px;color:var(--f2)}
+.scrub{width:100%;margin:14px 0 4px;height:40px;background:transparent;
+  -webkit-appearance:none;appearance:none;cursor:pointer;display:block}
+.scrub::-webkit-slider-runnable-track{height:6px;background:var(--line);border-radius:3px}
+.scrub::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;
+  background:var(--amber);border:4px solid var(--ink);border-radius:50%}
+.scrub::-moz-range-track{height:6px;background:var(--line);border-radius:3px}
+.scrub::-moz-range-progress{height:6px;background:var(--amber-deep);border-radius:3px}
+.scrub::-moz-range-thumb{width:22px;height:22px;background:var(--amber);
+  border:4px solid var(--ink);border-radius:50%}
+.markers{display:flex;justify-content:space-between;gap:6px;margin-top:2px;height:34px}
+.marker{background:none;border:0;padding:6px 2px;font-family:var(--mono);
+  font-size:14px;color:var(--f2);cursor:pointer;transform:none}
+.marker.is-on{color:var(--amber);font-weight:700}
+.day{border-top:1px solid var(--line);padding-top:26px;margin-top:10px;min-height:212px}
+.day-tag{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.day-date{font-family:var(--mono);font-size:15px;color:var(--f2)}
+.day-count{font-family:var(--mono);font-size:15px;color:var(--amber)}
+.day-big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.06;margin-top:14px}
+.day-big .unit{font-size:20px;font-weight:700;color:var(--f2);margin-left:.4em;letter-spacing:0}
+.day-mid{font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.26;margin-top:16px}
+.day-line{color:var(--f3);margin-top:14px;max-width:34em}
+.day-line + .day-line{margin-top:8px}
+.day-quiet{font-family:var(--mono);font-size:24px;color:var(--f2);margin-top:26px;letter-spacing:-.01em}
+.tag-down{color:var(--drop);font-weight:700}
+
+.band{background:var(--amber);color:var(--on-amber)}
+.band h2{color:var(--on-amber)}
+.toggle{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.tg{font-family:var(--mono);font-size:15px;padding:11px 20px;border-radius:999px;
+  border:2px solid rgba(10,10,11,.45);background:transparent;color:var(--on-amber);
+  cursor:pointer;transition:background .25s var(--ease),border-color .25s var(--ease)}
+.tg:hover{border-color:var(--on-amber)}
+.tg.is-on{background:var(--on-amber);border-color:var(--on-amber);color:var(--amber)}
+.gap-stage{margin-top:32px}
+.gap-num{font-size:58px;font-weight:800;letter-spacing:-.04em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.gap-num .unit{font-size:20px;font-weight:700;margin-left:.35em;letter-spacing:0}
+.gap-track{background:rgba(10,10,11,.16);height:34px;margin-top:24px}
+.gap-fill{display:block;height:100%;background:var(--on-amber);transition:width .6s var(--ease)}
+.gap-note{font-family:var(--mono);font-size:15px;margin-top:14px;color:#3a2c11}
+.gap-caption{margin-top:28px;font-size:18px;max-width:30em;font-weight:600}
+.gap-stage.is-target .side-pricing,
+.gap-stage.is-pricing .side-target{display:none}
+.gap-stage.is-target .fill-target{width:100%}
+.gap-stage.is-pricing .fill-pricing{width:70%}
+
+.strip{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:32px}
+.cell{background:var(--ink);padding:20px 18px}
+.cell-k{display:block;font-family:var(--mono);font-size:14px;color:var(--f2)}
+.cell-v{display:block;font-family:var(--mono);font-size:21px;color:var(--amber);
+  margin-top:10px;letter-spacing:-.01em}
+.seal-wrap{margin-top:36px;border:1px dashed var(--amber);padding:20px}
+.seal{display:flex;flex-wrap:wrap;align-items:center;gap:14px;width:100%;
+  background:transparent;border:0;padding:0;color:var(--f1);cursor:pointer;
+  font-family:var(--sans);font-size:23px;font-weight:700;letter-spacing:-.02em;text-align:left}
+.seal-mark{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--amber);padding:6px 12px;border-radius:4px;flex:none}
+.seal-arrow{margin-left:auto;font-family:var(--mono);font-size:15px;color:var(--amber);flex:none}
+.seal-panel{display:none;margin-top:22px;border-top:1px solid var(--line);padding-top:22px}
+.seal-wrap.is-open .seal-panel{display:block}
+.seal-big{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1.04;color:var(--amber)}
+.seal-sub{margin-top:16px;color:var(--f3);max-width:32em}
+.seal-how{margin-top:8px;font-family:var(--mono);font-size:15px;color:var(--f2)}
+
+.seven-note{color:var(--f3);margin-top:16px;max-width:36em}
+.seven{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:14px;margin-top:32px}
+.flip{background:none;border:0;padding:0;perspective:900px;cursor:pointer;height:172px}
+.flip-inner{position:relative;display:block;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .55s var(--ease)}
+.flip.is-flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:8px;text-align:center;
+  border:1px solid var(--line);background:var(--panel);border-radius:14px;
+  padding:16px 12px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-front{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.flip-front .flip-hint{font-family:var(--mono);font-size:13px;color:var(--f2);font-weight:400}
+.flip-back{transform:rotateY(180deg);background:var(--amber);color:var(--on-amber);
+  border-color:var(--amber)}
+.flip-name{font-family:var(--mono);font-size:15px}
+.flip-amt{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.flip-amt.small{font-size:15px;font-weight:700;line-height:1.35}
+
+.rbars{margin-top:32px;display:grid;gap:24px;max-width:760px}
+.rbar-k{font-family:var(--mono);font-size:15px;color:#3a2c11}
+.rbar-track{position:relative;height:30px;background:rgba(10,10,11,.16);margin-top:8px}
+.rbar-fill{position:absolute;top:0;bottom:0;left:0;background:var(--on-amber)}
+.rbar-band{left:25%;width:25%}
+.rbar-v{display:block;font-family:var(--mono);font-size:22px;font-weight:700;
+  margin-top:8px;letter-spacing:-.01em}
+.rcap{margin-top:28px;font-size:18px;font-weight:600;max-width:30em}
+
+.close-big{font-family:var(--mono);font-size:46px;font-weight:700;color:var(--amber);
+  letter-spacing:-.03em;line-height:1.08;margin-top:28px}
+.close-line{font-size:25px;font-weight:700;letter-spacing:-.02em;margin-top:24px;
+  max-width:20em;line-height:1.3}
+.close-src{font-family:var(--mono);font-size:15px;color:var(--f2);margin-top:38px;max-width:44em}
+.close-note{font-family:var(--mono);font-size:15px;color:var(--f2);margin-top:10px;max-width:44em}
+
+@media (min-width:760px){
+  h1{font-size:80px;line-height:1.06}
+  h2{font-size:50px;line-height:1.12}
+  .wrap{padding:0 40px}
+  section{padding:110px 0}
+  .hero .lede{font-size:24px}
+  .scrub-date{font-size:72px}
+  .day-big{font-size:76px}
+  .day-big .unit{font-size:32px}
+  .day-mid{font-size:32px}
+  .day-quiet{font-size:32px}
+  .gap-num{font-size:112px}
+  .gap-num .unit{font-size:34px}
+  .gap-track{height:48px}
+  .strip{grid-template-columns:repeat(3,1fr)}
+  .cell-v{font-size:25px}
+  .seal-wrap{padding:32px}
+  .seal{font-size:32px}
+  .seal-big{font-size:90px}
+  .rbar-track{height:42px}
+  .rbar-v{font-size:26px}
+  .close-big{font-size:96px}
+  .close-line{font-size:38px}
+}
+@media (min-width:821px){
+  .hero{grid-template-columns:1.15fr .85fr;gap:48px;padding:100px 0 72px}
+  .bell-plate{justify-content:center}
+  .bell{width:340px}
+  .markers{position:relative;display:block;height:38px}
+  .marker{position:absolute;top:0;padding:6px 4px}
+  .marker:first-child{left:0;transform:none}
+  .marker:last-child{left:100%;transform:translateX(-100%)}
+  .marker:nth-child(2){left:75%;transform:translateX(-50%)}
+  .marker:nth-child(3){left:87.5%;transform:translateX(-50%)}
+}
+@media (max-width:820px){
+  .bell-plate{order:-1}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="hero wrap reveal">
+  <div>
+    <h1>ANT 开钟时刻</h1>
+    <p class="lede">从 2 万亿目标到挂牌的 8 天</p>
+    <div class="tape">
+      <span>11-11 目标</span>
+      <span class="dim">→</span>
+      <span>11-19 挂牌</span>
+      <span class="dim">纳斯达克</span>
+      <span class="dim">代码 ANT</span>
+    </div>
+    <p class="cue">
+      <svg width="20" height="26" viewBox="0 0 20 26" aria-hidden="true">
+        <path d="M10 1v22M3 16l7 8 7-8" fill="none" stroke="#b9b9c0" stroke-width="2"/>
+      </svg>
+      拖动时间轴，逐日看这条线怎么走完
+    </p>
+  </div>
+  <div class="bell-plate">
+    <svg class="bell" viewBox="0 0 240 236" role="img" aria-label="开钟用的钟">
+      <path d="M56 168C56 96 84 62 120 50c36 12 64 46 64 118" fill="none"
+            stroke="#f0a63a" stroke-width="7" stroke-linecap="round"/>
+      <path d="M44 168h152" stroke="#f0a63a" stroke-width="12" stroke-linecap="round"/>
+      <path d="M120 50V34" stroke="#f0a63a" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="120" cy="26" r="9" fill="#f0a63a"/>
+      <g class="clapper">
+        <path d="M120 168v18" stroke="#f0a63a" stroke-width="7" stroke-linecap="round"/>
+        <path d="M108 192c0 10 24 10 24 0" fill="none" stroke="#f0a63a"
+              stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <path d="M24 214h192" stroke="#2a2a31" stroke-width="4"/>
+      <path d="M64 214l-14 16M176 214l14 16" stroke="#2a2a31" stroke-width="4"/>
+    </svg>
+  </div>
+</header>
+
+<section id="days" class="wrap reveal">
+  <h2>八天，一条向下走的线</h2>
+  <p class="sec-hint">拖动滑块，或点日期跳转。素材没有记录的日子标为静默。</p>
+
+  <div class="scrub-head">
+    <span class="scrub-date" id="scrubDate">11-11</span>
+    <span class="scrub-count" id="scrubCount">D-8 · 距挂牌 8 天</span>
+  </div>
+
+  <label class="sec-hint" for="scrub">8 天倒计时</label>
+  <input class="scrub" type="range" id="scrub" min="0" max="8" step="1" value="0"
+         aria-describedby="scrubDate">
+  <div class="markers">
+    <button type="button" class="marker is-on" data-day="0">11-11</button>
+    <button type="button" class="marker" data-day="6">11-17</button>
+    <button type="button" class="marker" data-day="7">11-18</button>
+    <button type="button" class="marker" data-day="8">11-19</button>
+  </div>
+
+  <article class="day" data-day="0">
+    <div class="day-tag"><span class="day-date">11-11 · 开钟前 8 天</span><span class="day-count">D-8</span></div>
+    <p class="day-big">2<span class="unit">万亿美元</span></p>
+    <p class="day-mid">目标完全摊薄估值</p>
+    <p class="day-line">定价区间每股 70 至 78 美元，8.25 亿股 A 类股</p>
+    <p class="day-line">11-11 口径 · 完全稀释约1.4万亿美元</p>
+  </article>
+
+  <article class="day" data-day="1" hidden>
+    <div class="day-tag"><span class="day-date">11-12</span><span class="day-count">D-7</span></div>
+    <p class="day-quiet">静默 · 素材无该日节点</p>
+  </article>
+  <article class="day" data-day="2" hidden>
+    <div class="day-tag"><span class="day-date">11-13</span><span class="day-count">D-6</span></div>
+    <p class="day-quiet">静默 · 素材无该日节点</p>
+  </article>
+  <article class="day" data-day="3" hidden>
+    <div class="day-tag"><span class="day-date">11-14</span><span class="day-count">D-5</span></div>
+    <p class="day-quiet">静默 · 素材无该日节点</p>
+  </article>
+  <article class="day" data-day="4" hidden>
+    <div class="day-tag"><span class="day-date">11-15</span><span class="day-count">D-4</span></div>
+    <p class="day-quiet">静默 · 素材无该日节点</p>
+  </article>
+  <article class="day" data-day="5" hidden>
+    <div class="day-tag"><span class="day-date">11-16</span><span class="day-count">D-3</span></div>
+    <p class="day-quiet">静默 · 素材无该日节点</p>
+  </article>
+
+  <article class="day" data-day="6" hidden>
+    <div class="day-tag"><span class="day-date">11-17 · 订单簿关闭</span><span class="day-count">D-2</span></div>
+    <p class="day-mid">订单簿已于美东 11 月 17 日下午 4 点关闭</p>
+    <p class="day-line">已吸引多笔规模达 100 亿美元或以上的 IPO 认购订单</p>
+    <p class="day-line">区间与股数不变：每股 70 至 78 美元，8.25 亿股 A 类股</p>
+  </article>
+
+  <article class="day" data-day="7" hidden>
+    <div class="day-tag"><span class="day-date">11-18 · 定价</span><span class="day-count">D-1</span></div>
+    <p class="day-mid">定价高于区间</p>
+    <p class="day-line">全稀释估值约 1.405 万亿美元</p>
+    <p class="day-line">按区间上限计算，公开发售约 643.5 亿美元</p>
+    <p class="day-line"><span class="tag-down">较 2 万亿目标下修逾两成</span></p>
+  </article>
+
+  <article class="day" data-day="8" hidden>
+    <div class="day-tag"><span class="day-date">11-19 · 挂牌</span><span class="day-count">D-0</span></div>
+    <p class="day-big">ANT</p>
+    <p class="day-mid">以代码 ANT 在纳斯达克交易</p>
+    <p class="day-line">散户型发行约占 20%</p>
+  </article>
+</section>
+
+<section id="gap" class="band reveal">
+  <div class="wrap">
+    <h2>目标，与落地</h2>
+    <div class="toggle" role="group" aria-label="切换估值口径">
+      <button type="button" class="tg is-on" data-side="target" aria-pressed="true">目标 · 11-11</button>
+      <button type="button" class="tg" data-side="pricing" aria-pressed="false">定价 · 11-18</button>
+    </div>
+    <div class="gap-stage is-target" id="gapStage">
+      <p class="gap-num side-target">2<span class="unit">万亿美元</span></p>
+      <p class="gap-num side-pricing">1.405<span class="unit">万亿美元</span></p>
+      <div class="gap-track">
+        <span class="gap-fill fill-target side-target"></span>
+        <span class="gap-fill fill-pricing side-pricing"></span>
+      </div>
+      <p class="gap-note side-target">目标完全摊薄估值 · 11-11 口径</p>
+      <p class="gap-note side-pricing">按区间上限计算的全稀释估值 · 11-18 定价口径</p>
+    </div>
+    <p class="gap-caption">公司此前目标估值曾达 2 万亿美元，最终下修逾两成。</p>
+  </div>
+</section>
+
+<section id="book" class="wrap reveal">
+  <h2>订单簿关闭，价格封存</h2>
+  <div class="strip">
+    <div class="cell"><span class="cell-k">订单簿关闭</span><span class="cell-v">美东 11-17 下午 4 点</span></div>
+    <div class="cell"><span class="cell-k">多笔认购</span><span class="cell-v">100 亿美元或以上</span></div>
+    <div class="cell"><span class="cell-k">公开发售（按区间上限）</span><span class="cell-v">643.5 亿美元</span></div>
+  </div>
+
+  <div class="seal-wrap" id="sealWrap">
+    <button type="button" class="seal" id="seal" aria-expanded="false" aria-controls="sealPanel">
+      <span class="seal-mark">封存</span>
+      <span class="seal-label">每股最终价</span>
+      <span class="seal-arrow">点击揭晓</span>
+    </button>
+    <div class="seal-panel" id="sealPanel">
+      <p class="seal-big">高于区间</p>
+      <p class="seal-sub">素材只给出方向，没有给出具体数值。本页不填数，不推测。</p>
+      <p class="seal-how">确认方法：查纳斯达克发行公告或招股书的最终定价</p>
+    </div>
+  </div>
+</section>
+
+<section id="seven" class="wrap reveal">
+  <h2>七家翻牌</h2>
+  <p class="seven-note">260 亿美元私募由七家芯片与云巨头认购，占发行规模约四成。翻牌看谁出了多少。</p>
+  <div class="seven">
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">谷歌<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">谷歌</span><span class="flip-amt">100 亿美元</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">英伟达<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">英伟达</span><span class="flip-amt">100 亿美元</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">微软<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">微软</span><span class="flip-amt small">认购方 · 素材未给金额</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">AMD<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">AMD</span><span class="flip-amt small">认购方 · 素材未给金额</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">博通<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">博通</span><span class="flip-amt small">认购方 · 素材未给金额</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">美光<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">美光</span><span class="flip-amt small">认购方 · 素材未给金额</span></span>
+      </span>
+    </button>
+    <button type="button" class="flip" aria-pressed="false">
+      <span class="flip-inner">
+        <span class="flip-face flip-front">台积电<span class="flip-hint">翻牌</span></span>
+        <span class="flip-face flip-back"><span class="flip-name">台积电</span><span class="flip-amt small">认购方 · 素材未给金额</span></span>
+      </span>
+    </button>
+  </div>
+</section>
+
+<section id="retail" class="band reveal">
+  <div class="wrap">
+    <h2>散户的五分之一</h2>
+    <div class="rbars">
+      <div class="rbar">
+        <span class="rbar-k">散户型发行</span>
+        <div class="rbar-track"><span class="rbar-fill" style="width:100%"></span></div>
+        <span class="rbar-v">20%</span>
+      </div>
+      <div class="rbar">
+        <span class="rbar-k">一般 IPO</span>
+        <div class="rbar-track"><span class="rbar-fill rbar-band"></span></div>
+        <span class="rbar-v">5% 至 10%</span>
+      </div>
+    </div>
+    <p class="rcap">散户型发行约占 20%，远高于一般 IPO 的 5% 至 10%。</p>
+  </div>
+</section>
+
+<section id="close" class="wrap reveal">
+  <h2>开钟</h2>
+  <p class="close-big">11-19 · ANT</p>
+  <p class="close-line">从 2 万亿到 1.405 万亿，用了 8 天。</p>
+  <p class="close-src">素材：AI技术简报 11-18 焦点 6、行业影响 1；热点新闻简报 11-18 科技 4</p>
+  <p class="close-note">每股最终价：素材仅写「高于区间」，本页不填数值。</p>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var scrub = document.getElementById('scrub');
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var markers = Array.prototype.slice.call(document.querySelectorAll('.marker'));
+  var dDate = document.getElementById('scrubDate');
+  var dCount = document.getElementById('scrubCount');
+  var DATES = ['11-11','11-12','11-13','11-14','11-15','11-16','11-17','11-18','11-19'];
+
+  function showDay(i){
+    i = Math.max(0, Math.min(8, parseInt(i, 10) || 0));
+    panels.forEach(function(p){ p.hidden = (parseInt(p.dataset.day,10) !== i); });
+    markers.forEach(function(b){
+      var on = parseInt(b.dataset.day,10) === i;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-current', on ? 'true' : 'false');
+    });
+    dDate.textContent = DATES[i];
+    dCount.textContent = 'D-' + (8 - i) + ' · 距挂牌 ' + (8 - i) + ' 天';
+    if (scrub && parseInt(scrub.value,10) !== i) scrub.value = i;
+    if (scrub) scrub.setAttribute('aria-valuetext', DATES[i] + ' D-' + (8 - i));
+  }
+  if (scrub){
+    scrub.addEventListener('input', function(){ showDay(scrub.value); });
+    showDay(scrub.value);
+  }
+  markers.forEach(function(b){
+    b.addEventListener('click', function(){ showDay(b.dataset.day); });
+  });
+
+  var stage = document.getElementById('gapStage');
+  Array.prototype.forEach.call(document.querySelectorAll('.tg'), function(btn){
+    btn.addEventListener('click', function(){
+      var side = btn.dataset.side;
+      stage.className = 'gap-stage is-' + side;
+      Array.prototype.forEach.call(document.querySelectorAll('.tg'), function(b){
+        var on = (b === btn);
+        b.classList.toggle('is-on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    });
+  });
+
+  var seal = document.getElementById('seal');
+  var sealWrap = document.getElementById('sealWrap');
+  if (seal && sealWrap){
+    seal.addEventListener('click', function(){
+      var open = sealWrap.classList.toggle('is-open');
+      seal.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var label = seal.querySelector('.seal-label');
+      var arrow = seal.querySelector('.seal-arrow');
+      var mark = seal.querySelector('.seal-mark');
+      if (label) label.textContent = open ? '每股最终价 · 已揭晓' : '每股最终价';
+      if (arrow) arrow.textContent = open ? '素材无具体数值' : '点击揭晓';
+      if (mark) mark.textContent = open ? '已揭' : '封存';
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.flip'), function(f){
+    f.addEventListener('click', function(){
+      var on = f.classList.toggle('is-flipped');
+      f.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  });
+
+  function revealAll(){
+    Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){
+      el.classList.add('in');
+    });
+  }
+  try{
+    if (reduce || !('IntersectionObserver' in window)){
+      revealAll();
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, {rootMargin:'0px 0px -6% 0px', threshold:0.12});
+      Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function(el){
+        io.observe(el);
+      });
+      window.setTimeout(revealAll, 2600);
+    }
+  } catch(err){ revealAll(); }
+})();
+</script>
+
+<script type="application/json" id="claims">
+[
+  {"value":"1.4 万亿美元","label":"Anthropic IPO 目标完全摊薄估值（11-11）","quote":"完全稀释约1.4万亿美元"},
+  {"value":"1.405 万亿美元","label":"Anthropic IPO 目标完全摊薄估值（11-18 定价口径）","quote":"全稀释估值约 1.405 万亿美元"},
+  {"value":"260 亿美元","label":"Anthropic IPO 私募配售规模（11-11）","quote":"260 亿美元私募由七家芯片与云巨头认购"},
+  {"value":"70 至 78 美元/股","label":"Anthropic IPO 定价区间（11-11）","quote":"定价区间每股 70 至 78 美元"},
+  {"value":"8.25 亿股","label":"Anthropic IPO A 类股发行规模（11-11）","quote":"8.25 亿股 A 类股"},
+  {"value":"20%","label":"Anthropic IPO 散户型发行占比（11-18）","quote":"散户型发行约占 20%"}
+]
+</script>
+</body>
+</html>

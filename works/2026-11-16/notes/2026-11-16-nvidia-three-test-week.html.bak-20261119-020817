@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('has-js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="description" content="11-17 英伟达财报、11-18 Anthropic 定价、11-26 国会作证：三场考试同一周开考，而 1050 亿美元的担保人正是要在 11-17 交出答案的那家公司。">
+<title>11 月的三场考试 —— 英伟达财报、Anthropic 定价、国会作证，与那个自己也在下注的 1050 亿美元 —— 研析研究卷宗</title>
+
+<style>
+/* ── 自托管字体（随作品分发，离线可用）────────────────────────
+   中文衬线取自本地 noto-serif-sc.css；拉丁数字取 Newsreader。 */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0132-0133,U+0134-0135,U+0136-0137,U+0138-0139,
+                 U+0140-0141,U+0142-0143,U+0144-0145,U+0146-0147,U+0148-0149,U+014A-014B,
+                 U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --paper-sunk:#e2e7e3;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#5d6460;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --deep-rule:#2b312d;
+  --brick:#8c3a2a;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:#b3bbb6 var(--paper)}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:var(--serif-cn);font-weight:600;letter-spacing:-0.012em;text-wrap:balance}
+a{color:var(--brass);text-underline-offset:3px;text-decoration-thickness:1px}
+/* 「回到档案柜」兜底色：注入块给它 opacity .86，把铜色 #7d5a1c 洗成 #8c6f39，
+   对纸底只剩 4.0:1（正文标准 4.5:1）。降一档同色相深铜，
+   与 opacity 合成后为 #775f34，对纸底 5.1:1。有 JS 时由注入块的
+   .on-light-page / .on-dark-page 覆盖，外观不变。 */
+#showcase-backlink{color:#644816}
+p{max-width:70ch}
+p+p{margin-top:14px}
+svg{width:100%;height:auto;display:block;font-family:var(--sans)}
+table{width:100%;border-collapse:collapse}
+
+/* ── 抬头：标题 + 边注元信息 ──────────────────────────── */
+.masthead{padding:96px 0 64px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:56px;align-items:start}
+h1{font-size:clamp(30px,3.6vw,46px);line-height:1.24}
+.standfirst{
+  margin-top:24px;font-size:19px;line-height:1.58;color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5}
+.mast-meta dl{display:grid;gap:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:13px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:13px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:78px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{font-size:29px;line-height:1.28;margin-bottom:16px}
+h3{font-size:21px;line-height:1.36;margin:0 0 6px}
+.fig h3{font-size:15px;letter-spacing:.02em;color:var(--ink-2);margin:0 0 10px;
+        font-family:var(--sans);font-weight:600}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:34px}
+
+/* ── 核心判断：整幅深色带 ─────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:24px}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:38ch;
+}
+.verdict-note{
+  margin-top:24px;font-size:16px;line-height:1.68;color:var(--deep-2);max-width:62ch;
+}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据：账册 ───────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 18px 20px}
+.metric-value{
+  font-family:var(--serif-num);font-size:26px;line-height:1.12;letter-spacing:-0.014em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:11px;font-size:14px;line-height:1.45;color:var(--ink-2);font-weight:500}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12.5px;line-height:1.5;color:var(--ink-3);
+}
+
+/* ── 表格 ─────────────────────────────────────────────── */
+.tbl-wrap{margin-top:6px;overflow-x:auto}
+.tbl{font-size:14.5px;line-height:1.55;table-layout:fixed}
+.tbl td,.tbl th{overflow-wrap:anywhere}
+.tbl th{
+  text-align:left;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;padding:12px 16px 12px 0;
+  border-bottom:1px solid var(--rule);vertical-align:bottom;
+}
+.tbl td{padding:14px 16px 14px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+.tbl td:last-child,.tbl th:last-child{padding-right:0}
+.tbl .num{font-family:var(--serif-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .key{font-weight:600;color:var(--ink)}
+.tbl .sub{color:var(--ink-3);font-size:13px;display:block;margin-top:3px;line-height:1.5;
+  white-space:normal}
+.tbl tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+.tbl .tag{
+  display:inline-block;font-size:11px;letter-spacing:.06em;padding:2px 7px;
+  border:1px solid var(--rule);border-radius:3px;color:var(--ink-3);white-space:nowrap;
+}
+.tbl .tag.is-risk{border-color:var(--brick);color:var(--brick)}
+
+/* ── 三场考试：日历条 ─────────────────────────────────── */
+.tests{}
+.test{
+  display:grid;grid-template-columns:196px minmax(0,1fr) 216px;gap:30px;
+  padding:26px 0;border-bottom:1px solid var(--rule);align-items:start;
+}
+.test-date{font-family:var(--serif-num);font-size:15px;color:var(--brass);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:2px}
+.test-date span{display:block;font-family:var(--sans);font-size:12px;color:var(--ink-3);
+  margin-top:4px;letter-spacing:.02em}
+.test-title{font-family:var(--serif-cn);font-size:19px;font-weight:600;letter-spacing:-0.008em;
+  line-height:1.4}
+.test-detail{margin-top:8px;font-size:15px;line-height:1.62;color:var(--ink-2);max-width:56ch}
+.test-who{font-size:13px;color:var(--ink-3);line-height:1.55;
+  padding-top:13px;border-top:1px solid var(--rule)}
+.test-who b{display:block;color:var(--ink);font-size:13.5px;font-weight:600;margin-bottom:4px}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none}
+.timeline-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;padding-top:3px}
+.timeline-title{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:6px;font-size:15px;line-height:1.62;color:var(--ink-2);max-width:62ch}
+
+/* ── 证据：悬挂引号 ───────────────────────────────────── */
+.evidence{}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18px;line-height:1.64;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:42px;line-height:1;color:var(--brass);
+}
+.evidence-source{
+  margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+  font-style:normal;display:block;
+}
+
+/* ── 断言账 ───────────────────────────────────────────── */
+.ledger{list-style:none}
+.ledger li{
+  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:30px;
+  padding:15px 0;border-bottom:1px solid var(--rule-soft);
+  font-size:14.5px;line-height:1.5;
+}
+.ledger .l-val{font-family:var(--serif-num);font-variant-numeric:tabular-nums;
+  color:var(--ink);font-weight:500}
+.ledger .l-val em{font-style:normal;color:var(--ink-2);font-family:var(--sans);font-size:14px}
+.ledger .l-src{color:var(--ink-3);font-size:12.5px;line-height:1.5}
+
+/* ── 未确认清单 ───────────────────────────────────────── */
+.uncertain{list-style:none}
+.uncertain li{font-size:15px;line-height:1.62;color:var(--ink-2);
+  padding:16px 0;border-bottom:1px solid var(--rule-soft)}
+.uncertain b{color:var(--brick);font-weight:600}
+
+/* ── 图注 ─────────────────────────────────────────────── */
+.fig{margin-top:10px}
+.fig-cap{margin-top:14px;font-size:12.5px;line-height:1.6;color:var(--ink-3);max-width:70ch}
+.fig-cap b{color:var(--ink-2);font-weight:600}
+
+/* ── 页脚 ─────────────────────────────────────────────── */
+.colophon{padding:52px 0 72px;background:var(--paper-raised);border-top:1px solid var(--rule)}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:64ch}
+
+/* ── 动效：发丝线自左绘出（页面唯一的一次性动作）──────── */
+.rule-draw{display:block;height:1px;background:var(--rule);margin:0}
+.has-js .rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:960px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mast-meta dl > div{display:contents}
+  .test{grid-template-columns:1fr;gap:12px}
+  .test-who{padding-top:12px}
+  .ledger li{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  h1{font-size:27px}
+  .metrics{grid-template-columns:1fr}
+  .timeline-item{grid-template-columns:1fr;gap:7px}
+  .timeline-date{padding-top:0}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:32px}
+  .evidence-source{padding-left:26px}
+  .tbl{font-size:13.5px;min-width:560px;table-layout:auto}
+  .tbl .num{white-space:normal}
+  .tbl th,.tbl td{padding-right:12px}
+  .mast-meta dl{grid-template-columns:1fr}
+  .mast-meta dt{padding-top:9px;border-top:0}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>11 月的三场考试：英伟达财报、Anthropic 定价、国会作证，与那个自己也在下注的 1050 亿美元</h1>
+        <p class="standfirst">一周之内，同一家公司要交三张卷子。而它替别人垫付的那笔担保，是它自己正在下注的筹码。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-16</dd></div>
+          <div><dt>主责</dt><dd><b>研析</b> · 数析复核</dd></div>
+          <div><dt>追踪线</dt><dd><b>厂商与算力权力</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">8</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">「出钱的人」不能同时站在岸上：1050 亿美元的担保方，必须在 11-17、11-18、11-26 三天里，分别交出财务、定价与法律三份答案。</p>
+    <p class="verdict-note">这三场考试不是三个机构的日程，而是同一份承诺的三个断面。英伟达 8 月为 OpenAI 俄亥俄园区提供最高 <b>1,050 亿美元</b> 的信用担保；11 月 18 日，它又以基石身份按发行价认购 Anthropic 的股票；11 月 17 日，它要用一份财报证明自己在给客户垫资的同时，账上仍能长出新的收入。三张卷子由同一家公司、同一批承诺、同一个交易对手网络作答。评分标准也各不相同：市场看数字，投行看倍数，议员看承诺本身是否合法。</p>
+  </div>
+</section>
+
+<!-- ── 三场考试：谁在什么时候必须交出答案 ────────────────── -->
+<section>
+  <div class="shell">
+    <h2>谁在什么时候必须交出答案</h2>
+    <p class="lede">把这三件事放进同一周，是因为它们共用同一个债主。日历上的每一格，都对应一笔正在被人追问的钱。</p>
+
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="tests">
+      <article class="test">
+        <div class="test-date">11 月 17 日<span>周二 · 美东盘后</span></div>
+        <div>
+          <div class="test-title">英伟达 2027 财年第三季度财报</div>
+          <p class="test-detail">约 4:20pm ET 发布，5:00pm ET 财报电话会。这是黄仁勋 11 月 12 日辞去总裁、CEO 与董事职务后的第一份财报，临时 CEO 由首席财务官克雷斯（Colette Kress）担任。公司此前给出的营收指引中值为 1,080 亿美元，上下浮动 2%。市场要看的不是这一个季度的数字，而是下一季度、乃至 2028 财年的增速指引，以及有没有一张 10-Q 里的承诺表，替它背书。</p>
+        </div>
+        <div class="test-who">
+          <b>交卷人</b>克雷斯及临时管理团队
+          <br><b>判卷人</b>市场（营收、毛利率、下一季指引）
+          <br><b>在赌什么</b>「没有黄仁勋的英伟达还是英伟达吗」
+        </div>
+      </article>
+
+      <article class="test">
+        <div class="test-date">11 月 18 日<span>周三 · 美股盘后定价</span></div>
+        <div>
+          <div class="test-title">Anthropic IPO 定价</div>
+          <p class="test-detail">发行价区间 70 至 78 美元/股，8.25 亿股 A 类普通股，11 月 19 日以 ANT 在纳斯达克挂牌。机构订单已覆盖全部 8.25 亿股，超额认购约六倍。但 Anthropic 为算力签下的承诺总额是 9009 亿美元。定价定得低，募到的钱就少，而算力账单按原定节奏到期。定价同时也给英伟达的 100 亿美元认购定了价：这笔钱买到的是股票，而股票要靠 9009 亿美元的算力承诺去兑现。</p>
+        </div>
+        <div class="test-who">
+          <b>交卷人</b>Anthropic + 高盛/摩根士丹利承销团
+          <br><b>判卷人</b>询价机构与散户（合计约 20% 配售）
+          <br><b>在赌什么</b>AI 资产第一次被公开市场定价
+        </div>
+      </article>
+
+      <article class="test">
+        <div class="test-date">11 月 26 日<span>周四 · 日期仍在协商</span></div>
+        <div>
+          <div class="test-title">黄仁勋赴国会作证</div>
+          <p class="test-detail">众议院外交事务委员会主席布莱恩·马斯特（Brian Mast）11 月 12 日透露，黄仁勋已同意在感恩节前赴国会作证。作证预计涉及外交事务委员会、众议院情报委员会与众议院特别委员会，可能在宣誓后进行并全程记录、转录甚至录像，是否公开尚未确定。国会要问的是出口管制：一封指控信称，2025 年 12 月英伟达获准向中国销售 H200 的同时存在销售分成安排。参议员伊丽莎白·沃伦称英伟达高管仍欠国会一个解释。</p>
+        </div>
+        <div class="test-who">
+          <b>交卷人</b>黄仁勋（前 CEO，已无职务）
+          <br><b>判卷人</b>委员会成员与 FBI 调查
+          <br><b>在赌什么</b>国家安全、商业利益与出口管制能否并存
+        </div>
+      </article>
+    </div>
+
+    <h3 style="margin-top:52px">进程：这一周之前发生了什么</h3>
+    <span class="rule-draw" aria-hidden="true"></span>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">08-18</span>
+        <div>
+          <div class="timeline-title">英伟达为 OpenAI 俄亥俄园区提供最高 1050 亿美元担保</div>
+          <p class="timeline-detail">担保不挂钩 OpenAI 的资产负债表，而与长期基础设施及已部署硬件的残值绑定，并附带英伟达的独家硬件供应权。英伟达另向开发商 SB Energy 直接投资 15 亿美元。OpenAI 已签署覆盖 8 吉瓦算力容量的 20 年租约。</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-08</span>
+        <div>
+          <div class="timeline-title">董事会启动独立调查，黄仁勋致员工公开信</div>
+          <p class="timeline-detail">同日黄仁勋承认对婚姻不忠并致歉，表示配合调查。独立董事组成委员会并聘请外部法律顾问。11 月 10 日，调查由前纽约南区联邦检察官 Joon H. Kim 及 Wachtell, Lipton, Rosen &amp; Katz 主持。</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-10</span>
+        <div>
+          <div class="timeline-title">Anthropic 启动 IPO 路演，发行价区间定为 70 至 78 美元</div>
+          <p class="timeline-detail">同日英伟达对外确认，为 OpenAI 在俄亥俄州的数据中心开发项目提供最高 1050 亿美元担保，并宣布向 SB Energy 投资 15 亿美元。</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-12</span>
+        <div>
+          <div class="timeline-title">黄仁勋辞去全部职务；同一天，马斯特公布作证意向</div>
+          <p class="timeline-detail">辞任即刻生效，克雷斯出任临时首席执行官并继续兼任首席财务官，哈维·琼斯（Harvey C. Jones）出任公司史上首位董事会主席，CEO 遴选同步启动。收盘价 166.19 美元，当日下跌 4.34%，盘中最低 148.80 美元，相对前一交易日收盘 173.73 美元的最大盘中回撤约 14.35%。</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">11-13</span>
+        <div>
+          <div class="timeline-title">英伟达收于 162.85 美元，本周创 2025 年 4 月以来最大单周跌幅</div>
+          <p class="timeline-detail">当周下跌 12.75%，连续第六周收跌，创 2012 年以来最长连跌纪录，本周市值蒸发逾 5730 亿美元（约合人民币 3.8 万亿元）。收盘市值跌破 4 万亿美元。同日现货黄金收于 3894.52 美元/盎司，本周累计跌约 4.9%。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">下面十一个数字是本周的定价坐标：前七个来自出题的一方（英伟达与 Anthropic），后四个来自收卷的环境（油价、金价、利率与加息概率）。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">162.85 美元</div>
+        <div class="metric-label">英伟达 11-13 收盘价</div>
+        <div class="metric-source">investing.com 历史数据 · moomoo · WSJ 三源一致 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">-12.75%</div>
+        <div class="metric-label">英伟达单周跌幅（11-13 收盘口径）</div>
+        <div class="metric-source">中国证券网 · 2026-11-14（其余媒体四舍五入为 13%）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5,730 亿美元</div>
+        <div class="metric-label">英伟达单周市值蒸发（11-13 收盘口径）</div>
+        <div class="metric-source">每日经济新闻 · 21 世纪经济报道 · 2026-11-14</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,050 亿美元</div>
+        <div class="metric-label">英伟达对 OpenAI 俄亥俄园区担保上限</div>
+        <div class="metric-source">路透社 · 2026-08-18</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1,080 亿美元</div>
+        <div class="metric-label">英伟达 11-17 财报营收指引中值</div>
+        <div class="metric-source">英伟达 Q2 FY2027 业绩发布（Form 8-K EX-99.1）· 2026-08-26</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">9009 亿美元</div>
+        <div class="metric-label">Anthropic 算力与基础设施承诺总额</div>
+        <div class="metric-source">Anthropic, PBC S-1/A（2026-11-10）· 一手直取</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">70 至 78 美元/股</div>
+        <div class="metric-label">Anthropic IPO 定价区间（11-11）</div>
+        <div class="metric-source">每日 AI 技术动态简报 2026-11-11 · 今日焦点 8</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">95.82 美元/桶</div>
+        <div class="metric-label">布伦特 1 月合约结算价（11-13）</div>
+        <div class="metric-source">investing.com 历史数据（对应 11-12 交易日结算价）· 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3,894.52 美元/盎司</div>
+        <div class="metric-label">现货黄金收盘价（11-13）</div>
+        <div class="metric-source">FXStreet · 汇通财经 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">5.15%</div>
+        <div class="metric-label">10年期美债收益率（11-13收盘口径）</div>
+        <div class="metric-source">tradingeconomics · macromicro 两源一致 · 2026-11-13</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">84.7%</div>
+        <div class="metric-label">CME 12月会议加息25个基点概率（11-13口径）</div>
+        <div class="metric-source">CME FedWatch · 2026-11-13</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 第一张卷子 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>11-17 · 财务卷：一张必须同时说服三方的成绩单</h2>
+    <p class="lede">11 月 17 日盘后，英伟达交出的不只是一份季报，而是一份关于「承诺是否可信」的答卷。</p>
+
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="width:19%">卷面项目</th>
+            <th style="width:21%">公司自己给的数</th>
+            <th style="width:23%">市场预期的数</th>
+            <th>这件事为什么在这周要答</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">Q3 FY2027 营收</td>
+            <td class="num">1,080 亿美元 ±2%<span class="sub">区间约 1,058 亿至 1,102 亿美元</span></td>
+            <td class="num">1,090.1 亿美元<span class="sub">标普 2026 年 11 月统计；另有 1,092 亿与高盛 1,100.81 亿两版</span></td>
+            <td>同比基数是 570.06 亿美元。指引中值意味着约 89.4% 的同比增长，低于上一财季的 105.9% 增速，市场要判断这是基数效应还是天花板。</td>
+          </tr>
+          <tr>
+            <td class="key">GAAP 毛利率</td>
+            <td class="num">74% ±50 个基点</td>
+            <td class="num">74.03%<span class="sub">标普统计</span></td>
+            <td>上一财季为 75.0%。指引已低于上季；成本（内存与零部件）与产品结构是这一栏最容易失守的地方。</td>
+          </tr>
+          <tr>
+            <td class="key">数据中心业务</td>
+            <td class="num">未单独给出指引<span class="sub">上季 890 亿美元，同比 +117%，占总营收超九成</span></td>
+            <td class="num">约 1,025.51 亿美元<span class="sub">高盛预测</span></td>
+            <td>英伟达此前预计 Vera Rubin 在本季贡献约 20% 的数据中心营收。交付节奏是这一栏的真正题目。</td>
+          </tr>
+          <tr>
+            <td class="key">Q4 FY2027 营收</td>
+            <td class="num">尚未给出</td>
+            <td class="num">1,247.3 亿美元<span class="sub">同比 +83.1%</span></td>
+            <td>这一栏决定 11-17 收盘的涨跌。公司 8 月提前给过 2028 财年营收增长约 70% 的预期，并称 2026 年前五大超大规模云客户订单近 8000 亿美元、2027 年近 1.3 万亿美元。</td>
+          </tr>
+          <tr>
+            <td class="key">承诺与担保表<span class="tag is-risk">隐含题</span></td>
+            <td class="num">10-Q 脚注合计 5305 亿美元</td>
+            <td class="num">市场未逐项建模</td>
+            <td>这是整张卷子的暗题。英伟达替客户垫付的每一笔钱，最终都变回它自己芯片的收入，这个循环需要在电话会上被问一遍。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fig" style="margin-top:46px">
+      <h3>图一 · 英伟达本周五个可回源的收盘读数（美元）</h3>
+      <svg viewBox="0 0 900 330" role="img" aria-label="英伟达 11-09 至 11-13 收盘价柱状图，11-12 盘中最低 148.80 美元">
+        <g stroke="#d2d8d4" stroke-width="1">
+          <line x1="80" y1="43.5" x2="880" y2="43.5"/>
+          <line x1="80" y1="111" x2="880" y2="111"/>
+          <line x1="80" y1="178.5" x2="880" y2="178.5"/>
+          <line x1="80" y1="246" x2="880" y2="246"/>
+        </g>
+        <g fill="#5d6460" font-size="12" font-family="Newsreader,Georgia,serif" text-anchor="end">
+          <text x="68" y="47.5">180</text>
+          <text x="68" y="115">170</text>
+          <text x="68" y="182.5">160</text>
+          <text x="68" y="250">150</text>
+        </g>
+        <g fill="#4f5551">
+          <rect x="114" y="52" width="88" height="228"/>
+          <rect x="270" y="119" width="88" height="161"/>
+          <rect x="426" y="86" width="88" height="194"/>
+          <rect x="582" y="137" width="88" height="143"/>
+          <rect x="738" y="159" width="88" height="121"/>
+        </g>
+        <g fill="#171a18" font-size="15" font-family="Newsreader,Georgia,serif" text-anchor="middle">
+          <text x="158" y="42">178.67</text>
+          <text x="314" y="109">168.89</text>
+          <text x="470" y="76">173.73</text>
+          <text x="626" y="127">166.19</text>
+          <text x="782" y="149">162.85</text>
+        </g>
+        <g fill="#7d5a1c" font-size="12" font-family="Newsreader,Georgia,serif" text-anchor="middle">
+          <text x="158" y="302">11-09</text>
+          <text x="314" y="302">11-10</text>
+          <text x="470" y="302">11-11</text>
+          <text x="626" y="302">11-12</text>
+          <text x="782" y="302">11-13</text>
+        </g>
+        <g stroke="#8c3a2a" stroke-width="1.5" stroke-dasharray="4 3">
+          <line x1="626" y1="254" x2="626" y2="280"/>
+        </g>
+        <circle cx="626" cy="254" r="4" fill="#8c3a2a"/>
+        <text x="626" y="248" fill="#8c3a2a" font-size="12" font-family="Newsreader,Georgia,serif" text-anchor="middle">148.80</text>
+        <text x="80" y="322" fill="#5d6460" font-size="12.5" font-family="Newsreader,Georgia,serif">收盘价；红点为 11-12 盘中最低 148.80 美元（相对 11-11 收盘回撤约 14.35%，非单日跌幅）</text>
+      </svg>
+      <p class="fig-cap"><b>读法：</b>11 月 12 日那一天，英伟达先在盘前跌超 10%，开盘后重挫约 14%，收盘时收窄至 4.34%，走出一个 V 形。次日高开 169.90 美元后跳水，最终收跌 2.01%。本周从 178.67 美元一路走到 162.85 美元，中间 11-11 曾反弹 2.87%。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 第二张卷子 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>11-18 · 定价卷：9009 亿美元的算力承诺，要靠 904 亿美元的融资去兑现</h2>
+    <p class="lede">Anthropic 的定价不是一家公司的估值问题，是一场关于「谁替未来的算力付款」的公开定价。</p>
+
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="width:18%">资金结构</th>
+            <th style="width:18%">规模</th>
+            <th>细节</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">公开发行</td>
+            <td class="num">最高约 643.5 亿美元</td>
+            <td>8.25 亿股 A 类普通股，其中公司发行约 8.014 亿股、现有股东出售约 2365 万股。承销商另有 1.2375 亿股 30 天超额配售权。散户配售目标约 20%，高于通常 IPO 的 5% 至 10%。</td>
+          </tr>
+          <tr>
+            <td class="key">同步私募配售（Class N）</td>
+            <td class="num">260 亿美元</td>
+            <td>七家科技企业按 IPO 发行价认购：谷歌 100 亿美元、英伟达 100 亿美元、AMD 25 亿美元、博通 10 亿美元、美光 10 亿美元、微软 10 亿美元、台积电 5 亿美元。</td>
+          </tr>
+          <tr>
+            <td class="key">合计</td>
+            <td class="num">最高约 904 亿美元</td>
+            <td>高于 SpaceX 今年 6 月 IPO 的 862 亿美元融资纪录；但公开发行部分 643.5 亿美元仍未打破该纪录。</td>
+          </tr>
+          <tr>
+            <td class="key">对应估值</td>
+            <td class="num">1.26 万亿至 1.41 万亿美元</td>
+            <td>按上限计算完全稀释约 1.4 万亿美元，较 2026 年 5 月融资时的 9650 亿美元抬升；较今夏市场普遍预期的约 2 万亿美元折让明显。</td>
+          </tr>
+          <tr>
+            <td class="key">对应的算力承诺</td>
+            <td class="num">9009 亿美元</td>
+            <td>修订版招股文件披露的算力与基础设施承诺总额。这个数字是募集金额的约十倍。定价决定的是倍数，不是覆盖倍数。</td>
+          </tr>
+          <tr>
+            <td class="key">经营基本面</td>
+            <td class="num">前九个月营收 332 亿美元</td>
+            <td>同比增长 1206%；同期净亏损 1040 亿美元，其中约 943 亿美元来自可转换票据、衍生负债及 SAFE 等金融工具公允价值变动。第三季度收入 169.56 亿美元，调整后经营利润率 15%，GAAP 口径 -3%。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:34px">把这张表和第一张卷子并排看，会出现一个不舒服的问题。11 月 18 日定价的这一天，英伟达要按发行价认购 <b>100 亿美元</b> Anthropic 的股票。这笔钱买的是 Anthropic 的股票；而 Anthropic 账上那笔 9009 亿美元的算力承诺，其中相当一部分要用在英伟达的芯片上。11 月 17 日，市场在判断「英伟达下一季度能不能长出 1,080 亿美元的收入」；11 月 18 日，市场在判断「Anthropic 能不能把 9009 亿美元变成未来几年的算力采购」。两件事由同一条资金链连着。</p>
+
+    <p>监管端也已经入场。FTC 在招股文件提交当天要求 Anthropic 高管就 AI 安全风险作证，参议员伊丽莎白·沃伦要求就招股文件披露的风险作答，纽约市主计官则批评股权结构限制了普通股股东的决定权。这三件事都落在 11 月 18 日定价之前完成，却要在定价之后继续发酵。首日交易完成后 5 至 15 天内，Anthropic 可能被纳入至少六大主要指数。那意味着定价之后还有一轮被动资金的定价。</p>
+  </div>
+</section>
+
+<!-- ── 第三张卷子 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>11-26 · 法律卷：宣誓之后，那句承诺就具有了另一种重量</h2>
+    <p class="lede">前两场考试用股价打分。第三场不打分，它给一个人的证词盖章。</p>
+
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="width:19%">待答问题</th>
+            <th style="width:36%">已经公开的线索</th>
+            <th>答不好的后果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">出口管制与销售分成</td>
+            <td>一封指控信称，特朗普于 2025 年 12 月批准英伟达向中国销售先进 H200 芯片，以换取出口销售的一部分收益。众议院民主党领袖杰弗里斯称必须查清「美国国家安全是否已被损害」。</td>
+            <td>出口许可可能被追加限制。这一栏直接决定中国市场的收入预期，也就是 Blackwell 与 Vera Rubin 之外，第四个增长来源是否存在。</td>
+          </tr>
+          <tr>
+            <td class="key">个人关系与国家安全</td>
+            <td>媒体报道称，黄仁勋被指与一名直接向他汇报的高管有私情；美媒报道其是否被境外情报机构针对亦在调查范围。Wired 报道称此次危机已引发国会与 FBI 调查。</td>
+            <td>调查结论若指向公司治理或披露问题，可能进一步影响董事会与监管对英伟达自身资本运作的容忍度。</td>
+          </tr>
+          <tr>
+            <td class="key">担保与利益冲突</td>
+            <td>英伟达为客户融资的同时提供独家硬件供应权，这一结构已被质疑为资金循环。市场此前已就英伟达与贝莱德等六家机构的 5000 亿美元融资平台提出同类疑问。</td>
+            <td>这是最关键的一栏：担保方就是供应商，两边都被问到同一件事时，能作证的人不是中立的。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:34px">作证的形式本身也是答案的一部分。马斯特表示，作证很可能在宣誓后进行，全程记录、转录甚至录像；是否公开举行尚无定论，但外界普遍预期采取闭门形式。此前马斯特等人一度考虑以传票强制黄仁勋到场，如今其同意作证，压力暂时解除。这意味着 11 月 26 日前，黄仁勋是自愿的证人；而自愿的证人，倾向于在作证前把话说圆。</p>
+  </div>
+</section>
+
+<!-- ── 钱的结构 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>钱的结构：出钱的循环 —— 5305 亿美元承诺，与 1050 亿美元担保</h2>
+    <p class="lede">要理解这三场考试为什么必须放在一起，得先看清英伟达替行业垫了多少钱。</p>
+
+    <div class="fig">
+      <h3>图二 · 英伟达 10-Q 脚注披露的承诺与担保（亿美元）</h3>
+      <svg viewBox="0 0 900 300" role="img" aria-label="英伟达 10-Q 承诺与担保结构横向柱状图">
+        <g font-size="13" font-family="Noto Serif SC,sans-serif" fill="#171a18">
+          <text x="0" y="52">未来承诺合计</text>
+          <text x="0" y="107">融资平台兜底上限</text>
+          <text x="0" y="162">担保</text>
+          <text x="0" y="217">股权账簿</text>
+          <text x="0" y="272">额外承诺</text>
+        </g>
+        <g fill="#7d5a1c">
+          <rect x="270" y="30" width="570" height="34"/>
+        </g>
+        <g fill="#4f5551">
+          <rect x="270" y="85" width="195" height="34"/>
+        </g>
+        <g fill="#8c3a2a">
+          <rect x="270" y="140" width="169" height="34"/>
+        </g>
+        <g fill="#4f5551">
+          <rect x="270" y="195" width="154" height="34"/>
+          <rect x="270" y="250" width="87" height="34"/>
+        </g>
+        <g fill="#171a18" font-size="14" font-family="Newsreader,Georgia,serif">
+          <text x="830" y="53" text-anchor="end" fill="#f4f6f4">3660</text>
+          <text x="455" y="108" text-anchor="end" fill="#f4f6f4">1250</text>
+          <text x="429" y="163" text-anchor="end" fill="#f4f6f4">1085</text>
+          <text x="414" y="218" text-anchor="end" fill="#f4f6f4">990</text>
+          <text x="347" y="273" text-anchor="end" fill="#f4f6f4">560</text>
+        </g>
+        <g fill="#5d6460" font-size="12.5" font-family="Noto Serif SC,sans-serif">
+          <text x="0" y="296">深色为 10-Q 脚注三类承诺合计 5305 亿美元；绿色为 8 月与阿波罗、贝莱德、黑石、布鲁克菲尔德、高盛、KKR 合作的 5000 亿美元融资平台中英伟达承诺的最高兜底部分（25%）。</text>
+        </g>
+      </svg>
+      <p class="fig-cap"><b>读法：</b>三类承诺合计 5305 亿美元，其中未来承诺 3660 亿美元里，含 2790 亿美元供应与产能采购承诺，这一项在三个月内从 1190 亿美元激增。担保一项 1085 亿美元，与 8 月那笔 1050 亿美元俄亥俄园区担保是同一族口径。</p>
+    </div>
+
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="tbl-wrap" style="margin-top:44px">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="width:17%">循环的一环</th>
+            <th style="width:19%">金额</th>
+            <th>它换回来什么</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key">担保</td>
+            <td class="num">最高 1050 亿美元</td>
+            <td>OpenAI 租下俄亥俄 PORTS-Pike 园区、覆盖 8 吉瓦算力容量的 20 年租约，并附带英伟达的独家硬件供应权。英伟达自身向开发商 SB Energy 投资 15 亿美元以锁定土地、电力与外壳容量。</td>
+          </tr>
+          <tr>
+            <td class="key">锚定投资</td>
+            <td class="num">100 亿美元</td>
+            <td>按 Anthropic 的 IPO 发行价认购 Class N 普通股，与谷歌并列最大认购方。</td>
+          </tr>
+          <tr>
+            <td class="key">硬件回流</td>
+            <td class="num">约 1500 亿至 2000 亿美元</td>
+            <td>英伟达 CFO 在 10-Q 中的注解逻辑：站点每一代基础设施部署约对应 150 万块 GPU，折合 1500 亿至 2000 亿美元英伟达营收，周期长达 20 年。英伟达首席财务官的另一项公开口径称，该关系到 2030 年可带来最高 6000 亿美元潜在收入。</td>
+          </tr>
+          <tr>
+            <td class="key">客户侧承诺</td>
+            <td class="num">9009 亿美元</td>
+            <td>Anthropic 的算力与基础设施承诺总额。Anthropic 同时在分散依赖：对微软承诺采购 300 亿美元 Azure 算力、对 AWS 承诺十年超 1000 亿美元，并自 2027 年起从谷歌与博通处获取数吉瓦级 TPU 算力。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:30px">把这个循环和日历放在一起，会得到本文开头那个不舒服的结论。<b>英伟达替 OpenAI 垫付担保，是为了把英伟达的芯片装进 OpenAI 的机房；英伟达往 Anthropic 投 100 亿，是为了在市场给 Anthropic 定价时压住倍数；英伟达 11-17 的财报，则要证明这条循环产生的收入是真的。</b>三件事不是三场考试，是同一笔钱的三个断面被摊在了三天里。</p>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">以下逐字引用构成判断的证据面。</p>
+    <span class="rule-draw" aria-hidden="true"></span>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达股价本周下跌13%，创2025年4月以来最大单周跌幅，并且为连续第六周下跌，创2012年以来最长连跌纪录，本周市值蒸发逾5730亿美元（约人民币3.8万亿元）。</p>
+        <cite class="evidence-source">21 世纪经济报道 · 2026-11-14（本周跌幅精确值 12.75% 见中国证券网同日稿）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">本地时间11月12日，美国芯片巨头英伟达宣布，公司联合创始人黄仁勋辞去总裁、首席执行官(CEO)及董事会成员职务，即刻生效。</p>
+        <cite class="evidence-source">腾讯新闻《黄仁勋辞职！执掌英伟达33年》· 2026-11-13（引英伟达官方公告）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">他已经同意到场，我们正在协商具体日期。</p>
+        <cite class="evidence-source">彭博社，经 IT 之家转述 · 2026-11-13 —— 众议院外交事务委员会主席布莱恩·马斯特谈黄仁勋赴国会作证</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达已同意提供最高1050亿美元的担保，以帮助OpenAI租赁俄亥俄州一个由软银旗下SB Energy开发的大型数据中心。这成为这家芯片制造商最大规模的基础设施融资承诺之一。</p>
+        <cite class="evidence-source">路透社，经凤凰网财经转述 · 2026-08-18</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">谷歌和英伟达分别计划投资100亿美元，AMD计划投资25亿美元，博通、美光和微软各投资10亿美元，台积电相关实体则计划投资5亿美元。</p>
+        <cite class="evidence-source">每日经济新闻《全球科技早参》· 2026-11-11（据 Anthropic 11-10 提交的修订版招股文件）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">计划于11月18日确定发行价，并于11月19日开始交易。公司面向散户投资者的配售比例目标约为20%，高于通常IPO约5%至10%的水平。</p>
+        <cite class="evidence-source">每日经济新闻《全球科技早参》· 2026-11-11（引修订版招股文件）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">NVIDIA guided the quarter it reports on Tuesday, Nov. 17 to $108.0 billion of revenue, plus or minus 2%.</p>
+        <cite class="evidence-source">MoverTape《Earnings this week, Nov 16–20》· 2026-11-14（据英伟达自身业绩发布文件）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">按发行价区间上限计算，募资总额最高约643.5亿美元，完全稀释估值1.26万亿至1.41万亿美元。</p>
+        <cite class="evidence-source">21 世纪经济报道《史上最大IPO暗盘炒至1.8万亿美元》· 2026-11-12</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 断言账 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>断言账</h2>
+    <p class="lede">本文的八条断言，每条都可以按「数值 + 指标名」逐字回查原文。</p>
+    <span class="rule-draw" aria-hidden="true"></span>
+    <ul class="ledger">
+      <li>
+        <span class="l-val">162.85 美元 <em>英伟达 11-13 收盘价</em></span>
+        <span class="l-src">investing.com 历史数据 · moomoo · WSJ 三源一致 · 2026-11-13</span>
+      </li>
+      <li>
+        <span class="l-val">-12.75% <em>英伟达单周跌幅（11-13 收盘口径）</em></span>
+        <span class="l-src">中国证券网 · 2026-11-14</span>
+      </li>
+      <li>
+        <span class="l-val">5,730 亿美元 <em>英伟达单周市值蒸发（11-13 收盘口径）</em></span>
+        <span class="l-src">每日经济新闻 · 21 世纪经济报道 · 2026-11-14</span>
+      </li>
+      <li>
+        <span class="l-val">1,050 亿美元 <em>英伟达对 OpenAI 俄亥俄园区担保上限</em></span>
+        <span class="l-src">路透社 · 2026-08-18</span>
+      </li>
+      <li>
+        <span class="l-val">1,080 亿美元 <em>英伟达 11-17 财报营收指引中值</em></span>
+        <span class="l-src">英伟达 Q2 FY2027 业绩发布（Form 8-K EX-99.1）· 2026-08-26</span>
+      </li>
+      <li>
+        <span class="l-val">9009 亿美元 <em>Anthropic 算力与基础设施承诺总额</em></span>
+        <span class="l-src">Anthropic, PBC S-1/A（2026-11-10）· 一手直取</span>
+      </li>
+      <li>
+        <span class="l-val">70 至 78 美元/股 <em>Anthropic IPO 定价区间（11-11）</em></span>
+        <span class="l-src">每日 AI 技术动态简报 2026-11-11 · 今日焦点 8</span>
+      </li>
+      <li>
+        <span class="l-val">95.82 美元/桶 <em>布伦特 1 月合约结算价（11-13）</em></span>
+        <span class="l-src">investing.com 历史数据（对应 11-12 交易日结算价）· 2026-11-13</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── 未确认 ──────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>未确认与局限</h2>
+    <p class="lede">下面这些量本文没有取数，也没有写进断言层。遇到冲突的口径，宁可空着。</p>
+    <span class="rule-draw" aria-hidden="true"></span>
+    <ul class="uncertain">
+      <li><b>费城半导体指数 11-13 收盘点位 —— 未确认。</b>三个源不一致（Yahoo 历史数据给出两个数 10,412.08 与 10,461.98 且未标列序；财联社为盘中值 10398 点）。本文不取该标签，只在正文使用已确认的「本周跌 3.43%」。确认方法：同一来源历史数据同一行取收盘点位。</li>
+      <li><b>WTI 原油 11-13 —— 未确认。</b>两个口径冲突（11-14 简报「涨 2.7% 至 88.79 美元/桶」与 tradingeconomics「跌至 88.56 美元/桶，-0.20%」）。本文不取该标签。</li>
+      <li><b>11-26 作证的确切日期 —— 未确认。</b>马斯特只确认「感恩节前」，日期仍在协商，且是否公开举行未定。确认方法：委员会日程公告或彭博后续报道。</li>
+      <li><b>Anthropic 最终发行价与最终估值 —— 未确认。</b>本文写的是 11-11 口径的定价区间 70 至 78 美元/股，最终倍数须待 11-18 定价公告确认。</li>
+      <li><b>英伟达 11-17 财报实际值 —— 未确认。</b>本文表中所列全部为公司自身指引与第三方预期，不是已公布结果。确认方法：英伟达 Form 8-K EX-99.1 与财报电话会记录。</li>
+      <li><b>英伟达 11-09 收盘价 178.67 美元为转述口径。</b>团队既有链条覆盖 11-10 至 11-13 四个收盘点，11-09 一点取自每经网转述，图一中以此点参与连线。</li>
+    </ul>
+    <p style="margin-top:30px">另需说明三处口径边界。第一，「本周下跌 13%」与「本周下跌 12.75%」是同一件事的两种精度，本文断言取精确值。第二，「本周市值蒸发逾 5730 亿美元」与「自 10 月 6 日以来蒸发 1.84 万亿美元」是不同区间，不可叠加。第三，Anthropic 的 9009 亿美元算力承诺是招股文件披露的合同承诺金额，不是已付款金额。</p>
+    <p style="margin-top:16px">另有三处跨作品口径，本篇与同批作品已统一，不再单列为未确认项。其一，10 年期美债收益率 11-13 收盘口径曾有三个互不自洽的写法（5.135% / 5.15% /「+0.01 个百分点」），tradingeconomics 与 macromicro 两个独立源一致给出 5.15%，且团队既有链 11-12 的 5.11% 推出 11-13 的 5.15%（+4 个基点）自洽，故本文取 5.15%。其二，现货黄金 11-13 收盘价取 3,894.52 美元/盎司，与同批作品 442 一致。其三，布伦特 1 月合约结算价（11-13）取 95.82 美元/桶，对应 11-12 交易日结算价（该系列标签日 = 交易日 + 1），与同批作品 443 一致。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p><b>方法。</b>本文所有市场数据均回源至原始行情页面或公司披露文件，价格类指标一律标注交易日口径而非标签日口径；断言层只收录可逐字回查的量，解释性判断一律留在正文。11-13 及以前的日度读数取自 investing.com 历史数据并以 moomoo 与 WSJ 交叉验证；Anthropic 的招股数据取自 2026-11-10 修订版 S-1/A（团队 11-12 作品已一手直取该文件）。</p>
+    <p><b>局限。</b>本文写于 2026-11-16，三场考试均未发生。11-17 的财报、11-18 的定价、11-26 的作证，其结果在本文成稿时均未公布；文中出现的所有数字都是题面，不是答案。</p>
+    <p><b>免责。</b>本文为研究记录，不构成投资建议。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  ──────────────────────────────────────
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  解释性判断不要写在这里。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "162.85 美元",
+    "label": "英伟达 11-13 收盘价",
+    "quote": "162.85 美元 英伟达 11-13 收盘价"
+  },
+  {
+    "value": "-12.75%",
+    "label": "英伟达单周跌幅（11-13 收盘口径）",
+    "quote": "-12.75% 英伟达单周跌幅（11-13 收盘口径）"
+  },
+  {
+    "value": "5,730 亿美元",
+    "label": "英伟达单周市值蒸发（11-13 收盘口径）",
+    "quote": "5,730 亿美元 英伟达单周市值蒸发（11-13 收盘口径）"
+  },
+  {
+    "value": "1,050 亿美元",
+    "label": "英伟达对 OpenAI 俄亥俄园区担保上限",
+    "quote": "1,050 亿美元 英伟达对 OpenAI 俄亥俄园区担保上限"
+  },
+  {
+    "value": "1,080 亿美元",
+    "label": "英伟达 11-17 财报营收指引中值",
+    "quote": "1,080 亿美元 英伟达 11-17 财报营收指引中值"
+  },
+  {
+    "value": "9009 亿美元",
+    "label": "Anthropic 算力与基础设施承诺总额",
+    "quote": "9009 亿美元 Anthropic 算力与基础设施承诺总额"
+  },
+  {
+    "value": "70 至 78 美元/股",
+    "label": "Anthropic IPO 定价区间（11-11）",
+    "quote": "70 至 78 美元/股 Anthropic IPO 定价区间（11-11）"
+  },
+  {
+    "value": "95.82 美元/桶",
+    "label": "布伦特 1 月合约结算价（11-13）",
+    "quote": "95.82 美元/桶 布伦特 1 月合约结算价（11-13）"
+  }
+]
+</script>
+
+<script>
+/* 唯一的一次性动效：区块发丝线自左绘出。指数缓出，尊重 reduced-motion。 */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce || !('IntersectionObserver' in window)){return;}
+  var targets = document.querySelectorAll('section');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn'); io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

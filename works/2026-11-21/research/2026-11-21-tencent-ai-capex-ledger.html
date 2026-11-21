@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>负 691 亿与 100 万亿 Token —— 腾讯 AI 投入产出账，与「元宝没成」的公开承认</title>
+<meta name="showcase-beat" content="估值与资本">
+<meta name="description" content="腾讯 Q3 财报两口径自由现金流 -691/169 亿元、WorkBuddy 三读数与元宝自陈：逐条核对口径的 AI 投入产出账。">
+
+<style>
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+                 U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,
+                 U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#eaedea;
+  --paper-raised:#f4f6f4;
+  --ink:#171a18;
+  --ink-2:#4f5551;
+  --ink-3:#646b67;
+  --rule:#d2d8d4;
+  --rule-soft:#dfe4e0;
+  --brass:#7d5a1c;
+  --brass-wash:#efe4cc;
+  --deep:#121513;
+  --deep-ink:#eef0ee;
+  --deep-2:#b3bbb6;
+  --shell:1080px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader','Newsreader Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+         'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+::selection{background:var(--brass-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.62;letter-spacing:-0.008em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+/* ── 抬头 ─────────────────────────────────────────────── */
+.masthead{padding:96px 0 64px;border-bottom:1px solid var(--rule)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:56px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(32px,4.2vw,50px);line-height:1.24;
+  letter-spacing:-0.012em;font-weight:600;text-wrap:balance;
+}
+.standfirst{
+  margin-top:26px;font-size:19.5px;line-height:1.56;letter-spacing:-0.012em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13px;line-height:1.5;letter-spacing:0}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:14px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:14px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dd b{font-weight:600}
+.mast-meta .claim-n{font-family:var(--serif-num);font-size:22px;color:var(--brass);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* ── 区块骨架 ─────────────────────────────────────────── */
+section{padding:80px 0}
+section + section{border-top:1px solid var(--rule)}
+h2{font-family:var(--serif-cn);font-size:29px;line-height:1.28;letter-spacing:-0.01em;
+  font-weight:600;margin-bottom:18px;}
+h3{font-family:var(--serif-cn);font-size:20px;line-height:1.4;font-weight:600;
+  letter-spacing:-0.008em;margin-bottom:12px;}
+.lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:58ch;margin-bottom:36px}
+p{max-width:68ch}
+p + p{margin-top:16px}
+
+/* ── 核心判断深色带 ───────────────────────────────────── */
+.verdict-band{background:var(--deep);color:var(--deep-ink)}
+.verdict-band h2{color:var(--deep-ink);margin-bottom:26px}
+.verdict{font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.44;
+  letter-spacing:-0.008em;font-weight:600;max-width:34ch;}
+.verdict-note{margin-top:24px;font-size:16px;line-height:1.66;color:var(--deep-2);max-width:62ch}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* ── 关键数据账册 ─────────────────────────────────────── */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px}
+.metric-value{font-family:var(--serif-num);font-size:33px;line-height:1.06;
+  letter-spacing:-0.018em;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-2);font-weight:500;}
+.metric-source{margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);}
+
+/* ── 断言读法 ─────────────────────────────────────────── */
+.readback{margin-top:34px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-raised);padding:26px 26px 22px;}
+.readback h3{margin-bottom:6px}
+.readback .hint{font-size:13.5px;color:var(--ink-3);margin-bottom:14px;max-width:none}
+.readback ol{margin-left:1.3em;display:grid;gap:8px}
+.readback li{font-family:var(--serif-num);font-size:16px;line-height:1.55;color:var(--ink);
+  font-variant-numeric:tabular-nums;}
+.readback li::marker{color:var(--brass);font-weight:600}
+
+/* ── 图表 ─────────────────────────────────────────────── */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.chart-figure{background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;
+  padding:22px 22px 16px;}
+.chart-figure.wide{grid-column:1 / -1}
+.chart-figure svg{width:100%;height:auto;display:block}
+.chart-figure figcaption{margin-top:12px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12.5px;line-height:1.55;color:var(--ink-3);}
+
+/* ── 口径核源表 ───────────────────────────────────────── */
+.caliber-table{width:100%;border-collapse:collapse;font-size:15px;background:var(--paper-raised);
+  border:1px solid var(--rule);border-radius:4px;overflow:hidden;}
+.caliber-table th{font-family:var(--sans);text-align:left;font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:14px 16px;
+  border-bottom:1px solid var(--rule);background:var(--paper);}
+.caliber-table td{padding:15px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;
+  line-height:1.6;color:var(--ink-2);}
+.caliber-table tr:last-child td{border-bottom:none}
+.caliber-table td:first-child{color:var(--ink);font-weight:600;width:20%}
+.caliber-table .no{font-family:var(--serif-num);color:var(--brass);margin-right:8px;font-weight:600}
+
+/* ── 投入 / 产出 双栏账本 ─────────────────────────────── */
+.split-ledger{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;background:var(--paper-raised);}
+.ledger-col{padding:30px 28px 26px}
+.ledger-col + .ledger-col{border-left:1px solid var(--rule)}
+.ledger-col h3{display:flex;align-items:baseline;gap:10px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule);margin-bottom:18px}
+.ledger-col .side-tag{font-family:var(--serif-num);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brass);font-weight:600}
+.ledger-col ul{list-style:none;display:grid;gap:15px}
+.ledger-col li{font-size:15.5px;line-height:1.6;color:var(--ink-2);padding-left:18px;position:relative}
+.ledger-col li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--brass)}
+.ledger-col li b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ledger-col .src{display:block;margin-top:3px;font-size:12px;color:var(--ink-3)}
+.ledger-note{margin-top:20px;font-size:14px;line-height:1.65;color:var(--ink-3);max-width:74ch}
+
+/* ── 进程 ─────────────────────────────────────────────── */
+.timeline{list-style:none;border-top:1px solid var(--rule)}
+.timeline-item{display:grid;grid-template-columns:132px minmax(0,1fr);gap:34px;
+  padding:24px 0;border-bottom:1px solid var(--rule);}
+.timeline-date{font-family:var(--serif-num);font-size:13.5px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;padding-top:3px;}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:600;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.62;color:var(--ink-2);max-width:64ch}
+
+/* ── 证据 ─────────────────────────────────────────────── */
+.evidence{border-top:1px solid var(--rule)}
+.evidence-item{padding:26px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{font-family:var(--serif-cn);font-size:18.5px;line-height:1.62;color:var(--ink);
+  max-width:60ch;padding-left:34px;}
+.evidence-quote::before{content:'“';position:absolute;left:0;top:14px;
+  font-family:var(--serif-num);font-size:44px;line-height:1;color:var(--brass);}
+.evidence-source{margin-top:12px;padding-left:34px;font-size:12.5px;line-height:1.5;color:var(--ink-3);}
+
+/* ── 页脚 ─────────────────────────────────────────────── */
+.colophon{padding:56px 0 76px;background:var(--paper-raised);border-top:1px solid var(--rule);}
+.colophon p{font-size:13.5px;line-height:1.72;color:var(--ink-3);max-width:66ch}
+.colophon p + p{margin-top:12px}
+
+/* ── 动效：发丝线自左绘出（唯一一次性动作）────────────── */
+.rule-draw{transform:scaleX(0);transform-origin:left center;will-change:transform}
+.drawn .rule-draw{transform:scaleX(1);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rule-draw{transform:none!important;transition:none!important}
+}
+
+@media (max-width:900px){
+  .mast-grid{grid-template-columns:1fr;gap:38px}
+  .charts{grid-template-columns:1fr}
+  .split-ledger{grid-template-columns:1fr}
+  .ledger-col + .ledger-col{border-left:none;border-top:1px solid var(--rule)}
+}
+@media (max-width:640px){
+  .shell{padding:0 20px}
+  .masthead{padding:60px 0 44px}
+  section{padding:54px 0}
+  h2{font-size:24px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .caliber-table td:first-child{width:auto}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<!-- ── 抬头 ────────────────────────────────────────────── -->
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>负 691 亿与 100 万亿 Token —— 腾讯 AI 投入产出账，与「元宝没成」的公开承认</h1>
+        <p class="standfirst">同一份 Q3 财报里，现金消耗与用量规模被并列摆上桌面。本篇把七个读数逐条核对口径，分清财报事实、高管自陈与观点三类陈述。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>日期</dt><dd>2026-11-21</dd></div>
+          <div><dt>主责</dt><dd>策士 · 研究类 #460</dd></div>
+          <div><dt>追踪线</dt><dd><b>估值与资本</b></dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过简报原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 核心判断 ────────────────────────────────────────── -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>结论</h2>
+    <p class="verdict">「负 691 亿」与「100 万亿 Token」是同一份 Q3 财报对同一次 AI 投入的两种记账：一边记现金流出，一边记用量规模。</p>
+    <p class="verdict-note">-691 亿元是<b>含算力采购预付款</b>的自由现金流；剔除该预付款后，同一指标为 169 亿元。产出侧三个读数里，日活与 Token 量是用量口径，收入是<b>最近七天年化</b>推算口径。本篇不把两币种相加，也不把任何一组数字写成「投入产出比成立或不成立」的证据；那属于观点，只留在正文。</p>
+  </div>
+</section>
+
+<!-- ── 关键数据 ────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>关键数据：本篇的七条断言</h2>
+    <p class="lede">全部来自 Q3 财报（11-19 发布）口径与 11-19 / 11-20 两份简报的逐字转述；人民币与美元两个币种并列展示，不做汇率换算。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">2073 亿元</div>
+        <div class="metric-label">腾讯 Q3 营收（11-19 财报口径）</div>
+        <div class="metric-source">华尔街见闻 / 凤凰网财经 · 11-19</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">21%→35%</div>
+        <div class="metric-label">腾讯云收入增速（21%→35%）</div>
+        <div class="metric-source">Q3 财报 · 同比增速 · 11-19 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">-691 亿元</div>
+        <div class="metric-label">腾讯 Q3 自由现金流（含算力采购预付款）</div>
+        <div class="metric-source">Q3 财报 · 季度口径 · 11-19 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">169 亿元</div>
+        <div class="metric-label">腾讯 Q3 自由现金流（剔除算力采购预付款）</div>
+        <div class="metric-source">Q3 财报 · 同一指标剔除口径 · 11-19 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">超 1000 万</div>
+        <div class="metric-label">腾讯 WorkBuddy 日活（11-19 财报口径）</div>
+        <div class="metric-source">Q3 财报 · 日活口径 · 11-19 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">超 100 万亿</div>
+        <div class="metric-label">腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）</div>
+        <div class="metric-source">Q3 财报 · 日均口径 · 11-19 发布</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">超 5 亿美元</div>
+        <div class="metric-label">腾讯 WorkBuddy 最近七天年化收入（美元）</div>
+        <div class="metric-source">Q3 财报 · 最近七天年化推算 · 11-19 发布</div>
+      </div>
+    </div>
+
+    <div class="readback">
+      <h3>断言读法（逐字）</h3>
+      <p class="hint">断言层只收事实型读数。下列每句与页面底部 script#claims 的 quote 逐字一致。</p>
+      <ol>
+        <li>腾讯 Q3 营收（11-19 财报口径）2073 亿元</li>
+        <li>腾讯云收入增速（21%→35%）</li>
+        <li>腾讯 Q3 自由现金流（含算力采购预付款）-691 亿元</li>
+        <li>腾讯 Q3 自由现金流（剔除算力采购预付款）169 亿元</li>
+        <li>腾讯 WorkBuddy 日活（11-19 财报口径）超 1000 万</li>
+        <li>腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）超 100 万亿</li>
+        <li>腾讯 WorkBuddy 最近七天年化收入（美元）超 5 亿美元</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ── 口径图 ──────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>三组读数的图形对照</h2>
+    <p class="lede">第一张图是本篇的核心：-691 与 169 不是先后两个数，是同一指标的两个口径，零轴两侧各画一条。</p>
+    <div class="charts">
+
+      <figure class="chart-figure wide">
+        <svg viewBox="0 0 660 196" role="img" aria-label="季度自由现金流两个口径对照条形图">
+          <text x="0" y="16" font-family="Noto Serif SC, serif" font-size="15" font-weight="600" fill="#171a18">季度自由现金流：同一指标的两个口径</text>
+          <line x1="440" y1="36" x2="440" y2="172" stroke="#646b67" stroke-width="1" stroke-dasharray="4 4"/>
+          <text x="40" y="46" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551">含算力采购预付款</text>
+          <rect x="40" y="54" width="400" height="40" fill="#7d5a1c"/>
+          <text x="430" y="80" font-family="Newsreader, Georgia, serif" font-size="19" font-weight="600" fill="#f4f6f4" text-anchor="end">-691 亿元</text>
+          <text x="444" y="120" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551">剔除算力采购预付款</text>
+          <rect x="440" y="128" width="98" height="40" fill="#171a18"/>
+          <text x="548" y="154" font-family="Newsreader, Georgia, serif" font-size="19" font-weight="600" fill="#171a18">169 亿元</text>
+          <text x="440" y="188" font-family="-apple-system, sans-serif" font-size="11.5" fill="#646b67" text-anchor="middle">零轴</text>
+        </svg>
+        <figcaption>单位：人民币亿元，零轴居中，两侧同一指标。来源：Q3 财报（11-19 发布），简报 2026-11-19 第 11 行逐字转述。</figcaption>
+      </figure>
+
+      <figure class="chart-figure">
+        <svg viewBox="0 0 660 150" role="img" aria-label="本季资本开支与实际支付对比条形图">
+          <text x="0" y="16" font-family="Noto Serif SC, serif" font-size="15" font-weight="600" fill="#171a18">本季资本开支与实际支付</text>
+          <text x="170" y="60" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551" text-anchor="end">本季资本开支</text>
+          <rect x="180" y="40" width="440" height="32" fill="#7d5a1c"/>
+          <text x="610" y="62" font-family="Newsreader, Georgia, serif" font-size="17" font-weight="600" fill="#f4f6f4" text-anchor="end">814.33 亿元</text>
+          <text x="170" y="108" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551" text-anchor="end">实际支付</text>
+          <rect x="180" y="88" width="352" height="32" fill="#4f5551"/>
+          <text x="542" y="110" font-family="Newsreader, Georgia, serif" font-size="17" font-weight="600" fill="#f4f6f4" text-anchor="end">651 亿元</text>
+          <text x="180" y="140" font-family="-apple-system, sans-serif" font-size="11.5" fill="#646b67">实际支付同比增 225%。来源：电子工程专辑 / 华尔街见闻（11-19）</text>
+        </svg>
+        <figcaption>单位：人民币亿元。管理层口径：现金资本开支目前处于峰值，2027 年可能仍在附近波动。</figcaption>
+      </figure>
+
+      <figure class="chart-figure">
+        <svg viewBox="0 0 660 150" role="img" aria-label="云收入同比增速从 21% 升至 35% 条形图">
+          <text x="0" y="16" font-family="Noto Serif SC, serif" font-size="15" font-weight="600" fill="#171a18">云收入同比增速：21% → 35%</text>
+          <text x="120" y="60" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551" text-anchor="end">上一季</text>
+          <rect x="130" y="40" width="264" height="32" fill="#4f5551"/>
+          <text x="404" y="62" font-family="Newsreader, Georgia, serif" font-size="17" font-weight="600" fill="#171a18">21%</text>
+          <text x="120" y="108" font-family="-apple-system, sans-serif" font-size="12.5" fill="#4f5551" text-anchor="end">本季 Q3</text>
+          <rect x="130" y="88" width="440" height="32" fill="#7d5a1c"/>
+          <text x="580" y="110" font-family="Newsreader, Georgia, serif" font-size="17" font-weight="600" fill="#f4f6f4">35%</text>
+          <text x="130" y="140" font-family="-apple-system, sans-serif" font-size="11.5" fill="#646b67">口径：云收入同比增速。来源：Q3 财报（11-19 发布）</text>
+        </svg>
+        <figcaption>WorkBuddy 与 MaaS 收入增长是本季云增速回升的重要驱动（第一财经口径，经转载核对）。</figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 口径核源清单 ────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>口径核源清单：六个坑的处理</h2>
+    <p class="lede">本篇的风险不在文笔，在口径。下表逐项写明处理方式与依据；带「未确认」的项不进断言层。</p>
+    <table class="caliber-table">
+      <thead>
+        <tr><th>口径项</th><th>本篇处理</th><th>依据</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="no">①</span>-691 与 169</td>
+          <td>同一指标的两个口径：正文写明剔除项为算力采购预付款；不写「现金流由负转正」这类推断。</td>
+          <td>简报 2026-11-19 第 11 行（华尔街见闻 / 凤凰网财经）</td>
+        </tr>
+        <tr>
+          <td><span class="no">②</span>5 亿美元收入</td>
+          <td>是「最近七天年化」推算口径，不是季度实际收入；限定词全程保留。</td>
+          <td>简报 2026-11-19 第 11 行</td>
+        </tr>
+        <tr>
+          <td><span class="no">③</span>100 万亿 Token 主体</td>
+          <td>归于 WorkBuddy。已做资料核对：36氪、第一财经转载、BigGo Finance 三源口径一致，均写明为 WorkBuddy 的日均 Token 消耗。</td>
+          <td>资料核对（11-19 至 11-20 报道），三源一致</td>
+        </tr>
+        <tr>
+          <td><span class="no">④</span>1000 万 vs 3000 万</td>
+          <td>两个产品：WorkBuddy 日活超 1000 万；微信内置助手小微日活 3000 万。不混用、不相加。</td>
+          <td>简报 2026-11-19 第 11 行 / 2026-11-20 第 21 行</td>
+        </tr>
+        <tr>
+          <td><span class="no">⑤</span>元宝「未达预期」</td>
+          <td>高管自陈，属可引事实，进 evidence；「AI 投入产出比不成立」是观点，只写正文，不作断言。</td>
+          <td>简报 2026-11-19 第 23 行 / 2026-11-20 第 21 行</td>
+        </tr>
+        <tr>
+          <td><span class="no">⑥</span>币种与日期</td>
+          <td>人民币亿元与美元并列展示，不做汇率换算；日期统一标「Q3（11-19 发布）」。</td>
+          <td>本篇约定</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 投入 / 产出 ─────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>投入侧与产出侧：两栏对账</h2>
+    <p class="lede">左栏是本季现金与利润的去向，右栏是收入与用量的读数。两栏不做过除、不做过乘，不做任何比值结论。</p>
+    <div class="split-ledger">
+      <div class="ledger-col">
+        <h3><span class="side-tag">Dr.</span>投入侧 · 现金去向</h3>
+        <ul>
+          <li><b>本季资本开支 814.33 亿元，实际支付 651 亿元（同比增 225%）</b>
+            <span class="src">电子工程专辑 / 华尔街见闻（11-19）</span></li>
+          <li><b>季度自由现金流 -691 亿元</b>（含算力采购预付款）；剔除后为 <b>169 亿元</b>
+            <span class="src">Q3 财报（11-19 发布）</span></li>
+          <li>新 AI 产品对调整后经营利润的净影响 <b>152 亿元</b>（833 亿元 → 681 亿元）
+            <span class="src">36氪（11-19）· 第三方整理口径，非断言</span></li>
+          <li>高盛估计新 AI 产品整体亏损约 <b>150 亿元</b>
+            <span class="src">高盛估计 · 第三方观点，非财报口径</span></li>
+          <li>管理层口径：现金资本开支目前处于峰值，2027 年可能仍在附近波动
+            <span class="src">电子工程专辑 / 华尔街见闻（11-19）</span></li>
+        </ul>
+      </div>
+      <div class="ledger-col">
+        <h3><span class="side-tag">Cr.</span>产出侧 · 收入与用量读数</h3>
+        <ul>
+          <li><b>集团营收 2073 亿元，同比增 8%</b>
+            <span class="src">Q3 财报（11-19 发布）</span></li>
+          <li><b>云收入增速从 21% 升至 35%</b>
+            <span class="src">Q3 财报（11-19 发布）</span></li>
+          <li>WorkBuddy：日活超 <b>1000 万</b>、日均 Token 调用量超 <b>100 万亿</b>、最近七天年化收入超 <b>5 亿美元</b>
+            <span class="src">Q3 财报（11-19 发布）· 三项均为该产品口径</span></li>
+          <li>微信内置助手小微（另一产品）：覆盖超 <b>30 个</b>触点，日活 <b>3000 万</b>
+            <span class="src">网易科技 / 华尔街见闻（11-20）· 扩大测试口径</span></li>
+          <li>分部收入：增值服务 983.26 亿元（+3%）、营销服务 430.49 亿元（+19%）、金融科技及企业服务 636.55 亿元（+9%）
+            <span class="src">第一财经口径，经转载核对 · 非断言</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="ledger-note">读法：两栏同一季度、同一财报。左栏有两套现金流口径，右栏有两套产品口径（WorkBuddy 与小微）与一套年化推算口径（5 亿美元）。任何跨栏比值都需要先声明口径，本篇不提供比值。</p>
+  </div>
+</section>
+
+<!-- ── 进程 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>进程：从单季首负到公开承认</h2>
+    <p class="lede">这条线在两个季度里走完：现金口径先转负，管理层再把产品结果摆到台面。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2026 Q2</span>
+        <div>
+          <div class="timeline-title">自由现金流转负 -138 亿元，为 2005 年上市以来单季首负</div>
+          <div class="timeline-detail">Q3 的 -691 亿元缺口约为二季度的五倍，连续第二个负值季度；同期由 6 月底净现金 581.91 亿元转为净债务 137.02 亿元，公司说明的原因包括大额算力采购。来源：第一财经口径，经转载核对（背景数据，非断言）。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19</span>
+        <div>
+          <div class="timeline-title">Q3 财报发布：现金流两口径与 WorkBuddy 三读数同日披露</div>
+          <div class="timeline-detail">营收 2073 亿元同比增 8%，云收入增速从 21% 升至 35%；WorkBuddy 日活超 1000 万、日均 Token 调用量超 100 万亿、最近七天年化收入超 5 亿美元；季度自由现金流降至负 691 亿元，剔除算力采购预付款后为 169 亿元。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19</span>
+        <div>
+          <div class="timeline-title">刘炽平承认元宝未达预期并削减投入</div>
+          <div class="timeline-detail">战略重心转向企业级 WorkBuddy 与微信内置助手小微；同日披露本季资本开支 814.33 亿元、实际支付 651 亿元。美国先进算力限制被列为现实挑战，下一代混元模型的推出时间可能因此延迟。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-20</span>
+        <div>
+          <div class="timeline-title">补充口径：元宝「没有我们预期的那么成功」，小微扩大测试</div>
+          <div class="timeline-detail">已大幅减少对元宝的支出，重心从扩大用户规模转回能力建设；微信内置助手小微覆盖朋友圈、公众号、视频号等超 30 个触点，日活跃用户达 3000 万，与 WorkBuddy 的 1000 万日活分属两个产品。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 证据 ────────────────────────────────────────────── -->
+<section>
+  <div class="shell">
+    <h2>证据：判断所依据的原文</h2>
+    <p class="lede">前两条为财报数字的逐字转述，后两条为高管表态与主体核对的原文。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">腾讯 Q3 财报：营收 2073 亿元同比增 8%，云收入增速从 21% 升至 35%；WorkBuddy 日活超 1000 万、日均 Token 调用量超 100 万亿、最近七天年化收入超 5 亿美元；季度自由现金流降至负 691 亿元，剔除算力采购预付款后为 169 亿元。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19.md 第 11 行 · 转引 华尔街见闻 / 凤凰网财经（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">刘炽平（腾讯总裁）：坦承 AI 助手元宝未达预期成功并已大幅削减投入，战略重心转向企业级 WorkBuddy 与微信内置助手小微；美国先进算力限制是现实挑战，下一代混元模型的推出时间可能因此延迟。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19.md 第 23 行 · 华尔街见闻（11-19）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">刘炽平（腾讯总裁）：坦承元宝「没有我们预期的那么成功」，已大幅减少对该产品的支出，重心从扩大用户规模转回能力建设；微信内置助手小微正扩大测试，已覆盖朋友圈、公众号、视频号等超 30 个触点，日活跃用户达 3000 万。</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-20.md 第 21 行 · 网易科技 / 华尔街见闻（11-20）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">第三季度，这款AI办公产品日活跃用户超过1000万，日均Token消耗超过100万亿。</p>
+        <cite class="evidence-source">36氪（11-19）· 「这款 AI 办公产品」指 WorkBuddy，用于核对 100 万亿 Token 的主体范围</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>方法：断言层 7 条全部逐字回查自简报原文（2026-11-19 第 11、23 行，2026-11-20 第 21 行）。100 万亿 Token 的主体范围经三源资料核对（36氪、第一财经转载、BigGo Finance）归于 WorkBuddy；该核对为资料内容核对，非运行验证。</p>
+    <p>局限：「最近七天年化收入超 5 亿美元」为年化推算口径，不是季度实际收入；152 亿元经营利润差、150 亿元亏损估计、Q2 -138 亿元与分部收入为第三方或转载口径，已标注来源，未列入断言层。人民币与美元未做汇率换算。「AI 投入产出比是否成立」属观点，本篇不作断言。</p>
+    <p>标签：动笔前 grep 近 7 天作品 96 个 metric-label，无腾讯同义族；本篇 7 个标签为新建、一次性定名（见上方关键数据区块）。追踪线：估值与资本。作品路径：shared/showcase/works/2026-11-21/research/2026-11-21-tencent-ai-capex-ledger.html。</p>
+  </div>
+</footer>
+
+<!--
+  断言声明（权威来源 · 与视觉无关）
+  quote 必须在本文件里逐字存在，否则 claim_gate 会拒绝该条。
+  7 条均为事实型读数；解释性判断不写入。
+-->
+<script type="application/json" id="claims">
+[
+  {
+    "value": "2073 亿元",
+    "label": "腾讯 Q3 营收（11-19 财报口径）",
+    "quote": "腾讯 Q3 营收（11-19 财报口径）2073 亿元"
+  },
+  {
+    "value": "21%→35%",
+    "label": "腾讯云收入增速（21%→35%）",
+    "quote": "腾讯云收入增速（21%→35%）"
+  },
+  {
+    "value": "-691 亿元",
+    "label": "腾讯 Q3 自由现金流（含算力采购预付款）",
+    "quote": "腾讯 Q3 自由现金流（含算力采购预付款）-691 亿元"
+  },
+  {
+    "value": "169 亿元",
+    "label": "腾讯 Q3 自由现金流（剔除算力采购预付款）",
+    "quote": "腾讯 Q3 自由现金流（剔除算力采购预付款）169 亿元"
+  },
+  {
+    "value": "超 1000 万",
+    "label": "腾讯 WorkBuddy 日活（11-19 财报口径）",
+    "quote": "腾讯 WorkBuddy 日活（11-19 财报口径）超 1000 万"
+  },
+  {
+    "value": "超 100 万亿",
+    "label": "腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）",
+    "quote": "腾讯 WorkBuddy 日均 Token 调用量（11-19 财报口径）超 100 万亿"
+  },
+  {
+    "value": "超 5 亿美元",
+    "label": "腾讯 WorkBuddy 最近七天年化收入（美元）",
+    "quote": "腾讯 WorkBuddy 最近七天年化收入（美元）超 5 亿美元"
+  }
+]
+</script>
+
+<script>
+(function(){
+  var targets=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.15});
+  targets.forEach(function(t){io.observe(t);});
+})();
+</script>
+</body>
+</html>

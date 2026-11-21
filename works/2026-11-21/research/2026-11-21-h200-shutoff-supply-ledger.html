@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>断供与身份化 —— H200 停售、五国许可、担保收紧下的中国算力账本</title>
+<meta name="showcase-beat" content="厂商与算力权力">
+<meta name="description" content="英伟达自主停售对华 H200、BIS 新增 744.24 条、新云担保改验收后生效——三本账在 72 小时内同时收紧，本篇分列口径与来源。">
+
+<style>
+/* 版式：账簿双栏 · 本篇重排（非模板原样套用）
+   契约 class 仅使用封闭语义词汇表：.metrics/.metric(.metric-value/.metric-label/
+   .metric-source)、.verdict、.timeline/.timeline-item(.timeline-date/.timeline-title/
+   .timeline-detail)、.evidence/.evidence-item(.evidence-quote/.evidence-source)
+   其余结构 class 取自模板骨架（.shell/.masthead/.verdict-band/.colophon）。 */
+@import url('../../../assets/vendor/fonts/noto-serif-sc.css');
+@font-face{
+  font-family:'Newsreader';
+  src:url('../../../assets/vendor/fonts/newsreader-latin-300-600.woff2') format('woff2');
+  font-weight:300 600; font-style:normal; font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,
+    U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --paper:#e8ebe9;
+  --paper-raised:#f2f4f2;
+  --ink:#151817;
+  --ink-2:#464c49;
+  --ink-3:#626865;
+  --rule:#cfd4d1;
+  --rule-soft:#dde1de;
+  --brass:#6f5a24;
+  --seal:#8c2f22;
+  --seal-wash:#f4e4e0;
+  --brass-tint:#eef0e6;
+  --seal-tint:#f2eae9;
+  --zebra:#eef1ef;
+  --zebra-brass:#e9ece1;
+  --zebra-seal:#eee4e2;
+  --track:#dce0dd;
+  --bar-neutral:#7f8581;
+  --deep:#111413;
+  --deep-ink:#eef1ef;
+  --deep-2:#b4bab6;
+  --shell:1120px;
+  --serif-cn:'Noto Serif SC','Songti SC','Source Han Serif SC','STSong',serif;
+  --serif-num:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC',
+    'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+::selection{background:var(--zebra);color:var(--ink)}
+:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+html{scrollbar-color:var(--rule) var(--paper);scrollbar-width:thin}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--rule);border:3px solid var(--paper)}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.66;letter-spacing:-0.006em;
+  -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 30px}
+
+/* 抬头：左标题右账簿元信息 */
+.masthead{padding:88px 0 56px;border-bottom:2px solid var(--ink)}
+.mast-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:52px;align-items:start}
+h1{
+  font-family:var(--serif-cn);font-size:clamp(33px,4.3vw,54px);line-height:1.18;
+  letter-spacing:-0.015em;font-weight:700;text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--seal)}
+.standfirst{
+  margin-top:24px;font-size:19.5px;line-height:1.6;letter-spacing:-0.01em;
+  color:var(--ink-2);max-width:44ch;
+}
+.mast-meta{font-family:var(--serif-num);font-size:13.5px;line-height:1.55}
+.mast-meta dt{
+  font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);padding-top:12px;border-top:1px solid var(--rule);
+}
+.mast-meta dd{padding-bottom:12px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.mast-meta dl{display:grid;gap:0}
+.claim-n{font-family:var(--serif-num);font-size:24px;color:var(--seal);
+  font-variant-numeric:tabular-nums;line-height:1.2;display:block;margin-top:2px}
+
+/* 区块 */
+section{padding:76px 0 66px;position:relative}
+section + section{border-top:1px solid var(--rule)}
+section + section::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:var(--ink);
+  transform:scaleX(0);transform-origin:left center;will-change:transform;
+}
+.drawn::before{transform:scaleX(1);transition:transform .85s cubic-bezier(.16,1,.3,1)}
+h2{
+  font-family:var(--serif-cn);font-size:29px;line-height:1.3;letter-spacing:-0.012em;
+  font-weight:700;margin-bottom:16px;
+}
+h3{
+  font-family:var(--serif-cn);font-size:19px;line-height:1.45;font-weight:700;
+  margin:34px 0 10px;letter-spacing:-0.008em;
+}
+h3:first-of-type{margin-top:8px}
+.lede{font-size:17.5px;line-height:1.62;color:var(--ink-2);max-width:58ch;margin-bottom:30px}
+p{max-width:70ch}
+p + p{margin-top:14px}
+strong{font-weight:700}
+.seal{
+  color:var(--seal);font-weight:700;background:var(--seal-wash);
+}
+.note{
+  margin-top:22px;padding:16px 20px;border:1px solid var(--rule);
+  background:var(--seal-wash);font-size:15.5px;line-height:1.6;color:var(--ink-2);max-width:66ch;
+}
+.note b{color:var(--seal)}
+
+/* 深色带：核心判断 */
+.verdict-band{background:var(--deep);color:var(--deep-ink);border-top:0}
+.verdict-band h2{color:var(--deep-ink)}
+.verdict{
+  font-family:var(--serif-cn);font-size:clamp(23px,2.6vw,31px);line-height:1.45;
+  letter-spacing:-0.01em;font-weight:700;max-width:34ch;
+}
+.verdict-note{margin-top:22px;font-size:16px;line-height:1.7;color:var(--deep-2);max-width:62ch}
+.verdict-note b{color:var(--deep-ink);font-weight:600}
+
+/* 关键数据：账册 */
+.metrics{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  background:var(--rule-soft);border:1px solid var(--rule);
+  overflow:hidden;
+}
+.metric{background:var(--paper-raised);padding:24px 20px 20px;border-right:1px solid var(--rule-soft)}
+.metric-value{
+  font-family:var(--serif-num);font-size:35px;line-height:1.04;letter-spacing:-0.02em;
+  font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.metric-label{margin-top:11px;font-size:14.5px;line-height:1.48;color:var(--ink-2);font-weight:600}
+.metric-source{
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--rule-soft);
+  font-size:12px;line-height:1.5;color:var(--ink-3);
+}
+
+/* 三本账：并排账页 */
+.ledger{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  border:1px solid var(--ink);overflow:hidden;margin-top:6px;
+}
+.ledger > div{background:var(--paper-raised);padding:26px 24px 28px;border-right:1px solid var(--rule)}
+.ledger > div:last-child{border-right:0}
+.ledger h3{
+  font-family:var(--serif-cn);font-size:17px;font-weight:700;letter-spacing:-0.006em;
+  padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:14px;
+}
+.ledger h3 span{
+  font-family:var(--serif-num);font-size:12px;letter-spacing:.16em;color:var(--seal);
+  display:block;margin-bottom:6px;font-weight:500;
+}
+.ledger p{font-size:15.4px;line-height:1.66;color:var(--ink-2);max-width:none}
+.ledger p + p{margin-top:12px}
+.ledger b{color:var(--ink);font-weight:700}
+
+/* 表格：口径对照（两类触发必须分列） */
+table{
+  width:100%;border-collapse:collapse;margin-top:8px;
+  background:var(--paper-raised);font-size:15.2px;line-height:1.6;
+}
+caption{
+  caption-side:top;text-align:left;font-size:13px;letter-spacing:.1em;
+  color:var(--ink-3);padding-bottom:10px;text-transform:uppercase;
+}
+th,td{border:1px solid var(--rule);padding:13px 15px;vertical-align:top;text-align:left}
+thead th{
+  background:var(--ink);color:var(--deep-ink);font-weight:600;font-size:14px;
+  letter-spacing:.02em;
+}
+tbody th{background:var(--paper);font-weight:700;width:132px;color:var(--ink)}
+tbody tr:nth-child(even) td{background:var(--zebra)}
+tbody tr:nth-child(even) td.trigger-a{background:var(--zebra-brass)}
+tbody tr:nth-child(even) td.trigger-b{background:var(--zebra-seal)}
+thead th:nth-child(2){background:var(--brass)}
+thead th:nth-child(3){background:var(--seal)}
+td.trigger-a{background:var(--brass-tint)}
+td.trigger-b{background:var(--seal-tint)}
+.tbl-split{font-size:15.5px;color:var(--ink-2);margin-top:14px;max-width:74ch}
+
+/* 图：许可批准比例 */
+figure{margin-top:8px;border:1px solid var(--rule);background:var(--paper-raised);padding:26px 24px 22px}
+figcaption{font-size:13px;letter-spacing:.06em;color:var(--ink-3);margin-bottom:20px}
+.bar-row{display:grid;grid-template-columns:190px minmax(0,1fr) 108px;gap:16px;
+  align-items:center;padding:11px 0;border-bottom:1px solid var(--rule-soft)}
+.bar-row:last-child{border-bottom:0}
+.bar-name{font-size:14.5px;line-height:1.4;color:var(--ink-2);font-weight:600}
+.bar-track{background:var(--track);height:26px;position:relative;overflow:hidden}
+.bar-fill{position:absolute;left:0;top:0;bottom:0}
+.bar-fill.a{background:var(--bar-neutral)}
+.bar-fill.b{background:var(--seal)}
+.bar-num{font-family:var(--serif-num);font-size:20px;font-variant-numeric:tabular-nums;
+  text-align:right;color:var(--ink)}
+.bar-num small{display:block;font-family:var(--sans);font-size:11.5px;color:var(--ink-3);
+  letter-spacing:.02em;font-weight:400}
+.fig-foot{margin-top:16px;font-size:13.5px;line-height:1.6;color:var(--ink-3);max-width:70ch}
+
+/* 进程 */
+.timeline{list-style:none;border-top:1px solid var(--ink)}
+.timeline-item{
+  display:grid;grid-template-columns:126px minmax(0,1fr);gap:30px;
+  padding:22px 0;border-bottom:1px solid var(--rule);
+}
+.timeline-date{font-family:var(--serif-num);font-size:14px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;padding-top:3px}
+.timeline-title{font-size:17.5px;line-height:1.45;font-weight:700;letter-spacing:-0.008em}
+.timeline-detail{margin-top:7px;font-size:15.5px;line-height:1.64;color:var(--ink-2);max-width:68ch}
+.timeline-detail b{color:var(--ink)}
+
+/* 证据 */
+.evidence{border-top:1px solid var(--ink)}
+.evidence-item{padding:24px 0;border-bottom:1px solid var(--rule);position:relative}
+.evidence-quote{
+  font-family:var(--serif-cn);font-size:18.5px;line-height:1.66;color:var(--ink);
+  max-width:58ch;padding-left:34px;
+}
+.evidence-quote::before{
+  content:'“';position:absolute;left:0;top:12px;
+  font-family:var(--serif-num);font-size:46px;line-height:1;color:var(--seal);
+}
+.evidence-source{margin-top:11px;padding-left:34px;font-size:12.5px;line-height:1.55;color:var(--ink-3)}
+
+/* 未确认 */
+ul.plain{list-style:none;max-width:74ch}
+ul.plain li{
+  padding:14px 0 14px 26px;border-bottom:1px solid var(--rule);
+  position:relative;font-size:15.6px;line-height:1.62;color:var(--ink-2);
+}
+ul.plain li::before{content:'□';position:absolute;left:0;top:14px;color:var(--seal);font-size:14px}
+ul.plain li b{color:var(--ink);font-weight:700}
+
+/* 页脚 */
+.colophon{padding:48px 0 70px;background:var(--paper-raised);border-top:2px solid var(--ink)}
+.colophon p{font-size:13.5px;line-height:1.75;color:var(--ink-3);max-width:66ch}
+.colophon p + p{margin-top:10px}
+
+@media (max-width:940px){
+  .mast-grid{grid-template-columns:1fr;gap:34px}
+  .mast-meta dl{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  .mast-meta dl > div{display:contents}
+  .ledger{grid-template-columns:1fr}
+  .ledger > div{border-right:0;border-bottom:1px solid var(--rule)}
+  .ledger > div:last-child{border-bottom:0}
+}
+@media (max-width:680px){
+  .shell{padding:0 20px}
+  .masthead{padding:56px 0 40px}
+  section{padding:52px 0}
+  h2{font-size:24px}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+  .timeline-date{padding-top:0}
+  .metrics{grid-template-columns:1fr}
+  .metric{border-right:0;border-bottom:1px solid var(--rule-soft)}
+  .bar-row{grid-template-columns:1fr;gap:8px}
+  .bar-num{text-align:left}
+  table{font-size:14.4px}
+  th,td{padding:11px 12px}
+  tbody th{width:auto}
+  .evidence-quote{padding-left:26px}
+  .evidence-quote::before{font-size:34px}
+  .evidence-source{padding-left:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  section + section::before{transform:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<!-- showcase-backlink -->
+<style>#showcase-bar{position:relative;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 20px;background:#0b0c12;color:rgba(255,255,255,.62);border-bottom:1px solid rgba(255,255,255,.09);font:12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;letter-spacing:.02em}#showcase-bar .sb-brand{font-family:Georgia,"Songti SC",serif;color:#f0c27f;letter-spacing:.16em;text-transform:uppercase;font-size:11px}#showcase-bar .sb-sep{color:rgba(255,255,255,.2)}#showcase-bar .sb-beat{color:#a78bfa}#showcase-bar .sb-cnt{color:rgba(255,255,255,.48)}#showcase-bar .sb-back{margin-left:auto;color:#f5e6c8;text-decoration:none;border:1px solid rgba(245,230,200,.28);border-radius:980px;padding:4px 12px;font-size:11.5px;transition:background .2s,border-color .2s}#showcase-bar .sb-back:hover{background:rgba(245,230,200,.14);border-color:rgba(245,230,200,.5)}@media(max-width:640px){#showcase-bar{gap:9px;padding:8px 14px;font-size:11px}#showcase-bar .sb-back{margin-left:0;order:9}}</style>
+<div id="showcase-bar"><span class="sb-brand">Zhinang Archive</span><a class="sb-back" href="../../../index.html">回到柜子</a></div>
+<!-- showcase-backlink -->
+<style>#showcase-backlink{position:fixed;left:16px;bottom:16px;z-index:99999;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:980px;font:500 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans SC",sans-serif;text-decoration:none;transition:opacity .2s,transform .2s,background .2s,color .2s,border-color .2s;opacity:.86}#showcase-backlink:hover{opacity:1;transform:translateY(-1px)}#showcase-backlink.on-dark-page{color:#14130f;background:rgba(252,252,250,.92);border:1px solid rgba(0,0,0,.10);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink.on-light-page{color:#fafafa;background:rgba(20,19,15,.82);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#showcase-backlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}</style>
+<a id="showcase-backlink" href="../../../index.html" aria-label="返回档案柜"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h13M13 7l5 5-5 5"/><path d="M4 5.5h16M4 18.5h16"/></svg><span>回到档案柜</span></a>
+<script id="showcase-backlink-js">(function(){function detect(){var a=document.getElementById("showcase-backlink");if(!a)return;function lum(s){var m=String(s).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);if(!m)return null;if(m[4]!==undefined&&parseFloat(m[4])===0)return null;return 0.299*m[1]+0.587*m[2]+0.114*m[3];}var r=a.getBoundingClientRect();var st=document.elementsFromPoint?document.elementsFromPoint(r.left+6,r.top+r.height/2):[];var L=null;for(var i=0;i<st.length;i++){var u=st[i];if(u===a||(a.contains&&a.contains(u)))continue;L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;}if(L===null){u=document.body;while(u){L=lum(getComputedStyle(u).backgroundColor);if(L!==null)break;u=u.parentElement;}}if(L===null)L=255;a.classList.add(L<128?"on-dark-page":"on-light-page");}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",detect);else detect();})();</script>
+
+
+<header class="masthead">
+  <div class="shell">
+    <div class="mast-grid">
+      <div>
+        <h1>断供<em>与</em>身份化：中国算力的三本账</h1>
+        <p class="standfirst">H200 停售、五国许可、担保收紧——同 72 小时内三件事同时落地。本篇把它们拆成供给、准入、担保三本账分别记账，标明哪些是官方规则、哪些是企业决定、哪些到交付时仍未确认。</p>
+      </div>
+      <aside class="mast-meta">
+        <dl>
+          <div><dt>交付日期</dt><dd>2026-11-21 · 卷宗 458</dd></div>
+          <div><dt>主责</dt><dd>研析</dd></div>
+          <div><dt>追踪线</dt><dd>厂商与算力权力</dd></div>
+          <div><dt>已验证断言</dt><dd><span class="claim-n">7</span>条 · 逐字回查过原文</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- 核心判断 -->
+<section class="verdict-band">
+  <div class="shell">
+    <h2>核心判断</h2>
+    <p class="verdict">这 72 小时里的「断供」主体不是新禁令：供给账由英伟达主动停付，身份账由 BIS 按客户归属重新定价，担保账由卖方改成验收后兑付。</p>
+    <p class="verdict-note">三件事的效力来源不同，必须分账读。<b>供给账</b>是企业决定：英伟达临时 CEO 兼 CFO 克雷斯在 11-17 财报会上宣布不再向中国出货获准的 Hopper 数据中心产品，并把该收入从第四季度指引中归零。<b>身份账</b>是官方规则：美国商务部 BIS 于 11-16 发布临时最终规则，新增 EAR 第 744.24 条。<b>担保账</b>是合同条款：新云厂商采购担保改为融资、建机、部署、验收全部完成才生效。三者叠加后，问题从「能否买到芯片」变成「谁在买、算力记在谁名下、钱由谁兜底」。</p>
+  </div>
+</section>
+
+<!-- 关键数据 -->
+<section>
+  <div class="shell">
+    <h2>关键数据</h2>
+    <p class="lede">七条可回查的硬口径。前四条复用近 7 天作品的既有标签，后三条为本篇首次命名，命名方式为「指标名（来源与日期口径）」。</p>
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value">24 亿美元</div>
+        <div class="metric-label">英伟达上季度对华 Hopper 数据中心产品销售额（11-17 财报会口径）</div>
+        <div class="metric-source">英伟达 2027 财年 Q3 财报会 · 截至 10-25 季度 · 克雷斯（11-17 美东）</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">五国</div>
+        <div class="metric-label">纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）</div>
+        <div class="metric-source">美国商务部 BIS 临时最终规则 742.6 · 11-16 生效</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">1200 万 TPP</div>
+        <div class="metric-label">BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）</div>
+        <div class="metric-source">BIS 临时最终规则 EAR 744.24 · 11-16 · 单站点或关联数据中心合并计</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">90 天</div>
+        <div class="metric-label">BIS 存量业务补办期限（90 天）</div>
+        <div class="metric-source">BIS 临时最终规则过渡条款 · 11-16 起算 · 已在提供该类算力的数据中心</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">87.9 万块</div>
+        <div class="metric-label">美国对华 AI 芯片许可批准量（截至 2026-05，11-19 众议院外委会披露）</div>
+        <div class="metric-source">美国众议院外交事务委员会 · 依《出口管制改革法》公开 · 11-19</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">532 亿块</div>
+        <div class="metric-label">10 月集成电路产量（11-19 国家统计局口径）</div>
+        <div class="metric-source">国家统计局 · 同比 +21.9% · 11-19 概览</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">56 万颗</div>
+        <div class="metric-label">平头哥自研AI芯片累计出货量（11-13报道口径）</div>
+        <div class="metric-source">腾讯新闻 · 前沿快讯 11-13 · 素材日期 11-14，滞后 3 天</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 三本账 -->
+<section>
+  <div class="shell">
+    <h2>三本账：供给、准入、担保</h2>
+    <p class="lede">同一周内的三条约束线，效力来源不同、作用对象不同、可逆性也不同。分列记账，才能看出哪一条真正卡住了中国算力。</p>
+
+    <div class="ledger">
+      <div>
+        <h3><span>账一 · SUPPLY</span>供给账：主动停付，不是新禁令</h3>
+        <p>克雷斯在 11-17 财报会上的表述是公司行为：<b>不再向中国出货获准的 Hopper 数据中心产品</b>，且第四季度指引不含该收入。Hopper 线包含 H100、H200、H20，其中 H200 是最新一代。</p>
+        <p>该口径需与两件事分开：一是 2025-12 特朗普批准对华专供 H200 的安排（经美转运、美政府收取 25% 关税），英伟达宣布停售即结束自己在这套安排中的角色；二是中方在此之前已基本拒收 H200 付运。</p>
+        <p>卖方测算分歧明显：Jefferies 估计相关限制可能使英伟达明年数据中心收入减少 440 亿至 620 亿美元；克雷斯则称 Vera Rubin 等先进芯片的需求积压意味着新规不影响整体收入。</p>
+      </div>
+      <div>
+        <h3><span>账二 · IDENTITY</span>准入账：算力带上了客户身份</h3>
+        <p>BIS 11-16 临时最终规则同时开了两道许可闸门（详见下一节分列）。其中 744.24 条把<strong>「向谁提供算力」</strong>写进最终用途控制：全球任何地点的数据中心，只要向或为总部在 D:5 国家组或澳门的实体提供超 1200 万聚合 TPP 的算力访问，出口、再出口、境内转移即需许可。</p>
+        <p>配套义务沿硬件向下游传导：已持有物项的一方即使未参与原始运输，后续改变用途也算需授权的境内转移；无知情而放行的出口方仍须通知接收方。</p>
+        <p>商业后果是把合规能力变成销售能力——客户身份识别、负载监控与可审计日志，从后台成本变成能否签单的前置条件。</p>
+      </div>
+      <div>
+        <h3><span>账三 · GUARANTEE</span>担保账：验收后才兑付</h3>
+        <p>克雷斯明确，对新云厂商的采购担保<strong>仅在对方完成融资、建成机房、部署算力并通过验收后才生效</strong>；若延期或受阻，担保即消失。</p>
+        <p>这条改动落在最脆弱的一环：多数新云公司高度依赖债务融资建数据中心，担保延后生效意味着信用支持与建设进度同步后移，利息与工期压力自行承担。</p>
+        <p>担保不再是「签了就有」的期权，而是随工程节点逐段兑现的对赌。</p>
+      </div>
+    </div>
+
+    <div class="note"><b>口径边界：</b>「H200 停售」是英伟达的公司决定，不是美国商务部新发布的禁令；「五国许可」与「D:5／澳门数据中心许可」是两道不同的闸门，任何图表、清单与正文一律分列，不得合并为「六国」或「五国＋」。</div>
+  </div>
+</section>
+
+<!-- 两类触发 -->
+<section>
+  <div class="shell">
+    <h2>两道闸门：两类触发必须分列</h2>
+    <p class="lede">同一份 11-16 临时最终规则（RIN 0694-AK50）里写的是两套独立触发条件。左边是目的地名单，右边是主体归属与算力阈值，二者口径不同、地理范围不同、阈值有无也不同。</p>
+
+    <table>
+      <caption>EAR 临时最终规则 · 11-16 生效 · 两类触发对照（禁合并计数）</caption>
+      <thead>
+        <tr>
+          <th scope="col">对照项</th>
+          <th scope="col">触发一 · 目的地许可（第 742.6 条）</th>
+          <th scope="col">触发二 · 数据中心最终用途许可（第 744.24 条）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">管什么</th>
+          <td class="trigger-a">先进计算物项（ECCN 3A090、4A090 及相关软件与技术）出口、再出口、境内转移到指定目的地。</td>
+          <td class="trigger-b">物项运往「提供或即将提供超阈值算力访问」的数据中心，不论该数据中心位于哪国。</td>
+        </tr>
+        <tr>
+          <th scope="row">名单／范围</th>
+          <td class="trigger-a">五国目的地：印尼、马来西亚、新加坡、巴西、泰国。地理范围限于这五国境内。</td>
+          <td class="trigger-b">主体归属：总部在 <strong>D:5 国家组</strong>或<strong>澳门</strong>的实体（含最终母公司所在地）。地理范围为全球任何地点。</td>
+        </tr>
+        <tr>
+          <th scope="row">阈值</th>
+          <td class="trigger-a">无算力阈值，按物项与目的地判断。</td>
+          <td class="trigger-b">向上述主体提供超过 <strong>1200 万聚合 TPP</strong> 的算力访问；单站点与「关联数据中心」合并计算，数字上互连的基础设施拆到两栋楼也不重置计数。</td>
+        </tr>
+        <tr>
+          <th scope="row">适用对象</th>
+          <td class="trigger-a">向五国发货的出口方、转售方与境内转移方。</td>
+          <td class="trigger-b">全球数据中心运营方及其上游供货方；为 D:5 公司训练模型或供应模型的非 D:5 云客户同样在射程内。</td>
+        </tr>
+        <tr>
+          <th scope="row">存量过渡</th>
+          <td class="trigger-a">规则自 11-16 发布起立即生效，无单独过渡期条款。</td>
+          <td class="trigger-b">已在提供该类算力的数据中心自 11-16 起 <strong>90 天</strong>内补办许可。</td>
+        </tr>
+        <tr>
+          <th scope="row">换算参考</th>
+          <td class="trigger-a">—</td>
+          <td class="trigger-b">1200 万 TPP 约合 760 块 H100 的算力（第三方换算口径，非官方数值）。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tbl-split">为什么不能合并：五国是<strong>发货目的地</strong>名单，D:5 与澳门是<strong>受供主体总部</strong>名单。一个位于新加坡的数据中心若只服务本地客户，只可能落入触发一的上游发货环节，不落入触发二；同一个数据中心若向 D:5 总部客户提供 1200 万 TPP 以上算力，则落入触发二，与它所在国家无关。两组数字相加得到的「六国」在规则上没有对应物。</p>
+  </div>
+</section>
+
+<!-- 口径澄清 -->
+<section>
+  <div class="shell">
+    <h2>口径澄清：停售是谁的决定</h2>
+    <p class="lede">这是本篇最容易被误读的一条。三种表述指向三件不同的事，混用会把企业行为误记成国家禁令。</p>
+
+    <table>
+      <caption>「H200 停售」口径对照表</caption>
+      <thead>
+        <tr>
+          <th scope="col">对照项</th>
+          <th scope="col">美国官方禁令</th>
+          <th scope="col">英伟达自主停售（本篇采用口径）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">决定主体</th>
+          <td>美国商务部 BIS 等监管机构。</td>
+          <td>英伟达公司管理层，由临时 CEO 兼 CFO 克雷斯在财报会上宣布（11-17 美东）。</td>
+        </tr>
+        <tr>
+          <th scope="row">生效依据</th>
+          <td>联邦法规条款（如 11-16 的 742.6 与 744.24）。</td>
+          <td>公司商业决定，同时结束自己在 25% 关税安排中的角色；后续业绩指引不再计入该收入。</td>
+        </tr>
+        <tr>
+          <th scope="row">法律效果</th>
+          <td>无许可即违法，处罚与合规义务对所有主体生效。</td>
+          <td>英伟达不再发货；其他供应商的对华供货不因此自动禁止。</td>
+        </tr>
+        <tr>
+          <th scope="row">与 744.24 的关系</th>
+          <td>744.24 管的是「算力访问给谁」，独立于本条停售。</td>
+          <td>停售发生在同周，但两件事的规则文本、生效日期、义务主体都不同，须分列引用。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tbl-split">已确认的时间关系：2025-12 特朗普批准对华专供 H200（含 25% 关税安排）→ 2026-11-16 BIS 发布临时最终规则 → 2026-11-17 英伟达财报会宣布停售 → 2026-11-18 中国外交部回应称「中方此前已经多次阐明在美国输华芯片问题上的原则立场」。中方在此之前的拒收属二手转述，本篇按「二手来源」标注。</p>
+  </div>
+</section>
+
+<!-- 进程 -->
+<section>
+  <div class="shell">
+    <h2>进程</h2>
+    <p class="lede">从批准到停摆的十一个月，以及 72 小时内的四次落地。</p>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-date">2025-12</span>
+        <div>
+          <div class="timeline-title">特朗普批准对华专供 H200，25% 关税安排成型</div>
+          <div class="timeline-detail">芯片经美转运、美国政府收取 25% 关税；阿里巴巴、腾讯、字节跳动等 10 余家企业获批，<b>尚未完成任何一笔交付</b>。中方同期不允许本国企业购买。（二手转述）</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-16</span>
+        <div>
+          <div class="timeline-title">BIS 发布临时最终规则，新增 EAR 第 744.24 条</div>
+          <div class="timeline-detail">两道闸门同时落地：五国目的地许可 + 全球数据中心 1200 万 TPP 最终用途许可，发布即生效；存量数据中心 <b>90 天</b>补办。同日 CNBC 报道为「封堵第三地数据中心漏洞」。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-17</span>
+        <div>
+          <div class="timeline-title">英伟达财报会：停售对华 Hopper、担保改为验收后生效</div>
+          <div class="timeline-detail">克雷斯宣布不再向中国出货获准的 Hopper 数据中心产品，Q4 指引剔除该收入；上季度对华销售额 <b>24 亿美元</b>；新云担保改为四条件全部完成后生效。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-18</span>
+        <div>
+          <div class="timeline-title">英伟达设董事会级出口管制监督委员会；中方回应</div>
+          <div class="timeline-detail">公司宣布成立董事会层级委员会，监督国家安全政策、出口管制合规与全球贸易风险。中国外交部发言人郭嘉昆就停售消息回应称「中方此前已经多次阐明在美国输华芯片问题上的原则立场」。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-19</span>
+        <div>
+          <div class="timeline-title">众议院外委会公开对华芯片许可数据</div>
+          <div class="timeline-detail">主席 Brian Mast 依《出口管制改革法》职权公开 BIS 许可记录：截至 2026-05，对华申请 <b>340 万块</b>、批准 <b>87.9 万块</b>，含阿里巴巴 7.5 万块与腾讯 15 万块。该披露被称为该法史上最高公开颗粒度。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-20</span>
+        <div>
+          <div class="timeline-title">中概科技股承压，云厂商公开转向国产芯片</div>
+          <div class="timeline-detail">路透报道美国一系列 AI 芯片措施重创中国科技股并催动自力更生；Fortune 报道腾讯、阿里把云业务增长押在国产芯片上。同日阿里披露真武 V900 定档明年一季度量产。</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">2026-11-21</span>
+        <div>
+          <div class="timeline-title">截至交付时点未检出新增权威来源</div>
+          <div class="timeline-detail">检索时点 2026-11-21 02:13（Asia/Shanghai）。当日后续进展、D:5 完整名单、744.24 审查政策均为<b>未确认</b>，补检方法见文末「未确认与局限」。</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 图表 -->
+<section>
+  <div class="shell">
+    <h2>图一：申请与批准的落差</h2>
+    <p class="lede">许可数据把「批准」与「到货」分开：以下是批准量，实际出货量未披露。</p>
+    <figure>
+      <figcaption>美国对华 AI 芯片许可 · 截至 2026-05 · 众议院外委会 11-19 披露</figcaption>
+      <div class="bar-row">
+        <div class="bar-name">企业申请出口量（Nvidia、AMD 等申报）</div>
+        <div class="bar-track"><div class="bar-fill a" style="width:100%"></div></div>
+        <div class="bar-num">340 万块<small>申请</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-name">BIS 批准量</div>
+        <div class="bar-track"><div class="bar-fill b" style="width:25.9%"></div></div>
+        <div class="bar-num">87.9 万块<small>批准 · 占申请 25.9%</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-name">其中：腾讯</div>
+        <div class="bar-track"><div class="bar-fill b" style="width:4.4%"></div></div>
+        <div class="bar-num">15 万块<small>批准 · Fortune 口径</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-name">其中：阿里巴巴</div>
+        <div class="bar-track"><div class="bar-fill b" style="width:2.2%"></div></div>
+        <div class="bar-num">7.5 万块<small>批准 · Fortune 口径</small></div>
+      </div>
+      <p class="fig-foot">读法：条长按申请量 340 万块为满标；批准率 25.9% 为本篇按 87.9÷340 换算，非来源原文数值。批准不等于到货——披露文件未说明其中多少块实际交付。来源：美国众议院外交事务委员会（11-19）／Fortune（11-20）。</p>
+    </figure>
+
+    <div class="note" style="margin-top:26px"><b>中国侧对冲（同期背景，不能并入英伟达事件链当作因果）：</b>10 月集成电路产量 532 亿块、同比 +21.9%（国家统计局，11-19 概览）；平头哥自研 AI 芯片累计出货突破 56 万颗（11-13 报道口径）；阿里真武 V900 定档明年一季度量产、真武 M890 已规模化商用（11-20）。三条均为供给侧替代进度，与本周美方三本账在时间上重叠，但没有公开证据表明二者构成因果。</div>
+  </div>
+</section>
+
+<!-- 证据 -->
+<section>
+  <div class="shell">
+    <h2>证据</h2>
+    <p class="lede">判断所依据的原文。中文转译件已标明转译，二手转述已标明转述。</p>
+    <div class="evidence">
+      <div class="evidence-item">
+        <p class="evidence-quote">英伟达停售对华 H200、收紧新云担保：上季度中国相关收入 24 亿美元；克雷斯明确对新云厂商的采购担保仅在对方完成融资、建成机房、部署算力并通过验收后才生效，若延期或受阻担保即消失。来源：未尽研究 / The Verge（11-19）</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 第 10 行 · 逐字引用</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">云算力从「可替代资源」变成「带身份资源」：美国商务部 11 月 16 日 BIS 临时最终规则新增 EAR 第 744.24 条，对印尼、马来西亚、新加坡、巴西、泰国五国出口先进计算物项增设许可，并对向 D:5 国家组或澳门总部实体提供超 1200 万 TPP 算力访问的数据中心要求许可；客户身份识别、负载监控与可审计日志成为云厂商的销售能力。来源：钛媒体（11-19）</p>
+        <cite class="evidence-source">每日AI技术动态简报 2026-11-19 第 36 行 · 逐字引用</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">10 月集成电路产量 532 亿块（+21.9%）</p>
+        <cite class="evidence-source">国家统计局口径 · 每日AI技术动态简报 2026-11-19 概览 · 逐字引用</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">我们的业绩展望中没有计入任何获准销往中国的 Hopper 数据中心产品；我们也已不再向中国出货这类获准出口的产品</p>
+        <cite class="evidence-source">英伟达临时 CEO 兼 CFO 科莱特·克雷斯 · 2027 财年 Q3 财报会（11-17 美东）· 中文转译，原话见路透社，经美国之音中文网转引（11-18）</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">A license is now required to export, reexport or transfer (in-country) advanced chips and related SI items (including items in ECCNs 3A090, excluding 3A090.c items, 4A090 and the corresponding .z items, along with related software and technology) where there is “knowledge” that the item is destined for a data center, anywhere in the world, that is providing or will provide access to more than 12,000,000 “aggregate TPP”</p>
+        <cite class="evidence-source">Pillsbury Law 对 BIS 11-16 临时最终规则的摘要（11-17）· 英文原文引用</cite>
+      </div>
+      <div class="evidence-item">
+        <p class="evidence-quote">The obligation also travels downstream with the hardware. The prohibition applies whether or not the party now holding the items took part in the original shipment, and a later switch from a permitted use to a prohibited one counts as an in-country transfer that needs authorization.</p>
+        <cite class="evidence-source">Complex Discovery 对 744.24 下游义务的解读（11-18）· 英文原文引用</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 未确认与局限 -->
+<section>
+  <div class="shell">
+    <h2>未确认与局限</h2>
+    <p class="lede">以下条目在本篇交付时点（2026-11-21 02:13）没有可回查的权威来源，或只取得二手转述。</p>
+    <ul class="plain">
+      <li><b>11-21 当日进展：未确认。</b>检索时点 02:13（Asia/Shanghai），尚未到工作时段。确认方法：按日期补检 BIS 官网、英伟达投资者关系页与路透、财新。</li>
+      <li><b>D:5 国家组完整名单：未确认。</b>本篇只引用规则中的 D:5 指代，未逐国列举。确认方法：查 BIS 官方 Country Group D 清单。</li>
+      <li><b>744.24 的许可审查政策（推定批准还是推定拒绝）：未确认。</b>确认方法：读规则原文的 License Review Policy 段落。</li>
+      <li><b>中方拒收 H200 与「不允许本国企业购买」：二手转述。</b>来源为外媒综述（Yahoo 转载，11-18），未取得中方主管部门文件。确认方法：查商务部、海关总署公开口径。</li>
+      <li><b>1200 万 TPP ≈ 760 块 H100：第三方换算。</b>来自合规分析机构与社交媒体转述，非官方换算表。确认方法：查规则附件的 TPP 计算方法自行折算。</li>
+      <li><b>批准量 87.9 万块与 Fortune 口径 88 万块：数值口径微差。</b>同一披露的两种四舍五入，本篇统一取 87.9 万块。确认方法：回查众议院外委会原始附件。</li>
+      <li><b>特习深圳会晤与芯片议题的会谈结果：未确认。</b>仅取得「芯片出口管制不是主要探讨议题」「购买与否取决于中国的主权决定」的转引表述（USTR 代表葛里尔，11-15 采访，经转引）。确认方法：查会晤联合声明与 USTR 原始采访记录。</li>
+      <li><b>平头哥 56 万颗与阿里真武进度：同期背景。</b>素材日期 11-13／11-20，滞后 1 至 8 天，不并入本周三本账的因果链。确认方法：按日期补检阿里与平头哥最新公告。</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell">
+    <p>方法：本篇全部事实来自可回查来源——每日AI技术动态简报 2026-11-19（第 10、36 行与概览）、国家统计局 11-19 概览、BIS 11-16 临时最终规则的三份法律事务所摘要（Pillsbury、Kharon、Lexology）与贸易媒体解读（CNBC、Reuters、Fortune、Complex Discovery、NeoTeo）、英伟达 2027 财年 Q3 财报会转述（财新、美国之音中文网）、众议院外交事务委员会 11-19 新闻稿。中文转译与二手转述已在正文与证据区逐条标明。</p>
+    <p>已验证：7 条断言的数值与标签均在本文件内逐字存在，并已回查到来源原文。未验证：11-21 当日进展、D:5 完整名单、744.24 审查政策、批准量对应的实际到货量——均列入「未确认与局限」。本篇为情报梳理，不构成投资、法律或合规建议；涉及出口管制的引用以规则原文为准。</p>
+    <p>追踪线：厂商与算力权力。研究与撰写：研析 · 2026-11-21。</p>
+  </div>
+</footer>
+
+<script type="application/json" id="claims">
+[
+  {
+    "value": "24 亿美元",
+    "label": "英伟达上季度对华 Hopper 数据中心产品销售额（11-17 财报会口径）",
+    "quote": "24 亿美元 英伟达上季度对华 Hopper 数据中心产品销售额（11-17 财报会口径）"
+  },
+  {
+    "value": "五国",
+    "label": "纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）",
+    "quote": "五国 纳入先进半导体出口许可范围的国家数（马来西亚、新加坡、印尼、泰国、巴西）"
+  },
+  {
+    "value": "1200 万 TPP",
+    "label": "BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）",
+    "quote": "1200 万 TPP BIS 逐案许可算力门槛（1200 万 TPP 聚合算力）"
+  },
+  {
+    "value": "90 天",
+    "label": "BIS 存量业务补办期限（90 天）",
+    "quote": "90 天 BIS 存量业务补办期限（90 天）"
+  },
+  {
+    "value": "87.9 万块",
+    "label": "美国对华 AI 芯片许可批准量（截至 2026-05，11-19 众议院外委会披露）",
+    "quote": "87.9 万块 美国对华 AI 芯片许可批准量（截至 2026-05，11-19 众议院外委会披露）"
+  },
+  {
+    "value": "532 亿块",
+    "label": "10 月集成电路产量（11-19 国家统计局口径）",
+    "quote": "532 亿块 10 月集成电路产量（11-19 国家统计局口径）"
+  },
+  {
+    "value": "56 万颗",
+    "label": "平头哥自研AI芯片累计出货量（11-13报道口径）",
+    "quote": "56 万颗 平头哥自研AI芯片累计出货量（11-13报道口径）"
+  }
+]
+</script>
+
+<script>
+(function(){
+  var t=document.querySelectorAll('section');
+  if(!('IntersectionObserver' in window)){
+    t.forEach(function(s){s.classList.add('drawn');});return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('drawn');io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  t.forEach(function(s){io.observe(s);});
+})();
+</script>
+</body>
+</html>
